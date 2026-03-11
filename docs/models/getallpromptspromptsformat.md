@@ -12,10 +12,8 @@ value: GetAllPromptsPromptsFormat = "wav"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `WAV`   | wav     |
-| `MP3`   | mp3     |
-| `FLAC`  | flac    |
-| `OPUS`  | opus    |
-| `PCM16` | pcm16   |
+- `"wav"`
+- `"mp3"`
+- `"flac"`
+- `"opus"`
+- `"pcm16"`

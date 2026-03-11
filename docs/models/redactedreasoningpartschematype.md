@@ -12,6 +12,4 @@ value: RedactedReasoningPartSchemaType = "redacted_reasoning"
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `REDACTED_REASONING` | redacted_reasoning   |
+- `"redacted_reasoning"`

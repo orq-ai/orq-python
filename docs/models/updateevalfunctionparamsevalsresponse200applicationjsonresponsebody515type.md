@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Typ
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `REGEX` | regex   |
+- `"regex"`

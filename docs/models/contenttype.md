@@ -12,6 +12,4 @@ value: ContentType = "output_text"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `OUTPUT_TEXT` | output_text   |
+- `"output_text"`

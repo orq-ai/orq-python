@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType = "write_me
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `WRITE_MEMORY_STORE` | write_memory_store   |
+- `"write_memory_store"`

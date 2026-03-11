@@ -5,6 +5,7 @@
 ### Available Operations
 
 * [create](#create) - Create response
+* [get](#get) - Get response
 
 ## create
 
@@ -68,6 +69,7 @@ with Orq(
 | `thread`                                                                                                                                                                                                     | [Optional[models.CreateAgentResponseRequestThread]](../../models/createagentresponserequestthread.md)                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                           | Thread information to group related requests                                                                                                                                                                 |
 | `memory`                                                                                                                                                                                                     | [Optional[models.CreateAgentResponseRequestMemory]](../../models/createagentresponserequestmemory.md)                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                           | Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.                                                                                 |
 | `metadata`                                                                                                                                                                                                   | Dict[str, *Any*]                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                           | Optional metadata for the agent invocation as key-value pairs that will be included in traces                                                                                                                |
+| `configuration`                                                                                                                                                                                              | [Optional[models.Configuration]](../../models/configuration.md)                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                           | Configuration options for the agent invocation                                                                                                                                                               |
 | `background`                                                                                                                                                                                                 | *Optional[bool]*                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                           | If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.                                                                           |
 | `stream`                                                                                                                                                                                                     | *Optional[bool]*                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                           | If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.                                                                      |
 | `conversation`                                                                                                                                                                                               | [Optional[models.Conversation]](../../models/conversation.md)                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                           | Conversation context for chat studio integration                                                                                                                                                             |
@@ -82,3 +84,45 @@ with Orq(
 | Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get
+
+Retrieves the current state of an agent response by task ID. Returns the response output, model information, token usage, and execution status. When the agent is still processing, the output array will be empty and status will be `in_progress`. Once completed, the response includes the full output, usage statistics, and finish reason.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetAgentResponse" method="get" path="/v2/agents/{agent_key}/responses/{task_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.responses.get(agent_key="<value>", task_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the agent                              |
+| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The agent execution task ID returned from create response           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetAgentResponse](../../models/getagentresponse.md)**
+
+### Errors
+
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.HonoAPIError | 404                 | application/json    |
+| models.APIError     | 4XX, 5XX            | \*/\*               |

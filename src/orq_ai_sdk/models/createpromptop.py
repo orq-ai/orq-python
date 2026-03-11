@@ -104,7 +104,7 @@ class CreatePromptMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -196,7 +196,7 @@ class CreatePromptMessagesCacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -236,7 +236,7 @@ class CreatePromptMessagesToolMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -333,7 +333,7 @@ class CreatePromptMessagesFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -372,7 +372,7 @@ class CreatePromptMessagesToolCalls(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -424,7 +424,7 @@ class CreatePromptMessagesAssistantMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -500,7 +500,7 @@ class CreatePrompt2CacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -534,7 +534,7 @@ class CreatePrompt24(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -605,7 +605,7 @@ class CreatePromptMessagesUserMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -662,7 +662,7 @@ class CreatePromptMessagesSystemMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -693,7 +693,7 @@ CreatePromptMessages = Annotated[
 ]
 
 
-CreatePromptVoice = Literal[
+Voice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -717,7 +717,7 @@ r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or p
 class CreatePromptAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptVoice
+    voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
     format_: CreatePromptFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
@@ -726,7 +726,7 @@ class CreatePromptAudioTypedDict(TypedDict):
 class CreatePromptAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptVoice
+    voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[CreatePromptFormat, pydantic.Field(alias="format")]
@@ -768,7 +768,7 @@ class CreatePromptResponseFormatPromptsJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -891,14 +891,14 @@ CreatePromptStop = TypeAliasType("CreatePromptStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class CreatePromptStreamOptionsTypedDict(TypedDict):
+class StreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class CreatePromptStreamOptions(BaseModel):
+class StreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
@@ -912,7 +912,7 @@ class CreatePromptStreamOptions(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -970,7 +970,7 @@ class CreatePromptToolChoice2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1077,7 +1077,7 @@ class CreatePromptRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1113,7 +1113,7 @@ class CreatePromptCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1147,7 +1147,7 @@ class CreatePromptLoadBalancerModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1235,7 +1235,7 @@ class PromptInputTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[CreatePromptStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[CreatePromptStreamOptionsTypedDict]]
+    stream_options: NotRequired[Nullable[StreamOptionsTypedDict]]
     r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[CreatePromptThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
@@ -1326,7 +1326,7 @@ class PromptInput(BaseModel):
     stop: OptionalNullable[CreatePromptStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[CreatePromptStreamOptions] = UNSET
+    stream_options: OptionalNullable[StreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[CreatePromptThinking] = None
@@ -1426,7 +1426,7 @@ class PromptInput(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1446,6 +1446,8 @@ class PromptInput(BaseModel):
 class CreatePromptRequestBodyTypedDict(TypedDict):
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
+    prompt: PromptInputTypedDict
+    r"""Prompt configuration with model and messages."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1456,13 +1458,14 @@ class CreatePromptRequestBodyTypedDict(TypedDict):
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[CreatePromptMetadataTypedDict]
-    prompt: NotRequired[PromptInputTypedDict]
-    r"""Prompt configuration with model and messages."""
 
 
 class CreatePromptRequestBody(BaseModel):
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
+
+    prompt: PromptInput
+    r"""Prompt configuration with model and messages."""
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -1477,19 +1480,16 @@ class CreatePromptRequestBody(BaseModel):
 
     metadata: Optional[CreatePromptMetadata] = None
 
-    prompt: Optional[PromptInput] = None
-    r"""Prompt configuration with model and messages."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "metadata", "prompt"])
+        optional_fields = set(["description", "metadata"])
         nullable_fields = set(["description"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1615,7 +1615,7 @@ class CreatePromptResponseFormatPromptsResponse200ApplicationJSONJSONSchema(Base
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1647,7 +1647,7 @@ class CreatePromptResponseFormat1(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1906,7 +1906,7 @@ class ModelParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1950,6 +1950,7 @@ CreatePromptProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "xai",
     "alibaba",
     "slack",
 ]
@@ -2004,7 +2005,7 @@ class CreatePrompt2File(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2056,7 +2057,7 @@ class CreatePrompt2ImageURL(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2167,7 +2168,7 @@ class CreatePromptToolCalls(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2205,7 +2206,7 @@ class CreatePromptPromptsMessages(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2293,7 +2294,7 @@ class PromptConfig(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2310,7 +2311,7 @@ class PromptConfig(BaseModel):
         return m
 
 
-CreatePromptPromptsVoice = Literal[
+CreatePromptVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -2334,7 +2335,7 @@ r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or p
 class CreatePromptPromptsAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptPromptsVoice
+    voice: CreatePromptVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
     format_: CreatePromptPromptsResponse200Format
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
@@ -2343,7 +2344,7 @@ class CreatePromptPromptsAudioTypedDict(TypedDict):
 class CreatePromptPromptsAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptPromptsVoice
+    voice: CreatePromptVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[
@@ -2389,7 +2390,7 @@ class CreatePromptResponseFormatPromptsResponseJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2516,14 +2517,14 @@ CreatePromptPromptsStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class CreatePromptPromptsStreamOptionsTypedDict(TypedDict):
+class CreatePromptStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class CreatePromptPromptsStreamOptions(BaseModel):
+class CreatePromptStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
@@ -2537,7 +2538,7 @@ class CreatePromptPromptsStreamOptions(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2595,7 +2596,7 @@ class CreatePromptToolChoicePrompts2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2705,7 +2706,7 @@ class CreatePromptPromptsRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2741,7 +2742,7 @@ class CreatePromptPromptsCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2775,7 +2776,7 @@ class CreatePromptLoadBalancerPromptsModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2905,7 +2906,7 @@ class CreatePromptMessagesPromptsCacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2945,7 +2946,7 @@ class CreatePromptMessagesPromptsToolMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -3042,7 +3043,7 @@ class CreatePromptMessagesPromptsFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3081,7 +3082,7 @@ class CreatePromptMessagesPromptsToolCalls(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3137,7 +3138,7 @@ class CreatePromptMessagesPromptsAssistantMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -3215,7 +3216,7 @@ class CreatePrompt2PromptsCacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3249,7 +3250,7 @@ class CreatePrompt2Prompts4(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3321,7 +3322,7 @@ class CreatePromptMessagesPromptsUserMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3379,7 +3380,7 @@ class CreatePromptMessagesPromptsSystemMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3452,7 +3453,7 @@ class PromptFieldTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[CreatePromptPromptsStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[CreatePromptPromptsStreamOptionsTypedDict]]
+    stream_options: NotRequired[Nullable[CreatePromptStreamOptionsTypedDict]]
     r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[CreatePromptPromptsThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
@@ -3542,7 +3543,7 @@ class PromptField(BaseModel):
     stop: OptionalNullable[CreatePromptPromptsStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[CreatePromptPromptsStreamOptions] = UNSET
+    stream_options: OptionalNullable[CreatePromptStreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[CreatePromptPromptsThinking] = None
@@ -3653,7 +3654,7 @@ class PromptField(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -3729,7 +3730,7 @@ class CreatePromptPromptsMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -3823,7 +3824,7 @@ class CreatePromptPrompt(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member

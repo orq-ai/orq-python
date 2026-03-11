@@ -10,6 +10,4 @@ value: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONResponseBodyPr
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

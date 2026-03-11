@@ -10,6 +10,4 @@ value: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONType = "json_sch
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_SCHEMA` | json_schema   |
+- `"json_schema"`

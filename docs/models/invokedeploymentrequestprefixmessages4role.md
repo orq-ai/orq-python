@@ -12,6 +12,4 @@ value: InvokeDeploymentRequestPrefixMessages4Role = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

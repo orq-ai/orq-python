@@ -12,6 +12,4 @@ value: CreateEmbeddingRouterEmbeddingsObject = "embedding"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EMBEDDING` | embedding   |
+- `"embedding"`

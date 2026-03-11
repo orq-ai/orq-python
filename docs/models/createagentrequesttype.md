@@ -1,15 +1,16 @@
 # CreateAgentRequestType
 
+Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateAgentRequestType
-value: CreateAgentRequestType = "exact_match"
+value: CreateAgentRequestType = "internal"
 ```
 
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `EXACT_MATCH` | exact_match   |
+- `"internal"`
+- `"a2a"`

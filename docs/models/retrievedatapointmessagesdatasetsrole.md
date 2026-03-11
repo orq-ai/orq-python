@@ -12,6 +12,4 @@ value: RetrieveDatapointMessagesDatasetsRole = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

@@ -12,8 +12,6 @@ value: DeploymentInvokeObject = "chat"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `CHAT`       | chat         |
-| `COMPLETION` | completion   |
-| `IMAGE`      | image        |
+- `"chat"`
+- `"completion"`
+- `"image"`

@@ -12,9 +12,7 @@ value: RetrieveToolResponseBodyToolsResponseStatus = "live"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `LIVE`      | live        |
-| `DRAFT`     | draft       |
-| `PENDING`   | pending     |
-| `PUBLISHED` | published   |
+- `"live"`
+- `"draft"`
+- `"pending"`
+- `"published"`

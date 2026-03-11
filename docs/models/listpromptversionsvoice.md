@@ -12,11 +12,9 @@ value: ListPromptVersionsVoice = "alloy"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `ALLOY`   | alloy     |
-| `ECHO`    | echo      |
-| `FABLE`   | fable     |
-| `ONYX`    | onyx      |
-| `NOVA`    | nova      |
-| `SHIMMER` | shimmer   |
+- `"alloy"`
+- `"echo"`
+- `"fable"`
+- `"onyx"`
+- `"nova"`
+- `"shimmer"`

@@ -98,13 +98,20 @@ class UpdateToolRequestBodyCodeTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
+
+
+UpdateToolRequestBodyToolsRequest5VersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
 
 
 class UpdateCodeExecutionToolTypedDict(TypedDict):
@@ -127,6 +134,8 @@ class UpdateCodeExecutionToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     code_tool: NotRequired[UpdateToolRequestBodyCodeToolTypedDict]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequest5VersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateCodeExecutionTool(BaseModel):
@@ -156,17 +165,35 @@ class UpdateCodeExecutionTool(BaseModel):
 
     code_tool: Optional[UpdateToolRequestBodyCodeTool] = None
 
+    version_increment: Annotated[
+        Optional[UpdateToolRequestBodyToolsRequest5VersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["path", "key", "display_name", "description", "status", "code_tool"]
+            [
+                "path",
+                "key",
+                "display_name",
+                "description",
+                "status",
+                "code_tool",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -205,7 +232,7 @@ class UpdateToolRequestBodyHeaders(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -238,7 +265,7 @@ class UpdateToolRequestBodyToolsSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -259,7 +286,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KK1CZ6XDBN58JQ7WW1FZ2HZF"
+    id: Optional[str] = "01KKE2Q1C6PBS1HC52BYPG69B9"
 
     description: Optional[str] = None
 
@@ -271,7 +298,7 @@ class RequestBodyTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -319,13 +346,20 @@ class UpdateToolRequestBodyMcp(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
+
+
+UpdateToolRequestBodyToolsRequest4VersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
 
 
 class UpdateMCPToolTypedDict(TypedDict):
@@ -348,6 +382,8 @@ class UpdateMCPToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     mcp: NotRequired[UpdateToolRequestBodyMcpTypedDict]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequest4VersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateMCPTool(BaseModel):
@@ -377,17 +413,35 @@ class UpdateMCPTool(BaseModel):
 
     mcp: Optional[UpdateToolRequestBodyMcp] = None
 
+    version_increment: Annotated[
+        Optional[UpdateToolRequestBodyToolsRequest4VersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["path", "key", "display_name", "description", "status", "mcp"]
+            [
+                "path",
+                "key",
+                "display_name",
+                "description",
+                "status",
+                "mcp",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -435,7 +489,7 @@ class UpdateToolHeaders2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -491,7 +545,7 @@ class UpdateToolRequestBodyBlueprint(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -552,7 +606,7 @@ class UpdateToolRequestBodyArguments(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -583,13 +637,20 @@ class UpdateToolRequestBodyHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
+
+
+UpdateToolRequestBodyToolsRequestVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
 
 
 class UpdateHTTPToolTypedDict(TypedDict):
@@ -612,6 +673,8 @@ class UpdateHTTPToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     http: NotRequired[UpdateToolRequestBodyHTTPTypedDict]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequestVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateHTTPTool(BaseModel):
@@ -641,17 +704,35 @@ class UpdateHTTPTool(BaseModel):
 
     http: Optional[UpdateToolRequestBodyHTTP] = None
 
+    version_increment: Annotated[
+        Optional[UpdateToolRequestBodyToolsRequestVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["path", "key", "display_name", "description", "status", "http"]
+            [
+                "path",
+                "key",
+                "display_name",
+                "description",
+                "status",
+                "http",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -741,13 +822,20 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
+
+
+UpdateToolRequestBodyToolsVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
 
 
 class UpdateJSONSchemaToolTypedDict(TypedDict):
@@ -770,6 +858,8 @@ class UpdateJSONSchemaToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     json_schema: NotRequired[UpdateToolRequestBodyJSONSchemaTypedDict]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateJSONSchemaTool(BaseModel):
@@ -799,17 +889,35 @@ class UpdateJSONSchemaTool(BaseModel):
 
     json_schema: Optional[UpdateToolRequestBodyJSONSchema] = None
 
+    version_increment: Annotated[
+        Optional[UpdateToolRequestBodyToolsVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["path", "key", "display_name", "description", "status", "json_schema"]
+            [
+                "path",
+                "key",
+                "display_name",
+                "description",
+                "status",
+                "json_schema",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -903,13 +1011,20 @@ class UpdateToolRequestBodyFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
+
+
+UpdateToolRequestBodyVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
 
 
 class UpdateFunctionToolTypedDict(TypedDict):
@@ -932,6 +1047,8 @@ class UpdateFunctionToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     function: NotRequired[UpdateToolRequestBodyFunctionTypedDict]
+    version_increment: NotRequired[UpdateToolRequestBodyVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateFunctionTool(BaseModel):
@@ -961,17 +1078,35 @@ class UpdateFunctionTool(BaseModel):
 
     function: Optional[UpdateToolRequestBodyFunction] = None
 
+    version_increment: Annotated[
+        Optional[UpdateToolRequestBodyVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["path", "key", "display_name", "description", "status", "function"]
+            [
+                "path",
+                "key",
+                "display_name",
+                "description",
+                "status",
+                "function",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1031,7 +1166,7 @@ class UpdateToolRequest(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1143,7 +1278,7 @@ class UpdateToolResponseBodyCodeTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1214,7 +1349,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6X49BX6KNZ7J7MNPF8G"
+        "tool_01KKE2Q1C02QGNFYNBB1C8TK1D"
     )
 
     display_name: Optional[str] = None
@@ -1250,7 +1385,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1289,7 +1424,7 @@ class UpdateToolResponseBodyHeaders(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1322,7 +1457,7 @@ class UpdateToolResponseBodyToolsSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1345,7 +1480,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KK1CZ6X3D77ZETJF0A8AWZ7B"
+    id: Optional[str] = "01KKE2Q1BZJNY4YDJEW5F859VP"
 
     description: Optional[str] = None
 
@@ -1357,7 +1492,7 @@ class UpdateToolResponseBodyTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1405,7 +1540,7 @@ class UpdateToolResponseBodyMcp(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1476,7 +1611,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6X111X50DZNJT0TGPF2"
+        "tool_01KKE2Q1BY9TZ0FZT7EV3ZH86J"
     )
 
     display_name: Optional[str] = None
@@ -1510,7 +1645,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1558,7 +1693,7 @@ class UpdateToolHeadersTools2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1614,7 +1749,7 @@ class UpdateToolResponseBodyBlueprint(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1675,7 +1810,7 @@ class UpdateToolResponseBodyArguments(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1706,7 +1841,7 @@ class UpdateToolResponseBodyHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1777,7 +1912,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WYR4HHGPJ5NMWZ1K5R"
+        "tool_01KKE2Q1BWXXBN1F2JJXSMRQKQ"
     )
 
     display_name: Optional[str] = None
@@ -1811,7 +1946,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1901,7 +2036,7 @@ class UpdateToolResponseBodyJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1972,7 +2107,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WVPNE4A8SGBPZBQ44B"
+        "tool_01KKE2Q1BTA51KYH2204EX6AR6"
     )
 
     display_name: Optional[str] = None
@@ -2006,7 +2141,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2100,7 +2235,7 @@ class UpdateToolResponseBodyFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2171,7 +2306,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WS96AT821E72WN0ZET"
+        "tool_01KKE2Q1BSQ3FAKBJ1QGPJZCN9"
     )
 
     display_name: Optional[str] = None
@@ -2205,7 +2340,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2241,11 +2376,31 @@ r"""Successfully updated the tool."""
 
 
 try:
+    UpdateCodeExecutionTool.model_rebuild()
+except NameError:
+    pass
+try:
     RequestBodyTools.model_rebuild()
 except NameError:
     pass
 try:
+    UpdateMCPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateHTTPTool.model_rebuild()
+except NameError:
+    pass
+try:
     UpdateToolRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateJSONSchemaTool.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateFunctionTool.model_rebuild()
 except NameError:
     pass
 try:

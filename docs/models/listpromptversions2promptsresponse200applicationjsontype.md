@@ -12,6 +12,4 @@ value: ListPromptVersions2PromptsResponse200ApplicationJSONType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

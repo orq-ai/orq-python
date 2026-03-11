@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBody5Rol
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

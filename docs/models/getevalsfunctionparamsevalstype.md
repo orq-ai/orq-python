@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsType = "contains_all"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CONTAINS_ALL` | contains_all   |
+- `"contains_all"`

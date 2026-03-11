@@ -12,7 +12,5 @@ value: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn = "input"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `INPUT`  | input    |
-| `OUTPUT` | output   |
+- `"input"`
+- `"output"`

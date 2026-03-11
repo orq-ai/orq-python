@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .agentresponsemessage import AgentResponseMessage, AgentResponseMessageTypedDict
+from .telemetry import Telemetry, TelemetryTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -43,7 +44,7 @@ class PromptTokensDetails(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -101,7 +102,7 @@ class CompletionTokensDetails(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -164,7 +165,7 @@ class Usage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -214,7 +215,7 @@ class Function(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -256,6 +257,8 @@ class CreateAgentResponseTypedDict(TypedDict):
     r"""The reason why the agent stopped generating"""
     pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
     r"""Tool calls awaiting user response (when finish_reason is function_call)"""
+    telemetry: NotRequired[TelemetryTypedDict]
+    r"""Telemetry information for correlating the response with traces"""
 
 
 class CreateAgentResponse(BaseModel):
@@ -285,16 +288,21 @@ class CreateAgentResponse(BaseModel):
     pending_tool_calls: Optional[List[PendingToolCalls]] = None
     r"""Tool calls awaiting user response (when finish_reason is function_call)"""
 
+    telemetry: Optional[Telemetry] = None
+    r"""Telemetry information for correlating the response with traces"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["usage", "finish_reason", "pending_tool_calls"])
+        optional_fields = set(
+            ["usage", "finish_reason", "pending_tool_calls", "telemetry"]
+        )
         nullable_fields = set(["usage"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member

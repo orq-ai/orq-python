@@ -10,6 +10,4 @@ value: RequestBodyType = "http_eval"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `HTTP_EVAL` | http_eval   |
+- `"http_eval"`

@@ -12,6 +12,4 @@ value: CreateResponseOutputRouterResponsesResponseType = "file_search_call"
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `FILE_SEARCH_CALL` | file_search_call   |
+- `"file_search_call"`

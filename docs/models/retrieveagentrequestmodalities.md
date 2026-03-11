@@ -10,7 +10,5 @@ value: RetrieveAgentRequestModalities = "text"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `TEXT`  | text    |
-| `AUDIO` | audio   |
+- `"text"`
+- `"audio"`

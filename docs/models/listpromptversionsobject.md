@@ -10,6 +10,4 @@ value: ListPromptVersionsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

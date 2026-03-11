@@ -10,6 +10,4 @@ value: GetOneKnowledgeResponseBodyType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+- `"internal"`

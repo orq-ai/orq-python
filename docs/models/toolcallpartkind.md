@@ -10,6 +10,4 @@ value: ToolCallPartKind = "tool_call"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `TOOL_CALL` | tool_call   |
+- `"tool_call"`

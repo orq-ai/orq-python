@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Typ
 
 ## Values
 
-| Name                  | Value                 |
-| --------------------- | --------------------- |
-| `LENGTH_GREATER_THAN` | length_greater_than   |
+- `"length_greater_than"`

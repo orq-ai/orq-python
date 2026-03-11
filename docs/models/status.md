@@ -1,19 +1,17 @@
 # Status
 
-Filter datasources by status.
+Current status of the agent response
 
-
-## Supported Types
-
-### `List[str]`
+## Example Usage
 
 ```python
-value: List[str] = /* values here */
+from orq_ai_sdk.models import Status
+value: Status = "in_progress"
 ```
 
-### `str`
 
-```python
-value: str = /* values here */
-```
+## Values
 
+- `"in_progress"`
+- `"completed"`
+- `"failed"`

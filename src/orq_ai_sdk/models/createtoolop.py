@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateToolRequestBodyToolsRequestStatus = Literal[
+CreateToolRequestBodyToolsRequest5Status = Literal[
     "live",
     "draft",
     "pending",
@@ -90,7 +90,7 @@ class RequestBodyCodeTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -117,7 +117,7 @@ class RequestBodyCodeExecutionToolTypedDict(TypedDict):
     code_tool: RequestBodyCodeToolTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsRequestStatus]
+    status: NotRequired[CreateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -145,7 +145,7 @@ class RequestBodyCodeExecutionTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsRequestStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsRequest5Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -156,7 +156,7 @@ class RequestBodyCodeExecutionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -165,7 +165,7 @@ class RequestBodyCodeExecutionTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyToolsStatus = Literal[
+CreateToolRequestBodyToolsRequestStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -195,7 +195,7 @@ class RequestBodyHeaders(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -238,7 +238,7 @@ class RequestBodyMcp(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -265,7 +265,7 @@ class RequestBodyMCPToolTypedDict(TypedDict):
     mcp: RequestBodyMcpTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsStatus]
+    status: NotRequired[CreateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -293,7 +293,7 @@ class RequestBodyMCPTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsRequestStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -304,7 +304,7 @@ class RequestBodyMCPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -313,7 +313,7 @@ class RequestBodyMCPTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyStatus = Literal[
+CreateToolRequestBodyToolsStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -352,7 +352,7 @@ class CreateToolHeaders2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -407,7 +407,7 @@ class RequestBodyBlueprint(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -468,7 +468,7 @@ class RequestBodyArguments(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -499,7 +499,7 @@ class CreateToolRequestBodyHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -526,7 +526,7 @@ class RequestBodyHTTPToolTypedDict(TypedDict):
     http: CreateToolRequestBodyHTTPTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyStatus]
+    status: NotRequired[CreateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -554,7 +554,7 @@ class RequestBodyHTTPTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -565,7 +565,7 @@ class RequestBodyHTTPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -574,7 +574,7 @@ class RequestBodyHTTPTool(BaseModel):
         return m
 
 
-RequestBodyStatus = Literal[
+CreateToolRequestBodyStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -655,7 +655,7 @@ class RequestBodyJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -682,7 +682,7 @@ class RequestBodyJSONSchemaToolTypedDict(TypedDict):
     json_schema: RequestBodyJSONSchemaTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[RequestBodyStatus]
+    status: NotRequired[CreateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -710,7 +710,7 @@ class RequestBodyJSONSchemaTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[RequestBodyStatus] = "live"
+    status: Optional[CreateToolRequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -721,7 +721,7 @@ class RequestBodyJSONSchemaTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -730,7 +730,7 @@ class RequestBodyJSONSchemaTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyToolsRequest1Status = Literal[
+RequestBodyStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -815,7 +815,7 @@ class RequestBodyFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -842,7 +842,7 @@ class RequestBodyFunctionToolTypedDict(TypedDict):
     function: RequestBodyFunctionTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsRequest1Status]
+    status: NotRequired[RequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -870,7 +870,7 @@ class RequestBodyFunctionTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsRequest1Status] = "live"
+    status: Optional[RequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -881,7 +881,7 @@ class RequestBodyFunctionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -997,7 +997,7 @@ class ResponseBodyCodeTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1068,7 +1068,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WJMKAFRPE11J14A4NZ"
+        "tool_01KKE2Q1BB5S2Q9QCHR5CQBZY5"
     )
 
     display_name: Optional[str] = None
@@ -1102,7 +1102,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1141,7 +1141,7 @@ class ResponseBodyHeaders(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1174,7 +1174,7 @@ class CreateToolResponseBodySchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1195,7 +1195,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KK1CZ6WGHPZ3BYDHH9WEHP95"
+    id: Optional[str] = "01KKE2Q1BAPA40JA733ZK19HYE"
 
     description: Optional[str] = None
 
@@ -1207,7 +1207,7 @@ class ResponseBodyTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1255,7 +1255,7 @@ class ResponseBodyMcp(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1326,7 +1326,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WF2V708K15A9469C4C"
+        "tool_01KKE2Q1B9JMA1SKHFYN52F2JT"
     )
 
     display_name: Optional[str] = None
@@ -1360,7 +1360,7 @@ class ResponseBodyMCPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1408,7 +1408,7 @@ class CreateToolHeadersTools2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1464,7 +1464,7 @@ class ResponseBodyBlueprint(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1525,7 +1525,7 @@ class ResponseBodyArguments(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1556,7 +1556,7 @@ class CreateToolResponseBodyHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1627,7 +1627,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WBC9J4PMA133B8KVMJ"
+        "tool_01KKE2Q1B7C557T9JKHYAPN73N"
     )
 
     display_name: Optional[str] = None
@@ -1661,7 +1661,7 @@ class ResponseBodyHTTPTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1751,7 +1751,7 @@ class ResponseBodyJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1822,7 +1822,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6WAW4KKK67SPY60WCN0"
+        "tool_01KKE2Q1B5YBD59HQ5WVW1T96Q"
     )
 
     display_name: Optional[str] = None
@@ -1856,7 +1856,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1950,7 +1950,7 @@ class CreateToolResponseBodyFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2021,7 +2021,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK1CZ6W9QKNYXJ2FG810G793"
+        "tool_01KKE2Q1B44XYWMNM9TV07KYRG"
     )
 
     display_name: Optional[str] = None
@@ -2055,7 +2055,7 @@ class ResponseBodyFunctionTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

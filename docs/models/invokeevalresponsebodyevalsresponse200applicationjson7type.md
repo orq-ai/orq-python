@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type = "llm_evaluat
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `LLM_EVALUATOR` | llm_evaluator   |
+- `"llm_evaluator"`

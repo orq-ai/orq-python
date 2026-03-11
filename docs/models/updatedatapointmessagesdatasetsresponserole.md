@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsResponseRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

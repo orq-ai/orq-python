@@ -10,6 +10,4 @@ value: ListPromptVersions2Type = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

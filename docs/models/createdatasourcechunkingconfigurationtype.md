@@ -10,6 +10,4 @@ value: CreateDatasourceChunkingConfigurationType = "advanced"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ADVANCED` | advanced   |
+- `"advanced"`

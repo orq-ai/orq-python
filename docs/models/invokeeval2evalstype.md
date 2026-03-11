@@ -10,6 +10,4 @@ value: InvokeEval2EvalsType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

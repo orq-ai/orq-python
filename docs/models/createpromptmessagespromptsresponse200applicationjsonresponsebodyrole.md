@@ -12,6 +12,4 @@ value: CreatePromptMessagesPromptsResponse200ApplicationJSONResponseBodyRole = "
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

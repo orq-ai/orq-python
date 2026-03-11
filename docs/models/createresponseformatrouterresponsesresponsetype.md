@@ -12,6 +12,4 @@ value: CreateResponseFormatRouterResponsesResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

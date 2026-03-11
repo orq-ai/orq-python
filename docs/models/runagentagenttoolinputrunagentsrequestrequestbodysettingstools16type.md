@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = "m
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

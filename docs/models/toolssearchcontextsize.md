@@ -12,8 +12,6 @@ value: ToolsSearchContextSize = "small"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SMALL`  | small    |
-| `MEDIUM` | medium   |
-| `LARGE`  | large    |
+- `"small"`
+- `"medium"`
+- `"large"`

@@ -10,6 +10,4 @@ value: LLMMode = "jury"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `JURY` | jury   |
+- `"jury"`

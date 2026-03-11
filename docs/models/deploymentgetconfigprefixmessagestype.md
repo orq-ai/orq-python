@@ -12,6 +12,4 @@ value: DeploymentGetConfigPrefixMessagesType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

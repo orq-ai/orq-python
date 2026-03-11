@@ -12,8 +12,6 @@ value: Effort = "low"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LOW`    | low      |
-| `MEDIUM` | medium   |
-| `HIGH`   | high     |
+- `"low"`
+- `"medium"`
+- `"high"`

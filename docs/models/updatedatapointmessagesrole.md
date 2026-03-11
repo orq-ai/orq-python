@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

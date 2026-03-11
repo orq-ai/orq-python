@@ -12,6 +12,4 @@ value: CreateResponseToolsRouterResponsesRequestRequestBodyType = "file_search"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `FILE_SEARCH` | file_search   |
+- `"file_search"`

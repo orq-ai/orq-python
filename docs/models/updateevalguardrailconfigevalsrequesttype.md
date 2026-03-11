@@ -10,6 +10,4 @@ value: UpdateEvalGuardrailConfigEvalsRequestType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

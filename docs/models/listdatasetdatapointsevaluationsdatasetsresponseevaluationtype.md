@@ -12,6 +12,4 @@ value: ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType = "human_r
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `HUMAN_REVIEW` | human_review   |
+- `"human_review"`

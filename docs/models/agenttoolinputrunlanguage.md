@@ -10,6 +10,4 @@ value: AgentToolInputRunLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

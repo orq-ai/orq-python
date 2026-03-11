@@ -10,6 +10,4 @@ value: GetEvalsDataEvalsResponse200Type = "typescript_eval"
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `TYPESCRIPT_EVAL` | typescript_eval   |
+- `"typescript_eval"`

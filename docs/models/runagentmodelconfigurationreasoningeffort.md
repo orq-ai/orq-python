@@ -19,11 +19,9 @@ value: RunAgentModelConfigurationReasoningEffort = "none"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `NONE`    | none      |
-| `MINIMAL` | minimal   |
-| `LOW`     | low       |
-| `MEDIUM`  | medium    |
-| `HIGH`    | high      |
-| `XHIGH`   | xhigh     |
+- `"none"`
+- `"minimal"`
+- `"low"`
+- `"medium"`
+- `"high"`
+- `"xhigh"`

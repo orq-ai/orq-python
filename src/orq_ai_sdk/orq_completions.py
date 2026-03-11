@@ -8,7 +8,7 @@ from orq_ai_sdk.models import createchatcompletionop as models_createchatcomplet
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -128,6 +128,7 @@ class OrqCompletions(BaseSDK):
                 models_createchatcompletionop.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
         orq: Optional[
             Union[
                 models_createchatcompletionop.CreateChatCompletionOrq,
@@ -186,6 +187,7 @@ class OrqCompletions(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -267,6 +269,7 @@ class OrqCompletions(BaseSDK):
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
+            variables=variables,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )
@@ -452,6 +455,7 @@ class OrqCompletions(BaseSDK):
                 models_createchatcompletionop.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
         orq: Optional[
             Union[
                 models_createchatcompletionop.CreateChatCompletionOrq,
@@ -510,6 +514,7 @@ class OrqCompletions(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -591,6 +596,7 @@ class OrqCompletions(BaseSDK):
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
+            variables=variables,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )

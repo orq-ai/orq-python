@@ -12,9 +12,7 @@ value: CreatePromptPromptsFormat = "url"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `B64_JSON`    | b64_json      |
-| `TEXT`        | text          |
-| `JSON_OBJECT` | json_object   |
+- `"url"`
+- `"b64_json"`
+- `"text"`
+- `"json_object"`

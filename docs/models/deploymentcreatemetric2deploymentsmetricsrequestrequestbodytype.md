@@ -12,6 +12,4 @@ value: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType = "epheme
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

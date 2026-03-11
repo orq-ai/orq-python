@@ -12,6 +12,4 @@ value: InvokeDeploymentRequestPrefixMessages1Role = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

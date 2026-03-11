@@ -12,11 +12,9 @@ value: Quality = "auto"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `AUTO`     | auto       |
-| `HIGH`     | high       |
-| `MEDIUM`   | medium     |
-| `LOW`      | low        |
-| `HD`       | hd         |
-| `STANDARD` | standard   |
+- `"auto"`
+- `"high"`
+- `"medium"`
+- `"low"`
+- `"hd"`
+- `"standard"`

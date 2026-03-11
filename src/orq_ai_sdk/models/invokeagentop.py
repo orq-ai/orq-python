@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
 from .errorpart import ErrorPart, ErrorPartTypedDict
+from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
@@ -77,7 +78,7 @@ class InvokeAgentA2AMessageTypedDict(TypedDict):
     role: InvokeAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[InvokeAgentPublicMessagePartTypedDict]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
@@ -89,7 +90,7 @@ class InvokeAgentA2AMessage(BaseModel):
     r"""Message role (user or tool for continuing executions)"""
 
     parts: List[InvokeAgentPublicMessagePart]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
@@ -102,7 +103,7 @@ class InvokeAgentA2AMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -157,7 +158,7 @@ class InvokeAgentIdentity(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -218,7 +219,7 @@ class InvokeAgentContact(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -253,7 +254,7 @@ class InvokeAgentThread(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -276,6 +277,36 @@ class InvokeAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
+class InvokeAgentConfigurationTypedDict(TypedDict):
+    r"""Configuration options for the agent invocation"""
+
+    blocking: NotRequired[bool]
+    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+
+
+class InvokeAgentConfiguration(BaseModel):
+    r"""Configuration options for the agent invocation"""
+
+    blocking: Optional[bool] = False
+    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["blocking"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class InvokeAgentRequestBodyTypedDict(TypedDict):
     message: InvokeAgentA2AMessageTypedDict
     r"""The A2A message to send to the agent (user input or tool results)"""
@@ -293,6 +324,8 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
+    configuration: NotRequired[InvokeAgentConfigurationTypedDict]
+    r"""Configuration options for the agent invocation"""
 
 
 class InvokeAgentRequestBody(BaseModel):
@@ -325,6 +358,9 @@ class InvokeAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
+    configuration: Optional[InvokeAgentConfiguration] = None
+    r"""Configuration options for the agent invocation"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -336,6 +372,7 @@ class InvokeAgentRequestBody(BaseModel):
                 "thread",
                 "memory",
                 "metadata",
+                "configuration",
             ]
         )
         serialized = handler(self)
@@ -343,7 +380,7 @@ class InvokeAgentRequestBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -377,7 +414,7 @@ class InvokeAgentRequest(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -406,7 +443,7 @@ r"""Current state of the agent task execution. Values: submitted (queued), worki
 InvokeAgentAgentsKind = Literal["message",]
 
 
-ExtendedMessageRole = Literal[
+InvokeAgentExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
@@ -446,7 +483,7 @@ class TaskStatusMessageTypedDict(TypedDict):
 
     kind: InvokeAgentAgentsKind
     message_id: str
-    role: ExtendedMessageRole
+    role: InvokeAgentExtendedMessageRole
     r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
     parts: List[InvokeAgentPartsTypedDict]
 
@@ -458,7 +495,7 @@ class TaskStatusMessage(BaseModel):
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: ExtendedMessageRole
+    role: InvokeAgentExtendedMessageRole
     r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
     parts: List[InvokeAgentParts]
@@ -495,7 +532,7 @@ class TaskStatus(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -515,6 +552,8 @@ class InvokeAgentA2ATaskResponseTypedDict(TypedDict):
     r"""A2A entity type identifier"""
     status: TaskStatusTypedDict
     r"""Current task status information"""
+    messages: NotRequired[List[ExtendedMessageTypedDict]]
+    r"""Array of messages in the task conversation. Only present when blocking mode is enabled."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
@@ -534,18 +573,21 @@ class InvokeAgentA2ATaskResponse(BaseModel):
     status: TaskStatus
     r"""Current task status information"""
 
+    messages: Optional[List[ExtendedMessage]] = None
+    r"""Array of messages in the task conversation. Only present when blocking mode is enabled."""
+
     metadata: Optional[Dict[str, Any]] = None
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["metadata"])
+        optional_fields = set(["messages", "metadata"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

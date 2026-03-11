@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Typ
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `ROUGE_N` | rouge_n   |
+- `"rouge_n"`

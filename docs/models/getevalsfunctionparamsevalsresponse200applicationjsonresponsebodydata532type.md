@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData532T
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `GRAMMAR_DIVERSITY` | grammar_diversity   |
+- `"grammar_diversity"`

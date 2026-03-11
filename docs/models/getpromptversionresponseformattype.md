@@ -10,6 +10,4 @@ value: GetPromptVersionResponseFormatType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

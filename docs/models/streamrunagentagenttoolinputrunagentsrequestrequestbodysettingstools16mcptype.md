@@ -10,6 +10,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Mcp
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

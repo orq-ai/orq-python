@@ -10,6 +10,4 @@ value: DeploymentsResponseFormatType = "json_object"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_OBJECT` | json_object   |
+- `"json_object"`

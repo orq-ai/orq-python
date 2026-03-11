@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsType = "contains"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `CONTAINS` | contains   |
+- `"contains"`

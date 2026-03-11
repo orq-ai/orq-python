@@ -98,48 +98,6 @@ from typing_extensions import (
 )
 
 
-StreamRunAgentModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-StreamRunAgentModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class StreamRunAgentModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: StreamRunAgentModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class StreamRunAgentModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: StreamRunAgentModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        StreamRunAgentModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
 StreamRunAgentResponseFormatAgentsRequestType = Literal["json_schema",]
 
 
@@ -175,7 +133,7 @@ class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -300,36 +258,6 @@ StreamRunAgentModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class StreamRunAgentModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 StreamRunAgentModelConfigurationThinkingTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -379,7 +307,7 @@ class StreamRunAgentToolChoice2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -463,41 +391,6 @@ class StreamRunAgentModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class StreamRunAgentModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 StreamRunAgentModelConfigurationType = Literal["exact_match",]
 
 
@@ -525,7 +418,7 @@ class StreamRunAgentModelConfigurationCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -559,7 +452,7 @@ class StreamRunAgentLoadBalancerModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -608,8 +501,6 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[StreamRunAgentModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -619,12 +510,6 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -647,10 +532,6 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[StreamRunAgentModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[StreamRunAgentModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[StreamRunAgentModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -668,8 +549,6 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[StreamRunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[StreamRunAgentModelConfigurationLoadBalancerTypedDict]
@@ -684,9 +563,6 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[StreamRunAgentModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -698,15 +574,6 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -733,11 +600,6 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
 
     stop: OptionalNullable[StreamRunAgentModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-
-    stream_options: OptionalNullable[StreamRunAgentModelConfigurationStreamOptions] = (
-        UNSET
-    )
-    r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[StreamRunAgentModelConfigurationThinking] = None
 
@@ -767,9 +629,6 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[StreamRunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[StreamRunAgentModelConfigurationRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[StreamRunAgentModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -784,20 +643,15 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -807,7 +661,6 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -815,17 +668,12 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -837,7 +685,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -854,7 +702,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
         return m
 
 
-class StreamRunAgentModelConfigurationAgentsRetryTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -863,7 +711,7 @@ class StreamRunAgentModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class StreamRunAgentModelConfigurationAgentsRetry(BaseModel):
+class StreamRunAgentModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -880,7 +728,7 @@ class StreamRunAgentModelConfigurationAgentsRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -899,7 +747,7 @@ class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[StreamRunAgentModelConfigurationAgentsRetryTypedDict]
+    retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -915,7 +763,7 @@ class StreamRunAgentModelConfiguration2(BaseModel):
     parameters: Optional[StreamRunAgentModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[StreamRunAgentModelConfigurationAgentsRetry] = None
+    retry: Optional[StreamRunAgentModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -926,7 +774,7 @@ class StreamRunAgentModelConfiguration2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -946,48 +794,6 @@ StreamRunAgentModelConfiguration = TypeAliasType(
     "StreamRunAgentModelConfiguration", Union[StreamRunAgentModelConfiguration2, str]
 )
 r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
-
-
-StreamRunAgentFallbackModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-StreamRunAgentFallbackModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class StreamRunAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: StreamRunAgentFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentFallbackModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class StreamRunAgentFallbackModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: StreamRunAgentFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        StreamRunAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType = Literal[
@@ -1029,7 +835,7 @@ class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1158,36 +964,6 @@ StreamRunAgentFallbackModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class StreamRunAgentFallbackModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 StreamRunAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -1237,7 +1013,7 @@ class StreamRunAgentToolChoiceAgents2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1322,41 +1098,6 @@ class StreamRunAgentFallbackModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 StreamRunAgentFallbackModelConfigurationType = Literal["exact_match",]
 
 
@@ -1384,7 +1125,7 @@ class StreamRunAgentFallbackModelConfigurationCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1418,7 +1159,7 @@ class StreamRunAgentLoadBalancerAgentsModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1467,8 +1208,6 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1478,12 +1217,6 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -1508,10 +1241,6 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[StreamRunAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1537,8 +1266,6 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         List[StreamRunAgentFallbackModelConfigurationFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[StreamRunAgentFallbackModelConfigurationRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[StreamRunAgentFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
@@ -1555,9 +1282,6 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[StreamRunAgentFallbackModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -1569,15 +1293,6 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -1609,11 +1324,6 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     stop: OptionalNullable[StreamRunAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[
-        StreamRunAgentFallbackModelConfigurationStreamOptions
-    ] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[StreamRunAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -1644,9 +1354,6 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[StreamRunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[StreamRunAgentFallbackModelConfigurationRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[StreamRunAgentFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -1661,20 +1368,15 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1684,7 +1386,6 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1692,17 +1393,12 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1714,7 +1410,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1731,7 +1427,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
-class StreamRunAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: NotRequired[float]
@@ -1740,7 +1436,7 @@ class StreamRunAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class StreamRunAgentFallbackModelConfigurationAgentsRetry(BaseModel):
+class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: Optional[float] = 3
@@ -1757,7 +1453,7 @@ class StreamRunAgentFallbackModelConfigurationAgentsRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1773,7 +1469,7 @@ class StreamRunAgentFallbackModelConfiguration2TypedDict(TypedDict):
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[StreamRunAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
-    retry: NotRequired[StreamRunAgentFallbackModelConfigurationAgentsRetryTypedDict]
+    retry: NotRequired[StreamRunAgentFallbackModelConfigurationRetryTypedDict]
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
@@ -1786,7 +1482,7 @@ class StreamRunAgentFallbackModelConfiguration2(BaseModel):
     parameters: Optional[StreamRunAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    retry: Optional[StreamRunAgentFallbackModelConfigurationAgentsRetry] = None
+    retry: Optional[StreamRunAgentFallbackModelConfigurationRetry] = None
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     @model_serializer(mode="wrap")
@@ -1797,7 +1493,7 @@ class StreamRunAgentFallbackModelConfiguration2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1872,7 +1568,7 @@ class StreamRunAgentA2AMessageTypedDict(TypedDict):
     role: StreamRunAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[StreamRunAgentPublicMessagePartTypedDict]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
@@ -1884,7 +1580,7 @@ class StreamRunAgentA2AMessage(BaseModel):
     r"""Message role (user or tool for continuing executions)"""
 
     parts: List[StreamRunAgentPublicMessagePart]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
@@ -1897,7 +1593,7 @@ class StreamRunAgentA2AMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1952,7 +1648,7 @@ class StreamRunAgentIdentity(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2013,7 +1709,7 @@ class StreamRunAgentContact(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2048,7 +1744,7 @@ class StreamRunAgentThread(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2103,7 +1799,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2135,7 +1831,7 @@ class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2170,7 +1866,7 @@ class StreamRunAgentAgentToolInputRunAgentsSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2193,7 +1889,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KK1CZ6GAMWXCF8Q2KHRR8EEM"
+    id: Optional[str] = "01KKE2Q10FW1QG5QC32KKSFEBT"
 
     description: Optional[str] = None
 
@@ -2205,7 +1901,7 @@ class AgentToolInputRunTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2255,7 +1951,7 @@ class AgentToolInputRunMcp(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2305,7 +2001,7 @@ class AgentToolInputRunMCPToolRun(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2390,7 +2086,7 @@ class StreamRunAgentAgentToolInputRunJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2440,7 +2136,7 @@ class AgentToolInputRunJSONSchemaToolRun(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2529,7 +2225,7 @@ class StreamRunAgentAgentToolInputRunFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2579,7 +2275,7 @@ class AgentToolInputRunFunctionToolRun(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2664,7 +2360,7 @@ class AgentToolInputRunCodeTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2714,7 +2410,7 @@ class AgentToolInputRunCodeToolRun(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2755,7 +2451,7 @@ class StreamRunAgentHeaders2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2811,7 +2507,7 @@ class AgentToolInputRunBlueprint(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2874,7 +2570,7 @@ class AgentToolInputRunArguments(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2905,7 +2601,7 @@ class AgentToolInputRunHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2955,7 +2651,7 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2993,7 +2689,7 @@ class StreamRunAgentAgentToolInputRunCurrentDateTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3031,7 +2727,7 @@ class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3069,7 +2765,7 @@ class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3107,7 +2803,7 @@ class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3145,7 +2841,7 @@ class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3183,7 +2879,7 @@ class StreamRunAgentAgentToolInputRunWriteMemoryStoreTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3221,7 +2917,7 @@ class StreamRunAgentAgentToolInputRunQueryMemoryStoreTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3259,7 +2955,7 @@ class StreamRunAgentAgentToolInputRunRetrieveAgentsTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3295,7 +2991,7 @@ class StreamRunAgentAgentToolInputRunCallSubAgentTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3331,7 +3027,7 @@ class StreamRunAgentAgentToolInputRunWebScraperTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3367,7 +3063,7 @@ class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3490,7 +3186,7 @@ class StreamRunAgentEvaluators(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3533,7 +3229,7 @@ class StreamRunAgentGuardrails(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3599,7 +3295,7 @@ class StreamRunAgentSettings(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3757,7 +3453,7 @@ class StreamRunAgentRequestBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -3868,15 +3564,7 @@ class StreamRunAgentResponseBody(BaseModel):
 
 
 try:
-    StreamRunAgentModelConfigurationAudio.model_rebuild()
-except NameError:
-    pass
-try:
     StreamRunAgentResponseFormatAgentsJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    StreamRunAgentFallbackModelConfigurationAudio.model_rebuild()
 except NameError:
     pass
 try:

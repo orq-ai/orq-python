@@ -12,8 +12,6 @@ value: OutputFormat = "png"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `PNG`  | png    |
-| `JPEG` | jpeg   |
-| `WEBP` | webp   |
+- `"png"`
+- `"jpeg"`
+- `"webp"`

@@ -10,6 +10,4 @@ value: DataPartKind = "data"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `DATA` | data   |
+- `"data"`

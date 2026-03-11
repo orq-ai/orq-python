@@ -10,6 +10,4 @@ value: UpdateAgentAgentToolInputCRUDType = "google_search"
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `GOOGLE_SEARCH` | google_search   |
+- `"google_search"`

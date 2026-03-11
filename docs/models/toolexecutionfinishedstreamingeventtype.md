@@ -10,6 +10,4 @@ value: ToolExecutionFinishedStreamingEventType = "event.workflow_events.tool_exe
 
 ## Values
 
-| Name                                            | Value                                           |
-| ----------------------------------------------- | ----------------------------------------------- |
-| `EVENT_WORKFLOW_EVENTS_TOOL_EXECUTION_FINISHED` | event.workflow_events.tool_execution_finished   |
+- `"event.workflow_events.tool_execution_finished"`

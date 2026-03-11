@@ -10,6 +10,4 @@ value: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType = "typescript_e
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `TYPESCRIPT_EVAL` | typescript_eval   |
+- `"typescript_eval"`

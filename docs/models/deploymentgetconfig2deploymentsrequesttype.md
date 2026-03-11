@@ -12,6 +12,4 @@ value: DeploymentGetConfig2DeploymentsRequestType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

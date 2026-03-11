@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Typ
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BLEU_SCORE` | bleu_score   |
+- `"bleu_score"`

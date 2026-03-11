@@ -10,6 +10,4 @@ value: GetAllMemoryStoresObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

@@ -12,6 +12,4 @@ value: DeploymentGetConfig2DeploymentsRequestRequestBodyType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

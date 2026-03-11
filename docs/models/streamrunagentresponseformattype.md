@@ -10,6 +10,4 @@ value: StreamRunAgentResponseFormatType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

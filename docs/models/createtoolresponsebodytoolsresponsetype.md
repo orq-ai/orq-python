@@ -10,6 +10,4 @@ value: CreateToolResponseBodyToolsResponseType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

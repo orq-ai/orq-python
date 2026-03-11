@@ -10,6 +10,4 @@ value: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData2Ty
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

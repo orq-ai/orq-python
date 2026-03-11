@@ -12,6 +12,4 @@ value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

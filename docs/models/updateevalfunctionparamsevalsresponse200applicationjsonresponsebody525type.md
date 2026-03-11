@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Typ
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `KEYWORDS_MATCH` | keywords_match   |
+- `"keywords_match"`

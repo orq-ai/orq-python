@@ -10,6 +10,4 @@ value: GetOneKnowledgeResponseBodyKnowledgeType = "external"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `EXTERNAL` | external   |
+- `"external"`

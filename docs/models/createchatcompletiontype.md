@@ -12,6 +12,4 @@ value: CreateChatCompletionType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

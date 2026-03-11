@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody530Typ
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `SENTENCES_COUNT` | sentences_count   |
+- `"sentences_count"`

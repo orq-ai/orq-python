@@ -10,6 +10,4 @@ value: GetOnePromptType = "prompt"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PROMPT` | prompt   |
+- `"prompt"`

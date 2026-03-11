@@ -10,6 +10,4 @@ value: CreateToolResponseBodyToolsResponse200ApplicationJSON4Type = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

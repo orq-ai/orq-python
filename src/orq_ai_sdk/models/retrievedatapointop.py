@@ -133,7 +133,7 @@ class RetrieveDatapointMessagesCacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -173,7 +173,7 @@ class RetrieveDatapointMessagesToolMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -270,7 +270,7 @@ class RetrieveDatapointMessagesFunction(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -309,7 +309,7 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -365,7 +365,7 @@ class RetrieveDatapointMessagesAssistantMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -441,7 +441,7 @@ class RetrieveDatapoint2CacheControl(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -475,7 +475,7 @@ class RetrieveDatapoint24(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -547,7 +547,7 @@ class RetrieveDatapointMessagesUserMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -600,7 +600,7 @@ class RetrieveDatapointMessagesDeveloperMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -657,7 +657,7 @@ class RetrieveDatapointMessagesSystemMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -738,7 +738,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-03-06T11:01:51.905Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-03-11T09:12:45.931Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -749,7 +749,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -806,7 +806,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-03-06T11:01:51.904Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-03-11T09:12:45.930Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -817,7 +817,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -874,7 +874,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-03-06T11:01:51.903Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-03-11T09:12:45.929Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -885,7 +885,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -977,7 +977,7 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-03-06T11:01:35.401Z")
+    updated: Optional[datetime] = parse_datetime("2026-03-11T09:12:29.095Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1000,7 +1000,7 @@ class RetrieveDatapointResponseBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

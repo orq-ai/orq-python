@@ -10,6 +10,4 @@ value: UpdateAgentResponseFormatAgentsRequestRequestBodyType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

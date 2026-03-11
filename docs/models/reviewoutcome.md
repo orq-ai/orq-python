@@ -12,7 +12,5 @@ value: ReviewOutcome = "approved"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `APPROVED` | approved   |
-| `REJECTED` | rejected   |
+- `"approved"`
+- `"rejected"`

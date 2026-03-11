@@ -12,6 +12,4 @@ value: RetrieveDatapointMessagesDatasetsResponse200ApplicationJSONRole = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

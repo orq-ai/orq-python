@@ -12,6 +12,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Fun
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

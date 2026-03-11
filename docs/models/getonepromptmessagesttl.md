@@ -17,7 +17,5 @@ value: GetOnePromptMessagesTTL = "5m"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `FIVEM` | 5m      |
-| `ONEH`  | 1h      |
+- `"5m"`
+- `"1h"`

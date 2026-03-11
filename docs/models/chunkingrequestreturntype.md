@@ -12,7 +12,5 @@ value: ChunkingRequestReturnType = "chunks"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `CHUNKS` | chunks   |
-| `TEXTS`  | texts    |
+- `"chunks"`
+- `"texts"`

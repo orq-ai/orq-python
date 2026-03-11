@@ -12,6 +12,4 @@ value: Deployments2DeploymentsResponseType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

@@ -12,6 +12,4 @@ value: UpdatePromptMessagesPromptsResponse200ApplicationJSONRole = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

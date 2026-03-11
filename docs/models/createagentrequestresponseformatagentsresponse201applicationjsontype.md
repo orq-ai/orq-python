@@ -10,6 +10,4 @@ value: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONType = "j
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_SCHEMA` | json_schema   |
+- `"json_schema"`

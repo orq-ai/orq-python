@@ -12,6 +12,4 @@ value: UpdatePromptToolChoiceType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

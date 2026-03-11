@@ -12,6 +12,4 @@ value: UpdatePromptMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

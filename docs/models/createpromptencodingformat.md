@@ -12,7 +12,5 @@ value: CreatePromptEncodingFormat = "float"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `FLOAT`  | float    |
-| `BASE64` | base64   |
+- `"float"`
+- `"base64"`

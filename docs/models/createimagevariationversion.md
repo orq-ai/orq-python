@@ -12,6 +12,4 @@ value: CreateImageVariationVersion = "latest"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LATEST` | latest   |
+- `"latest"`

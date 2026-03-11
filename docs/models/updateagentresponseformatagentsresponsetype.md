@@ -10,6 +10,4 @@ value: UpdateAgentResponseFormatAgentsResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

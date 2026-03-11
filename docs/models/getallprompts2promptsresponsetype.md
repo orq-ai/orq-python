@@ -12,6 +12,4 @@ value: GetAllPrompts2PromptsResponseType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

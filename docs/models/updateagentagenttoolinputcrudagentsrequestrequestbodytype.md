@@ -10,6 +10,4 @@ value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodyType = "retrieve_age
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `RETRIEVE_AGENTS` | retrieve_agents   |
+- `"retrieve_agents"`

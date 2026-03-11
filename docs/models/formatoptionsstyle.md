@@ -10,6 +10,4 @@ value: FormatOptionsStyle = "currency"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `CURRENCY` | currency   |
+- `"currency"`

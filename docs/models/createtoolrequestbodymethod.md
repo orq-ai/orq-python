@@ -12,9 +12,7 @@ value: CreateToolRequestBodyMethod = "GET"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `GET`    | GET      |
-| `POST`   | POST     |
-| `PUT`    | PUT      |
-| `DELETE` | DELETE   |
+- `"GET"`
+- `"POST"`
+- `"PUT"`
+- `"DELETE"`

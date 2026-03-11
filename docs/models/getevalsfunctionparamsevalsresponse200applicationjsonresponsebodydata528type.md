@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData528T
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `GSE_ENGLISH_LEVEL` | gse_english_level   |
+- `"gse_english_level"`

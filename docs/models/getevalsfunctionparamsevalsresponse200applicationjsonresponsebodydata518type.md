@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData518T
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `MODERATIONS_GOOGLE` | moderations_google   |
+- `"moderations_google"`

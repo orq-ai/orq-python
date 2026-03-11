@@ -10,6 +10,4 @@ value: ListModelsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

@@ -12,9 +12,7 @@ value: ExtendedMessageRole = "user"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `USER`   | user     |
-| `AGENT`  | agent    |
-| `TOOL`   | tool     |
-| `SYSTEM` | system   |
+- `"user"`
+- `"agent"`
+- `"tool"`
+- `"system"`

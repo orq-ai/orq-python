@@ -10,6 +10,4 @@ value: CreateResponseAnnotationsType = "file_citation"
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FILE_CITATION` | file_citation   |
+- `"file_citation"`

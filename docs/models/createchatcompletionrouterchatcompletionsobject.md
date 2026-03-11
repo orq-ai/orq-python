@@ -10,6 +10,4 @@ value: CreateChatCompletionRouterChatCompletionsObject = "chat.completion.chunk"
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `CHAT_COMPLETION_CHUNK` | chat.completion.chunk   |
+- `"chat.completion.chunk"`

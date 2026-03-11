@@ -10,6 +10,4 @@ value: ResponseDoneEventType = "response.done"
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `RESPONSE_DONE` | response.done   |
+- `"response.done"`

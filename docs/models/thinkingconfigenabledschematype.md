@@ -12,6 +12,4 @@ value: ThinkingConfigEnabledSchemaType = "enabled"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `ENABLED` | enabled   |
+- `"enabled"`

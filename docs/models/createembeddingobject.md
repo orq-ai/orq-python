@@ -10,6 +10,4 @@ value: CreateEmbeddingObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

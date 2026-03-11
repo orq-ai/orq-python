@@ -10,6 +10,4 @@ value: AudioContentPartSchemaType = "input_audio"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_AUDIO` | input_audio   |
+- `"input_audio"`

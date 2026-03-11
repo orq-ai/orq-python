@@ -10,6 +10,4 @@ value: ResponseFailedEventType = "response.failed"
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `RESPONSE_FAILED` | response.failed   |
+- `"response.failed"`

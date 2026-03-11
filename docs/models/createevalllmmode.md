@@ -10,6 +10,4 @@ value: CreateEvalLLMMode = "single"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SINGLE` | single   |
+- `"single"`

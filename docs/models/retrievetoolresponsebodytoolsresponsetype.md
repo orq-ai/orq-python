@@ -10,6 +10,4 @@ value: RetrieveToolResponseBodyToolsResponseType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

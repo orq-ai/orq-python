@@ -12,6 +12,4 @@ value: CreateResponse2Type = "input_text"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `INPUT_TEXT` | input_text   |
+- `"input_text"`

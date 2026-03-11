@@ -12,6 +12,4 @@ value: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyRole =
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

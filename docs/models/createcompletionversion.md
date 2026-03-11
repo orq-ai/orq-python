@@ -12,6 +12,4 @@ value: CreateCompletionVersion = "latest"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LATEST` | latest   |
+- `"latest"`

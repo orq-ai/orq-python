@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

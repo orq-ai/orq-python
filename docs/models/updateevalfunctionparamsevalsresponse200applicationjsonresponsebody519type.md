@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Typ
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BERT_SCORE` | bert_score   |
+- `"bert_score"`

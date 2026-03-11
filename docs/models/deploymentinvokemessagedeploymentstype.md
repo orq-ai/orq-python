@@ -10,6 +10,4 @@ value: DeploymentInvokeMessageDeploymentsType = "image"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `IMAGE` | image   |
+- `"image"`

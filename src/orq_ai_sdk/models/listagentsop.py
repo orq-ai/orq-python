@@ -23,6 +23,13 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+QueryParamType = Literal[
+    "internal",
+    "a2a",
+]
+r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
+
+
 class ListAgentsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination."""
@@ -30,6 +37,8 @@ class ListAgentsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    type: NotRequired[QueryParamType]
+    r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
 
 
 class ListAgentsRequest(BaseModel):
@@ -51,15 +60,21 @@ class ListAgentsRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
+    type: Annotated[
+        Optional[QueryParamType],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "starting_after", "ending_before"])
+        optional_fields = set(["limit", "starting_after", "ending_before", "type"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -78,6 +93,85 @@ ListAgentsStatus = Literal[
     "published",
 ]
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
+
+
+class ListAgentsTeamOfAgentsTypedDict(TypedDict):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+    role: NotRequired[str]
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
+class ListAgentsTeamOfAgents(BaseModel):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+
+    role: Optional[str] = None
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListAgentsMetricsTypedDict(TypedDict):
+    total_cost: NotRequired[float]
+
+
+class ListAgentsMetrics(BaseModel):
+    total_cost: Optional[float] = 0
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListAgentsKnowledgeBasesTypedDict(TypedDict):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+class ListAgentsKnowledgeBases(BaseModel):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+ListAgentsSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
+ListAgentsType = Literal[
+    "internal",
+    "a2a",
+]
+r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
 
 ListAgentsToolApprovalRequired = Literal[
@@ -167,7 +261,7 @@ class ListAgentsTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -210,7 +304,7 @@ class ListAgentsEvaluators(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -253,7 +347,7 @@ class ListAgentsGuardrails(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -317,53 +411,13 @@ class ListAgentsSettings(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-ListAgentsVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-ListAgentsFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ListAgentsFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[ListAgentsFormat, pydantic.Field(alias="format")]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 ListAgentsResponseFormatAgentsResponseType = Literal["json_schema",]
@@ -401,7 +455,7 @@ class ListAgentsResponseFormatJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -524,36 +578,6 @@ ListAgentsStop = TypeAliasType("ListAgentsStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ListAgentsStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class ListAgentsStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsThinkingTypedDict = TypeAliasType(
     "ListAgentsThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -603,7 +627,7 @@ class ListAgentsToolChoice2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -684,48 +708,13 @@ class ListAgentsFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class ListAgentsAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class ListAgentsAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-ListAgentsType = Literal["exact_match",]
+ListAgentsAgentsType = Literal["exact_match",]
 
 
 class ListAgentsCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: ListAgentsType
+    type: ListAgentsAgentsType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
@@ -733,7 +722,7 @@ class ListAgentsCacheTypedDict(TypedDict):
 class ListAgentsCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: ListAgentsType
+    type: ListAgentsAgentsType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -746,7 +735,7 @@ class ListAgentsCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -780,7 +769,7 @@ class ListAgentsLoadBalancerModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -827,8 +816,6 @@ class ListAgentsParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[ListAgentsAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -838,12 +825,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[ListAgentsResponseFormatTypedDict]
@@ -864,8 +845,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[ListAgentsStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[ListAgentsStreamOptionsTypedDict]]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[ListAgentsThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -883,8 +862,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[ListAgentsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[ListAgentsAgentsRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[ListAgentsCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[ListAgentsLoadBalancerTypedDict]
@@ -899,9 +876,6 @@ class ListAgentsParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[ListAgentsAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -913,15 +887,6 @@ class ListAgentsParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -949,9 +914,6 @@ class ListAgentsParameters(BaseModel):
     stop: OptionalNullable[ListAgentsStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[ListAgentsStreamOptions] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[ListAgentsThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -978,9 +940,6 @@ class ListAgentsParameters(BaseModel):
     fallbacks: Optional[List[ListAgentsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[ListAgentsAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[ListAgentsCache] = None
     r"""Cache configuration for the request."""
 
@@ -995,20 +954,15 @@ class ListAgentsParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1018,7 +972,6 @@ class ListAgentsParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1026,17 +979,12 @@ class ListAgentsParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1048,7 +996,7 @@ class ListAgentsParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1091,55 +1039,13 @@ class ListAgentsRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-ListAgentsFallbackModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-ListAgentsFallbackModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsFallbackModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ListAgentsFallbackModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsFallbackModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        ListAgentsFallbackModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 ListAgentsResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = Literal[
@@ -1179,7 +1085,7 @@ class ListAgentsResponseFormatAgentsResponseJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1306,36 +1212,6 @@ ListAgentsFallbackModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ListAgentsFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class ListAgentsFallbackModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "ListAgentsFallbackModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -1385,7 +1261,7 @@ class ListAgentsToolChoiceAgents2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1469,41 +1345,6 @@ class ListAgentsFallbackModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class ListAgentsFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class ListAgentsFallbackModelConfigurationAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsFallbackModelConfigurationType = Literal["exact_match",]
 
 
@@ -1531,7 +1372,7 @@ class ListAgentsFallbackModelConfigurationCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1565,7 +1406,7 @@ class ListAgentsLoadBalancerAgentsModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1614,8 +1455,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[ListAgentsFallbackModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1625,12 +1464,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -1653,10 +1486,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[ListAgentsFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[ListAgentsFallbackModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[ListAgentsFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1678,8 +1507,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[ListAgentsFallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[ListAgentsFallbackModelConfigurationAgentsRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[ListAgentsFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
@@ -1696,9 +1523,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[ListAgentsFallbackModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -1710,15 +1534,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -1748,11 +1563,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     stop: OptionalNullable[ListAgentsFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[
-        ListAgentsFallbackModelConfigurationStreamOptions
-    ] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[ListAgentsFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -1781,9 +1591,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[ListAgentsFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[ListAgentsFallbackModelConfigurationAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[ListAgentsFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -1798,20 +1605,15 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1821,7 +1623,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1829,17 +1630,12 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1851,7 +1647,7 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1894,7 +1690,7 @@ class ListAgentsFallbackModelConfigurationRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1934,7 +1730,7 @@ class ListAgentsFallbackModelConfiguration2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2001,7 +1797,7 @@ class ListAgentsModel(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2018,29 +1814,27 @@ class ListAgentsModel(BaseModel):
         return m
 
 
-class ListAgentsTeamOfAgentsTypedDict(TypedDict):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-    role: NotRequired[str]
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+class ListAgentsHeadersTypedDict(TypedDict):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+    encrypted: NotRequired[bool]
 
 
-class ListAgentsTeamOfAgents(BaseModel):
-    key: str
-    r"""The unique key of the agent within the workspace"""
+class ListAgentsHeaders(BaseModel):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
 
-    role: Optional[str] = None
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+    encrypted: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["role"])
+        optional_fields = set(["encrypted"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2049,57 +1843,57 @@ class ListAgentsTeamOfAgents(BaseModel):
         return m
 
 
-class ListAgentsMetricsTypedDict(TypedDict):
-    total_cost: NotRequired[float]
+class ListAgentsA2AAgentConfigurationTypedDict(TypedDict):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+    card_url: NotRequired[str]
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+    headers: NotRequired[Dict[str, ListAgentsHeadersTypedDict]]
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+    cached_card: NotRequired[Any]
+    r"""Cached agent card from discovery. Refreshed periodically."""
 
 
-class ListAgentsMetrics(BaseModel):
-    total_cost: Optional[float] = 0
+class ListAgentsA2AAgentConfiguration(BaseModel):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+
+    card_url: Optional[str] = None
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+
+    headers: Optional[Dict[str, ListAgentsHeaders]] = None
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+
+    cached_card: Optional[Any] = None
+    r"""Cached agent card from discovery. Refreshed periodically."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["total_cost"])
+        optional_fields = set(["card_url", "headers", "cached_card"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-class ListAgentsKnowledgeBasesTypedDict(TypedDict):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-class ListAgentsKnowledgeBases(BaseModel):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-ListAgentsSource = Literal[
-    "internal",
-    "external",
-    "experiment",
-]
 
 
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    role: str
-    description: str
-    instructions: str
     status: ListAgentsStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    model: ListAgentsModelTypedDict
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -2107,24 +1901,32 @@ class ListAgentsDataTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
-    memory_stores: List[str]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: List[ListAgentsTeamOfAgentsTypedDict]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    role: str
+    description: str
+    instructions: str
+    model: ListAgentsModelTypedDict
     display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
     updated: NotRequired[str]
-    system_prompt: NotRequired[str]
-    settings: NotRequired[ListAgentsSettingsTypedDict]
     version_hash: NotRequired[str]
+    memory_stores: NotRequired[List[str]]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+    team_of_agents: NotRequired[List[ListAgentsTeamOfAgentsTypedDict]]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metrics: NotRequired[ListAgentsMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[ListAgentsSource]
+    type: NotRequired[ListAgentsType]
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    system_prompt: NotRequired[str]
+    settings: NotRequired[ListAgentsSettingsTypedDict]
+    a2a: NotRequired[ListAgentsA2AAgentConfigurationTypedDict]
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
 class ListAgentsData(BaseModel):
@@ -2133,16 +1935,8 @@ class ListAgentsData(BaseModel):
     key: str
     r"""Unique identifier for the agent within the workspace"""
 
-    role: str
-
-    description: str
-
-    instructions: str
-
     status: ListAgentsStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    model: ListAgentsModel
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -2152,11 +1946,13 @@ class ListAgentsData(BaseModel):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
-    memory_stores: List[str]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+    role: str
 
-    team_of_agents: List[ListAgentsTeamOfAgents]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    description: str
+
+    instructions: str
+
+    model: ListAgentsModel
 
     display_name: Optional[str] = None
 
@@ -2168,11 +1964,13 @@ class ListAgentsData(BaseModel):
 
     updated: Optional[str] = None
 
-    system_prompt: Optional[str] = None
-
-    settings: Optional[ListAgentsSettings] = None
-
     version_hash: Optional[str] = None
+
+    memory_stores: Optional[List[str]] = None
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+
+    team_of_agents: Optional[List[ListAgentsTeamOfAgents]] = None
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
     metrics: Optional[ListAgentsMetrics] = None
 
@@ -2184,6 +1982,16 @@ class ListAgentsData(BaseModel):
 
     source: Optional[ListAgentsSource] = None
 
+    type: Optional[ListAgentsType] = "internal"
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+
+    system_prompt: Optional[str] = None
+
+    settings: Optional[ListAgentsSettings] = None
+
+    a2a: Optional[ListAgentsA2AAgentConfiguration] = None
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2193,13 +2001,17 @@ class ListAgentsData(BaseModel):
                 "updated_by_id",
                 "created",
                 "updated",
-                "system_prompt",
-                "settings",
                 "version_hash",
+                "memory_stores",
+                "team_of_agents",
                 "metrics",
                 "variables",
                 "knowledge_bases",
                 "source",
+                "type",
+                "system_prompt",
+                "settings",
+                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])
@@ -2208,7 +2020,7 @@ class ListAgentsData(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2244,15 +2056,7 @@ class ListAgentsResponseBody(BaseModel):
 
 
 try:
-    ListAgentsAudio.model_rebuild()
-except NameError:
-    pass
-try:
     ListAgentsResponseFormatJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    ListAgentsFallbackModelConfigurationAudio.model_rebuild()
 except NameError:
     pass
 try:

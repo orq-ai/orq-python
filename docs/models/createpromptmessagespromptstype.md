@@ -12,6 +12,4 @@ value: CreatePromptMessagesPromptsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

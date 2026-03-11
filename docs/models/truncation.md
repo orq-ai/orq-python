@@ -12,7 +12,5 @@ value: Truncation = "auto"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `AUTO`     | auto       |
-| `DISABLED` | disabled   |
+- `"auto"`
+- `"disabled"`

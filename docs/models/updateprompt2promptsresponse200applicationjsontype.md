@@ -12,6 +12,4 @@ value: UpdatePrompt2PromptsResponse200ApplicationJSONType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

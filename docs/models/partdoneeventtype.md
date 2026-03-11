@@ -10,6 +10,4 @@ value: PartDoneEventType = "part.done"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `PART_DONE` | part.done   |
+- `"part.done"`

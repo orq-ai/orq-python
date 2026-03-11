@@ -12,6 +12,4 @@ value: CreateImageEditVersion = "latest"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LATEST` | latest   |
+- `"latest"`

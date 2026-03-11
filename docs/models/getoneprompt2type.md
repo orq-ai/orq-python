@@ -10,6 +10,4 @@ value: GetOnePrompt2Type = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

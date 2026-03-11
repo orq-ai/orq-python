@@ -10,6 +10,4 @@ value: GetEvalsLLMMode = "single"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SINGLE` | single   |
+- `"single"`

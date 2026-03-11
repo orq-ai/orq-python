@@ -5,7 +5,7 @@ from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Literal, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -34,7 +34,7 @@ class UpdateMemoryStoreRequestBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -68,80 +68,23 @@ class UpdateMemoryStoreRequest(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-UpdateMemoryStoreProvider = Literal[
-    "openai",
-    "groq",
-    "cohere",
-    "azure",
-    "aws",
-    "google",
-    "google-ai",
-    "huggingface",
-    "togetherai",
-    "perplexity",
-    "anthropic",
-    "leonardoai",
-    "fal",
-    "nvidia",
-    "jina",
-    "elevenlabs",
-    "litellm",
-    "cerebras",
-    "openailike",
-    "bytedance",
-    "mistral",
-    "deepseek",
-    "contextualai",
-    "moonshotai",
-    "zai",
-    "minimax",
-    "alibaba",
-    "slack",
-]
 
 
 class UpdateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model_id: str
-    provider: UpdateMemoryStoreProvider
-    integration_id: NotRequired[str]
-    top_k: NotRequired[float]
-    r"""Number of results to return"""
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class UpdateMemoryStoreEmbeddingConfig(BaseModel):
-    model_id: str
-
-    provider: UpdateMemoryStoreProvider
-
-    integration_id: Optional[str] = None
-
-    top_k: Optional[float] = None
-    r"""Number of results to return"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["integration_id", "top_k"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class UpdateMemoryStoreResponseBodyTypedDict(TypedDict):
@@ -151,8 +94,6 @@ class UpdateMemoryStoreResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the memory store"""
     key: str
     r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
-    project_id: str
-    r"""The project unique identifier. This entity is assigned based on the provided `path` property"""
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
     created: str
@@ -176,9 +117,6 @@ class UpdateMemoryStoreResponseBody(BaseModel):
 
     key: str
     r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
-
-    project_id: str
-    r"""The project unique identifier. This entity is assigned based on the provided `path` property"""
 
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
@@ -208,7 +146,7 @@ class UpdateMemoryStoreResponseBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

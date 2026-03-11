@@ -12,6 +12,4 @@ value: DeploymentStream2Type = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

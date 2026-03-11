@@ -10,6 +10,4 @@ value: ToolReviewRequestedEventType = "tool.review.requested"
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `TOOL_REVIEW_REQUESTED` | tool.review.requested   |
+- `"tool.review.requested"`

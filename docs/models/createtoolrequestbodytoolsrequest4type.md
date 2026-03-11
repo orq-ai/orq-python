@@ -10,6 +10,4 @@ value: CreateToolRequestBodyToolsRequest4Type = "mcp"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

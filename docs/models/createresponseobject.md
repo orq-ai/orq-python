@@ -12,6 +12,4 @@ value: CreateResponseObject = "response"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `RESPONSE` | response   |
+- `"response"`

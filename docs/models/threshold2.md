@@ -10,6 +10,4 @@ value: Threshold2 = "auto"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `AUTO` | auto   |
+- `"auto"`

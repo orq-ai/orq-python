@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsResponseType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

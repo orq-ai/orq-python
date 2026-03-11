@@ -12,7 +12,5 @@ value: FallbackModelConfigurationExecuteOn = "input"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `INPUT`  | input    |
-| `OUTPUT` | output   |
+- `"input"`
+- `"output"`

@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType = "ret
 
 ## Values
 
-| Name                     | Value                    |
-| ------------------------ | ------------------------ |
-| `RETRIEVE_MEMORY_STORES` | retrieve_memory_stores   |
+- `"retrieve_memory_stores"`

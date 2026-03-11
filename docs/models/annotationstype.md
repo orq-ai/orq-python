@@ -10,6 +10,4 @@ value: AnnotationsType = "url_citation"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `URL_CITATION` | url_citation   |
+- `"url_citation"`

@@ -10,6 +10,4 @@ value: DeploymentGetConfig2DeploymentsResponse200Type = "image_url"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `IMAGE_URL` | image_url   |
+- `"image_url"`

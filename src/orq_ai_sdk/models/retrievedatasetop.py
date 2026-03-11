@@ -81,7 +81,7 @@ class RetrieveDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-03-06T11:01:35.401Z")
+    updated: Optional[datetime] = parse_datetime("2026-03-11T09:12:29.095Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -92,7 +92,7 @@ class RetrieveDatasetResponseBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

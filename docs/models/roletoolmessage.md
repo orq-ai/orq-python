@@ -12,6 +12,4 @@ value: RoleToolMessage = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

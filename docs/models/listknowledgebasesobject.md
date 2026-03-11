@@ -10,6 +10,4 @@ value: ListKnowledgeBasesObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

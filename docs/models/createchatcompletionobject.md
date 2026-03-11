@@ -10,6 +10,4 @@ value: CreateChatCompletionObject = "chat.completion"
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `CHAT_COMPLETION` | chat.completion   |
+- `"chat.completion"`

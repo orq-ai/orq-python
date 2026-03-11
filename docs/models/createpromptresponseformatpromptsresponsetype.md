@@ -10,6 +10,4 @@ value: CreatePromptResponseFormatPromptsResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

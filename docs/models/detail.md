@@ -12,8 +12,6 @@ value: Detail = "low"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LOW`  | low    |
-| `HIGH` | high   |
-| `AUTO` | auto   |
+- `"low"`
+- `"high"`
+- `"auto"`

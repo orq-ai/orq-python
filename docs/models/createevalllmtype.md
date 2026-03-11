@@ -10,6 +10,4 @@ value: CreateEvalLLMType = "llm_eval"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `LLM_EVAL` | llm_eval   |
+- `"llm_eval"`

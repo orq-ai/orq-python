@@ -10,6 +10,4 @@ value: GetPromptVersionResponseFormatPromptsResponse200ApplicationJSONResponseBo
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

@@ -10,6 +10,4 @@ value: CreateEvalResponseBodyEvalsResponse200Type = "ragas"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+- `"ragas"`

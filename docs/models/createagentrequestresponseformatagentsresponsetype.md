@@ -10,6 +10,4 @@ value: CreateAgentRequestResponseFormatAgentsResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

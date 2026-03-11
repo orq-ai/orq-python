@@ -12,7 +12,5 @@ value: Reason = "max_output_tokens"
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `MAX_OUTPUT_TOKENS` | max_output_tokens   |
-| `CONTENT_FILTER`    | content_filter      |
+- `"max_output_tokens"`
+- `"content_filter"`

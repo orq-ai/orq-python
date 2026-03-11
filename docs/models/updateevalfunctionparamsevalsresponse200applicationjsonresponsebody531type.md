@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody531Typ
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `LEXICAL_REPETITION` | lexical_repetition   |
+- `"lexical_repetition"`

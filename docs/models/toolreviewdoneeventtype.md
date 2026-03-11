@@ -10,6 +10,4 @@ value: ToolReviewDoneEventType = "tool.review.done"
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `TOOL_REVIEW_DONE` | tool.review.done   |
+- `"tool.review.done"`

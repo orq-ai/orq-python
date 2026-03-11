@@ -10,6 +10,4 @@ value: ListDatasetDatapointsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

@@ -10,6 +10,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Typ
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

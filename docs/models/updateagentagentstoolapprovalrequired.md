@@ -12,8 +12,6 @@ value: UpdateAgentAgentsToolApprovalRequired = "all"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `ALL`          | all            |
-| `RESPECT_TOOL` | respect_tool   |
-| `NONE`         | none           |
+- `"all"`
+- `"respect_tool"`
+- `"none"`

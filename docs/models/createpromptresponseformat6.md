@@ -10,10 +10,8 @@ value: CreatePromptResponseFormat6 = "json"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `JSON`         | json           |
-| `TEXT`         | text           |
-| `SRT`          | srt            |
-| `VERBOSE_JSON` | verbose_json   |
-| `VTT`          | vtt            |
+- `"json"`
+- `"text"`
+- `"srt"`
+- `"verbose_json"`
+- `"vtt"`

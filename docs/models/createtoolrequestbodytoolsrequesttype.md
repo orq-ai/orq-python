@@ -10,6 +10,4 @@ value: CreateToolRequestBodyToolsRequestType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

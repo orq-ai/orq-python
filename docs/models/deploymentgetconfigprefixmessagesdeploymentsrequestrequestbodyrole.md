@@ -12,6 +12,4 @@ value: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole = "ass
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

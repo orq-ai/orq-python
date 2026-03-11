@@ -12,6 +12,4 @@ value: RetrieveDatapoint2DatasetsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

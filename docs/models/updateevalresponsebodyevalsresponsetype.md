@@ -10,6 +10,4 @@ value: UpdateEvalResponseBodyEvalsResponseType = "python_eval"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `PYTHON_EVAL` | python_eval   |
+- `"python_eval"`

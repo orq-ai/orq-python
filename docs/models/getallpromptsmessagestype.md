@@ -12,6 +12,4 @@ value: GetAllPromptsMessagesType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

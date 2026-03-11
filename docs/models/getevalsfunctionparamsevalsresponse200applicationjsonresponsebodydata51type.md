@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData51Ty
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `CONTAINS` | contains   |
+- `"contains"`

@@ -12,6 +12,4 @@ value: InvokeDeploymentRequestMessages3Role = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

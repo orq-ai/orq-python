@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsRequestRequestBodyType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

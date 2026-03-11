@@ -12,7 +12,5 @@ value: CreateAgentRequestAgentsResponse201ExecuteOn = "input"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `INPUT`  | input    |
-| `OUTPUT` | output   |
+- `"input"`
+- `"output"`

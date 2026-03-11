@@ -10,6 +10,4 @@ value: RetrieveToolResponseBodyLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

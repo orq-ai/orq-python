@@ -10,7 +10,5 @@ value: AgentMessageCreatedStreamingEventRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
-| `TOOL` | tool   |
+- `"user"`
+- `"tool"`

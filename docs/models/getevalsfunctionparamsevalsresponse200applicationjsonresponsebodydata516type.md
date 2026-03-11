@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData516T
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `IS_VALID_JSON` | is_valid_json   |
+- `"is_valid_json"`

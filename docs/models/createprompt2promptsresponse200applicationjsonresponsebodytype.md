@@ -12,6 +12,4 @@ value: CreatePrompt2PromptsResponse200ApplicationJSONResponseBodyType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

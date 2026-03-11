@@ -10,6 +10,4 @@ value: RetrieveDatapointEvaluationsType = "string"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `STRING` | string   |
+- `"string"`

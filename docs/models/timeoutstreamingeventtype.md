@@ -10,6 +10,4 @@ value: TimeoutStreamingEventType = "agents.timeout"
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `AGENTS_TIMEOUT` | agents.timeout   |
+- `"agents.timeout"`

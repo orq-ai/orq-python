@@ -10,6 +10,4 @@ value: GetV2ToolsToolIDVersionsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

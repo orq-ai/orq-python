@@ -12,7 +12,5 @@ value: ResponseBodyConnectionType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
-| `SSE`  | sse    |
+- `"http"`
+- `"sse"`

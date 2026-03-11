@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsResponse200Role = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

@@ -12,6 +12,4 @@ value: RetrieveDatapointMessagesDatasetsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

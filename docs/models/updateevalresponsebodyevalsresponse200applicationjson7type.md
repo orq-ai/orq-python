@@ -10,6 +10,4 @@ value: UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7Type = "typescript_
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `TYPESCRIPT_EVAL` | typescript_eval   |
+- `"typescript_eval"`

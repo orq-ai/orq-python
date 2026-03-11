@@ -10,6 +10,4 @@ value: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

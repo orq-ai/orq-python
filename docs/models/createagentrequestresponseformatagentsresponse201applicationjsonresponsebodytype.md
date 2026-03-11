@@ -10,6 +10,4 @@ value: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseB
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

@@ -10,6 +10,4 @@ value: GetPromptVersion2PromptsType = "image_url"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `IMAGE_URL` | image_url   |
+- `"image_url"`

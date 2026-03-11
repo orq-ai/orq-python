@@ -12,6 +12,4 @@ value: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole = "assist
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

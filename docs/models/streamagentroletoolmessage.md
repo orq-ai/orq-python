@@ -12,6 +12,4 @@ value: StreamAgentRoleToolMessage = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

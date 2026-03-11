@@ -12,6 +12,4 @@ value: CreateDatasetItem2DatasetsResponseType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

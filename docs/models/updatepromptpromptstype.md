@@ -10,6 +10,4 @@ value: UpdatePromptPromptsType = "prompt"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PROMPT` | prompt   |
+- `"prompt"`

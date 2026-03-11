@@ -12,6 +12,4 @@ value: StreamRunAgentRoleToolMessage = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

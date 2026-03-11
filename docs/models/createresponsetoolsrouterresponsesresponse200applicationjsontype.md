@@ -12,6 +12,4 @@ value: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType = "file_
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `FILE_SEARCH` | file_search   |
+- `"file_search"`

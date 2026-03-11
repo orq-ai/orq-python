@@ -10,7 +10,5 @@ value: CreateEvalRequestBodyOutputType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
-| `NUMBER`  | number    |
+- `"boolean"`
+- `"number"`

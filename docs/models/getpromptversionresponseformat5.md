@@ -10,7 +10,5 @@ value: GetPromptVersionResponseFormat5 = "url"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `BASE64_JSON` | base64_json   |
+- `"url"`
+- `"base64_json"`

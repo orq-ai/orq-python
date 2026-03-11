@@ -12,6 +12,4 @@ value: DeploymentCreateMetricMessagesDeploymentsMetricsRole = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

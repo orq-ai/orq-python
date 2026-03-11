@@ -10,6 +10,4 @@ value: UpdateToolRequestBodyToolsRequest4McpType = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

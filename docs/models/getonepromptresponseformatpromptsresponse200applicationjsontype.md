@@ -10,6 +10,4 @@ value: GetOnePromptResponseFormatPromptsResponse200ApplicationJSONType = "json_o
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_OBJECT` | json_object   |
+- `"json_object"`

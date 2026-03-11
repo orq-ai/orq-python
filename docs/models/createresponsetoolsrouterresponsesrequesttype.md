@@ -12,7 +12,5 @@ value: CreateResponseToolsRouterResponsesRequestType = "approximate"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `APPROXIMATE` | approximate   |
-| `EXACT`       | exact         |
+- `"approximate"`
+- `"exact"`

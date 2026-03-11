@@ -10,6 +10,4 @@ value: UpdateEvalResponseBodyEvalsResponse200Type = "function_eval"
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FUNCTION_EVAL` | function_eval   |
+- `"function_eval"`

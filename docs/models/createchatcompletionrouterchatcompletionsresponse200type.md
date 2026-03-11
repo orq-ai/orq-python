@@ -12,6 +12,4 @@ value: CreateChatCompletionRouterChatCompletionsResponse200Type = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

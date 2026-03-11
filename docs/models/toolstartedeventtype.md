@@ -10,6 +10,4 @@ value: ToolStartedEventType = "tool.started"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `TOOL_STARTED` | tool.started   |
+- `"tool.started"`

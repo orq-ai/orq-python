@@ -12,6 +12,4 @@ value: CreateResponseOutputRouterResponsesResponse200Type = "function_call"
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FUNCTION_CALL` | function_call   |
+- `"function_call"`

@@ -12,6 +12,4 @@ value: CreateResponseToolsRouterResponsesResponse200Type = "web_search_preview"
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `WEB_SEARCH_PREVIEW` | web_search_preview   |
+- `"web_search_preview"`

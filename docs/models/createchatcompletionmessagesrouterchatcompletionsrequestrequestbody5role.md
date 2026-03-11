@@ -12,6 +12,4 @@ value: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Role 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

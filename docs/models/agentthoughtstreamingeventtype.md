@@ -10,6 +10,4 @@ value: AgentThoughtStreamingEventType = "event.agents.thought"
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `EVENT_AGENTS_THOUGHT` | event.agents.thought   |
+- `"event.agents.thought"`

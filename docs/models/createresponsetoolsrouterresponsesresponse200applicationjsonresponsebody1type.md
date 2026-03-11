@@ -12,6 +12,4 @@ value: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody1
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

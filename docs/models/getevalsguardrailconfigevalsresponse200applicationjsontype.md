@@ -10,6 +10,4 @@ value: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONType = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

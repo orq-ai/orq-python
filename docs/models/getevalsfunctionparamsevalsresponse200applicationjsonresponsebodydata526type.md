@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData526T
 
 ## Values
 
-| Name                  | Value                 |
-| --------------------- | --------------------- |
-| `MOST_REPEATED_WORDS` | most_repeated_words   |
+- `"most_repeated_words"`

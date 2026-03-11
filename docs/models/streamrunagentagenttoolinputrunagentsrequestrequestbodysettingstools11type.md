@@ -10,6 +10,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Typ
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CURRENT_DATE` | current_date   |
+- `"current_date"`

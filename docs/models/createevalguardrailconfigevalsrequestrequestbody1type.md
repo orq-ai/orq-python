@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

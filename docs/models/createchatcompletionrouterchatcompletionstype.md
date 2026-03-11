@@ -10,6 +10,4 @@ value: CreateChatCompletionRouterChatCompletionsType = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

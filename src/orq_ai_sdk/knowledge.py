@@ -1246,8 +1246,8 @@ class Knowledge(BaseSDK):
         limit: Optional[float] = 50,
         status: Optional[
             Union[
-                models_listdatasourcesop.Status,
-                models_listdatasourcesop.StatusTypedDict,
+                models_listdatasourcesop.QueryParamStatus,
+                models_listdatasourcesop.QueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1351,8 +1351,8 @@ class Knowledge(BaseSDK):
         limit: Optional[float] = 50,
         status: Optional[
             Union[
-                models_listdatasourcesop.Status,
-                models_listdatasourcesop.StatusTypedDict,
+                models_listdatasourcesop.QueryParamStatus,
+                models_listdatasourcesop.QueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2455,8 +2455,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.QueryParamStatus,
-                models_listchunksop.QueryParamStatusTypedDict,
+                models_listchunksop.ListChunksQueryParamStatus,
+                models_listchunksop.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2563,8 +2563,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.QueryParamStatus,
-                models_listchunksop.QueryParamStatusTypedDict,
+                models_listchunksop.ListChunksQueryParamStatus,
+                models_listchunksop.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

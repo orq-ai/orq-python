@@ -5,18 +5,21 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.models import (
-    createagentrequest_modalities as models_createagentrequest_modalities,
+    createagentrequestop as models_createagentrequestop,
     invokeagentop as models_invokeagentop,
+    listagentsop as models_listagentsop,
+    post_v2_agents_a2aop as models_post_v2_agents_a2aop,
+    post_v2_agents_key_card_refreshop as models_post_v2_agents_key_card_refreshop,
     runagentop as models_runagentop,
     streamagentop as models_streamagentop,
     streamrunagentop as models_streamrunagentop,
-    updateagent_tool_choice as models_updateagent_tool_choice,
+    updateagentop as models_updateagentop,
 )
 from orq_ai_sdk.responses import Responses
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 from typing_extensions import deprecated
 
 
@@ -33,6 +36,478 @@ class Agents(BaseSDK):
     def _init_sdks(self):
         self.responses = Responses(self.sdk_configuration, parent_ref=self.parent_ref)
 
+    def post_v2_agents_a2a(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBody,
+                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsA2aResponseBody:
+        r"""Register external A2A agent
+
+        Register an external A2A-compliant agent into Orquesta. The agent card will be fetched during registration to validate the agent and cache its capabilities.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.PostV2AgentsA2aRequestBody]
+            )
+        request = cast(Optional[models.PostV2AgentsA2aRequestBody], request)
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/a2a",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsA2aRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/a2a",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.PostV2AgentsA2aResponseBody, http_res)
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsA2aAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsA2aAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsA2aAgentsResponseResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsA2aAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def post_v2_agents_a2a_async(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBody,
+                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsA2aResponseBody:
+        r"""Register external A2A agent
+
+        Register an external A2A-compliant agent into Orquesta. The agent card will be fetched during registration to validate the agent and cache its capabilities.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.PostV2AgentsA2aRequestBody]
+            )
+        request = cast(Optional[models.PostV2AgentsA2aRequestBody], request)
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/a2a",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsA2aRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/a2a",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.PostV2AgentsA2aResponseBody, http_res)
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsA2aAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsA2aAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsA2aAgentsResponseResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsA2aAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def post_v2_agents_key_card_refresh(
+        self,
+        *,
+        key: str,
+        request_body: Optional[
+            Union[
+                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBody,
+                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
+        r"""Refresh A2A agent card
+
+        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
+
+        :param key: The unique key identifier of the agent
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2AgentsKeyCardRefreshRequest(
+            key=key,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/{key}/card/refresh",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/{key}/card/refresh",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
+                http_res,
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def post_v2_agents_key_card_refresh_async(
+        self,
+        *,
+        key: str,
+        request_body: Optional[
+            Union[
+                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBody,
+                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
+        r"""Refresh A2A agent card
+
+        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
+
+        :param key: The unique key identifier of the agent
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2AgentsKeyCardRefreshRequest(
+            key=key,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/{key}/card/refresh",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/{key}/card/refresh",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
+                http_res,
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def create(
         self,
         *,
@@ -42,38 +517,36 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[
-            models_createagentrequest_modalities.ModelConfiguration,
-            models_createagentrequest_modalities.ModelConfigurationTypedDict,
+            models_createagentrequestop.ModelConfiguration,
+            models_createagentrequestop.ModelConfigurationTypedDict,
         ],
         settings: Union[
-            models_createagentrequest_modalities.CreateAgentRequestSettings,
-            models_createagentrequest_modalities.CreateAgentRequestSettingsTypedDict,
+            models_createagentrequestop.CreateAgentRequestSettings,
+            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequest_modalities.FallbackModelConfiguration],
-                List[
-                    models_createagentrequest_modalities.FallbackModelConfigurationTypedDict
-                ],
+                List[models_createagentrequestop.FallbackModelConfiguration],
+                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_createagentrequest_modalities.KnowledgeBases],
-                List[models_createagentrequest_modalities.KnowledgeBasesTypedDict],
+                List[models_createagentrequestop.KnowledgeBases],
+                List[models_createagentrequestop.KnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_createagentrequest_modalities.TeamOfAgents],
-                List[models_createagentrequest_modalities.TeamOfAgentsTypedDict],
+                List[models_createagentrequestop.TeamOfAgents],
+                List[models_createagentrequestop.TeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequest_modalities.Source] = None,
+        source: Optional[models_createagentrequestop.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -209,38 +682,36 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[
-            models_createagentrequest_modalities.ModelConfiguration,
-            models_createagentrequest_modalities.ModelConfigurationTypedDict,
+            models_createagentrequestop.ModelConfiguration,
+            models_createagentrequestop.ModelConfigurationTypedDict,
         ],
         settings: Union[
-            models_createagentrequest_modalities.CreateAgentRequestSettings,
-            models_createagentrequest_modalities.CreateAgentRequestSettingsTypedDict,
+            models_createagentrequestop.CreateAgentRequestSettings,
+            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequest_modalities.FallbackModelConfiguration],
-                List[
-                    models_createagentrequest_modalities.FallbackModelConfigurationTypedDict
-                ],
+                List[models_createagentrequestop.FallbackModelConfiguration],
+                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_createagentrequest_modalities.KnowledgeBases],
-                List[models_createagentrequest_modalities.KnowledgeBasesTypedDict],
+                List[models_createagentrequestop.KnowledgeBases],
+                List[models_createagentrequestop.KnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_createagentrequest_modalities.TeamOfAgents],
-                List[models_createagentrequest_modalities.TeamOfAgentsTypedDict],
+                List[models_createagentrequestop.TeamOfAgents],
+                List[models_createagentrequestop.TeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequest_modalities.Source] = None,
+        source: Optional[models_createagentrequestop.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -373,6 +844,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        type_: Optional[models_listagentsop.QueryParamType] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -385,6 +857,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param type: Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -407,6 +880,7 @@ class Agents(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            type=type_,
         )
 
         req = self._build_request(
@@ -466,6 +940,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        type_: Optional[models_listagentsop.QueryParamType] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -478,6 +953,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param type: Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -500,6 +976,7 @@ class Agents(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            type=type_,
         )
 
         req = self._build_request_async(
@@ -942,41 +1419,47 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagent_tool_choice.UpdateAgentModelConfiguration,
-                models_updateagent_tool_choice.UpdateAgentModelConfigurationTypedDict,
+                models_updateagentop.UpdateAgentModelConfiguration,
+                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
+                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
                 List[
-                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfiguration
-                ],
-                List[
-                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagent_tool_choice.UpdateAgentSettings,
-                models_updateagent_tool_choice.UpdateAgentSettingsTypedDict,
+                models_updateagentop.UpdateAgentSettings,
+                models_updateagentop.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBases],
-                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBasesTypedDict],
+                List[models_updateagentop.UpdateAgentKnowledgeBases],
+                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgents],
-                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgentsTypedDict],
+                List[models_updateagentop.UpdateAgentTeamOfAgents],
+                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        a2a: Optional[
+            Union[
+                models_updateagentop.UpdateA2AConfiguration,
+                models_updateagentop.UpdateA2AConfigurationTypedDict,
+            ]
+        ] = None,
+        version_increment: Optional[models_updateagentop.VersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1006,6 +1489,9 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
+        :param a2a: Update A2A agent configuration (only applicable to A2A agents)
+        :param version_increment: Optional semantic version bump to create after a successful publish.
+        :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1026,7 +1512,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentUpdateAgentRequest(
+            request_body=models.UpdateAgentRequestBody(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1053,6 +1539,11 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
+                a2a=utils.get_pydantic_model(
+                    a2a, Optional[models.UpdateA2AConfiguration]
+                ),
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -1074,7 +1565,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentUpdateAgentRequest,
+                models.UpdateAgentRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1133,41 +1624,47 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagent_tool_choice.UpdateAgentModelConfiguration,
-                models_updateagent_tool_choice.UpdateAgentModelConfigurationTypedDict,
+                models_updateagentop.UpdateAgentModelConfiguration,
+                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
+                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
                 List[
-                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfiguration
-                ],
-                List[
-                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagent_tool_choice.UpdateAgentSettings,
-                models_updateagent_tool_choice.UpdateAgentSettingsTypedDict,
+                models_updateagentop.UpdateAgentSettings,
+                models_updateagentop.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBases],
-                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBasesTypedDict],
+                List[models_updateagentop.UpdateAgentKnowledgeBases],
+                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgents],
-                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgentsTypedDict],
+                List[models_updateagentop.UpdateAgentTeamOfAgents],
+                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        a2a: Optional[
+            Union[
+                models_updateagentop.UpdateA2AConfiguration,
+                models_updateagentop.UpdateA2AConfigurationTypedDict,
+            ]
+        ] = None,
+        version_increment: Optional[models_updateagentop.VersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1197,6 +1694,9 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
+        :param a2a: Update A2A agent configuration (only applicable to A2A agents)
+        :param version_increment: Optional semantic version bump to create after a successful publish.
+        :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1217,7 +1717,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentUpdateAgentRequest(
+            request_body=models.UpdateAgentRequestBody(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1244,6 +1744,11 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
+                a2a=utils.get_pydantic_model(
+                    a2a, Optional[models.UpdateA2AConfiguration]
+                ),
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -1265,7 +1770,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentUpdateAgentRequest,
+                models.UpdateAgentRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1349,6 +1854,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        configuration: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentConfiguration,
+                models_invokeagentop.InvokeAgentConfigurationTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1367,6 +1878,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1404,6 +1916,9 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.InvokeAgentConfiguration]
+                ),
             ),
         )
 
@@ -1503,6 +2018,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        configuration: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentConfiguration,
+                models_invokeagentop.InvokeAgentConfigurationTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1521,6 +2042,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1558,6 +2080,9 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.InvokeAgentConfiguration]
+                ),
             ),
         )
 
@@ -2547,6 +3072,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        configuration: Optional[
+            Union[
+                models_streamagentop.StreamAgentConfiguration,
+                models_streamagentop.StreamAgentConfigurationTypedDict,
+            ]
+        ] = None,
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2566,6 +3097,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2604,6 +3136,9 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.StreamAgentConfiguration]
+                ),
                 stream_timeout_seconds=stream_timeout_seconds,
             ),
         )
@@ -2720,6 +3255,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        configuration: Optional[
+            Union[
+                models_streamagentop.StreamAgentConfiguration,
+                models_streamagentop.StreamAgentConfigurationTypedDict,
+            ]
+        ] = None,
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2739,6 +3280,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2777,6 +3319,9 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.StreamAgentConfiguration]
+                ),
                 stream_timeout_seconds=stream_timeout_seconds,
             ),
         )

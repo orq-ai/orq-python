@@ -10,6 +10,4 @@ value: ActionReviewedStreamingEventType = "event.agents.action_reviewed"
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `EVENT_AGENTS_ACTION_REVIEWED` | event.agents.action_reviewed   |
+- `"event.agents.action_reviewed"`

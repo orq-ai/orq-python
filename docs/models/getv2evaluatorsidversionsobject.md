@@ -10,6 +10,4 @@ value: GetV2EvaluatorsIDVersionsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

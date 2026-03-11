@@ -12,6 +12,4 @@ value: ListPromptVersionsMessagesPromptsResponseRole = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

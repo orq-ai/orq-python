@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData513T
 
 ## Values
 
-| Name                  | Value                 |
-| --------------------- | --------------------- |
-| `LENGTH_GREATER_THAN` | length_greater_than   |
+- `"length_greater_than"`

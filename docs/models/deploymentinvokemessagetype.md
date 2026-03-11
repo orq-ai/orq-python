@@ -10,6 +10,4 @@ value: DeploymentInvokeMessageType = "content"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `CONTENT` | content   |
+- `"content"`

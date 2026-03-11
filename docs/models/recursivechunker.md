@@ -10,6 +10,4 @@ value: RecursiveChunker = "recursive"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `RECURSIVE` | recursive   |
+- `"recursive"`

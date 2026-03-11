@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData519T
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BERT_SCORE` | bert_score   |
+- `"bert_score"`

@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunType = "web_scraper"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `WEB_SCRAPER` | web_scraper   |
+- `"web_scraper"`

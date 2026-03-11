@@ -12,6 +12,4 @@ value: UpdateAgentToolChoiceType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

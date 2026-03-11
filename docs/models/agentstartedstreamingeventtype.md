@@ -10,6 +10,4 @@ value: AgentStartedStreamingEventType = "event.agents.started"
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `EVENT_AGENTS_STARTED` | event.agents.started   |
+- `"event.agents.started"`

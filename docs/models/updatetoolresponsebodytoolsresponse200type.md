@@ -10,6 +10,4 @@ value: UpdateToolResponseBodyToolsResponse200Type = "mcp"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

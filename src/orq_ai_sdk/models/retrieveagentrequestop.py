@@ -69,6 +69,85 @@ RetrieveAgentRequestStatus = Literal[
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
+class RetrieveAgentRequestTeamOfAgentsTypedDict(TypedDict):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+    role: NotRequired[str]
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
+class RetrieveAgentRequestTeamOfAgents(BaseModel):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+
+    role: Optional[str] = None
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class RetrieveAgentRequestMetricsTypedDict(TypedDict):
+    total_cost: NotRequired[float]
+
+
+class RetrieveAgentRequestMetrics(BaseModel):
+    total_cost: Optional[float] = 0
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class RetrieveAgentRequestKnowledgeBasesTypedDict(TypedDict):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+class RetrieveAgentRequestKnowledgeBases(BaseModel):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+RetrieveAgentRequestSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
+RetrieveAgentRequestType = Literal[
+    "internal",
+    "a2a",
+]
+r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+
+
 RetrieveAgentRequestToolApprovalRequired = Literal[
     "all",
     "respect_tool",
@@ -156,7 +235,7 @@ class RetrieveAgentRequestTools(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -199,7 +278,7 @@ class RetrieveAgentRequestEvaluators(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -242,7 +321,7 @@ class RetrieveAgentRequestGuardrails(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -308,53 +387,13 @@ class RetrieveAgentRequestSettings(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-RetrieveAgentRequestVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-RetrieveAgentRequestFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class RetrieveAgentRequestAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: RetrieveAgentRequestVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: RetrieveAgentRequestFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class RetrieveAgentRequestAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: RetrieveAgentRequestVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[RetrieveAgentRequestFormat, pydantic.Field(alias="format")]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 RetrieveAgentRequestResponseFormatAgentsResponseType = Literal["json_schema",]
@@ -392,7 +431,7 @@ class RetrieveAgentRequestResponseFormatJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -519,36 +558,6 @@ RetrieveAgentRequestStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class RetrieveAgentRequestStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class RetrieveAgentRequestStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 RetrieveAgentRequestThinkingTypedDict = TypeAliasType(
     "RetrieveAgentRequestThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -598,7 +607,7 @@ class RetrieveAgentRequestToolChoice2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -682,48 +691,13 @@ class RetrieveAgentRequestFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class RetrieveAgentRequestAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class RetrieveAgentRequestAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RetrieveAgentRequestType = Literal["exact_match",]
+RetrieveAgentRequestAgentsType = Literal["exact_match",]
 
 
 class RetrieveAgentRequestCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: RetrieveAgentRequestType
+    type: RetrieveAgentRequestAgentsType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
@@ -731,7 +705,7 @@ class RetrieveAgentRequestCacheTypedDict(TypedDict):
 class RetrieveAgentRequestCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: RetrieveAgentRequestType
+    type: RetrieveAgentRequestAgentsType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -744,7 +718,7 @@ class RetrieveAgentRequestCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -778,7 +752,7 @@ class RetrieveAgentRequestLoadBalancerModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -825,8 +799,6 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[RetrieveAgentRequestAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -836,12 +808,6 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[RetrieveAgentRequestResponseFormatTypedDict]
@@ -862,8 +828,6 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[RetrieveAgentRequestStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[RetrieveAgentRequestStreamOptionsTypedDict]]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[RetrieveAgentRequestThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -881,8 +845,6 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[RetrieveAgentRequestFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[RetrieveAgentRequestAgentsRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[RetrieveAgentRequestCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[RetrieveAgentRequestLoadBalancerTypedDict]
@@ -897,9 +859,6 @@ class RetrieveAgentRequestParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[RetrieveAgentRequestAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -911,15 +870,6 @@ class RetrieveAgentRequestParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -947,9 +897,6 @@ class RetrieveAgentRequestParameters(BaseModel):
     stop: OptionalNullable[RetrieveAgentRequestStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[RetrieveAgentRequestStreamOptions] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[RetrieveAgentRequestThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -976,9 +923,6 @@ class RetrieveAgentRequestParameters(BaseModel):
     fallbacks: Optional[List[RetrieveAgentRequestFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[RetrieveAgentRequestAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[RetrieveAgentRequestCache] = None
     r"""Cache configuration for the request."""
 
@@ -993,20 +937,15 @@ class RetrieveAgentRequestParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1016,7 +955,6 @@ class RetrieveAgentRequestParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1024,17 +962,12 @@ class RetrieveAgentRequestParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1046,7 +979,7 @@ class RetrieveAgentRequestParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1089,56 +1022,13 @@ class RetrieveAgentRequestRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-RetrieveAgentRequestFallbackModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-RetrieveAgentRequestFallbackModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class RetrieveAgentRequestFallbackModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: RetrieveAgentRequestFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: RetrieveAgentRequestFallbackModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class RetrieveAgentRequestFallbackModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: RetrieveAgentRequestFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        RetrieveAgentRequestFallbackModelConfigurationFormat,
-        pydantic.Field(alias="format"),
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 RetrieveAgentRequestResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = (
@@ -1178,7 +1068,7 @@ class RetrieveAgentRequestResponseFormatAgentsResponseJSONSchema(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1310,36 +1200,6 @@ RetrieveAgentRequestFallbackModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class RetrieveAgentRequestFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class RetrieveAgentRequestFallbackModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 RetrieveAgentRequestFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "RetrieveAgentRequestFallbackModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -1389,7 +1249,7 @@ class RetrieveAgentRequestToolChoiceAgents2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1478,41 +1338,6 @@ class RetrieveAgentRequestFallbackModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class RetrieveAgentRequestFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class RetrieveAgentRequestFallbackModelConfigurationAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 RetrieveAgentRequestFallbackModelConfigurationType = Literal["exact_match",]
 
 
@@ -1540,7 +1365,7 @@ class RetrieveAgentRequestFallbackModelConfigurationCache(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1574,7 +1399,7 @@ class RetrieveAgentRequestLoadBalancerAgentsModels(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1625,10 +1450,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[
-        Nullable[RetrieveAgentRequestFallbackModelConfigurationAudioTypedDict]
-    ]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1638,12 +1459,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -1670,10 +1485,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
         Nullable[RetrieveAgentRequestFallbackModelConfigurationStopTypedDict]
     ]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[RetrieveAgentRequestFallbackModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[
         RetrieveAgentRequestFallbackModelConfigurationThinkingTypedDict
     ]
@@ -1701,10 +1512,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
         List[RetrieveAgentRequestFallbackModelConfigurationFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[
-        RetrieveAgentRequestFallbackModelConfigurationAgentsRetryTypedDict
-    ]
-    r"""Retry configuration for the request"""
     cache: NotRequired[RetrieveAgentRequestFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
@@ -1721,9 +1528,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[RetrieveAgentRequestFallbackModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -1735,15 +1539,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -1774,11 +1569,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
 
     stop: OptionalNullable[RetrieveAgentRequestFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-
-    stream_options: OptionalNullable[
-        RetrieveAgentRequestFallbackModelConfigurationStreamOptions
-    ] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[RetrieveAgentRequestFallbackModelConfigurationThinking] = None
 
@@ -1814,9 +1604,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     ] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[RetrieveAgentRequestFallbackModelConfigurationAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[RetrieveAgentRequestFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -1833,20 +1620,15 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1856,7 +1638,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1864,17 +1645,12 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1886,7 +1662,7 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -1929,7 +1705,7 @@ class RetrieveAgentRequestFallbackModelConfigurationRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1973,7 +1749,7 @@ class RetrieveAgentRequestFallbackModelConfiguration2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2040,7 +1816,7 @@ class RetrieveAgentRequestModel(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2057,29 +1833,27 @@ class RetrieveAgentRequestModel(BaseModel):
         return m
 
 
-class RetrieveAgentRequestTeamOfAgentsTypedDict(TypedDict):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-    role: NotRequired[str]
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+class RetrieveAgentRequestHeadersTypedDict(TypedDict):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+    encrypted: NotRequired[bool]
 
 
-class RetrieveAgentRequestTeamOfAgents(BaseModel):
-    key: str
-    r"""The unique key of the agent within the workspace"""
+class RetrieveAgentRequestHeaders(BaseModel):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
 
-    role: Optional[str] = None
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+    encrypted: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["role"])
+        optional_fields = set(["encrypted"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -2088,45 +1862,49 @@ class RetrieveAgentRequestTeamOfAgents(BaseModel):
         return m
 
 
-class RetrieveAgentRequestMetricsTypedDict(TypedDict):
-    total_cost: NotRequired[float]
+class RetrieveAgentRequestA2AAgentConfigurationTypedDict(TypedDict):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+    card_url: NotRequired[str]
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+    headers: NotRequired[Dict[str, RetrieveAgentRequestHeadersTypedDict]]
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+    cached_card: NotRequired[Any]
+    r"""Cached agent card from discovery. Refreshed periodically."""
 
 
-class RetrieveAgentRequestMetrics(BaseModel):
-    total_cost: Optional[float] = 0
+class RetrieveAgentRequestA2AAgentConfiguration(BaseModel):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+
+    card_url: Optional[str] = None
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+
+    headers: Optional[Dict[str, RetrieveAgentRequestHeaders]] = None
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+
+    cached_card: Optional[Any] = None
+    r"""Cached agent card from discovery. Refreshed periodically."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["total_cost"])
+        optional_fields = set(["card_url", "headers", "cached_card"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
-
-
-class RetrieveAgentRequestKnowledgeBasesTypedDict(TypedDict):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-class RetrieveAgentRequestKnowledgeBases(BaseModel):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-RetrieveAgentRequestSource = Literal[
-    "internal",
-    "external",
-    "experiment",
-]
 
 
 class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
@@ -2135,14 +1913,9 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    workspace_id: str
     project_id: str
-    role: str
-    description: str
-    instructions: str
     status: RetrieveAgentRequestStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    model: RetrieveAgentRequestModelTypedDict
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -2150,24 +1923,32 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
-    memory_stores: List[str]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: List[RetrieveAgentRequestTeamOfAgentsTypedDict]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    role: str
+    description: str
+    instructions: str
+    model: RetrieveAgentRequestModelTypedDict
     display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
     updated: NotRequired[str]
-    system_prompt: NotRequired[str]
-    settings: NotRequired[RetrieveAgentRequestSettingsTypedDict]
     version_hash: NotRequired[str]
+    memory_stores: NotRequired[List[str]]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+    team_of_agents: NotRequired[List[RetrieveAgentRequestTeamOfAgentsTypedDict]]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metrics: NotRequired[RetrieveAgentRequestMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[RetrieveAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[RetrieveAgentRequestSource]
+    type: NotRequired[RetrieveAgentRequestType]
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    system_prompt: NotRequired[str]
+    settings: NotRequired[RetrieveAgentRequestSettingsTypedDict]
+    a2a: NotRequired[RetrieveAgentRequestA2AAgentConfigurationTypedDict]
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
 class RetrieveAgentRequestResponseBody(BaseModel):
@@ -2178,20 +1959,10 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     key: str
     r"""Unique identifier for the agent within the workspace"""
 
-    workspace_id: str
-
     project_id: str
-
-    role: str
-
-    description: str
-
-    instructions: str
 
     status: RetrieveAgentRequestStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    model: RetrieveAgentRequestModel
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -2201,11 +1972,13 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
-    memory_stores: List[str]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+    role: str
 
-    team_of_agents: List[RetrieveAgentRequestTeamOfAgents]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    description: str
+
+    instructions: str
+
+    model: RetrieveAgentRequestModel
 
     display_name: Optional[str] = None
 
@@ -2217,11 +1990,13 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
     updated: Optional[str] = None
 
-    system_prompt: Optional[str] = None
-
-    settings: Optional[RetrieveAgentRequestSettings] = None
-
     version_hash: Optional[str] = None
+
+    memory_stores: Optional[List[str]] = None
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+
+    team_of_agents: Optional[List[RetrieveAgentRequestTeamOfAgents]] = None
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
     metrics: Optional[RetrieveAgentRequestMetrics] = None
 
@@ -2233,6 +2008,16 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
     source: Optional[RetrieveAgentRequestSource] = None
 
+    type: Optional[RetrieveAgentRequestType] = "internal"
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+
+    system_prompt: Optional[str] = None
+
+    settings: Optional[RetrieveAgentRequestSettings] = None
+
+    a2a: Optional[RetrieveAgentRequestA2AAgentConfiguration] = None
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2242,13 +2027,17 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "updated_by_id",
                 "created",
                 "updated",
-                "system_prompt",
-                "settings",
                 "version_hash",
+                "memory_stores",
+                "team_of_agents",
                 "metrics",
                 "variables",
                 "knowledge_bases",
                 "source",
+                "type",
+                "system_prompt",
+                "settings",
+                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])
@@ -2257,7 +2046,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
@@ -2275,15 +2064,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
 
 try:
-    RetrieveAgentRequestAudio.model_rebuild()
-except NameError:
-    pass
-try:
     RetrieveAgentRequestResponseFormatJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    RetrieveAgentRequestFallbackModelConfigurationAudio.model_rebuild()
 except NameError:
     pass
 try:

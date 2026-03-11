@@ -10,6 +10,4 @@ value: ErrorStreamingEventType = "agents.error"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `AGENTS_ERROR` | agents.error   |
+- `"agents.error"`

@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Typ
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

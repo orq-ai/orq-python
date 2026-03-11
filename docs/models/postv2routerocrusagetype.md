@@ -10,6 +10,4 @@ value: PostV2RouterOcrUsageType = "tokens"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `TOKENS` | tokens   |
+- `"tokens"`

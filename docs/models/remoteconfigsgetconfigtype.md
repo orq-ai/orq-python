@@ -12,12 +12,10 @@ value: RemoteConfigsGetConfigType = "boolean"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BOOLEAN`    | boolean      |
-| `STRING`     | string       |
-| `INTEGER`    | integer      |
-| `DECIMAL`    | decimal      |
-| `LIST`       | list         |
-| `JSON`       | json         |
-| `DEPLOYMENT` | deployment   |
+- `"boolean"`
+- `"string"`
+- `"integer"`
+- `"decimal"`
+- `"list"`
+- `"json"`
+- `"deployment"`

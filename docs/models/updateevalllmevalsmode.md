@@ -10,6 +10,4 @@ value: UpdateEvalLLMEvalsMode = "jury"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `JURY` | jury   |
+- `"jury"`

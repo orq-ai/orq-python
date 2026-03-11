@@ -10,6 +10,4 @@ value: GetOnePromptPromptsType = "exact_match"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `EXACT_MATCH` | exact_match   |
+- `"exact_match"`

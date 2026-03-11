@@ -12,6 +12,4 @@ value: CreateResponseToolsRouterResponsesResponseType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

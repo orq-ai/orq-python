@@ -12,6 +12,4 @@ value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

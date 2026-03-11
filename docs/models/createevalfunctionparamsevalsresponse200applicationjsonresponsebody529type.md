@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody529Typ
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `WORDS_COUNT` | words_count   |
+- `"words_count"`

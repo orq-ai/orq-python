@@ -10,7 +10,5 @@ value: UpdateEvalRequestBodyEvalsRequest4OutputType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
-| `NUMBER`  | number    |
+- `"boolean"`
+- `"number"`

@@ -10,6 +10,4 @@ value: PartDeltaEventType = "part.delta"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `PART_DELTA` | part.delta   |
+- `"part.delta"`

@@ -12,10 +12,8 @@ value: CreateChunkStatus = "pending"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `PENDING`    | pending      |
-| `PROCESSING` | processing   |
-| `COMPLETED`  | completed    |
-| `FAILED`     | failed       |
-| `QUEUED`     | queued       |
+- `"pending"`
+- `"processing"`
+- `"completed"`
+- `"failed"`
+- `"queued"`

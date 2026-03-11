@@ -12,6 +12,4 @@ value: UpdateToolRequestBodyToolsRequest5CodeToolType = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`
