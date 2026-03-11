@@ -5,15 +5,15 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.751.0
   generationVersion: 2.858.2
-  releaseVersion: 4.5.2
-  configChecksum: 48d6e78747b5c557b2e36295817be282
+  releaseVersion: 4.5.3
+  configChecksum: fed47bfa249250151eb18ef7226c0e6b
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
 persistentEdits:
-  generation_id: 3701ef41-6600-424f-977b-1cc685cdffcb
-  pristine_commit_hash: b6bd447871e7b922a22b720289a6b433aa67668b
-  pristine_tree_hash: be26012df5a32afa70e9228d4aa7e832c4aca0c1
+  generation_id: a0ea8b5a-566d-4c15-abec-1ff5bd52363d
+  pristine_commit_hash: 94531d8bee7e4de34dce0aa3edeaeb1aa1a02212
+  pristine_tree_hash: 9dd4f087e390939b16b88189e414669056a2c802
 features:
   python:
     acceptHeaders: 3.0.0
@@ -18278,8 +18278,8 @@ trackedFiles:
     pristine_git_object: 6579a6e07d5cef53d3ad19459a163e858753fe9c
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:051e46f127204439045421bee649c017175dff4a
-    pristine_git_object: 9bc93c3e65e9c37f98e88de763300a5ba7e58dfb
+    last_write_checksum: sha1:e6e2b10589af030b09758145c3f8654ffd6bb6a0
+    pristine_git_object: 7050515ffad79ab1cc5bdb6054cf0532297badad
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:3a32c3480026facbb2d064639e813bc6f65b8921
@@ -18306,8 +18306,8 @@ trackedFiles:
     pristine_git_object: 926d24b0d4a20482c2ef5fa62b38269ae2524b64
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:468efcb10fb1e986d4b2ca59de8f385be5058320
-    pristine_git_object: 10b7177582e5883ed952bc1868010adb268e82ad
+    last_write_checksum: sha1:8208b48a707a9c71e9e6f7bfe4a93fa8b4a82295
+    pristine_git_object: 571fd05438a65b3095b59b079d5d979f95e00afc
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
     last_write_checksum: sha1:ae833eb94cae060b8448bd93ba2d9fb9a3361cad
@@ -20973,7 +20973,6 @@ examples:
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes:\n* `orq.deployments.invoke()`:  `response` **Changed** (Breaking ⚠️)\n* `orq.annotations.create()`:  `request.metadata` **Changed** (Breaking ⚠️)\n* `orq.memory_stores.update()`:  `response` **Changed** (Breaking ⚠️)\n* `orq.prompts.get_version()`:  `response.prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.prompts.list_versions()`:  `response.data[].prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.prompts.update()`:  `response.prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.prompts.retrieve()`:  `response.prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.prompts.create()`: \n  *  `request.prompt` **Changed** (Breaking ⚠️)\n  *  `response.prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.prompts.list()`:  `response.data[].prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.deployments.stream()`:  `response.[].data` **Changed** (Breaking ⚠️)\n* `orq.deployments.list()`:  `response.data[].prompt_config.provider.enum(xai)` **Added** (Breaking ⚠️)\n* `orq.agents.stream_run()`: **Added**\n* `orq.agents.responses.create()`: **Added**\n* `orq.agents.create()`: **Removed** (Breaking ⚠️)\n* `orq.agents.list()`: **Removed** (Breaking ⚠️)\n* `orq.agents.delete()`: **Removed** (Breaking ⚠️)\n* `orq.agents.retrieve()`: **Removed** (Breaking ⚠️)\n* `orq.agents.update()`: **Removed** (Breaking ⚠️)\n* `orq.agents.invoke()`: **Removed** (Breaking ⚠️)\n* `orq.agents.run()`: **Removed** (Breaking ⚠️)\n* `orq.agents.stream_run()`: **Removed** (Breaking ⚠️)\n* `orq.agents.stream()`: **Removed** (Breaking ⚠️)\n* `orq.agents.responses.create()`: **Removed** (Breaking ⚠️)\n* `orq.evals.update()`:  `request_body` **Changed**\n* `orq.agents.responses.get()`: **Added**\n* `orq.agents.stream()`: **Added**\n* `orq.agents.post_/v2/agents/a2a()`: **Added**\n* `orq.agents.run()`: **Added**\n* `orq.agents.invoke()`: **Added**\n* `orq.agents.update()`: **Added**\n* `orq.agents.retrieve()`: **Added**\n* `orq.agents.delete()`: **Added**\n* `orq.agents.list()`: **Added**\n* `orq.tools.update()`:  `request_body` **Changed**\n* `orq.agents.create()`: **Added**\n* `orq.router.chat.completions.create()`:  `request.variables` **Added**\n* `orq.agents.post_/v2/agents/{key}/card/refresh()`: **Added**\n"
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
