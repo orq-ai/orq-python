@@ -277,9 +277,9 @@ with Orq(
 * [get_config](docs/sdks/deployments/README.md#get_config) - Get config
 * [stream](docs/sdks/deployments/README.md#stream) - Stream
 
-#### [Deployments.Metrics](docs/sdks/metrics/README.md)
+#### [~~Deployments.Metrics~~](docs/sdks/metrics/README.md)
 
-* [create](docs/sdks/metrics/README.md#create) - Add metrics
+* [~~create~~](docs/sdks/metrics/README.md#create) - Add metrics :warning: **Deprecated**
 
 ### [Evals](docs/sdks/evals/README.md)
 
