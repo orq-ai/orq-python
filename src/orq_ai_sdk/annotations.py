@@ -255,7 +255,7 @@ class Annotations(BaseSDK):
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
-        :param keys:
+        :param keys: Unique keys of the reviews to remove
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -355,7 +355,7 @@ class Annotations(BaseSDK):
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
-        :param keys:
+        :param keys: Unique keys of the reviews to remove
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
