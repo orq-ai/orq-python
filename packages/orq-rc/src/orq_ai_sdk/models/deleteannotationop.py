@@ -10,10 +10,12 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class DeleteAnnotationRequestBodyTypedDict(TypedDict):
     keys: List[str]
+    r"""Unique keys of the reviews to remove"""
 
 
 class DeleteAnnotationRequestBody(BaseModel):
     keys: List[str]
+    r"""Unique keys of the reviews to remove"""
 
 
 class DeleteAnnotationRequestTypedDict(TypedDict):

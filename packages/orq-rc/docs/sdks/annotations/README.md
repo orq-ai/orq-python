@@ -75,7 +75,7 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `trace_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the trace                                      |
 | `span_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the span                                       |
-| `keys`                                                              | List[*str*]                                                         | :heavy_check_mark:                                                  | N/A                                                                 |
+| `keys`                                                              | List[*str*]                                                         | :heavy_check_mark:                                                  | Unique keys of the reviews to remove                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
