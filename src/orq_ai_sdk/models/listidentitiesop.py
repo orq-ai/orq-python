@@ -208,7 +208,7 @@ class ListIdentitiesData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-03-13T11:20:24.547Z")
+    updated: Optional[datetime] = parse_datetime("2026-03-13T12:35:07.007Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
