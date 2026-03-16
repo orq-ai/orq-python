@@ -36,6 +36,12 @@ class OrqResponses(BaseSDK):
                 models_createresponseop.ReasoningTypedDict,
             ]
         ] = UNSET,
+        thinking: OptionalNullable[
+            Union[
+                models_createresponseop.CreateResponseThinking,
+                models_createresponseop.CreateResponseThinkingTypedDict,
+            ]
+        ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
             Union[
@@ -78,6 +84,7 @@ class OrqResponses(BaseSDK):
         :param previous_response_id: The ID of a previous response to continue the conversation from. The model will have access to the previous response context.
         :param instructions: Developer-provided instructions that the model should follow. Overwrites the default system message.
         :param reasoning: Configuration for reasoning models
+        :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
         :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
@@ -121,6 +128,9 @@ class OrqResponses(BaseSDK):
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
                 reasoning, OptionalNullable[models.Reasoning]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateResponseThinking]
             ),
             max_output_tokens=max_output_tokens,
             text=utils.get_pydantic_model(
@@ -230,6 +240,12 @@ class OrqResponses(BaseSDK):
                 models_createresponseop.ReasoningTypedDict,
             ]
         ] = UNSET,
+        thinking: OptionalNullable[
+            Union[
+                models_createresponseop.CreateResponseThinking,
+                models_createresponseop.CreateResponseThinkingTypedDict,
+            ]
+        ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
             Union[
@@ -272,6 +288,7 @@ class OrqResponses(BaseSDK):
         :param previous_response_id: The ID of a previous response to continue the conversation from. The model will have access to the previous response context.
         :param instructions: Developer-provided instructions that the model should follow. Overwrites the default system message.
         :param reasoning: Configuration for reasoning models
+        :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
         :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
@@ -315,6 +332,9 @@ class OrqResponses(BaseSDK):
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
                 reasoning, OptionalNullable[models.Reasoning]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateResponseThinking]
             ),
             max_output_tokens=max_output_tokens,
             text=utils.get_pydantic_model(

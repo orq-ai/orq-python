@@ -6,6 +6,10 @@ from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
 from .thinkingconfigdisabledschema import (
     ThinkingConfigDisabledSchema,
     ThinkingConfigDisabledSchemaTypedDict,
@@ -198,7 +202,11 @@ r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 RunAgentModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentModelConfigurationThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -206,6 +214,7 @@ RunAgentModelConfigurationThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -894,7 +903,11 @@ r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 RunAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -902,6 +915,7 @@ RunAgentFallbackModelConfigurationThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1794,7 +1808,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KKV5DJD547M4DX0ZXS99F5X7"
+    id: Optional[str] = "01KKVHJGV22HRBEWVM4X38ZZEN"
 
     description: Optional[str] = None
 

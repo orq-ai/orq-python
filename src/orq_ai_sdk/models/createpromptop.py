@@ -17,6 +17,10 @@ from .redactedreasoningpartschema import (
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
 from .thinkingconfigdisabledschema import (
     ThinkingConfigDisabledSchema,
     ThinkingConfigDisabledSchemaTypedDict,
@@ -923,7 +927,11 @@ class StreamOptions(BaseModel):
 
 CreatePromptThinkingTypedDict = TypeAliasType(
     "CreatePromptThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -931,6 +939,7 @@ CreatePromptThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2549,7 +2558,11 @@ class CreatePromptStreamOptions(BaseModel):
 
 CreatePromptPromptsThinkingTypedDict = TypeAliasType(
     "CreatePromptPromptsThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -2557,6 +2570,7 @@ CreatePromptPromptsThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

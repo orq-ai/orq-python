@@ -17,6 +17,10 @@ from .redactedreasoningpartschema import (
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
 from .thinkingconfigdisabledschema import (
     ThinkingConfigDisabledSchema,
     ThinkingConfigDisabledSchemaTypedDict,
@@ -1124,7 +1128,11 @@ class GetPromptVersionStreamOptions(BaseModel):
 
 GetPromptVersionThinkingTypedDict = TypeAliasType(
     "GetPromptVersionThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -1132,6 +1140,7 @@ GetPromptVersionThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
