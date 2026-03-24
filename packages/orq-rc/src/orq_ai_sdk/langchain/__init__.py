@@ -7,14 +7,13 @@ from uuid import UUID
 import httpx # pylint: disable=import-error
 
 try:
-    from langchain.callbacks.base import BaseCallbackHandler # type: ignore
-    from langchain.schema.agent import AgentAction, AgentFinish # type: ignore
-
+    from langchain_core.callbacks import BaseCallbackHandler # type: ignore
+    from langchain_core.agents import AgentAction, AgentFinish # type: ignore
     from langchain_core.documents import Document # type: ignore
     from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage # type: ignore
     from langchain_core.outputs import LLMResult # type: ignore
 except ImportError as exc:
-    raise ModuleNotFoundError("Please install langchain to use the orq.ai langchain native integration: 'pip install langchain'") from exc
+    raise ModuleNotFoundError("Please install langchain-core to use the orq.ai langchain native integration: 'pip install langchain-core'") from exc
 
 def get_iso_string():
     # Get current datetime in UTC, timezone-aware
@@ -94,7 +93,7 @@ class OrqClient():
             "Authorization": f"Bearer {self.api_key}"
         }
 
-        httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump(mode="json", exclude_none=True))
+        httpx.post(f"{self.api_url}/v2/langchain", headers=headers, json=event.model_dump(mode="json", exclude_none=True))
 
 class Events:
     agents: Dict[str, List[AgentEvent]] = {}
