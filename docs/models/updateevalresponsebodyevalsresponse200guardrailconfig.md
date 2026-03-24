@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean`
+### `models.UpdateEvalGuardrailConfigEvalsResponse200Boolean`
 
 ```python
-value: models.UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean = /* values here */
+value: models.UpdateEvalGuardrailConfigEvalsResponse200Boolean = /* values here */
 ```
 
-### `models.UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber`
+### `models.UpdateEvalGuardrailConfigEvalsResponse200Number`
 
 ```python
-value: models.UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber = /* values here */
+value: models.UpdateEvalGuardrailConfigEvalsResponse200Number = /* values here */
 ```
 

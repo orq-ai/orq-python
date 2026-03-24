@@ -1962,11 +1962,13 @@ CreatePromptProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 CreatePromptRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

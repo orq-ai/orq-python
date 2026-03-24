@@ -39,3 +39,4 @@ value: GetAllPromptsProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

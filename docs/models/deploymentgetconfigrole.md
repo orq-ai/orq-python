@@ -13,6 +13,7 @@ value: DeploymentGetConfigRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

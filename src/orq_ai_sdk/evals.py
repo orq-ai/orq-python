@@ -3,15 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type as models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type,
-    invokeevalop as models_invokeevalop,
-    updateevalop as models_updateevalop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Evals(BaseSDK):
@@ -213,10 +208,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBody,
-                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBodyTypedDict,
-            ]
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -312,10 +304,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBody,
-                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBodyTypedDict,
-            ]
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -411,12 +400,25 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        request_body: Optional[
-            Union[
-                models_updateevalop.UpdateEvalRequestBody,
-                models_updateevalop.UpdateEvalRequestBodyTypedDict,
-            ]
-        ] = None,
+        type_: Optional[str] = None,
+        path: Optional[str] = None,
+        key: Optional[str] = None,
+        description: Optional[str] = None,
+        prompt: Optional[str] = None,
+        output_type: Optional[str] = None,
+        categories: Optional[List[str]] = None,
+        repetitions: Optional[float] = None,
+        mode: Optional[models.Mode] = None,
+        model: Optional[str] = None,
+        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        schema: Optional[str] = None,
+        url: Optional[str] = None,
+        method: Optional[str] = None,
+        headers: Optional[Dict[str, str]] = None,
+        payload: Optional[Dict[str, Any]] = None,
+        code: Optional[str] = None,
+        version_increment: Optional[models.VersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -425,7 +427,25 @@ class Evals(BaseSDK):
         r"""Update an Evaluator
 
         :param id:
-        :param request_body:
+        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
+        :param path: Project path. Optional on update — uses existing project if omitted.
+        :param key:
+        :param description:
+        :param prompt:
+        :param output_type:
+        :param categories:
+        :param repetitions:
+        :param mode:
+        :param model:
+        :param jury:
+        :param schema_:
+        :param url:
+        :param method:
+        :param headers:
+        :param payload:
+        :param code:
+        :param version_increment:
+        :param version_description:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -446,8 +466,26 @@ class Evals(BaseSDK):
 
         request = models.UpdateEvalRequest(
             id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.UpdateEvalRequestBody]
+            request_body=models.UpdateEvalRequestBody(
+                type=type_,
+                path=path,
+                key=key,
+                description=description,
+                prompt=prompt,
+                output_type=output_type,
+                categories=categories,
+                repetitions=repetitions,
+                mode=mode,
+                model=model,
+                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                schema_=schema,
+                url=url,
+                method=method,
+                headers=headers,
+                payload=payload,
+                code=code,
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -519,12 +557,25 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        request_body: Optional[
-            Union[
-                models_updateevalop.UpdateEvalRequestBody,
-                models_updateevalop.UpdateEvalRequestBodyTypedDict,
-            ]
-        ] = None,
+        type_: Optional[str] = None,
+        path: Optional[str] = None,
+        key: Optional[str] = None,
+        description: Optional[str] = None,
+        prompt: Optional[str] = None,
+        output_type: Optional[str] = None,
+        categories: Optional[List[str]] = None,
+        repetitions: Optional[float] = None,
+        mode: Optional[models.Mode] = None,
+        model: Optional[str] = None,
+        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        schema: Optional[str] = None,
+        url: Optional[str] = None,
+        method: Optional[str] = None,
+        headers: Optional[Dict[str, str]] = None,
+        payload: Optional[Dict[str, Any]] = None,
+        code: Optional[str] = None,
+        version_increment: Optional[models.VersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -533,7 +584,25 @@ class Evals(BaseSDK):
         r"""Update an Evaluator
 
         :param id:
-        :param request_body:
+        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
+        :param path: Project path. Optional on update — uses existing project if omitted.
+        :param key:
+        :param description:
+        :param prompt:
+        :param output_type:
+        :param categories:
+        :param repetitions:
+        :param mode:
+        :param model:
+        :param jury:
+        :param schema_:
+        :param url:
+        :param method:
+        :param headers:
+        :param payload:
+        :param code:
+        :param version_increment:
+        :param version_description:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -554,8 +623,26 @@ class Evals(BaseSDK):
 
         request = models.UpdateEvalRequest(
             id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.UpdateEvalRequestBody]
+            request_body=models.UpdateEvalRequestBody(
+                type=type_,
+                path=path,
+                key=key,
+                description=description,
+                prompt=prompt,
+                output_type=output_type,
+                categories=categories,
+                repetitions=repetitions,
+                mode=mode,
+                model=model,
+                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                schema_=schema,
+                url=url,
+                method=method,
+                headers=headers,
+                payload=payload,
+                code=code,
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -815,8 +902,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models_invokeevalop.InvokeEvalMessages],
-                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
+                List[models.InvokeEvalMessages],
+                List[models.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         model: Optional[str] = None,
@@ -950,8 +1037,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models_invokeevalop.InvokeEvalMessages],
-                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
+                List[models.InvokeEvalMessages],
+                List[models.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         model: Optional[str] = None,

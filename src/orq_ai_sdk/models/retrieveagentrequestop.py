@@ -145,6 +145,13 @@ RetrieveAgentRequestSource = Literal[
 ]
 
 
+RetrieveAgentRequestEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+
+
 RetrieveAgentRequestType = Literal[
     "internal",
     "a2a",
@@ -1946,6 +1953,8 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
     updated: NotRequired[str]
+    version: NotRequired[str]
+    r"""Current semantic version of the agent manifest."""
     version_hash: NotRequired[str]
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
@@ -1957,6 +1966,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[RetrieveAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[RetrieveAgentRequestSource]
+    engine: NotRequired[RetrieveAgentRequestEngine]
     type: NotRequired[RetrieveAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -2004,6 +2014,9 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
     updated: Optional[str] = None
 
+    version: Optional[str] = None
+    r"""Current semantic version of the agent manifest."""
+
     version_hash: Optional[str] = None
 
     memory_stores: Optional[List[str]] = None
@@ -2021,6 +2034,8 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     r"""Agent knowledge bases reference"""
 
     source: Optional[RetrieveAgentRequestSource] = None
+
+    engine: Optional[RetrieveAgentRequestEngine] = "text"
 
     type: Optional[RetrieveAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
@@ -2041,6 +2056,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "updated_by_id",
                 "created",
                 "updated",
+                "version",
                 "version_hash",
                 "memory_stores",
                 "team_of_agents",
@@ -2048,6 +2064,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "engine",
                 "type",
                 "system_prompt",
                 "settings",

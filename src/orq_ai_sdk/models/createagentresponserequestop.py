@@ -279,6 +279,14 @@ class CreateAgentResponseRequestMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
+CreateAgentResponseRequestEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+r"""Override template engine for this invocation. If not provided, uses the agent default."""
+
+
 class ConfigurationTypedDict(TypedDict):
     r"""Configuration options for the agent invocation"""
 
@@ -340,6 +348,8 @@ class CreateAgentResponseRequestRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
+    engine: NotRequired[CreateAgentResponseRequestEngine]
+    r"""Override template engine for this invocation. If not provided, uses the agent default."""
     configuration: NotRequired[ConfigurationTypedDict]
     r"""Configuration options for the agent invocation"""
     background: NotRequired[bool]
@@ -380,6 +390,9 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
+    engine: Optional[CreateAgentResponseRequestEngine] = None
+    r"""Override template engine for this invocation. If not provided, uses the agent default."""
+
     configuration: Optional[Configuration] = None
     r"""Configuration options for the agent invocation"""
 
@@ -403,6 +416,7 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
                 "thread",
                 "memory",
                 "metadata",
+                "engine",
                 "configuration",
                 "background",
                 "stream",

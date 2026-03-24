@@ -524,7 +524,7 @@ with Orq(
 
 ### Response
 
-**[List[models.ResponseBody]](../../models/.md)**
+**[List[models.CreateChunkResponseBody]](../../models/.md)**
 
 ### Errors
 

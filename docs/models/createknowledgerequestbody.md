@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.RequestBody1`
+### `models.CreateKnowledgeRequestBody1`
 
 ```python
-value: models.RequestBody1 = /* values here */
+value: models.CreateKnowledgeRequestBody1 = /* values here */
 ```
 
-### `models.RequestBody2`
+### `models.CreateKnowledgeRequestBody2`
 
 ```python
-value: models.RequestBody2 = /* values here */
+value: models.CreateKnowledgeRequestBody2 = /* values here */
 ```
 

@@ -13,6 +13,7 @@ value: DeploymentStreamMessageDeploymentsRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

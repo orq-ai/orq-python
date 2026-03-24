@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createannotationop as models_createannotationop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from typing import List, Mapping, Optional, Union
@@ -16,13 +15,13 @@ class Annotations(BaseSDK):
         trace_id: str,
         span_id: str,
         annotations: Union[
-            List[models_createannotationop.CreateAnnotationAnnotations],
-            List[models_createannotationop.CreateAnnotationAnnotationsTypedDict],
+            List[models.CreateAnnotationAnnotations],
+            List[models.CreateAnnotationAnnotationsTypedDict],
         ],
         metadata: Optional[
             Union[
-                models_createannotationop.CreateAnnotationMetadata,
-                models_createannotationop.CreateAnnotationMetadataTypedDict,
+                models.CreateAnnotationMetadata,
+                models.CreateAnnotationMetadataTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -131,13 +130,13 @@ class Annotations(BaseSDK):
         trace_id: str,
         span_id: str,
         annotations: Union[
-            List[models_createannotationop.CreateAnnotationAnnotations],
-            List[models_createannotationop.CreateAnnotationAnnotationsTypedDict],
+            List[models.CreateAnnotationAnnotations],
+            List[models.CreateAnnotationAnnotationsTypedDict],
         ],
         metadata: Optional[
             Union[
-                models_createannotationop.CreateAnnotationMetadata,
-                models_createannotationop.CreateAnnotationMetadataTypedDict,
+                models.CreateAnnotationMetadata,
+                models.CreateAnnotationMetadataTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

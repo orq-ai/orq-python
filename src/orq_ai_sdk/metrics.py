@@ -3,16 +3,17 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    deploymentcreatemetricop as models_deploymentcreatemetricop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, List, Mapping, Optional, Union
+from typing_extensions import deprecated
 
 
 class Metrics(BaseSDK):
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def create(
         self,
         *,
@@ -20,36 +21,23 @@ class Metrics(BaseSDK):
         metadata: Optional[Dict[str, Any]] = None,
         usage: Optional[
             Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricUsage,
-                models_deploymentcreatemetricop.DeploymentCreateMetricUsageTypedDict,
+                models.DeploymentCreateMetricUsage,
+                models.DeploymentCreateMetricUsageTypedDict,
             ]
         ] = None,
         performance: Optional[
-            Union[
-                models_deploymentcreatemetricop.Performance,
-                models_deploymentcreatemetricop.PerformanceTypedDict,
-            ]
+            Union[models.Performance, models.PerformanceTypedDict]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentcreatemetricop.DeploymentCreateMetricMessages],
-                List[
-                    models_deploymentcreatemetricop.DeploymentCreateMetricMessagesTypedDict
-                ],
+                List[models.DeploymentCreateMetricMessages],
+                List[models.DeploymentCreateMetricMessagesTypedDict],
             ]
         ] = None,
         choices: Optional[
-            Union[
-                List[models_deploymentcreatemetricop.Choices],
-                List[models_deploymentcreatemetricop.ChoicesTypedDict],
-            ]
+            Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
-        feedback: Optional[
-            Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedback,
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedbackTypedDict,
-            ]
-        ] = None,
+        feedback: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -100,9 +88,7 @@ class Metrics(BaseSDK):
                 choices=utils.get_pydantic_model(
                     choices, Optional[List[models.Choices]]
                 ),
-                feedback=utils.get_pydantic_model(
-                    feedback, Optional[models.DeploymentCreateMetricFeedback]
-                ),
+                feedback=utils.get_pydantic_model(feedback, Optional[models.Feedback]),
             ),
         )
 
@@ -166,6 +152,9 @@ class Metrics(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def create_async(
         self,
         *,
@@ -173,36 +162,23 @@ class Metrics(BaseSDK):
         metadata: Optional[Dict[str, Any]] = None,
         usage: Optional[
             Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricUsage,
-                models_deploymentcreatemetricop.DeploymentCreateMetricUsageTypedDict,
+                models.DeploymentCreateMetricUsage,
+                models.DeploymentCreateMetricUsageTypedDict,
             ]
         ] = None,
         performance: Optional[
-            Union[
-                models_deploymentcreatemetricop.Performance,
-                models_deploymentcreatemetricop.PerformanceTypedDict,
-            ]
+            Union[models.Performance, models.PerformanceTypedDict]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentcreatemetricop.DeploymentCreateMetricMessages],
-                List[
-                    models_deploymentcreatemetricop.DeploymentCreateMetricMessagesTypedDict
-                ],
+                List[models.DeploymentCreateMetricMessages],
+                List[models.DeploymentCreateMetricMessagesTypedDict],
             ]
         ] = None,
         choices: Optional[
-            Union[
-                List[models_deploymentcreatemetricop.Choices],
-                List[models_deploymentcreatemetricop.ChoicesTypedDict],
-            ]
+            Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
-        feedback: Optional[
-            Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedback,
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedbackTypedDict,
-            ]
-        ] = None,
+        feedback: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -253,9 +229,7 @@ class Metrics(BaseSDK):
                 choices=utils.get_pydantic_model(
                     choices, Optional[List[models.Choices]]
                 ),
-                feedback=utils.get_pydantic_model(
-                    feedback, Optional[models.DeploymentCreateMetricFeedback]
-                ),
+                feedback=utils.get_pydantic_model(feedback, Optional[models.Feedback]),
             ),
         )
 

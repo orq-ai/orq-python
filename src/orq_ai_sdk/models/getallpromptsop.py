@@ -537,11 +537,13 @@ GetAllPromptsProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 GetAllPromptsRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

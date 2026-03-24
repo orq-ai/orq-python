@@ -88,6 +88,7 @@ Provider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 r"""The provider used to generate the response"""
 
@@ -313,6 +314,7 @@ DeploymentInvokeMessageDeploymentsType = Literal["image",]
 
 DeploymentInvokeMessageDeploymentsRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
@@ -345,6 +347,7 @@ DeploymentInvokeMessageType = Literal["content",]
 
 DeploymentInvokeMessageRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
@@ -419,6 +422,7 @@ MessageType = Literal["tool_calls",]
 
 MessageRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

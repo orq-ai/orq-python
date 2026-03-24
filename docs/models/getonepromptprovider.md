@@ -39,3 +39,4 @@ value: GetOnePromptProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

@@ -1,14 +1,19 @@
-# Deployments.Metrics
+# ~~Deployments.Metrics~~
+
+> [!WARNING]
+> This SDK is **DEPRECATED**
 
 ## Overview
 
 ### Available Operations
 
-* [create](#create) - Add metrics
+* [~~create~~](#create) - Add metrics :warning: **Deprecated**
 
-## create
+## ~~create~~
 
 Add metrics to a deployment
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -39,7 +44,7 @@ with Orq(
 | `performance`                                                                                                                                                                                            | [Optional[models.Performance]](../../models/performance.md)                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `messages`                                                                                                                                                                                               | List[[models.DeploymentCreateMetricMessages](../../models/deploymentcreatemetricmessages.md)]                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                       | A list of messages sent to the model.                                                                                                                                                                    |
 | `choices`                                                                                                                                                                                                | List[[models.Choices](../../models/choices.md)]                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                       | A list of completion choices. If you are using a `completion` model then you must provide the `completion content` with the chat completion format                                                       |
-| `feedback`                                                                                                                                                                                               | [Optional[models.DeploymentCreateMetricFeedback]](../../models/deploymentcreatemetricfeedback.md)                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                       | Feedback from the user on the completion                                                                                                                                                                 |
+| `feedback`                                                                                                                                                                                               | [Optional[models.Feedback]](../../models/feedback.md)                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                       | Feedback from the user on the completion                                                                                                                                                                 |
 | `retries`                                                                                                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                       | Configuration to override the default retry behavior of the client.                                                                                                                                      |
 
 ### Response

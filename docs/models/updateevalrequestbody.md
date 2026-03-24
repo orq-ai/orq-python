@@ -1,29 +1,26 @@
 # UpdateEvalRequestBody
 
 
-## Supported Types
+## Fields
 
-### `models.RequestBodyLLM`
-
-```python
-value: models.RequestBodyLLM = /* values here */
-```
-
-### `models.RequestBodyJSON`
-
-```python
-value: models.RequestBodyJSON = /* values here */
-```
-
-### `models.RequestBodyHTTP`
-
-```python
-value: models.RequestBodyHTTP = /* values here */
-```
-
-### `models.RequestBodyPython`
-
-```python
-value: models.RequestBodyPython = /* values here */
-```
-
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `type`                                                                 | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | Evaluator type. Optional on update — inferred from existing evaluator. |                                                                        |
+| `path`                                                                 | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | Project path. Optional on update — uses existing project if omitted.   | Default                                                                |
+| `key`                                                                  | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `description`                                                          | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `prompt`                                                               | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `output_type`                                                          | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `categories`                                                           | List[*str*]                                                            | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `repetitions`                                                          | *Optional[float]*                                                      | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `mode`                                                                 | [Optional[models.Mode]](../models/mode.md)                             | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `model`                                                                | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `jury`                                                                 | [Optional[models.Jury]](../models/jury.md)                             | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `schema_`                                                              | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `url`                                                                  | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `method`                                                               | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `headers`                                                              | Dict[str, *str*]                                                       | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `payload`                                                              | Dict[str, *Any*]                                                       | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `code`                                                                 | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `version_increment`                                                    | [Optional[models.VersionIncrement]](../models/versionincrement.md)     | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |
+| `version_description`                                                  | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |

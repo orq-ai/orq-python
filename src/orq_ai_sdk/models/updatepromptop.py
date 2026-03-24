@@ -2060,11 +2060,13 @@ UpdatePromptProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 UpdatePromptRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.UpdateEvalGuardrailConfigEvalsResponseBoolean`
+### `models.UpdateEvalGuardrailConfigBoolean`
 
 ```python
-value: models.UpdateEvalGuardrailConfigEvalsResponseBoolean = /* values here */
+value: models.UpdateEvalGuardrailConfigBoolean = /* values here */
 ```
 
-### `models.UpdateEvalGuardrailConfigEvalsResponseNumber`
+### `models.UpdateEvalGuardrailConfigNumber`
 
 ```python
-value: models.UpdateEvalGuardrailConfigEvalsResponseNumber = /* values here */
+value: models.UpdateEvalGuardrailConfigNumber = /* values here */
 ```
 

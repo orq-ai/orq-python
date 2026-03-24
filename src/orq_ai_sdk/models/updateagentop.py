@@ -319,12 +319,12 @@ class ModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class ModelConfigurationFallbacksTypedDict(TypedDict):
+class UpdateAgentModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class ModelConfigurationFallbacks(BaseModel):
+class UpdateAgentModelConfigurationFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -481,7 +481,7 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[ModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
-    fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
+    fallbacks: NotRequired[List[UpdateAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[ModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
@@ -558,7 +558,7 @@ class ModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[ModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
-    fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
+    fallbacks: Optional[List[UpdateAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     cache: Optional[ModelConfigurationCache] = None
@@ -634,7 +634,7 @@ class ModelConfigurationParameters(BaseModel):
         return m
 
 
-class ModelConfigurationRetryTypedDict(TypedDict):
+class UpdateAgentModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -643,7 +643,7 @@ class ModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class ModelConfigurationRetry(BaseModel):
+class UpdateAgentModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -679,7 +679,7 @@ class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[ModelConfigurationRetryTypedDict]
+    retry: NotRequired[UpdateAgentModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -695,7 +695,7 @@ class UpdateAgentModelConfiguration2(BaseModel):
     parameters: Optional[ModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[ModelConfigurationRetry] = None
+    retry: Optional[UpdateAgentModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -2418,6 +2418,13 @@ class UpdateAgentTeamOfAgents(BaseModel):
         return m
 
 
+UpdateAgentEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+
+
 class UpdateAgentHeadersTypedDict(TypedDict):
     value: str
     r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
@@ -2487,7 +2494,7 @@ class UpdateA2AConfiguration(BaseModel):
         return m
 
 
-VersionIncrement = Literal[
+UpdateAgentVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -2524,9 +2531,10 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
+    engine: NotRequired[UpdateAgentEngine]
     a2a: NotRequired[UpdateA2AConfigurationTypedDict]
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
-    version_increment: NotRequired[VersionIncrement]
+    version_increment: NotRequired[UpdateAgentVersionIncrement]
     r"""Optional semantic version bump to create after a successful publish."""
     version_description: NotRequired[str]
     r"""Optional description stored with the created version."""
@@ -2576,11 +2584,13 @@ class UpdateAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
+    engine: Optional[UpdateAgentEngine] = None
+
     a2a: Optional[UpdateA2AConfiguration] = None
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
 
     version_increment: Annotated[
-        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[UpdateAgentVersionIncrement], pydantic.Field(alias="versionIncrement")
     ] = None
     r"""Optional semantic version bump to create after a successful publish."""
 
@@ -2608,6 +2618,7 @@ class UpdateAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "variables",
+                "engine",
                 "a2a",
                 "versionIncrement",
                 "versionDescription",
@@ -2745,6 +2756,13 @@ UpdateAgentSource = Literal[
     "internal",
     "external",
     "experiment",
+]
+
+
+UpdateAgentAgentsEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
 ]
 
 
@@ -4556,6 +4574,8 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
     updated: NotRequired[str]
+    version: NotRequired[str]
+    r"""Current semantic version of the agent manifest."""
     version_hash: NotRequired[str]
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
@@ -4567,6 +4587,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[UpdateAgentSource]
+    engine: NotRequired[UpdateAgentAgentsEngine]
     type: NotRequired[UpdateAgentType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -4614,6 +4635,9 @@ class UpdateAgentResponseBody(BaseModel):
 
     updated: Optional[str] = None
 
+    version: Optional[str] = None
+    r"""Current semantic version of the agent manifest."""
+
     version_hash: Optional[str] = None
 
     memory_stores: Optional[List[str]] = None
@@ -4631,6 +4655,8 @@ class UpdateAgentResponseBody(BaseModel):
     r"""Agent knowledge bases reference"""
 
     source: Optional[UpdateAgentSource] = None
+
+    engine: Optional[UpdateAgentAgentsEngine] = "text"
 
     type: Optional[UpdateAgentType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
@@ -4651,6 +4677,7 @@ class UpdateAgentResponseBody(BaseModel):
                 "updated_by_id",
                 "created",
                 "updated",
+                "version",
                 "version_hash",
                 "memory_stores",
                 "team_of_agents",
@@ -4658,6 +4685,7 @@ class UpdateAgentResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "engine",
                 "type",
                 "system_prompt",
                 "settings",

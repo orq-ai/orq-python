@@ -41,3 +41,4 @@ value: DeploymentStreamProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

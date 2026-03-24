@@ -4,17 +4,6 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentrequestop as models_createagentrequestop,
-    invokeagentop as models_invokeagentop,
-    listagentsop as models_listagentsop,
-    post_v2_agents_a2aop as models_post_v2_agents_a2aop,
-    post_v2_agents_key_card_refreshop as models_post_v2_agents_key_card_refreshop,
-    runagentop as models_runagentop,
-    streamagentop as models_streamagentop,
-    streamrunagentop as models_streamrunagentop,
-    updateagentop as models_updateagentop,
-)
 from orq_ai_sdk.responses import Responses
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
@@ -41,8 +30,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBody,
-                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBodyTypedDict,
+                models.PostV2AgentsA2aRequestBody,
+                models.PostV2AgentsA2aRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -155,8 +144,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBody,
-                models_post_v2_agents_a2aop.PostV2AgentsA2aRequestBodyTypedDict,
+                models.PostV2AgentsA2aRequestBody,
+                models.PostV2AgentsA2aRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -270,8 +259,8 @@ class Agents(BaseSDK):
         key: str,
         request_body: Optional[
             Union[
-                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBody,
-                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+                models.PostV2AgentsKeyCardRefreshRequestBody,
+                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -392,8 +381,8 @@ class Agents(BaseSDK):
         key: str,
         request_body: Optional[
             Union[
-                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBody,
-                models_post_v2_agents_key_card_refreshop.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+                models.PostV2AgentsKeyCardRefreshRequestBody,
+                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -516,37 +505,29 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequestop.Source] = None,
+        source: Optional[models.Source] = None,
+        engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -573,6 +554,7 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
         :param source:
+        :param engine:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -615,6 +597,7 @@ class Agents(BaseSDK):
             ),
             variables=variables,
             source=source,
+            engine=engine,
         )
 
         req = self._build_request(
@@ -681,37 +664,29 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequestop.Source] = None,
+        source: Optional[models.Source] = None,
+        engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -738,6 +713,7 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
         :param source:
+        :param engine:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -780,6 +756,7 @@ class Agents(BaseSDK):
             ),
             variables=variables,
             source=source,
+            engine=engine,
         )
 
         req = self._build_request_async(
@@ -844,7 +821,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listagentsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -940,7 +917,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listagentsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1419,46 +1396,39 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
-            Union[
-                models_updateagentop.UpdateA2AConfiguration,
-                models_updateagentop.UpdateA2AConfigurationTypedDict,
-            ]
+            Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
         ] = None,
-        version_increment: Optional[models_updateagentop.VersionIncrement] = None,
+        version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1489,6 +1459,7 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
+        :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
@@ -1539,6 +1510,7 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
+                engine=engine,
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
@@ -1624,46 +1596,39 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
-            Union[
-                models_updateagentop.UpdateA2AConfiguration,
-                models_updateagentop.UpdateA2AConfigurationTypedDict,
-            ]
+            Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
         ] = None,
-        version_increment: Optional[models_updateagentop.VersionIncrement] = None,
+        version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1694,6 +1659,7 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
+        :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
@@ -1744,6 +1710,7 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
+                engine=engine,
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
@@ -1824,40 +1791,28 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentIdentity,
-                models_invokeagentop.InvokeAgentIdentityTypedDict,
-            ]
+            Union[models.InvokeAgentIdentity, models.InvokeAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
-                models_invokeagentop.InvokeAgentConfiguration,
-                models_invokeagentop.InvokeAgentConfigurationTypedDict,
+                models.InvokeAgentConfiguration,
+                models.InvokeAgentConfigurationTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1878,6 +1833,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1916,6 +1872,7 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
                 ),
@@ -1988,40 +1945,28 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentIdentity,
-                models_invokeagentop.InvokeAgentIdentityTypedDict,
-            ]
+            Union[models.InvokeAgentIdentity, models.InvokeAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
-                models_invokeagentop.InvokeAgentConfiguration,
-                models_invokeagentop.InvokeAgentConfigurationTypedDict,
+                models.InvokeAgentConfiguration,
+                models.InvokeAgentConfigurationTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2042,6 +1987,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2080,6 +2026,7 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
                 ),
@@ -2152,68 +2099,51 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_runagentop.RunAgentIdentity,
-                models_runagentop.RunAgentIdentityTypedDict,
-            ]
+            Union[models.RunAgentIdentity, models.RunAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2247,6 +2177,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2295,6 +2226,7 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
             metadata=metadata,
+            engine=engine,
         )
 
         req = self._build_request(
@@ -2359,68 +2291,51 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_runagentop.RunAgentIdentity,
-                models_runagentop.RunAgentIdentityTypedDict,
-            ]
+            Union[models.RunAgentIdentity, models.RunAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2454,6 +2369,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2502,6 +2418,7 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
             metadata=metadata,
+            engine=engine,
         )
 
         req = self._build_request_async(
@@ -2566,70 +2483,55 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentIdentity,
-                models_streamrunagentop.StreamRunAgentIdentityTypedDict,
-            ]
+            Union[models.StreamRunAgentIdentity, models.StreamRunAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2664,6 +2566,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2721,6 +2624,7 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
             metadata=metadata,
+            engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
 
@@ -2804,70 +2708,55 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentIdentity,
-                models_streamrunagentop.StreamRunAgentIdentityTypedDict,
-            ]
+            Union[models.StreamRunAgentIdentity, models.StreamRunAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2902,6 +2791,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2959,6 +2849,7 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
             metadata=metadata,
+            engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
 
@@ -3042,40 +2933,28 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_streamagentop.StreamAgentIdentity,
-                models_streamagentop.StreamAgentIdentityTypedDict,
-            ]
+            Union[models.StreamAgentIdentity, models.StreamAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
-                models_streamagentop.StreamAgentConfiguration,
-                models_streamagentop.StreamAgentConfigurationTypedDict,
+                models.StreamAgentConfiguration,
+                models.StreamAgentConfigurationTypedDict,
             ]
         ] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -3097,6 +2976,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
@@ -3136,6 +3016,7 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]
                 ),
@@ -3225,40 +3106,28 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         identity: Optional[
-            Union[
-                models_streamagentop.StreamAgentIdentity,
-                models_streamagentop.StreamAgentIdentityTypedDict,
-            ]
+            Union[models.StreamAgentIdentity, models.StreamAgentIdentityTypedDict]
         ] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
-                models_streamagentop.StreamAgentConfiguration,
-                models_streamagentop.StreamAgentConfigurationTypedDict,
+                models.StreamAgentConfiguration,
+                models.StreamAgentConfigurationTypedDict,
             ]
         ] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -3280,6 +3149,7 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
@@ -3319,6 +3189,7 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]
                 ),

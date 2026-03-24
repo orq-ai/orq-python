@@ -155,9 +155,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-17T19:59:14.470Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-17T19:59:14.470Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -323,9 +323,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-17T19:59:14.470Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-17T19:59:14.470Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -449,13 +449,13 @@ ResponseBodyGuardrailConfig = Annotated[
 ]
 
 
-ResponseBodyType = Literal["json_schema",]
+CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type = Literal["json_schema",]
 
 
 class ResponseBodyJSONTypedDict(TypedDict):
     id: str
     description: str
-    type: ResponseBodyType
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type
     schema_: str
     key: str
     created: NotRequired[str]
@@ -468,15 +468,15 @@ class ResponseBodyJSON(BaseModel):
 
     description: str
 
-    type: ResponseBodyType
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     key: str
 
-    created: Optional[str] = "2026-03-17T19:59:14.470Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-17T19:59:14.470Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
@@ -827,9 +827,9 @@ class CreateEvalLLM2(BaseModel):
 
     jury: CreateEvalLLMJury
 
-    created: Optional[str] = "2026-03-17T19:59:14.470Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-17T19:59:14.470Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[CreateEvalLLMEvalsResponseGuardrailConfig] = None
 
@@ -1012,9 +1012,9 @@ class CreateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-17T19:59:14.470Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-17T19:59:14.470Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[CreateEvalLLMEvalsGuardrailConfig] = None
 

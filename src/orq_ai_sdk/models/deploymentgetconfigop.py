@@ -2166,6 +2166,7 @@ r"""The type of the model. Current `chat`,`completion` and `image` are supported
 
 DeploymentGetConfigRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

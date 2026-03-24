@@ -206,7 +206,7 @@ Threshold = TypeAliasType("Threshold", Union[float, Threshold2])
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
 
 
-Mode = Literal[
+ChunkingRequestMode = Literal[
     "window",
     "sentence",
 ]
@@ -233,7 +233,7 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""Number of dimensions for the embedding output. Required for text-embedding-3 models. Supported range: 256-3072 for text-embedding-3-large, 256-1536 for text-embedding-3-small."""
     max_tokens: NotRequired[int]
     r"""Maximum number of tokens per embedding request. Default is 8191 for text-embedding-3 models."""
-    mode: NotRequired[Mode]
+    mode: NotRequired[ChunkingRequestMode]
     r"""Chunking mode: window-based or sentence-based similarity"""
     similarity_window: NotRequired[int]
     r"""Window size for similarity comparison"""
@@ -268,7 +268,7 @@ class SemanticChunkerStrategy(BaseModel):
     max_tokens: Optional[int] = None
     r"""Maximum number of tokens per embedding request. Default is 8191 for text-embedding-3 models."""
 
-    mode: Optional[Mode] = "window"
+    mode: Optional[ChunkingRequestMode] = "window"
     r"""Chunking mode: window-based or sentence-based similarity"""
 
     similarity_window: Optional[int] = 1

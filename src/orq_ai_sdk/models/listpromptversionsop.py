@@ -546,11 +546,13 @@ ListPromptVersionsProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 ListPromptVersionsRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createcompletionop as models_createcompletionop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -28,10 +27,7 @@ class Completions(BaseSDK):
         presence_penalty: OptionalNullable[float] = 0,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
-            Union[
-                models_createcompletionop.CreateCompletionStop,
-                models_createcompletionop.CreateCompletionStopTypedDict,
-            ]
+            Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
@@ -40,45 +36,35 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createcompletionop.CreateCompletionFallbacks],
-                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+                List[models.CreateCompletionFallbacks],
+                List[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionRetry,
-                models_createcompletionop.CreateCompletionRetryTypedDict,
-            ]
+            Union[models.CreateCompletionRetry, models.CreateCompletionRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionCache,
-                models_createcompletionop.CreateCompletionCacheTypedDict,
-            ]
+            Union[models.CreateCompletionCache, models.CreateCompletionCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createcompletionop.CreateCompletionLoadBalancer,
-                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+                models.CreateCompletionLoadBalancer,
+                models.CreateCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createcompletionop.CreateCompletionTimeout,
-                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+                models.CreateCompletionTimeout, models.CreateCompletionTimeoutTypedDict
             ]
         ] = None,
         thinking: OptionalNullable[
             Union[
-                models_createcompletionop.CreateCompletionThinking,
-                models_createcompletionop.CreateCompletionThinkingTypedDict,
+                models.CreateCompletionThinking,
+                models.CreateCompletionThinkingTypedDict,
             ]
         ] = UNSET,
         orq: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionOrq,
-                models_createcompletionop.CreateCompletionOrqTypedDict,
-            ]
+            Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -249,10 +235,7 @@ class Completions(BaseSDK):
         presence_penalty: OptionalNullable[float] = 0,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
-            Union[
-                models_createcompletionop.CreateCompletionStop,
-                models_createcompletionop.CreateCompletionStopTypedDict,
-            ]
+            Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
@@ -261,45 +244,35 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createcompletionop.CreateCompletionFallbacks],
-                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+                List[models.CreateCompletionFallbacks],
+                List[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionRetry,
-                models_createcompletionop.CreateCompletionRetryTypedDict,
-            ]
+            Union[models.CreateCompletionRetry, models.CreateCompletionRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionCache,
-                models_createcompletionop.CreateCompletionCacheTypedDict,
-            ]
+            Union[models.CreateCompletionCache, models.CreateCompletionCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createcompletionop.CreateCompletionLoadBalancer,
-                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+                models.CreateCompletionLoadBalancer,
+                models.CreateCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createcompletionop.CreateCompletionTimeout,
-                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+                models.CreateCompletionTimeout, models.CreateCompletionTimeoutTypedDict
             ]
         ] = None,
         thinking: OptionalNullable[
             Union[
-                models_createcompletionop.CreateCompletionThinking,
-                models_createcompletionop.CreateCompletionThinkingTypedDict,
+                models.CreateCompletionThinking,
+                models.CreateCompletionThinkingTypedDict,
             ]
         ] = UNSET,
         orq: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionOrq,
-                models_createcompletionop.CreateCompletionOrqTypedDict,
-            ]
+            Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

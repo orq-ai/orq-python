@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createresponseop as models_createresponseop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -21,48 +20,36 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[
-            models_createresponseop.CreateResponseInput,
-            models_createresponseop.CreateResponseInputTypedDict,
-        ],
+        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[
-                models_createresponseop.Reasoning,
-                models_createresponseop.ReasoningTypedDict,
-            ]
+            Union[models.Reasoning, models.ReasoningTypedDict]
         ] = UNSET,
         thinking: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseThinking,
-                models_createresponseop.CreateResponseThinkingTypedDict,
-            ]
+            Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
         ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseText,
-                models_createresponseop.CreateResponseTextTypedDict,
-            ]
+            Union[models.CreateResponseText, models.CreateResponseTextTypedDict]
         ] = UNSET,
-        include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
+        include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
-        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
+        service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[
-                List[models_createresponseop.CreateResponseTools],
-                List[models_createresponseop.CreateResponseToolsTypedDict],
+                List[models.CreateResponseTools],
+                List[models.CreateResponseToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createresponseop.CreateResponseToolChoice,
-                models_createresponseop.CreateResponseToolChoiceTypedDict,
+                models.CreateResponseToolChoice,
+                models.CreateResponseToolChoiceTypedDict,
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -225,48 +212,36 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[
-            models_createresponseop.CreateResponseInput,
-            models_createresponseop.CreateResponseInputTypedDict,
-        ],
+        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[
-                models_createresponseop.Reasoning,
-                models_createresponseop.ReasoningTypedDict,
-            ]
+            Union[models.Reasoning, models.ReasoningTypedDict]
         ] = UNSET,
         thinking: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseThinking,
-                models_createresponseop.CreateResponseThinkingTypedDict,
-            ]
+            Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
         ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseText,
-                models_createresponseop.CreateResponseTextTypedDict,
-            ]
+            Union[models.CreateResponseText, models.CreateResponseTextTypedDict]
         ] = UNSET,
-        include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
+        include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
-        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
+        service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[
-                List[models_createresponseop.CreateResponseTools],
-                List[models_createresponseop.CreateResponseToolsTypedDict],
+                List[models.CreateResponseTools],
+                List[models.CreateResponseToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createresponseop.CreateResponseToolChoice,
-                models_createresponseop.CreateResponseToolChoiceTypedDict,
+                models.CreateResponseToolChoice,
+                models.CreateResponseToolChoiceTypedDict,
             ]
         ] = None,
         stream: Optional[bool] = False,

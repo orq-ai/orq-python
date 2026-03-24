@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createimageeditop as models_createimageeditop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -19,49 +18,33 @@ class Edits(BaseSDK):
         image: Optional[Any] = None,
         n: OptionalNullable[int] = 1,
         size: OptionalNullable[str] = UNSET,
-        quality: OptionalNullable[
-            models_createimageeditop.CreateImageEditQuality
-        ] = UNSET,
-        response_format: Optional[
-            models_createimageeditop.CreateImageEditResponseFormat
-        ] = None,
+        quality: OptionalNullable[models.CreateImageEditQuality] = UNSET,
+        response_format: Optional[models.CreateImageEditResponseFormat] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimageeditop.CreateImageEditFallbacks],
-                List[models_createimageeditop.CreateImageEditFallbacksTypedDict],
+                List[models.CreateImageEditFallbacks],
+                List[models.CreateImageEditFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditRetry,
-                models_createimageeditop.CreateImageEditRetryTypedDict,
-            ]
+            Union[models.CreateImageEditRetry, models.CreateImageEditRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditCache,
-                models_createimageeditop.CreateImageEditCacheTypedDict,
-            ]
+            Union[models.CreateImageEditCache, models.CreateImageEditCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimageeditop.CreateImageEditLoadBalancer,
-                models_createimageeditop.CreateImageEditLoadBalancerTypedDict,
+                models.CreateImageEditLoadBalancer,
+                models.CreateImageEditLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditTimeout,
-                models_createimageeditop.CreateImageEditTimeoutTypedDict,
-            ]
+            Union[models.CreateImageEditTimeout, models.CreateImageEditTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditOrq,
-                models_createimageeditop.CreateImageEditOrqTypedDict,
-            ]
+            Union[models.CreateImageEditOrq, models.CreateImageEditOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -195,49 +178,33 @@ class Edits(BaseSDK):
         image: Optional[Any] = None,
         n: OptionalNullable[int] = 1,
         size: OptionalNullable[str] = UNSET,
-        quality: OptionalNullable[
-            models_createimageeditop.CreateImageEditQuality
-        ] = UNSET,
-        response_format: Optional[
-            models_createimageeditop.CreateImageEditResponseFormat
-        ] = None,
+        quality: OptionalNullable[models.CreateImageEditQuality] = UNSET,
+        response_format: Optional[models.CreateImageEditResponseFormat] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimageeditop.CreateImageEditFallbacks],
-                List[models_createimageeditop.CreateImageEditFallbacksTypedDict],
+                List[models.CreateImageEditFallbacks],
+                List[models.CreateImageEditFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditRetry,
-                models_createimageeditop.CreateImageEditRetryTypedDict,
-            ]
+            Union[models.CreateImageEditRetry, models.CreateImageEditRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditCache,
-                models_createimageeditop.CreateImageEditCacheTypedDict,
-            ]
+            Union[models.CreateImageEditCache, models.CreateImageEditCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimageeditop.CreateImageEditLoadBalancer,
-                models_createimageeditop.CreateImageEditLoadBalancerTypedDict,
+                models.CreateImageEditLoadBalancer,
+                models.CreateImageEditLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditTimeout,
-                models_createimageeditop.CreateImageEditTimeoutTypedDict,
-            ]
+            Union[models.CreateImageEditTimeout, models.CreateImageEditTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createimageeditop.CreateImageEditOrq,
-                models_createimageeditop.CreateImageEditOrqTypedDict,
-            ]
+            Union[models.CreateImageEditOrq, models.CreateImageEditOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

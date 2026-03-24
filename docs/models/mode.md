@@ -1,16 +1,14 @@
 # Mode
 
-Chunking mode: window-based or sentence-based similarity
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Mode
-value: Mode = "window"
+value: Mode = "single"
 ```
 
 
 ## Values
 
-- `"window"`
-- `"sentence"`
+- `"single"`
+- `"jury"`

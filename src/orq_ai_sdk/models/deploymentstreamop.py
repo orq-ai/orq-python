@@ -2214,6 +2214,7 @@ DeploymentStreamProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 r"""The provider used to generate the response"""
 
@@ -2439,6 +2440,7 @@ DeploymentStreamMessageDeploymentsResponseType = Literal["image",]
 
 DeploymentStreamMessageDeploymentsResponseRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
@@ -2471,6 +2473,7 @@ DeploymentStreamMessageDeploymentsType = Literal["content",]
 
 DeploymentStreamMessageDeploymentsRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
@@ -2545,6 +2548,7 @@ DeploymentStreamMessageType = Literal["tool_calls",]
 
 DeploymentStreamMessageRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

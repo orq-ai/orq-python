@@ -13,6 +13,7 @@ value: GetPromptVersionRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

@@ -13,6 +13,7 @@ value: DeploymentInvokeMessageDeploymentsRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

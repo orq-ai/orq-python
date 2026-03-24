@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createembeddingop as models_createembeddingop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,49 +14,36 @@ class Embeddings(BaseSDK):
         self,
         *,
         input_: Union[
-            models_createembeddingop.CreateEmbeddingInput,
-            models_createembeddingop.CreateEmbeddingInputTypedDict,
+            models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict
         ],
         model: str,
-        encoding_format: Optional[models_createembeddingop.EncodingFormat] = "float",
+        encoding_format: Optional[models.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createembeddingop.CreateEmbeddingFallbacks],
-                List[models_createembeddingop.CreateEmbeddingFallbacksTypedDict],
+                List[models.CreateEmbeddingFallbacks],
+                List[models.CreateEmbeddingFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingRetry,
-                models_createembeddingop.CreateEmbeddingRetryTypedDict,
-            ]
+            Union[models.CreateEmbeddingRetry, models.CreateEmbeddingRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingCache,
-                models_createembeddingop.CreateEmbeddingCacheTypedDict,
-            ]
+            Union[models.CreateEmbeddingCache, models.CreateEmbeddingCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createembeddingop.CreateEmbeddingLoadBalancer,
-                models_createembeddingop.CreateEmbeddingLoadBalancerTypedDict,
+                models.CreateEmbeddingLoadBalancer,
+                models.CreateEmbeddingLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingTimeout,
-                models_createembeddingop.CreateEmbeddingTimeoutTypedDict,
-            ]
+            Union[models.CreateEmbeddingTimeout, models.CreateEmbeddingTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingOrq,
-                models_createembeddingop.CreateEmbeddingOrqTypedDict,
-            ]
+            Union[models.CreateEmbeddingOrq, models.CreateEmbeddingOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -181,49 +167,36 @@ class Embeddings(BaseSDK):
         self,
         *,
         input_: Union[
-            models_createembeddingop.CreateEmbeddingInput,
-            models_createembeddingop.CreateEmbeddingInputTypedDict,
+            models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict
         ],
         model: str,
-        encoding_format: Optional[models_createembeddingop.EncodingFormat] = "float",
+        encoding_format: Optional[models.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createembeddingop.CreateEmbeddingFallbacks],
-                List[models_createembeddingop.CreateEmbeddingFallbacksTypedDict],
+                List[models.CreateEmbeddingFallbacks],
+                List[models.CreateEmbeddingFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingRetry,
-                models_createembeddingop.CreateEmbeddingRetryTypedDict,
-            ]
+            Union[models.CreateEmbeddingRetry, models.CreateEmbeddingRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingCache,
-                models_createembeddingop.CreateEmbeddingCacheTypedDict,
-            ]
+            Union[models.CreateEmbeddingCache, models.CreateEmbeddingCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createembeddingop.CreateEmbeddingLoadBalancer,
-                models_createembeddingop.CreateEmbeddingLoadBalancerTypedDict,
+                models.CreateEmbeddingLoadBalancer,
+                models.CreateEmbeddingLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingTimeout,
-                models_createembeddingop.CreateEmbeddingTimeoutTypedDict,
-            ]
+            Union[models.CreateEmbeddingTimeout, models.CreateEmbeddingTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createembeddingop.CreateEmbeddingOrq,
-                models_createembeddingop.CreateEmbeddingOrqTypedDict,
-            ]
+            Union[models.CreateEmbeddingOrq, models.CreateEmbeddingOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

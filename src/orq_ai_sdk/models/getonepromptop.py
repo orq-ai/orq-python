@@ -500,11 +500,13 @@ GetOnePromptProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 GetOnePromptRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",

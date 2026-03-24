@@ -13,6 +13,7 @@ class Models(BaseSDK):
     def list(
         self,
         *,
+        autorouter: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -22,6 +23,7 @@ class Models(BaseSDK):
 
         Lists the currently available models, and provides basic information about each one such as the owner and availability.
 
+        :param autorouter:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -39,12 +41,17 @@ class Models(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListModelsRequest(
+            autorouter=autorouter,
+        )
+
         req = self._build_request(
             method="GET",
             path="/v2/models",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -93,6 +100,7 @@ class Models(BaseSDK):
     async def list_async(
         self,
         *,
+        autorouter: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -102,6 +110,7 @@ class Models(BaseSDK):
 
         Lists the currently available models, and provides basic information about each one such as the owner and availability.
 
+        :param autorouter:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -119,12 +128,17 @@ class Models(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListModelsRequest(
+            autorouter=autorouter,
+        )
+
         req = self._build_request_async(
             method="GET",
             path="/v2/models",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,

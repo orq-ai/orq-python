@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createchatcompletionop as models_createchatcompletionop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -21,16 +20,16 @@ class OrqCompletions(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models_createchatcompletionop.CreateChatCompletionMessages],
-            List[models_createchatcompletionop.CreateChatCompletionMessagesTypedDict],
+            List[models.CreateChatCompletionMessages],
+            List[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
         name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionAudio,
-                models_createchatcompletionop.CreateChatCompletionAudioTypedDict,
+                models.CreateChatCompletionAudio,
+                models.CreateChatCompletionAudioTypedDict,
             ]
         ] = UNSET,
         frequency_penalty: OptionalNullable[float] = UNSET,
@@ -42,31 +41,29 @@ class OrqCompletions(BaseSDK):
         presence_penalty: OptionalNullable[float] = UNSET,
         response_format: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionResponseFormat,
-                models_createchatcompletionop.CreateChatCompletionResponseFormatTypedDict,
+                models.CreateChatCompletionResponseFormat,
+                models.CreateChatCompletionResponseFormatTypedDict,
             ]
         ] = None,
-        reasoning_effort: Optional[
-            models_createchatcompletionop.CreateChatCompletionReasoningEffort
-        ] = None,
+        reasoning_effort: Optional[models.CreateChatCompletionReasoningEffort] = None,
         verbosity: Optional[str] = None,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStop,
-                models_createchatcompletionop.CreateChatCompletionStopTypedDict,
+                models.CreateChatCompletionStop,
+                models.CreateChatCompletionStopTypedDict,
             ]
         ] = UNSET,
         stream_options: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStreamOptions,
-                models_createchatcompletionop.CreateChatCompletionStreamOptionsTypedDict,
+                models.CreateChatCompletionStreamOptions,
+                models.CreateChatCompletionStreamOptionsTypedDict,
             ]
         ] = UNSET,
         thinking: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionThinking,
-                models_createchatcompletionop.CreateChatCompletionThinkingTypedDict,
+                models.CreateChatCompletionThinking,
+                models.CreateChatCompletionThinkingTypedDict,
             ]
         ] = None,
         temperature: OptionalNullable[float] = UNSET,
@@ -74,65 +71,60 @@ class OrqCompletions(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionTools],
-                List[models_createchatcompletionop.CreateChatCompletionToolsTypedDict],
+                List[models.CreateChatCompletionTools],
+                List[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionToolChoice,
-                models_createchatcompletionop.CreateChatCompletionToolChoiceTypedDict,
+                models.CreateChatCompletionToolChoice,
+                models.CreateChatCompletionToolChoiceTypedDict,
             ]
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models_createchatcompletionop.CreateChatCompletionModalities]
+            List[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionGuardrails],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionGuardrailsTypedDict
-                ],
+                List[models.CreateChatCompletionGuardrails],
+                List[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         fallbacks: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionFallbacks],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionFallbacksTypedDict
-                ],
+                List[models.CreateChatCompletionFallbacks],
+                List[models.CreateChatCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionRetry,
-                models_createchatcompletionop.CreateChatCompletionRetryTypedDict,
+                models.CreateChatCompletionRetry,
+                models.CreateChatCompletionRetryTypedDict,
             ]
         ] = None,
         cache: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionCache,
-                models_createchatcompletionop.CreateChatCompletionCacheTypedDict,
+                models.CreateChatCompletionCache,
+                models.CreateChatCompletionCacheTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionLoadBalancer,
-                models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict,
+                models.CreateChatCompletionLoadBalancer,
+                models.CreateChatCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionTimeout,
-                models_createchatcompletionop.CreateChatCompletionTimeoutTypedDict,
+                models.CreateChatCompletionTimeout,
+                models.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         orq: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionOrq,
-                models_createchatcompletionop.CreateChatCompletionOrqTypedDict,
+                models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -349,16 +341,16 @@ class OrqCompletions(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models_createchatcompletionop.CreateChatCompletionMessages],
-            List[models_createchatcompletionop.CreateChatCompletionMessagesTypedDict],
+            List[models.CreateChatCompletionMessages],
+            List[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
         name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionAudio,
-                models_createchatcompletionop.CreateChatCompletionAudioTypedDict,
+                models.CreateChatCompletionAudio,
+                models.CreateChatCompletionAudioTypedDict,
             ]
         ] = UNSET,
         frequency_penalty: OptionalNullable[float] = UNSET,
@@ -370,31 +362,29 @@ class OrqCompletions(BaseSDK):
         presence_penalty: OptionalNullable[float] = UNSET,
         response_format: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionResponseFormat,
-                models_createchatcompletionop.CreateChatCompletionResponseFormatTypedDict,
+                models.CreateChatCompletionResponseFormat,
+                models.CreateChatCompletionResponseFormatTypedDict,
             ]
         ] = None,
-        reasoning_effort: Optional[
-            models_createchatcompletionop.CreateChatCompletionReasoningEffort
-        ] = None,
+        reasoning_effort: Optional[models.CreateChatCompletionReasoningEffort] = None,
         verbosity: Optional[str] = None,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStop,
-                models_createchatcompletionop.CreateChatCompletionStopTypedDict,
+                models.CreateChatCompletionStop,
+                models.CreateChatCompletionStopTypedDict,
             ]
         ] = UNSET,
         stream_options: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStreamOptions,
-                models_createchatcompletionop.CreateChatCompletionStreamOptionsTypedDict,
+                models.CreateChatCompletionStreamOptions,
+                models.CreateChatCompletionStreamOptionsTypedDict,
             ]
         ] = UNSET,
         thinking: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionThinking,
-                models_createchatcompletionop.CreateChatCompletionThinkingTypedDict,
+                models.CreateChatCompletionThinking,
+                models.CreateChatCompletionThinkingTypedDict,
             ]
         ] = None,
         temperature: OptionalNullable[float] = UNSET,
@@ -402,65 +392,60 @@ class OrqCompletions(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionTools],
-                List[models_createchatcompletionop.CreateChatCompletionToolsTypedDict],
+                List[models.CreateChatCompletionTools],
+                List[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionToolChoice,
-                models_createchatcompletionop.CreateChatCompletionToolChoiceTypedDict,
+                models.CreateChatCompletionToolChoice,
+                models.CreateChatCompletionToolChoiceTypedDict,
             ]
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models_createchatcompletionop.CreateChatCompletionModalities]
+            List[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionGuardrails],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionGuardrailsTypedDict
-                ],
+                List[models.CreateChatCompletionGuardrails],
+                List[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         fallbacks: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionFallbacks],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionFallbacksTypedDict
-                ],
+                List[models.CreateChatCompletionFallbacks],
+                List[models.CreateChatCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionRetry,
-                models_createchatcompletionop.CreateChatCompletionRetryTypedDict,
+                models.CreateChatCompletionRetry,
+                models.CreateChatCompletionRetryTypedDict,
             ]
         ] = None,
         cache: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionCache,
-                models_createchatcompletionop.CreateChatCompletionCacheTypedDict,
+                models.CreateChatCompletionCache,
+                models.CreateChatCompletionCacheTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionLoadBalancer,
-                models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict,
+                models.CreateChatCompletionLoadBalancer,
+                models.CreateChatCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionTimeout,
-                models_createchatcompletionop.CreateChatCompletionTimeoutTypedDict,
+                models.CreateChatCompletionTimeout,
+                models.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         orq: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionOrq,
-                models_createchatcompletionop.CreateChatCompletionOrqTypedDict,
+                models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
             ]
         ] = None,
         stream: Optional[bool] = False,

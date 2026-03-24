@@ -39,3 +39,4 @@ value: ListPromptVersionsProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

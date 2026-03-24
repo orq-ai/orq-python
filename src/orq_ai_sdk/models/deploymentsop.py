@@ -633,11 +633,13 @@ DeploymentsProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 DeploymentsRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
