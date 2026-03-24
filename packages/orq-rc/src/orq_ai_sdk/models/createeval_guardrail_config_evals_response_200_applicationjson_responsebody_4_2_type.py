@@ -287,19 +287,19 @@ RequestBodyOutputType = Literal[
 r"""The type of output expected from the evaluator"""
 
 
-RequestBodyType = Literal["http_eval",]
+CreateEvalRequestBodyEvalsRequestType = Literal["http_eval",]
 
 
-CreateEvalRequestBodyMethod = Literal[
+RequestBodyMethod = Literal[
     "GET",
     "POST",
 ]
 
 
-class CreateEvalRequestBodyHTTPTypedDict(TypedDict):
-    type: RequestBodyType
+class RequestBodyHTTPTypedDict(TypedDict):
+    type: CreateEvalRequestBodyEvalsRequestType
     url: str
-    method: CreateEvalRequestBodyMethod
+    method: RequestBodyMethod
     headers: Dict[str, str]
     payload: Dict[str, Any]
     path: str
@@ -316,12 +316,12 @@ class CreateEvalRequestBodyHTTPTypedDict(TypedDict):
     description: NotRequired[str]
 
 
-class CreateEvalRequestBodyHTTP(BaseModel):
-    type: RequestBodyType
+class RequestBodyHTTP(BaseModel):
+    type: CreateEvalRequestBodyEvalsRequestType
 
     url: str
 
-    method: CreateEvalRequestBodyMethod
+    method: RequestBodyMethod
 
     headers: Dict[str, str]
 
@@ -1066,14 +1066,12 @@ Llm = Annotated[
 
 CreateEvalRequestBodyTypedDict = TypeAliasType(
     "CreateEvalRequestBodyTypedDict",
-    Union[
-        JSONTypedDict, PythonTypedDict, CreateEvalRequestBodyHTTPTypedDict, LlmTypedDict
-    ],
+    Union[JSONTypedDict, PythonTypedDict, RequestBodyHTTPTypedDict, LlmTypedDict],
 )
 
 
 CreateEvalRequestBody = TypeAliasType(
-    "CreateEvalRequestBody", Union[JSON, Python, CreateEvalRequestBodyHTTP, Llm]
+    "CreateEvalRequestBody", Union[JSON, Python, RequestBodyHTTP, Llm]
 )
 
 
@@ -1251,9 +1249,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-12T22:11:59.557Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-12T22:11:59.557Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1447,9 +1445,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-12T22:11:59.557Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-12T22:11:59.557Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1965,22 +1963,22 @@ class Seven(BaseModel):
 CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_url",]
 
 
-class SixTypedDict(TypedDict):
+class CreateEvalFunctionParams6TypedDict(TypedDict):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
-class Six(BaseModel):
+class CreateEvalFunctionParams6(BaseModel):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
 CreateEvalFunctionParamsEvalsResponse200Type = Literal["contains_email",]
 
 
-class FiveTypedDict(TypedDict):
+class CreateEvalFunctionParams5TypedDict(TypedDict):
     type: CreateEvalFunctionParamsEvalsResponse200Type
 
 
-class Five(BaseModel):
+class CreateEvalFunctionParams5(BaseModel):
     type: CreateEvalFunctionParamsEvalsResponse200Type
 
 
@@ -2047,8 +2045,8 @@ FunctionParamsTypedDict = TypeAliasType(
         TwentySixTypedDict,
         ThirtyOneTypedDict,
         ThirtyTypedDict,
-        FiveTypedDict,
-        SixTypedDict,
+        CreateEvalFunctionParams5TypedDict,
+        CreateEvalFunctionParams6TypedDict,
         SevenTypedDict,
         TwentyNineTypedDict,
         TwentyEightTypedDict,
@@ -2085,8 +2083,8 @@ FunctionParams = Annotated[
         Annotated[FunctionParams2, Tag("contains_none")],
         Annotated[CreateEvalFunctionParams3, Tag("contains_all")],
         Annotated[CreateEvalFunctionParams4, Tag("contains_any")],
-        Annotated[Five, Tag("contains_email")],
-        Annotated[Six, Tag("contains_url")],
+        Annotated[CreateEvalFunctionParams5, Tag("contains_email")],
+        Annotated[CreateEvalFunctionParams6, Tag("contains_url")],
         Annotated[Seven, Tag("contains_valid_link")],
         Annotated[Eight, Tag("start_with")],
         Annotated[Nine, Tag("ends_with")],
@@ -2142,9 +2140,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-12T22:11:59.557Z"
+    created: Optional[str] = "2026-03-24T09:26:53.185Z"
 
-    updated: Optional[str] = "2026-03-12T22:11:59.557Z"
+    updated: Optional[str] = "2026-03-24T09:26:53.185Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None

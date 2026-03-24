@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createimageop as models_createimageop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -16,53 +15,38 @@ class Generations(BaseSDK):
         *,
         prompt: str,
         model: str,
-        background: OptionalNullable[models_createimageop.Background] = UNSET,
-        moderation: OptionalNullable[models_createimageop.Moderation] = UNSET,
+        background: OptionalNullable[models.Background] = UNSET,
+        moderation: OptionalNullable[models.Moderation] = UNSET,
         n: OptionalNullable[int] = 1,
         output_compression: OptionalNullable[int] = UNSET,
-        output_format: OptionalNullable[models_createimageop.OutputFormat] = UNSET,
-        quality: OptionalNullable[models_createimageop.Quality] = UNSET,
-        response_format: OptionalNullable[
-            models_createimageop.CreateImageResponseFormat
-        ] = UNSET,
+        output_format: OptionalNullable[models.OutputFormat] = UNSET,
+        quality: OptionalNullable[models.Quality] = UNSET,
+        response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
-        style: OptionalNullable[models_createimageop.Style] = UNSET,
+        style: OptionalNullable[models.Style] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimageop.CreateImageFallbacks],
-                List[models_createimageop.CreateImageFallbacksTypedDict],
+                List[models.CreateImageFallbacks],
+                List[models.CreateImageFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createimageop.CreateImageRetry,
-                models_createimageop.CreateImageRetryTypedDict,
-            ]
+            Union[models.CreateImageRetry, models.CreateImageRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createimageop.CreateImageCache,
-                models_createimageop.CreateImageCacheTypedDict,
-            ]
+            Union[models.CreateImageCache, models.CreateImageCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimageop.CreateImageLoadBalancer,
-                models_createimageop.CreateImageLoadBalancerTypedDict,
+                models.CreateImageLoadBalancer, models.CreateImageLoadBalancerTypedDict
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createimageop.CreateImageTimeout,
-                models_createimageop.CreateImageTimeoutTypedDict,
-            ]
+            Union[models.CreateImageTimeout, models.CreateImageTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createimageop.CreateImageOrq,
-                models_createimageop.CreateImageOrqTypedDict,
-            ]
+            Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -195,53 +179,38 @@ class Generations(BaseSDK):
         *,
         prompt: str,
         model: str,
-        background: OptionalNullable[models_createimageop.Background] = UNSET,
-        moderation: OptionalNullable[models_createimageop.Moderation] = UNSET,
+        background: OptionalNullable[models.Background] = UNSET,
+        moderation: OptionalNullable[models.Moderation] = UNSET,
         n: OptionalNullable[int] = 1,
         output_compression: OptionalNullable[int] = UNSET,
-        output_format: OptionalNullable[models_createimageop.OutputFormat] = UNSET,
-        quality: OptionalNullable[models_createimageop.Quality] = UNSET,
-        response_format: OptionalNullable[
-            models_createimageop.CreateImageResponseFormat
-        ] = UNSET,
+        output_format: OptionalNullable[models.OutputFormat] = UNSET,
+        quality: OptionalNullable[models.Quality] = UNSET,
+        response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
-        style: OptionalNullable[models_createimageop.Style] = UNSET,
+        style: OptionalNullable[models.Style] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimageop.CreateImageFallbacks],
-                List[models_createimageop.CreateImageFallbacksTypedDict],
+                List[models.CreateImageFallbacks],
+                List[models.CreateImageFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createimageop.CreateImageRetry,
-                models_createimageop.CreateImageRetryTypedDict,
-            ]
+            Union[models.CreateImageRetry, models.CreateImageRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createimageop.CreateImageCache,
-                models_createimageop.CreateImageCacheTypedDict,
-            ]
+            Union[models.CreateImageCache, models.CreateImageCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimageop.CreateImageLoadBalancer,
-                models_createimageop.CreateImageLoadBalancerTypedDict,
+                models.CreateImageLoadBalancer, models.CreateImageLoadBalancerTypedDict
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createimageop.CreateImageTimeout,
-                models_createimageop.CreateImageTimeoutTypedDict,
-            ]
+            Union[models.CreateImageTimeout, models.CreateImageTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createimageop.CreateImageOrq,
-                models_createimageop.CreateImageOrqTypedDict,
-            ]
+            Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

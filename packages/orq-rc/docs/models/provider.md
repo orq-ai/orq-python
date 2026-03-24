@@ -41,3 +41,4 @@ value: Provider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

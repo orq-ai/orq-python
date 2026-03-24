@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createtranslationop as models_createtranslationop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -18,51 +17,40 @@ class Translations(BaseSDK):
         prompt: Optional[str] = None,
         enable_logging: Optional[bool] = True,
         diarize: Optional[bool] = False,
-        response_format: Optional[
-            models_createtranslationop.CreateTranslationResponseFormat
-        ] = None,
+        response_format: Optional[models.CreateTranslationResponseFormat] = None,
         tag_audio_events: Optional[bool] = True,
         num_speakers: Optional[float] = None,
         timestamps_granularity: Optional[
-            models_createtranslationop.CreateTranslationTimestampsGranularity
+            models.CreateTranslationTimestampsGranularity
         ] = "word",
         temperature: Optional[float] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createtranslationop.CreateTranslationFallbacks],
-                List[models_createtranslationop.CreateTranslationFallbacksTypedDict],
+                List[models.CreateTranslationFallbacks],
+                List[models.CreateTranslationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationRetry,
-                models_createtranslationop.CreateTranslationRetryTypedDict,
-            ]
+            Union[models.CreateTranslationRetry, models.CreateTranslationRetryTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createtranslationop.CreateTranslationLoadBalancer,
-                models_createtranslationop.CreateTranslationLoadBalancerTypedDict,
+                models.CreateTranslationLoadBalancer,
+                models.CreateTranslationLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createtranslationop.CreateTranslationTimeout,
-                models_createtranslationop.CreateTranslationTimeoutTypedDict,
+                models.CreateTranslationTimeout,
+                models.CreateTranslationTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationOrq,
-                models_createtranslationop.CreateTranslationOrqTypedDict,
-            ]
+            Union[models.CreateTranslationOrq, models.CreateTranslationOrqTypedDict]
         ] = None,
         file: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationFile,
-                models_createtranslationop.CreateTranslationFileTypedDict,
-            ]
+            Union[models.CreateTranslationFile, models.CreateTranslationFileTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -204,51 +192,40 @@ class Translations(BaseSDK):
         prompt: Optional[str] = None,
         enable_logging: Optional[bool] = True,
         diarize: Optional[bool] = False,
-        response_format: Optional[
-            models_createtranslationop.CreateTranslationResponseFormat
-        ] = None,
+        response_format: Optional[models.CreateTranslationResponseFormat] = None,
         tag_audio_events: Optional[bool] = True,
         num_speakers: Optional[float] = None,
         timestamps_granularity: Optional[
-            models_createtranslationop.CreateTranslationTimestampsGranularity
+            models.CreateTranslationTimestampsGranularity
         ] = "word",
         temperature: Optional[float] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createtranslationop.CreateTranslationFallbacks],
-                List[models_createtranslationop.CreateTranslationFallbacksTypedDict],
+                List[models.CreateTranslationFallbacks],
+                List[models.CreateTranslationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationRetry,
-                models_createtranslationop.CreateTranslationRetryTypedDict,
-            ]
+            Union[models.CreateTranslationRetry, models.CreateTranslationRetryTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createtranslationop.CreateTranslationLoadBalancer,
-                models_createtranslationop.CreateTranslationLoadBalancerTypedDict,
+                models.CreateTranslationLoadBalancer,
+                models.CreateTranslationLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createtranslationop.CreateTranslationTimeout,
-                models_createtranslationop.CreateTranslationTimeoutTypedDict,
+                models.CreateTranslationTimeout,
+                models.CreateTranslationTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationOrq,
-                models_createtranslationop.CreateTranslationOrqTypedDict,
-            ]
+            Union[models.CreateTranslationOrq, models.CreateTranslationOrqTypedDict]
         ] = None,
         file: Optional[
-            Union[
-                models_createtranslationop.CreateTranslationFile,
-                models_createtranslationop.CreateTranslationFileTypedDict,
-            ]
+            Union[models.CreateTranslationFile, models.CreateTranslationFileTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

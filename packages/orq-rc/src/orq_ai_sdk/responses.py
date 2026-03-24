@@ -4,9 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentresponserequestop as models_createagentresponserequestop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -23,50 +20,32 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponserequestop.A2AMessage,
-            models_createagentresponserequestop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[
-            Union[
-                models_createagentresponserequestop.Identity,
-                models_createagentresponserequestop.IdentityTypedDict,
-            ]
-        ] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponserequestop.Contact,
-                models_createagentresponserequestop.ContactTypedDict,
-            ]
-        ] = None,
+        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestThread,
-                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
-                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
-            Union[
-                models_createagentresponserequestop.Configuration,
-                models_createagentresponserequestop.ConfigurationTypedDict,
-            ]
+            Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
         conversation: Optional[
-            Union[
-                models_createagentresponserequestop.Conversation,
-                models_createagentresponserequestop.ConversationTypedDict,
-            ]
+            Union[models.Conversation, models.ConversationTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -87,6 +66,7 @@ class Responses(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
@@ -125,6 +105,7 @@ class Responses(BaseSDK):
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]
                 ),
@@ -215,50 +196,32 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponserequestop.A2AMessage,
-            models_createagentresponserequestop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[
-            Union[
-                models_createagentresponserequestop.Identity,
-                models_createagentresponserequestop.IdentityTypedDict,
-            ]
-        ] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponserequestop.Contact,
-                models_createagentresponserequestop.ContactTypedDict,
-            ]
-        ] = None,
+        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestThread,
-                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
-                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
-            Union[
-                models_createagentresponserequestop.Configuration,
-                models_createagentresponserequestop.ConfigurationTypedDict,
-            ]
+            Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
         conversation: Optional[
-            Union[
-                models_createagentresponserequestop.Conversation,
-                models_createagentresponserequestop.ConversationTypedDict,
-            ]
+            Union[models.Conversation, models.ConversationTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -279,6 +242,7 @@ class Responses(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
@@ -317,6 +281,7 @@ class Responses(BaseSDK):
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]
                 ),

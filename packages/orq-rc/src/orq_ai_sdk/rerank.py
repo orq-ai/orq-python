@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import creatererankop as models_creatererankop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -22,39 +21,27 @@ class Rerank(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_creatererankop.CreateRerankFallbacks],
-                List[models_creatererankop.CreateRerankFallbacksTypedDict],
+                List[models.CreateRerankFallbacks],
+                List[models.CreateRerankFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_creatererankop.CreateRerankRetry,
-                models_creatererankop.CreateRerankRetryTypedDict,
-            ]
+            Union[models.CreateRerankRetry, models.CreateRerankRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_creatererankop.CreateRerankCache,
-                models_creatererankop.CreateRerankCacheTypedDict,
-            ]
+            Union[models.CreateRerankCache, models.CreateRerankCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_creatererankop.CreateRerankLoadBalancer,
-                models_creatererankop.CreateRerankLoadBalancerTypedDict,
+                models.CreateRerankLoadBalancer,
+                models.CreateRerankLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_creatererankop.CreateRerankTimeout,
-                models_creatererankop.CreateRerankTimeoutTypedDict,
-            ]
+            Union[models.CreateRerankTimeout, models.CreateRerankTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_creatererankop.CreateRerankOrq,
-                models_creatererankop.CreateRerankOrqTypedDict,
-            ]
+            Union[models.CreateRerankOrq, models.CreateRerankOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -181,39 +168,27 @@ class Rerank(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_creatererankop.CreateRerankFallbacks],
-                List[models_creatererankop.CreateRerankFallbacksTypedDict],
+                List[models.CreateRerankFallbacks],
+                List[models.CreateRerankFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_creatererankop.CreateRerankRetry,
-                models_creatererankop.CreateRerankRetryTypedDict,
-            ]
+            Union[models.CreateRerankRetry, models.CreateRerankRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_creatererankop.CreateRerankCache,
-                models_creatererankop.CreateRerankCacheTypedDict,
-            ]
+            Union[models.CreateRerankCache, models.CreateRerankCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_creatererankop.CreateRerankLoadBalancer,
-                models_creatererankop.CreateRerankLoadBalancerTypedDict,
+                models.CreateRerankLoadBalancer,
+                models.CreateRerankLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_creatererankop.CreateRerankTimeout,
-                models_creatererankop.CreateRerankTimeoutTypedDict,
-            ]
+            Union[models.CreateRerankTimeout, models.CreateRerankTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_creatererankop.CreateRerankOrq,
-                models_creatererankop.CreateRerankOrqTypedDict,
-            ]
+            Union[models.CreateRerankOrq, models.CreateRerankOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

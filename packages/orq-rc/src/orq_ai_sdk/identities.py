@@ -3,10 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createidentityop as models_createidentityop,
-    listidentitiesop as models_listidentitiesop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -22,10 +18,7 @@ class Identities(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         filter_by: Optional[
-            Union[
-                models_listidentitiesop.QueryParamFilterBy,
-                models_listidentitiesop.QueryParamFilterByTypedDict,
-            ]
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -131,10 +124,7 @@ class Identities(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         filter_by: Optional[
-            Union[
-                models_listidentitiesop.QueryParamFilterBy,
-                models_listidentitiesop.QueryParamFilterByTypedDict,
-            ]
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -237,8 +227,8 @@ class Identities(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createidentityop.CreateIdentityRequestBody,
-                models_createidentityop.CreateIdentityRequestBodyTypedDict,
+                models.CreateIdentityRequestBody,
+                models.CreateIdentityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -334,8 +324,8 @@ class Identities(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createidentityop.CreateIdentityRequestBody,
-                models_createidentityop.CreateIdentityRequestBodyTypedDict,
+                models.CreateIdentityRequestBody,
+                models.CreateIdentityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

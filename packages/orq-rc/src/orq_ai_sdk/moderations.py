@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createmoderationop as models_createmoderationop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -14,9 +13,7 @@ class Moderations(BaseSDK):
     def create(
         self,
         *,
-        input_: Union[
-            models_createmoderationop.Input, models_createmoderationop.InputTypedDict
-        ],
+        input_: Union[models.Input, models.InputTypedDict],
         model: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -117,9 +114,7 @@ class Moderations(BaseSDK):
     async def create_async(
         self,
         *,
-        input_: Union[
-            models_createmoderationop.Input, models_createmoderationop.InputTypedDict
-        ],
+        input_: Union[models.Input, models.InputTypedDict],
         model: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

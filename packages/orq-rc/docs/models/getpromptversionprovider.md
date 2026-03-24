@@ -39,3 +39,4 @@ value: GetPromptVersionProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"slack"`
+- `"orq"`

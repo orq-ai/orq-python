@@ -17,6 +17,10 @@ from .redactedreasoningpartschema import (
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
 from .thinkingconfigdisabledschema import (
     ThinkingConfigDisabledSchema,
     ThinkingConfigDisabledSchemaTypedDict,
@@ -855,7 +859,11 @@ class UpdatePromptStreamOptions(BaseModel):
 
 UpdatePromptThinkingTypedDict = TypeAliasType(
     "UpdatePromptThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -863,6 +871,7 @@ UpdatePromptThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2051,11 +2060,13 @@ UpdatePromptProvider = Literal[
     "xai",
     "alibaba",
     "slack",
+    "orq",
 ]
 
 
 UpdatePromptRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
@@ -2647,7 +2658,11 @@ class UpdatePromptPromptsStreamOptions(BaseModel):
 
 UpdatePromptPromptsThinkingTypedDict = TypeAliasType(
     "UpdatePromptPromptsThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -2655,6 +2670,7 @@ UpdatePromptPromptsThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

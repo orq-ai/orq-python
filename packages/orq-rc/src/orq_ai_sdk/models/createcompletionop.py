@@ -3,6 +3,18 @@
 from __future__ import annotations
 from .publiccontact import PublicContact, PublicContactTypedDict
 from .publicidentity import PublicIdentity, PublicIdentityTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
+from .thinkingconfigdisabledschema import (
+    ThinkingConfigDisabledSchema,
+    ThinkingConfigDisabledSchemaTypedDict,
+)
+from .thinkingconfigenabledschema import (
+    ThinkingConfigEnabledSchema,
+    ThinkingConfigEnabledSchemaTypedDict,
+)
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -10,9 +22,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import eventstreaming
+from orq_ai_sdk.utils import eventstreaming, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import (
     Annotated,
@@ -179,6 +191,28 @@ class CreateCompletionTimeout(BaseModel):
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
+
+
+CreateCompletionThinkingTypedDict = TypeAliasType(
+    "CreateCompletionThinkingTypedDict",
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
+)
+r"""Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
+
+
+CreateCompletionThinking = Annotated[
+    Union[
+        Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
+        Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
 
 
 class CreateCompletionRouterCompletionsRetryTypedDict(TypedDict):
@@ -1362,6 +1396,8 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateCompletionTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    thinking: NotRequired[Nullable[CreateCompletionThinkingTypedDict]]
+    r"""Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
     orq: NotRequired[CreateCompletionOrqTypedDict]
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
@@ -1422,6 +1458,9 @@ class CreateCompletionRequestBody(BaseModel):
     timeout: Optional[CreateCompletionTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
+    thinking: OptionalNullable[CreateCompletionThinking] = UNSET
+    r"""Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
+
     orq: Annotated[
         Optional[CreateCompletionOrq],
         pydantic.Field(
@@ -1452,6 +1491,7 @@ class CreateCompletionRequestBody(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
+                "thinking",
                 "orq",
                 "stream",
             ]
@@ -1467,6 +1507,7 @@ class CreateCompletionRequestBody(BaseModel):
                 "temperature",
                 "top_p",
                 "n",
+                "thinking",
             ]
         )
         serialized = handler(self)

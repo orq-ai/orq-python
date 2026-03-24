@@ -9,7 +9,6 @@ from orq_ai_sdk.chat import Chat
 from orq_ai_sdk.completions import Completions
 from orq_ai_sdk.embeddings import Embeddings
 from orq_ai_sdk.images import Images
-from orq_ai_sdk.models import post_v2_router_ocrop as models_post_v2_router_ocrop
 from orq_ai_sdk.moderations import Moderations
 from orq_ai_sdk.orq_responses import OrqResponses
 from orq_ai_sdk.rerank import Rerank
@@ -56,16 +55,10 @@ class Router(BaseSDK):
         self,
         *,
         model: str,
-        document: Union[
-            models_post_v2_router_ocrop.Document,
-            models_post_v2_router_ocrop.DocumentTypedDict,
-        ],
+        document: Union[models.Document, models.DocumentTypedDict],
         pages: OptionalNullable[List[int]] = UNSET,
         ocr_settings: Optional[
-            Union[
-                models_post_v2_router_ocrop.OcrSettings,
-                models_post_v2_router_ocrop.OcrSettingsTypedDict,
-            ]
+            Union[models.OcrSettings, models.OcrSettingsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -163,16 +156,10 @@ class Router(BaseSDK):
         self,
         *,
         model: str,
-        document: Union[
-            models_post_v2_router_ocrop.Document,
-            models_post_v2_router_ocrop.DocumentTypedDict,
-        ],
+        document: Union[models.Document, models.DocumentTypedDict],
         pages: OptionalNullable[List[int]] = UNSET,
         ocr_settings: Optional[
-            Union[
-                models_post_v2_router_ocrop.OcrSettings,
-                models_post_v2_router_ocrop.OcrSettingsTypedDict,
-            ]
+            Union[models.OcrSettings, models.OcrSettingsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

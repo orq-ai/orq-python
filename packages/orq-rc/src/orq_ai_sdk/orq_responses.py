@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createresponseop as models_createresponseop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -21,42 +20,36 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[
-            models_createresponseop.CreateResponseInput,
-            models_createresponseop.CreateResponseInputTypedDict,
-        ],
+        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[
-                models_createresponseop.Reasoning,
-                models_createresponseop.ReasoningTypedDict,
-            ]
+            Union[models.Reasoning, models.ReasoningTypedDict]
+        ] = UNSET,
+        thinking: OptionalNullable[
+            Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
         ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseText,
-                models_createresponseop.CreateResponseTextTypedDict,
-            ]
+            Union[models.CreateResponseText, models.CreateResponseTextTypedDict]
         ] = UNSET,
-        include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
+        include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
-        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
+        service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[
-                List[models_createresponseop.CreateResponseTools],
-                List[models_createresponseop.CreateResponseToolsTypedDict],
+                List[models.CreateResponseTools],
+                List[models.CreateResponseToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createresponseop.CreateResponseToolChoice,
-                models_createresponseop.CreateResponseToolChoiceTypedDict,
+                models.CreateResponseToolChoice,
+                models.CreateResponseToolChoiceTypedDict,
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -78,6 +71,7 @@ class OrqResponses(BaseSDK):
         :param previous_response_id: The ID of a previous response to continue the conversation from. The model will have access to the previous response context.
         :param instructions: Developer-provided instructions that the model should follow. Overwrites the default system message.
         :param reasoning: Configuration for reasoning models
+        :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
         :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
@@ -121,6 +115,9 @@ class OrqResponses(BaseSDK):
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
                 reasoning, OptionalNullable[models.Reasoning]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateResponseThinking]
             ),
             max_output_tokens=max_output_tokens,
             text=utils.get_pydantic_model(
@@ -215,42 +212,36 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[
-            models_createresponseop.CreateResponseInput,
-            models_createresponseop.CreateResponseInputTypedDict,
-        ],
+        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[
-                models_createresponseop.Reasoning,
-                models_createresponseop.ReasoningTypedDict,
-            ]
+            Union[models.Reasoning, models.ReasoningTypedDict]
+        ] = UNSET,
+        thinking: OptionalNullable[
+            Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
         ] = UNSET,
         max_output_tokens: OptionalNullable[int] = UNSET,
         text: OptionalNullable[
-            Union[
-                models_createresponseop.CreateResponseText,
-                models_createresponseop.CreateResponseTextTypedDict,
-            ]
+            Union[models.CreateResponseText, models.CreateResponseTextTypedDict]
         ] = UNSET,
-        include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
+        include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
-        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
+        service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[
-                List[models_createresponseop.CreateResponseTools],
-                List[models_createresponseop.CreateResponseToolsTypedDict],
+                List[models.CreateResponseTools],
+                List[models.CreateResponseToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createresponseop.CreateResponseToolChoice,
-                models_createresponseop.CreateResponseToolChoiceTypedDict,
+                models.CreateResponseToolChoice,
+                models.CreateResponseToolChoiceTypedDict,
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -272,6 +263,7 @@ class OrqResponses(BaseSDK):
         :param previous_response_id: The ID of a previous response to continue the conversation from. The model will have access to the previous response context.
         :param instructions: Developer-provided instructions that the model should follow. Overwrites the default system message.
         :param reasoning: Configuration for reasoning models
+        :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
         :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
@@ -315,6 +307,9 @@ class OrqResponses(BaseSDK):
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
                 reasoning, OptionalNullable[models.Reasoning]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateResponseThinking]
             ),
             max_output_tokens=max_output_tokens,
             text=utils.get_pydantic_model(

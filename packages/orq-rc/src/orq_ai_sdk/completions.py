@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createcompletionop as models_createcompletionop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -28,10 +27,7 @@ class Completions(BaseSDK):
         presence_penalty: OptionalNullable[float] = 0,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
-            Union[
-                models_createcompletionop.CreateCompletionStop,
-                models_createcompletionop.CreateCompletionStopTypedDict,
-            ]
+            Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
@@ -40,39 +36,35 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createcompletionop.CreateCompletionFallbacks],
-                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+                List[models.CreateCompletionFallbacks],
+                List[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionRetry,
-                models_createcompletionop.CreateCompletionRetryTypedDict,
-            ]
+            Union[models.CreateCompletionRetry, models.CreateCompletionRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionCache,
-                models_createcompletionop.CreateCompletionCacheTypedDict,
-            ]
+            Union[models.CreateCompletionCache, models.CreateCompletionCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createcompletionop.CreateCompletionLoadBalancer,
-                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+                models.CreateCompletionLoadBalancer,
+                models.CreateCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createcompletionop.CreateCompletionTimeout,
-                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+                models.CreateCompletionTimeout, models.CreateCompletionTimeoutTypedDict
             ]
         ] = None,
-        orq: Optional[
+        thinking: OptionalNullable[
             Union[
-                models_createcompletionop.CreateCompletionOrq,
-                models_createcompletionop.CreateCompletionOrqTypedDict,
+                models.CreateCompletionThinking,
+                models.CreateCompletionThinkingTypedDict,
             ]
+        ] = UNSET,
+        orq: Optional[
+            Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -103,6 +95,7 @@ class Completions(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param thinking: Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -152,6 +145,9 @@ class Completions(BaseSDK):
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateCompletionTimeout]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateCompletionThinking]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,
@@ -239,10 +235,7 @@ class Completions(BaseSDK):
         presence_penalty: OptionalNullable[float] = 0,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
-            Union[
-                models_createcompletionop.CreateCompletionStop,
-                models_createcompletionop.CreateCompletionStopTypedDict,
-            ]
+            Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
@@ -251,39 +244,35 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createcompletionop.CreateCompletionFallbacks],
-                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+                List[models.CreateCompletionFallbacks],
+                List[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionRetry,
-                models_createcompletionop.CreateCompletionRetryTypedDict,
-            ]
+            Union[models.CreateCompletionRetry, models.CreateCompletionRetryTypedDict]
         ] = None,
         cache: Optional[
-            Union[
-                models_createcompletionop.CreateCompletionCache,
-                models_createcompletionop.CreateCompletionCacheTypedDict,
-            ]
+            Union[models.CreateCompletionCache, models.CreateCompletionCacheTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createcompletionop.CreateCompletionLoadBalancer,
-                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+                models.CreateCompletionLoadBalancer,
+                models.CreateCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createcompletionop.CreateCompletionTimeout,
-                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+                models.CreateCompletionTimeout, models.CreateCompletionTimeoutTypedDict
             ]
         ] = None,
-        orq: Optional[
+        thinking: OptionalNullable[
             Union[
-                models_createcompletionop.CreateCompletionOrq,
-                models_createcompletionop.CreateCompletionOrqTypedDict,
+                models.CreateCompletionThinking,
+                models.CreateCompletionThinkingTypedDict,
             ]
+        ] = UNSET,
+        orq: Optional[
+            Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -314,6 +303,7 @@ class Completions(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param thinking: Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -363,6 +353,9 @@ class Completions(BaseSDK):
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateCompletionTimeout]
+            ),
+            thinking=utils.get_pydantic_model(
+                thinking, OptionalNullable[models.CreateCompletionThinking]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,

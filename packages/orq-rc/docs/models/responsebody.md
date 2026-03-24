@@ -1,16 +1,41 @@
 # ResponseBody
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `id`                                                                                        | *str*                                                                                       | :heavy_check_mark:                                                                          | The unique identifier of the chunk                                                          |
-| `text`                                                                                      | *str*                                                                                       | :heavy_check_mark:                                                                          | The text content of the chunk                                                               |
-| `metadata`                                                                                  | Dict[str, [models.CreateChunkKnowledgeMetadata](../models/createchunkknowledgemetadata.md)] | :heavy_minus_sign:                                                                          | Metadata of the chunk. Can include `page_number` or any other key-value pairs               |
-| `enabled`                                                                                   | *bool*                                                                                      | :heavy_check_mark:                                                                          | Whether the chunk is enabled                                                                |
-| `status`                                                                                    | [models.CreateChunkStatus](../models/createchunkstatus.md)                                  | :heavy_check_mark:                                                                          | The status of the chunk                                                                     |
-| `created`                                                                                   | *str*                                                                                       | :heavy_check_mark:                                                                          | The date and time the chunk was created                                                     |
-| `updated`                                                                                   | *str*                                                                                       | :heavy_check_mark:                                                                          | The date and time the chunk was updated                                                     |
-| `created_by_id`                                                                             | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | The unique identifier of the user who created the chunk                                     |
-| `update_by_id`                                                                              | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | The unique identifier of the user who updated the chunk                                     |
+### `models.ResponseBody1`
+
+```python
+value: models.ResponseBody1 = /* values here */
+```
+
+### `models.ResponseBody2`
+
+```python
+value: models.ResponseBody2 = /* values here */
+```
+
+### `models.ResponseBody3`
+
+```python
+value: models.ResponseBody3 = /* values here */
+```
+
+### `models.ResponseBody4`
+
+```python
+value: models.ResponseBody4 = /* values here */
+```
+
+### `models.ResponseBody5`
+
+```python
+value: models.ResponseBody5 = /* values here */
+```
+
+### `models.ResponseBody6`
+
+```python
+value: models.ResponseBody6 = /* values here */
+```
+

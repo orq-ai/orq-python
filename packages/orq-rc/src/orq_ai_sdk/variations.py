@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createimagevariationop as models_createimagevariationop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -17,48 +16,43 @@ class Variations(BaseSDK):
         model: str,
         image: Optional[Any] = None,
         n: OptionalNullable[int] = 1,
-        response_format: Optional[
-            models_createimagevariationop.CreateImageVariationResponseFormat
-        ] = "url",
-        size: Optional[models_createimagevariationop.Size] = "1024x1024",
+        response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
+        size: Optional[models.Size] = "1024x1024",
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimagevariationop.CreateImageVariationFallbacks],
-                List[
-                    models_createimagevariationop.CreateImageVariationFallbacksTypedDict
-                ],
+                List[models.CreateImageVariationFallbacks],
+                List[models.CreateImageVariationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationRetry,
-                models_createimagevariationop.CreateImageVariationRetryTypedDict,
+                models.CreateImageVariationRetry,
+                models.CreateImageVariationRetryTypedDict,
             ]
         ] = None,
         cache: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationCache,
-                models_createimagevariationop.CreateImageVariationCacheTypedDict,
+                models.CreateImageVariationCache,
+                models.CreateImageVariationCacheTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationLoadBalancer,
-                models_createimagevariationop.CreateImageVariationLoadBalancerTypedDict,
+                models.CreateImageVariationLoadBalancer,
+                models.CreateImageVariationLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationTimeout,
-                models_createimagevariationop.CreateImageVariationTimeoutTypedDict,
+                models.CreateImageVariationTimeout,
+                models.CreateImageVariationTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationOrq,
-                models_createimagevariationop.CreateImageVariationOrqTypedDict,
+                models.CreateImageVariationOrq, models.CreateImageVariationOrqTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -193,48 +187,43 @@ class Variations(BaseSDK):
         model: str,
         image: Optional[Any] = None,
         n: OptionalNullable[int] = 1,
-        response_format: Optional[
-            models_createimagevariationop.CreateImageVariationResponseFormat
-        ] = "url",
-        size: Optional[models_createimagevariationop.Size] = "1024x1024",
+        response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
+        size: Optional[models.Size] = "1024x1024",
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createimagevariationop.CreateImageVariationFallbacks],
-                List[
-                    models_createimagevariationop.CreateImageVariationFallbacksTypedDict
-                ],
+                List[models.CreateImageVariationFallbacks],
+                List[models.CreateImageVariationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationRetry,
-                models_createimagevariationop.CreateImageVariationRetryTypedDict,
+                models.CreateImageVariationRetry,
+                models.CreateImageVariationRetryTypedDict,
             ]
         ] = None,
         cache: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationCache,
-                models_createimagevariationop.CreateImageVariationCacheTypedDict,
+                models.CreateImageVariationCache,
+                models.CreateImageVariationCacheTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationLoadBalancer,
-                models_createimagevariationop.CreateImageVariationLoadBalancerTypedDict,
+                models.CreateImageVariationLoadBalancer,
+                models.CreateImageVariationLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationTimeout,
-                models_createimagevariationop.CreateImageVariationTimeoutTypedDict,
+                models.CreateImageVariationTimeout,
+                models.CreateImageVariationTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
             Union[
-                models_createimagevariationop.CreateImageVariationOrq,
-                models_createimagevariationop.CreateImageVariationOrqTypedDict,
+                models.CreateImageVariationOrq, models.CreateImageVariationOrqTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

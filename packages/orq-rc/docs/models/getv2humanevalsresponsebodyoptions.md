@@ -1,0 +1,14 @@
+# GetV2HumanEvalsResponseBodyOptions
+
+Model representing specific values and attributes of feedback.
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `id`                                                                                             | *str*                                                                                            | :heavy_check_mark:                                                                               | The id of the resource                                                                           |
+| `value`                                                                                          | *str*                                                                                            | :heavy_check_mark:                                                                               | The value or content of the feedback.                                                            |
+| `sentiment`                                                                                      | [models.GetV2HumanEvalsResponseBodySentiment](../models/getv2humanevalsresponsebodysentiment.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `description`                                                                                    | *str*                                                                                            | :heavy_check_mark:                                                                               | Description of the feedback option.                                                              |
+| `icon`                                                                                           | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |

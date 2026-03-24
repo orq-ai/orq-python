@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createspeechop as models_createspeechop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from typing import List, Mapping, Optional, Union
@@ -16,40 +15,29 @@ class Speech(BaseSDK):
         input_: str,
         model: str,
         voice: str,
-        response_format: Optional[
-            models_createspeechop.CreateSpeechResponseFormat
-        ] = "mp3",
+        response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createspeechop.CreateSpeechFallbacks],
-                List[models_createspeechop.CreateSpeechFallbacksTypedDict],
+                List[models.CreateSpeechFallbacks],
+                List[models.CreateSpeechFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createspeechop.CreateSpeechRetry,
-                models_createspeechop.CreateSpeechRetryTypedDict,
-            ]
+            Union[models.CreateSpeechRetry, models.CreateSpeechRetryTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createspeechop.CreateSpeechLoadBalancer,
-                models_createspeechop.CreateSpeechLoadBalancerTypedDict,
+                models.CreateSpeechLoadBalancer,
+                models.CreateSpeechLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createspeechop.CreateSpeechTimeout,
-                models_createspeechop.CreateSpeechTimeoutTypedDict,
-            ]
+            Union[models.CreateSpeechTimeout, models.CreateSpeechTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createspeechop.CreateSpeechOrq,
-                models_createspeechop.CreateSpeechOrqTypedDict,
-            ]
+            Union[models.CreateSpeechOrq, models.CreateSpeechOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -177,40 +165,29 @@ class Speech(BaseSDK):
         input_: str,
         model: str,
         voice: str,
-        response_format: Optional[
-            models_createspeechop.CreateSpeechResponseFormat
-        ] = "mp3",
+        response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createspeechop.CreateSpeechFallbacks],
-                List[models_createspeechop.CreateSpeechFallbacksTypedDict],
+                List[models.CreateSpeechFallbacks],
+                List[models.CreateSpeechFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
-            Union[
-                models_createspeechop.CreateSpeechRetry,
-                models_createspeechop.CreateSpeechRetryTypedDict,
-            ]
+            Union[models.CreateSpeechRetry, models.CreateSpeechRetryTypedDict]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createspeechop.CreateSpeechLoadBalancer,
-                models_createspeechop.CreateSpeechLoadBalancerTypedDict,
+                models.CreateSpeechLoadBalancer,
+                models.CreateSpeechLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
-            Union[
-                models_createspeechop.CreateSpeechTimeout,
-                models_createspeechop.CreateSpeechTimeoutTypedDict,
-            ]
+            Union[models.CreateSpeechTimeout, models.CreateSpeechTimeoutTypedDict]
         ] = None,
         orq: Optional[
-            Union[
-                models_createspeechop.CreateSpeechOrq,
-                models_createspeechop.CreateSpeechOrqTypedDict,
-            ]
+            Union[models.CreateSpeechOrq, models.CreateSpeechOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

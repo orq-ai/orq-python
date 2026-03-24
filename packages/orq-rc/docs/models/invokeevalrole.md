@@ -13,6 +13,7 @@ value: InvokeEvalRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

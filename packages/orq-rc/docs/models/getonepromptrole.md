@@ -13,6 +13,7 @@ value: GetOnePromptRole = "system"
 ## Values
 
 - `"system"`
+- `"developer"`
 - `"assistant"`
 - `"user"`
 - `"exception"`

@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createtranscriptionop as models_createtranscriptionop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -18,56 +17,44 @@ class Transcriptions(BaseSDK):
         prompt: Optional[str] = None,
         enable_logging: Optional[bool] = True,
         diarize: Optional[bool] = False,
-        response_format: Optional[
-            models_createtranscriptionop.CreateTranscriptionResponseFormat
-        ] = None,
+        response_format: Optional[models.CreateTranscriptionResponseFormat] = None,
         tag_audio_events: Optional[bool] = True,
         num_speakers: Optional[float] = None,
-        timestamps_granularity: Optional[
-            models_createtranscriptionop.TimestampsGranularity
-        ] = "word",
+        timestamps_granularity: Optional[models.TimestampsGranularity] = "word",
         temperature: Optional[float] = None,
         language: Optional[str] = None,
-        timestamp_granularities: Optional[
-            List[models_createtranscriptionop.TimestampGranularities]
-        ] = None,
+        timestamp_granularities: Optional[List[models.TimestampGranularities]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createtranscriptionop.CreateTranscriptionFallbacks],
-                List[
-                    models_createtranscriptionop.CreateTranscriptionFallbacksTypedDict
-                ],
+                List[models.CreateTranscriptionFallbacks],
+                List[models.CreateTranscriptionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionRetry,
-                models_createtranscriptionop.CreateTranscriptionRetryTypedDict,
+                models.CreateTranscriptionRetry,
+                models.CreateTranscriptionRetryTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionLoadBalancer,
-                models_createtranscriptionop.CreateTranscriptionLoadBalancerTypedDict,
+                models.CreateTranscriptionLoadBalancer,
+                models.CreateTranscriptionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionTimeout,
-                models_createtranscriptionop.CreateTranscriptionTimeoutTypedDict,
+                models.CreateTranscriptionTimeout,
+                models.CreateTranscriptionTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
-            Union[
-                models_createtranscriptionop.CreateTranscriptionOrq,
-                models_createtranscriptionop.CreateTranscriptionOrqTypedDict,
-            ]
+            Union[models.CreateTranscriptionOrq, models.CreateTranscriptionOrqTypedDict]
         ] = None,
         file: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionFile,
-                models_createtranscriptionop.CreateTranscriptionFileTypedDict,
+                models.CreateTranscriptionFile, models.CreateTranscriptionFileTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -220,56 +207,44 @@ class Transcriptions(BaseSDK):
         prompt: Optional[str] = None,
         enable_logging: Optional[bool] = True,
         diarize: Optional[bool] = False,
-        response_format: Optional[
-            models_createtranscriptionop.CreateTranscriptionResponseFormat
-        ] = None,
+        response_format: Optional[models.CreateTranscriptionResponseFormat] = None,
         tag_audio_events: Optional[bool] = True,
         num_speakers: Optional[float] = None,
-        timestamps_granularity: Optional[
-            models_createtranscriptionop.TimestampsGranularity
-        ] = "word",
+        timestamps_granularity: Optional[models.TimestampsGranularity] = "word",
         temperature: Optional[float] = None,
         language: Optional[str] = None,
-        timestamp_granularities: Optional[
-            List[models_createtranscriptionop.TimestampGranularities]
-        ] = None,
+        timestamp_granularities: Optional[List[models.TimestampGranularities]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models_createtranscriptionop.CreateTranscriptionFallbacks],
-                List[
-                    models_createtranscriptionop.CreateTranscriptionFallbacksTypedDict
-                ],
+                List[models.CreateTranscriptionFallbacks],
+                List[models.CreateTranscriptionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionRetry,
-                models_createtranscriptionop.CreateTranscriptionRetryTypedDict,
+                models.CreateTranscriptionRetry,
+                models.CreateTranscriptionRetryTypedDict,
             ]
         ] = None,
         load_balancer: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionLoadBalancer,
-                models_createtranscriptionop.CreateTranscriptionLoadBalancerTypedDict,
+                models.CreateTranscriptionLoadBalancer,
+                models.CreateTranscriptionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionTimeout,
-                models_createtranscriptionop.CreateTranscriptionTimeoutTypedDict,
+                models.CreateTranscriptionTimeout,
+                models.CreateTranscriptionTimeoutTypedDict,
             ]
         ] = None,
         orq: Optional[
-            Union[
-                models_createtranscriptionop.CreateTranscriptionOrq,
-                models_createtranscriptionop.CreateTranscriptionOrqTypedDict,
-            ]
+            Union[models.CreateTranscriptionOrq, models.CreateTranscriptionOrqTypedDict]
         ] = None,
         file: Optional[
             Union[
-                models_createtranscriptionop.CreateTranscriptionFile,
-                models_createtranscriptionop.CreateTranscriptionFileTypedDict,
+                models.CreateTranscriptionFile, models.CreateTranscriptionFileTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

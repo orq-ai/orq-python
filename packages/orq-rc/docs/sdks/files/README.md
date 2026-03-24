@@ -4,14 +4,58 @@
 
 ### Available Operations
 
-* [create](#create) - Create file
 * [list](#list) - List all files
-* [get](#get) - Retrieve a file
+* [create](#create) - Create file
 * [delete](#delete) - Delete file
+* [get](#get) - Retrieve a file
+* [update](#update) - Update file
+* [get_content](#get_content) - Download file content
+
+## list
+
+Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="FileList" method="get" path="/v2/files" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.files.list(limit=10)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `limit`                                                                               | *Optional[int]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `starting_after`                                                                      | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | A cursor for use in pagination. Defines your place in the list for the next page.     |
+| `ending_before`                                                                       | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | A cursor for use in pagination. Defines your place in the list for the previous page. |
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
+
+### Response
+
+**[models.FileListResponseBody](../../models/filelistresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## create
 
-Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deployments/invoke).
+Files are used to upload documents that can be used with features like Deployments.
 
 ### Example Usage
 
@@ -53,13 +97,13 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## list
+## delete
 
-Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+Delete file
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="FileList" method="get" path="/v2/files" -->
+<!-- UsageSnippet language="python" operationID="FileDelete" method="delete" path="/v2/files/{file_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -69,25 +113,18 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.list(limit=10)
+    orq.files.delete(file_id="<id>")
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
-
-### Response
-
-**[models.FileListResponseBody](../../models/filelistresponsebody.md)**
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
@@ -97,7 +134,7 @@ with Orq(
 
 ## get
 
-Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object
+Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
 
 ### Example Usage
 
@@ -135,13 +172,13 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## delete
+## update
 
-Delete file
+Updates the metadata of an existing file object.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="FileDelete" method="delete" path="/v2/files/{file_id}" -->
+<!-- UsageSnippet language="python" operationID="FileUpdate" method="patch" path="/v2/files/{file_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -151,7 +188,48 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.files.delete(file_id="<id>")
+    res = orq.files.update(file_id="<id>", file_name="example.file")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
+| `file_name`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.FileUpdateResponseBody](../../models/fileupdateresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_content
+
+Signs the object name and redirects to a presigned URL for downloading the file content.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="FileContent" method="get" path="/v2/files/{file_id}/content" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.files.get_content(file_id="<id>")
 
     # Use the SDK ...
 

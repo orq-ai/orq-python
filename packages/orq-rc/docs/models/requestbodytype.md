@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RequestBodyType
-value: RequestBodyType = "http_eval"
+value: RequestBodyType = "string"
 ```
 
 
 ## Values
 
-- `"http_eval"`
+- `"string"`

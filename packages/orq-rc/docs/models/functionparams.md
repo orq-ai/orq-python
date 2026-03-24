@@ -27,16 +27,16 @@ value: models.CreateEvalFunctionParams3 = /* values here */
 value: models.CreateEvalFunctionParams4 = /* values here */
 ```
 
-### `models.Five`
+### `models.CreateEvalFunctionParams5`
 
 ```python
-value: models.Five = /* values here */
+value: models.CreateEvalFunctionParams5 = /* values here */
 ```
 
-### `models.Six`
+### `models.CreateEvalFunctionParams6`
 
 ```python
-value: models.Six = /* values here */
+value: models.CreateEvalFunctionParams6 = /* values here */
 ```
 
 ### `models.Seven`

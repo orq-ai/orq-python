@@ -6,6 +6,10 @@ from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
+from .thinkingconfigadaptiveschema import (
+    ThinkingConfigAdaptiveSchema,
+    ThinkingConfigAdaptiveSchemaTypedDict,
+)
 from .thinkingconfigdisabledschema import (
     ThinkingConfigDisabledSchema,
     ThinkingConfigDisabledSchemaTypedDict,
@@ -198,7 +202,11 @@ r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 RunAgentModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentModelConfigurationThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -206,6 +214,7 @@ RunAgentModelConfigurationThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -894,7 +903,11 @@ r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 RunAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationThinkingTypedDict",
-    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+    Union[
+        ThinkingConfigDisabledSchemaTypedDict,
+        ThinkingConfigAdaptiveSchemaTypedDict,
+        ThinkingConfigEnabledSchemaTypedDict,
+    ],
 )
 
 
@@ -902,6 +915,7 @@ RunAgentFallbackModelConfigurationThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+        Annotated[ThinkingConfigAdaptiveSchema, Tag("adaptive")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1794,7 +1808,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KKJ1PZX32N3J45GC0ENHMQTC"
+    id: Optional[str] = "01KMFJPMRNRRWZXGAHWPX4E5NF"
 
     description: Optional[str] = None
 
@@ -3172,6 +3186,14 @@ class RunAgentSettings(BaseModel):
         return m
 
 
+RunAgentEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
+
+
 class RunAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
@@ -3217,6 +3239,8 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
+    engine: NotRequired[RunAgentEngine]
+    r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
 
 
 class RunAgentRequestBody(BaseModel):
@@ -3289,6 +3313,9 @@ class RunAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
 
+    engine: Optional[RunAgentEngine] = "text"
+    r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -3306,6 +3333,7 @@ class RunAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "metadata",
+                "engine",
             ]
         )
         serialized = handler(self)

@@ -25,6 +25,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 InvokeEvalRole = Literal[
     "system",
+    "developer",
     "assistant",
     "user",
     "exception",
