@@ -12,7 +12,7 @@ from orq_ai_sdk.types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -466,6 +466,8 @@ class CreateImageRequestBodyTypedDict(TypedDict):
     r"""The size of the generated images. Must be one of the specified sizes for each model."""
     style: NotRequired[Nullable[Style]]
     r"""The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`."""
+    metadata: NotRequired[Dict[str, str]]
+    r"""Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
@@ -517,6 +519,9 @@ class CreateImageRequestBody(BaseModel):
     style: OptionalNullable[Style] = UNSET
     r"""The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`."""
 
+    metadata: Optional[Dict[str, str]] = None
+    r"""Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering."""
+
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
@@ -550,6 +555,7 @@ class CreateImageRequestBody(BaseModel):
                 "response_format",
                 "size",
                 "style",
+                "metadata",
                 "name",
                 "fallbacks",
                 "retry",
