@@ -277,14 +277,6 @@ class InvokeAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-InvokeAgentEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-r"""Override template engine for this invocation. If not provided, uses the agent default."""
-
-
 class InvokeAgentConfigurationTypedDict(TypedDict):
     r"""Configuration options for the agent invocation"""
 
@@ -332,8 +324,6 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
-    engine: NotRequired[InvokeAgentEngine]
-    r"""Override template engine for this invocation. If not provided, uses the agent default."""
     configuration: NotRequired[InvokeAgentConfigurationTypedDict]
     r"""Configuration options for the agent invocation"""
 
@@ -368,9 +358,6 @@ class InvokeAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
-    engine: Optional[InvokeAgentEngine] = None
-    r"""Override template engine for this invocation. If not provided, uses the agent default."""
-
     configuration: Optional[InvokeAgentConfiguration] = None
     r"""Configuration options for the agent invocation"""
 
@@ -385,7 +372,6 @@ class InvokeAgentRequestBody(BaseModel):
                 "thread",
                 "memory",
                 "metadata",
-                "engine",
                 "configuration",
             ]
         )

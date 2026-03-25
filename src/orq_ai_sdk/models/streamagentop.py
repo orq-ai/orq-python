@@ -339,14 +339,6 @@ class StreamAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-StreamAgentEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-r"""Override template engine for this invocation. If not provided, uses the agent default."""
-
-
 class StreamAgentConfigurationTypedDict(TypedDict):
     r"""Configuration options for the agent invocation"""
 
@@ -394,8 +386,6 @@ class StreamAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
-    engine: NotRequired[StreamAgentEngine]
-    r"""Override template engine for this invocation. If not provided, uses the agent default."""
     configuration: NotRequired[StreamAgentConfigurationTypedDict]
     r"""Configuration options for the agent invocation"""
     stream_timeout_seconds: NotRequired[float]
@@ -432,9 +422,6 @@ class StreamAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
-    engine: Optional[StreamAgentEngine] = None
-    r"""Override template engine for this invocation. If not provided, uses the agent default."""
-
     configuration: Optional[StreamAgentConfiguration] = None
     r"""Configuration options for the agent invocation"""
 
@@ -452,7 +439,6 @@ class StreamAgentRequestBody(BaseModel):
                 "thread",
                 "memory",
                 "metadata",
-                "engine",
                 "configuration",
                 "stream_timeout_seconds",
             ]

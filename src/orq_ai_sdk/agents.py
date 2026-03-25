@@ -527,7 +527,6 @@ class Agents(BaseSDK):
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         source: Optional[models.Source] = None,
-        engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -554,7 +553,6 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
         :param source:
-        :param engine:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -597,7 +595,6 @@ class Agents(BaseSDK):
             ),
             variables=variables,
             source=source,
-            engine=engine,
         )
 
         req = self._build_request(
@@ -686,7 +683,6 @@ class Agents(BaseSDK):
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         source: Optional[models.Source] = None,
-        engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -713,7 +709,6 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
         :param source:
-        :param engine:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -756,7 +751,6 @@ class Agents(BaseSDK):
             ),
             variables=variables,
             source=source,
-            engine=engine,
         )
 
         req = self._build_request_async(
@@ -1424,7 +1418,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
             Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
         ] = None,
@@ -1459,7 +1452,6 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
-        :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
@@ -1510,7 +1502,6 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
-                engine=engine,
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
@@ -1624,7 +1615,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
             Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
         ] = None,
@@ -1659,7 +1649,6 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
-        :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
@@ -1710,7 +1699,6 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 variables=variables,
-                engine=engine,
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
@@ -1808,7 +1796,6 @@ class Agents(BaseSDK):
             Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
                 models.InvokeAgentConfiguration,
@@ -1833,7 +1820,6 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1872,7 +1858,6 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
-                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
                 ),
@@ -1962,7 +1947,6 @@ class Agents(BaseSDK):
             Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
                 models.InvokeAgentConfiguration,
@@ -1987,7 +1971,6 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2026,7 +2009,6 @@ class Agents(BaseSDK):
                     memory, Optional[models.InvokeAgentMemory]
                 ),
                 metadata=metadata,
-                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
                 ),
@@ -2143,7 +2125,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2177,7 +2158,6 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
-        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2226,7 +2206,6 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
             metadata=metadata,
-            engine=engine,
         )
 
         req = self._build_request(
@@ -2335,7 +2314,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2369,7 +2347,6 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
-        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2418,7 +2395,6 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
             metadata=metadata,
-            engine=engine,
         )
 
         req = self._build_request_async(
@@ -2531,7 +2507,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2566,7 +2541,6 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
-        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2624,7 +2598,6 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
             metadata=metadata,
-            engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
 
@@ -2756,7 +2729,6 @@ class Agents(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2791,7 +2763,6 @@ class Agents(BaseSDK):
         :param knowledge_bases: Knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
-        :param engine: Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax.
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2849,7 +2820,6 @@ class Agents(BaseSDK):
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
             metadata=metadata,
-            engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
 
@@ -2950,7 +2920,6 @@ class Agents(BaseSDK):
             Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
                 models.StreamAgentConfiguration,
@@ -2976,7 +2945,6 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
@@ -3016,7 +2984,6 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
-                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]
                 ),
@@ -3123,7 +3090,6 @@ class Agents(BaseSDK):
             Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
                 models.StreamAgentConfiguration,
@@ -3149,7 +3115,6 @@ class Agents(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
@@ -3189,7 +3154,6 @@ class Agents(BaseSDK):
                     memory, Optional[models.StreamAgentMemory]
                 ),
                 metadata=metadata,
-                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]
                 ),

@@ -171,13 +171,6 @@ ListAgentsSource = Literal[
 ]
 
 
-ListAgentsEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-
-
 ListAgentsType = Literal[
     "internal",
     "a2a",
@@ -1944,7 +1937,6 @@ class ListAgentsDataTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[ListAgentsSource]
-    engine: NotRequired[ListAgentsEngine]
     type: NotRequired[ListAgentsType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -2009,8 +2001,6 @@ class ListAgentsData(BaseModel):
 
     source: Optional[ListAgentsSource] = None
 
-    engine: Optional[ListAgentsEngine] = "text"
-
     type: Optional[ListAgentsType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
@@ -2038,7 +2028,6 @@ class ListAgentsData(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
-                "engine",
                 "type",
                 "system_prompt",
                 "settings",

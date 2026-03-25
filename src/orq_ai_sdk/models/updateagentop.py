@@ -2418,13 +2418,6 @@ class UpdateAgentTeamOfAgents(BaseModel):
         return m
 
 
-UpdateAgentEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-
-
 class UpdateAgentHeadersTypedDict(TypedDict):
     value: str
     r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
@@ -2531,7 +2524,6 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
-    engine: NotRequired[UpdateAgentEngine]
     a2a: NotRequired[UpdateA2AConfigurationTypedDict]
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
     version_increment: NotRequired[UpdateAgentVersionIncrement]
@@ -2584,8 +2576,6 @@ class UpdateAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
-    engine: Optional[UpdateAgentEngine] = None
-
     a2a: Optional[UpdateA2AConfiguration] = None
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
 
@@ -2618,7 +2608,6 @@ class UpdateAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "variables",
-                "engine",
                 "a2a",
                 "versionIncrement",
                 "versionDescription",
@@ -2756,13 +2745,6 @@ UpdateAgentSource = Literal[
     "internal",
     "external",
     "experiment",
-]
-
-
-UpdateAgentAgentsEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
 ]
 
 
@@ -4587,7 +4569,6 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[UpdateAgentSource]
-    engine: NotRequired[UpdateAgentAgentsEngine]
     type: NotRequired[UpdateAgentType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -4656,8 +4637,6 @@ class UpdateAgentResponseBody(BaseModel):
 
     source: Optional[UpdateAgentSource] = None
 
-    engine: Optional[UpdateAgentAgentsEngine] = "text"
-
     type: Optional[UpdateAgentType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
@@ -4685,7 +4664,6 @@ class UpdateAgentResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
-                "engine",
                 "type",
                 "system_prompt",
                 "settings",

@@ -145,13 +145,6 @@ RetrieveAgentRequestSource = Literal[
 ]
 
 
-RetrieveAgentRequestEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-
-
 RetrieveAgentRequestType = Literal[
     "internal",
     "a2a",
@@ -1966,7 +1959,6 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[RetrieveAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[RetrieveAgentRequestSource]
-    engine: NotRequired[RetrieveAgentRequestEngine]
     type: NotRequired[RetrieveAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -2035,8 +2027,6 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
     source: Optional[RetrieveAgentRequestSource] = None
 
-    engine: Optional[RetrieveAgentRequestEngine] = "text"
-
     type: Optional[RetrieveAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
@@ -2064,7 +2054,6 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
-                "engine",
                 "type",
                 "system_prompt",
                 "settings",

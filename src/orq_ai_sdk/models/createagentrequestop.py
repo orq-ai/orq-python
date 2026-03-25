@@ -2401,13 +2401,6 @@ Source = Literal[
 ]
 
 
-Engine = Literal[
-    "text",
-    "jinja",
-    "mustache",
-]
-
-
 class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     key: str
     r"""Unique identifier for the agent within the workspace"""
@@ -2440,7 +2433,6 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
     source: NotRequired[Source]
-    engine: NotRequired[Engine]
 
 
 class CreateAgentRequestRequestBody(BaseModel):
@@ -2490,8 +2482,6 @@ class CreateAgentRequestRequestBody(BaseModel):
 
     source: Optional[Source] = None
 
-    engine: Optional[Engine] = "text"
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2504,7 +2494,6 @@ class CreateAgentRequestRequestBody(BaseModel):
                 "team_of_agents",
                 "variables",
                 "source",
-                "engine",
             ]
         )
         serialized = handler(self)
@@ -2599,13 +2588,6 @@ CreateAgentRequestSource = Literal[
     "internal",
     "external",
     "experiment",
-]
-
-
-CreateAgentRequestEngine = Literal[
-    "text",
-    "jinja",
-    "mustache",
 ]
 
 
@@ -4438,7 +4420,6 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[CreateAgentRequestSource]
-    engine: NotRequired[CreateAgentRequestEngine]
     type: NotRequired[CreateAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
@@ -4507,8 +4488,6 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     source: Optional[CreateAgentRequestSource] = None
 
-    engine: Optional[CreateAgentRequestEngine] = "text"
-
     type: Optional[CreateAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
@@ -4536,7 +4515,6 @@ class CreateAgentRequestResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
-                "engine",
                 "type",
                 "system_prompt",
                 "settings",
