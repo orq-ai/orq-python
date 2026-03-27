@@ -420,6 +420,7 @@ class Identities(BaseSDK):
         self,
         *,
         id: str,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -430,6 +431,7 @@ class Identities(BaseSDK):
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
         :param id: Unique identity id or external id
+        :param include_metrics: Include usage metrics of the last 30 days for the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -450,6 +452,7 @@ class Identities(BaseSDK):
 
         request = models.RetrieveIdentityRequest(
             id=id,
+            include_metrics=include_metrics,
         )
 
         req = self._build_request(
@@ -488,7 +491,7 @@ class Identities(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            error_status_codes=["404", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
@@ -502,6 +505,13 @@ class Identities(BaseSDK):
                 models.RetrieveIdentityIdentitiesResponseBodyData, http_res
             )
             raise models.RetrieveIdentityIdentitiesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseResponseBody(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -515,6 +525,7 @@ class Identities(BaseSDK):
         self,
         *,
         id: str,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -525,6 +536,7 @@ class Identities(BaseSDK):
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
         :param id: Unique identity id or external id
+        :param include_metrics: Include usage metrics of the last 30 days for the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -545,6 +557,7 @@ class Identities(BaseSDK):
 
         request = models.RetrieveIdentityRequest(
             id=id,
+            include_metrics=include_metrics,
         )
 
         req = self._build_request_async(
@@ -583,7 +596,7 @@ class Identities(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            error_status_codes=["404", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
@@ -597,6 +610,13 @@ class Identities(BaseSDK):
                 models.RetrieveIdentityIdentitiesResponseBodyData, http_res
             )
             raise models.RetrieveIdentityIdentitiesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseResponseBody(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

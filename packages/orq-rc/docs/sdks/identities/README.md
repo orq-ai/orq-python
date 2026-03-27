@@ -132,7 +132,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.identities.retrieve(id="<id>")
+    res = orq.identities.retrieve(id="<id>", include_metrics=False)
 
     # Handle response
     print(res)
@@ -144,6 +144,7 @@ with Orq(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identity id or external id                                   |
+| `include_metrics`                                                   | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | Include usage metrics of the last 30 days for the identity.         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -152,10 +153,11 @@ with Orq(
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| models.RetrieveIdentityIdentitiesResponseBody | 404                                           | application/json                              |
-| models.APIError                               | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                                            | Status Code                                           | Content Type                                          |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| models.RetrieveIdentityIdentitiesResponseBody         | 404                                                   | application/json                                      |
+| models.RetrieveIdentityIdentitiesResponseResponseBody | 500                                                   | application/json                                      |
+| models.APIError                                       | 4XX, 5XX                                              | \*/\*                                                 |
 
 ## update
 

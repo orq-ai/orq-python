@@ -12,7 +12,12 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, parse_datetime
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+    parse_datetime,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
@@ -22,6 +27,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class RetrieveIdentityRequestTypedDict(TypedDict):
     id: str
     r"""Unique identity id or external id"""
+    include_metrics: NotRequired[Nullable[bool]]
+    r"""Include usage metrics of the last 30 days for the identity."""
 
 
 class RetrieveIdentityRequest(BaseModel):
@@ -29,6 +36,59 @@ class RetrieveIdentityRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""Unique identity id or external id"""
+
+    include_metrics: Annotated[
+        OptionalNullable[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = False
+    r"""Include usage metrics of the last 30 days for the identity."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_metrics"])
+        nullable_fields = set(["include_metrics"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class RetrieveIdentityIdentitiesResponseResponseBodyData(BaseModel):
+    error: str
+    r"""Error message"""
+
+
+@dataclass(unsafe_hash=True)
+class RetrieveIdentityIdentitiesResponseResponseBody(OrqError):
+    r"""Failed to fetch metrics"""
+
+    data: RetrieveIdentityIdentitiesResponseResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: RetrieveIdentityIdentitiesResponseResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
 
 
 class RetrieveIdentityIdentitiesResponseBodyData(BaseModel):
@@ -53,6 +113,31 @@ class RetrieveIdentityIdentitiesResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
+class RetrieveIdentityMetricsTypedDict(TypedDict):
+    total_cost: float
+    r"""Total cost in dollars of the last 30 days"""
+    total_tokens: float
+    r"""Total tokens of the last 30 days"""
+    total_requests: float
+    r"""Total requests of the last 30 days"""
+    error_rate: float
+    r"""Error rate of the last 30 days as a ratio (0–1)"""
+
+
+class RetrieveIdentityMetrics(BaseModel):
+    total_cost: float
+    r"""Total cost in dollars of the last 30 days"""
+
+    total_tokens: float
+    r"""Total tokens of the last 30 days"""
+
+    total_requests: float
+    r"""Total requests of the last 30 days"""
+
+    error_rate: float
+    r"""Error rate of the last 30 days as a ratio (0–1)"""
+
+
 class RetrieveIdentityResponseBodyTypedDict(TypedDict):
     r"""Identity details"""
 
@@ -74,6 +159,7 @@ class RetrieveIdentityResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
     r"""The date and time the resource was last updated"""
+    metrics: NotRequired[Nullable[RetrieveIdentityMetricsTypedDict]]
 
 
 class RetrieveIdentityResponseBody(BaseModel):
@@ -103,8 +189,10 @@ class RetrieveIdentityResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-03-26T10:52:27.533Z")
+    updated: Optional[datetime] = parse_datetime("2026-03-27T06:06:37.886Z")
     r"""The date and time the resource was last updated"""
+
+    metrics: OptionalNullable[RetrieveIdentityMetrics] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -117,9 +205,10 @@ class RetrieveIdentityResponseBody(BaseModel):
                 "metadata",
                 "created",
                 "updated",
+                "metrics",
             ]
         )
-        nullable_fields = set(["display_name", "email", "avatar_url"])
+        nullable_fields = set(["display_name", "email", "avatar_url", "metrics"])
         serialized = handler(self)
         m = {}
 
