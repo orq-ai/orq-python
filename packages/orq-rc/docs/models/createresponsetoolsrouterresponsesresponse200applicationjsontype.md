@@ -6,10 +6,10 @@ The type of tool
 
 ```python
 from orq_ai_sdk.models import CreateResponseToolsRouterResponsesResponse200ApplicationJSONType
-value: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType = "file_search"
+value: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType = "web_search"
 ```
 
 
 ## Values
 
-- `"file_search"`
+- `"web_search"`

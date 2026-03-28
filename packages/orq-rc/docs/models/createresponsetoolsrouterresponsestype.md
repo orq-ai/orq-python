@@ -1,15 +1,16 @@
 # CreateResponseToolsRouterResponsesType
 
-The type of tool
+The type of location
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateResponseToolsRouterResponsesType
-value: CreateResponseToolsRouterResponsesType = "web_search_preview"
+value: CreateResponseToolsRouterResponsesType = "approximate"
 ```
 
 
 ## Values
 
-- `"web_search_preview"`
+- `"approximate"`
+- `"exact"`

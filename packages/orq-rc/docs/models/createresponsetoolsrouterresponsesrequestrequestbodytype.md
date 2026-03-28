@@ -1,15 +1,16 @@
 # CreateResponseToolsRouterResponsesRequestRequestBodyType
 
-The type of tool
+The type of location
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateResponseToolsRouterResponsesRequestRequestBodyType
-value: CreateResponseToolsRouterResponsesRequestRequestBodyType = "file_search"
+value: CreateResponseToolsRouterResponsesRequestRequestBodyType = "approximate"
 ```
 
 
 ## Values
 
-- `"file_search"`
+- `"approximate"`
+- `"exact"`

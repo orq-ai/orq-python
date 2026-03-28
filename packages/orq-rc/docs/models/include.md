@@ -16,3 +16,5 @@ value: Include = "code_interpreter_call.outputs"
 - `"message.input_image.image_url"`
 - `"message.output_text.logprobs"`
 - `"reasoning.encrypted_content"`
+- `"web_search_call.results"`
+- `"web_search_call.action.sources"`

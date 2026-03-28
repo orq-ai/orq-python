@@ -15,4 +15,5 @@ value: CreateResponseServiceTier = "auto"
 - `"auto"`
 - `"default"`
 - `"flex"`
+- `"scale"`
 - `"priority"`
