@@ -1,15 +1,15 @@
 # CreateResponseToolsType
 
-The type of the parameters object
+The type of tool
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateResponseToolsType
-value: CreateResponseToolsType = "object"
+value: CreateResponseToolsType = "web_search_preview"
 ```
 
 
 ## Values
 
-- `"object"`
+- `"web_search_preview"`

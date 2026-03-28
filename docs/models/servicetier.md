@@ -15,4 +15,5 @@ value: ServiceTier = "auto"
 - `"auto"`
 - `"default"`
 - `"flex"`
+- `"scale"`
 - `"priority"`

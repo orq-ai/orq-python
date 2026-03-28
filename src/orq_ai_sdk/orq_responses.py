@@ -74,13 +74,7 @@ class OrqResponses(BaseSDK):
         :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
-        :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
-            - code_interpreter_call.outputs: Include the outputs of Code Interpreter tool calls
-            - computer_call_output.output.image_url: Include the image URLs from computer use tool calls
-            - file_search_call.results: Include the results of file search tool calls
-            - message.input_image.image_url: Include URLs of input images
-            - message.output_text.logprobs: Include log probabilities for output text (when logprobs is enabled)
-            - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
+        :param include: Specifies which (potentially large) fields to include in the response.
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param store: Whether to store this response for use in distillations or evals.
         :param service_tier: Specifies the latency tier to use for processing the request. Defaults to \"auto\".
@@ -266,13 +260,7 @@ class OrqResponses(BaseSDK):
         :param thinking: Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
         :param max_output_tokens: The maximum number of tokens that can be generated in the response
         :param text:
-        :param include: Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
-            - code_interpreter_call.outputs: Include the outputs of Code Interpreter tool calls
-            - computer_call_output.output.image_url: Include the image URLs from computer use tool calls
-            - file_search_call.results: Include the results of file search tool calls
-            - message.input_image.image_url: Include URLs of input images
-            - message.output_text.logprobs: Include log probabilities for output text (when logprobs is enabled)
-            - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
+        :param include: Specifies which (potentially large) fields to include in the response.
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param store: Whether to store this response for use in distillations or evals.
         :param service_tier: Specifies the latency tier to use for processing the request. Defaults to \"auto\".

@@ -1,17 +1,20 @@
 # Effort
 
-The effort level for reasoning (o3-mini model only)
+The effort level for reasoning
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Effort
-value: Effort = "low"
+value: Effort = "none"
 ```
 
 
 ## Values
 
+- `"none"`
+- `"minimal"`
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`

@@ -6,12 +6,12 @@ Amount of context to retrieve for each search result
 
 ```python
 from orq_ai_sdk.models import SearchContextSize
-value: SearchContextSize = "small"
+value: SearchContextSize = "low"
 ```
 
 
 ## Values
 
-- `"small"`
+- `"low"`
 - `"medium"`
-- `"large"`
+- `"high"`

@@ -28,38 +28,63 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 Effort = Literal[
+    "none",
+    "minimal",
     "low",
     "medium",
     "high",
+    "xhigh",
 ]
-r"""The effort level for reasoning (o3-mini model only)"""
+r"""The effort level for reasoning"""
+
+
+Summary = Literal[
+    "auto",
+    "concise",
+    "detailed",
+]
+r"""The summary mode for reasoning output"""
 
 
 class ReasoningTypedDict(TypedDict):
     r"""Configuration for reasoning models"""
 
     effort: NotRequired[Effort]
-    r"""The effort level for reasoning (o3-mini model only)"""
+    r"""The effort level for reasoning"""
+    summary: NotRequired[Nullable[Summary]]
+    r"""The summary mode for reasoning output"""
 
 
 class Reasoning(BaseModel):
     r"""Configuration for reasoning models"""
 
     effort: Optional[Effort] = None
-    r"""The effort level for reasoning (o3-mini model only)"""
+    r"""The effort level for reasoning"""
+
+    summary: OptionalNullable[Summary] = UNSET
+    r"""The summary mode for reasoning output"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["effort"])
+        optional_fields = set(["effort", "summary"])
+        nullable_fields = set(["summary"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -493,6 +518,8 @@ Include = Literal[
     "message.input_image.image_url",
     "message.output_text.logprobs",
     "reasoning.encrypted_content",
+    "web_search_call.results",
+    "web_search_call.action.sources",
 ]
 
 
@@ -500,12 +527,13 @@ ServiceTier = Literal[
     "auto",
     "default",
     "flex",
+    "scale",
     "priority",
 ]
 r"""Specifies the latency tier to use for processing the request. Defaults to \"auto\"."""
 
 
-CreateResponseToolsRouterResponsesRequestRequestBodyType = Literal["file_search",]
+CreateResponseToolsRouterResponsesRequestRequestBody4Type = Literal["file_search",]
 r"""The type of tool"""
 
 
@@ -551,10 +579,10 @@ class RankingOptions(BaseModel):
         return m
 
 
-class Tools3TypedDict(TypedDict):
+class Tools4TypedDict(TypedDict):
     r"""Configuration for file search tool"""
 
-    type: CreateResponseToolsRouterResponsesRequestRequestBodyType
+    type: CreateResponseToolsRouterResponsesRequestRequestBody4Type
     r"""The type of tool"""
     vector_store_ids: NotRequired[List[str]]
     r"""The vector stores to search"""
@@ -566,10 +594,10 @@ class Tools3TypedDict(TypedDict):
     r"""Options for ranking search results"""
 
 
-class Tools3(BaseModel):
+class Tools4(BaseModel):
     r"""Configuration for file search tool"""
 
-    type: CreateResponseToolsRouterResponsesRequestRequestBodyType
+    type: CreateResponseToolsRouterResponsesRequestRequestBody4Type
     r"""The type of tool"""
 
     vector_store_ids: Optional[List[str]] = None
@@ -603,19 +631,190 @@ class Tools3(BaseModel):
         return m
 
 
-CreateResponseToolsRouterResponsesType = Literal["web_search_preview",]
+CreateResponseToolsRouterResponsesRequestType = Literal["web_search",]
 r"""The type of tool"""
 
 
-SearchContextSize = Literal[
-    "small",
+ToolsSearchContextSize = Literal[
+    "low",
     "medium",
-    "large",
+    "high",
 ]
 r"""Amount of context to retrieve for each search result"""
 
 
-CreateResponseToolsRouterResponsesRequestType = Literal[
+CreateResponseToolsRouterResponsesRequestRequestBodyType = Literal[
+    "approximate",
+    "exact",
+]
+r"""The type of location"""
+
+
+class ToolsUserLocationTypedDict(TypedDict):
+    r"""User location for search localization"""
+
+    type: NotRequired[CreateResponseToolsRouterResponsesRequestRequestBodyType]
+    r"""The type of location"""
+    city: NotRequired[Nullable[str]]
+    r"""The city name"""
+    country: NotRequired[str]
+    r"""The country code"""
+    region: NotRequired[Nullable[str]]
+    r"""The region/state"""
+    timezone: NotRequired[Nullable[str]]
+    r"""The timezone"""
+
+
+class ToolsUserLocation(BaseModel):
+    r"""User location for search localization"""
+
+    type: Optional[CreateResponseToolsRouterResponsesRequestRequestBodyType] = None
+    r"""The type of location"""
+
+    city: OptionalNullable[str] = UNSET
+    r"""The city name"""
+
+    country: Optional[str] = None
+    r"""The country code"""
+
+    region: OptionalNullable[str] = UNSET
+    r"""The region/state"""
+
+    timezone: OptionalNullable[str] = UNSET
+    r"""The timezone"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "city", "country", "region", "timezone"])
+        nullable_fields = set(["city", "region", "timezone"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class FiltersTypedDict(TypedDict):
+    r"""Filters for the web search"""
+
+    allowed_domains: NotRequired[Nullable[List[str]]]
+    r"""List of allowed domains for search"""
+
+
+class Filters(BaseModel):
+    r"""Filters for the web search"""
+
+    allowed_domains: OptionalNullable[List[str]] = UNSET
+    r"""List of allowed domains for search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["allowed_domains"])
+        nullable_fields = set(["allowed_domains"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class Tools3TypedDict(TypedDict):
+    r"""Configuration for web search tool"""
+
+    type: CreateResponseToolsRouterResponsesRequestType
+    r"""The type of tool"""
+    search_context_size: NotRequired[ToolsSearchContextSize]
+    r"""Amount of context to retrieve for each search result"""
+    user_location: NotRequired[ToolsUserLocationTypedDict]
+    r"""User location for search localization"""
+    filters: NotRequired[Nullable[FiltersTypedDict]]
+    r"""Filters for the web search"""
+
+
+class Tools3(BaseModel):
+    r"""Configuration for web search tool"""
+
+    type: CreateResponseToolsRouterResponsesRequestType
+    r"""The type of tool"""
+
+    search_context_size: Optional[ToolsSearchContextSize] = "medium"
+    r"""Amount of context to retrieve for each search result"""
+
+    user_location: Optional[ToolsUserLocation] = None
+    r"""User location for search localization"""
+
+    filters: OptionalNullable[Filters] = UNSET
+    r"""Filters for the web search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["search_context_size", "user_location", "filters"])
+        nullable_fields = set(["filters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+CreateResponseToolsType = Literal["web_search_preview",]
+r"""The type of tool"""
+
+
+SearchContextSize = Literal[
+    "low",
+    "medium",
+    "high",
+]
+r"""Amount of context to retrieve for each search result"""
+
+
+CreateResponseToolsRouterResponsesType = Literal[
     "approximate",
     "exact",
 ]
@@ -625,7 +824,7 @@ r"""The type of location"""
 class UserLocationTypedDict(TypedDict):
     r"""User location for search localization"""
 
-    type: NotRequired[CreateResponseToolsRouterResponsesRequestType]
+    type: NotRequired[CreateResponseToolsRouterResponsesType]
     r"""The type of location"""
     city: NotRequired[Nullable[str]]
     r"""The city name"""
@@ -640,7 +839,7 @@ class UserLocationTypedDict(TypedDict):
 class UserLocation(BaseModel):
     r"""User location for search localization"""
 
-    type: Optional[CreateResponseToolsRouterResponsesRequestType] = None
+    type: Optional[CreateResponseToolsRouterResponsesType] = None
     r"""The type of location"""
 
     city: OptionalNullable[str] = UNSET
@@ -682,9 +881,9 @@ class UserLocation(BaseModel):
 
 
 class Tools2TypedDict(TypedDict):
-    r"""Configuration for web search tool"""
+    r"""Configuration for web search preview tool"""
 
-    type: CreateResponseToolsRouterResponsesType
+    type: CreateResponseToolsType
     r"""The type of tool"""
     domains: NotRequired[List[str]]
     r"""List of domains to restrict search to"""
@@ -695,9 +894,9 @@ class Tools2TypedDict(TypedDict):
 
 
 class Tools2(BaseModel):
-    r"""Configuration for web search tool"""
+    r"""Configuration for web search preview tool"""
 
-    type: CreateResponseToolsRouterResponsesType
+    type: CreateResponseToolsType
     r"""The type of tool"""
 
     domains: Optional[List[str]] = None
@@ -730,103 +929,6 @@ ToolsType = Literal["function",]
 r"""The type of tool"""
 
 
-CreateResponseToolsType = Literal["object",]
-r"""The type of the parameters object"""
-
-
-class PropertiesTypedDict(TypedDict):
-    type: str
-    description: NotRequired[str]
-    enum: NotRequired[List[str]]
-
-
-class Properties(BaseModel):
-    model_config = ConfigDict(
-        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
-    )
-    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
-
-    type: str
-
-    description: Optional[str] = None
-
-    enum: Optional[List[str]] = None
-
-    @property
-    def additional_properties(self):
-        return self.__pydantic_extra__
-
-    @additional_properties.setter
-    def additional_properties(self, value):
-        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["description", "enum"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            serialized.pop(k, serialized.pop(n, None))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-        for k, v in serialized.items():
-            m[k] = v
-
-        return m
-
-
-class ToolsParametersTypedDict(TypedDict):
-    r"""The parameters the function accepts"""
-
-    type: CreateResponseToolsType
-    r"""The type of the parameters object"""
-    properties: Dict[str, PropertiesTypedDict]
-    r"""The parameters the function accepts, described as a JSON Schema object"""
-    required: NotRequired[List[str]]
-    r"""List of required parameter names"""
-    additional_properties: NotRequired[bool]
-    r"""Whether to allow properties not defined in the schema"""
-
-
-class ToolsParameters(BaseModel):
-    r"""The parameters the function accepts"""
-
-    type: CreateResponseToolsType
-    r"""The type of the parameters object"""
-
-    properties: Dict[str, Properties]
-    r"""The parameters the function accepts, described as a JSON Schema object"""
-
-    required: Optional[List[str]] = None
-    r"""List of required parameter names"""
-
-    additional_properties: Annotated[
-        Optional[bool], pydantic.Field(alias="additionalProperties")
-    ] = None
-    r"""Whether to allow properties not defined in the schema"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["required", "additionalProperties"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class Tools1TypedDict(TypedDict):
     r"""A function tool definition"""
 
@@ -834,11 +936,11 @@ class Tools1TypedDict(TypedDict):
     r"""The type of tool"""
     name: str
     r"""The name of the function to be called"""
-    parameters: ToolsParametersTypedDict
-    r"""The parameters the function accepts"""
     description: NotRequired[Nullable[str]]
     r"""A description of what the function does"""
-    strict: NotRequired[bool]
+    parameters: NotRequired[Nullable[Dict[str, Any]]]
+    r"""The parameters the function accepts as a JSON Schema object"""
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating function calls"""
 
 
@@ -851,19 +953,19 @@ class Tools1(BaseModel):
     name: str
     r"""The name of the function to be called"""
 
-    parameters: ToolsParameters
-    r"""The parameters the function accepts"""
-
     description: OptionalNullable[str] = UNSET
     r"""A description of what the function does"""
 
-    strict: Optional[bool] = True
+    parameters: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""The parameters the function accepts as a JSON Schema object"""
+
+    strict: OptionalNullable[bool] = True
     r"""Whether to enable strict schema adherence when generating function calls"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "strict"])
-        nullable_fields = set(["description"])
+        optional_fields = set(["description", "parameters", "strict"])
+        nullable_fields = set(["description", "parameters", "strict"])
         serialized = handler(self)
         m = {}
 
@@ -888,7 +990,7 @@ class Tools1(BaseModel):
 
 CreateResponseToolsTypedDict = TypeAliasType(
     "CreateResponseToolsTypedDict",
-    Union[Tools2TypedDict, Tools1TypedDict, Tools3TypedDict],
+    Union[Tools2TypedDict, Tools3TypedDict, Tools1TypedDict, Tools4TypedDict],
 )
 
 
@@ -896,7 +998,8 @@ CreateResponseTools = Annotated[
     Union[
         Annotated[Tools1, Tag("function")],
         Annotated[Tools2, Tag("web_search_preview")],
-        Annotated[Tools3, Tag("file_search")],
+        Annotated[Tools3, Tag("web_search")],
+        Annotated[Tools4, Tag("file_search")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -961,7 +1064,11 @@ class ToolChoice3(BaseModel):
 CreateResponseToolChoiceType = Literal[
     "file_search",
     "web_search_preview",
+    "web_search_preview_2025_03_11",
+    "web_search",
     "computer_use_preview",
+    "computer_use",
+    "computer",
     "code_interpreter",
     "image_generation",
 ]
@@ -1027,14 +1134,7 @@ class CreateResponseRequestBodyTypedDict(TypedDict):
     r"""The maximum number of tokens that can be generated in the response"""
     text: NotRequired[Nullable[CreateResponseTextTypedDict]]
     include: NotRequired[Nullable[List[Include]]]
-    r"""Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
-    - code_interpreter_call.outputs: Include the outputs of Code Interpreter tool calls
-    - computer_call_output.output.image_url: Include the image URLs from computer use tool calls
-    - file_search_call.results: Include the results of file search tool calls
-    - message.input_image.image_url: Include URLs of input images
-    - message.output_text.logprobs: Include log probabilities for output text (when logprobs is enabled)
-    - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
-    """
+    r"""Specifies which (potentially large) fields to include in the response."""
     parallel_tool_calls: NotRequired[Nullable[bool]]
     r"""Whether to enable parallel function calling during tool use."""
     store: NotRequired[Nullable[bool]]
@@ -1082,14 +1182,7 @@ class CreateResponseRequestBody(BaseModel):
     text: OptionalNullable[CreateResponseText] = UNSET
 
     include: OptionalNullable[List[Include]] = UNSET
-    r"""Specifies which (potentially large) fields to include in the response. By default, the results of Code Interpreter and file searches are excluded. Available options:
-    - code_interpreter_call.outputs: Include the outputs of Code Interpreter tool calls
-    - computer_call_output.output.image_url: Include the image URLs from computer use tool calls
-    - file_search_call.results: Include the results of file search tool calls
-    - message.input_image.image_url: Include URLs of input images
-    - message.output_text.logprobs: Include log probabilities for output text (when logprobs is enabled)
-    - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
-    """
+    r"""Specifies which (potentially large) fields to include in the response."""
 
     parallel_tool_calls: OptionalNullable[bool] = UNSET
     r"""Whether to enable parallel function calling during tool use."""
@@ -1233,6 +1326,8 @@ CreateResponseStatus = Literal[
     "completed",
     "failed",
     "in_progress",
+    "cancelled",
+    "queued",
     "incomplete",
 ]
 r"""The status of the response"""
@@ -1406,6 +1501,79 @@ CreateResponseOutputStatus = Literal[
 r"""The status of the web search"""
 
 
+CreateResponseOutputRouterResponsesResponse200ApplicationJSONType = Literal[
+    "search",
+    "open_page",
+    "find",
+]
+r"""The type of web search action"""
+
+
+class SourcesTypedDict(TypedDict):
+    url: str
+    r"""The source URL"""
+    title: str
+    r"""The source title"""
+
+
+class Sources(BaseModel):
+    url: str
+    r"""The source URL"""
+
+    title: str
+    r"""The source title"""
+
+
+class ActionTypedDict(TypedDict):
+    r"""The action performed by the web search"""
+
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    r"""The type of web search action"""
+    query: NotRequired[str]
+    r"""The search query (for search action)"""
+    url: NotRequired[str]
+    r"""The URL opened (for open_page action)"""
+    pattern: NotRequired[str]
+    r"""The pattern to find (for find action)"""
+    sources: NotRequired[List[SourcesTypedDict]]
+    r"""Sources from the web search"""
+
+
+class Action(BaseModel):
+    r"""The action performed by the web search"""
+
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    r"""The type of web search action"""
+
+    query: Optional[str] = None
+    r"""The search query (for search action)"""
+
+    url: Optional[str] = None
+    r"""The URL opened (for open_page action)"""
+
+    pattern: Optional[str] = None
+    r"""The pattern to find (for find action)"""
+
+    sources: Optional[List[Sources]] = None
+    r"""Sources from the web search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["query", "url", "pattern", "sources"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class Output2TypedDict(TypedDict):
     r"""A web search tool call output"""
 
@@ -1415,6 +1583,8 @@ class Output2TypedDict(TypedDict):
     r"""The type of output item"""
     status: CreateResponseOutputStatus
     r"""The status of the web search"""
+    action: NotRequired[ActionTypedDict]
+    r"""The action performed by the web search"""
 
 
 class Output2(BaseModel):
@@ -1428,6 +1598,25 @@ class Output2(BaseModel):
 
     status: CreateResponseOutputStatus
     r"""The status of the web search"""
+
+    action: Optional[Action] = None
+    r"""The action performed by the web search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["action"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 CreateResponseOutputType = Literal["message",]
@@ -1445,6 +1634,29 @@ OutputStatus = Literal[
     "failed",
 ]
 r"""The status of the message"""
+
+
+CreateResponseContentType = Literal["refusal",]
+r"""The type of content part"""
+
+
+class CreateResponseContentRouterResponses2TypedDict(TypedDict):
+    r"""A refusal content part from the model"""
+
+    type: CreateResponseContentType
+    r"""The type of content part"""
+    refusal: str
+    r"""The refusal message"""
+
+
+class CreateResponseContentRouterResponses2(BaseModel):
+    r"""A refusal content part from the model"""
+
+    type: CreateResponseContentType
+    r"""The type of content part"""
+
+    refusal: str
+    r"""The refusal message"""
 
 
 ContentType = Literal["output_text",]
@@ -1577,10 +1789,19 @@ class Content1(BaseModel):
         return m
 
 
-OutputContentTypedDict = Content1TypedDict
+OutputContentTypedDict = TypeAliasType(
+    "OutputContentTypedDict",
+    Union[CreateResponseContentRouterResponses2TypedDict, Content1TypedDict],
+)
 
 
-OutputContent = Content1
+OutputContent = Annotated[
+    Union[
+        Annotated[Content1, Tag("output_text")],
+        Annotated[CreateResponseContentRouterResponses2, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class Output1TypedDict(TypedDict):
@@ -1833,7 +2054,7 @@ CreateResponseRouterResponsesToolChoice = TypeAliasType(
 r"""Controls which (if any) tool is called by the model"""
 
 
-CreateResponseToolsRouterResponsesResponse200ApplicationJSONType = Literal[
+CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType = Literal[
     "file_search",
 ]
 r"""The type of tool"""
@@ -1881,10 +2102,10 @@ class ToolsRankingOptions(BaseModel):
         return m
 
 
-class CreateResponseTools3TypedDict(TypedDict):
+class CreateResponseTools4TypedDict(TypedDict):
     r"""Configuration for file search tool"""
 
-    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType
+    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType
     r"""The type of tool"""
     vector_store_ids: NotRequired[List[str]]
     r"""The vector stores to search"""
@@ -1896,10 +2117,10 @@ class CreateResponseTools3TypedDict(TypedDict):
     r"""Options for ranking search results"""
 
 
-class CreateResponseTools3(BaseModel):
+class CreateResponseTools4(BaseModel):
     r"""Configuration for file search tool"""
 
-    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType
+    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType
     r"""The type of tool"""
 
     vector_store_ids: Optional[List[str]] = None
@@ -1933,30 +2154,32 @@ class CreateResponseTools3(BaseModel):
         return m
 
 
-CreateResponseToolsRouterResponsesResponse200Type = Literal["web_search_preview",]
+CreateResponseToolsRouterResponsesResponse200ApplicationJSONType = Literal[
+    "web_search",
+]
 r"""The type of tool"""
 
 
-ToolsSearchContextSize = Literal[
-    "small",
+CreateResponseToolsRouterResponsesSearchContextSize = Literal[
+    "low",
     "medium",
-    "large",
+    "high",
 ]
 r"""Amount of context to retrieve for each search result"""
 
 
-CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType = Literal[
+CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody3Type = Literal[
     "approximate",
     "exact",
 ]
 r"""The type of location"""
 
 
-class ToolsUserLocationTypedDict(TypedDict):
+class CreateResponseToolsRouterResponsesUserLocationTypedDict(TypedDict):
     r"""User location for search localization"""
 
     type: NotRequired[
-        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType
+        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody3Type
     ]
     r"""The type of location"""
     city: NotRequired[Nullable[str]]
@@ -1969,11 +2192,190 @@ class ToolsUserLocationTypedDict(TypedDict):
     r"""The timezone"""
 
 
-class ToolsUserLocation(BaseModel):
+class CreateResponseToolsRouterResponsesUserLocation(BaseModel):
     r"""User location for search localization"""
 
     type: Optional[
-        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyType
+        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody3Type
+    ] = None
+    r"""The type of location"""
+
+    city: OptionalNullable[str] = UNSET
+    r"""The city name"""
+
+    country: Optional[str] = None
+    r"""The country code"""
+
+    region: OptionalNullable[str] = UNSET
+    r"""The region/state"""
+
+    timezone: OptionalNullable[str] = UNSET
+    r"""The timezone"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "city", "country", "region", "timezone"])
+        nullable_fields = set(["city", "region", "timezone"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class ToolsFiltersTypedDict(TypedDict):
+    r"""Filters for the web search"""
+
+    allowed_domains: NotRequired[Nullable[List[str]]]
+    r"""List of allowed domains for search"""
+
+
+class ToolsFilters(BaseModel):
+    r"""Filters for the web search"""
+
+    allowed_domains: OptionalNullable[List[str]] = UNSET
+    r"""List of allowed domains for search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["allowed_domains"])
+        nullable_fields = set(["allowed_domains"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class CreateResponseTools3TypedDict(TypedDict):
+    r"""Configuration for web search tool"""
+
+    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType
+    r"""The type of tool"""
+    search_context_size: NotRequired[
+        CreateResponseToolsRouterResponsesSearchContextSize
+    ]
+    r"""Amount of context to retrieve for each search result"""
+    user_location: NotRequired[CreateResponseToolsRouterResponsesUserLocationTypedDict]
+    r"""User location for search localization"""
+    filters: NotRequired[Nullable[ToolsFiltersTypedDict]]
+    r"""Filters for the web search"""
+
+
+class CreateResponseTools3(BaseModel):
+    r"""Configuration for web search tool"""
+
+    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONType
+    r"""The type of tool"""
+
+    search_context_size: Optional[
+        CreateResponseToolsRouterResponsesSearchContextSize
+    ] = "medium"
+    r"""Amount of context to retrieve for each search result"""
+
+    user_location: Optional[CreateResponseToolsRouterResponsesUserLocation] = None
+    r"""User location for search localization"""
+
+    filters: OptionalNullable[ToolsFilters] = UNSET
+    r"""Filters for the web search"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["search_context_size", "user_location", "filters"])
+        nullable_fields = set(["filters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+CreateResponseToolsRouterResponsesResponse200Type = Literal["web_search_preview",]
+r"""The type of tool"""
+
+
+CreateResponseToolsSearchContextSize = Literal[
+    "low",
+    "medium",
+    "high",
+]
+r"""Amount of context to retrieve for each search result"""
+
+
+CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody2Type = Literal[
+    "approximate",
+    "exact",
+]
+r"""The type of location"""
+
+
+class CreateResponseToolsUserLocationTypedDict(TypedDict):
+    r"""User location for search localization"""
+
+    type: NotRequired[
+        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody2Type
+    ]
+    r"""The type of location"""
+    city: NotRequired[Nullable[str]]
+    r"""The city name"""
+    country: NotRequired[str]
+    r"""The country code"""
+    region: NotRequired[Nullable[str]]
+    r"""The region/state"""
+    timezone: NotRequired[Nullable[str]]
+    r"""The timezone"""
+
+
+class CreateResponseToolsUserLocation(BaseModel):
+    r"""User location for search localization"""
+
+    type: Optional[
+        CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody2Type
     ] = None
     r"""The type of location"""
 
@@ -2016,20 +2418,20 @@ class ToolsUserLocation(BaseModel):
 
 
 class CreateResponseTools2TypedDict(TypedDict):
-    r"""Configuration for web search tool"""
+    r"""Configuration for web search preview tool"""
 
     type: CreateResponseToolsRouterResponsesResponse200Type
     r"""The type of tool"""
     domains: NotRequired[List[str]]
     r"""List of domains to restrict search to"""
-    search_context_size: NotRequired[ToolsSearchContextSize]
+    search_context_size: NotRequired[CreateResponseToolsSearchContextSize]
     r"""Amount of context to retrieve for each search result"""
-    user_location: NotRequired[ToolsUserLocationTypedDict]
+    user_location: NotRequired[CreateResponseToolsUserLocationTypedDict]
     r"""User location for search localization"""
 
 
 class CreateResponseTools2(BaseModel):
-    r"""Configuration for web search tool"""
+    r"""Configuration for web search preview tool"""
 
     type: CreateResponseToolsRouterResponsesResponse200Type
     r"""The type of tool"""
@@ -2037,10 +2439,10 @@ class CreateResponseTools2(BaseModel):
     domains: Optional[List[str]] = None
     r"""List of domains to restrict search to"""
 
-    search_context_size: Optional[ToolsSearchContextSize] = "medium"
+    search_context_size: Optional[CreateResponseToolsSearchContextSize] = "medium"
     r"""Amount of context to retrieve for each search result"""
 
-    user_location: Optional[ToolsUserLocation] = None
+    user_location: Optional[CreateResponseToolsUserLocation] = None
     r"""User location for search localization"""
 
     @model_serializer(mode="wrap")
@@ -2064,105 +2466,6 @@ CreateResponseToolsRouterResponsesResponseType = Literal["function",]
 r"""The type of tool"""
 
 
-CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody1Type = Literal[
-    "object",
-]
-r"""The type of the parameters object"""
-
-
-class ToolsPropertiesTypedDict(TypedDict):
-    type: str
-    description: NotRequired[str]
-    enum: NotRequired[List[str]]
-
-
-class ToolsProperties(BaseModel):
-    model_config = ConfigDict(
-        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
-    )
-    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
-
-    type: str
-
-    description: Optional[str] = None
-
-    enum: Optional[List[str]] = None
-
-    @property
-    def additional_properties(self):
-        return self.__pydantic_extra__
-
-    @additional_properties.setter
-    def additional_properties(self, value):
-        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["description", "enum"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            serialized.pop(k, serialized.pop(n, None))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-        for k, v in serialized.items():
-            m[k] = v
-
-        return m
-
-
-class CreateResponseToolsParametersTypedDict(TypedDict):
-    r"""The parameters the function accepts"""
-
-    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody1Type
-    r"""The type of the parameters object"""
-    properties: Dict[str, ToolsPropertiesTypedDict]
-    r"""The parameters the function accepts, described as a JSON Schema object"""
-    required: NotRequired[List[str]]
-    r"""List of required parameter names"""
-    additional_properties: NotRequired[bool]
-    r"""Whether to allow properties not defined in the schema"""
-
-
-class CreateResponseToolsParameters(BaseModel):
-    r"""The parameters the function accepts"""
-
-    type: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBody1Type
-    r"""The type of the parameters object"""
-
-    properties: Dict[str, ToolsProperties]
-    r"""The parameters the function accepts, described as a JSON Schema object"""
-
-    required: Optional[List[str]] = None
-    r"""List of required parameter names"""
-
-    additional_properties: Annotated[
-        Optional[bool], pydantic.Field(alias="additionalProperties")
-    ] = None
-    r"""Whether to allow properties not defined in the schema"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["required", "additionalProperties"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class CreateResponseTools1TypedDict(TypedDict):
     r"""A function tool definition"""
 
@@ -2170,11 +2473,11 @@ class CreateResponseTools1TypedDict(TypedDict):
     r"""The type of tool"""
     name: str
     r"""The name of the function to be called"""
-    parameters: CreateResponseToolsParametersTypedDict
-    r"""The parameters the function accepts"""
     description: NotRequired[Nullable[str]]
     r"""A description of what the function does"""
-    strict: NotRequired[bool]
+    parameters: NotRequired[Nullable[Dict[str, Any]]]
+    r"""The parameters the function accepts as a JSON Schema object"""
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating function calls"""
 
 
@@ -2187,19 +2490,19 @@ class CreateResponseTools1(BaseModel):
     name: str
     r"""The name of the function to be called"""
 
-    parameters: CreateResponseToolsParameters
-    r"""The parameters the function accepts"""
-
     description: OptionalNullable[str] = UNSET
     r"""A description of what the function does"""
 
-    strict: Optional[bool] = True
+    parameters: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""The parameters the function accepts as a JSON Schema object"""
+
+    strict: OptionalNullable[bool] = True
     r"""Whether to enable strict schema adherence when generating function calls"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "strict"])
-        nullable_fields = set(["description"])
+        optional_fields = set(["description", "parameters", "strict"])
+        nullable_fields = set(["description", "parameters", "strict"])
         serialized = handler(self)
         m = {}
 
@@ -2226,8 +2529,9 @@ CreateResponseRouterResponsesToolsTypedDict = TypeAliasType(
     "CreateResponseRouterResponsesToolsTypedDict",
     Union[
         CreateResponseTools2TypedDict,
-        CreateResponseTools1TypedDict,
         CreateResponseTools3TypedDict,
+        CreateResponseTools1TypedDict,
+        CreateResponseTools4TypedDict,
     ],
 )
 
@@ -2236,7 +2540,8 @@ CreateResponseRouterResponsesTools = Annotated[
     Union[
         Annotated[CreateResponseTools1, Tag("function")],
         Annotated[CreateResponseTools2, Tag("web_search_preview")],
-        Annotated[CreateResponseTools3, Tag("file_search")],
+        Annotated[CreateResponseTools3, Tag("web_search")],
+        Annotated[CreateResponseTools4, Tag("file_search")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2399,6 +2704,7 @@ CreateResponseServiceTier = Literal[
     "auto",
     "default",
     "flex",
+    "scale",
     "priority",
 ]
 r"""The service tier used for processing the request"""
@@ -2632,14 +2938,6 @@ except NameError:
     pass
 try:
     CreateResponseText.model_rebuild()
-except NameError:
-    pass
-try:
-    ToolsParameters.model_rebuild()
-except NameError:
-    pass
-try:
-    CreateResponseToolsParameters.model_rebuild()
 except NameError:
     pass
 try:
