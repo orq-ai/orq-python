@@ -38,7 +38,7 @@ class OrqResponses(BaseSDK):
         ] = UNSET,
         include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
-        store: OptionalNullable[bool] = True,
+        store: OptionalNullable[bool] = UNSET,
         service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[
@@ -224,7 +224,7 @@ class OrqResponses(BaseSDK):
         ] = UNSET,
         include: OptionalNullable[List[models.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
-        store: OptionalNullable[bool] = True,
+        store: OptionalNullable[bool] = UNSET,
         service_tier: OptionalNullable[models.ServiceTier] = UNSET,
         tools: Optional[
             Union[

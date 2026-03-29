@@ -12,3 +12,4 @@ A citation to a URL
 | `end_index`                                            | *float*                                                | :heavy_check_mark:                                     | The end index of the citation in the text              |
 | `url`                                                  | *str*                                                  | :heavy_check_mark:                                     | The URL being cited                                    |
 | `title`                                                | *str*                                                  | :heavy_check_mark:                                     | The title of the cited resource                        |
+| `text`                                                 | *Optional[str]*                                        | :heavy_minus_sign:                                     | The text of the citation                               |
