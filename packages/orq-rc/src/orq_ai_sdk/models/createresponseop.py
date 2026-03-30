@@ -556,10 +556,10 @@ class RankingOptionsTypedDict(TypedDict):
 class RankingOptions(BaseModel):
     r"""Options for ranking search results"""
 
-    ranker: Optional[Ranker] = "auto"
+    ranker: Optional[Ranker] = None
     r"""The ranking algorithm"""
 
-    score_threshold: Optional[float] = 0
+    score_threshold: Optional[float] = None
     r"""Minimum relevance score"""
 
     @model_serializer(mode="wrap")
@@ -603,7 +603,7 @@ class Tools4(BaseModel):
     vector_store_ids: Optional[List[str]] = None
     r"""The vector stores to search"""
 
-    max_num_results: Optional[int] = 20
+    max_num_results: Optional[int] = None
     r"""Maximum number of results to return"""
 
     filters: Optional[Any] = None
@@ -767,7 +767,7 @@ class Tools3(BaseModel):
     type: CreateResponseToolsRouterResponsesRequestType
     r"""The type of tool"""
 
-    search_context_size: Optional[ToolsSearchContextSize] = "medium"
+    search_context_size: Optional[ToolsSearchContextSize] = None
     r"""Amount of context to retrieve for each search result"""
 
     user_location: Optional[ToolsUserLocation] = None
@@ -902,7 +902,7 @@ class Tools2(BaseModel):
     domains: Optional[List[str]] = None
     r"""List of domains to restrict search to"""
 
-    search_context_size: Optional[SearchContextSize] = "medium"
+    search_context_size: Optional[SearchContextSize] = None
     r"""Amount of context to retrieve for each search result"""
 
     user_location: Optional[UserLocation] = None
@@ -1187,7 +1187,7 @@ class CreateResponseRequestBody(BaseModel):
     parallel_tool_calls: OptionalNullable[bool] = UNSET
     r"""Whether to enable parallel function calling during tool use."""
 
-    store: OptionalNullable[bool] = True
+    store: OptionalNullable[bool] = UNSET
     r"""Whether to store this response for use in distillations or evals."""
 
     service_tier: OptionalNullable[ServiceTier] = UNSET
@@ -1373,6 +1373,105 @@ class IncompleteDetails(BaseModel):
     r"""The reason the response is incomplete"""
 
 
+CreateResponseOutputRouterResponsesResponse200ApplicationJSONType = Literal[
+    "reasoning",
+]
+r"""The type of output item"""
+
+
+CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBody5Type = (
+    Literal["summary_text",]
+)
+r"""The type of summary part"""
+
+
+class OutputSummaryTypedDict(TypedDict):
+    r"""A text summary of the reasoning"""
+
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBody5Type
+    r"""The type of summary part"""
+    text: str
+    r"""The summary text"""
+
+
+class OutputSummary(BaseModel):
+    r"""A text summary of the reasoning"""
+
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBody5Type
+    r"""The type of summary part"""
+
+    text: str
+    r"""The summary text"""
+
+
+CreateResponseOutputRouterResponsesResponse200Status = Literal[
+    "in_progress",
+    "completed",
+    "incomplete",
+    "failed",
+]
+r"""The status of the reasoning item"""
+
+
+class Output5TypedDict(TypedDict):
+    r"""A reasoning output item from the model"""
+
+    id: str
+    r"""The unique identifier for this reasoning item"""
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    r"""The type of output item"""
+    summary: NotRequired[List[OutputSummaryTypedDict]]
+    r"""Summary of the reasoning"""
+    encrypted_content: NotRequired[Nullable[str]]
+    r"""Encrypted reasoning content"""
+    status: NotRequired[CreateResponseOutputRouterResponsesResponse200Status]
+    r"""The status of the reasoning item"""
+
+
+class Output5(BaseModel):
+    r"""A reasoning output item from the model"""
+
+    id: str
+    r"""The unique identifier for this reasoning item"""
+
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    r"""The type of output item"""
+
+    summary: Optional[List[OutputSummary]] = None
+    r"""Summary of the reasoning"""
+
+    encrypted_content: OptionalNullable[str] = UNSET
+    r"""Encrypted reasoning content"""
+
+    status: Optional[CreateResponseOutputRouterResponsesResponse200Status] = None
+    r"""The status of the reasoning item"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["summary", "encrypted_content", "status"])
+        nullable_fields = set(["encrypted_content"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
 CreateResponseOutputRouterResponsesResponse200Type = Literal["function_call",]
 r"""The type of output item"""
 
@@ -1501,7 +1600,7 @@ CreateResponseOutputStatus = Literal[
 r"""The status of the web search"""
 
 
-CreateResponseOutputRouterResponsesResponse200ApplicationJSONType = Literal[
+CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBodyType = Literal[
     "search",
     "open_page",
     "find",
@@ -1527,7 +1626,7 @@ class Sources(BaseModel):
 class ActionTypedDict(TypedDict):
     r"""The action performed by the web search"""
 
-    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBodyType
     r"""The type of web search action"""
     query: NotRequired[str]
     r"""The search query (for search action)"""
@@ -1542,7 +1641,7 @@ class ActionTypedDict(TypedDict):
 class Action(BaseModel):
     r"""The action performed by the web search"""
 
-    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONType
+    type: CreateResponseOutputRouterResponsesResponse200ApplicationJSONResponseBodyType
     r"""The type of web search action"""
 
     query: Optional[str] = None
@@ -1708,6 +1807,8 @@ class Annotations1TypedDict(TypedDict):
     r"""The URL being cited"""
     title: str
     r"""The title of the cited resource"""
+    text: NotRequired[str]
+    r"""The text of the citation"""
 
 
 class Annotations1(BaseModel):
@@ -1726,6 +1827,25 @@ class Annotations1(BaseModel):
 
     title: str
     r"""The title of the cited resource"""
+
+    text: Optional[str] = None
+    r"""The text of the citation"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["text"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 ContentAnnotationsTypedDict = TypeAliasType(
@@ -1753,7 +1873,7 @@ class Content1TypedDict(TypedDict):
     r"""The text content"""
     annotations: NotRequired[List[ContentAnnotationsTypedDict]]
     r"""Annotations in the text such as citations"""
-    logprobs: NotRequired[List[Any]]
+    logprobs: NotRequired[Nullable[List[Any]]]
     r"""Log probabilities of the output tokens if requested"""
 
 
@@ -1769,21 +1889,30 @@ class Content1(BaseModel):
     annotations: Optional[List[ContentAnnotations]] = None
     r"""Annotations in the text such as citations"""
 
-    logprobs: Optional[List[Any]] = None
+    logprobs: OptionalNullable[List[Any]] = UNSET
     r"""Log probabilities of the output tokens if requested"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["annotations", "logprobs"])
+        nullable_fields = set(["logprobs"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1856,7 +1985,13 @@ class Output1(BaseModel):
 
 OutputTypedDict = TypeAliasType(
     "OutputTypedDict",
-    Union[Output2TypedDict, Output1TypedDict, Output3TypedDict, Output4TypedDict],
+    Union[
+        Output2TypedDict,
+        Output1TypedDict,
+        Output3TypedDict,
+        Output5TypedDict,
+        Output4TypedDict,
+    ],
 )
 
 
@@ -1866,6 +2001,7 @@ Output = Annotated[
         Annotated[Output2, Tag("web_search_call")],
         Annotated[Output3, Tag("file_search_call")],
         Annotated[Output4, Tag("function_call")],
+        Annotated[Output5, Tag("reasoning")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2079,10 +2215,10 @@ class ToolsRankingOptionsTypedDict(TypedDict):
 class ToolsRankingOptions(BaseModel):
     r"""Options for ranking search results"""
 
-    ranker: Optional[ToolsRanker] = "auto"
+    ranker: Optional[ToolsRanker] = None
     r"""The ranking algorithm"""
 
-    score_threshold: Optional[float] = 0
+    score_threshold: Optional[float] = None
     r"""Minimum relevance score"""
 
     @model_serializer(mode="wrap")
@@ -2126,7 +2262,7 @@ class CreateResponseTools4(BaseModel):
     vector_store_ids: Optional[List[str]] = None
     r"""The vector stores to search"""
 
-    max_num_results: Optional[int] = 20
+    max_num_results: Optional[int] = None
     r"""Maximum number of results to return"""
 
     filters: Optional[Any] = None
@@ -2300,7 +2436,7 @@ class CreateResponseTools3(BaseModel):
 
     search_context_size: Optional[
         CreateResponseToolsRouterResponsesSearchContextSize
-    ] = "medium"
+    ] = None
     r"""Amount of context to retrieve for each search result"""
 
     user_location: Optional[CreateResponseToolsRouterResponsesUserLocation] = None
@@ -2439,7 +2575,7 @@ class CreateResponseTools2(BaseModel):
     domains: Optional[List[str]] = None
     r"""List of domains to restrict search to"""
 
-    search_context_size: Optional[CreateResponseToolsSearchContextSize] = "medium"
+    search_context_size: Optional[CreateResponseToolsSearchContextSize] = None
     r"""Amount of context to retrieve for each search result"""
 
     user_location: Optional[CreateResponseToolsUserLocation] = None
@@ -2721,8 +2857,6 @@ class CreateResponseResponseBodyTypedDict(TypedDict):
     r"""The Unix timestamp (in seconds) of when the response was created"""
     status: CreateResponseStatus
     r"""The status of the response"""
-    error: Nullable[CreateResponseErrorTypedDict]
-    r"""The error that occurred, if any"""
     incomplete_details: Nullable[IncompleteDetailsTypedDict]
     r"""Details about why the response is incomplete"""
     model: str
@@ -2730,6 +2864,8 @@ class CreateResponseResponseBodyTypedDict(TypedDict):
     output: List[OutputTypedDict]
     r"""The list of output items generated by the model"""
     parallel_tool_calls: bool
+    error: NotRequired[Nullable[CreateResponseErrorTypedDict]]
+    r"""The error that occurred, if any"""
     instructions: NotRequired[Nullable[str]]
     r"""The instructions provided for the response"""
     output_text: NotRequired[Nullable[str]]
@@ -2776,9 +2912,6 @@ class CreateResponseResponseBody(BaseModel):
     status: CreateResponseStatus
     r"""The status of the response"""
 
-    error: Nullable[CreateResponseError]
-    r"""The error that occurred, if any"""
-
     incomplete_details: Nullable[IncompleteDetails]
     r"""Details about why the response is incomplete"""
 
@@ -2789,6 +2922,9 @@ class CreateResponseResponseBody(BaseModel):
     r"""The list of output items generated by the model"""
 
     parallel_tool_calls: bool
+
+    error: OptionalNullable[CreateResponseError] = UNSET
+    r"""The error that occurred, if any"""
 
     instructions: OptionalNullable[str] = UNSET
     r"""The instructions provided for the response"""
@@ -2820,7 +2956,7 @@ class CreateResponseResponseBody(BaseModel):
 
     text: Optional[CreateResponseRouterResponsesText] = None
 
-    truncation: OptionalNullable[Truncation] = "disabled"
+    truncation: OptionalNullable[Truncation] = UNSET
     r"""Controls how the model handles inputs longer than the maximum token length"""
 
     user: OptionalNullable[str] = UNSET
@@ -2842,6 +2978,7 @@ class CreateResponseResponseBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "error",
                 "instructions",
                 "output_text",
                 "usage",

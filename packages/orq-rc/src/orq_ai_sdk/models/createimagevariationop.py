@@ -447,7 +447,7 @@ class CreateImageVariationRequestBodyTypedDict(TypedDict):
     r"""The model to use for image generation."""
     image: NotRequired[Any]
     r"""The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
-    n: NotRequired[Nullable[int]]
+    n: NotRequired[Nullable[float]]
     r"""The number of images to generate. Must be between 1 and 10."""
     response_format: NotRequired[CreateImageVariationResponseFormat]
     r"""The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated."""
@@ -479,7 +479,7 @@ class CreateImageVariationRequestBody(BaseModel):
     image: Annotated[Optional[Any], FieldMetadata(multipart=True)] = None
     r"""The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
 
-    n: Annotated[OptionalNullable[int], FieldMetadata(multipart=True)] = 1
+    n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1
     r"""The number of images to generate. Must be between 1 and 10."""
 
     response_format: Annotated[

@@ -22,7 +22,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.responses.create(model="Taurus", input_=[], store=True, stream=False)
+    res = orq.router.responses.create(model="Taurus", input_=[], stream=False)
 
     with res as event_stream:
         for event in event_stream:
