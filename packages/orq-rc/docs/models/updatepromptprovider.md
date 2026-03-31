@@ -38,5 +38,6 @@ value: UpdatePromptProvider = "openai"
 - `"minimax"`
 - `"xai"`
 - `"alibaba"`
+- `"tensorix"`
 - `"slack"`
 - `"orq"`

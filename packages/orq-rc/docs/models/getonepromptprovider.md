@@ -38,5 +38,6 @@ value: GetOnePromptProvider = "openai"
 - `"minimax"`
 - `"xai"`
 - `"alibaba"`
+- `"tensorix"`
 - `"slack"`
 - `"orq"`

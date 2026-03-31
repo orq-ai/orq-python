@@ -38,5 +38,6 @@ value: DeploymentsProvider = "openai"
 - `"minimax"`
 - `"xai"`
 - `"alibaba"`
+- `"tensorix"`
 - `"slack"`
 - `"orq"`
