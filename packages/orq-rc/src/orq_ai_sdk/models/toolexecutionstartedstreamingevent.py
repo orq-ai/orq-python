@@ -10,7 +10,7 @@ from orq_ai_sdk.types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -59,6 +59,8 @@ class ToolExecutionContextTypedDict(TypedDict):
     r"""Orquesta product"""
     memory: NotRequired[MemoryTypedDict]
     parent_id: NotRequired[str]
+    variables: NotRequired[Dict[str, Any]]
+    secret_keys: NotRequired[List[str]]
 
 
 class ToolExecutionContext(BaseModel):
@@ -79,9 +81,13 @@ class ToolExecutionContext(BaseModel):
 
     parent_id: Optional[str] = None
 
+    variables: Optional[Dict[str, Any]] = None
+
+    secret_keys: Optional[List[str]] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["memory", "parent_id"])
+        optional_fields = set(["memory", "parent_id", "variables", "secret_keys"])
         serialized = handler(self)
         m = {}
 

@@ -4,7 +4,13 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -286,7 +292,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KN46CKQXJRBTP4Y2CGX4K7WB"
+    id: Optional[str] = "01KN4PGYKDHE016KKCP9XV3DF6"
 
     description: Optional[str] = None
 
@@ -382,6 +388,7 @@ class UpdateMCPToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     mcp: NotRequired[UpdateToolRequestBodyMcpTypedDict]
+    discovery_variables: NotRequired[Dict[str, str]]
     version_increment: NotRequired[UpdateToolRequestBodyToolsRequestVersionIncrement]
     version_description: NotRequired[str]
 
@@ -413,6 +420,8 @@ class UpdateMCPTool(BaseModel):
 
     mcp: Optional[UpdateToolRequestBodyMcp] = None
 
+    discovery_variables: Optional[Dict[str, str]] = None
+
     version_increment: Annotated[
         Optional[UpdateToolRequestBodyToolsRequestVersionIncrement],
         pydantic.Field(alias="versionIncrement"),
@@ -432,6 +441,7 @@ class UpdateMCPTool(BaseModel):
                 "description",
                 "status",
                 "mcp",
+                "discovery_variables",
                 "versionIncrement",
                 "versionDescription",
             ]
@@ -1120,8 +1130,8 @@ UpdateToolRequestBodyTypedDict = TypeAliasType(
         UpdateFunctionToolTypedDict,
         UpdateJSONSchemaToolTypedDict,
         UpdateHTTPToolTypedDict,
-        UpdateMCPToolTypedDict,
         UpdateCodeExecutionToolTypedDict,
+        UpdateMCPToolTypedDict,
     ],
 )
 r"""The tool to update"""
@@ -1348,7 +1358,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KN46CKQR36QPGPYQ7GK33574"
+        "tool_01KN4PGYK8ZWK5JFJ4MD58T6S5"
     )
 
     display_name: Optional[str] = None
@@ -1479,7 +1489,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KN46CKQQKX7N2B927QE8ABRJ"
+    id: Optional[str] = "01KN4PGYK77SH4FW6AZXJPF5BA"
 
     description: Optional[str] = None
 
@@ -1516,6 +1526,8 @@ class UpdateToolResponseBodyMcpTypedDict(TypedDict):
     r"""The connection type used by the MCP server"""
     headers: NotRequired[Dict[str, UpdateToolResponseBodyHeadersTypedDict]]
     r"""HTTP headers for MCP server requests with encryption support"""
+    template_variables: NotRequired[Nullable[List[str]]]
+    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
 
 
 class UpdateToolResponseBodyMcp(BaseModel):
@@ -1531,18 +1543,30 @@ class UpdateToolResponseBodyMcp(BaseModel):
     headers: Optional[Dict[str, UpdateToolResponseBodyHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
 
+    template_variables: OptionalNullable[List[str]] = UNSET
+    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers"])
+        optional_fields = set(["headers", "template_variables"])
+        nullable_fields = set(["template_variables"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1610,7 +1634,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KN46CKQPYGQF754SD76ZZATD"
+        "tool_01KN4PGYK6HMBKCC4XMXRPH6TT"
     )
 
     display_name: Optional[str] = None
@@ -1911,7 +1935,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KN46CKQNGHF8YWRDJT4SZNEH"
+        "tool_01KN4PGYK46BXXFYT2R9GDGSTT"
     )
 
     display_name: Optional[str] = None
@@ -2106,7 +2130,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KN46CKQK3B4BCCXSMDMFZYZN"
+        "tool_01KN4PGYK2ZQYNZRW7D8FCDE0M"
     )
 
     display_name: Optional[str] = None
@@ -2305,7 +2329,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KN46CKQJNPPEFEP4MJ7S4K9T"
+        "tool_01KN4PGYK1C7M9ZR89B7FST128"
     )
 
     display_name: Optional[str] = None
