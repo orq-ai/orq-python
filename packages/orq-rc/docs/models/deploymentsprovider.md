@@ -39,5 +39,6 @@ value: DeploymentsProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"tensorix"`
+- `"hcompany"`
 - `"slack"`
 - `"orq"`

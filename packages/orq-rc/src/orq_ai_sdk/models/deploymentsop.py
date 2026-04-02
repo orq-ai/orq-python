@@ -633,6 +633,7 @@ DeploymentsProvider = Literal[
     "xai",
     "alibaba",
     "tensorix",
+    "hcompany",
     "slack",
     "orq",
 ]
