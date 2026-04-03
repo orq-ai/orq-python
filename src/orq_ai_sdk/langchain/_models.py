@@ -26,9 +26,9 @@ class InFlightEvent:
     parent_run_id: Optional[str] = None
     trace_id: Optional[str] = None
 
-    # Timing
-    start_time_iso: str = ""
-    end_time_iso: Optional[str] = None
+    # Timing (nanoseconds since epoch, as strings for OTLP)
+    start_time_ns: str = ""
+    end_time_ns: Optional[str] = None
 
     # Serialized info from LangChain
     serialized: Dict[str, Any] = field(default_factory=dict)

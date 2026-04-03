@@ -12,15 +12,15 @@ from langchain_core.outputs import LLMResult  # type: ignore
 from ._client import OrqTracesClient
 from ._events import Events
 from ._models import EventType, InFlightEvent
-from ._span_builder import build_span
+from ._span_builder import build_otlp_span, _nano_timestamp
 from ._utils import (
     extract_model_name,
     extract_model_parameters,
     extract_token_usage,
     format_error,
-    get_iso_string,
     logger,
     normalize_messages,
+    resolve_span_name,
 )
 
 
@@ -47,14 +47,16 @@ class OrqLangchainCallback(BaseCallbackHandler):
 
         self._events.map_parent(rid, pid)
         trace_id = self._events.get_trace_id(rid)
+        span_id = self._events.get_span_id(rid)
+        parent_span_id = self._events.get_span_id(pid) if pid else ""
 
         event = InFlightEvent(
-            run_id=rid,
-            parent_run_id=pid,
+            run_id=span_id,
+            parent_run_id=parent_span_id,
             trace_id=trace_id,
             event_type=event_type,
-            name=name or serialized.get("name", event_type.value),
-            start_time_iso=get_iso_string(),
+            name=resolve_span_name(name, metadata, serialized),
+            start_time_ns=_nano_timestamp(),
             serialized=serialized,
             metadata=metadata,
             tags=tags,
@@ -68,9 +70,9 @@ class OrqLangchainCallback(BaseCallbackHandler):
         event = self._events.get(rid)
         if not event:
             return
-        if not event.end_time_iso:
-            event.end_time_iso = get_iso_string()
-        span = build_span(event)
+        if not event.end_time_ns:
+            event.end_time_ns = _nano_timestamp()
+        span = build_otlp_span(event)
         self._client.send_span(span)
         self._events.remove(rid)
 
@@ -148,10 +150,9 @@ class OrqLangchainCallback(BaseCallbackHandler):
             if not event:
                 return
 
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             event.token_usage = extract_token_usage(response)
 
-            # Build response choices
             choices = []
             if response.generations:
                 for idx, gen in enumerate(response.generations[0]):
@@ -160,7 +161,6 @@ class OrqLangchainCallback(BaseCallbackHandler):
                         finish_reason = gen.generation_info.get("finish_reason")
 
                     content = gen.text
-                    # If streaming tokens were accumulated and gen.text is empty, use them
                     if not content and event.streaming_tokens:
                         content = "".join(event.streaming_tokens)
 
@@ -187,7 +187,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             err = format_error(error)
             event.error = {
                 "type": type(error).__name__,
@@ -231,7 +231,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             event.outputs = outputs if isinstance(outputs, dict) else {"outputs": outputs}
             self._finish_and_send(run_id)
         except Exception:
@@ -249,7 +249,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             err = format_error(error)
             event.error = {
                 "type": type(error).__name__,
@@ -293,7 +293,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             event.tool_output = str(output)
             self._finish_and_send(run_id)
         except Exception:
@@ -311,7 +311,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             err = format_error(error)
             event.error = {
                 "type": type(error).__name__,
@@ -355,7 +355,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             event.documents = [
                 doc.dict() if hasattr(doc, "dict") else {"page_content": doc.page_content, "metadata": doc.metadata}
                 for doc in documents
@@ -376,7 +376,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             err = format_error(error)
             event.error = {
                 "type": type(error).__name__,
@@ -426,7 +426,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._events.get(str(run_id))
             if not event:
                 return
-            event.end_time_iso = get_iso_string()
+            event.end_time_ns = _nano_timestamp()
             event.agent_finish = {
                 "output": str(finish.return_values),
                 "log": finish.log,

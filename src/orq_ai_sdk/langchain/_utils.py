@@ -134,6 +134,30 @@ def extract_token_usage(response: Any) -> Optional[Dict[str, Any]]:
     return result
 
 
+def resolve_span_name(
+    name: Optional[str] = None,
+    metadata: Optional[Dict[str, Any]] = None,
+    serialized: Optional[Dict[str, Any]] = None,
+    fallback: str = "Chain",
+) -> str:
+    """Resolve span name from multiple sources.
+
+    Priority: explicit name > serialized name > last element of serialized
+    id list > langgraph_node metadata > fallback.
+    """
+    if name:
+        return name
+    if serialized:
+        if serialized.get("name"):
+            return serialized["name"]
+        id_list = serialized.get("id") or []
+        if id_list:
+            return id_list[-1]
+    if metadata and metadata.get("langgraph_node"):
+        return metadata["langgraph_node"]
+    return fallback
+
+
 def format_error(error: BaseException) -> Dict[str, str]:
     """Format an error with traceback."""
     return {
