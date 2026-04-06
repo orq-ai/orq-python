@@ -138,7 +138,7 @@ def resolve_span_name(
     name: Optional[str] = None,
     metadata: Optional[Dict[str, Any]] = None,
     serialized: Optional[Dict[str, Any]] = None,
-    fallback: str = "Chain",
+    fallback: str = "LangGraph",
 ) -> str:
     """Resolve span name from multiple sources.
 

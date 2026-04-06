@@ -53,6 +53,9 @@ class OrqTracesClient:
             spans = self._pending[:]
             self._pending.clear()
 
+        logger.debug("FLUSH sending %d spans:", len(spans))
+        for s in spans:
+            logger.debug("  span: name=%s traceId=%s spanId=%s parentSpanId=%s", s.get("name"), s.get("traceId"), s.get("spanId"), s.get("parentSpanId"))
         payload = wrap_in_otlp_envelope(spans)
         headers = {
             "Authorization": f"Bearer {self._api_key}",

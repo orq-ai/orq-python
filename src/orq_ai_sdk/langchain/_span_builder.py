@@ -202,8 +202,10 @@ def _add_llm_attributes(attrs: List[Dict[str, Any]], event: InFlightEvent) -> No
             attrs.append(_int_attr("gen_ai.usage.total_tokens", usage["total_tokens"]))
 
 
-def _extract_provider(serialized: Dict[str, Any]) -> Optional[str]:
+def _extract_provider(serialized: Optional[Dict[str, Any]]) -> Optional[str]:
     """Extract the provider name from serialized data."""
+    if not serialized:
+        return None
     id_parts = serialized.get("id", [])
     for part in id_parts:
         part_lower = str(part).lower()

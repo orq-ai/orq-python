@@ -117,6 +117,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event.messages = normalize_messages(messages)
             event.model_name = extract_model_name(serialized, kwargs)
             event.model_parameters = extract_model_parameters(kwargs)
+            logger.debug("CHAT_MODEL_START name=%s run_id=%s parent=%s", event.name, run_id, parent_run_id)
         except Exception:
             logger.debug("on_chat_model_start error", exc_info=True)
 
@@ -171,6 +172,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     })
             event.response_choices = choices
 
+            logger.debug("LLM_END name=%s run_id=%s", event.name, run_id)
             self._finish_and_send(run_id)
         except Exception:
             logger.debug("on_llm_end error", exc_info=True)
@@ -213,9 +215,11 @@ class OrqLangchainCallback(BaseCallbackHandler):
     ) -> Any:
         try:
             event = self._start_event(
-                run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags
+                run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags,
+                name=kwargs.get("name"),
             )
             event.inputs = inputs if isinstance(inputs, dict) else {"inputs": inputs}
+            logger.debug("CHAIN_START name=%s run_id=%s parent=%s", event.name, run_id, parent_run_id)
         except Exception:
             logger.debug("on_chain_start error", exc_info=True)
 
@@ -230,9 +234,11 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             event = self._events.get(str(run_id))
             if not event:
+                logger.debug("CHAIN_END MISSING run_id=%s", run_id)
                 return
             event.end_time_ns = _nano_timestamp()
             event.outputs = outputs if isinstance(outputs, dict) else {"outputs": outputs}
+            logger.debug("CHAIN_END name=%s run_id=%s", event.name, run_id)
             self._finish_and_send(run_id)
         except Exception:
             logger.debug("on_chain_end error", exc_info=True)

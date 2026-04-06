@@ -211,7 +211,8 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
     ) -> Any:
         try:
             event = self._start_event(
-                run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags
+                run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags,
+                name=kwargs.get("name"),
             )
             event.inputs = inputs if isinstance(inputs, dict) else {"inputs": inputs}
         except Exception:
