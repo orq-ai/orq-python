@@ -511,7 +511,7 @@ class Agents(BaseSDK):
             models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         fallback_models: Optional[
             Union[
                 List[models.FallbackModelConfiguration],
@@ -670,7 +670,7 @@ class Agents(BaseSDK):
             models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         fallback_models: Optional[
             Union[
                 List[models.FallbackModelConfiguration],
@@ -1393,7 +1393,7 @@ class Agents(BaseSDK):
         role: Optional[str] = None,
         description: Optional[str] = None,
         instructions: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         model: Optional[
             Union[
                 models.UpdateAgentModelConfiguration,
@@ -1593,7 +1593,7 @@ class Agents(BaseSDK):
         role: Optional[str] = None,
         description: Optional[str] = None,
         instructions: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         model: Optional[
             Union[
                 models.UpdateAgentModelConfiguration,
@@ -2128,7 +2128,7 @@ class Agents(BaseSDK):
             Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
@@ -2320,7 +2320,7 @@ class Agents(BaseSDK):
             Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
@@ -2516,7 +2516,7 @@ class Agents(BaseSDK):
             Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
@@ -2741,7 +2741,7 @@ class Agents(BaseSDK):
             Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
-        system_prompt: Optional[str] = None,
+        system_prompt: OptionalNullable[str] = UNSET,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[

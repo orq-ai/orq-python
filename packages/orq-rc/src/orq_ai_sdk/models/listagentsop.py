@@ -1947,7 +1947,7 @@ class ListAgentsDataTypedDict(TypedDict):
     engine: NotRequired[ListAgentsEngine]
     type: NotRequired[ListAgentsType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[ListAgentsSettingsTypedDict]
     a2a: NotRequired[ListAgentsA2AAgentConfigurationTypedDict]
     r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
@@ -2014,7 +2014,7 @@ class ListAgentsData(BaseModel):
     type: Optional[ListAgentsType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
 
     settings: Optional[ListAgentsSettings] = None
 
@@ -2045,7 +2045,7 @@ class ListAgentsData(BaseModel):
                 "a2a",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])
         serialized = handler(self)
         m = {}
 

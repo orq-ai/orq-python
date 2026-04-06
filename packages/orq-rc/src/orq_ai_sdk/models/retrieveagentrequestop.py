@@ -1969,7 +1969,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     engine: NotRequired[RetrieveAgentRequestEngine]
     type: NotRequired[RetrieveAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[RetrieveAgentRequestSettingsTypedDict]
     a2a: NotRequired[RetrieveAgentRequestA2AAgentConfigurationTypedDict]
     r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
@@ -2040,7 +2040,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     type: Optional[RetrieveAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
 
     settings: Optional[RetrieveAgentRequestSettings] = None
 
@@ -2071,7 +2071,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "a2a",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])
         serialized = handler(self)
         m = {}
 
