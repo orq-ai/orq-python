@@ -1903,7 +1903,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KN91R29JF6ZFW5YM1GWFRAG0"
+    id: Optional[str] = "01KNGMV8HSSJXB318C5DYCQMCQ"
 
     description: Optional[str] = None
 
@@ -3363,7 +3363,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
@@ -3434,7 +3434,7 @@ class StreamRunAgentRequestBody(BaseModel):
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
@@ -3476,15 +3476,24 @@ class StreamRunAgentRequestBody(BaseModel):
                 "stream_timeout_seconds",
             ]
         )
+        nullable_fields = set(["system_prompt"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

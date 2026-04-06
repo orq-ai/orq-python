@@ -189,7 +189,7 @@ class RetrieveIdentityResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-04-03T06:50:45.931Z")
+    updated: Optional[datetime] = parse_datetime("2026-04-06T05:39:15.293Z")
     r"""The date and time the resource was last updated"""
 
     metrics: OptionalNullable[RetrieveIdentityMetrics] = UNSET
