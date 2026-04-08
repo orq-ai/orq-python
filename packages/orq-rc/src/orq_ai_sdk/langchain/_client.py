@@ -76,17 +76,42 @@ class OrqTracesClient:
 
 
 class AsyncOrqTracesClient:
-    """Async client that posts OTLP-formatted spans to /v2/traces/v1/traces."""
+    """Async client that posts OTLP-formatted spans to /v2/traces/v1/traces.
 
-    def __init__(self, api_key: str, api_url: str = "https://my.orq.ai"):
+    Spans are accumulated and flushed after a short delay, mirroring the
+    sync client's debounced flush behaviour.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+        api_url: str = "https://my.orq.ai",
+        flush_interval: float = 1.0,
+    ):
         self._api_key = api_key
         self._url = f"{api_url.rstrip('/')}/v2/otel/v1/traces"
         self._client = httpx.AsyncClient(timeout=30.0)
         self._pending: List[Dict[str, Any]] = []
+        self._flush_interval = flush_interval
+        self._flush_task: Any = None
 
     async def send_span(self, span: Dict[str, Any]) -> None:
-        """Queue a span."""
+        """Queue a span and schedule a flush."""
         self._pending.append(span)
+        self._schedule_flush()
+
+    def _schedule_flush(self) -> None:
+        """Schedule a flush after the flush interval (debounced)."""
+        import asyncio
+
+        if self._flush_task is None or self._flush_task.done():
+            self._flush_task = asyncio.create_task(self._delayed_flush())
+
+    async def _delayed_flush(self) -> None:
+        import asyncio
+
+        await asyncio.sleep(self._flush_interval)
+        await self.flush()
 
     async def flush(self) -> None:
         """Send all pending spans in one OTLP envelope."""
