@@ -2401,6 +2401,13 @@ Source = Literal[
 ]
 
 
+Engine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+
+
 class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     key: str
     r"""Unique identifier for the agent within the workspace"""
@@ -2421,7 +2428,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""Configuration settings for the agent's behavior"""
     display_name: NotRequired[str]
     r"""agent display name within the workspace"""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     fallback_models: NotRequired[List[FallbackModelConfigurationTypedDict]]
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
@@ -2433,6 +2440,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
     source: NotRequired[Source]
+    engine: NotRequired[Engine]
 
 
 class CreateAgentRequestRequestBody(BaseModel):
@@ -2463,7 +2471,7 @@ class CreateAgentRequestRequestBody(BaseModel):
     display_name: Optional[str] = None
     r"""agent display name within the workspace"""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     fallback_models: Optional[List[FallbackModelConfiguration]] = None
@@ -2482,6 +2490,8 @@ class CreateAgentRequestRequestBody(BaseModel):
 
     source: Optional[Source] = None
 
+    engine: Optional[Engine] = "text"
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2494,17 +2504,27 @@ class CreateAgentRequestRequestBody(BaseModel):
                 "team_of_agents",
                 "variables",
                 "source",
+                "engine",
             ]
         )
+        nullable_fields = set(["system_prompt"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -2588,6 +2608,13 @@ CreateAgentRequestSource = Literal[
     "internal",
     "external",
     "experiment",
+]
+
+
+CreateAgentRequestEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
 ]
 
 
@@ -4420,9 +4447,10 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[CreateAgentRequestSource]
+    engine: NotRequired[CreateAgentRequestEngine]
     type: NotRequired[CreateAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[CreateAgentRequestAgentsSettingsTypedDict]
     a2a: NotRequired[A2AAgentConfigurationTypedDict]
     r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
@@ -4488,10 +4516,12 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     source: Optional[CreateAgentRequestSource] = None
 
+    engine: Optional[CreateAgentRequestEngine] = "text"
+
     type: Optional[CreateAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
 
     settings: Optional[CreateAgentRequestAgentsSettings] = None
 
@@ -4515,13 +4545,14 @@ class CreateAgentRequestResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "engine",
                 "type",
                 "system_prompt",
                 "settings",
                 "a2a",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])
         serialized = handler(self)
         m = {}
 

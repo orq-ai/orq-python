@@ -1808,7 +1808,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KN7YD609QK1JXSPRST0K1KVB"
+    id: Optional[str] = "01KNQDR151Y62D621HNDXH8C87"
 
     description: Optional[str] = None
 
@@ -3186,6 +3186,14 @@ class RunAgentSettings(BaseModel):
         return m
 
 
+RunAgentEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
+
+
 class RunAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
@@ -3221,7 +3229,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
@@ -3231,6 +3239,8 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
+    engine: NotRequired[RunAgentEngine]
+    r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
 
 
 class RunAgentRequestBody(BaseModel):
@@ -3288,7 +3298,7 @@ class RunAgentRequestBody(BaseModel):
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
@@ -3302,6 +3312,9 @@ class RunAgentRequestBody(BaseModel):
 
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
+
+    engine: Optional[RunAgentEngine] = "text"
+    r"""Template engine for variable interpolation. Text uses {{variable}} syntax, Jinja supports loops/conditionals/filters, Mustache uses {{#section}} syntax."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -3320,17 +3333,27 @@ class RunAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "metadata",
+                "engine",
             ]
         )
+        nullable_fields = set(["system_prompt"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

@@ -38,6 +38,7 @@ class Responses(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
@@ -65,6 +66,7 @@ class Responses(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
@@ -103,6 +105,7 @@ class Responses(BaseSDK):
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]
                 ),
@@ -211,6 +214,7 @@ class Responses(BaseSDK):
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
@@ -238,6 +242,7 @@ class Responses(BaseSDK):
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
         :param configuration: Configuration options for the agent invocation
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
@@ -276,6 +281,7 @@ class Responses(BaseSDK):
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
                 metadata=metadata,
+                engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]
                 ),

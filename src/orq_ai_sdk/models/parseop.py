@@ -132,6 +132,8 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     r"""Size of candidate splits for LLM evaluation"""
     min_characters_per_chunk: NotRequired[int]
     r"""Minimum characters allowed per chunk"""
+    system_prompt: NotRequired[str]
+    r"""Custom system prompt for the agentic chunker LLM. Overrides the default prompt that instructs the model how to identify chunk boundaries. Maximum 20,000 tokens."""
 
 
 class AgenticChunkerStrategy(BaseModel):
@@ -160,6 +162,9 @@ class AgenticChunkerStrategy(BaseModel):
     min_characters_per_chunk: Optional[int] = 24
     r"""Minimum characters allowed per chunk"""
 
+    system_prompt: Optional[str] = None
+    r"""Custom system prompt for the agentic chunker LLM. Overrides the default prompt that instructs the model how to identify chunk boundaries. Maximum 20,000 tokens."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -169,6 +174,7 @@ class AgenticChunkerStrategy(BaseModel):
                 "chunk_size",
                 "candidate_size",
                 "min_characters_per_chunk",
+                "system_prompt",
             ]
         )
         serialized = handler(self)

@@ -4,7 +4,13 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -497,7 +503,9 @@ class ResponseBodyTypescriptTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     guardrail_config: NotRequired[
-        UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict
+        Nullable[
+            UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict
+        ]
     ]
 
 
@@ -512,26 +520,35 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[
+    guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
-    ] = None
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -685,7 +702,9 @@ class ResponseBodyRagasTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     guardrail_config: NotRequired[
-        UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict
+        Nullable[
+            UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict
+        ]
     ]
 
 
@@ -702,26 +721,35 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[
+    guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
-    ] = None
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1366,7 +1394,7 @@ class ResponseBodyFunctionTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     guardrail_config: NotRequired[
-        UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict
+        Nullable[UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict]
     ]
 
 
@@ -1381,26 +1409,35 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[
+    guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
-    ] = None
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1523,7 +1560,7 @@ class UpdateEvalResponseBodyPythonTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     guardrail_config: NotRequired[
-        UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict
+        Nullable[UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict]
     ]
 
 
@@ -1538,26 +1575,35 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
-        None
-    )
+    guardrail_config: OptionalNullable[
+        UpdateEvalResponseBodyEvalsResponseGuardrailConfig
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1686,7 +1732,9 @@ class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
-    guardrail_config: NotRequired[UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict]
+    guardrail_config: NotRequired[
+        Nullable[UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict]
+    ]
 
 
 class UpdateEvalResponseBodyHTTP(BaseModel):
@@ -1706,24 +1754,35 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
+    guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
+        UNSET
+    )
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1843,7 +1902,9 @@ class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
-    guardrail_config: NotRequired[UpdateEvalResponseBodyGuardrailConfigTypedDict]
+    guardrail_config: NotRequired[
+        Nullable[UpdateEvalResponseBodyGuardrailConfigTypedDict]
+    ]
 
 
 class UpdateEvalResponseBodyJSON(BaseModel):
@@ -1857,24 +1918,33 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
+    guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -2191,7 +2261,7 @@ class UpdateEvalLLM2TypedDict(TypedDict):
     jury: UpdateEvalLLMJuryTypedDict
     created: NotRequired[str]
     updated: NotRequired[str]
-    guardrail_config: NotRequired[UpdateEvalLLMEvalsGuardrailConfigTypedDict]
+    guardrail_config: NotRequired[Nullable[UpdateEvalLLMEvalsGuardrailConfigTypedDict]]
     repetitions: NotRequired[int]
 
 
@@ -2210,26 +2280,35 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[UpdateEvalLLMEvalsGuardrailConfig] = None
+    guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
     repetitions: Optional[int] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config", "repetitions"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -2376,7 +2455,7 @@ class UpdateEvalLLM1TypedDict(TypedDict):
     model: str
     created: NotRequired[str]
     updated: NotRequired[str]
-    guardrail_config: NotRequired[UpdateEvalLLMGuardrailConfigTypedDict]
+    guardrail_config: NotRequired[Nullable[UpdateEvalLLMGuardrailConfigTypedDict]]
     repetitions: NotRequired[int]
 
 
@@ -2395,26 +2474,35 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-02T20:33:12.228Z"
+    created: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    updated: Optional[str] = "2026-04-02T20:33:12.228Z"
+    updated: Optional[str] = "2026-04-08T20:49:52.620Z"
 
-    guardrail_config: Optional[UpdateEvalLLMGuardrailConfig] = None
+    guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
     repetitions: Optional[int] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config", "repetitions"])
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

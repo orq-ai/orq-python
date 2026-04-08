@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Dict, List, Mapping, Optional, Union
 
 
 class Generations(BaseSDK):
@@ -24,6 +24,7 @@ class Generations(BaseSDK):
         response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models.Style] = UNSET,
+        metadata: Optional[Dict[str, str]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
@@ -68,6 +69,7 @@ class Generations(BaseSDK):
         :param response_format: The format in which generated images are returned. Must be one of `url` or `b64_json`. This parameter isn't supported for `gpt-image-1` which will always return base64-encoded images.
         :param size: The size of the generated images. Must be one of the specified sizes for each model.
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
+        :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
@@ -105,6 +107,7 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
+            metadata=metadata,
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
@@ -188,6 +191,7 @@ class Generations(BaseSDK):
         response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models.Style] = UNSET,
+        metadata: Optional[Dict[str, str]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
@@ -232,6 +236,7 @@ class Generations(BaseSDK):
         :param response_format: The format in which generated images are returned. Must be one of `url` or `b64_json`. This parameter isn't supported for `gpt-image-1` which will always return base64-encoded images.
         :param size: The size of the generated images. Must be one of the specified sizes for each model.
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
+        :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
@@ -269,6 +274,7 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
+            metadata=metadata,
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]

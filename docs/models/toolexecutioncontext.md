@@ -13,3 +13,5 @@
 | `product`                                      | [models.Product](../models/product.md)         | :heavy_check_mark:                             | Orquesta product                               |
 | `memory`                                       | [Optional[models.Memory]](../models/memory.md) | :heavy_minus_sign:                             | N/A                                            |
 | `parent_id`                                    | *Optional[str]*                                | :heavy_minus_sign:                             | N/A                                            |
+| `variables`                                    | Dict[str, *Any*]                               | :heavy_minus_sign:                             | N/A                                            |
+| `secret_keys`                                  | List[*str*]                                    | :heavy_minus_sign:                             | N/A                                            |

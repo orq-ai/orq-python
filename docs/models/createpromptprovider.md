@@ -38,5 +38,7 @@ value: CreatePromptProvider = "openai"
 - `"minimax"`
 - `"xai"`
 - `"alibaba"`
+- `"tensorix"`
+- `"hcompany"`
 - `"slack"`
 - `"orq"`

@@ -2418,6 +2418,13 @@ class UpdateAgentTeamOfAgents(BaseModel):
         return m
 
 
+UpdateAgentEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+
+
 class UpdateAgentHeadersTypedDict(TypedDict):
     value: str
     r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
@@ -2503,7 +2510,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     description: NotRequired[str]
     r"""A brief description of what the agent does"""
     instructions: NotRequired[str]
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     model: NotRequired[UpdateAgentModelConfigurationTypedDict]
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
@@ -2524,6 +2531,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
+    engine: NotRequired[UpdateAgentEngine]
     a2a: NotRequired[UpdateA2AConfigurationTypedDict]
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
     version_increment: NotRequired[UpdateAgentVersionIncrement]
@@ -2546,7 +2554,7 @@ class UpdateAgentRequestBody(BaseModel):
 
     instructions: Optional[str] = None
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     model: Optional[UpdateAgentModelConfiguration] = None
@@ -2575,6 +2583,8 @@ class UpdateAgentRequestBody(BaseModel):
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
+
+    engine: Optional[UpdateAgentEngine] = None
 
     a2a: Optional[UpdateA2AConfiguration] = None
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
@@ -2608,20 +2618,30 @@ class UpdateAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "variables",
+                "engine",
                 "a2a",
                 "versionIncrement",
                 "versionDescription",
             ]
         )
+        nullable_fields = set(["system_prompt"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -2745,6 +2765,13 @@ UpdateAgentSource = Literal[
     "internal",
     "external",
     "experiment",
+]
+
+
+UpdateAgentAgentsEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
 ]
 
 
@@ -4569,9 +4596,10 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[UpdateAgentSource]
+    engine: NotRequired[UpdateAgentAgentsEngine]
     type: NotRequired[UpdateAgentType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
-    system_prompt: NotRequired[str]
+    system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[UpdateAgentAgentsSettingsTypedDict]
     a2a: NotRequired[UpdateAgentA2AAgentConfigurationTypedDict]
     r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
@@ -4637,10 +4665,12 @@ class UpdateAgentResponseBody(BaseModel):
 
     source: Optional[UpdateAgentSource] = None
 
+    engine: Optional[UpdateAgentAgentsEngine] = "text"
+
     type: Optional[UpdateAgentType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
-    system_prompt: Optional[str] = None
+    system_prompt: OptionalNullable[str] = UNSET
 
     settings: Optional[UpdateAgentAgentsSettings] = None
 
@@ -4664,13 +4694,14 @@ class UpdateAgentResponseBody(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "engine",
                 "type",
                 "system_prompt",
                 "settings",
                 "a2a",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])
         serialized = handler(self)
         m = {}
 
