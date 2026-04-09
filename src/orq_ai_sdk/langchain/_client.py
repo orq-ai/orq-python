@@ -1,5 +1,6 @@
 """Traces client for sending OTLP-formatted spans to the Orq API."""
 
+import atexit
 import threading
 from typing import Any, Dict, List
 
@@ -30,6 +31,13 @@ class OrqTracesClient:
         self._lock = threading.Lock()
         self._flush_interval = flush_interval
         self._timer: threading.Timer | None = None
+        atexit.register(self._atexit_flush)
+
+    def _atexit_flush(self) -> None:
+        """Flush remaining spans on interpreter shutdown."""
+        if self._timer:
+            self._timer.cancel()
+        self.flush()
 
     def send_span(self, span: Dict[str, Any]) -> None:
         """Queue a span and schedule a flush."""
