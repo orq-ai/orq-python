@@ -61,7 +61,7 @@ def extract_model_parameters(kwargs: Dict[str, Any]) -> Dict[str, Any]:
 
 def normalize_messages(messages: List[List[Any]]) -> List[Dict[str, Any]]:
     """Normalize all LangChain message types to dicts."""
-    from langchain_core.messages import (  # type: ignore
+    from langchain_core.messages import (  # type: ignore  # pylint: disable=import-error,import-outside-toplevel
         AIMessage,
         ChatMessage,
         FunctionMessage,

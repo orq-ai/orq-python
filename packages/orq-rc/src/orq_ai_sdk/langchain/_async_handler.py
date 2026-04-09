@@ -1,13 +1,14 @@
 """Async LangChain callback handler."""
+# pylint: disable=unused-argument
 
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any, Dict, List, Optional, Sequence
 from uuid import UUID
 
-from langchain_core.callbacks import AsyncCallbackHandler  # type: ignore
-from langchain_core.agents import AgentAction, AgentFinish  # type: ignore
-from langchain_core.documents import Document  # type: ignore
-from langchain_core.messages import BaseMessage  # type: ignore
-from langchain_core.outputs import LLMResult  # type: ignore
+from langchain_core.callbacks import AsyncCallbackHandler  # type: ignore  # pylint: disable=import-error
+from langchain_core.agents import AgentAction, AgentFinish  # type: ignore  # pylint: disable=import-error
+from langchain_core.documents import Document  # type: ignore  # pylint: disable=import-error
+from langchain_core.messages import BaseMessage  # type: ignore  # pylint: disable=import-error
+from langchain_core.outputs import LLMResult  # type: ignore  # pylint: disable=import-error
 
 from ._client import AsyncOrqTracesClient
 from ._events import Events

@@ -1,7 +1,6 @@
 """Traces client for sending OTLP-formatted spans to the Orq API."""
 
 import threading
-import time
 from typing import Any, Dict, List
 
 import httpx
@@ -102,13 +101,13 @@ class AsyncOrqTracesClient:
 
     def _schedule_flush(self) -> None:
         """Schedule a flush after the flush interval (debounced)."""
-        import asyncio
+        import asyncio  # pylint: disable=import-outside-toplevel
 
         if self._flush_task is None or self._flush_task.done():
             self._flush_task = asyncio.create_task(self._delayed_flush())
 
     async def _delayed_flush(self) -> None:
-        import asyncio
+        import asyncio  # pylint: disable=import-outside-toplevel
 
         await asyncio.sleep(self._flush_interval)
         await self.flush()
