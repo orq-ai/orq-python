@@ -20,7 +20,7 @@ def setup(
     Uses sync handler by default -- LangChain automatically handles
     async contexts by running sync callbacks in a thread executor.
     """
-    from ._handler import OrqLangchainCallback
+    from ._handler import OrqLangchainCallback  # pylint: disable=import-outside-toplevel
 
     key = api_key or os.environ.get("ORQ_API_KEY")
     if not key:
@@ -42,7 +42,7 @@ def teardown() -> None:
 def _register_hook() -> None:
     """Register the ContextVar with LangChain's configure hook system."""
     try:
-        from langchain_core.tracers.context import register_configure_hook  # type: ignore
+        from langchain_core.tracers.context import register_configure_hook  # type: ignore  # pylint: disable=import-outside-toplevel
 
         register_configure_hook(context_var=_handler_var, inheritable=True)
     except ImportError:

@@ -51,14 +51,13 @@ def _encode_attr(key: str, value: Any) -> Dict[str, Any]:
     """Encode a single attribute value in OTLP format."""
     if isinstance(value, bool):
         return _bool_attr(key, value)
-    elif isinstance(value, int):
+    if isinstance(value, int):
         return _int_attr(key, value)
-    elif isinstance(value, float):
+    if isinstance(value, float):
         return _double_attr(key, value)
-    elif isinstance(value, list):
+    if isinstance(value, list):
         return _array_attr(key, [str(v) for v in value])
-    else:
-        return _str_attr(key, str(value))
+    return _str_attr(key, str(value))
 
 
 # ── Span kind mapping ────────────────────────────────────────────
@@ -220,14 +219,14 @@ def _build_prompt(event: InFlightEvent) -> Optional[Any]:
     if event.event_type == EventType.LLM:
         if event.messages:
             return {"messages": event.messages}
-        elif event.prompts:
+        if event.prompts:
             return {"prompts": event.prompts}
-    elif event.event_type in (EventType.CHAIN, EventType.AGENT):
+    if event.event_type in (EventType.CHAIN, EventType.AGENT):
         return event.inputs
-    elif event.event_type == EventType.TOOL:
+    if event.event_type == EventType.TOOL:
         if event.tool_input is not None:
             return {"input": event.tool_input}
-    elif event.event_type == EventType.RETRIEVAL:
+    if event.event_type == EventType.RETRIEVAL:
         if event.query is not None:
             return {"query": event.query}
     return None
@@ -242,12 +241,12 @@ def _build_completion(event: InFlightEvent) -> Optional[Any]:
         if event.token_usage:
             output["usage"] = event.token_usage
         return output if output else None
-    elif event.event_type in (EventType.CHAIN, EventType.AGENT):
+    if event.event_type in (EventType.CHAIN, EventType.AGENT):
         return event.outputs
-    elif event.event_type == EventType.TOOL:
+    if event.event_type == EventType.TOOL:
         if event.tool_output is not None:
             return {"output": event.tool_output}
-    elif event.event_type == EventType.RETRIEVAL:
+    if event.event_type == EventType.RETRIEVAL:
         if event.documents is not None:
             return {"documents": event.documents}
     return None
