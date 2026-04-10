@@ -6,10 +6,10 @@
 
 * [list](#list) - List all files
 * [create](#create) - Create file
+* [get_content](#get_content) - Download file content
 * [delete](#delete) - Delete file
 * [get](#get) - Retrieve a file
 * [update](#update) - Update file
-* [get_content](#get_content) - Download file content
 
 ## list
 
@@ -90,6 +90,41 @@ with Orq(
 ### Response
 
 **[models.FileUploadResponseBody](../../models/fileuploadresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_content
+
+Signs the object name and redirects to a presigned URL for downloading the file content. Accepts either a file ID or an object storage path (URL-encoded).
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="FileContent" method="get" path="/v2/files/{file_id_or_path}/content" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.files.get_content(file_id_or_path="<value>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The file ID or object storage path to retrieve content for.         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
@@ -206,41 +241,6 @@ with Orq(
 ### Response
 
 **[models.FileUpdateResponseBody](../../models/fileupdateresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## get_content
-
-Signs the object name and redirects to a presigned URL for downloading the file content.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="FileContent" method="get" path="/v2/files/{file_id}/content" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.files.get_content(file_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 

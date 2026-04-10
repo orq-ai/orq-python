@@ -7,12 +7,12 @@ from typing_extensions import Annotated, TypedDict
 
 
 class FileContentRequestTypedDict(TypedDict):
-    file_id: str
-    r"""The ID of the file"""
+    file_id_or_path: str
+    r"""The file ID or object storage path to retrieve content for."""
 
 
 class FileContentRequest(BaseModel):
-    file_id: Annotated[
+    file_id_or_path: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The ID of the file"""
+    r"""The file ID or object storage path to retrieve content for."""

@@ -282,10 +282,10 @@ with Orq(
 
 * [list](docs/sdks/files/README.md#list) - List all files
 * [create](docs/sdks/files/README.md#create) - Create file
+* [get_content](docs/sdks/files/README.md#get_content) - Download file content
 * [delete](docs/sdks/files/README.md#delete) - Delete file
 * [get](docs/sdks/files/README.md#get) - Retrieve a file
 * [update](docs/sdks/files/README.md#update) - Update file
-* [get_content](docs/sdks/files/README.md#get_content) - Download file content
 
 ### [HumanReviewSets](docs/sdks/humanreviewsets/README.md)
 
