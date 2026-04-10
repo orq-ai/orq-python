@@ -9,6 +9,12 @@
 value: models.CreateEvalGuardrailConfigEvalsResponse200Boolean = /* values here */
 ```
 
+### `models.CreateEvalGuardrailConfigEvalsResponse200Categorical`
+
+```python
+value: models.CreateEvalGuardrailConfigEvalsResponse200Categorical = /* values here */
+```
+
 ### `models.CreateEvalGuardrailConfigEvalsResponse200Number`
 
 ```python

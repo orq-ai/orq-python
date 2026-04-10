@@ -407,6 +407,11 @@ class Evals(BaseSDK):
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
         categories: Optional[List[str]] = None,
+        categorical_labels: Optional[
+            Union[
+                List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
+            ]
+        ] = None,
         repetitions: Optional[float] = None,
         mode: Optional[models.Mode] = None,
         model: Optional[str] = None,
@@ -434,6 +439,7 @@ class Evals(BaseSDK):
         :param prompt:
         :param output_type:
         :param categories:
+        :param categorical_labels:
         :param repetitions:
         :param mode:
         :param model:
@@ -474,6 +480,9 @@ class Evals(BaseSDK):
                 prompt=prompt,
                 output_type=output_type,
                 categories=categories,
+                categorical_labels=utils.get_pydantic_model(
+                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
@@ -564,6 +573,11 @@ class Evals(BaseSDK):
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
         categories: Optional[List[str]] = None,
+        categorical_labels: Optional[
+            Union[
+                List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
+            ]
+        ] = None,
         repetitions: Optional[float] = None,
         mode: Optional[models.Mode] = None,
         model: Optional[str] = None,
@@ -591,6 +605,7 @@ class Evals(BaseSDK):
         :param prompt:
         :param output_type:
         :param categories:
+        :param categorical_labels:
         :param repetitions:
         :param mode:
         :param model:
@@ -631,6 +646,9 @@ class Evals(BaseSDK):
                 prompt=prompt,
                 output_type=output_type,
                 categories=categories,
+                categorical_labels=utils.get_pydantic_model(
+                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,

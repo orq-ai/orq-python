@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
-value: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = "number"
+value: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = "boolean"
 ```
 
 
 ## Values
 
-- `"number"`
+- `"boolean"`

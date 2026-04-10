@@ -9,6 +9,12 @@
 value: models.UpdateEvalGuardrailConfigEvalsBoolean = /* values here */
 ```
 
+### `models.UpdateEvalGuardrailConfigEvalsCategorical`
+
+```python
+value: models.UpdateEvalGuardrailConfigEvalsCategorical = /* values here */
+```
+
 ### `models.UpdateEvalGuardrailConfigEvalsNumber`
 
 ```python
