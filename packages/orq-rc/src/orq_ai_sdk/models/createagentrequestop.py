@@ -4436,7 +4436,6 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     updated: NotRequired[str]
     version: NotRequired[str]
     r"""Current semantic version of the agent manifest."""
-    version_hash: NotRequired[str]
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: NotRequired[List[CreateAgentRequestTeamOfAgentsTypedDict]]
@@ -4498,8 +4497,6 @@ class CreateAgentRequestResponseBody(BaseModel):
     version: Optional[str] = None
     r"""Current semantic version of the agent manifest."""
 
-    version_hash: Optional[str] = None
-
     memory_stores: Optional[List[str]] = None
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
@@ -4538,7 +4535,6 @@ class CreateAgentRequestResponseBody(BaseModel):
                 "created",
                 "updated",
                 "version",
-                "version_hash",
                 "memory_stores",
                 "team_of_agents",
                 "metrics",

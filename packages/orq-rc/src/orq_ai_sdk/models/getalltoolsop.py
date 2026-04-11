@@ -182,7 +182,6 @@ class DataCodeExecutionToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class DataCodeExecutionTool(BaseModel):
@@ -215,7 +214,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KNVVT6D9P0XMFTF8G2TE391Q"
+        "tool_01KNXVFNQCXX2VAF8BVMP8V10S"
     )
 
     display_name: Optional[str] = None
@@ -230,19 +229,10 @@ class DataCodeExecutionTool(BaseModel):
     status: Optional[GetAllToolsDataToolsResponse200Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -342,7 +332,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KNVVT6D82NXZFA7HG90WB86S"
+    id: Optional[str] = "01KNXVFNQB3F33T28ZWV55F4X2"
 
     description: Optional[str] = None
 
@@ -454,7 +444,6 @@ class DataMCPToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class DataMCPTool(BaseModel):
@@ -487,7 +476,7 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KNVVT6D0YRWJX487KPEVHTY9"
+        "tool_01KNXVFNQ23J3WYA4WWG3A4350"
     )
 
     display_name: Optional[str] = None
@@ -502,19 +491,10 @@ class DataMCPTool(BaseModel):
     status: Optional[GetAllToolsDataToolsResponseStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -752,7 +732,6 @@ class DataHTTPToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class DataHTTPTool(BaseModel):
@@ -785,7 +764,7 @@ class DataHTTPTool(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KNVVT6CYQC0EF5WA6VGDJ78Z"
+        "tool_01KNXVFNQ1MAPA8C3NX6RT284F"
     )
 
     display_name: Optional[str] = None
@@ -800,19 +779,10 @@ class DataHTTPTool(BaseModel):
     status: Optional[GetAllToolsDataToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -947,7 +917,6 @@ class DataJSONSchemaToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class DataJSONSchemaTool(BaseModel):
@@ -980,7 +949,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KNVVT6CW06VW32KE81MKE226"
+        "tool_01KNXVFNPZWCRATJAQ8SFQFRE0"
     )
 
     display_name: Optional[str] = None
@@ -995,19 +964,10 @@ class DataJSONSchemaTool(BaseModel):
     status: Optional[GetAllToolsDataStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -1146,7 +1106,6 @@ class DataFunctionToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[DataStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class DataFunctionTool(BaseModel):
@@ -1179,7 +1138,7 @@ class DataFunctionTool(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KNVVT6CVXX19X61DBNPX0H48"
+        "tool_01KNXVFNPYYEY2ER2A5VM0BE6H"
     )
 
     display_name: Optional[str] = None
@@ -1194,19 +1153,10 @@ class DataFunctionTool(BaseModel):
     status: Optional[DataStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
