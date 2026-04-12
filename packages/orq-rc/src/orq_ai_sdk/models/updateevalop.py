@@ -598,9 +598,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -842,9 +842,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1572,9 +1572,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1782,9 +1782,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -1970,9 +1970,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
@@ -2138,9 +2138,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -2340,9 +2340,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -2924,9 +2924,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-11T08:45:24.799Z"
+    created: Optional[str] = "2026-04-12T10:25:50.563Z"
 
-    updated: Optional[str] = "2026-04-11T08:45:24.799Z"
+    updated: Optional[str] = "2026-04-12T10:25:50.563Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
