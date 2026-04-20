@@ -16,8 +16,7 @@ class Policies(BaseSDK):
         limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        filters: Optional[str] = None,
-        q: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,8 +29,7 @@ class Policies(BaseSDK):
         :param limit:
         :param starting_after: A cursor for use in pagination.
         :param ending_before: A cursor for use in pagination.
-        :param filters: Serialized filter string. Format: name:operator:value joined by +. Supported fields: display_name, project_id, enabled.
-        :param q: Free-text search on display name (case-insensitive substring match).
+        :param project_id: Optional filter by project ID.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -54,8 +52,7 @@ class Policies(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
-            filters=filters,
-            q=q,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -115,8 +112,7 @@ class Policies(BaseSDK):
         limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        filters: Optional[str] = None,
-        q: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -129,8 +125,7 @@ class Policies(BaseSDK):
         :param limit:
         :param starting_after: A cursor for use in pagination.
         :param ending_before: A cursor for use in pagination.
-        :param filters: Serialized filter string. Format: name:operator:value joined by +. Supported fields: display_name, project_id, enabled.
-        :param q: Free-text search on display name (case-insensitive substring match).
+        :param project_id: Optional filter by project ID.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -153,8 +148,7 @@ class Policies(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
-            filters=filters,
-            q=q,
+            project_id=project_id,
         )
 
         req = self._build_request_async(

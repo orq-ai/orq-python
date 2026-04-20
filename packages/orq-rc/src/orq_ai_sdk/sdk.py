@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.responses import Responses
     from orq_ai_sdk.router import Router
     from orq_ai_sdk.routingrules import RoutingRules
+    from orq_ai_sdk.schedules import Schedules
     from orq_ai_sdk.tools import Tools
 
 
@@ -64,6 +65,7 @@ class Orq(BaseSDK):
     guardrail_rules: "GuardrailRules"
     policies: "Policies"
     routing_rules: "RoutingRules"
+    schedules: "Schedules"
     responses: "Responses"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
@@ -86,6 +88,7 @@ class Orq(BaseSDK):
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
     }
 

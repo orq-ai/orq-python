@@ -15,10 +15,8 @@ class PolicyListRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination."""
-    filters: NotRequired[str]
-    r"""Serialized filter string. Format: name:operator:value joined by +. Supported fields: display_name, project_id, enabled."""
-    q: NotRequired[str]
-    r"""Free-text search on display name (case-insensitive substring match)."""
+    project_id: NotRequired[str]
+    r"""Optional filter by project ID."""
 
 
 class PolicyListRequest(BaseModel):
@@ -39,22 +37,16 @@ class PolicyListRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination."""
 
-    filters: Annotated[
+    project_id: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
     ] = None
-    r"""Serialized filter string. Format: name:operator:value joined by +. Supported fields: display_name, project_id, enabled."""
-
-    q: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
-    ] = None
-    r"""Free-text search on display name (case-insensitive substring match)."""
+    r"""Optional filter by project ID."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "filters", "q"]
+            ["limit", "starting_after", "ending_before", "project_id"]
         )
         serialized = handler(self)
         m = {}
