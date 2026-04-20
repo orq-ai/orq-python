@@ -5507,6 +5507,10 @@ if TYPE_CHECKING:
     from .modelref import ModelRef, ModelRefTypedDict
     from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
     from .no_response_error import NoResponseError
+    from .optionalexpressioninput import (
+        OptionalExpressionInput,
+        OptionalExpressionInputTypedDict,
+    )
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
     from .parseop import (
         AgenticChunker,
@@ -13367,6 +13371,8 @@ __all__ = [
     "OneNinTypedDict",
     "OneTypedDict",
     "Operator",
+    "OptionalExpressionInput",
+    "OptionalExpressionInputTypedDict",
     "Or",
     "OrEq",
     "OrEqTypedDict",
@@ -21472,6 +21478,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelsConfig": ".modelsconfig",
     "ModelsConfigTypedDict": ".modelsconfig",
     "NoResponseError": ".no_response_error",
+    "OptionalExpressionInput": ".optionalexpressioninput",
+    "OptionalExpressionInputTypedDict": ".optionalexpressioninput",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
     "AgenticChunker": ".parseop",

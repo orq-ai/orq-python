@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 from .expression import Expression, ExpressionTypedDict
-from .expressioninput import ExpressionInput, ExpressionInputTypedDict
 from .guardrailref import GuardrailRef, GuardrailRefTypedDict
+from .optionalexpressioninput import (
+    OptionalExpressionInput,
+    OptionalExpressionInputTypedDict,
+)
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -20,9 +23,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class GuardrailRuleCreateRequestBodyTypedDict(TypedDict):
     display_name: str
-    expression: ExpressionInputTypedDict
     description: NotRequired[str]
     enabled: NotRequired[bool]
+    expression: NotRequired[OptionalExpressionInputTypedDict]
     guardrails: NotRequired[Nullable[List[GuardrailRefTypedDict]]]
     project_id: NotRequired[str]
     r"""Optional project ID. If null/omitted, the entity is global (workspace-wide)."""
@@ -32,11 +35,11 @@ class GuardrailRuleCreateRequestBodyTypedDict(TypedDict):
 class GuardrailRuleCreateRequestBody(BaseModel):
     display_name: str
 
-    expression: ExpressionInput
-
     description: Optional[str] = None
 
     enabled: Optional[bool] = None
+
+    expression: Optional[OptionalExpressionInput] = None
 
     guardrails: OptionalNullable[List[GuardrailRef]] = UNSET
 
@@ -48,7 +51,14 @@ class GuardrailRuleCreateRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["description", "enabled", "guardrails", "project_id", "timeout"]
+            [
+                "description",
+                "enabled",
+                "expression",
+                "guardrails",
+                "project_id",
+                "timeout",
+            ]
         )
         nullable_fields = set(["guardrails"])
         serialized = handler(self)

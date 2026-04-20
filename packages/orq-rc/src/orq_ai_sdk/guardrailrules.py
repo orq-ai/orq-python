@@ -210,9 +210,13 @@ class GuardrailRules(BaseSDK):
         self,
         *,
         display_name: str,
-        expression: Union[models.ExpressionInput, models.ExpressionInputTypedDict],
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
+        expression: Optional[
+            Union[
+                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
+            ]
+        ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
         ] = UNSET,
@@ -228,9 +232,9 @@ class GuardrailRules(BaseSDK):
         Creates a new guardrail rule with expression, guardrails configuration, and timeout settings.
 
         :param display_name:
-        :param expression:
         :param description:
         :param enabled:
+        :param expression:
         :param guardrails:
         :param project_id: Optional project ID. If null/omitted, the entity is global (workspace-wide).
         :param timeout:
@@ -256,7 +260,9 @@ class GuardrailRules(BaseSDK):
             description=description,
             display_name=display_name,
             enabled=enabled,
-            expression=utils.get_pydantic_model(expression, models.ExpressionInput),
+            expression=utils.get_pydantic_model(
+                expression, Optional[models.OptionalExpressionInput]
+            ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
             ),
@@ -324,9 +330,13 @@ class GuardrailRules(BaseSDK):
         self,
         *,
         display_name: str,
-        expression: Union[models.ExpressionInput, models.ExpressionInputTypedDict],
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
+        expression: Optional[
+            Union[
+                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
+            ]
+        ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
         ] = UNSET,
@@ -342,9 +352,9 @@ class GuardrailRules(BaseSDK):
         Creates a new guardrail rule with expression, guardrails configuration, and timeout settings.
 
         :param display_name:
-        :param expression:
         :param description:
         :param enabled:
+        :param expression:
         :param guardrails:
         :param project_id: Optional project ID. If null/omitted, the entity is global (workspace-wide).
         :param timeout:
@@ -370,7 +380,9 @@ class GuardrailRules(BaseSDK):
             description=description,
             display_name=display_name,
             enabled=enabled,
-            expression=utils.get_pydantic_model(expression, models.ExpressionInput),
+            expression=utils.get_pydantic_model(
+                expression, Optional[models.OptionalExpressionInput]
+            ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
             ),
@@ -794,7 +806,9 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
+            Union[
+                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
+            ]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -841,7 +855,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.ExpressionInput]
+                    expression, Optional[models.OptionalExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
@@ -918,7 +932,9 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
+            Union[
+                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
+            ]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -965,7 +981,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.ExpressionInput]
+                    expression, Optional[models.OptionalExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
