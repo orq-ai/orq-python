@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import Currency
-value: Currency = "USD"
+value: Currency = "usd"
 ```
 
 
 ## Values
 
-- `"USD"`
+- `"usd"`

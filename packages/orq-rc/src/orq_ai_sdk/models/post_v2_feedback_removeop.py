@@ -44,19 +44,19 @@ class PostV2FeedbackRemoveRequestBody(BaseModel):
     product: PostV2FeedbackRemoveProduct
 
 
-class PostV2FeedbackRemoveResponseResponseBodyData(BaseModel):
+class PostV2FeedbackRemoveFeedbackResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2FeedbackRemoveResponseResponseBody(OrqError):
+class PostV2FeedbackRemoveFeedbackResponseBody(OrqError):
     r"""Workspace ID is not found on the request"""
 
-    data: PostV2FeedbackRemoveResponseResponseBodyData = field(hash=False)
+    data: PostV2FeedbackRemoveFeedbackResponseBodyData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2FeedbackRemoveResponseResponseBodyData,
+        data: PostV2FeedbackRemoveFeedbackResponseBodyData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
@@ -66,7 +66,7 @@ class PostV2FeedbackRemoveResponseResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-PostV2FeedbackRemoveResponseProduct = Literal[
+PostV2FeedbackRemoveFeedbackProduct = Literal[
     "remoteconfigs",
     "deployments",
     "experiments",
@@ -92,7 +92,7 @@ class PostV2FeedbackRemoveResponseBodyTypedDict(TypedDict):
 
     id: str
     trace_id: str
-    product: PostV2FeedbackRemoveResponseProduct
+    product: PostV2FeedbackRemoveFeedbackProduct
 
 
 class PostV2FeedbackRemoveResponseBody(BaseModel):
@@ -102,4 +102,4 @@ class PostV2FeedbackRemoveResponseBody(BaseModel):
 
     trace_id: str
 
-    product: PostV2FeedbackRemoveResponseProduct
+    product: PostV2FeedbackRemoveFeedbackProduct

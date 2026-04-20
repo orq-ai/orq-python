@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `image_tokens`     | *Optional[float]*  | :heavy_minus_sign: | N/A                |
-| `text_tokens`      | *Optional[float]*  | :heavy_minus_sign: | N/A                |
+| Field                   | Type                    | Required                | Description             |
+| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
+| `cache_creation_tokens` | *int*                   | :heavy_check_mark:      | N/A                     |
+| `cached_tokens`         | *int*                   | :heavy_check_mark:      | N/A                     |

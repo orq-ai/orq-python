@@ -100,11 +100,11 @@ class Seven(BaseModel):
 CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_url",]
 
 
-class CreateEvalFunctionParams6TypedDict(TypedDict):
+class SixTypedDict(TypedDict):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
-class CreateEvalFunctionParams6(BaseModel):
+class Six(BaseModel):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
@@ -183,7 +183,7 @@ FunctionParamsTypedDict = TypeAliasType(
         ThirtyOneTypedDict,
         ThirtyTypedDict,
         CreateEvalFunctionParams5TypedDict,
-        CreateEvalFunctionParams6TypedDict,
+        SixTypedDict,
         SevenTypedDict,
         TwentyNineTypedDict,
         TwentyEightTypedDict,
@@ -221,7 +221,7 @@ FunctionParams = Annotated[
         Annotated[CreateEvalFunctionParams3, Tag("contains_all")],
         Annotated[CreateEvalFunctionParams4, Tag("contains_any")],
         Annotated[CreateEvalFunctionParams5, Tag("contains_email")],
-        Annotated[CreateEvalFunctionParams6, Tag("contains_url")],
+        Annotated[Six, Tag("contains_url")],
         Annotated[Seven, Tag("contains_valid_link")],
         Annotated[Eight, Tag("start_with")],
         Annotated[Nine, Tag("ends_with")],
@@ -277,9 +277,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -500,9 +500,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[CreateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -725,9 +725,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[CreateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -900,13 +900,13 @@ ResponseBodyGuardrailConfig = Annotated[
 ]
 
 
-CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type = Literal["json_schema",]
+ResponseBodyType = Literal["json_schema",]
 
 
 class ResponseBodyJSONTypedDict(TypedDict):
     id: str
     description: str
-    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type
+    type: ResponseBodyType
     schema_: str
     key: str
     created: NotRequired[str]
@@ -919,15 +919,15 @@ class ResponseBodyJSON(BaseModel):
 
     description: str
 
-    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON2Type
+    type: ResponseBodyType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     key: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[ResponseBodyGuardrailConfig] = UNSET
 
@@ -1365,9 +1365,9 @@ class CreateEvalLLM2(BaseModel):
 
     jury: CreateEvalLLMJury
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[CreateEvalLLMEvalsResponseGuardrailConfig] = (
         UNSET
@@ -1652,9 +1652,9 @@ class CreateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[CreateEvalLLMEvalsGuardrailConfig] = UNSET
 

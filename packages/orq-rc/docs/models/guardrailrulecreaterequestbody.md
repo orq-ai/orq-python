@@ -1,0 +1,14 @@
+# GuardrailRuleCreateRequestBody
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `description`                                                                | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `display_name`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `enabled`                                                                    | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `expression`                                                                 | [models.ExpressionInput](../models/expressioninput.md)                       | :heavy_check_mark:                                                           | N/A                                                                          |
+| `guardrails`                                                                 | List[[models.GuardrailRef](../models/guardrailref.md)]                       | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `project_id`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Optional project ID. If null/omitted, the entity is global (workspace-wide). |
+| `timeout`                                                                    | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |

@@ -1,0 +1,15 @@
+# PolicyUpdateRequestBody
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `description`                                                        | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `display_name`                                                       | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `enabled`                                                            | *Optional[bool]*                                                     | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `evaluators`                                                         | List[[models.EvaluatorRef](../models/evaluatorref.md)]               | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `limits`                                                             | [Optional[models.Limits]](../models/limits.md)                       | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `models_config`                                                      | [Optional[models.ModelsConfig]](../models/modelsconfig.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `retry_config`                                                       | [Optional[models.PolicyRetryConfig]](../models/policyretryconfig.md) | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `timeout`                                                            | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |

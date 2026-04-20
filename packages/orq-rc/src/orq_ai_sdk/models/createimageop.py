@@ -645,12 +645,12 @@ class CreateImageData(BaseModel):
         return m
 
 
-class InputTokensDetailsTypedDict(TypedDict):
+class CreateImageInputTokensDetailsTypedDict(TypedDict):
     image_tokens: NotRequired[float]
     text_tokens: NotRequired[float]
 
 
-class InputTokensDetails(BaseModel):
+class CreateImageInputTokensDetails(BaseModel):
     image_tokens: Optional[float] = None
 
     text_tokens: Optional[float] = None
@@ -673,14 +673,14 @@ class InputTokensDetails(BaseModel):
 
 
 class CreateImageUsageTypedDict(TypedDict):
-    input_tokens_details: InputTokensDetailsTypedDict
+    input_tokens_details: CreateImageInputTokensDetailsTypedDict
     input_tokens: NotRequired[float]
     output_tokens: NotRequired[float]
     total_tokens: NotRequired[float]
 
 
 class CreateImageUsage(BaseModel):
-    input_tokens_details: InputTokensDetails
+    input_tokens_details: CreateImageInputTokensDetails
 
     input_tokens: Optional[float] = None
 

@@ -62,19 +62,19 @@ class GetV2EvaluatorsIDVersionsRequest(BaseModel):
         return m
 
 
-class GetV2EvaluatorsIDVersionsEvaluatorsResponseBodyData(BaseModel):
+class GetV2EvaluatorsIDVersionsEvalsResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class GetV2EvaluatorsIDVersionsEvaluatorsResponseBody(OrqError):
+class GetV2EvaluatorsIDVersionsEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 
-    data: GetV2EvaluatorsIDVersionsEvaluatorsResponseBodyData = field(hash=False)
+    data: GetV2EvaluatorsIDVersionsEvalsResponseBodyData = field(hash=False)
 
     def __init__(
         self,
-        data: GetV2EvaluatorsIDVersionsEvaluatorsResponseBodyData,
+        data: GetV2EvaluatorsIDVersionsEvalsResponseBodyData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

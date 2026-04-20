@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Mapping, Optional, Union
+from typing import Any, Dict, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -19,58 +19,108 @@ class Responses(BaseSDK):
     def create(
         self,
         *,
-        agent_key: str,
-        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
-        task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[
-            Union[
-                models.CreateAgentResponseRequestThread,
-                models.CreateAgentResponseRequestThreadTypedDict,
-            ]
-        ] = None,
-        memory: Optional[
-            Union[
-                models.CreateAgentResponseRequestMemory,
-                models.CreateAgentResponseRequestMemoryTypedDict,
-            ]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
-        configuration: Optional[
-            Union[models.Configuration, models.ConfigurationTypedDict]
-        ] = None,
-        background: Optional[bool] = False,
-        stream: Optional[bool] = False,
         conversation: Optional[
-            Union[models.Conversation, models.ConversationTypedDict]
+            Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
+        fallbacks: OptionalNullable[
+            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+        ] = UNSET,
+        frequency_penalty: Optional[float] = None,
+        identity: Optional[
+            Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
+        ] = None,
+        input_: Optional[
+            Union[
+                models.CreateRouterResponseInput,
+                models.CreateRouterResponseInputTypedDict,
+            ]
+        ] = None,
+        instructions: Optional[str] = None,
+        max_output_tokens: Optional[int] = None,
+        max_tool_calls: Optional[int] = None,
+        memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        model: Optional[str] = None,
+        parallel_tool_calls: Optional[bool] = None,
+        presence_penalty: Optional[float] = None,
+        previous_response_id: Optional[str] = None,
+        prompt_cache_key: Optional[str] = None,
+        reasoning: Optional[
+            Union[models.ReasoningParam, models.ReasoningParamTypedDict]
+        ] = None,
+        retry: Optional[
+            Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
+        ] = None,
+        safety_identifier: Optional[str] = None,
+        store: Optional[bool] = None,
+        stream: Optional[bool] = None,
+        stream_options: Optional[
+            Union[models.StreamOptions, models.StreamOptionsTypedDict]
+        ] = None,
+        temperature: Optional[float] = None,
+        text: Optional[
+            Union[
+                models.CreateRouterResponseText,
+                models.CreateRouterResponseTextTypedDict,
+            ]
+        ] = None,
+        thread: Optional[
+            Union[models.ResponseThread, models.ResponseThreadTypedDict]
+        ] = None,
+        tool_choice: Optional[
+            Union[
+                models.CreateRouterResponseToolChoice,
+                models.CreateRouterResponseToolChoiceTypedDict,
+            ]
+        ] = None,
+        tools: Optional[
+            Union[
+                List[models.CreateRouterResponseTools],
+                List[models.CreateRouterResponseToolsTypedDict],
+            ]
+        ] = None,
+        top_logprobs: Optional[int] = None,
+        top_p: Optional[float] = None,
+        variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateAgentResponseRequestResponse:
+    ) -> models.CreateRouterResponseResponse:
         r"""Create response
 
-        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
+        Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
-        :param agent_key: The unique key of identifier of the agent to invoke
-        :param message: The A2A message to send to the agent (user input or tool results)
-        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
-        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
-        :param contact: @deprecated Use identity instead. Information about the contact making the request.
-        :param thread: Thread information to group related requests
-        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
-        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
-        :param configuration: Configuration options for the agent invocation
-        :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
-        :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
-        :param conversation: Conversation context for chat studio integration
+        :param conversation:
+        :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
+        :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
+        :param identity:
+        :param input: Input to the model: a string or an array of input items (messages, files, etc.).
+        :param instructions: System prompt / instructions for the model.
+        :param max_output_tokens: Maximum number of tokens in the response output.
+        :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
+        :param memory:
+        :param metadata: Developer-defined key-value pairs attached to the response.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
+        :param parallel_tool_calls: Whether to allow parallel tool calls.
+        :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
+        :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
+        :param prompt_cache_key: Key for prompt caching across requests.
+        :param reasoning:
+        :param retry:
+        :param safety_identifier: Safety identifier for content filtering.
+        :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
+        :param stream: If true, returns a stream of server-sent events.
+        :param stream_options:
+        :param temperature: Sampling temperature between 0 and 2.
+        :param text: Configuration for text output.
+        :param thread:
+        :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
+        :param tools: Tools available to the model.
+        :param top_logprobs: Number of most likely tokens to return at each position.
+        :param top_p: Nucleus sampling parameter.
+        :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -90,41 +140,64 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAgentResponseRequestRequest(
-            agent_key=agent_key,
-            request_body=models.CreateAgentResponseRequestRequestBody(
-                task_id=task_id,
-                message=utils.get_pydantic_model(message, models.A2AMessage),
-                variables=variables,
-                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
-                contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
-                thread=utils.get_pydantic_model(
-                    thread, Optional[models.CreateAgentResponseRequestThread]
-                ),
-                memory=utils.get_pydantic_model(
-                    memory, Optional[models.CreateAgentResponseRequestMemory]
-                ),
-                metadata=metadata,
-                engine=engine,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.Configuration]
-                ),
-                background=background,
-                stream=stream,
-                conversation=utils.get_pydantic_model(
-                    conversation, Optional[models.Conversation]
-                ),
+        request = models.CreateRouterResponseRequestBody(
+            conversation=utils.get_pydantic_model(
+                conversation, Optional[models.ConversationParam]
             ),
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
+            frequency_penalty=frequency_penalty,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.ResponseIdentity]
+            ),
+            input=utils.get_pydantic_model(
+                input_, Optional[models.CreateRouterResponseInput]
+            ),
+            instructions=instructions,
+            max_output_tokens=max_output_tokens,
+            max_tool_calls=max_tool_calls,
+            memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
+            metadata=metadata,
+            model=model,
+            parallel_tool_calls=parallel_tool_calls,
+            presence_penalty=presence_penalty,
+            previous_response_id=previous_response_id,
+            prompt_cache_key=prompt_cache_key,
+            reasoning=utils.get_pydantic_model(
+                reasoning, Optional[models.ReasoningParam]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
+            safety_identifier=safety_identifier,
+            store=store,
+            stream=stream,
+            stream_options=utils.get_pydantic_model(
+                stream_options, Optional[models.StreamOptions]
+            ),
+            temperature=temperature,
+            text=utils.get_pydantic_model(
+                text, Optional[models.CreateRouterResponseText]
+            ),
+            thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
+            tool_choice=utils.get_pydantic_model(
+                tool_choice, Optional[models.CreateRouterResponseToolChoice]
+            ),
+            tools=utils.get_pydantic_model(
+                tools, Optional[List[models.CreateRouterResponseTools]]
+            ),
+            top_logprobs=top_logprobs,
+            top_p=top_p,
+            variables=variables,
         )
 
         req = self._build_request(
             method="POST",
-            path="/v2/agents/{agent_key}/responses",
+            path="/v3/router/responses",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=True,
-            request_has_path_params=True,
+            request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value=accept_header_override.value
@@ -133,11 +206,7 @@ class Responses(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                False,
-                "json",
-                models.CreateAgentResponseRequestRequestBody,
+                request, False, False, "json", models.CreateRouterResponseRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -155,14 +224,14 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="CreateAgentResponseRequest",
+                operation_id="create-router-response",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -170,13 +239,13 @@ class Responses(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
             return unmarshal_json_response(
-                models.CreateAgentResponse, http_res, http_res_text
+                models.CreateRouterResponseResponseBody, http_res, http_res_text
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStream(
                 http_res,
                 lambda raw: utils.unmarshal_json(
-                    raw, models.CreateAgentResponseRequestResponseBody
+                    raw, models.CreateRouterResponseResponsesResponseBody
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
@@ -195,58 +264,108 @@ class Responses(BaseSDK):
     async def create_async(
         self,
         *,
-        agent_key: str,
-        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
-        task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[
-            Union[
-                models.CreateAgentResponseRequestThread,
-                models.CreateAgentResponseRequestThreadTypedDict,
-            ]
-        ] = None,
-        memory: Optional[
-            Union[
-                models.CreateAgentResponseRequestMemory,
-                models.CreateAgentResponseRequestMemoryTypedDict,
-            ]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
-        configuration: Optional[
-            Union[models.Configuration, models.ConfigurationTypedDict]
-        ] = None,
-        background: Optional[bool] = False,
-        stream: Optional[bool] = False,
         conversation: Optional[
-            Union[models.Conversation, models.ConversationTypedDict]
+            Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
+        fallbacks: OptionalNullable[
+            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+        ] = UNSET,
+        frequency_penalty: Optional[float] = None,
+        identity: Optional[
+            Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
+        ] = None,
+        input_: Optional[
+            Union[
+                models.CreateRouterResponseInput,
+                models.CreateRouterResponseInputTypedDict,
+            ]
+        ] = None,
+        instructions: Optional[str] = None,
+        max_output_tokens: Optional[int] = None,
+        max_tool_calls: Optional[int] = None,
+        memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        model: Optional[str] = None,
+        parallel_tool_calls: Optional[bool] = None,
+        presence_penalty: Optional[float] = None,
+        previous_response_id: Optional[str] = None,
+        prompt_cache_key: Optional[str] = None,
+        reasoning: Optional[
+            Union[models.ReasoningParam, models.ReasoningParamTypedDict]
+        ] = None,
+        retry: Optional[
+            Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
+        ] = None,
+        safety_identifier: Optional[str] = None,
+        store: Optional[bool] = None,
+        stream: Optional[bool] = None,
+        stream_options: Optional[
+            Union[models.StreamOptions, models.StreamOptionsTypedDict]
+        ] = None,
+        temperature: Optional[float] = None,
+        text: Optional[
+            Union[
+                models.CreateRouterResponseText,
+                models.CreateRouterResponseTextTypedDict,
+            ]
+        ] = None,
+        thread: Optional[
+            Union[models.ResponseThread, models.ResponseThreadTypedDict]
+        ] = None,
+        tool_choice: Optional[
+            Union[
+                models.CreateRouterResponseToolChoice,
+                models.CreateRouterResponseToolChoiceTypedDict,
+            ]
+        ] = None,
+        tools: Optional[
+            Union[
+                List[models.CreateRouterResponseTools],
+                List[models.CreateRouterResponseToolsTypedDict],
+            ]
+        ] = None,
+        top_logprobs: Optional[int] = None,
+        top_p: Optional[float] = None,
+        variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateAgentResponseRequestResponse:
+    ) -> models.CreateRouterResponseResponse:
         r"""Create response
 
-        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
+        Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
-        :param agent_key: The unique key of identifier of the agent to invoke
-        :param message: The A2A message to send to the agent (user input or tool results)
-        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
-        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
-        :param contact: @deprecated Use identity instead. Information about the contact making the request.
-        :param thread: Thread information to group related requests
-        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
-        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
-        :param engine: Override template engine for this invocation. If not provided, uses the agent default.
-        :param configuration: Configuration options for the agent invocation
-        :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
-        :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
-        :param conversation: Conversation context for chat studio integration
+        :param conversation:
+        :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
+        :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
+        :param identity:
+        :param input: Input to the model: a string or an array of input items (messages, files, etc.).
+        :param instructions: System prompt / instructions for the model.
+        :param max_output_tokens: Maximum number of tokens in the response output.
+        :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
+        :param memory:
+        :param metadata: Developer-defined key-value pairs attached to the response.
+        :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
+        :param parallel_tool_calls: Whether to allow parallel tool calls.
+        :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
+        :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
+        :param prompt_cache_key: Key for prompt caching across requests.
+        :param reasoning:
+        :param retry:
+        :param safety_identifier: Safety identifier for content filtering.
+        :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
+        :param stream: If true, returns a stream of server-sent events.
+        :param stream_options:
+        :param temperature: Sampling temperature between 0 and 2.
+        :param text: Configuration for text output.
+        :param thread:
+        :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
+        :param tools: Tools available to the model.
+        :param top_logprobs: Number of most likely tokens to return at each position.
+        :param top_p: Nucleus sampling parameter.
+        :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -266,41 +385,64 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAgentResponseRequestRequest(
-            agent_key=agent_key,
-            request_body=models.CreateAgentResponseRequestRequestBody(
-                task_id=task_id,
-                message=utils.get_pydantic_model(message, models.A2AMessage),
-                variables=variables,
-                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
-                contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
-                thread=utils.get_pydantic_model(
-                    thread, Optional[models.CreateAgentResponseRequestThread]
-                ),
-                memory=utils.get_pydantic_model(
-                    memory, Optional[models.CreateAgentResponseRequestMemory]
-                ),
-                metadata=metadata,
-                engine=engine,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.Configuration]
-                ),
-                background=background,
-                stream=stream,
-                conversation=utils.get_pydantic_model(
-                    conversation, Optional[models.Conversation]
-                ),
+        request = models.CreateRouterResponseRequestBody(
+            conversation=utils.get_pydantic_model(
+                conversation, Optional[models.ConversationParam]
             ),
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
+            frequency_penalty=frequency_penalty,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.ResponseIdentity]
+            ),
+            input=utils.get_pydantic_model(
+                input_, Optional[models.CreateRouterResponseInput]
+            ),
+            instructions=instructions,
+            max_output_tokens=max_output_tokens,
+            max_tool_calls=max_tool_calls,
+            memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
+            metadata=metadata,
+            model=model,
+            parallel_tool_calls=parallel_tool_calls,
+            presence_penalty=presence_penalty,
+            previous_response_id=previous_response_id,
+            prompt_cache_key=prompt_cache_key,
+            reasoning=utils.get_pydantic_model(
+                reasoning, Optional[models.ReasoningParam]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
+            safety_identifier=safety_identifier,
+            store=store,
+            stream=stream,
+            stream_options=utils.get_pydantic_model(
+                stream_options, Optional[models.StreamOptions]
+            ),
+            temperature=temperature,
+            text=utils.get_pydantic_model(
+                text, Optional[models.CreateRouterResponseText]
+            ),
+            thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
+            tool_choice=utils.get_pydantic_model(
+                tool_choice, Optional[models.CreateRouterResponseToolChoice]
+            ),
+            tools=utils.get_pydantic_model(
+                tools, Optional[List[models.CreateRouterResponseTools]]
+            ),
+            top_logprobs=top_logprobs,
+            top_p=top_p,
+            variables=variables,
         )
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/agents/{agent_key}/responses",
+            path="/v3/router/responses",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=True,
-            request_has_path_params=True,
+            request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value=accept_header_override.value
@@ -309,11 +451,7 @@ class Responses(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                False,
-                "json",
-                models.CreateAgentResponseRequestRequestBody,
+                request, False, False, "json", models.CreateRouterResponseRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -331,14 +469,14 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="CreateAgentResponseRequest",
+                operation_id="create-router-response",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -346,13 +484,13 @@ class Responses(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
             return unmarshal_json_response(
-                models.CreateAgentResponse, http_res, http_res_text
+                models.CreateRouterResponseResponseBody, http_res, http_res_text
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStreamAsync(
                 http_res,
                 lambda raw: utils.unmarshal_json(
-                    raw, models.CreateAgentResponseRequestResponseBody
+                    raw, models.CreateRouterResponseResponsesResponseBody
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
@@ -371,19 +509,17 @@ class Responses(BaseSDK):
     def get(
         self,
         *,
-        agent_key: str,
-        task_id: str,
+        response_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAgentResponse:
-        r"""Get response
+    ) -> models.RetrieveResponseResponseBody:
+        r"""Retrieve response
 
-        Retrieves the current state of an agent response by task ID. Returns the response output, model information, token usage, and execution status. When the agent is still processing, the output array will be empty and status will be `in_progress`. Once completed, the response includes the full output, usage statistics, and finish reason.
+        Retrieves a previously created response by its ID.
 
-        :param agent_key: The unique key identifier of the agent
-        :param task_id: The agent execution task ID returned from create response
+        :param response_id: The ID of the response to retrieve
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -402,14 +538,13 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAgentResponseRequest(
-            agent_key=agent_key,
-            task_id=task_id,
+        request = models.RetrieveResponseRequest(
+            response_id=response_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/agents/{agent_key}/responses/{task_id}",
+            path="/v3/router/responses/{response_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -436,24 +571,22 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="GetAgentResponse",
+                operation_id="retrieve-response",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAgentResponse, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RetrieveResponseResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -465,19 +598,17 @@ class Responses(BaseSDK):
     async def get_async(
         self,
         *,
-        agent_key: str,
-        task_id: str,
+        response_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAgentResponse:
-        r"""Get response
+    ) -> models.RetrieveResponseResponseBody:
+        r"""Retrieve response
 
-        Retrieves the current state of an agent response by task ID. Returns the response output, model information, token usage, and execution status. When the agent is still processing, the output array will be empty and status will be `in_progress`. Once completed, the response includes the full output, usage statistics, and finish reason.
+        Retrieves a previously created response by its ID.
 
-        :param agent_key: The unique key identifier of the agent
-        :param task_id: The agent execution task ID returned from create response
+        :param response_id: The ID of the response to retrieve
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -496,14 +627,13 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAgentResponseRequest(
-            agent_key=agent_key,
-            task_id=task_id,
+        request = models.RetrieveResponseRequest(
+            response_id=response_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/agents/{agent_key}/responses/{task_id}",
+            path="/v3/router/responses/{response_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -530,24 +660,22 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="GetAgentResponse",
+                operation_id="retrieve-response",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAgentResponse, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RetrieveResponseResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

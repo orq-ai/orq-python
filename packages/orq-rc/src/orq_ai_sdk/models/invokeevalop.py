@@ -37,7 +37,7 @@ InvokeEvalRole = Literal[
 r"""The role of the prompt message"""
 
 
-InvokeEval2Type = Literal["file",]
+InvokeEval2EvalsType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -83,19 +83,19 @@ class TwoFile(BaseModel):
 
 
 class ThreeTypedDict(TypedDict):
-    type: InvokeEval2Type
+    type: InvokeEval2EvalsType
     r"""The type of the content part. Always `file`."""
     file: TwoFileTypedDict
 
 
 class Three(BaseModel):
-    type: InvokeEval2Type
+    type: InvokeEval2EvalsType
     r"""The type of the content part. Always `file`."""
 
     file: TwoFile
 
 
-InvokeEval2EvalsRequestType = Literal["image_url",]
+InvokeEval2Type = Literal["image_url",]
 
 
 class TwoImageURLTypedDict(TypedDict):
@@ -132,32 +132,32 @@ class TwoImageURL(BaseModel):
 class Two2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: InvokeEval2EvalsRequestType
+    type: InvokeEval2Type
     image_url: TwoImageURLTypedDict
 
 
 class Two2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: InvokeEval2EvalsRequestType
+    type: InvokeEval2Type
 
     image_url: TwoImageURL
 
 
-InvokeEval2EvalsType = Literal["text",]
+InvokeEval2EvalsRequestType = Literal["text",]
 
 
 class Two1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: InvokeEval2EvalsType
+    type: InvokeEval2EvalsRequestType
     text: str
 
 
 class Two1(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: InvokeEval2EvalsType
+    type: InvokeEval2EvalsRequestType
 
     text: str
 
@@ -878,18 +878,18 @@ InvokeEvalResponseBodyEvalsType = Literal["number",]
 FormatOptionsStyle = Literal["currency",]
 
 
-Currency = Literal["USD",]
+FormatOptionsCurrency = Literal["USD",]
 
 
 class FormatOptions2TypedDict(TypedDict):
     style: FormatOptionsStyle
-    currency: Currency
+    currency: FormatOptionsCurrency
 
 
 class FormatOptions2(BaseModel):
     style: FormatOptionsStyle
 
-    currency: Currency
+    currency: FormatOptionsCurrency
 
 
 class FormatOptions1TypedDict(TypedDict):

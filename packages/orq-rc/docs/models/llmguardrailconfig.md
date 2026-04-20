@@ -3,21 +3,21 @@
 
 ## Supported Types
 
-### `models.CreateEvalGuardrailConfigEvalsBoolean`
+### `models.CreateEvalGuardrailConfigEvalsRequestRequestBodyBoolean`
 
 ```python
-value: models.CreateEvalGuardrailConfigEvalsBoolean = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsRequestRequestBodyBoolean = /* values here */
 ```
 
-### `models.CreateEvalGuardrailConfigEvalsCategorical`
+### `models.CreateEvalGuardrailConfigEvalsRequestRequestBodyCategorical`
 
 ```python
-value: models.CreateEvalGuardrailConfigEvalsCategorical = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsRequestRequestBodyCategorical = /* values here */
 ```
 
-### `models.CreateEvalGuardrailConfigEvalsNumber`
+### `models.CreateEvalGuardrailConfigEvalsRequestRequestBodyNumber`
 
 ```python
-value: models.CreateEvalGuardrailConfigEvalsNumber = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsRequestRequestBodyNumber = /* values here */
 ```
 

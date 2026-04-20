@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import ResponseBodyType
-value: ResponseBodyType = "boolean"
+value: ResponseBodyType = "json_schema"
 ```
 
 
 ## Values
 
-- `"boolean"`
+- `"json_schema"`

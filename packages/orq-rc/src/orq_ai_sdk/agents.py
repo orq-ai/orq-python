@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.responses import Responses
+from orq_ai_sdk.orq_agents_responses import OrqAgentsResponses
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -13,7 +13,7 @@ from typing_extensions import deprecated
 
 
 class Agents(BaseSDK):
-    responses: Responses
+    responses: OrqAgentsResponses
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -23,7 +23,9 @@ class Agents(BaseSDK):
         self._init_sdks()
 
     def _init_sdks(self):
-        self.responses = Responses(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.responses = OrqAgentsResponses(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
 
     def post_v2_agents_a2a(
         self,
@@ -111,7 +113,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "409", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -225,7 +227,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "409", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -342,7 +344,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -464,7 +466,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -639,7 +641,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["409", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -798,7 +800,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["409", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -896,7 +898,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -992,7 +994,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1079,7 +1081,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1172,7 +1174,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1265,7 +1267,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1360,7 +1362,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1562,7 +1564,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1762,7 +1764,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1922,7 +1924,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2076,7 +2078,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2268,7 +2270,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2460,7 +2462,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2667,7 +2669,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -2892,7 +2894,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -3067,7 +3069,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -3240,7 +3242,7 @@ class Agents(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )

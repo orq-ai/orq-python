@@ -469,7 +469,7 @@ class RequestBodyHTTP(BaseModel):
 CreateEvalGuardrailConfigEvalsType = Literal["number",]
 
 
-Operator = Literal[
+CreateEvalGuardrailConfigEvalsOperator = Literal[
     "eq",
     "ne",
     "gt",
@@ -479,22 +479,22 @@ Operator = Literal[
 ]
 
 
-class NumberTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsType
     value: float
-    operator: Operator
+    operator: CreateEvalGuardrailConfigEvalsOperator
     alert_on_failure: NotRequired[bool]
 
 
-class Number(BaseModel):
+class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
     enabled: bool
 
     type: CreateEvalGuardrailConfigEvalsType
 
     value: float
 
-    operator: Operator
+    operator: CreateEvalGuardrailConfigEvalsOperator
 
     alert_on_failure: Optional[bool] = False
 
@@ -518,14 +518,14 @@ class Number(BaseModel):
 CreateEvalGuardrailConfigType = Literal["categorical",]
 
 
-class CategoricalTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsCategoricalTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigType
     values: List[str]
     alert_on_failure: NotRequired[bool]
 
 
-class Categorical(BaseModel):
+class CreateEvalGuardrailConfigEvalsCategorical(BaseModel):
     enabled: bool
 
     type: CreateEvalGuardrailConfigType
@@ -551,20 +551,20 @@ class Categorical(BaseModel):
         return m
 
 
-GuardrailConfigType = Literal["boolean",]
+CreateEvalGuardrailConfigEvalsRequestRequestBody2Type = Literal["boolean",]
 
 
-class BooleanTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
     enabled: bool
-    type: GuardrailConfigType
+    type: CreateEvalGuardrailConfigEvalsRequestRequestBody2Type
     value: bool
     alert_on_failure: NotRequired[bool]
 
 
-class Boolean(BaseModel):
+class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
     enabled: bool
 
-    type: GuardrailConfigType
+    type: CreateEvalGuardrailConfigEvalsRequestRequestBody2Type
 
     value: bool
 
@@ -587,17 +587,21 @@ class Boolean(BaseModel):
         return m
 
 
-GuardrailConfigTypedDict = TypeAliasType(
-    "GuardrailConfigTypedDict",
-    Union[BooleanTypedDict, CategoricalTypedDict, NumberTypedDict],
+CreateEvalRequestBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
+    "CreateEvalRequestBodyEvalsGuardrailConfigTypedDict",
+    Union[
+        CreateEvalGuardrailConfigEvalsBooleanTypedDict,
+        CreateEvalGuardrailConfigEvalsCategoricalTypedDict,
+        CreateEvalGuardrailConfigEvalsNumberTypedDict,
+    ],
 )
 
 
-GuardrailConfig = Annotated[
+CreateEvalRequestBodyEvalsGuardrailConfig = Annotated[
     Union[
-        Annotated[Boolean, Tag("boolean")],
-        Annotated[Categorical, Tag("categorical")],
-        Annotated[Number, Tag("number")],
+        Annotated[CreateEvalGuardrailConfigEvalsBoolean, Tag("boolean")],
+        Annotated[CreateEvalGuardrailConfigEvalsCategorical, Tag("categorical")],
+        Annotated[CreateEvalGuardrailConfigEvalsNumber, Tag("number")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -620,7 +624,9 @@ class JSONTypedDict(TypedDict):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
-    guardrail_config: NotRequired[Nullable[GuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[
+        Nullable[CreateEvalRequestBodyEvalsGuardrailConfigTypedDict]
+    ]
     output_type: NotRequired[OutputType]
     description: NotRequired[str]
 
@@ -640,7 +646,9 @@ class JSON(BaseModel):
 
     key: str
 
-    guardrail_config: OptionalNullable[GuardrailConfig] = UNSET
+    guardrail_config: OptionalNullable[CreateEvalRequestBodyEvalsGuardrailConfig] = (
+        UNSET
+    )
 
     output_type: Optional[OutputType] = None
 
@@ -675,7 +683,7 @@ class JSON(BaseModel):
 CreateEvalGuardrailConfigEvalsRequestRequestBody1Type = Literal["number",]
 
 
-CreateEvalGuardrailConfigEvalsOperator = Literal[
+CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator = Literal[
     "eq",
     "ne",
     "gt",
@@ -685,22 +693,22 @@ CreateEvalGuardrailConfigEvalsOperator = Literal[
 ]
 
 
-class CreateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyNumberTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
     value: float
-    operator: CreateEvalGuardrailConfigEvalsOperator
+    operator: CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator
     alert_on_failure: NotRequired[bool]
 
 
-class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyNumber(BaseModel):
     enabled: bool
 
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
 
     value: float
 
-    operator: CreateEvalGuardrailConfigEvalsOperator
+    operator: CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator
 
     alert_on_failure: Optional[bool] = False
 
@@ -724,14 +732,14 @@ class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
 CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type = Literal["categorical",]
 
 
-class CreateEvalGuardrailConfigEvalsCategoricalTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyCategoricalTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type
     values: List[str]
     alert_on_failure: NotRequired[bool]
 
 
-class CreateEvalGuardrailConfigEvalsCategorical(BaseModel):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyCategorical(BaseModel):
     enabled: bool
 
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type
@@ -760,14 +768,14 @@ class CreateEvalGuardrailConfigEvalsCategorical(BaseModel):
 CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type = Literal["boolean",]
 
 
-class CreateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyBooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type
     value: bool
     alert_on_failure: NotRequired[bool]
 
 
-class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
+class CreateEvalGuardrailConfigEvalsRequestRequestBodyBoolean(BaseModel):
     enabled: bool
 
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type
@@ -796,18 +804,25 @@ class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
 LLMGuardrailConfigTypedDict = TypeAliasType(
     "LLMGuardrailConfigTypedDict",
     Union[
-        CreateEvalGuardrailConfigEvalsBooleanTypedDict,
-        CreateEvalGuardrailConfigEvalsCategoricalTypedDict,
-        CreateEvalGuardrailConfigEvalsNumberTypedDict,
+        CreateEvalGuardrailConfigEvalsRequestRequestBodyBooleanTypedDict,
+        CreateEvalGuardrailConfigEvalsRequestRequestBodyCategoricalTypedDict,
+        CreateEvalGuardrailConfigEvalsRequestRequestBodyNumberTypedDict,
     ],
 )
 
 
 LLMGuardrailConfig = Annotated[
     Union[
-        Annotated[CreateEvalGuardrailConfigEvalsBoolean, Tag("boolean")],
-        Annotated[CreateEvalGuardrailConfigEvalsCategorical, Tag("categorical")],
-        Annotated[CreateEvalGuardrailConfigEvalsNumber, Tag("number")],
+        Annotated[
+            CreateEvalGuardrailConfigEvalsRequestRequestBodyBoolean, Tag("boolean")
+        ],
+        Annotated[
+            CreateEvalGuardrailConfigEvalsRequestRequestBodyCategorical,
+            Tag("categorical"),
+        ],
+        Annotated[
+            CreateEvalGuardrailConfigEvalsRequestRequestBodyNumber, Tag("number")
+        ],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1627,9 +1642,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1879,9 +1894,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-13T03:39:43.154Z"
+    created: Optional[str] = "2026-04-20T13:00:11.021Z"
 
-    updated: Optional[str] = "2026-04-13T03:39:43.154Z"
+    updated: Optional[str] = "2026-04-20T13:00:11.021Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig

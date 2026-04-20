@@ -99,7 +99,7 @@ with Orq(
 
 ## get_content
 
-Signs the object name and redirects to a presigned URL for downloading the file content. Accepts either a file ID or an object storage path (URL-encoded).
+Redirects to a presigned URL for downloading the file content by file ID.
 
 ### Example Usage
 
@@ -123,7 +123,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The file ID or object storage path to retrieve content for.         |
+| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The file ID to retrieve content for.                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors

@@ -4,11 +4,12 @@
 
 ```python
 from orq_ai_sdk.models import Mode
-value: Mode = "single"
+value: Mode = "fallback"
 ```
 
 
 ## Values
 
-- `"single"`
-- `"jury"`
+- `"fallback"`
+- `"weighted"`
+- `"round_robin"`

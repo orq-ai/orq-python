@@ -348,14 +348,14 @@ class Cache(BaseModel):
 LoadBalancerType = Literal["weight_based",]
 
 
-class CreateAgentRequestLoadBalancerModelsTypedDict(TypedDict):
+class ModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateAgentRequestLoadBalancerModels(BaseModel):
+class Models(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -381,13 +381,13 @@ class CreateAgentRequestLoadBalancerModels(BaseModel):
 
 class LoadBalancer1TypedDict(TypedDict):
     type: LoadBalancerType
-    models: List[CreateAgentRequestLoadBalancerModelsTypedDict]
+    models: List[ModelsTypedDict]
 
 
 class LoadBalancer1(BaseModel):
     type: LoadBalancerType
 
-    models: List[CreateAgentRequestLoadBalancerModels]
+    models: List[Models]
 
 
 LoadBalancerTypedDict = LoadBalancer1TypedDict
@@ -3216,14 +3216,14 @@ class CreateAgentRequestCache(BaseModel):
 CreateAgentRequestLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class CreateAgentRequestLoadBalancerAgentsModelsTypedDict(TypedDict):
+class CreateAgentRequestLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
+class CreateAgentRequestLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -3249,13 +3249,13 @@ class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
 
 class CreateAgentRequestLoadBalancerAgents1TypedDict(TypedDict):
     type: CreateAgentRequestLoadBalancerAgentsType
-    models: List[CreateAgentRequestLoadBalancerAgentsModelsTypedDict]
+    models: List[CreateAgentRequestLoadBalancerModelsTypedDict]
 
 
 class CreateAgentRequestLoadBalancerAgents1(BaseModel):
     type: CreateAgentRequestLoadBalancerAgentsType
 
-    models: List[CreateAgentRequestLoadBalancerAgentsModels]
+    models: List[CreateAgentRequestLoadBalancerModels]
 
 
 CreateAgentRequestLoadBalancerTypedDict = CreateAgentRequestLoadBalancerAgents1TypedDict
@@ -3885,14 +3885,14 @@ class CreateAgentRequestFallbackModelConfigurationCache(BaseModel):
 CreateAgentRequestLoadBalancerAgentsResponseType = Literal["weight_based",]
 
 
-class CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict(TypedDict):
+class CreateAgentRequestLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateAgentRequestLoadBalancerAgentsResponseModels(BaseModel):
+class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -3918,13 +3918,13 @@ class CreateAgentRequestLoadBalancerAgentsResponseModels(BaseModel):
 
 class CreateAgentRequestLoadBalancerAgentsResponse1TypedDict(TypedDict):
     type: CreateAgentRequestLoadBalancerAgentsResponseType
-    models: List[CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict]
+    models: List[CreateAgentRequestLoadBalancerAgentsModelsTypedDict]
 
 
 class CreateAgentRequestLoadBalancerAgentsResponse1(BaseModel):
     type: CreateAgentRequestLoadBalancerAgentsResponseType
 
-    models: List[CreateAgentRequestLoadBalancerAgentsResponseModels]
+    models: List[CreateAgentRequestLoadBalancerAgentsModels]
 
 
 CreateAgentRequestFallbackModelConfigurationLoadBalancerTypedDict = (

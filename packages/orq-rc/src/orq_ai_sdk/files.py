@@ -88,7 +88,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -181,7 +181,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -274,7 +274,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -367,7 +367,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -393,9 +393,9 @@ class Files(BaseSDK):
     ):
         r"""Download file content
 
-        Signs the object name and redirects to a presigned URL for downloading the file content. Accepts either a file ID or an object storage path (URL-encoded).
+        Redirects to a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path: The file ID or object storage path to retrieve content for.
+        :param file_id_or_path: The file ID to retrieve content for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -454,7 +454,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "404", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -480,9 +480,9 @@ class Files(BaseSDK):
     ):
         r"""Download file content
 
-        Signs the object name and redirects to a presigned URL for downloading the file content. Accepts either a file ID or an object storage path (URL-encoded).
+        Redirects to a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path: The file ID or object storage path to retrieve content for.
+        :param file_id_or_path: The file ID to retrieve content for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -541,7 +541,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "404", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -626,7 +626,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -711,7 +711,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -798,7 +798,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -885,7 +885,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -980,7 +980,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1075,7 +1075,7 @@ class Files(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

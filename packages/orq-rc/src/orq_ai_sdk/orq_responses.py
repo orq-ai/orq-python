@@ -27,7 +27,9 @@ class OrqResponses(BaseSDK):
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[models.Reasoning, models.ReasoningTypedDict]
+            Union[
+                models.CreateResponseReasoning, models.CreateResponseReasoningTypedDict
+            ]
         ] = UNSET,
         thinking: OptionalNullable[
             Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
@@ -108,7 +110,7 @@ class OrqResponses(BaseSDK):
             previous_response_id=previous_response_id,
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
-                reasoning, OptionalNullable[models.Reasoning]
+                reasoning, OptionalNullable[models.CreateResponseReasoning]
             ),
             thinking=utils.get_pydantic_model(
                 thinking, OptionalNullable[models.CreateResponseThinking]
@@ -172,7 +174,7 @@ class OrqResponses(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )
@@ -213,7 +215,9 @@ class OrqResponses(BaseSDK):
         previous_response_id: OptionalNullable[str] = UNSET,
         instructions: OptionalNullable[str] = UNSET,
         reasoning: OptionalNullable[
-            Union[models.Reasoning, models.ReasoningTypedDict]
+            Union[
+                models.CreateResponseReasoning, models.CreateResponseReasoningTypedDict
+            ]
         ] = UNSET,
         thinking: OptionalNullable[
             Union[models.CreateResponseThinking, models.CreateResponseThinkingTypedDict]
@@ -294,7 +298,7 @@ class OrqResponses(BaseSDK):
             previous_response_id=previous_response_id,
             instructions=instructions,
             reasoning=utils.get_pydantic_model(
-                reasoning, OptionalNullable[models.Reasoning]
+                reasoning, OptionalNullable[models.CreateResponseReasoning]
             ),
             thinking=utils.get_pydantic_model(
                 thinking, OptionalNullable[models.CreateResponseThinking]
@@ -358,7 +362,7 @@ class OrqResponses(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             stream=True,
             retry_config=retry_config,
         )

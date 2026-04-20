@@ -7,23 +7,12 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 import importlib
-from orq_ai_sdk import models as models_, utils
+from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext, SDKHooks
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 import sys
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    List,
-    Mapping,
-    Optional,
-    TYPE_CHECKING,
-    Union,
-    cast,
-)
+from typing import Any, Callable, Dict, Mapping, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
@@ -34,16 +23,19 @@ if TYPE_CHECKING:
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
-    from orq_ai_sdk.evaluators import Evaluators
+    from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
+    from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
-    from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.responses import Responses
     from orq_ai_sdk.router import Router
+    from orq_ai_sdk.routingrules import RoutingRules
     from orq_ai_sdk.tools import Tools
 
 
@@ -53,14 +45,13 @@ class Orq(BaseSDK):
     """
 
     contacts: "Contacts"
+    feedback: "Feedback"
     evals: "Evals"
-    evaluators: "Evaluators"
     identities: "Identities"
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
-    models: "Models"
     tools: "Tools"
     knowledge: "Knowledge"
     chunking: "Chunking"
@@ -70,16 +61,19 @@ class Orq(BaseSDK):
     annotations: "Annotations"
     human_review_sets: "HumanReviewSets"
     files: "Files"
+    guardrail_rules: "GuardrailRules"
+    policies: "Policies"
+    routing_rules: "RoutingRules"
+    responses: "Responses"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
-        "evaluators": ("orq_ai_sdk.evaluators", "Evaluators"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
-        "models": ("orq_ai_sdk.models_", "Models"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
@@ -89,6 +83,10 @@ class Orq(BaseSDK):
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
+        "policies": ("orq_ai_sdk.policies", "Policies"),
+        "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "responses": ("orq_ai_sdk.responses", "Responses"),
     }
 
     def __init__(
@@ -142,15 +140,15 @@ class Orq(BaseSDK):
         security: Any = None
         if callable(api_key):
             # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models_.Security(api_key=api_key())
+            security = lambda: models.Security(api_key=api_key())
         else:
-            security = models_.Security(api_key=api_key)
+            security = models.Security(api_key=api_key)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
 
-        _globals = models_.internal.Globals(
+        _globals = models.internal.Globals(
             contact_id=utils.get_global_from_env(contact_id, "ORQ_CONTACT_ID", str),
             environment=utils.get_global_from_env(environment, "ORQ_ENVIRONMENT", str),
         )
@@ -255,231 +253,13 @@ class Orq(BaseSDK):
             await self.sdk_configuration.async_client.aclose()
         self.sdk_configuration.async_client = None
 
-    def post_v2_feedback(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2FeedbackRequestBody,
-                models_.PostV2FeedbackRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2FeedbackResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackRequestBody]
-            )
-        request = cast(Optional[models_.PostV2FeedbackRequestBody], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/feedback",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2FeedbackRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/feedback",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models_.PostV2FeedbackResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackResponse404ResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackResponse404ResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def post_v2_feedback_async(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2FeedbackRequestBody,
-                models_.PostV2FeedbackRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2FeedbackResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackRequestBody]
-            )
-        request = cast(Optional[models_.PostV2FeedbackRequestBody], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/feedback",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2FeedbackRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/feedback",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models_.PostV2FeedbackResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackResponse404ResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackResponse404ResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
     def post_v2_feedback_evaluation_remove(
         self,
         *,
         request: Optional[
             Union[
-                models_.PostV2FeedbackEvaluationRemoveRequestBody,
-                models_.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
+                models.PostV2FeedbackEvaluationRemoveRequestBody,
+                models.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -509,10 +289,10 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody]
+                request, Optional[models.PostV2FeedbackEvaluationRemoveRequestBody]
             )
         request = cast(
-            Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody], request
+            Optional[models.PostV2FeedbackEvaluationRemoveRequestBody], request
         )
 
         req = self._build_request(
@@ -533,7 +313,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody],
+                Optional[models.PostV2FeedbackEvaluationRemoveRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -554,11 +334,11 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation/remove",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
+                    self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -566,20 +346,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models.APIError("Unexpected response received", http_res)
 
     async def post_v2_feedback_evaluation_remove_async(
         self,
         *,
         request: Optional[
             Union[
-                models_.PostV2FeedbackEvaluationRemoveRequestBody,
-                models_.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
+                models.PostV2FeedbackEvaluationRemoveRequestBody,
+                models.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -609,10 +389,10 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody]
+                request, Optional[models.PostV2FeedbackEvaluationRemoveRequestBody]
             )
         request = cast(
-            Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody], request
+            Optional[models.PostV2FeedbackEvaluationRemoveRequestBody], request
         )
 
         req = self._build_request_async(
@@ -633,7 +413,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody],
+                Optional[models.PostV2FeedbackEvaluationRemoveRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -654,11 +434,11 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation/remove",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
+                    self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -666,20 +446,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models.APIError("Unexpected response received", http_res)
 
     def post_v2_feedback_evaluation(
         self,
         *,
         request: Optional[
             Union[
-                models_.PostV2FeedbackEvaluationRequestBody,
-                models_.PostV2FeedbackEvaluationRequestBodyTypedDict,
+                models.PostV2FeedbackEvaluationRequestBody,
+                models.PostV2FeedbackEvaluationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -709,9 +489,9 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackEvaluationRequestBody]
+                request, Optional[models.PostV2FeedbackEvaluationRequestBody]
             )
-        request = cast(Optional[models_.PostV2FeedbackEvaluationRequestBody], request)
+        request = cast(Optional[models.PostV2FeedbackEvaluationRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -731,7 +511,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models_.PostV2FeedbackEvaluationRequestBody],
+                Optional[models.PostV2FeedbackEvaluationRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -752,11 +532,11 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
+                    self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -764,20 +544,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models.APIError("Unexpected response received", http_res)
 
     async def post_v2_feedback_evaluation_async(
         self,
         *,
         request: Optional[
             Union[
-                models_.PostV2FeedbackEvaluationRequestBody,
-                models_.PostV2FeedbackEvaluationRequestBodyTypedDict,
+                models.PostV2FeedbackEvaluationRequestBody,
+                models.PostV2FeedbackEvaluationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -807,9 +587,9 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackEvaluationRequestBody]
+                request, Optional[models.PostV2FeedbackEvaluationRequestBody]
             )
-        request = cast(Optional[models_.PostV2FeedbackEvaluationRequestBody], request)
+        request = cast(Optional[models.PostV2FeedbackEvaluationRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -829,7 +609,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models_.PostV2FeedbackEvaluationRequestBody],
+                Optional[models.PostV2FeedbackEvaluationRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -850,11 +630,11 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
+                    self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -862,1211 +642,9 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def post_v2_feedback_remove(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2FeedbackRemoveRequestBody,
-                models_.PostV2FeedbackRemoveRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2FeedbackRemoveResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackRemoveRequestBody]
-            )
-        request = cast(Optional[models_.PostV2FeedbackRemoveRequestBody], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/feedback/remove",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2FeedbackRemoveRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/feedback/remove",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PostV2FeedbackRemoveResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackRemoveResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackRemoveResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def post_v2_feedback_remove_async(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2FeedbackRemoveRequestBody,
-                models_.PostV2FeedbackRemoveRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2FeedbackRemoveResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2FeedbackRemoveRequestBody]
-            )
-        request = cast(Optional[models_.PostV2FeedbackRemoveRequestBody], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/feedback/remove",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2FeedbackRemoveRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/feedback/remove",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PostV2FeedbackRemoveResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2FeedbackRemoveResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2FeedbackRemoveResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def get_v2_human_evals(
-        self,
-        *,
-        project_id: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models_.ResponseBody]:
-        r"""
-        :param project_id: Optional project ID to filter human reviews by project
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.GetV2HumanEvalsRequest(
-            project_id=project_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/human-evals",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/human-evals",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models_.ResponseBody], http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.GetV2HumanEvalsResponseBodyData, http_res
-            )
-            raise models_.GetV2HumanEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def get_v2_human_evals_async(
-        self,
-        *,
-        project_id: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models_.ResponseBody]:
-        r"""
-        :param project_id: Optional project ID to filter human reviews by project
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.GetV2HumanEvalsRequest(
-            project_id=project_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/human-evals",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/human-evals",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models_.ResponseBody], http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.GetV2HumanEvalsResponseBodyData, http_res
-            )
-            raise models_.GetV2HumanEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def post_v2_human_evals(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2HumanEvalsRequestBody,
-                models_.PostV2HumanEvalsRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2HumanEvalsResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2HumanEvalsRequestBody]
-            )
-        request = cast(Optional[models_.PostV2HumanEvalsRequestBody], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/human-evals",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2HumanEvalsRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/human-evals",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PostV2HumanEvalsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2HumanEvalsResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2HumanEvalsResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def post_v2_human_evals_async(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models_.PostV2HumanEvalsRequestBody,
-                models_.PostV2HumanEvalsRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PostV2HumanEvalsResponseBody:
-        r"""
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models_.PostV2HumanEvalsRequestBody]
-            )
-        request = cast(Optional[models_.PostV2HumanEvalsRequestBody], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/human-evals",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models_.PostV2HumanEvalsRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/human-evals",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PostV2HumanEvalsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PostV2HumanEvalsResponseResponseBodyData, http_res
-            )
-            raise models_.PostV2HumanEvalsResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def get_v2_human_evals_id_(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.GetV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.GetV2HumanEvalsIDRequest(
-            id=id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.GetV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.GetV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.GetV2HumanEvalsIDResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def get_v2_human_evals_id__async(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.GetV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.GetV2HumanEvalsIDRequest(
-            id=id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.GetV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.GetV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.GetV2HumanEvalsIDResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def patch_v2_human_evals_id_(
-        self,
-        *,
-        id: str,
-        request_body: Optional[
-            Union[
-                models_.PatchV2HumanEvalsIDRequestBody,
-                models_.PatchV2HumanEvalsIDRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PatchV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param request_body:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.PatchV2HumanEvalsIDRequest(
-            id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models_.PatchV2HumanEvalsIDRequestBody]
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models_.PatchV2HumanEvalsIDRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="patch_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PatchV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PatchV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.PatchV2HumanEvalsIDResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def patch_v2_human_evals_id__async(
-        self,
-        *,
-        id: str,
-        request_body: Optional[
-            Union[
-                models_.PatchV2HumanEvalsIDRequestBody,
-                models_.PatchV2HumanEvalsIDRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.PatchV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param request_body:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.PatchV2HumanEvalsIDRequest(
-            id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models_.PatchV2HumanEvalsIDRequestBody]
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models_.PatchV2HumanEvalsIDRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="patch_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.PatchV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.PatchV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.PatchV2HumanEvalsIDResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    def delete_v2_human_evals_id_(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.DeleteV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.DeleteV2HumanEvalsIDRequest(
-            id=id,
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.DeleteV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.DeleteV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.DeleteV2HumanEvalsIDResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
-
-    async def delete_v2_human_evals_id__async(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.DeleteV2HumanEvalsIDResponseBody:
-        r"""
-        :param id: The id of the resource
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.DeleteV2HumanEvalsIDRequest(
-            id=id,
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v2/human-evals/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_/v2/human-evals/{id}",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.DeleteV2HumanEvalsIDResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models_.DeleteV2HumanEvalsIDResponseResponseBodyData, http_res
-            )
-            raise models_.DeleteV2HumanEvalsIDResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models.APIError("Unexpected response received", http_res)
