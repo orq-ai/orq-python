@@ -62,3 +62,6 @@ class InFlightEvent:
 
     # Error
     error: Optional[Dict[str, str]] = None
+
+    # Graph (attached to root trace span only)
+    graph_json: Optional[str] = None

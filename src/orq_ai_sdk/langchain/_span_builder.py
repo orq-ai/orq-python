@@ -158,6 +158,10 @@ def _build_attributes(
     if completion is not None:
         attrs.append(_str_attr("gen_ai.completion", json.dumps(completion, default=str)))
 
+    # Graph view (root trace span only)
+    if event.graph_json:
+        attrs.append(_str_attr("langsmith.trace.graph", event.graph_json))
+
     return attrs
 
 
