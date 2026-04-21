@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 from .expression import Expression, ExpressionTypedDict
+from .expressioninput import ExpressionInput, ExpressionInputTypedDict
 from .guardrailref import GuardrailRef, GuardrailRefTypedDict
-from .optionalexpressioninput import (
-    OptionalExpressionInput,
-    OptionalExpressionInputTypedDict,
-)
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -26,7 +23,7 @@ class GuardrailRuleUpdateRequestBodyTypedDict(TypedDict):
     description: NotRequired[str]
     display_name: NotRequired[str]
     enabled: NotRequired[bool]
-    expression: NotRequired[OptionalExpressionInputTypedDict]
+    expression: NotRequired[ExpressionInputTypedDict]
     guardrails: NotRequired[List[GuardrailRefTypedDict]]
     timeout: NotRequired[int]
 
@@ -38,7 +35,7 @@ class GuardrailRuleUpdateRequestBody(BaseModel):
 
     enabled: Optional[bool] = None
 
-    expression: Optional[OptionalExpressionInput] = None
+    expression: Optional[ExpressionInput] = None
 
     guardrails: Optional[List[GuardrailRef]] = None
 

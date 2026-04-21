@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 from .expression import Expression, ExpressionTypedDict
+from .expressioninput import ExpressionInput, ExpressionInputTypedDict
 from .guardrailref import GuardrailRef, GuardrailRefTypedDict
-from .optionalexpressioninput import (
-    OptionalExpressionInput,
-    OptionalExpressionInputTypedDict,
-)
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -25,7 +22,7 @@ class GuardrailRuleCreateRequestBodyTypedDict(TypedDict):
     display_name: str
     description: NotRequired[str]
     enabled: NotRequired[bool]
-    expression: NotRequired[OptionalExpressionInputTypedDict]
+    expression: NotRequired[ExpressionInputTypedDict]
     guardrails: NotRequired[Nullable[List[GuardrailRefTypedDict]]]
     project_id: NotRequired[str]
     r"""Optional project ID. If null/omitted, the entity is global (workspace-wide)."""
@@ -39,7 +36,7 @@ class GuardrailRuleCreateRequestBody(BaseModel):
 
     enabled: Optional[bool] = None
 
-    expression: Optional[OptionalExpressionInput] = None
+    expression: Optional[ExpressionInput] = None
 
     guardrails: OptionalNullable[List[GuardrailRef]] = UNSET
 

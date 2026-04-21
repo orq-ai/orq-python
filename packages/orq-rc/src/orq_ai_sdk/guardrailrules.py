@@ -213,9 +213,7 @@ class GuardrailRules(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -261,7 +259,7 @@ class GuardrailRules(BaseSDK):
             display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.OptionalExpressionInput]
+                expression, Optional[models.ExpressionInput]
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
@@ -333,9 +331,7 @@ class GuardrailRules(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -381,7 +377,7 @@ class GuardrailRules(BaseSDK):
             display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.OptionalExpressionInput]
+                expression, Optional[models.ExpressionInput]
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
@@ -806,9 +802,7 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -855,7 +849,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.OptionalExpressionInput]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
@@ -932,9 +926,7 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -981,7 +973,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.OptionalExpressionInput]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
