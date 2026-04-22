@@ -257,7 +257,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
 
             # Attach graph to root span before sending
             if self._events.is_root(rid) and self._events.graph.has_nodes():
-                event.graph_json = self._events.graph.build()
+                event.graph_json = self._events.graph.build(rid, self._events.get_span_id(rid))
 
             logger.debug("CHAIN_END name=%s run_id=%s", event.name, run_id)
             self._finish_and_send(run_id)

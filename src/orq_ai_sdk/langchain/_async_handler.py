@@ -246,7 +246,7 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
                 self._events.graph.on_node_end(event.name, str(self._events.root_run_id))
 
             if self._events.is_root(rid) and self._events.graph.has_nodes():
-                event.graph_json = self._events.graph.build()
+                event.graph_json = self._events.graph.build(rid, self._events.get_span_id(rid))
 
             await self._finish_and_send(run_id)
         except Exception:

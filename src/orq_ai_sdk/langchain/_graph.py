@@ -69,18 +69,33 @@ class GraphTracker:
         """Return True if any graph nodes have been registered."""
         return len(self._nodes) > 0
 
-    def build(self) -> str:
-        """Build the graph JSON string to attach as a span attribute."""
-        nodes = []
+    def build(self, root_run_id: str, root_span_id: str) -> str:
+        """Build the graph JSON string to attach as a span attribute.
+
+        If LangGraph did not emit explicit ``__start__`` / ``__end__`` chain
+        events (the common case in Python), synthesize them and anchor their
+        span_ids to the root span so the UI always has clean entry/exit markers.
+        """
+        node_items: List[tuple] = []  # (id, type, span_ids)
+        edges: List[tuple] = list(self._edges)
+
+        if self._nodes and "__start__" not in self._nodes:
+            first = next(iter(self._nodes))
+            node_items.append(("__start__", "start", [root_span_id]))
+            edges.insert(0, ("__start__", first))
+
         for node_id, info in self._nodes.items():
-            nodes.append({
-                "id": node_id,
-                "type": info["type"],
-                "span_ids": info["span_ids"],
-            })
+            node_items.append((node_id, info["type"], info["span_ids"]))
 
-        edges = []
-        for source, target in self._edges:
-            edges.append({"source": source, "target": target})
+        if self._nodes and "__end__" not in self._nodes:
+            last = self._last_completed.get(root_run_id)
+            if last:
+                node_items.append(("__end__", "end", [root_span_id]))
+                edges.append((last, "__end__"))
 
-        return json.dumps({"nodes": nodes, "edges": edges}, default=str)
+        nodes_out = [
+            {"id": nid, "type": ntype, "span_ids": sids}
+            for nid, ntype, sids in node_items
+        ]
+        edges_out = [{"source": s, "target": t} for s, t in edges]
+        return json.dumps({"nodes": nodes_out, "edges": edges_out}, default=str)
