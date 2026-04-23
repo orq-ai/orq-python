@@ -9,6 +9,10 @@ from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
+from .responseexecutionlimits import (
+    ResponseExecutionLimits,
+    ResponseExecutionLimitsTypedDict,
+)
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
@@ -272,6 +276,14 @@ CreateRouterResponseInput = TypeAliasType(
     "CreateRouterResponseInput", Union[str, List[CreateRouterResponseInput2]]
 )
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
+
+
+TemplateEngine = Literal[
+    "text",
+    "jinja",
+    "mustache",
+]
+r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
 
 
 class FormatSchemaTypedDict(TypedDict):
@@ -666,13 +678,14 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
     instructions: NotRequired[str]
     r"""System prompt / instructions for the model."""
+    limits: NotRequired[ResponseExecutionLimitsTypedDict]
     max_output_tokens: NotRequired[int]
     r"""Maximum number of tokens in the response output."""
     max_tool_calls: NotRequired[int]
     r"""Maximum number of tool call rounds in the agentic loop."""
     memory: NotRequired[MemoryParamTypedDict]
-    metadata: NotRequired[Dict[str, Any]]
-    r"""Developer-defined key-value pairs attached to the response."""
+    metadata: NotRequired[Dict[str, str]]
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
     model: NotRequired[str]
     r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
     parallel_tool_calls: NotRequired[bool]
@@ -694,6 +707,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     stream_options: NotRequired[StreamOptionsTypedDict]
     temperature: NotRequired[float]
     r"""Sampling temperature between 0 and 2."""
+    template_engine: NotRequired[TemplateEngine]
+    r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
     text: NotRequired[CreateRouterResponseTextTypedDict]
     r"""Configuration for text output."""
     thread: NotRequired[ResponseThreadTypedDict]
@@ -726,6 +741,8 @@ class CreateRouterResponseRequestBody(BaseModel):
     instructions: Optional[str] = None
     r"""System prompt / instructions for the model."""
 
+    limits: Optional[ResponseExecutionLimits] = None
+
     max_output_tokens: Optional[int] = None
     r"""Maximum number of tokens in the response output."""
 
@@ -734,8 +751,8 @@ class CreateRouterResponseRequestBody(BaseModel):
 
     memory: Optional[MemoryParam] = None
 
-    metadata: Optional[Dict[str, Any]] = None
-    r"""Developer-defined key-value pairs attached to the response."""
+    metadata: Optional[Dict[str, str]] = None
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
 
     model: Optional[str] = None
     r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
@@ -770,6 +787,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     temperature: Optional[float] = None
     r"""Sampling temperature between 0 and 2."""
 
+    template_engine: Optional[TemplateEngine] = None
+    r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
+
     text: Optional[CreateRouterResponseText] = None
     r"""Configuration for text output."""
 
@@ -800,6 +820,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "identity",
                 "input",
                 "instructions",
+                "limits",
                 "max_output_tokens",
                 "max_tool_calls",
                 "memory",
@@ -816,6 +837,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "stream",
                 "stream_options",
                 "temperature",
+                "template_engine",
                 "text",
                 "thread",
                 "tool_choice",
@@ -963,7 +985,8 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     instructions: Nullable[str]
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
-    metadata: Dict[str, Any]
+    metadata: Dict[str, str]
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
     model: str
     object: str
     r"""Always \"response\" """
@@ -1022,7 +1045,8 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     max_tool_calls: Nullable[int]
 
-    metadata: Dict[str, Any]
+    metadata: Dict[str, str]
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
 
     model: str
 

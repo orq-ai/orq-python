@@ -244,6 +244,7 @@ if TYPE_CHECKING:
         Shorthand,
         SpecificFunction,
         SpecificFunctionTypedDict,
+        TemplateEngine,
         ToolsFunction,
         ToolsFunctionTypedDict,
         ToolsMCPTool,
@@ -5802,6 +5803,10 @@ if TYPE_CHECKING:
         ResponseDoneEventUsageTypedDict,
     )
     from .responseerror import ResponseError, ResponseErrorTypedDict
+    from .responseexecutionlimits import (
+        ResponseExecutionLimits,
+        ResponseExecutionLimitsTypedDict,
+    )
     from .responsefailedevent import (
         ResponseFailedEvent,
         ResponseFailedEventData,
@@ -13836,6 +13841,8 @@ __all__ = [
     "ResponseDoneEventUsageTypedDict",
     "ResponseError",
     "ResponseErrorTypedDict",
+    "ResponseExecutionLimits",
+    "ResponseExecutionLimitsTypedDict",
     "ResponseFailedEvent",
     "ResponseFailedEventData",
     "ResponseFailedEventDataTypedDict",
@@ -14824,6 +14831,7 @@ __all__ = [
     "TeamOfAgentsTypedDict",
     "Telemetry",
     "TelemetryTypedDict",
+    "TemplateEngine",
     "Ten",
     "TenTypedDict",
     "Text",
@@ -16375,6 +16383,7 @@ _dynamic_imports: dict[str, str] = {
     "Shorthand": ".create_router_responseop",
     "SpecificFunction": ".create_router_responseop",
     "SpecificFunctionTypedDict": ".create_router_responseop",
+    "TemplateEngine": ".create_router_responseop",
     "ToolsFunction": ".create_router_responseop",
     "ToolsFunctionTypedDict": ".create_router_responseop",
     "ToolsMCPTool": ".create_router_responseop",
@@ -21734,6 +21743,8 @@ _dynamic_imports: dict[str, str] = {
     "ResponseDoneEventUsageTypedDict": ".responsedoneevent",
     "ResponseError": ".responseerror",
     "ResponseErrorTypedDict": ".responseerror",
+    "ResponseExecutionLimits": ".responseexecutionlimits",
+    "ResponseExecutionLimitsTypedDict": ".responseexecutionlimits",
     "ResponseFailedEvent": ".responsefailedevent",
     "ResponseFailedEventData": ".responsefailedevent",
     "ResponseFailedEventDataTypedDict": ".responsefailedevent",
