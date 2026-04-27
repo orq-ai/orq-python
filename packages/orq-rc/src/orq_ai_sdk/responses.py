@@ -36,10 +36,15 @@ class Responses(BaseSDK):
             ]
         ] = None,
         instructions: Optional[str] = None,
+        limits: Optional[
+            Union[
+                models.ResponseExecutionLimits, models.ResponseExecutionLimitsTypedDict
+            ]
+        ] = None,
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
         memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Dict[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         presence_penalty: Optional[float] = None,
@@ -58,6 +63,7 @@ class Responses(BaseSDK):
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
         temperature: Optional[float] = None,
+        template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
             Union[
                 models.CreateRouterResponseText,
@@ -98,10 +104,11 @@ class Responses(BaseSDK):
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
+        :param limits:
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
-        :param metadata: Developer-defined key-value pairs attached to the response.
+        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
@@ -114,6 +121,7 @@ class Responses(BaseSDK):
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
         :param temperature: Sampling temperature between 0 and 2.
+        :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
         :param thread:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
@@ -155,6 +163,9 @@ class Responses(BaseSDK):
                 input_, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
+            limits=utils.get_pydantic_model(
+                limits, Optional[models.ResponseExecutionLimits]
+            ),
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
             memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
@@ -175,6 +186,7 @@ class Responses(BaseSDK):
                 stream_options, Optional[models.StreamOptions]
             ),
             temperature=temperature,
+            template_engine=template_engine,
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),
@@ -281,10 +293,15 @@ class Responses(BaseSDK):
             ]
         ] = None,
         instructions: Optional[str] = None,
+        limits: Optional[
+            Union[
+                models.ResponseExecutionLimits, models.ResponseExecutionLimitsTypedDict
+            ]
+        ] = None,
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
         memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Dict[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         presence_penalty: Optional[float] = None,
@@ -303,6 +320,7 @@ class Responses(BaseSDK):
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
         temperature: Optional[float] = None,
+        template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
             Union[
                 models.CreateRouterResponseText,
@@ -343,10 +361,11 @@ class Responses(BaseSDK):
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
+        :param limits:
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
-        :param metadata: Developer-defined key-value pairs attached to the response.
+        :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
@@ -359,6 +378,7 @@ class Responses(BaseSDK):
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
         :param temperature: Sampling temperature between 0 and 2.
+        :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
         :param thread:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
@@ -400,6 +420,9 @@ class Responses(BaseSDK):
                 input_, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
+            limits=utils.get_pydantic_model(
+                limits, Optional[models.ResponseExecutionLimits]
+            ),
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
             memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
@@ -420,6 +443,7 @@ class Responses(BaseSDK):
                 stream_options, Optional[models.StreamOptions]
             ),
             temperature=temperature,
+            template_engine=template_engine,
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),

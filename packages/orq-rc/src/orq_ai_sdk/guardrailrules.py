@@ -213,9 +213,7 @@ class GuardrailRules(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -261,7 +259,7 @@ class GuardrailRules(BaseSDK):
             display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.OptionalExpressionInput]
+                expression, Optional[models.ExpressionInput]
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
@@ -317,7 +315,7 @@ class GuardrailRules(BaseSDK):
             return unmarshal_json_response(
                 models.GuardrailRuleCreateResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -333,9 +331,7 @@ class GuardrailRules(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -381,7 +377,7 @@ class GuardrailRules(BaseSDK):
             display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.OptionalExpressionInput]
+                expression, Optional[models.ExpressionInput]
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, OptionalNullable[List[models.GuardrailRef]]
@@ -437,7 +433,7 @@ class GuardrailRules(BaseSDK):
             return unmarshal_json_response(
                 models.GuardrailRuleCreateResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -806,9 +802,7 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -855,7 +849,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.OptionalExpressionInput]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
@@ -915,7 +909,7 @@ class GuardrailRules(BaseSDK):
             return unmarshal_json_response(
                 models.GuardrailRuleUpdateResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "404", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -932,9 +926,7 @@ class GuardrailRules(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[
-                models.OptionalExpressionInput, models.OptionalExpressionInputTypedDict
-            ]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
             Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
@@ -981,7 +973,7 @@ class GuardrailRules(BaseSDK):
                 display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.OptionalExpressionInput]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 guardrails=utils.get_pydantic_model(
                     guardrails, Optional[List[models.GuardrailRef]]
@@ -1041,7 +1033,7 @@ class GuardrailRules(BaseSDK):
             return unmarshal_json_response(
                 models.GuardrailRuleUpdateResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "404", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

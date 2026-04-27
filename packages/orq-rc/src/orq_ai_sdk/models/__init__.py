@@ -244,6 +244,7 @@ if TYPE_CHECKING:
         Shorthand,
         SpecificFunction,
         SpecificFunctionTypedDict,
+        TemplateEngine,
         ToolsFunction,
         ToolsFunctionTypedDict,
         ToolsMCPTool,
@@ -5507,10 +5508,6 @@ if TYPE_CHECKING:
     from .modelref import ModelRef, ModelRefTypedDict
     from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
     from .no_response_error import NoResponseError
-    from .optionalexpressioninput import (
-        OptionalExpressionInput,
-        OptionalExpressionInputTypedDict,
-    )
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
     from .parseop import (
         AgenticChunker,
@@ -5806,6 +5803,10 @@ if TYPE_CHECKING:
         ResponseDoneEventUsageTypedDict,
     )
     from .responseerror import ResponseError, ResponseErrorTypedDict
+    from .responseexecutionlimits import (
+        ResponseExecutionLimits,
+        ResponseExecutionLimitsTypedDict,
+    )
     from .responsefailedevent import (
         ResponseFailedEvent,
         ResponseFailedEventData,
@@ -13371,8 +13372,6 @@ __all__ = [
     "OneNinTypedDict",
     "OneTypedDict",
     "Operator",
-    "OptionalExpressionInput",
-    "OptionalExpressionInputTypedDict",
     "Or",
     "OrEq",
     "OrEqTypedDict",
@@ -13842,6 +13841,8 @@ __all__ = [
     "ResponseDoneEventUsageTypedDict",
     "ResponseError",
     "ResponseErrorTypedDict",
+    "ResponseExecutionLimits",
+    "ResponseExecutionLimitsTypedDict",
     "ResponseFailedEvent",
     "ResponseFailedEventData",
     "ResponseFailedEventDataTypedDict",
@@ -14830,6 +14831,7 @@ __all__ = [
     "TeamOfAgentsTypedDict",
     "Telemetry",
     "TelemetryTypedDict",
+    "TemplateEngine",
     "Ten",
     "TenTypedDict",
     "Text",
@@ -16381,6 +16383,7 @@ _dynamic_imports: dict[str, str] = {
     "Shorthand": ".create_router_responseop",
     "SpecificFunction": ".create_router_responseop",
     "SpecificFunctionTypedDict": ".create_router_responseop",
+    "TemplateEngine": ".create_router_responseop",
     "ToolsFunction": ".create_router_responseop",
     "ToolsFunctionTypedDict": ".create_router_responseop",
     "ToolsMCPTool": ".create_router_responseop",
@@ -21478,8 +21481,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelsConfig": ".modelsconfig",
     "ModelsConfigTypedDict": ".modelsconfig",
     "NoResponseError": ".no_response_error",
-    "OptionalExpressionInput": ".optionalexpressioninput",
-    "OptionalExpressionInputTypedDict": ".optionalexpressioninput",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
     "AgenticChunker": ".parseop",
@@ -21742,6 +21743,8 @@ _dynamic_imports: dict[str, str] = {
     "ResponseDoneEventUsageTypedDict": ".responsedoneevent",
     "ResponseError": ".responseerror",
     "ResponseErrorTypedDict": ".responseerror",
+    "ResponseExecutionLimits": ".responseexecutionlimits",
+    "ResponseExecutionLimitsTypedDict": ".responseexecutionlimits",
     "ResponseFailedEvent": ".responsefailedevent",
     "ResponseFailedEventData": ".responsefailedevent",
     "ResponseFailedEventDataTypedDict": ".responsefailedevent",
