@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.router import Router
     from orq_ai_sdk.routingrules import RoutingRules
     from orq_ai_sdk.schedules import Schedules
+    from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.tools import Tools
 
 
@@ -61,10 +62,11 @@ class Orq(BaseSDK):
     router: "Router"
     annotations: "Annotations"
     human_review_sets: "HumanReviewSets"
-    files: "Files"
     guardrail_rules: "GuardrailRules"
     policies: "Policies"
     routing_rules: "RoutingRules"
+    files: "Files"
+    skills: "Skills"
     schedules: "Schedules"
     responses: "Responses"
     _sub_sdk_map = {
@@ -84,10 +86,11 @@ class Orq(BaseSDK):
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
-        "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "files": ("orq_ai_sdk.files", "Files"),
+        "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
     }

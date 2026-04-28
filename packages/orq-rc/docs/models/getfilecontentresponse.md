@@ -1,8 +1,8 @@
-# FileUpdateRequestBody
+# GetFileContentResponse
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `file_name`        | *str*              | :heavy_check_mark: | N/A                |
+| `download_url`     | *Optional[str]*    | :heavy_minus_sign: | N/A                |

@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `file_id`                                                          | *str*                                                              | :heavy_check_mark:                                                 | The ID of the file                                                 |
-| `request_body`                                                     | [models.FileUpdateRequestBody](../models/fileupdaterequestbody.md) | :heavy_check_mark:                                                 | N/A                                                                |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `file_id_param`                                            | *str*                                                      | :heavy_check_mark:                                         | N/A                                                        |
+| `update_file_request`                                      | [models.UpdateFileRequest](../models/updatefilerequest.md) | :heavy_check_mark:                                         | N/A                                                        |

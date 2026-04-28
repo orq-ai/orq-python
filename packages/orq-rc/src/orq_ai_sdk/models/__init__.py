@@ -1707,6 +1707,8 @@ if TYPE_CHECKING:
         Six,
         SixTypedDict,
     )
+    from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
+    from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
     from .createidentityop import (
         CreateIdentityRequestBody,
         CreateIdentityRequestBodyTypedDict,
@@ -2496,6 +2498,8 @@ if TYPE_CHECKING:
         UserLocation,
         UserLocationTypedDict,
     )
+    from .createskillrequest import CreateSkillRequest, CreateSkillRequestTypedDict
+    from .createskillresponse import CreateSkillResponse, CreateSkillResponseTypedDict
     from .createspeechop import (
         CreateSpeechFallbacks,
         CreateSpeechFallbacksTypedDict,
@@ -2798,6 +2802,7 @@ if TYPE_CHECKING:
         DeleteEvalResponseBody,
         DeleteEvalResponseBodyData,
     )
+    from .deletefileresponse import DeleteFileResponse, DeleteFileResponseTypedDict
     from .deleteidentityop import (
         DeleteIdentityRequest,
         DeleteIdentityRequestTypedDict,
@@ -2823,6 +2828,7 @@ if TYPE_CHECKING:
         DeletePromptResponseBody,
         DeletePromptResponseBodyData,
     )
+    from .deleteskillresponse import DeleteSkillResponse, DeleteSkillResponseTypedDict
     from .deletetoolop import DeleteToolRequest, DeleteToolRequestTypedDict
     from .deploymentcreatemetricop import (
         Choices,
@@ -3598,53 +3604,27 @@ if TYPE_CHECKING:
         ExtendedMessageTypedDict,
     )
     from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
+    from .file import File, FileTypedDict
     from .filecontentop import FileContentRequest, FileContentRequestTypedDict
     from .filecontentpartschema import (
         FileContentPartSchema,
         FileContentPartSchemaTypedDict,
     )
     from .filedeleteop import FileDeleteRequest, FileDeleteRequestTypedDict
-    from .filedocument import FileDocument, FileDocumentTypedDict
-    from .filegetop import (
-        FileGetRequest,
-        FileGetRequestTypedDict,
-        FileGetResponseBody,
-        FileGetResponseBodyTypedDict,
-    )
-    from .filelistop import (
-        FileListRequest,
-        FileListRequestTypedDict,
-        FileListResponseBody,
-        FileListResponseBodyTypedDict,
-    )
+    from .filegetop import FileGetRequest, FileGetRequestTypedDict
+    from .filelistop import FileListRequest, FileListRequestTypedDict
     from .filepart import (
         BinaryFormat,
         BinaryFormatTypedDict,
-        File,
         FileInURIFormat,
         FileInURIFormatTypedDict,
         FilePart,
+        FilePartFile,
+        FilePartFileTypedDict,
         FilePartKind,
         FilePartTypedDict,
-        FileTypedDict,
     )
-    from .fileupdateop import (
-        FileUpdateRequest,
-        FileUpdateRequestBody,
-        FileUpdateRequestBodyTypedDict,
-        FileUpdateRequestTypedDict,
-        FileUpdateResponseBody,
-        FileUpdateResponseBodyTypedDict,
-    )
-    from .fileuploadop import (
-        FileUploadFile,
-        FileUploadFileTypedDict,
-        FileUploadRequestBody,
-        FileUploadRequestBodyTypedDict,
-        FileUploadResponseBody,
-        FileUploadResponseBodyTypedDict,
-        Purpose,
-    )
+    from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
     from .get_v2_evaluators_id_versionsop import (
         GetV2EvaluatorsIDVersionsData,
         GetV2EvaluatorsIDVersionsDataTypedDict,
@@ -4249,6 +4229,11 @@ if TYPE_CHECKING:
         GetEvalsResponseBodyTypedDict,
         Object,
     )
+    from .getfilecontentresponse import (
+        GetFileContentResponse,
+        GetFileContentResponseTypedDict,
+    )
+    from .getfileresponse import GetFileResponse, GetFileResponseTypedDict
     from .getonechunkop import (
         GetOneChunkMetadata,
         GetOneChunkMetadataTypedDict,
@@ -4620,6 +4605,7 @@ if TYPE_CHECKING:
         GetPromptVersionVerbosity,
         GetPromptVersionVoice,
     )
+    from .getskillresponse import GetSkillResponse, GetSkillResponseTypedDict
     from .guardrailref import ExecuteOn, GuardrailRef, GuardrailRefTypedDict
     from .guardrailrule import GuardrailRule, GuardrailRuleTypedDict
     from .guardrailrulecreateop import (
@@ -5292,6 +5278,7 @@ if TYPE_CHECKING:
         QueryParamStatus,
         QueryParamStatusTypedDict,
     )
+    from .listfilesresponse import ListFilesResponse, ListFilesResponseTypedDict
     from .listidentitiesop import (
         ListIdentitiesData,
         ListIdentitiesDataTypedDict,
@@ -5504,6 +5491,7 @@ if TYPE_CHECKING:
         ListPromptVersionsVerbosity,
         ListPromptVersionsVoice,
     )
+    from .listskillsresponse import ListSkillsResponse, ListSkillsResponseTypedDict
     from .memoryparam import MemoryParam, MemoryParamTypedDict
     from .modelref import ModelRef, ModelRefTypedDict
     from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
@@ -6563,6 +6551,11 @@ if TYPE_CHECKING:
         SearchType,
     )
     from .security import Security, SecurityTypedDict
+    from .skill import Skill, SkillTypedDict
+    from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
+    from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
+    from .skilllistop import SkillListRequest, SkillListRequestTypedDict
+    from .skillupdateop import SkillUpdateRequest, SkillUpdateRequestTypedDict
     from .streamagentop import (
         StreamAgentA2AMessage,
         StreamAgentA2AMessageTypedDict,
@@ -7741,6 +7734,8 @@ if TYPE_CHECKING:
         UpdateEvalRetryTypedDict,
         VersionIncrement,
     )
+    from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
+    from .updatefileresponse import UpdateFileResponse, UpdateFileResponseTypedDict
     from .updateidentityop import (
         UpdateIdentityIdentitiesResponseBody,
         UpdateIdentityIdentitiesResponseBodyData,
@@ -8105,6 +8100,8 @@ if TYPE_CHECKING:
         UpdatePromptVerbosity,
         UpdatePromptVoice,
     )
+    from .updateskillrequest import UpdateSkillRequest, UpdateSkillRequestTypedDict
+    from .updateskillresponse import UpdateSkillResponse, UpdateSkillResponseTypedDict
     from .updatetoolop import (
         RequestBodyTools,
         RequestBodyToolsTypedDict,
@@ -9704,6 +9701,10 @@ __all__ = [
     "CreateEvalResponseBodyGuardrailConfigTypedDict",
     "CreateEvalResponseBodyType",
     "CreateEvalResponseBodyTypedDict",
+    "CreateFileRequest",
+    "CreateFileRequestTypedDict",
+    "CreateFileResponse",
+    "CreateFileResponseTypedDict",
     "CreateIdentityRequestBody",
     "CreateIdentityRequestBodyTypedDict",
     "CreateIdentityResponseBody",
@@ -10372,6 +10373,10 @@ __all__ = [
     "CreateRouterResponseToolsTypedDict",
     "CreateRouterResponseTruncation",
     "CreateRouterResponseType",
+    "CreateSkillRequest",
+    "CreateSkillRequestTypedDict",
+    "CreateSkillResponse",
+    "CreateSkillResponseTypedDict",
     "CreateSpeechFallbacks",
     "CreateSpeechFallbacksTypedDict",
     "CreateSpeechLoadBalancer",
@@ -10652,6 +10657,8 @@ __all__ = [
     "DeleteEvalRequestTypedDict",
     "DeleteEvalResponseBody",
     "DeleteEvalResponseBodyData",
+    "DeleteFileResponse",
+    "DeleteFileResponseTypedDict",
     "DeleteIdentityRequest",
     "DeleteIdentityRequestTypedDict",
     "DeleteIdentityResponseBody",
@@ -10670,6 +10677,8 @@ __all__ = [
     "DeletePromptRequestTypedDict",
     "DeletePromptResponseBody",
     "DeletePromptResponseBodyData",
+    "DeleteSkillResponse",
+    "DeleteSkillResponseTypedDict",
     "DeleteToolRequest",
     "DeleteToolRequestTypedDict",
     "DeleteV2HumanEvalSetsIDRequest",
@@ -11457,34 +11466,20 @@ __all__ = [
     "FileContentRequestTypedDict",
     "FileDeleteRequest",
     "FileDeleteRequestTypedDict",
-    "FileDocument",
-    "FileDocumentTypedDict",
     "FileGetRequest",
     "FileGetRequestTypedDict",
-    "FileGetResponseBody",
-    "FileGetResponseBodyTypedDict",
     "FileInURIFormat",
     "FileInURIFormatTypedDict",
     "FileListRequest",
     "FileListRequestTypedDict",
-    "FileListResponseBody",
-    "FileListResponseBodyTypedDict",
     "FilePart",
+    "FilePartFile",
+    "FilePartFileTypedDict",
     "FilePartKind",
     "FilePartTypedDict",
     "FileTypedDict",
     "FileUpdateRequest",
-    "FileUpdateRequestBody",
-    "FileUpdateRequestBodyTypedDict",
     "FileUpdateRequestTypedDict",
-    "FileUpdateResponseBody",
-    "FileUpdateResponseBodyTypedDict",
-    "FileUploadFile",
-    "FileUploadFileTypedDict",
-    "FileUploadRequestBody",
-    "FileUploadRequestBodyTypedDict",
-    "FileUploadResponseBody",
-    "FileUploadResponseBodyTypedDict",
     "FilterBy",
     "FilterBy1",
     "FilterBy1TypedDict",
@@ -12072,6 +12067,10 @@ __all__ = [
     "GetEvalsRequestTypedDict",
     "GetEvalsResponseBody",
     "GetEvalsResponseBodyTypedDict",
+    "GetFileContentResponse",
+    "GetFileContentResponseTypedDict",
+    "GetFileResponse",
+    "GetFileResponseTypedDict",
     "GetOneChunkMetadata",
     "GetOneChunkMetadataTypedDict",
     "GetOneChunkRequest",
@@ -12435,6 +12434,8 @@ __all__ = [
     "GetPromptVersionUseCases",
     "GetPromptVersionVerbosity",
     "GetPromptVersionVoice",
+    "GetSkillResponse",
+    "GetSkillResponseTypedDict",
     "GetV2EvaluatorsIDVersionsData",
     "GetV2EvaluatorsIDVersionsDataTypedDict",
     "GetV2EvaluatorsIDVersionsEvalsResponseBody",
@@ -13025,6 +13026,8 @@ __all__ = [
     "ListDatasourcesResponseBody",
     "ListDatasourcesResponseBodyTypedDict",
     "ListDatasourcesStatus",
+    "ListFilesResponse",
+    "ListFilesResponseTypedDict",
     "ListIdentitiesData",
     "ListIdentitiesDataTypedDict",
     "ListIdentitiesMetrics",
@@ -13216,6 +13219,8 @@ __all__ = [
     "ListPromptVersionsUseCases",
     "ListPromptVersionsVerbosity",
     "ListPromptVersionsVoice",
+    "ListSkillsResponse",
+    "ListSkillsResponseTypedDict",
     "Llm",
     "Llm1",
     "Llm1TypedDict",
@@ -13623,7 +13628,6 @@ __all__ = [
     "PublicScheduleTypedDict",
     "PublicUsage",
     "PublicUsageTypedDict",
-    "Purpose",
     "Python",
     "PythonTypedDict",
     "Quality",
@@ -14560,6 +14564,16 @@ __all__ = [
     "Sixteen",
     "SixteenTypedDict",
     "Size",
+    "Skill",
+    "SkillDeleteRequest",
+    "SkillDeleteRequestTypedDict",
+    "SkillGetRequest",
+    "SkillGetRequestTypedDict",
+    "SkillListRequest",
+    "SkillListRequestTypedDict",
+    "SkillTypedDict",
+    "SkillUpdateRequest",
+    "SkillUpdateRequestTypedDict",
     "Source",
     "Sources",
     "SourcesTypedDict",
@@ -15667,6 +15681,10 @@ __all__ = [
     "UpdateEvalResponseBodyTypedDict",
     "UpdateEvalRetry",
     "UpdateEvalRetryTypedDict",
+    "UpdateFileRequest",
+    "UpdateFileRequestTypedDict",
+    "UpdateFileResponse",
+    "UpdateFileResponseTypedDict",
     "UpdateFunctionTool",
     "UpdateFunctionToolTypedDict",
     "UpdateHTTPTool",
@@ -16018,6 +16036,10 @@ __all__ = [
     "UpdatePromptUseCases",
     "UpdatePromptVerbosity",
     "UpdatePromptVoice",
+    "UpdateSkillRequest",
+    "UpdateSkillRequestTypedDict",
+    "UpdateSkillResponse",
+    "UpdateSkillResponseTypedDict",
     "UpdateToolHeaders2",
     "UpdateToolHeaders2TypedDict",
     "UpdateToolHeadersTools2",
@@ -17817,6 +17839,10 @@ _dynamic_imports: dict[str, str] = {
     "SevenTypedDict": ".createeval_responsebody",
     "Six": ".createeval_responsebody",
     "SixTypedDict": ".createeval_responsebody",
+    "CreateFileRequest": ".createfilerequest",
+    "CreateFileRequestTypedDict": ".createfilerequest",
+    "CreateFileResponse": ".createfileresponse",
+    "CreateFileResponseTypedDict": ".createfileresponse",
     "CreateIdentityRequestBody": ".createidentityop",
     "CreateIdentityRequestBodyTypedDict": ".createidentityop",
     "CreateIdentityResponseBody": ".createidentityop",
@@ -18582,6 +18608,10 @@ _dynamic_imports: dict[str, str] = {
     "TwoRole": ".createresponseop",
     "UserLocation": ".createresponseop",
     "UserLocationTypedDict": ".createresponseop",
+    "CreateSkillRequest": ".createskillrequest",
+    "CreateSkillRequestTypedDict": ".createskillrequest",
+    "CreateSkillResponse": ".createskillresponse",
+    "CreateSkillResponseTypedDict": ".createskillresponse",
     "CreateSpeechFallbacks": ".createspeechop",
     "CreateSpeechFallbacksTypedDict": ".createspeechop",
     "CreateSpeechLoadBalancer": ".createspeechop",
@@ -18864,6 +18894,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteEvalRequestTypedDict": ".deleteevalop",
     "DeleteEvalResponseBody": ".deleteevalop",
     "DeleteEvalResponseBodyData": ".deleteevalop",
+    "DeleteFileResponse": ".deletefileresponse",
+    "DeleteFileResponseTypedDict": ".deletefileresponse",
     "DeleteIdentityRequest": ".deleteidentityop",
     "DeleteIdentityRequestTypedDict": ".deleteidentityop",
     "DeleteIdentityResponseBody": ".deleteidentityop",
@@ -18880,6 +18912,8 @@ _dynamic_imports: dict[str, str] = {
     "DeletePromptRequestTypedDict": ".deletepromptop",
     "DeletePromptResponseBody": ".deletepromptop",
     "DeletePromptResponseBodyData": ".deletepromptop",
+    "DeleteSkillResponse": ".deleteskillresponse",
+    "DeleteSkillResponseTypedDict": ".deleteskillresponse",
     "DeleteToolRequest": ".deletetoolop",
     "DeleteToolRequestTypedDict": ".deletetoolop",
     "Choices": ".deploymentcreatemetricop",
@@ -19643,44 +19677,29 @@ _dynamic_imports: dict[str, str] = {
     "ExtendedMessageTypedDict": ".extendedmessage",
     "FallbackConfig": ".fallbackconfig",
     "FallbackConfigTypedDict": ".fallbackconfig",
+    "File": ".file",
+    "FileTypedDict": ".file",
     "FileContentRequest": ".filecontentop",
     "FileContentRequestTypedDict": ".filecontentop",
     "FileContentPartSchema": ".filecontentpartschema",
     "FileContentPartSchemaTypedDict": ".filecontentpartschema",
     "FileDeleteRequest": ".filedeleteop",
     "FileDeleteRequestTypedDict": ".filedeleteop",
-    "FileDocument": ".filedocument",
-    "FileDocumentTypedDict": ".filedocument",
     "FileGetRequest": ".filegetop",
     "FileGetRequestTypedDict": ".filegetop",
-    "FileGetResponseBody": ".filegetop",
-    "FileGetResponseBodyTypedDict": ".filegetop",
     "FileListRequest": ".filelistop",
     "FileListRequestTypedDict": ".filelistop",
-    "FileListResponseBody": ".filelistop",
-    "FileListResponseBodyTypedDict": ".filelistop",
     "BinaryFormat": ".filepart",
     "BinaryFormatTypedDict": ".filepart",
-    "File": ".filepart",
     "FileInURIFormat": ".filepart",
     "FileInURIFormatTypedDict": ".filepart",
     "FilePart": ".filepart",
+    "FilePartFile": ".filepart",
+    "FilePartFileTypedDict": ".filepart",
     "FilePartKind": ".filepart",
     "FilePartTypedDict": ".filepart",
-    "FileTypedDict": ".filepart",
     "FileUpdateRequest": ".fileupdateop",
-    "FileUpdateRequestBody": ".fileupdateop",
-    "FileUpdateRequestBodyTypedDict": ".fileupdateop",
     "FileUpdateRequestTypedDict": ".fileupdateop",
-    "FileUpdateResponseBody": ".fileupdateop",
-    "FileUpdateResponseBodyTypedDict": ".fileupdateop",
-    "FileUploadFile": ".fileuploadop",
-    "FileUploadFileTypedDict": ".fileuploadop",
-    "FileUploadRequestBody": ".fileuploadop",
-    "FileUploadRequestBodyTypedDict": ".fileuploadop",
-    "FileUploadResponseBody": ".fileuploadop",
-    "FileUploadResponseBodyTypedDict": ".fileuploadop",
-    "Purpose": ".fileuploadop",
     "GetV2EvaluatorsIDVersionsData": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsDataTypedDict": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsEvalsResponseBody": ".get_v2_evaluators_id_versionsop",
@@ -20257,6 +20276,10 @@ _dynamic_imports: dict[str, str] = {
     "GetEvalsResponseBody": ".getevalsop",
     "GetEvalsResponseBodyTypedDict": ".getevalsop",
     "Object": ".getevalsop",
+    "GetFileContentResponse": ".getfilecontentresponse",
+    "GetFileContentResponseTypedDict": ".getfilecontentresponse",
+    "GetFileResponse": ".getfileresponse",
+    "GetFileResponseTypedDict": ".getfileresponse",
     "GetOneChunkMetadata": ".getonechunkop",
     "GetOneChunkMetadataTypedDict": ".getonechunkop",
     "GetOneChunkRequest": ".getonechunkop",
@@ -20620,6 +20643,8 @@ _dynamic_imports: dict[str, str] = {
     "GetPromptVersionUseCases": ".getpromptversionop",
     "GetPromptVersionVerbosity": ".getpromptversionop",
     "GetPromptVersionVoice": ".getpromptversionop",
+    "GetSkillResponse": ".getskillresponse",
+    "GetSkillResponseTypedDict": ".getskillresponse",
     "ExecuteOn": ".guardrailref",
     "GuardrailRef": ".guardrailref",
     "GuardrailRefTypedDict": ".guardrailref",
@@ -21267,6 +21292,8 @@ _dynamic_imports: dict[str, str] = {
     "ListDatasourcesStatus": ".listdatasourcesop",
     "QueryParamStatus": ".listdatasourcesop",
     "QueryParamStatusTypedDict": ".listdatasourcesop",
+    "ListFilesResponse": ".listfilesresponse",
+    "ListFilesResponseTypedDict": ".listfilesresponse",
     "ListIdentitiesData": ".listidentitiesop",
     "ListIdentitiesDataTypedDict": ".listidentitiesop",
     "ListIdentitiesMetrics": ".listidentitiesop",
@@ -21473,6 +21500,8 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsUseCases": ".listpromptversionsop",
     "ListPromptVersionsVerbosity": ".listpromptversionsop",
     "ListPromptVersionsVoice": ".listpromptversionsop",
+    "ListSkillsResponse": ".listskillsresponse",
+    "ListSkillsResponseTypedDict": ".listskillsresponse",
     "MemoryParam": ".memoryparam",
     "MemoryParamTypedDict": ".memoryparam",
     "ModelRef": ".modelref",
@@ -22464,6 +22493,16 @@ _dynamic_imports: dict[str, str] = {
     "SearchType": ".searchknowledgeop",
     "Security": ".security",
     "SecurityTypedDict": ".security",
+    "Skill": ".skill",
+    "SkillTypedDict": ".skill",
+    "SkillDeleteRequest": ".skilldeleteop",
+    "SkillDeleteRequestTypedDict": ".skilldeleteop",
+    "SkillGetRequest": ".skillgetop",
+    "SkillGetRequestTypedDict": ".skillgetop",
+    "SkillListRequest": ".skilllistop",
+    "SkillListRequestTypedDict": ".skilllistop",
+    "SkillUpdateRequest": ".skillupdateop",
+    "SkillUpdateRequestTypedDict": ".skillupdateop",
     "StreamAgentA2AMessage": ".streamagentop",
     "StreamAgentA2AMessageTypedDict": ".streamagentop",
     "StreamAgentAgentsResponseBody": ".streamagentop",
@@ -23602,6 +23641,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateEvalRetry": ".updateevalop",
     "UpdateEvalRetryTypedDict": ".updateevalop",
     "VersionIncrement": ".updateevalop",
+    "UpdateFileRequest": ".updatefilerequest",
+    "UpdateFileRequestTypedDict": ".updatefilerequest",
+    "UpdateFileResponse": ".updatefileresponse",
+    "UpdateFileResponseTypedDict": ".updatefileresponse",
     "UpdateIdentityIdentitiesResponseBody": ".updateidentityop",
     "UpdateIdentityIdentitiesResponseBodyData": ".updateidentityop",
     "UpdateIdentityRequest": ".updateidentityop",
@@ -23954,6 +23997,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePromptUseCases": ".updatepromptop",
     "UpdatePromptVerbosity": ".updatepromptop",
     "UpdatePromptVoice": ".updatepromptop",
+    "UpdateSkillRequest": ".updateskillrequest",
+    "UpdateSkillRequestTypedDict": ".updateskillrequest",
+    "UpdateSkillResponse": ".updateskillresponse",
+    "UpdateSkillResponseTypedDict": ".updateskillresponse",
     "RequestBodyTools": ".updatetoolop",
     "RequestBodyToolsTypedDict": ".updatetoolop",
     "RequestBodyVersionIncrement": ".updatetoolop",

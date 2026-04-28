@@ -2438,6 +2438,8 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""Optional array of knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    skills: NotRequired[Nullable[List[str]]]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     variables: NotRequired[Dict[str, Any]]
     source: NotRequired[Source]
     engine: NotRequired[Engine]
@@ -2486,6 +2488,9 @@ class CreateAgentRequestRequestBody(BaseModel):
     team_of_agents: Optional[List[TeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
+    skills: OptionalNullable[List[str]] = UNSET
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+
     variables: Optional[Dict[str, Any]] = None
 
     source: Optional[Source] = None
@@ -2502,12 +2507,13 @@ class CreateAgentRequestRequestBody(BaseModel):
                 "memory_stores",
                 "knowledge_bases",
                 "team_of_agents",
+                "skills",
                 "variables",
                 "source",
                 "engine",
             ]
         )
-        nullable_fields = set(["system_prompt"])
+        nullable_fields = set(["system_prompt", "skills"])
         serialized = handler(self)
         m = {}
 
@@ -4425,6 +4431,8 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -4475,6 +4483,9 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     role: str
 

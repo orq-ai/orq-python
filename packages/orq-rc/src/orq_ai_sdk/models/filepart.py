@@ -91,19 +91,19 @@ class BinaryFormat(BaseModel):
         return m
 
 
-FileTypedDict = TypeAliasType(
-    "FileTypedDict", Union[BinaryFormatTypedDict, FileInURIFormatTypedDict]
+FilePartFileTypedDict = TypeAliasType(
+    "FilePartFileTypedDict", Union[BinaryFormatTypedDict, FileInURIFormatTypedDict]
 )
 
 
-File = TypeAliasType("File", Union[BinaryFormat, FileInURIFormat])
+FilePartFile = TypeAliasType("FilePartFile", Union[BinaryFormat, FileInURIFormat])
 
 
 class FilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: FilePartKind
-    file: FileTypedDict
+    file: FilePartFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
@@ -112,7 +112,7 @@ class FilePart(BaseModel):
 
     kind: FilePartKind
 
-    file: File
+    file: FilePartFile
 
     metadata: Optional[Dict[str, Any]] = None
 

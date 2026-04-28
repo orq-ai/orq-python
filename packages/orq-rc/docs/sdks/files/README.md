@@ -5,11 +5,11 @@
 ### Available Operations
 
 * [list](#list) - List all files
-* [create](#create) - Create file
+* [create](#create) - Upload a file
 * [get_content](#get_content) - Download file content
-* [delete](#delete) - Delete file
 * [get](#get) - Retrieve a file
-* [update](#update) - Update file
+* [delete](#delete) - Delete a file
+* [update](#update) - Update a file
 
 ## list
 
@@ -36,16 +36,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `limit`                                                                               | *Optional[int]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `starting_after`                                                                      | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | A cursor for use in pagination. Defines your place in the list for the next page.     |
-| `ending_before`                                                                       | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | A cursor for use in pagination. Defines your place in the list for the previous page. |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.FileListResponseBody](../../models/filelistresponsebody.md)**
+**[models.ListFilesResponse](../../models/listfilesresponse.md)**
 
 ### Errors
 
@@ -69,10 +69,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.create(file={
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    }, purpose="retrieval")
+    res = orq.files.create(purpose=retrieval)
 
     # Handle response
     print(res)
@@ -83,13 +80,15 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file`                                                              | [models.FileUploadFile](../../models/fileuploadfile.md)             | :heavy_check_mark:                                                  | The file to be uploaded.                                            |
-| `purpose`                                                           | [Optional[models.Purpose]](../../models/purpose.md)                 | :heavy_minus_sign:                                                  | The intended purpose of the uploaded file.                          |
+| `filename`                                                          | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `content`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `purpose`                                                           | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `content_type`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.FileUploadResponseBody](../../models/fileuploadresponsebody.md)**
+**[models.CreateFileResponse](../../models/createfileresponse.md)**
 
 ### Errors
 
@@ -99,7 +98,7 @@ with Orq(
 
 ## get_content
 
-Redirects to a presigned URL for downloading the file content by file ID.
+Returns a presigned URL for downloading the file content by file ID.
 
 ### Example Usage
 
@@ -113,44 +112,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.files.get_content(file_id_or_path="<value>")
+    res = orq.files.get_content(file_id_or_path="<value>")
 
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The file ID to retrieve content for.                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## delete
-
-Delete file
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="FileDelete" method="delete" path="/v2/files/{file_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.files.delete(file_id="<id>")
-
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
@@ -158,8 +123,12 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
+| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetFileContentResponse](../../models/getfilecontentresponse.md)**
 
 ### Errors
 
@@ -194,12 +163,52 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.FileGetResponseBody](../../models/filegetresponsebody.md)**
+**[models.GetFileResponse](../../models/getfileresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## delete
+
+Delete a file
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="FileDelete" method="delete" path="/v2/files/{file_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.files.delete(file_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.DeleteFileResponse](../../models/deletefileresponse.md)**
 
 ### Errors
 
@@ -223,7 +232,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.update(file_id="<id>", file_name="example.file")
+    res = orq.files.update(file_id_param="<id>")
 
     # Handle response
     print(res)
@@ -234,13 +243,14 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the file                                                  |
-| `file_name`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `file_id_param`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `file_id`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `file_name`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.FileUpdateResponseBody](../../models/fileupdateresponsebody.md)**
+**[models.UpdateFileResponse](../../models/updatefileresponse.md)**
 
 ### Errors
 

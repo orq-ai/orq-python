@@ -1922,6 +1922,8 @@ class ListAgentsDataTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -1968,6 +1970,9 @@ class ListAgentsData(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     role: str
 

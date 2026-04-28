@@ -2529,6 +2529,8 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[UpdateAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    skills: NotRequired[Nullable[List[str]]]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
@@ -2581,6 +2583,9 @@ class UpdateAgentRequestBody(BaseModel):
     team_of_agents: Optional[List[UpdateAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
+    skills: OptionalNullable[List[str]] = UNSET
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
@@ -2617,6 +2622,7 @@ class UpdateAgentRequestBody(BaseModel):
                 "memory_stores",
                 "knowledge_bases",
                 "team_of_agents",
+                "skills",
                 "variables",
                 "engine",
                 "a2a",
@@ -2624,7 +2630,7 @@ class UpdateAgentRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["system_prompt"])
+        nullable_fields = set(["system_prompt", "skills"])
         serialized = handler(self)
         m = {}
 
@@ -4574,6 +4580,8 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -4624,6 +4632,9 @@ class UpdateAgentResponseBody(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     role: str
 

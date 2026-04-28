@@ -8,5 +8,5 @@ File attachment part. Use this to send files (images, documents, etc.) to the ag
 | Field                                            | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | `kind`                                           | [models.FilePartKind](../models/filepartkind.md) | :heavy_check_mark:                               | N/A                                              |
-| `file`                                           | [models.File](../models/file.md)                 | :heavy_check_mark:                               | N/A                                              |
+| `file`                                           | [models.FilePartFile](../models/filepartfile.md) | :heavy_check_mark:                               | N/A                                              |
 | `metadata`                                       | Dict[str, *Any*]                                 | :heavy_minus_sign:                               | N/A                                              |
