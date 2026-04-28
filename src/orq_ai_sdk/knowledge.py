@@ -2196,7 +2196,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.CreateChunkResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2276,9 +2276,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.CreateChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2300,7 +2298,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.CreateChunkResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2380,9 +2378,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.CreateChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

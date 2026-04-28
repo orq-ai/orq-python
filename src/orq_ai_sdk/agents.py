@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.responses import Responses
+from orq_ai_sdk.orq_agents_responses import OrqAgentsResponses
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -13,7 +13,7 @@ from typing_extensions import deprecated
 
 
 class Agents(BaseSDK):
-    responses: Responses
+    responses: OrqAgentsResponses
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -23,7 +23,9 @@ class Agents(BaseSDK):
         self._init_sdks()
 
     def _init_sdks(self):
-        self.responses = Responses(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.responses = OrqAgentsResponses(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
 
     def post_v2_agents_a2a(
         self,
@@ -647,7 +649,7 @@ class Agents(BaseSDK):
             return unmarshal_json_response(
                 models.CreateAgentRequestResponseBody, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -806,7 +808,7 @@ class Agents(BaseSDK):
             return unmarshal_json_response(
                 models.CreateAgentRequestResponseBody, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

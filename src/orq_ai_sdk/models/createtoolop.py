@@ -1044,7 +1044,6 @@ class ResponseBodyCodeExecutionToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[CreateToolResponseBodyToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class ResponseBodyCodeExecutionTool(BaseModel):
@@ -1077,7 +1076,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KPPD165ANRWV3E7JANVWJ7QK"
+        "tool_01KQ9C5PYQ5BV3EJ0QXJAT9CN8"
     )
 
     display_name: Optional[str] = None
@@ -1092,19 +1091,10 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     status: Optional[CreateToolResponseBodyToolsResponse200Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -1204,7 +1194,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KPPD1659QCTDJRW9PYDR2X85"
+    id: Optional[str] = "01KQ9C5PYQ2JAGXH008BJH6MS7"
 
     description: Optional[str] = None
 
@@ -1316,7 +1306,6 @@ class ResponseBodyMCPToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[CreateToolResponseBodyToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class ResponseBodyMCPTool(BaseModel):
@@ -1349,7 +1338,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KPPD1659S8WWBDAYK0JBWK8Y"
+        "tool_01KQ9C5PYP31ASBYPJ2MTN08RD"
     )
 
     display_name: Optional[str] = None
@@ -1364,19 +1353,10 @@ class ResponseBodyMCPTool(BaseModel):
     status: Optional[CreateToolResponseBodyToolsResponseStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -1617,7 +1597,6 @@ class ResponseBodyHTTPToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[CreateToolResponseBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class ResponseBodyHTTPTool(BaseModel):
@@ -1650,7 +1629,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KPPD1658DKB2H6NG62VDDXQ0"
+        "tool_01KQ9C5PYN3R6KVKGQTZQ5NKR6"
     )
 
     display_name: Optional[str] = None
@@ -1665,19 +1644,10 @@ class ResponseBodyHTTPTool(BaseModel):
     status: Optional[CreateToolResponseBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -1812,7 +1782,6 @@ class ResponseBodyJSONSchemaToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[CreateToolResponseBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class ResponseBodyJSONSchemaTool(BaseModel):
@@ -1845,7 +1814,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KPPD1656RSCNABS31K1VJ4Q6"
+        "tool_01KQ9C5PYM9BEA5BKA8DGVM4Z2"
     )
 
     display_name: Optional[str] = None
@@ -1860,19 +1829,10 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     status: Optional[CreateToolResponseBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}
@@ -2011,7 +1971,6 @@ class ResponseBodyFunctionToolTypedDict(TypedDict):
     r"""The id of the user that last updated the tool"""
     status: NotRequired[ResponseBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class ResponseBodyFunctionTool(BaseModel):
@@ -2044,7 +2003,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KPPD1656J0052XEYDST5RS3J"
+        "tool_01KQ9C5PYK6QB02K74Y8ZTDEYB"
     )
 
     display_name: Optional[str] = None
@@ -2059,19 +2018,10 @@ class ResponseBodyFunctionTool(BaseModel):
     status: Optional[ResponseBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    version_hash: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "status",
-                "version_hash",
-            ]
+            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
         serialized = handler(self)
         m = {}

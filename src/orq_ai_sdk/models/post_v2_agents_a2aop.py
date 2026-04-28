@@ -212,7 +212,6 @@ class PostV2AgentsA2aResponseBodyTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     role: NotRequired[str]
     instructions: NotRequired[str]
-    version_hash: NotRequired[str]
     created: NotRequired[str]
     updated: NotRequired[str]
     a2a: NotRequired[A2aTypedDict]
@@ -253,8 +252,6 @@ class PostV2AgentsA2aResponseBody(BaseModel):
 
     instructions: Optional[str] = None
 
-    version_hash: Optional[str] = None
-
     created: Optional[str] = None
 
     updated: Optional[str] = None
@@ -269,7 +266,6 @@ class PostV2AgentsA2aResponseBody(BaseModel):
                 "updated_by_id",
                 "role",
                 "instructions",
-                "version_hash",
                 "created",
                 "updated",
                 "a2a",

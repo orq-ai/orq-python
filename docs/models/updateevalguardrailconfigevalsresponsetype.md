@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import UpdateEvalGuardrailConfigEvalsResponseType
-value: UpdateEvalGuardrailConfigEvalsResponseType = "boolean"
+value: UpdateEvalGuardrailConfigEvalsResponseType = "categorical"
 ```
 
 
 ## Values
 
-- `"boolean"`
+- `"categorical"`

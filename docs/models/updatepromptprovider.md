@@ -39,6 +39,8 @@ value: UpdatePromptProvider = "openai"
 - `"xai"`
 - `"alibaba"`
 - `"tensorix"`
+- `"scaleway"`
 - `"hcompany"`
+- `"inceptron"`
 - `"slack"`
 - `"orq"`

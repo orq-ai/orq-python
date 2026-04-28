@@ -1,9 +1,0 @@
-# PatchV2HumanEvalsIDRequest
-
-
-## Fields
-
-| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `id`                                                                                           | *str*                                                                                          | :heavy_check_mark:                                                                             | The id of the resource                                                                         |
-| `request_body`                                                                                 | [Optional[models.PatchV2HumanEvalsIDRequestBody]](../models/patchv2humanevalsidrequestbody.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |

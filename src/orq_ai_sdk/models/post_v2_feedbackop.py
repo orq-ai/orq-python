@@ -84,19 +84,19 @@ class PostV2FeedbackRequestBody(BaseModel):
         return m
 
 
-class PostV2FeedbackResponse404ResponseBodyData(BaseModel):
+class PostV2FeedbackFeedbackResponseResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2FeedbackResponse404ResponseBody(OrqError):
+class PostV2FeedbackFeedbackResponseResponseBody(OrqError):
     r"""Workspace ID is not found on the request"""
 
-    data: PostV2FeedbackResponse404ResponseBodyData = field(hash=False)
+    data: PostV2FeedbackFeedbackResponseResponseBodyData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2FeedbackResponse404ResponseBodyData,
+        data: PostV2FeedbackFeedbackResponseResponseBodyData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
@@ -106,19 +106,19 @@ class PostV2FeedbackResponse404ResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-class PostV2FeedbackResponseResponseBodyData(BaseModel):
+class PostV2FeedbackFeedbackResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2FeedbackResponseResponseBody(OrqError):
+class PostV2FeedbackFeedbackResponseBody(OrqError):
     r"""Bad Request"""
 
-    data: PostV2FeedbackResponseResponseBodyData = field(hash=False)
+    data: PostV2FeedbackFeedbackResponseBodyData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2FeedbackResponseResponseBodyData,
+        data: PostV2FeedbackFeedbackResponseBodyData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
@@ -138,7 +138,7 @@ PostV2FeedbackValue = TypeAliasType("PostV2FeedbackValue", Union[str, float, Lis
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
-PostV2FeedbackResponseProduct = Literal[
+PostV2FeedbackFeedbackProduct = Literal[
     "remoteconfigs",
     "deployments",
     "experiments",
@@ -170,7 +170,7 @@ class PostV2FeedbackResponseBodyTypedDict(TypedDict):
     r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deployments/get-config) or [`invoke`](https://docs.orq.ai/reference/deployments/invoke) endpoints"""
     id: NotRequired[str]
     r"""Unique identifier for the feedback"""
-    product: NotRequired[PostV2FeedbackResponseProduct]
+    product: NotRequired[PostV2FeedbackFeedbackProduct]
 
 
 class PostV2FeedbackResponseBody(BaseModel):
@@ -188,7 +188,7 @@ class PostV2FeedbackResponseBody(BaseModel):
     id: Optional[str] = None
     r"""Unique identifier for the feedback"""
 
-    product: Optional[PostV2FeedbackResponseProduct] = "deployments"
+    product: Optional[PostV2FeedbackFeedbackProduct] = "deployments"
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

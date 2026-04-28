@@ -120,7 +120,7 @@ CreateChunkStatus = Literal[
 r"""The status of the chunk"""
 
 
-class CreateChunkResponseBodyTypedDict(TypedDict):
+class ResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the chunk"""
     text: str
@@ -141,7 +141,7 @@ class CreateChunkResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the user who updated the chunk"""
 
 
-class CreateChunkResponseBody(BaseModel):
+class ResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the chunk"""
 
@@ -196,6 +196,6 @@ class CreateChunkResponseBody(BaseModel):
 
 
 try:
-    CreateChunkResponseBody.model_rebuild()
+    ResponseBody.model_rebuild()
 except NameError:
     pass

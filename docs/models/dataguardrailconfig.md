@@ -9,6 +9,12 @@
 value: models.GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean = /* values here */
 ```
 
+### `models.GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategorical`
+
+```python
+value: models.GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategorical = /* values here */
+```
+
 ### `models.GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber`
 
 ```python

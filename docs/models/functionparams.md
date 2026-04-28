@@ -33,10 +33,10 @@ value: models.CreateEvalFunctionParams4 = /* values here */
 value: models.CreateEvalFunctionParams5 = /* values here */
 ```
 
-### `models.CreateEvalFunctionParams6`
+### `models.Six`
 
 ```python
-value: models.CreateEvalFunctionParams6 = /* values here */
+value: models.Six = /* values here */
 ```
 
 ### `models.Seven`

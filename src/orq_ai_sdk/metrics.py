@@ -37,7 +37,12 @@ class Metrics(BaseSDK):
         choices: Optional[
             Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
-        feedback: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
+        feedback: Optional[
+            Union[
+                models.DeploymentCreateMetricFeedback,
+                models.DeploymentCreateMetricFeedbackTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -88,7 +93,9 @@ class Metrics(BaseSDK):
                 choices=utils.get_pydantic_model(
                     choices, Optional[List[models.Choices]]
                 ),
-                feedback=utils.get_pydantic_model(feedback, Optional[models.Feedback]),
+                feedback=utils.get_pydantic_model(
+                    feedback, Optional[models.DeploymentCreateMetricFeedback]
+                ),
             ),
         )
 
@@ -178,7 +185,12 @@ class Metrics(BaseSDK):
         choices: Optional[
             Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
-        feedback: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
+        feedback: Optional[
+            Union[
+                models.DeploymentCreateMetricFeedback,
+                models.DeploymentCreateMetricFeedbackTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -229,7 +241,9 @@ class Metrics(BaseSDK):
                 choices=utils.get_pydantic_model(
                     choices, Optional[List[models.Choices]]
                 ),
-                feedback=utils.get_pydantic_model(feedback, Optional[models.Feedback]),
+                feedback=utils.get_pydantic_model(
+                    feedback, Optional[models.DeploymentCreateMetricFeedback]
+                ),
             ),
         )
 

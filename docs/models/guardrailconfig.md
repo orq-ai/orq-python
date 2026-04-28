@@ -9,6 +9,12 @@
 value: models.Boolean = /* values here */
 ```
 
+### `models.Categorical`
+
+```python
+value: models.Categorical = /* values here */
+```
+
 ### `models.Number`
 
 ```python

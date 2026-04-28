@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import InvokeEval2EvalsRequestType
-value: InvokeEval2EvalsRequestType = "image_url"
+value: InvokeEval2EvalsRequestType = "text"
 ```
 
 
 ## Values
 
-- `"image_url"`
+- `"text"`

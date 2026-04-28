@@ -1417,14 +1417,14 @@ Choices = Annotated[
 ]
 
 
-class FeedbackTypedDict(TypedDict):
+class DeploymentCreateMetricFeedbackTypedDict(TypedDict):
     r"""Feedback from the user on the completion"""
 
     score: int
     r"""The feedback score. This allow you to come with specific logic on what a `score` number means"""
 
 
-class Feedback(BaseModel):
+class DeploymentCreateMetricFeedback(BaseModel):
     r"""Feedback from the user on the completion"""
 
     score: int
@@ -1443,7 +1443,7 @@ class DeploymentCreateMetricRequestBodyTypedDict(TypedDict):
     r"""A list of messages sent to the model."""
     choices: NotRequired[List[ChoicesTypedDict]]
     r"""A list of completion choices. If you are using a `completion` model then you must provide the `completion content` with the chat completion format"""
-    feedback: NotRequired[FeedbackTypedDict]
+    feedback: NotRequired[DeploymentCreateMetricFeedbackTypedDict]
     r"""Feedback from the user on the completion"""
 
 
@@ -1464,7 +1464,7 @@ class DeploymentCreateMetricRequestBody(BaseModel):
     choices: Optional[List[Choices]] = None
     r"""A list of completion choices. If you are using a `completion` model then you must provide the `completion content` with the chat completion format"""
 
-    feedback: Optional[Feedback] = None
+    feedback: Optional[DeploymentCreateMetricFeedback] = None
     r"""Feedback from the user on the completion"""
 
     @model_serializer(mode="wrap")

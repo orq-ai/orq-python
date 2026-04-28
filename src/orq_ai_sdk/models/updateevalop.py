@@ -23,7 +23,34 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Mode = Literal[
+class CategoricalLabelsTypedDict(TypedDict):
+    value: str
+    description: NotRequired[str]
+
+
+class CategoricalLabels(BaseModel):
+    value: str
+
+    description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalMode = Literal[
     "single",
     "jury",
 ]
@@ -197,6 +224,143 @@ class Jury(BaseModel):
         return m
 
 
+UpdateEvalGuardrailConfigType = Literal["number",]
+
+
+Operator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class NumberTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigType
+    value: float
+    operator: Operator
+    alert_on_failure: NotRequired[bool]
+
+
+class Number(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigType
+
+    value: float
+
+    operator: Operator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GuardrailConfigType = Literal["categorical",]
+
+
+class CategoricalTypedDict(TypedDict):
+    enabled: bool
+    type: GuardrailConfigType
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class Categorical(BaseModel):
+    enabled: bool
+
+    type: GuardrailConfigType
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsType = Literal["boolean",]
+
+
+class BooleanTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsType
+    value: bool
+    alert_on_failure: NotRequired[bool]
+
+
+class Boolean(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsType
+
+    value: bool
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GuardrailConfigTypedDict = TypeAliasType(
+    "GuardrailConfigTypedDict",
+    Union[BooleanTypedDict, CategoricalTypedDict, NumberTypedDict],
+)
+
+
+GuardrailConfig = Annotated[
+    Union[
+        Annotated[Boolean, Tag("boolean")],
+        Annotated[Categorical, Tag("categorical")],
+        Annotated[Number, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
 VersionIncrement = Literal[
     "major",
     "minor",
@@ -214,8 +378,9 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     prompt: NotRequired[str]
     output_type: NotRequired[str]
     categories: NotRequired[List[str]]
+    categorical_labels: NotRequired[List[CategoricalLabelsTypedDict]]
     repetitions: NotRequired[float]
-    mode: NotRequired[Mode]
+    mode: NotRequired[UpdateEvalMode]
     model: NotRequired[str]
     jury: NotRequired[JuryTypedDict]
     schema_: NotRequired[str]
@@ -224,6 +389,7 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     headers: NotRequired[Dict[str, str]]
     payload: NotRequired[Dict[str, Any]]
     code: NotRequired[str]
+    guardrail_config: NotRequired[Nullable[GuardrailConfigTypedDict]]
     version_increment: NotRequired[VersionIncrement]
     version_description: NotRequired[str]
 
@@ -245,9 +411,11 @@ class UpdateEvalRequestBody(BaseModel):
 
     categories: Optional[List[str]] = None
 
+    categorical_labels: Optional[List[CategoricalLabels]] = None
+
     repetitions: Optional[float] = None
 
-    mode: Optional[Mode] = None
+    mode: Optional[UpdateEvalMode] = None
 
     model: Optional[str] = None
 
@@ -264,6 +432,8 @@ class UpdateEvalRequestBody(BaseModel):
     payload: Optional[Dict[str, Any]] = None
 
     code: Optional[str] = None
+
+    guardrail_config: OptionalNullable[GuardrailConfig] = UNSET
 
     version_increment: Annotated[
         Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
@@ -284,6 +454,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "prompt",
                 "output_type",
                 "categories",
+                "categorical_labels",
                 "repetitions",
                 "mode",
                 "model",
@@ -294,19 +465,29 @@ class UpdateEvalRequestBody(BaseModel):
                 "headers",
                 "payload",
                 "code",
+                "guardrail_config",
                 "versionIncrement",
                 "versionDescription",
             ]
         )
+        nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -366,7 +547,7 @@ class UpdateEvalEvalsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type = Literal[
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody73Type = Literal[
     "number",
 ]
 
@@ -385,7 +566,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
     TypedDict
 ):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody73Type
     value: float
     operator: (
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
@@ -398,13 +579,55 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
 ):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody73Type
 
     value: float
 
     operator: (
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
     )
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategoricalTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategorical(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+
+    values: List[str]
 
     alert_on_failure: Optional[bool] = False
 
@@ -471,6 +694,7 @@ UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict =
     "UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict",
     Union[
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategoricalTypedDict,
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumberTypedDict,
     ],
 )
@@ -481,6 +705,10 @@ UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig = Annotate
         Annotated[
             UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean,
             Tag("boolean"),
+        ],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategorical,
+            Tag("categorical"),
         ],
         Annotated[
             UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber,
@@ -520,9 +748,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
 
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -554,7 +782,7 @@ class ResponseBodyTypescript(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type = Literal[
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody63Type = Literal[
     "number",
 ]
 
@@ -573,7 +801,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict(
     TypedDict
 ):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody63Type
     value: float
     operator: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
     alert_on_failure: NotRequired[bool]
@@ -582,11 +810,51 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict(
 class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody63Type
 
     value: float
 
     operator: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategoricalTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategorical(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+
+    values: List[str]
 
     alert_on_failure: Optional[bool] = False
 
@@ -647,14 +915,13 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel)
         return m
 
 
-UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = (
-    TypeAliasType(
-        "UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict",
-        Union[
-            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONBooleanTypedDict,
-            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict,
-        ],
-    )
+UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasType(
+    "UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict",
+    Union[
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONBooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategoricalTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict,
+    ],
 )
 
 
@@ -663,6 +930,10 @@ UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig = Annotated
         Annotated[
             UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean,
             Tag("boolean"),
+        ],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategorical,
+            Tag("categorical"),
         ],
         Annotated[
             UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber,
@@ -721,9 +992,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
 
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -755,7 +1026,7 @@ class ResponseBodyRagas(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type = Literal[
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody53Type = Literal[
     "number",
 ]
 
@@ -772,7 +1043,7 @@ UpdateEvalGuardrailConfigEvalsResponse200Operator = Literal[
 
 class UpdateEvalGuardrailConfigEvalsResponse200NumberTypedDict(TypedDict):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody53Type
     value: float
     operator: UpdateEvalGuardrailConfigEvalsResponse200Operator
     alert_on_failure: NotRequired[bool]
@@ -781,11 +1052,49 @@ class UpdateEvalGuardrailConfigEvalsResponse200NumberTypedDict(TypedDict):
 class UpdateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody53Type
 
     value: float
 
     operator: UpdateEvalGuardrailConfigEvalsResponse200Operator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200CategoricalTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200Categorical(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+
+    values: List[str]
 
     alert_on_failure: Optional[bool] = False
 
@@ -848,6 +1157,7 @@ UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
     "UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict",
     Union[
         UpdateEvalGuardrailConfigEvalsResponse200BooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200CategoricalTypedDict,
         UpdateEvalGuardrailConfigEvalsResponse200NumberTypedDict,
     ],
 )
@@ -856,6 +1166,9 @@ UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
 UpdateEvalResponseBodyEvalsResponse200GuardrailConfig = Annotated[
     Union[
         Annotated[UpdateEvalGuardrailConfigEvalsResponse200Boolean, Tag("boolean")],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200Categorical, Tag("categorical")
+        ],
         Annotated[UpdateEvalGuardrailConfigEvalsResponse200Number, Tag("number")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
@@ -1409,9 +1722,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
 
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1443,7 +1756,7 @@ class ResponseBodyFunction(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody43Type = Literal[
     "number",
 ]
 
@@ -1460,7 +1773,7 @@ UpdateEvalGuardrailConfigEvalsResponseOperator = Literal[
 
 class UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody43Type
     value: float
     operator: UpdateEvalGuardrailConfigEvalsResponseOperator
     alert_on_failure: NotRequired[bool]
@@ -1469,7 +1782,7 @@ class UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
 class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody43Type
 
     value: float
 
@@ -1494,12 +1807,52 @@ class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean",]
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponseCategoricalTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponseCategorical(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type = Literal[
+    "boolean",
+]
 
 
 class UpdateEvalGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
     value: bool
     alert_on_failure: NotRequired[bool]
 
@@ -1507,7 +1860,7 @@ class UpdateEvalGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
 class UpdateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
 
     value: bool
 
@@ -1528,559 +1881,6 @@ class UpdateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
                     m[k] = val
 
         return m
-
-
-UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
-    "UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict",
-    Union[
-        UpdateEvalGuardrailConfigEvalsResponseBooleanTypedDict,
-        UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict,
-    ],
-)
-
-
-UpdateEvalResponseBodyEvalsResponseGuardrailConfig = Annotated[
-    Union[
-        Annotated[UpdateEvalGuardrailConfigEvalsResponseBoolean, Tag("boolean")],
-        Annotated[UpdateEvalGuardrailConfigEvalsResponseNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
-UpdateEvalResponseBodyEvalsResponseType = Literal["python_eval",]
-
-
-class UpdateEvalResponseBodyPythonTypedDict(TypedDict):
-    id: str
-    description: str
-    code: str
-    type: UpdateEvalResponseBodyEvalsResponseType
-    key: str
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    guardrail_config: NotRequired[
-        Nullable[UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict]
-    ]
-
-
-class UpdateEvalResponseBodyPython(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    description: str
-
-    code: str
-
-    type: UpdateEvalResponseBodyEvalsResponseType
-
-    key: str
-
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    guardrail_config: OptionalNullable[
-        UpdateEvalResponseBodyEvalsResponseGuardrailConfig
-    ] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
-
-
-UpdateEvalGuardrailConfigEvalsOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class UpdateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200Type
-    value: float
-    operator: UpdateEvalGuardrailConfigEvalsOperator
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsNumber(BaseModel):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponse200Type
-
-    value: float
-
-    operator: UpdateEvalGuardrailConfigEvalsOperator
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponseType = Literal["boolean",]
-
-
-class UpdateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponseType
-    value: bool
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsBoolean(BaseModel):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponseType
-
-    value: bool
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
-    "UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict",
-    Union[
-        UpdateEvalGuardrailConfigEvalsBooleanTypedDict,
-        UpdateEvalGuardrailConfigEvalsNumberTypedDict,
-    ],
-)
-
-
-UpdateEvalResponseBodyEvalsGuardrailConfig = Annotated[
-    Union[
-        Annotated[UpdateEvalGuardrailConfigEvalsBoolean, Tag("boolean")],
-        Annotated[UpdateEvalGuardrailConfigEvalsNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
-UpdateEvalResponseBodyEvalsType = Literal["http_eval",]
-
-
-UpdateEvalResponseBodyMethod = Literal[
-    "GET",
-    "POST",
-]
-
-
-class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
-    id: str
-    description: str
-    type: UpdateEvalResponseBodyEvalsType
-    url: str
-    method: UpdateEvalResponseBodyMethod
-    headers: Dict[str, str]
-    payload: Dict[str, Any]
-    key: str
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    guardrail_config: NotRequired[
-        Nullable[UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict]
-    ]
-
-
-class UpdateEvalResponseBodyHTTP(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    description: str
-
-    type: UpdateEvalResponseBodyEvalsType
-
-    url: str
-
-    method: UpdateEvalResponseBodyMethod
-
-    headers: Dict[str, str]
-
-    payload: Dict[str, Any]
-
-    key: str
-
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
-        UNSET
-    )
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsType = Literal["number",]
-
-
-UpdateEvalGuardrailConfigOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class UpdateEvalGuardrailConfigNumberTypedDict(TypedDict):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsType
-    value: float
-    operator: UpdateEvalGuardrailConfigOperator
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigNumber(BaseModel):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsType
-
-    value: float
-
-    operator: UpdateEvalGuardrailConfigOperator
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigType = Literal["boolean",]
-
-
-class UpdateEvalGuardrailConfigBooleanTypedDict(TypedDict):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigType
-    value: bool
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigBoolean(BaseModel):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigType
-
-    value: bool
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalResponseBodyGuardrailConfigTypedDict = TypeAliasType(
-    "UpdateEvalResponseBodyGuardrailConfigTypedDict",
-    Union[
-        UpdateEvalGuardrailConfigBooleanTypedDict,
-        UpdateEvalGuardrailConfigNumberTypedDict,
-    ],
-)
-
-
-UpdateEvalResponseBodyGuardrailConfig = Annotated[
-    Union[
-        Annotated[UpdateEvalGuardrailConfigBoolean, Tag("boolean")],
-        Annotated[UpdateEvalGuardrailConfigNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
-UpdateEvalResponseBodyType = Literal["json_schema",]
-
-
-class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
-    id: str
-    description: str
-    type: UpdateEvalResponseBodyType
-    schema_: str
-    key: str
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    guardrail_config: NotRequired[
-        Nullable[UpdateEvalResponseBodyGuardrailConfigTypedDict]
-    ]
-
-
-class UpdateEvalResponseBodyJSON(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    description: str
-
-    type: UpdateEvalResponseBodyType
-
-    schema_: Annotated[str, pydantic.Field(alias="schema")]
-
-    key: str
-
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
-
-    guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType = Literal[
-    "number",
-]
-
-
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator = (
-    Literal[
-        "eq",
-        "ne",
-        "gt",
-        "gte",
-        "lt",
-        "lte",
-    ]
-)
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumberTypedDict(
-    TypedDict
-):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
-    value: float
-    operator: (
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
-    )
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumber(
-    BaseModel
-):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
-
-    value: float
-
-    operator: (
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
-    )
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type = Literal[
-    "boolean",
-]
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBooleanTypedDict(
-    TypedDict
-):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
-    value: bool
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBoolean(
-    BaseModel
-):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
-
-    value: bool
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalLLMEvalsGuardrailConfigTypedDict = TypeAliasType(
-    "UpdateEvalLLMEvalsGuardrailConfigTypedDict",
-    Union[
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBooleanTypedDict,
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumberTypedDict,
-    ],
-)
-
-
-UpdateEvalLLMEvalsGuardrailConfig = Annotated[
-    Union[
-        Annotated[
-            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBoolean,
-            Tag("boolean"),
-        ],
-        Annotated[
-            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumber,
-            Tag("number"),
-        ],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
-UpdateEvalLLMEvalsType = Literal["llm_eval",]
-
-
-UpdateEvalLLMEvalsMode = Literal["jury",]
 
 
 class UpdateEvalLLMRetryTypedDict(TypedDict):
@@ -2263,6 +2063,8 @@ class UpdateEvalLLM2TypedDict(TypedDict):
     updated: NotRequired[str]
     guardrail_config: NotRequired[Nullable[UpdateEvalLLMEvalsGuardrailConfigTypedDict]]
     repetitions: NotRequired[int]
+    categories: NotRequired[List[str]]
+    categorical_labels: NotRequired[List[UpdateEvalLLMEvalsCategoricalLabelsTypedDict]]
 
 
 class UpdateEvalLLM2(BaseModel):
@@ -2280,17 +2082,30 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
 
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
     repetitions: Optional[int] = None
 
+    categories: Optional[List[str]] = None
+
+    categorical_labels: Optional[List[UpdateEvalLLMEvalsCategoricalLabels]] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config", "repetitions"])
+        optional_fields = set(
+            [
+                "created",
+                "updated",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
@@ -2314,7 +2129,7 @@ class UpdateEvalLLM2(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type = (
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type = (
     Literal["number",]
 )
 
@@ -2333,7 +2148,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Numbe
     TypedDict
 ):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
     value: float
     operator: (
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
@@ -2346,7 +2161,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Numbe
 ):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
 
     value: float
 
@@ -2373,7 +2188,762 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Numbe
         return m
 
 
+UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
+    "UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict",
+    Union[
+        UpdateEvalGuardrailConfigEvalsResponseBooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponseCategoricalTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict,
+    ],
+)
+
+
+UpdateEvalResponseBodyEvalsResponseGuardrailConfig = Annotated[
+    Union[
+        Annotated[UpdateEvalGuardrailConfigEvalsResponseBoolean, Tag("boolean")],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponseCategorical, Tag("categorical")
+        ],
+        Annotated[UpdateEvalGuardrailConfigEvalsResponseNumber, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
+UpdateEvalResponseBodyEvalsResponseType = Literal["python_eval",]
+
+
+class UpdateEvalResponseBodyPythonTypedDict(TypedDict):
+    id: str
+    description: str
+    code: str
+    type: UpdateEvalResponseBodyEvalsResponseType
+    key: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        Nullable[UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict]
+    ]
+
+
+class UpdateEvalResponseBodyPython(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    code: str
+
+    type: UpdateEvalResponseBodyEvalsResponseType
+
+    key: str
+
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    guardrail_config: OptionalNullable[
+        UpdateEvalResponseBodyEvalsResponseGuardrailConfig
+    ] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type = Literal[
+    "number",
+]
+
+
+UpdateEvalGuardrailConfigEvalsOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
+    value: float
+    operator: UpdateEvalGuardrailConfigEvalsOperator
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsNumber(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
+
+    value: float
+
+    operator: UpdateEvalGuardrailConfigEvalsOperator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsCategoricalTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsCategorical(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean",]
+
+
+class UpdateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
+    value: bool
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsBoolean(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
+
+    value: bool
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
+    "UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict",
+    Union[
+        UpdateEvalGuardrailConfigEvalsBooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsCategoricalTypedDict,
+        UpdateEvalGuardrailConfigEvalsNumberTypedDict,
+    ],
+)
+
+
+UpdateEvalResponseBodyEvalsGuardrailConfig = Annotated[
+    Union[
+        Annotated[UpdateEvalGuardrailConfigEvalsBoolean, Tag("boolean")],
+        Annotated[UpdateEvalGuardrailConfigEvalsCategorical, Tag("categorical")],
+        Annotated[UpdateEvalGuardrailConfigEvalsNumber, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
+UpdateEvalResponseBodyEvalsType = Literal["http_eval",]
+
+
+UpdateEvalResponseBodyMethod = Literal[
+    "GET",
+    "POST",
+]
+
+
+class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
+    id: str
+    description: str
+    type: UpdateEvalResponseBodyEvalsType
+    url: str
+    method: UpdateEvalResponseBodyMethod
+    headers: Dict[str, str]
+    payload: Dict[str, Any]
+    key: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        Nullable[UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict]
+    ]
+
+
+class UpdateEvalResponseBodyHTTP(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    type: UpdateEvalResponseBodyEvalsType
+
+    url: str
+
+    method: UpdateEvalResponseBodyMethod
+
+    headers: Dict[str, str]
+
+    payload: Dict[str, Any]
+
+    key: str
+
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
+        UNSET
+    )
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
+
+
+UpdateEvalGuardrailConfigOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class UpdateEvalGuardrailConfigNumberTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200Type
+    value: float
+    operator: UpdateEvalGuardrailConfigOperator
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigNumber(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200Type
+
+    value: float
+
+    operator: UpdateEvalGuardrailConfigOperator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponseType = Literal["categorical",]
+
+
+class UpdateEvalGuardrailConfigCategoricalTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponseType
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigCategorical(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponseType
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody2Type = Literal[
+    "boolean",
+]
+
+
+class UpdateEvalGuardrailConfigBooleanTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody2Type
+    value: bool
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigBoolean(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody2Type
+
+    value: bool
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalResponseBodyGuardrailConfigTypedDict = TypeAliasType(
+    "UpdateEvalResponseBodyGuardrailConfigTypedDict",
+    Union[
+        UpdateEvalGuardrailConfigBooleanTypedDict,
+        UpdateEvalGuardrailConfigCategoricalTypedDict,
+        UpdateEvalGuardrailConfigNumberTypedDict,
+    ],
+)
+
+
+UpdateEvalResponseBodyGuardrailConfig = Annotated[
+    Union[
+        Annotated[UpdateEvalGuardrailConfigBoolean, Tag("boolean")],
+        Annotated[UpdateEvalGuardrailConfigCategorical, Tag("categorical")],
+        Annotated[UpdateEvalGuardrailConfigNumber, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
+UpdateEvalResponseBodyType = Literal["json_schema",]
+
+
+class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
+    id: str
+    description: str
+    type: UpdateEvalResponseBodyType
+    schema_: str
+    key: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        Nullable[UpdateEvalResponseBodyGuardrailConfigTypedDict]
+    ]
+
+
+class UpdateEvalResponseBodyJSON(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    type: UpdateEvalResponseBodyType
+
+    schema_: Annotated[str, pydantic.Field(alias="schema")]
+
+    key: str
+
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
+
+    guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        nullable_fields = set(["guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type = Literal[
+    "number",
+]
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator = (
+    Literal[
+        "eq",
+        "ne",
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+    ]
+)
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumberTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
+    value: float
+    operator: (
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
+    )
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumber(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
+
+    value: float
+
+    operator: (
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
+    )
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM22Type = (
+    Literal["categorical",]
+)
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategoricalTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM22Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategorical(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM22Type
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type = Literal[
+    "boolean",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBooleanTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type
+    value: bool
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBoolean(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type
+
+    value: bool
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalLLMEvalsGuardrailConfigTypedDict = TypeAliasType(
+    "UpdateEvalLLMEvalsGuardrailConfigTypedDict",
+    Union[
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategoricalTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumberTypedDict,
+    ],
+)
+
+
+UpdateEvalLLMEvalsGuardrailConfig = Annotated[
+    Union[
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBoolean,
+            Tag("boolean"),
+        ],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategorical,
+            Tag("categorical"),
+        ],
+        Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumber,
+            Tag("number"),
+        ],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
+UpdateEvalLLMEvalsType = Literal["llm_eval",]
+
+
+class UpdateEvalLLMEvalsCategoricalLabelsTypedDict(TypedDict):
+    value: str
+    description: NotRequired[str]
+
+
+class UpdateEvalLLMEvalsCategoricalLabels(BaseModel):
+    value: str
+
+    description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalLLMEvalsMode = Literal["jury",]
+
+
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type = Literal[
+    "categorical",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1CategoricalTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
+    values: List[str]
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Categorical(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
+
+    values: List[str]
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType = Literal[
     "boolean",
 ]
 
@@ -2382,7 +2952,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Boole
     TypedDict
 ):
     enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
     value: bool
     alert_on_failure: NotRequired[bool]
 
@@ -2392,7 +2962,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Boole
 ):
     enabled: bool
 
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
 
     value: bool
 
@@ -2419,6 +2989,7 @@ UpdateEvalLLMGuardrailConfigTypedDict = TypeAliasType(
     "UpdateEvalLLMGuardrailConfigTypedDict",
     Union[
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1BooleanTypedDict,
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1CategoricalTypedDict,
         UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1NumberTypedDict,
     ],
 )
@@ -2431,6 +3002,10 @@ UpdateEvalLLMGuardrailConfig = Annotated[
             Tag("boolean"),
         ],
         Annotated[
+            UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Categorical,
+            Tag("categorical"),
+        ],
+        Annotated[
             UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Number,
             Tag("number"),
         ],
@@ -2440,6 +3015,33 @@ UpdateEvalLLMGuardrailConfig = Annotated[
 
 
 UpdateEvalLLMType = Literal["llm_eval",]
+
+
+class UpdateEvalLLMCategoricalLabelsTypedDict(TypedDict):
+    value: str
+    description: NotRequired[str]
+
+
+class UpdateEvalLLMCategoricalLabels(BaseModel):
+    value: str
+
+    description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalLLMMode = Literal["single",]
@@ -2457,6 +3059,8 @@ class UpdateEvalLLM1TypedDict(TypedDict):
     updated: NotRequired[str]
     guardrail_config: NotRequired[Nullable[UpdateEvalLLMGuardrailConfigTypedDict]]
     repetitions: NotRequired[int]
+    categories: NotRequired[List[str]]
+    categorical_labels: NotRequired[List[UpdateEvalLLMCategoricalLabelsTypedDict]]
 
 
 class UpdateEvalLLM1(BaseModel):
@@ -2474,17 +3078,30 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-04-20T21:33:48.537Z"
+    created: Optional[str] = "2026-04-28T06:24:26.355Z"
 
-    updated: Optional[str] = "2026-04-20T21:33:48.537Z"
+    updated: Optional[str] = "2026-04-28T06:24:26.355Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
     repetitions: Optional[int] = None
 
+    categories: Optional[List[str]] = None
+
+    categorical_labels: Optional[List[UpdateEvalLLMCategoricalLabels]] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config", "repetitions"])
+        optional_fields = set(
+            [
+                "created",
+                "updated",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         nullable_fields = set(["guardrail_config"])
         serialized = handler(self)
         m = {}
@@ -2569,6 +3186,10 @@ try:
 except NameError:
     pass
 try:
+    UpdateEvalLLM2.model_rebuild()
+except NameError:
+    pass
+try:
     UpdateEvalResponseBodyPython.model_rebuild()
 except NameError:
     pass
@@ -2578,10 +3199,6 @@ except NameError:
     pass
 try:
     UpdateEvalResponseBodyJSON.model_rebuild()
-except NameError:
-    pass
-try:
-    UpdateEvalLLM2.model_rebuild()
 except NameError:
     pass
 try:

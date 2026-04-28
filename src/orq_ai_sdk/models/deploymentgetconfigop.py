@@ -2626,7 +2626,7 @@ DeploymentGetConfigReasoningEffort = Literal[
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-Verbosity = Literal[
+DeploymentGetConfigVerbosity = Literal[
     "low",
     "medium",
     "high",
@@ -2685,7 +2685,7 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
-    verbosity: NotRequired[Verbosity]
+    verbosity: NotRequired[DeploymentGetConfigVerbosity]
     r"""Controls the verbosity of the model output."""
     thinking_level: NotRequired[DeploymentGetConfigThinkingLevel]
     r"""The level of thinking to use for the model. Only supported by `Google AI`"""
@@ -2768,7 +2768,7 @@ class DeploymentGetConfigParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
-    verbosity: Optional[Verbosity] = None
+    verbosity: Optional[DeploymentGetConfigVerbosity] = None
     r"""Controls the verbosity of the model output."""
 
     thinking_level: Annotated[

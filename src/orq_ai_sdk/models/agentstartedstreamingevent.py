@@ -190,27 +190,27 @@ class ToolsModel(BaseModel):
         return m
 
 
-ExecuteOn = Literal[
+AgentStartedStreamingEventDataExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class EvaluatorsModelTypedDict(TypedDict):
+class EvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: ExecuteOn
+    execute_on: AgentStartedStreamingEventDataExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class EvaluatorsModel(BaseModel):
+class Evaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: ExecuteOn
+    execute_on: AgentStartedStreamingEventDataExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -286,7 +286,7 @@ class SettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[ToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[ToolsModelTypedDict]]
-    evaluators: NotRequired[List[EvaluatorsModelTypedDict]]
+    evaluators: NotRequired[List[EvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[GuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
@@ -307,7 +307,7 @@ class Settings(BaseModel):
 
     tools: Optional[List[ToolsModel]] = None
 
-    evaluators: Optional[List[EvaluatorsModel]] = None
+    evaluators: Optional[List[Evaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
     guardrails: Optional[List[Guardrails]] = None
