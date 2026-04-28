@@ -27,8 +27,6 @@ class PolicyUpdateRequestBodyTypedDict(TypedDict):
     evaluators: NotRequired[List[EvaluatorRefTypedDict]]
     limits: NotRequired[LimitsTypedDict]
     models_config: NotRequired[ModelsConfigTypedDict]
-    project_id: NotRequired[str]
-    r"""Optional project ID to assign the policy to."""
     retry_config: NotRequired[PolicyRetryConfigTypedDict]
     timeout: NotRequired[int]
 
@@ -46,9 +44,6 @@ class PolicyUpdateRequestBody(BaseModel):
 
     models_config: Optional[ModelsConfig] = None
 
-    project_id: Optional[str] = None
-    r"""Optional project ID to assign the policy to."""
-
     retry_config: Optional[PolicyRetryConfig] = None
 
     timeout: Optional[int] = None
@@ -63,7 +58,6 @@ class PolicyUpdateRequestBody(BaseModel):
                 "evaluators",
                 "limits",
                 "models_config",
-                "project_id",
                 "retry_config",
                 "timeout",
             ]

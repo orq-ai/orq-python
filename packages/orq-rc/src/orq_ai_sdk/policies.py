@@ -816,7 +816,6 @@ class Policies(BaseSDK):
         models_config: Optional[
             Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
-        project_id: Optional[str] = None,
         retry_config: Optional[
             Union[models.PolicyRetryConfig, models.PolicyRetryConfigTypedDict]
         ] = None,
@@ -837,7 +836,6 @@ class Policies(BaseSDK):
         :param evaluators:
         :param limits:
         :param models_config:
-        :param project_id: Optional project ID to assign the policy to.
         :param retry_config:
         :param timeout:
         :param retries: Override the default retry configuration for this method
@@ -871,7 +869,6 @@ class Policies(BaseSDK):
                 models_config=utils.get_pydantic_model(
                     models_config, Optional[models.ModelsConfig]
                 ),
-                project_id=project_id,
                 retry_config=utils.get_pydantic_model(
                     retry_config, Optional[models.PolicyRetryConfig]
                 ),
@@ -951,7 +948,6 @@ class Policies(BaseSDK):
         models_config: Optional[
             Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
-        project_id: Optional[str] = None,
         retry_config: Optional[
             Union[models.PolicyRetryConfig, models.PolicyRetryConfigTypedDict]
         ] = None,
@@ -972,7 +968,6 @@ class Policies(BaseSDK):
         :param evaluators:
         :param limits:
         :param models_config:
-        :param project_id: Optional project ID to assign the policy to.
         :param retry_config:
         :param timeout:
         :param retries: Override the default retry configuration for this method
@@ -1006,7 +1001,6 @@ class Policies(BaseSDK):
                 models_config=utils.get_pydantic_model(
                     models_config, Optional[models.ModelsConfig]
                 ),
-                project_id=project_id,
                 retry_config=utils.get_pydantic_model(
                     retry_config, Optional[models.PolicyRetryConfig]
                 ),
