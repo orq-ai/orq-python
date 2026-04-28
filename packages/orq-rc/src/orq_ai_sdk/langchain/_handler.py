@@ -220,6 +220,16 @@ class OrqLangchainCallback(BaseCallbackHandler):
                 name=kwargs.get("name"),
             )
             event.inputs = inputs if isinstance(inputs, dict) else {"inputs": inputs}
+
+            rid = str(run_id)
+            # Track root chain (first parentless chain = LangGraph graph)
+            if parent_run_id is None:
+                self._events.set_root_if_needed(rid)
+            # Track graph nodes (chains whose parent is root)
+            elif self._events.is_graph_node(rid):
+                span_id = self._events.get_span_id(rid)
+                self._events.graph.on_node_start(event.name, span_id, str(self._events.root_run_id))
+
             logger.debug("CHAIN_START name=%s run_id=%s parent=%s", event.name, run_id, parent_run_id)
         except Exception:
             logger.debug("on_chain_start error", exc_info=True)
@@ -233,12 +243,22 @@ class OrqLangchainCallback(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         try:
-            event = self._events.get(str(run_id))
+            rid = str(run_id)
+            event = self._events.get(rid)
             if not event:
                 logger.debug("CHAIN_END MISSING run_id=%s", run_id)
                 return
             event.end_time_ns = _nano_timestamp()
             event.outputs = outputs if isinstance(outputs, dict) else {"outputs": outputs}
+
+            # Track graph node completion for edge building
+            if self._events.is_graph_node(rid):
+                self._events.graph.on_node_end(event.name, str(self._events.root_run_id))
+
+            # Attach graph to root span before sending
+            if self._events.is_root(rid) and self._events.graph.has_nodes():
+                event.graph_json = self._events.graph.build(rid, self._events.get_span_id(rid))
+
             logger.debug("CHAIN_END name=%s run_id=%s", event.name, run_id)
             self._finish_and_send(run_id)
         except Exception:
