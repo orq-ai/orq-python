@@ -13,4 +13,5 @@ value: GetOnePromptThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

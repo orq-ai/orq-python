@@ -13,4 +13,5 @@ value: UpdatePromptThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

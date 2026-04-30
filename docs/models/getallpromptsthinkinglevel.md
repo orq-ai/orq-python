@@ -13,4 +13,5 @@ value: GetAllPromptsThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

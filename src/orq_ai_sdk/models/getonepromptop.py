@@ -282,6 +282,7 @@ r"""Controls the verbosity of the model output."""
 
 GetOnePromptThinkingLevel = Literal[
     "low",
+    "medium",
     "high",
 ]
 r"""The level of thinking to use for the model. Only supported by `Google AI`"""
