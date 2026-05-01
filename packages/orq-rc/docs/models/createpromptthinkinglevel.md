@@ -13,4 +13,5 @@ value: CreatePromptThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

@@ -13,4 +13,5 @@ value: DeploymentsThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

@@ -13,4 +13,5 @@ value: ListPromptVersionsThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`

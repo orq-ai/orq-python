@@ -13,4 +13,5 @@ value: DeploymentGetConfigThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`
