@@ -13,4 +13,5 @@ value: ThinkingLevel = "low"
 ## Values
 
 - `"low"`
+- `"medium"`
 - `"high"`
