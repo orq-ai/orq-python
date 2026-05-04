@@ -771,6 +771,7 @@ class Skills(BaseSDK):
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -788,6 +789,7 @@ class Skills(BaseSDK):
         :param tags:
         :param path:
         :param instructions:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -816,6 +818,7 @@ class Skills(BaseSDK):
                 tags=tags,
                 path=path,
                 instructions=instructions,
+                project_id=project_id,
             ),
         )
 
@@ -888,6 +891,7 @@ class Skills(BaseSDK):
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -905,6 +909,7 @@ class Skills(BaseSDK):
         :param tags:
         :param path:
         :param instructions:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -933,6 +938,7 @@ class Skills(BaseSDK):
                 tags=tags,
                 path=path,
                 instructions=instructions,
+                project_id=project_id,
             ),
         )
 

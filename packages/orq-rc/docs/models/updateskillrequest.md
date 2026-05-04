@@ -12,3 +12,4 @@
 | `tags`             | List[*str*]        | :heavy_minus_sign: | N/A                |
 | `path`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
 | `instructions`     | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |

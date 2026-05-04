@@ -15,6 +15,7 @@ class UpdateSkillRequestTypedDict(TypedDict):
     tags: NotRequired[List[str]]
     path: NotRequired[str]
     instructions: NotRequired[str]
+    project_id: NotRequired[str]
 
 
 class UpdateSkillRequest(BaseModel):
@@ -32,6 +33,8 @@ class UpdateSkillRequest(BaseModel):
 
     instructions: Optional[str] = None
 
+    project_id: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -43,6 +46,7 @@ class UpdateSkillRequest(BaseModel):
                 "tags",
                 "path",
                 "instructions",
+                "project_id",
             ]
         )
         serialized = handler(self)
