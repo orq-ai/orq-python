@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.policies import Policies
+    from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
     from orq_ai_sdk.responses import Responses
@@ -66,6 +67,7 @@ class Orq(BaseSDK):
     policies: "Policies"
     routing_rules: "RoutingRules"
     files: "Files"
+    projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
     responses: "Responses"
@@ -90,6 +92,7 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),

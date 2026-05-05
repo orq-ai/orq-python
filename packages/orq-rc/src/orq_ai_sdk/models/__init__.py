@@ -1965,6 +1965,14 @@ if TYPE_CHECKING:
         ResultsCategoryScoresTypedDict,
         ResultsTypedDict,
     )
+    from .createprojectrequest import (
+        CreateProjectRequest,
+        CreateProjectRequestTypedDict,
+    )
+    from .createprojectresponse import (
+        CreateProjectResponse,
+        CreateProjectResponseTypedDict,
+    )
     from .createpromptop import (
         CreatePrompt21,
         CreatePrompt21TypedDict,
@@ -2821,6 +2829,10 @@ if TYPE_CHECKING:
     from .deletememorystoreop import (
         DeleteMemoryStoreRequest,
         DeleteMemoryStoreRequestTypedDict,
+    )
+    from .deleteprojectresponse import (
+        DeleteProjectResponse,
+        DeleteProjectResponseTypedDict,
     )
     from .deletepromptop import (
         DeletePromptRequest,
@@ -4437,6 +4449,7 @@ if TYPE_CHECKING:
         GetOnePromptVerbosity,
         GetOnePromptVoice,
     )
+    from .getprojectresponse import GetProjectResponse, GetProjectResponseTypedDict
     from .getpromptversionop import (
         GetPromptVersion21,
         GetPromptVersion21TypedDict,
@@ -5322,6 +5335,10 @@ if TYPE_CHECKING:
         ListKnowledgeBasesResponseBody,
         ListKnowledgeBasesResponseBodyTypedDict,
     )
+    from .listprojectsresponse import (
+        ListProjectsResponse,
+        ListProjectsResponseTypedDict,
+    )
     from .listpromptversionsop import (
         ListPromptVersions21,
         ListPromptVersions21TypedDict,
@@ -5729,6 +5746,11 @@ if TYPE_CHECKING:
         Usage2TypedDict,
         UsageType,
     )
+    from .project import Project, ProjectTypedDict
+    from .projectdeleteop import ProjectDeleteRequest, ProjectDeleteRequestTypedDict
+    from .projectgetop import ProjectGetRequest, ProjectGetRequestTypedDict
+    from .projectlistop import ProjectListRequest, ProjectListRequestTypedDict
+    from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
     from .publiccontact import PublicContact, PublicContactTypedDict
     from .publicidentity import PublicIdentity, PublicIdentityTypedDict
     from .publicschedule import (
@@ -7822,6 +7844,14 @@ if TYPE_CHECKING:
         UpdateMemoryStoreResponseBody,
         UpdateMemoryStoreResponseBodyTypedDict,
     )
+    from .updateprojectrequest import (
+        UpdateProjectRequest,
+        UpdateProjectRequestTypedDict,
+    )
+    from .updateprojectresponse import (
+        UpdateProjectResponse,
+        UpdateProjectResponseTypedDict,
+    )
     from .updatepromptop import (
         UpdatePrompt21,
         UpdatePrompt21TypedDict,
@@ -9899,6 +9929,10 @@ __all__ = [
     "CreateModerationResponseBodyTypedDict",
     "CreateModerationRouterModerationsResponseBody",
     "CreateModerationRouterModerationsResponseBodyData",
+    "CreateProjectRequest",
+    "CreateProjectRequestTypedDict",
+    "CreateProjectResponse",
+    "CreateProjectResponseTypedDict",
     "CreatePrompt21",
     "CreatePrompt21TypedDict",
     "CreatePrompt22",
@@ -10673,6 +10707,8 @@ __all__ = [
     "DeleteMemoryRequestTypedDict",
     "DeleteMemoryStoreRequest",
     "DeleteMemoryStoreRequestTypedDict",
+    "DeleteProjectResponse",
+    "DeleteProjectResponseTypedDict",
     "DeletePromptRequest",
     "DeletePromptRequestTypedDict",
     "DeletePromptResponseBody",
@@ -12268,6 +12304,8 @@ __all__ = [
     "GetOnePromptUseCases",
     "GetOnePromptVerbosity",
     "GetOnePromptVoice",
+    "GetProjectResponse",
+    "GetProjectResponseTypedDict",
     "GetPromptVersion21",
     "GetPromptVersion21TypedDict",
     "GetPromptVersion22",
@@ -13052,6 +13090,8 @@ __all__ = [
     "ListKnowledgeBasesRequestTypedDict",
     "ListKnowledgeBasesResponseBody",
     "ListKnowledgeBasesResponseBodyTypedDict",
+    "ListProjectsResponse",
+    "ListProjectsResponseTypedDict",
     "ListPromptVersions21",
     "ListPromptVersions21TypedDict",
     "ListPromptVersions22",
@@ -13600,6 +13640,16 @@ __all__ = [
     "PrefixMessagesUserMessage",
     "PrefixMessagesUserMessageTypedDict",
     "Product",
+    "Project",
+    "ProjectDeleteRequest",
+    "ProjectDeleteRequestTypedDict",
+    "ProjectGetRequest",
+    "ProjectGetRequestTypedDict",
+    "ProjectListRequest",
+    "ProjectListRequestTypedDict",
+    "ProjectTypedDict",
+    "ProjectUpdateRequest",
+    "ProjectUpdateRequestTypedDict",
     "Prompt",
     "PromptConfig",
     "PromptConfigTypedDict",
@@ -15760,6 +15810,10 @@ __all__ = [
     "UpdateMemoryStoreRequestTypedDict",
     "UpdateMemoryStoreResponseBody",
     "UpdateMemoryStoreResponseBodyTypedDict",
+    "UpdateProjectRequest",
+    "UpdateProjectRequestTypedDict",
+    "UpdateProjectResponse",
+    "UpdateProjectResponseTypedDict",
     "UpdatePrompt21",
     "UpdatePrompt21TypedDict",
     "UpdatePrompt22",
@@ -18081,6 +18135,10 @@ _dynamic_imports: dict[str, str] = {
     "ResultsCategoryScores": ".createmoderationop",
     "ResultsCategoryScoresTypedDict": ".createmoderationop",
     "ResultsTypedDict": ".createmoderationop",
+    "CreateProjectRequest": ".createprojectrequest",
+    "CreateProjectRequestTypedDict": ".createprojectrequest",
+    "CreateProjectResponse": ".createprojectresponse",
+    "CreateProjectResponseTypedDict": ".createprojectresponse",
     "CreatePrompt21": ".createpromptop",
     "CreatePrompt21TypedDict": ".createpromptop",
     "CreatePrompt22": ".createpromptop",
@@ -18908,6 +18966,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryRequestTypedDict": ".deletememoryop",
     "DeleteMemoryStoreRequest": ".deletememorystoreop",
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
+    "DeleteProjectResponse": ".deleteprojectresponse",
+    "DeleteProjectResponseTypedDict": ".deleteprojectresponse",
     "DeletePromptRequest": ".deletepromptop",
     "DeletePromptRequestTypedDict": ".deletepromptop",
     "DeletePromptResponseBody": ".deletepromptop",
@@ -20477,6 +20537,8 @@ _dynamic_imports: dict[str, str] = {
     "GetOnePromptUseCases": ".getonepromptop",
     "GetOnePromptVerbosity": ".getonepromptop",
     "GetOnePromptVoice": ".getonepromptop",
+    "GetProjectResponse": ".getprojectresponse",
+    "GetProjectResponseTypedDict": ".getprojectresponse",
     "GetPromptVersion21": ".getpromptversionop",
     "GetPromptVersion21TypedDict": ".getpromptversionop",
     "GetPromptVersion22": ".getpromptversionop",
@@ -21333,6 +21395,8 @@ _dynamic_imports: dict[str, str] = {
     "ListKnowledgeBasesRequestTypedDict": ".listknowledgebasesop",
     "ListKnowledgeBasesResponseBody": ".listknowledgebasesop",
     "ListKnowledgeBasesResponseBodyTypedDict": ".listknowledgebasesop",
+    "ListProjectsResponse": ".listprojectsresponse",
+    "ListProjectsResponseTypedDict": ".listprojectsresponse",
     "ListPromptVersions21": ".listpromptversionsop",
     "ListPromptVersions21TypedDict": ".listpromptversionsop",
     "ListPromptVersions22": ".listpromptversionsop",
@@ -21716,6 +21780,16 @@ _dynamic_imports: dict[str, str] = {
     "Usage2": ".post_v2_router_ocrop",
     "Usage2TypedDict": ".post_v2_router_ocrop",
     "UsageType": ".post_v2_router_ocrop",
+    "Project": ".project",
+    "ProjectTypedDict": ".project",
+    "ProjectDeleteRequest": ".projectdeleteop",
+    "ProjectDeleteRequestTypedDict": ".projectdeleteop",
+    "ProjectGetRequest": ".projectgetop",
+    "ProjectGetRequestTypedDict": ".projectgetop",
+    "ProjectListRequest": ".projectlistop",
+    "ProjectListRequestTypedDict": ".projectlistop",
+    "ProjectUpdateRequest": ".projectupdateop",
+    "ProjectUpdateRequestTypedDict": ".projectupdateop",
     "PublicContact": ".publiccontact",
     "PublicContactTypedDict": ".publiccontact",
     "PublicIdentity": ".publicidentity",
@@ -23721,6 +23795,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateMemoryStoreRequestTypedDict": ".updatememorystoreop",
     "UpdateMemoryStoreResponseBody": ".updatememorystoreop",
     "UpdateMemoryStoreResponseBodyTypedDict": ".updatememorystoreop",
+    "UpdateProjectRequest": ".updateprojectrequest",
+    "UpdateProjectRequestTypedDict": ".updateprojectrequest",
+    "UpdateProjectResponse": ".updateprojectresponse",
+    "UpdateProjectResponseTypedDict": ".updateprojectresponse",
     "UpdatePrompt21": ".updatepromptop",
     "UpdatePrompt21TypedDict": ".updatepromptop",
     "UpdatePrompt22": ".updatepromptop",
