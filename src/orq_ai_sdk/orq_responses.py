@@ -20,7 +20,7 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
+        input: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
@@ -119,7 +119,7 @@ class OrqResponses(BaseSDK):
             text=utils.get_pydantic_model(
                 text, OptionalNullable[models.CreateResponseText]
             ),
-            input=utils.get_pydantic_model(input_, models.CreateResponseInput),
+            input=utils.get_pydantic_model(input, models.CreateResponseInput),
             include=include,
             parallel_tool_calls=parallel_tool_calls,
             store=store,
@@ -208,7 +208,7 @@ class OrqResponses(BaseSDK):
         self,
         *,
         model: str,
-        input_: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
+        input: Union[models.CreateResponseInput, models.CreateResponseInputTypedDict],
         metadata: Optional[Dict[str, str]] = None,
         temperature: OptionalNullable[float] = UNSET,
         top_p: OptionalNullable[float] = UNSET,
@@ -307,7 +307,7 @@ class OrqResponses(BaseSDK):
             text=utils.get_pydantic_model(
                 text, OptionalNullable[models.CreateResponseText]
             ),
-            input=utils.get_pydantic_model(input_, models.CreateResponseInput),
+            input=utils.get_pydantic_model(input, models.CreateResponseInput),
             include=include,
             parallel_tool_calls=parallel_tool_calls,
             store=store,

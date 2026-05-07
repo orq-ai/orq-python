@@ -13,7 +13,7 @@ class Moderations(BaseSDK):
     def create(
         self,
         *,
-        input_: Union[models.Input, models.InputTypedDict],
+        input: Union[models.Input, models.InputTypedDict],
         model: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -43,7 +43,7 @@ class Moderations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateModerationRequestBody(
-            input=input_,
+            input=input,
             model=model,
         )
 
@@ -114,7 +114,7 @@ class Moderations(BaseSDK):
     async def create_async(
         self,
         *,
-        input_: Union[models.Input, models.InputTypedDict],
+        input: Union[models.Input, models.InputTypedDict],
         model: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -144,7 +144,7 @@ class Moderations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateModerationRequestBody(
-            input=input_,
+            input=input,
             model=model,
         )
 

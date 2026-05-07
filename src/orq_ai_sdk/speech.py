@@ -12,7 +12,7 @@ class Speech(BaseSDK):
     def create(
         self,
         *,
-        input_: str,
+        input: str,
         model: str,
         voice: str,
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
@@ -86,7 +86,7 @@ class Speech(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateSpeechRequestBody(
-            input=input_,
+            input=input,
             model=model,
             voice=voice,
             response_format=response_format,
@@ -162,7 +162,7 @@ class Speech(BaseSDK):
     async def create_async(
         self,
         *,
-        input_: str,
+        input: str,
         model: str,
         voice: str,
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
@@ -236,7 +236,7 @@ class Speech(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateSpeechRequestBody(
-            input=input_,
+            input=input,
             model=model,
             voice=voice,
             response_format=response_format,

@@ -1447,7 +1447,6 @@ UpdateAgentToolApprovalRequired = Literal[
     "respect_tool",
     "none",
 ]
-r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
 class AgentToolInputCRUDProviderBuiltInToolTypedDict(TypedDict):
@@ -2313,15 +2312,10 @@ class UpdateAgentGuardrails(BaseModel):
 
 class UpdateAgentSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
-    r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
-    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
-    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[UpdateAgentToolApprovalRequired]
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[UpdateAgentAgentToolInputCRUDTypedDict]]
-    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
     evaluators: NotRequired[List[UpdateAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[UpdateAgentGuardrailsTypedDict]]
@@ -2329,20 +2323,15 @@ class UpdateAgentSettingsTypedDict(TypedDict):
 
 
 class UpdateAgentSettings(BaseModel):
-    max_iterations: Optional[int] = 100
-    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_iterations: Optional[int] = None
 
-    max_execution_time: Optional[int] = 600
-    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_execution_time: Optional[int] = None
 
-    max_cost: Optional[float] = 0
-    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+    max_cost: Optional[float] = None
 
-    tool_approval_required: Optional[UpdateAgentToolApprovalRequired] = "respect_tool"
-    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tool_approval_required: Optional[UpdateAgentToolApprovalRequired] = None
 
     tools: Optional[List[UpdateAgentAgentToolInputCRUD]] = None
-    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
     evaluators: Optional[List[UpdateAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
@@ -2529,6 +2518,8 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[UpdateAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    skills: NotRequired[Nullable[List[str]]]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
@@ -2581,6 +2572,9 @@ class UpdateAgentRequestBody(BaseModel):
     team_of_agents: Optional[List[UpdateAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
+    skills: OptionalNullable[List[str]] = UNSET
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
@@ -2617,6 +2611,7 @@ class UpdateAgentRequestBody(BaseModel):
                 "memory_stores",
                 "knowledge_bases",
                 "team_of_agents",
+                "skills",
                 "variables",
                 "engine",
                 "a2a",
@@ -2624,7 +2619,7 @@ class UpdateAgentRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["system_prompt"])
+        nullable_fields = set(["system_prompt", "skills"])
         serialized = handler(self)
         m = {}
 
@@ -4574,6 +4569,8 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -4624,6 +4621,9 @@ class UpdateAgentResponseBody(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    skills: List[str]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     role: str
 

@@ -29,7 +29,7 @@ class Responses(BaseSDK):
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
-        input_: Optional[
+        input: Optional[
             Union[
                 models.CreateRouterResponseInput,
                 models.CreateRouterResponseInputTypedDict,
@@ -160,7 +160,7 @@ class Responses(BaseSDK):
                 identity, Optional[models.ResponseIdentity]
             ),
             input=utils.get_pydantic_model(
-                input_, Optional[models.CreateRouterResponseInput]
+                input, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
             limits=utils.get_pydantic_model(
@@ -286,7 +286,7 @@ class Responses(BaseSDK):
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
-        input_: Optional[
+        input: Optional[
             Union[
                 models.CreateRouterResponseInput,
                 models.CreateRouterResponseInputTypedDict,
@@ -417,7 +417,7 @@ class Responses(BaseSDK):
                 identity, Optional[models.ResponseIdentity]
             ),
             input=utils.get_pydantic_model(
-                input_, Optional[models.CreateRouterResponseInput]
+                input, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
             limits=utils.get_pydantic_model(
