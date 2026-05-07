@@ -8,6 +8,8 @@ class SpanAttributes(Enum):
     # GenAI semantic convention attributes
     OPERATION_NAME = "gen_ai.operation.name"
     REQUEST_MODEL = "gen_ai.request.model"
+    RESPONSE_ID = "gen_ai.response.id"
+    RESPONSE_MODEL = "gen_ai.response.model"
     USAGE_INPUT_TOKENS = "gen_ai.usage.input_tokens"
     USAGE_OUTPUT_TOKENS = "gen_ai.usage.output_tokens"
     TOOL_NAME = "gen_ai.tool.name"
@@ -16,7 +18,6 @@ class SpanAttributes(Enum):
 
     # Orq custom attributes
     KIND = "orq.span.kind"
-    INPUT_VALUE = "orq.input.value"
     OUTPUT_VALUE = "orq.output.value"
     AGENT_NAME = "agent.name"
 

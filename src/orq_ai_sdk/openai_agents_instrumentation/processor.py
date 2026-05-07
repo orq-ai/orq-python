@@ -199,13 +199,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         otel_span.set_attribute(SpanAttributes.GEN_AI_AGENT_NAME.value, data.name)
         
         # Add first LLM input and last LLM output as JSON strings
-        if span_id in self._agent_inputs and self._agent_inputs[span_id] is not None:
-            try:
-                json_input = json.dumps(self._agent_inputs[span_id])
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, json_input)
-            except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(self._agent_inputs[span_id]))
-        
         if span_id in self._agent_outputs:
             output = self._agent_outputs[span_id]
             if output is not None:
@@ -227,10 +220,17 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if hasattr(data, "response") and data.response:
             # Extract meaningful data from response instead of dumping the whole object
             response = data.response
-            
+
+            # response.id is the canonical LLM response identifier. When routed through
+            # the orq router the id is stamped with a ULID suffix ("gentext_{provider}_{ULID}"),
+            # which the traces-processor uses to detect and drop duplicate CLIENT_SPANs.
+            if hasattr(response, "id") and response.id:
+                otel_span.set_attribute(SpanAttributes.RESPONSE_ID.value, response.id)
+
             # Set basic response info
             if hasattr(response, "model"):
                 otel_span.set_attribute(SpanAttributes.REQUEST_MODEL.value, response.model)
+                otel_span.set_attribute(SpanAttributes.RESPONSE_MODEL.value, response.model)
             
             # Extract and format output from response
             if hasattr(response, "output") and response.output:
@@ -261,16 +261,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
         data_input = getattr(data, "input", None)
         if data_input:
-            # Set input for LLM spans, including system message from instructions if not already present
+            # Preserve formatted inputs for agent aggregation, but do not emit
+            # a custom input attribute on the span.
             try:
-                enhanced_input = self._format_llm_input(data)
-                if enhanced_input is not None:
-                    input_json = json.dumps(enhanced_input)
-                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
-                else:
-                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data_input))
+                self._format_llm_input(data)
             except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data_input))
+                pass
 
     def _handle_generation_span(self, otel_span: OtelSpan, data: GenerationSpanData) -> None:
         """Handle generation span."""
@@ -278,16 +274,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             otel_span.set_attribute(SpanAttributes.REQUEST_MODEL.value, data.model)
         
         if hasattr(data, "input") and data.input:
-            # Set input for LLM spans, including system message from instructions if not already present
             try:
-                enhanced_input = self._format_llm_input(data)
-                if enhanced_input is not None:
-                    input_json = json.dumps(enhanced_input)
-                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
-                else:
-                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
+                self._format_llm_input(data)
             except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
+                pass
         
         if hasattr(data, "output") and data.output:
             # Set structured output messages for LLM spans
@@ -315,9 +305,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             data_id = getattr(data, 'id', None)
             if data_id:
                 otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data_id)
-
-        if data.input:
-            otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, data.input)
 
         if data.output is not None:
             otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
