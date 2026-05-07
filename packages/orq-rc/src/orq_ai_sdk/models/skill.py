@@ -12,7 +12,6 @@ class SkillTypedDict(TypedDict):
     skill_id: NotRequired[str]
     display_name: NotRequired[str]
     description: NotRequired[str]
-    enabled: NotRequired[bool]
     tags: NotRequired[List[str]]
     project_id: NotRequired[str]
     path: NotRequired[str]
@@ -35,8 +34,6 @@ class Skill(BaseModel):
     display_name: Optional[str] = None
 
     description: Optional[str] = None
-
-    enabled: Optional[bool] = None
 
     tags: Optional[List[str]] = None
 
@@ -69,7 +66,6 @@ class Skill(BaseModel):
                 "skill_id",
                 "display_name",
                 "description",
-                "enabled",
                 "tags",
                 "project_id",
                 "path",

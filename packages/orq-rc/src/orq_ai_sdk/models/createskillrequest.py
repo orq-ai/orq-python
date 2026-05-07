@@ -10,7 +10,6 @@ from typing_extensions import NotRequired, TypedDict
 class CreateSkillRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
     description: NotRequired[str]
-    enabled: NotRequired[bool]
     tags: NotRequired[List[str]]
     path: NotRequired[str]
     project_id: NotRequired[str]
@@ -21,8 +20,6 @@ class CreateSkillRequest(BaseModel):
     display_name: Optional[str] = None
 
     description: Optional[str] = None
-
-    enabled: Optional[bool] = None
 
     tags: Optional[List[str]] = None
 
@@ -38,7 +35,6 @@ class CreateSkillRequest(BaseModel):
             [
                 "display_name",
                 "description",
-                "enabled",
                 "tags",
                 "path",
                 "project_id",

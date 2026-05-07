@@ -203,7 +203,6 @@ class Skills(BaseSDK):
         *,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        enabled: Optional[bool] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -219,7 +218,6 @@ class Skills(BaseSDK):
 
         :param display_name:
         :param description:
-        :param enabled:
         :param tags:
         :param path:
         :param project_id:
@@ -245,7 +243,6 @@ class Skills(BaseSDK):
         request = models.CreateSkillRequest(
             display_name=display_name,
             description=description,
-            enabled=enabled,
             tags=tags,
             path=path,
             project_id=project_id,
@@ -311,7 +308,6 @@ class Skills(BaseSDK):
         *,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        enabled: Optional[bool] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -327,7 +323,6 @@ class Skills(BaseSDK):
 
         :param display_name:
         :param description:
-        :param enabled:
         :param tags:
         :param path:
         :param project_id:
@@ -353,7 +348,6 @@ class Skills(BaseSDK):
         request = models.CreateSkillRequest(
             display_name=display_name,
             description=description,
-            enabled=enabled,
             tags=tags,
             path=path,
             project_id=project_id,
@@ -767,7 +761,6 @@ class Skills(BaseSDK):
         skill_id: Optional[str] = None,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        enabled: Optional[bool] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
@@ -785,7 +778,6 @@ class Skills(BaseSDK):
         :param skill_id:
         :param display_name:
         :param description:
-        :param enabled:
         :param tags:
         :param path:
         :param instructions:
@@ -814,7 +806,6 @@ class Skills(BaseSDK):
                 skill_id=skill_id,
                 display_name=display_name,
                 description=description,
-                enabled=enabled,
                 tags=tags,
                 path=path,
                 instructions=instructions,
@@ -887,7 +878,6 @@ class Skills(BaseSDK):
         skill_id: Optional[str] = None,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        enabled: Optional[bool] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
@@ -905,7 +895,6 @@ class Skills(BaseSDK):
         :param skill_id:
         :param display_name:
         :param description:
-        :param enabled:
         :param tags:
         :param path:
         :param instructions:
@@ -934,7 +923,6 @@ class Skills(BaseSDK):
                 skill_id=skill_id,
                 display_name=display_name,
                 description=description,
-                enabled=enabled,
                 tags=tags,
                 path=path,
                 instructions=instructions,
