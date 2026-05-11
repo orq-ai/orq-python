@@ -132,7 +132,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-05-11T10:28:26.176Z")
+    updated: Optional[datetime] = parse_datetime("2026-05-11T13:44:33.441Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
