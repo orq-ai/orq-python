@@ -15,6 +15,7 @@ from ._events import Events
 from ._models import EventType, InFlightEvent
 from ._span_builder import build_otlp_span, _nano_timestamp
 from ._utils import (
+    extract_assistant_tool_calls,
     extract_model_name,
     extract_model_parameters,
     extract_token_usage,
@@ -163,9 +164,19 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
                     if not content and event.streaming_tokens:
                         content = "".join(event.streaming_tokens)
 
+                    message: Dict[str, Any] = {
+                        "role": "assistant",
+                        "content": content,
+                    }
+                    tool_calls = extract_assistant_tool_calls(
+                        getattr(gen, "message", None),
+                    )
+                    if tool_calls:
+                        message["tool_calls"] = tool_calls
+
                     choices.append({
                         "index": idx,
-                        "message": {"role": "assistant", "content": content},
+                        "message": message,
                         "finish_reason": finish_reason,
                     })
             event.response_choices = choices

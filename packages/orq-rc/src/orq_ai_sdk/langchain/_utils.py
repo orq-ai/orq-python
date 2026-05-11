@@ -105,6 +105,24 @@ def normalize_messages(messages: List[List[Any]]) -> List[Dict[str, Any]]:
     return result
 
 
+def extract_assistant_tool_calls(message: Any) -> Optional[List[Any]]:
+    """Extract tool_calls from a LangChain message, supporting both OpenAI and LangChain shapes."""
+    if message is None:
+        return None
+
+    additional_kwargs = getattr(message, "additional_kwargs", None)
+    if isinstance(additional_kwargs, dict):
+        from_kwargs = additional_kwargs.get("tool_calls")
+        if isinstance(from_kwargs, list) and from_kwargs:
+            return from_kwargs
+
+    from_message = getattr(message, "tool_calls", None)
+    if isinstance(from_message, list) and from_message:
+        return from_message
+
+    return None
+
+
 def extract_token_usage(response: Any) -> Optional[Dict[str, Any]]:
     """Robustly extract token usage from LLMResult."""
     llm_output = getattr(response, "llm_output", None)
