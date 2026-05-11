@@ -292,7 +292,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KR8TYBGXVZ6SRZCPAT848C3G"
+    id: Optional[str] = "01KRB2DYNK9YY41W9F3P7R1HMT"
 
     description: Optional[str] = None
 
@@ -1357,7 +1357,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KR8TYBGQ83E5KDB1RYSX7H97"
+        "tool_01KRB2DYNDE1DM6YBK72YMFQ9W"
     )
 
     display_name: Optional[str] = None
@@ -1479,7 +1479,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KR8TYBGPWAQ6F5W8XZEW3XKX"
+    id: Optional[str] = "01KRB2DYNCR2P3A2VS18WK114P"
 
     description: Optional[str] = None
 
@@ -1623,7 +1623,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KR8TYBGN311GXQDTSTC1ZYVX"
+        "tool_01KRB2DYNB9RRVN39VG5MVHSV1"
     )
 
     display_name: Optional[str] = None
@@ -1914,7 +1914,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KR8TYBGMV0QNNE3FMC8QC5G2"
+        "tool_01KRB2DYN933JS4N1PDXEXPD2Y"
     )
 
     display_name: Optional[str] = None
@@ -2099,7 +2099,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KR8TYBGJCBQV13X33XA3XGP2"
+        "tool_01KRB2DYN8MZDDM6D9MJNA4BRE"
     )
 
     display_name: Optional[str] = None
@@ -2288,7 +2288,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KR8TYBGH9VEP9SSWTM4T611Y"
+        "tool_01KRB2DYN781QJ0VF9D6BPDV8V"
     )
 
     display_name: Optional[str] = None
