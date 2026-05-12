@@ -13,9 +13,7 @@ class Embeddings(BaseSDK):
     def create(
         self,
         *,
-        input_: Union[
-            models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict
-        ],
+        input: Union[models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict],
         model: str,
         encoding_format: Optional[models.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
@@ -85,7 +83,7 @@ class Embeddings(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateEmbeddingRequestBody(
-            input=input_,
+            input=input,
             model=model,
             encoding_format=encoding_format,
             dimensions=dimensions,
@@ -166,9 +164,7 @@ class Embeddings(BaseSDK):
     async def create_async(
         self,
         *,
-        input_: Union[
-            models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict
-        ],
+        input: Union[models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict],
         model: str,
         encoding_format: Optional[models.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
@@ -238,7 +234,7 @@ class Embeddings(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateEmbeddingRequestBody(
-            input=input_,
+            input=input,
             model=model,
             encoding_format=encoding_format,
             dimensions=dimensions,

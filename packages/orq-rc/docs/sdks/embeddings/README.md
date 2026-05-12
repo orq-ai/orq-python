@@ -22,7 +22,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.embeddings.create(input_=[
+    res = orq.router.embeddings.create(input=[
         "<value 1>",
         "<value 2>",
     ], model="V90", encoding_format="float", fallbacks=[

@@ -22,7 +22,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.moderations.create(input_=[], model="Fiesta")
+    res = orq.router.moderations.create(input=[], model="Fiesta")
 
     # Handle response
     print(res)

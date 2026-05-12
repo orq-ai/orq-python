@@ -6,28 +6,28 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional
+from typing import Mapping, Optional, Union
 
 
 class Files(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListFilesResponse:
+    ) -> models.FileListResponseBody:
         r"""List all files
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param starting_after: A cursor for use in pagination. Defines your place in the list for the next page.
+        :param ending_before: A cursor for use in pagination. Defines your place in the list for the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -93,7 +93,7 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListFilesResponse, http_res)
+            return unmarshal_json_response(models.FileListResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -106,21 +106,21 @@ class Files(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListFilesResponse:
+    ) -> models.FileListResponseBody:
         r"""List all files
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param starting_after: A cursor for use in pagination. Defines your place in the list for the next page.
+        :param ending_before: A cursor for use in pagination. Defines your place in the list for the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -186,7 +186,7 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListFilesResponse, http_res)
+            return unmarshal_json_response(models.FileListResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -199,23 +199,19 @@ class Files(BaseSDK):
     def create(
         self,
         *,
-        filename: Optional[str] = None,
-        content: Optional[str] = None,
-        purpose: Optional[int] = None,
-        content_type: Optional[str] = None,
+        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateFileResponse:
-        r"""Upload a file
+    ) -> models.FileUploadResponseBody:
+        r"""Create file
 
         Files are used to upload documents that can be used with features like Deployments.
 
-        :param filename:
-        :param content:
-        :param purpose:
-        :param content_type:
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -234,11 +230,9 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateFileRequest(
-            filename=filename,
-            content=content,
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.FileUploadFile),
             purpose=purpose,
-            content_type=content_type,
         )
 
         req = self._build_request(
@@ -255,7 +249,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateFileRequest
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -285,8 +279,8 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(models.FileUploadResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -298,23 +292,19 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        filename: Optional[str] = None,
-        content: Optional[str] = None,
-        purpose: Optional[int] = None,
-        content_type: Optional[str] = None,
+        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateFileResponse:
-        r"""Upload a file
+    ) -> models.FileUploadResponseBody:
+        r"""Create file
 
         Files are used to upload documents that can be used with features like Deployments.
 
-        :param filename:
-        :param content:
-        :param purpose:
-        :param content_type:
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -333,11 +323,9 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateFileRequest(
-            filename=filename,
-            content=content,
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.FileUploadFile),
             purpose=purpose,
-            content_type=content_type,
         )
 
         req = self._build_request_async(
@@ -354,7 +342,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateFileRequest
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -384,8 +372,8 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(models.FileUploadResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -402,12 +390,12 @@ class Files(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetFileContentResponse:
+    ):
         r"""Download file content
 
-        Returns a presigned URL for downloading the file content by file ID.
+        Redirects to a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path:
+        :param file_id_or_path: The file ID to retrieve content for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -440,7 +428,7 @@ class Files(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -470,12 +458,12 @@ class Files(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetFileContentResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, "307", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
 
@@ -489,12 +477,12 @@ class Files(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetFileContentResponse:
+    ):
         r"""Download file content
 
-        Returns a presigned URL for downloading the file content by file ID.
+        Redirects to a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path:
+        :param file_id_or_path: The file ID to retrieve content for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -527,7 +515,7 @@ class Files(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -557,186 +545,12 @@ class Files(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetFileContentResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, "307", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def get(
-        self,
-        *,
-        file_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetFileResponse:
-        r"""Retrieve a file
-
-        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
-
-        :param file_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.FileGetRequest(
-            file_id=file_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/files/{file_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="FileGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def get_async(
-        self,
-        *,
-        file_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetFileResponse:
-        r"""Retrieve a file
-
-        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
-
-        :param file_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.FileGetRequest(
-            file_id=file_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/files/{file_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="FileGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
 
@@ -750,10 +564,10 @@ class Files(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteFileResponse:
-        r"""Delete a file
+    ):
+        r"""Delete file
 
-        :param file_id:
+        :param file_id: The ID of the file
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -786,7 +600,7 @@ class Files(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -816,9 +630,9 @@ class Files(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -835,10 +649,10 @@ class Files(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteFileResponse:
-        r"""Delete a file
+    ):
+        r"""Delete file
 
-        :param file_id:
+        :param file_id: The ID of the file
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -871,7 +685,7 @@ class Files(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -901,9 +715,183 @@ class Files(BaseSDK):
             retry_config=retry_config,
         )
 
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def get(
+        self,
+        *,
+        file_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.FileGetResponseBody:
+        r"""Retrieve a file
+
+        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
+
+        :param file_id: The ID of the file
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.FileGetRequest(
+            file_id=file_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/files/{file_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="FileGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(models.FileGetResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def get_async(
+        self,
+        *,
+        file_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.FileGetResponseBody:
+        r"""Retrieve a file
+
+        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
+
+        :param file_id: The ID of the file
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.FileGetRequest(
+            file_id=file_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/files/{file_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="FileGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.FileGetResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -915,20 +903,18 @@ class Files(BaseSDK):
     def update(
         self,
         *,
-        file_id_param: str,
-        file_id: Optional[str] = None,
-        file_name: Optional[str] = None,
+        file_id: str,
+        file_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateFileResponse:
-        r"""Update a file
+    ) -> models.FileUpdateResponseBody:
+        r"""Update file
 
         Updates the metadata of an existing file object.
 
-        :param file_id_param:
-        :param file_id:
+        :param file_id: The ID of the file
         :param file_name:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -949,9 +935,8 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUpdateRequest(
-            file_id_param=file_id_param,
-            update_file_request=models.UpdateFileRequest(
-                file_id=file_id,
+            file_id=file_id,
+            request_body=models.FileUpdateRequestBody(
                 file_name=file_name,
             ),
         )
@@ -970,11 +955,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_file_request,
-                False,
-                False,
-                "json",
-                models.UpdateFileRequest,
+                request.request_body, False, False, "json", models.FileUpdateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1004,8 +985,8 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(models.FileUpdateResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1017,20 +998,18 @@ class Files(BaseSDK):
     async def update_async(
         self,
         *,
-        file_id_param: str,
-        file_id: Optional[str] = None,
-        file_name: Optional[str] = None,
+        file_id: str,
+        file_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateFileResponse:
-        r"""Update a file
+    ) -> models.FileUpdateResponseBody:
+        r"""Update file
 
         Updates the metadata of an existing file object.
 
-        :param file_id_param:
-        :param file_id:
+        :param file_id: The ID of the file
         :param file_name:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1051,9 +1030,8 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUpdateRequest(
-            file_id_param=file_id_param,
-            update_file_request=models.UpdateFileRequest(
-                file_id=file_id,
+            file_id=file_id,
+            request_body=models.FileUpdateRequestBody(
                 file_name=file_name,
             ),
         )
@@ -1072,11 +1050,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_file_request,
-                False,
-                False,
-                "json",
-                models.UpdateFileRequest,
+                request.request_body, False, False, "json", models.FileUpdateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1106,8 +1080,8 @@ class Files(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateFileResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(models.FileUpdateResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

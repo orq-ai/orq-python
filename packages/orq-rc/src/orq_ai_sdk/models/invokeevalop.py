@@ -646,11 +646,10 @@ class ResponseBodyJury(BaseModel):
 
 
 class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
+    workflow_run_id: str
     value: Nullable[
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
     ]
-    workflow_run_id: NotRequired[str]
-    trace_id: NotRequired[str]
     explanation: NotRequired[Nullable[str]]
     original_value: NotRequired[Nullable[OriginalValueTypedDict]]
     original_explanation: NotRequired[Nullable[str]]
@@ -658,11 +657,9 @@ class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
 
 
 class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
+    workflow_run_id: str
+
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value]
-
-    workflow_run_id: Optional[str] = None
-
-    trace_id: Optional[str] = None
 
     explanation: OptionalNullable[str] = UNSET
 
@@ -675,14 +672,7 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "workflow_run_id",
-                "trace_id",
-                "explanation",
-                "original_value",
-                "original_explanation",
-                "jury",
-            ]
+            ["explanation", "original_value", "original_explanation", "jury"]
         )
         nullable_fields = set(
             ["value", "explanation", "original_value", "original_explanation"]

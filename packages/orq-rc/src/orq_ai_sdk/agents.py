@@ -527,7 +527,6 @@ class Agents(BaseSDK):
         team_of_agents: Optional[
             Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         source: Optional[models.Source] = None,
         engine: Optional[models.Engine] = "text",
@@ -555,7 +554,6 @@ class Agents(BaseSDK):
         :param memory_stores: Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys.
         :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables:
         :param source:
         :param engine:
@@ -599,7 +597,6 @@ class Agents(BaseSDK):
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
-            skills=skills,
             variables=variables,
             source=source,
             engine=engine,
@@ -689,7 +686,6 @@ class Agents(BaseSDK):
         team_of_agents: Optional[
             Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         source: Optional[models.Source] = None,
         engine: Optional[models.Engine] = "text",
@@ -717,7 +713,6 @@ class Agents(BaseSDK):
         :param memory_stores: Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys.
         :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables:
         :param source:
         :param engine:
@@ -761,7 +756,6 @@ class Agents(BaseSDK):
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
-            skills=skills,
             variables=variables,
             source=source,
             engine=engine,
@@ -1431,7 +1425,6 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
@@ -1467,7 +1460,6 @@ class Agents(BaseSDK):
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables: Extracted variables from agent instructions
         :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
@@ -1519,7 +1511,6 @@ class Agents(BaseSDK):
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                skills=skills,
                 variables=variables,
                 engine=engine,
                 a2a=utils.get_pydantic_model(
@@ -1634,7 +1625,6 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         a2a: Optional[
@@ -1670,7 +1660,6 @@ class Agents(BaseSDK):
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables: Extracted variables from agent instructions
         :param engine:
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
@@ -1722,7 +1711,6 @@ class Agents(BaseSDK):
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                skills=skills,
                 variables=variables,
                 engine=engine,
                 a2a=utils.get_pydantic_model(
