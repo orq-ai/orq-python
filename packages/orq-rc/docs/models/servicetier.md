@@ -1,7 +1,5 @@
 # ServiceTier
 
-Specifies the latency tier to use for processing the request. Defaults to "auto".
-
 ## Example Usage
 
 ```python
@@ -15,5 +13,4 @@ value: ServiceTier = "auto"
 - `"auto"`
 - `"default"`
 - `"flex"`
-- `"scale"`
 - `"priority"`

@@ -153,7 +153,6 @@ class CreateAgentScheduleResponseBodyTypedDict(TypedDict):
     type: CreateAgentScheduleSchedulesType
     r"""Schedule type."""
     updated: datetime
-    workspace_id: str
     agent_tag: NotRequired[str]
     r"""Pinned agent version. Omit to always run the agent's current active version."""
     last_triggered_at: NotRequired[datetime]
@@ -191,8 +190,6 @@ class CreateAgentScheduleResponseBody(BaseModel):
     r"""Schedule type."""
 
     updated: datetime
-
-    workspace_id: str
 
     agent_tag: Optional[str] = None
     r"""Pinned agent version. Omit to always run the agent's current active version."""

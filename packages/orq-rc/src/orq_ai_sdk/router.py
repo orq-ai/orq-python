@@ -10,7 +10,6 @@ from orq_ai_sdk.completions import Completions
 from orq_ai_sdk.embeddings import Embeddings
 from orq_ai_sdk.images import Images
 from orq_ai_sdk.moderations import Moderations
-from orq_ai_sdk.orq_responses import OrqResponses
 from orq_ai_sdk.rerank import Rerank
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
@@ -26,7 +25,6 @@ class Router(BaseSDK):
     audio: Audio
     completions: Completions
     images: Images
-    responses: OrqResponses
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -47,9 +45,6 @@ class Router(BaseSDK):
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.images = Images(self.sdk_configuration, parent_ref=self.parent_ref)
-        self.responses = OrqResponses(
-            self.sdk_configuration, parent_ref=self.parent_ref
-        )
 
     def ocr(
         self,

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponseFormatType
-value: CreateRouterResponseFormatType = "text"
+value: CreateRouterResponseFormatType = "json_schema"
 ```
 
 
 ## Values
 
-- `"text"`
+- `"json_schema"`

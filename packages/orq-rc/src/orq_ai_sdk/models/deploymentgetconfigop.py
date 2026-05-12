@@ -2223,13 +2223,13 @@ class DeploymentGetConfig2File(BaseModel):
         return m
 
 
-class DeploymentGetConfig23TypedDict(TypedDict):
+class Two3TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
 
 
-class DeploymentGetConfig23(BaseModel):
+class Two3(BaseModel):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2311,9 +2311,7 @@ class DeploymentGetConfig21(BaseModel):
 DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsResponse2TypedDict",
     Union[
-        DeploymentGetConfig21TypedDict,
-        DeploymentGetConfig22TypedDict,
-        DeploymentGetConfig23TypedDict,
+        DeploymentGetConfig21TypedDict, DeploymentGetConfig22TypedDict, Two3TypedDict
     ],
 )
 
@@ -2322,7 +2320,7 @@ DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
         Annotated[DeploymentGetConfig21, Tag("text")],
         Annotated[DeploymentGetConfig22, Tag("image_url")],
-        Annotated[DeploymentGetConfig23, Tag("file")],
+        Annotated[Two3, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

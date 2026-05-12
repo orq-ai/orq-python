@@ -1,17 +1,17 @@
 # TwoDetail
 
-Level of detail for image analysis
+The detail level for image understanding.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import TwoDetail
-value: TwoDetail = "high"
+value: TwoDetail = "auto"
 ```
 
 
 ## Values
 
-- `"high"`
-- `"low"`
 - `"auto"`
+- `"low"`
+- `"high"`

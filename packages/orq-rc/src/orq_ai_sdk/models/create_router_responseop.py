@@ -89,7 +89,7 @@ class CreateRouterResponse2File(BaseModel):
         return m
 
 
-CreateRouterResponse2Detail = Literal[
+TwoDetail = Literal[
     "auto",
     "low",
     "high",
@@ -104,7 +104,7 @@ class ImageTypedDict(TypedDict):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesType
-    detail: NotRequired[CreateRouterResponse2Detail]
+    detail: NotRequired[TwoDetail]
     r"""The detail level for image understanding."""
     file_id: NotRequired[str]
     r"""The ID of a previously uploaded file."""
@@ -117,7 +117,7 @@ class Image(BaseModel):
 
     type: CreateRouterResponse2ResponsesType
 
-    detail: Optional[CreateRouterResponse2Detail] = None
+    detail: Optional[TwoDetail] = None
     r"""The detail level for image understanding."""
 
     file_id: Optional[str] = None
@@ -210,7 +210,7 @@ InputType = Literal[
 r"""The type of item."""
 
 
-class CreateRouterResponseInput2TypedDict(TypedDict):
+class Input2TypedDict(TypedDict):
     r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
 
     call_id: NotRequired[str]
@@ -227,7 +227,7 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""The type of item."""
 
 
-class CreateRouterResponseInput2(BaseModel):
+class Input2(BaseModel):
     r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
 
     call_id: Optional[str] = None
@@ -266,14 +266,13 @@ class CreateRouterResponseInput2(BaseModel):
 
 
 CreateRouterResponseInputTypedDict = TypeAliasType(
-    "CreateRouterResponseInputTypedDict",
-    Union[str, List[CreateRouterResponseInput2TypedDict]],
+    "CreateRouterResponseInputTypedDict", Union[str, List[Input2TypedDict]]
 )
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
 
 
 CreateRouterResponseInput = TypeAliasType(
-    "CreateRouterResponseInput", Union[str, List[CreateRouterResponseInput2]]
+    "CreateRouterResponseInput", Union[str, List[Input2]]
 )
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
 
@@ -294,11 +293,11 @@ class FormatSchema(BaseModel):
     r"""The JSON Schema the output must conform to."""
 
 
-CreateRouterResponseFormatResponsesType = Literal["json_schema",]
+CreateRouterResponseFormatType = Literal["json_schema",]
 
 
 class FormatJSONSchemaTypedDict(TypedDict):
-    type: CreateRouterResponseFormatResponsesType
+    type: CreateRouterResponseFormatType
     description: NotRequired[str]
     name: NotRequired[str]
     schema_: NotRequired[FormatSchemaTypedDict]
@@ -307,7 +306,7 @@ class FormatJSONSchemaTypedDict(TypedDict):
 
 
 class FormatJSONSchema(BaseModel):
-    type: CreateRouterResponseFormatResponsesType
+    type: CreateRouterResponseFormatType
 
     description: Optional[str] = None
 
@@ -335,15 +334,15 @@ class FormatJSONSchema(BaseModel):
         return m
 
 
-CreateRouterResponseFormatType = Literal["text",]
+FormatType = Literal["text",]
 
 
 class PlainTextTypedDict(TypedDict):
-    type: CreateRouterResponseFormatType
+    type: FormatType
 
 
 class PlainText(BaseModel):
-    type: CreateRouterResponseFormatType
+    type: FormatType
 
 
 CreateRouterResponseFormatTypedDict = TypeAliasType(
@@ -481,13 +480,13 @@ class AllowedTools(BaseModel):
         return m
 
 
-CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
+CreateRouterResponseToolsResponsesType = Literal["mcp",]
 
 
 class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesRequestType
+    type: CreateRouterResponseToolsResponsesType
     allowed_tools: NotRequired[AllowedToolsTypedDict]
     r"""Filter which tools from the MCP server are exposed."""
     headers: NotRequired[Dict[str, str]]
@@ -503,7 +502,7 @@ class ToolsMCPToolTypedDict(TypedDict):
 class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesRequestType
+    type: CreateRouterResponseToolsResponsesType
 
     allowed_tools: Optional[AllowedTools] = None
     r"""Filter which tools from the MCP server are exposed."""
@@ -539,7 +538,7 @@ class ToolsMCPTool(BaseModel):
         return m
 
 
-CreateRouterResponseToolsResponsesType = Literal[
+CreateRouterResponseToolsType = Literal[
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
@@ -553,7 +552,7 @@ r"""The orq.ai tool type."""
 class OrqAiToolTypedDict(TypedDict):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsResponsesType
+    type: CreateRouterResponseToolsType
     r"""The orq.ai tool type."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
@@ -562,7 +561,7 @@ class OrqAiToolTypedDict(TypedDict):
 class OrqAiTool(BaseModel):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsResponsesType
+    type: CreateRouterResponseToolsType
     r"""The orq.ai tool type."""
 
     tool_id: Optional[str] = None
@@ -593,7 +592,7 @@ class ToolsParameters(BaseModel):
     r"""The parameters the function accepts, as a JSON Schema object."""
 
 
-CreateRouterResponseToolsType = Literal["function",]
+ToolsType = Literal["function",]
 
 
 class ToolsFunctionTypedDict(TypedDict):
@@ -601,7 +600,7 @@ class ToolsFunctionTypedDict(TypedDict):
 
     name: str
     r"""The name of the function."""
-    type: CreateRouterResponseToolsType
+    type: ToolsType
     description: NotRequired[str]
     r"""A description of what the function does."""
     parameters: NotRequired[ToolsParametersTypedDict]
@@ -616,7 +615,7 @@ class ToolsFunction(BaseModel):
     name: str
     r"""The name of the function."""
 
-    type: CreateRouterResponseToolsType
+    type: ToolsType
 
     description: Optional[str] = None
     r"""A description of what the function does."""
@@ -946,7 +945,7 @@ class CreateRouterResponseResponsesResponseBody(BaseModel):
         return m
 
 
-CreateRouterResponseServiceTier = Literal[
+ServiceTier = Literal[
     "auto",
     "default",
     "flex",
@@ -964,7 +963,7 @@ CreateRouterResponseStatus = Literal[
 ]
 
 
-CreateRouterResponseTruncation = Literal[
+Truncation = Literal[
     "disabled",
     "auto",
 ]
@@ -999,7 +998,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     prompt_cache_retention: Nullable[str]
     reasoning: ReasoningTypedDict
     safety_identifier: Nullable[str]
-    service_tier: CreateRouterResponseServiceTier
+    service_tier: ServiceTier
     status: CreateRouterResponseStatus
     store: bool
     temperature: float
@@ -1011,7 +1010,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     r"""Array of tool configurations used in this response"""
     top_logprobs: int
     top_p: float
-    truncation: CreateRouterResponseTruncation
+    truncation: Truncation
     usage: PublicUsageTypedDict
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
@@ -1070,7 +1069,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     safety_identifier: Nullable[str]
 
-    service_tier: CreateRouterResponseServiceTier
+    service_tier: ServiceTier
 
     status: CreateRouterResponseStatus
 
@@ -1091,7 +1090,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     top_p: float
 
-    truncation: CreateRouterResponseTruncation
+    truncation: Truncation
 
     usage: PublicUsage
 
