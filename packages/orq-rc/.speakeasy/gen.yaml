@@ -42,6 +42,7 @@ python:
   allowedRedefinedBuiltins:
     - id
     - object
+    - input
   asyncMode: both
   authors:
     - Orq
