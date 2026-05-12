@@ -124,12 +124,39 @@ def extract_assistant_tool_calls(message: Any) -> Optional[List[Any]]:
 
 
 def extract_token_usage(response: Any) -> Optional[Dict[str, Any]]:
-    """Robustly extract token usage from LLMResult."""
-    llm_output = getattr(response, "llm_output", None)
-    if not llm_output:
-        return None
+    """Robustly extract token usage from LLMResult.
 
+    LangChain places usage in different locations depending on call mode:
+    non-streaming chat populates ``response.llm_output["token_usage"]``,
+    while streaming chat populates ``response.generations[0][0].message.usage_metadata``
+    (the standardized langchain-core ``UsageMetadata`` shape). Both are
+    checked so streaming runs do not silently drop usage attributes.
+    """
+    llm_output = getattr(response, "llm_output", None) or {}
     usage = llm_output.get("token_usage") or llm_output.get("usage")
+
+    if not usage:
+        usage_metadata = None
+        try:
+            generations = getattr(response, "generations", None) or []
+            message = getattr(generations[0][0], "message", None)
+            usage_metadata = getattr(message, "usage_metadata", None)
+        except (AttributeError, IndexError):
+            pass
+
+        if usage_metadata:
+            usage = {
+                "prompt_tokens": usage_metadata.get("input_tokens", 0),
+                "completion_tokens": usage_metadata.get("output_tokens", 0),
+                "total_tokens": usage_metadata.get("total_tokens", 0),
+            }
+            input_details = usage_metadata.get("input_token_details")
+            if isinstance(input_details, dict) and "cache_read" in input_details:
+                usage["prompt_tokens_details"] = {"cached_tokens": input_details["cache_read"]}
+            output_details = usage_metadata.get("output_token_details")
+            if isinstance(output_details, dict) and "reasoning" in output_details:
+                usage["completion_tokens_details"] = {"reasoning_tokens": output_details["reasoning"]}
+
     if not usage:
         return None
 
