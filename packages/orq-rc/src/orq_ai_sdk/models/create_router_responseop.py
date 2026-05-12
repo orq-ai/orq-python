@@ -975,10 +975,10 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     background: bool
     completed_at: Nullable[int]
     created_at: int
-    error: ResponseErrorTypedDict
+    error: Nullable[ResponseErrorTypedDict]
     frequency_penalty: float
     id: str
-    incomplete_details: IncompleteDetailsTypedDict
+    incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
@@ -996,7 +996,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     previous_response_id: Nullable[str]
     prompt_cache_key: Nullable[str]
     prompt_cache_retention: Nullable[str]
-    reasoning: ReasoningTypedDict
+    reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
     service_tier: ServiceTier
     status: CreateRouterResponseStatus
@@ -1027,13 +1027,13 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     created_at: int
 
-    error: ResponseError
+    error: Nullable[ResponseError]
 
     frequency_penalty: float
 
     id: str
 
-    incomplete_details: IncompleteDetails
+    incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
@@ -1065,7 +1065,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     prompt_cache_retention: Nullable[str]
 
-    reasoning: Reasoning
+    reasoning: Nullable[Reasoning]
 
     safety_identifier: Nullable[str]
 
@@ -1108,6 +1108,8 @@ class CreateRouterResponseResponseBody(BaseModel):
         nullable_fields = set(
             [
                 "completed_at",
+                "error",
+                "incomplete_details",
                 "input",
                 "instructions",
                 "max_output_tokens",
@@ -1116,6 +1118,7 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "previous_response_id",
                 "prompt_cache_key",
                 "prompt_cache_retention",
+                "reasoning",
                 "safety_identifier",
                 "tools",
                 "user",
