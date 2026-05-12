@@ -15,6 +15,12 @@ class PublicUsageTypedDict(TypedDict):
     output_tokens: int
     output_tokens_details: OutputTokensDetailsTypedDict
     total_tokens: int
+    input_cost: NotRequired[float]
+    r"""Cost (USD) of input tokens. Present when billing was computed for this response."""
+    output_cost: NotRequired[float]
+    r"""Cost (USD) of output tokens. Present when billing was computed for this response."""
+    total_cost: NotRequired[float]
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
     web_search_requests: NotRequired[int]
 
 
@@ -29,11 +35,22 @@ class PublicUsage(BaseModel):
 
     total_tokens: int
 
+    input_cost: Optional[float] = None
+    r"""Cost (USD) of input tokens. Present when billing was computed for this response."""
+
+    output_cost: Optional[float] = None
+    r"""Cost (USD) of output tokens. Present when billing was computed for this response."""
+
+    total_cost: Optional[float] = None
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
+
     web_search_requests: Optional[int] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["web_search_requests"])
+        optional_fields = set(
+            ["input_cost", "output_cost", "total_cost", "web_search_requests"]
+        )
         serialized = handler(self)
         m = {}
 
