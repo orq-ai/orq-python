@@ -1,7 +1,5 @@
 # ToolsType
 
-The type of tool
-
 ## Example Usage
 
 ```python

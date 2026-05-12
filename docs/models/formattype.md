@@ -1,7 +1,5 @@
 # FormatType
 
-Plain text response format
-
 ## Example Usage
 
 ```python

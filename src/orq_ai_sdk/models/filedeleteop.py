@@ -8,11 +8,9 @@ from typing_extensions import Annotated, TypedDict
 
 class FileDeleteRequestTypedDict(TypedDict):
     file_id: str
-    r"""The ID of the file"""
 
 
 class FileDeleteRequest(BaseModel):
     file_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The ID of the file"""

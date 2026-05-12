@@ -11,9 +11,9 @@ Input to the model: a string or an array of input items (messages, files, etc.).
 value: str = /* values here */
 ```
 
-### `List[models.CreateRouterResponseInput2]`
+### `List[models.Input2]`
 
 ```python
-value: List[models.CreateRouterResponseInput2] = /* values here */
+value: List[models.Input2] = /* values here */
 ```
 

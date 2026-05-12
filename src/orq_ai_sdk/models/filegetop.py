@@ -3,50 +3,14 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
-import pydantic
 from typing_extensions import Annotated, TypedDict
 
 
 class FileGetRequestTypedDict(TypedDict):
     file_id: str
-    r"""The ID of the file"""
 
 
 class FileGetRequest(BaseModel):
     file_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The ID of the file"""
-
-
-class FileGetResponseBodyTypedDict(TypedDict):
-    r"""File details retrieved successfully"""
-
-    id: str
-    bytes_: int
-    created: str
-    file_name: str
-    purpose: str
-    workspace_id: str
-
-
-class FileGetResponseBody(BaseModel):
-    r"""File details retrieved successfully"""
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    bytes_: Annotated[int, pydantic.Field(alias="bytes")]
-
-    created: str
-
-    file_name: str
-
-    purpose: str
-
-    workspace_id: str
-
-
-try:
-    FileGetResponseBody.model_rebuild()
-except NameError:
-    pass
