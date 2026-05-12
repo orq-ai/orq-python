@@ -21,7 +21,7 @@ targets:
         sourceRevisionDigest: sha256:f11524ab1df79471c111f367dd28884e9439ecbdf2eb003812c8878089a8142e
         sourceBlobDigest: sha256:ae88477638d81d0570eeef75e60cec87b7cb3931a12f0bb6f8b94fd37b66119a
         codeSamplesNamespace: orq-ai-sdk-prerelease-python-code-samples
-        codeSamplesRevisionDigest: sha256:6289ac524b2fcb2d5d2618b2004109239c4b845d5065c94013c4bc0928b05603
+        codeSamplesRevisionDigest: sha256:a4779eaf49e5660b7ccafcc74e38f0a67e305941560f605b97a7ae6cea705c95
     orq-ai-sdk-python:
         source: orq-ai-sdk-python
         sourceNamespace: orq-ai-sdk-python
