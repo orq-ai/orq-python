@@ -15,6 +15,7 @@ from ._events import Events
 from ._models import EventType, InFlightEvent
 from ._span_builder import build_otlp_span, _nano_timestamp
 from ._utils import (
+    coerce_chain_payload,
     extract_assistant_tool_calls,
     extract_model_name,
     extract_model_parameters,
@@ -23,6 +24,7 @@ from ._utils import (
     logger,
     normalize_messages,
     resolve_span_name,
+    root_output_delta,
 )
 
 
@@ -75,6 +77,7 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
         span = build_otlp_span(event)
         await self._client.send_span(span)
         self._events.remove(rid)
+        self._events.clear_root(rid)
 
     # ── LLM callbacks ──────────────────────────────────────────────
 
@@ -226,7 +229,7 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
                 run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags,
                 name=kwargs.get("name"),
             )
-            event.inputs = inputs if isinstance(inputs, dict) else {"inputs": inputs}
+            event.inputs = coerce_chain_payload(inputs)
 
             rid = str(run_id)
             if parent_run_id is None:
@@ -251,7 +254,10 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
             if not event:
                 return
             event.end_time_ns = _nano_timestamp()
-            event.outputs = outputs if isinstance(outputs, dict) else {"outputs": outputs}
+            outputs_dict = coerce_chain_payload(outputs)
+            if self._events.is_root(rid):
+                outputs_dict = root_output_delta(event.inputs, outputs_dict)
+            event.outputs = outputs_dict
 
             if self._events.is_graph_node(rid):
                 self._events.graph.on_node_end(event.name, str(self._events.root_run_id))
