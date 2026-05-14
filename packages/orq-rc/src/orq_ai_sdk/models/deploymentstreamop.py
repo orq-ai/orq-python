@@ -1830,64 +1830,6 @@ class DeploymentStreamAndEq(BaseModel):
     eq: DeploymentStreamAndDeploymentsEq
 
 
-DeploymentStream1DeploymentsInTypedDict = TypeAliasType(
-    "DeploymentStream1DeploymentsInTypedDict", Union[str, float, bool]
-)
-
-
-DeploymentStream1DeploymentsIn = TypeAliasType(
-    "DeploymentStream1DeploymentsIn", Union[str, float, bool]
-)
-
-
-class DeploymentStream1InTypedDict(TypedDict):
-    r"""In"""
-
-    in_: List[DeploymentStream1DeploymentsInTypedDict]
-
-
-class DeploymentStream1In(BaseModel):
-    r"""In"""
-
-    in_: Annotated[List[DeploymentStream1DeploymentsIn], pydantic.Field(alias="in")]
-
-
-class DeploymentStream1LteTypedDict(TypedDict):
-    r"""Less than or equal to"""
-
-    lte: float
-
-
-class DeploymentStream1Lte(BaseModel):
-    r"""Less than or equal to"""
-
-    lte: float
-
-
-class DeploymentStream1LtTypedDict(TypedDict):
-    r"""Less than"""
-
-    lt: float
-
-
-class DeploymentStream1Lt(BaseModel):
-    r"""Less than"""
-
-    lt: float
-
-
-class DeploymentStream1GteTypedDict(TypedDict):
-    r"""Greater than or equal to"""
-
-    gte: float
-
-
-class DeploymentStream1Gte(BaseModel):
-    r"""Greater than or equal to"""
-
-    gte: float
-
-
 DeploymentStreamKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
     "DeploymentStreamKnowledgeFilterDeploymentsAndTypedDict",
     Union[
@@ -1967,6 +1909,64 @@ class DeploymentStream1Nin(BaseModel):
     r"""Not in"""
 
     nin: List[DeploymentStream1DeploymentsNin]
+
+
+DeploymentStream1DeploymentsInTypedDict = TypeAliasType(
+    "DeploymentStream1DeploymentsInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStream1DeploymentsIn = TypeAliasType(
+    "DeploymentStream1DeploymentsIn", Union[str, float, bool]
+)
+
+
+class DeploymentStream1InTypedDict(TypedDict):
+    r"""In"""
+
+    in_: List[DeploymentStream1DeploymentsInTypedDict]
+
+
+class DeploymentStream1In(BaseModel):
+    r"""In"""
+
+    in_: Annotated[List[DeploymentStream1DeploymentsIn], pydantic.Field(alias="in")]
+
+
+class DeploymentStream1LteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    lte: float
+
+
+class DeploymentStream1Lte(BaseModel):
+    r"""Less than or equal to"""
+
+    lte: float
+
+
+class DeploymentStream1LtTypedDict(TypedDict):
+    r"""Less than"""
+
+    lt: float
+
+
+class DeploymentStream1Lt(BaseModel):
+    r"""Less than"""
+
+    lt: float
+
+
+class DeploymentStream1GteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    gte: float
+
+
+class DeploymentStream1Gte(BaseModel):
+    r"""Greater than or equal to"""
+
+    gte: float
 
 
 class DeploymentStream1GtTypedDict(TypedDict):
@@ -2881,10 +2881,10 @@ try:
 except NameError:
     pass
 try:
-    DeploymentStream1In.model_rebuild()
+    DeploymentStreamKnowledgeFilterAnd.model_rebuild()
 except NameError:
     pass
 try:
-    DeploymentStreamKnowledgeFilterAnd.model_rebuild()
+    DeploymentStream1In.model_rebuild()
 except NameError:
     pass

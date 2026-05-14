@@ -190,48 +190,6 @@ class CreateImageLoadBalancer1(BaseModel):
     models: List[CreateImageLoadBalancerModels]
 
 
-class CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict(TypedDict):
-    model: str
-    r"""Model identifier for load balancing"""
-    weight: NotRequired[float]
-    r"""Weight assigned to this model for load balancing"""
-
-
-class CreateImageLoadBalancerRouterImagesGenerationsModels(BaseModel):
-    model: str
-    r"""Model identifier for load balancing"""
-
-    weight: Optional[float] = 0.5
-    r"""Weight assigned to this model for load balancing"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["weight"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class CreateImageLoadBalancerRouterImagesGenerations1TypedDict(TypedDict):
-    type: CreateImageLoadBalancerRouterImagesGenerationsType
-    models: List[CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict]
-
-
-class CreateImageLoadBalancerRouterImagesGenerations1(BaseModel):
-    type: CreateImageLoadBalancerRouterImagesGenerationsType
-
-    models: List[CreateImageLoadBalancerRouterImagesGenerationsModels]
-
-
 CreateImageLoadBalancerTypedDict = CreateImageLoadBalancer1TypedDict
 r"""Load balancer configuration for the request."""
 
@@ -336,6 +294,48 @@ class CreateImageRouterImagesGenerationsCache(BaseModel):
 
 
 CreateImageLoadBalancerRouterImagesGenerationsType = Literal["weight_based",]
+
+
+class CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateImageLoadBalancerRouterImagesGenerationsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageLoadBalancerRouterImagesGenerations1TypedDict(TypedDict):
+    type: CreateImageLoadBalancerRouterImagesGenerationsType
+    models: List[CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict]
+
+
+class CreateImageLoadBalancerRouterImagesGenerations1(BaseModel):
+    type: CreateImageLoadBalancerRouterImagesGenerationsType
+
+    models: List[CreateImageLoadBalancerRouterImagesGenerationsModels]
 
 
 CreateImageRouterImagesGenerationsLoadBalancerTypedDict = (
