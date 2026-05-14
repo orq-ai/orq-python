@@ -15,6 +15,7 @@ from ._events import Events
 from ._models import EventType, InFlightEvent
 from ._span_builder import build_otlp_span, _nano_timestamp
 from ._utils import (
+    coerce_chain_payload,
     extract_assistant_tool_calls,
     extract_model_name,
     extract_model_parameters,
@@ -23,6 +24,7 @@ from ._utils import (
     logger,
     normalize_messages,
     resolve_span_name,
+    root_output_delta,
 )
 
 
@@ -77,6 +79,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
         span = build_otlp_span(event)
         self._client.send_span(span)
         self._events.remove(rid)
+        self._events.clear_root(rid)
 
     # ── LLM callbacks ──────────────────────────────────────────────
 
@@ -230,7 +233,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
                 run_id, parent_run_id, EventType.CHAIN, serialized, metadata, tags,
                 name=kwargs.get("name"),
             )
-            event.inputs = inputs if isinstance(inputs, dict) else {"inputs": inputs}
+            event.inputs = coerce_chain_payload(inputs)
 
             rid = str(run_id)
             # Track root chain (first parentless chain = LangGraph graph)
@@ -260,7 +263,15 @@ class OrqLangchainCallback(BaseCallbackHandler):
                 logger.debug("CHAIN_END MISSING run_id=%s", run_id)
                 return
             event.end_time_ns = _nano_timestamp()
-            event.outputs = outputs if isinstance(outputs, dict) else {"outputs": outputs}
+            outputs_dict = coerce_chain_payload(outputs)
+
+            # LangGraph hands the root chain its full merged state on completion,
+            # which echoes the input messages back. Subtract them so the root
+            # span's output contains only the messages this run produced.
+            if self._events.is_root(rid):
+                outputs_dict = root_output_delta(event.inputs, outputs_dict)
+
+            event.outputs = outputs_dict
 
             # Track graph node completion for edge building
             if self._events.is_graph_node(rid):

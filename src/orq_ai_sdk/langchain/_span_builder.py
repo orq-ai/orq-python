@@ -11,6 +11,7 @@ import time
 from typing import Any, Dict, List, Optional
 
 from ._models import EventType, InFlightEvent
+from ._utils import normalize_messages
 
 
 def _nano_timestamp() -> str:
@@ -218,6 +219,49 @@ def _extract_provider(serialized: Optional[Dict[str, Any]]) -> Optional[str]:
     return None
 
 
+_ROLE_ALIASES = {"human": "user", "ai": "assistant"}
+
+
+def _normalize_item(m: Any, base_message_cls: Any) -> Any:
+    """Normalize one chain-input message to a role/content dict."""
+    if isinstance(m, base_message_cls):
+        return normalize_messages([[m]])[0]
+    if isinstance(m, tuple) and len(m) == 2 and isinstance(m[0], str):
+        role = _ROLE_ALIASES.get(m[0].lower(), m[0].lower())
+        return {"role": role, "content": m[1]}
+    return m
+
+
+def _maybe_normalize_chain_messages(payload: Any) -> Any:
+    """Normalize a {'messages': [...]} payload to role-typed dicts.
+
+    Handles raw BaseMessage objects (from LangGraph state) and ('user', text)
+    tuples (the form accepted by agent.invoke). Without this, chain inputs
+    serialize via __str__ and lose the structured role field.
+    """
+    if not isinstance(payload, dict) or "messages" not in payload:
+        return payload
+    raw = payload["messages"]
+    if not isinstance(raw, list) or not raw:
+        return payload
+    try:
+        from langchain_core.messages import BaseMessage  # type: ignore  # pylint: disable=import-error,import-outside-toplevel
+    except ImportError:
+        return payload
+
+    def _needs(m: Any) -> bool:
+        if isinstance(m, BaseMessage):
+            return True
+        if isinstance(m, tuple) and len(m) == 2 and isinstance(m[0], str):
+            return True
+        return False
+
+    if not any(_needs(m) for m in raw):
+        return payload
+
+    return {**payload, "messages": [_normalize_item(m, BaseMessage) for m in raw]}
+
+
 def _build_prompt(event: InFlightEvent) -> Optional[Any]:
     """Build gen_ai.prompt value."""
     if event.event_type == EventType.LLM:
@@ -226,7 +270,7 @@ def _build_prompt(event: InFlightEvent) -> Optional[Any]:
         if event.prompts:
             return {"prompts": event.prompts}
     if event.event_type in (EventType.CHAIN, EventType.AGENT):
-        return event.inputs
+        return _maybe_normalize_chain_messages(event.inputs)
     if event.event_type == EventType.TOOL:
         if event.tool_input is not None:
             return {"input": event.tool_input}
@@ -246,7 +290,7 @@ def _build_completion(event: InFlightEvent) -> Optional[Any]:
             output["usage"] = event.token_usage
         return output if output else None
     if event.event_type in (EventType.CHAIN, EventType.AGENT):
-        return event.outputs
+        return _maybe_normalize_chain_messages(event.outputs)
     if event.event_type == EventType.TOOL:
         if event.tool_output is not None:
             return {"output": event.tool_output}

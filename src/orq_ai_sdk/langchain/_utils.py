@@ -179,6 +179,67 @@ def extract_token_usage(response: Any) -> Optional[Dict[str, Any]]:
     return result
 
 
+def coerce_chain_payload(payload: Any) -> Dict[str, Any]:
+    """Wrap chain inputs/outputs into a dict suitable for the span normalizer.
+
+    LangChain hands callbacks raw BaseMessage objects (or lists thereof) for
+    chains like RunnableSequence wrapping a chat model. Without coercion they
+    get stored as ``{"outputs": <AIMessage>}`` and serialized via ``__str__``,
+    producing an unreadable Python repr in the trace. Wrapping them as
+    ``{"messages": [...]}`` routes through the normal role/tool_calls path.
+    """
+    if isinstance(payload, dict):
+        return payload
+
+    try:
+        from langchain_core.messages import BaseMessage  # type: ignore  # pylint: disable=import-error,import-outside-toplevel
+    except ImportError:
+        return {"outputs": payload}
+
+    if isinstance(payload, BaseMessage):
+        return {"messages": [payload]}
+    if isinstance(payload, list) and payload and all(
+        isinstance(m, BaseMessage) for m in payload
+    ):
+        return {"messages": payload}
+    return {"outputs": payload}
+
+
+def root_output_delta(
+    inputs: Optional[Dict[str, Any]],
+    outputs: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Return outputs with input messages stripped from outputs['messages'].
+
+    LangGraph's root on_chain_end receives the full merged state, so the
+    input turns reappear in outputs['messages']. Use message ids when every
+    input has one (handles RemoveMessage correctly); otherwise fall back to
+    positional trimming, which is safe under the append-only add_messages
+    reducer LangGraph uses by default.
+    """
+    if not isinstance(inputs, dict) or not isinstance(outputs, dict):
+        return outputs
+    in_msgs = inputs.get("messages")
+    out_msgs = outputs.get("messages")
+    if not isinstance(in_msgs, list) or not isinstance(out_msgs, list) or not out_msgs:
+        return outputs
+
+    def _id_of(msg: Any) -> Optional[str]:
+        if isinstance(msg, dict):
+            return msg.get("id")
+        return getattr(msg, "id", None)
+
+    in_ids = [_id_of(m) for m in in_msgs]
+    if in_msgs and all(mid for mid in in_ids):
+        input_id_set = set(in_ids)
+        delta = [m for m in out_msgs if _id_of(m) not in input_id_set]
+        return {**outputs, "messages": delta}
+
+    if len(out_msgs) >= len(in_msgs):
+        return {**outputs, "messages": out_msgs[len(in_msgs):]}
+    return outputs
+
+
 def resolve_span_name(
     name: Optional[str] = None,
     metadata: Optional[Dict[str, Any]] = None,

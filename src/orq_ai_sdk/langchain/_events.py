@@ -49,6 +49,16 @@ class Events:
         """Check if this run_id is the root chain."""
         return run_id == self._root_run_id
 
+    def clear_root(self, run_id: str) -> None:
+        """Clear root tracking when the current root chain finishes.
+
+        Allows subsequent top-level invocations on the same handler to
+        be correctly identified as roots.
+        """
+        if run_id == self._root_run_id:
+            self._root_run_id = None
+            self.graph = GraphTracker()
+
     def is_graph_node(self, run_id: str) -> bool:
         """Check if this chain's parent is the root (= a LangGraph node)."""
         parent = self._parent_map.get(run_id)
