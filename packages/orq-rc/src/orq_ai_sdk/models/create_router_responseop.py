@@ -584,14 +584,6 @@ class OrqAiTool(BaseModel):
         return m
 
 
-class ToolsParametersTypedDict(TypedDict):
-    r"""The parameters the function accepts, as a JSON Schema object."""
-
-
-class ToolsParameters(BaseModel):
-    r"""The parameters the function accepts, as a JSON Schema object."""
-
-
 ToolsType = Literal["function",]
 
 
@@ -603,7 +595,7 @@ class ToolsFunctionTypedDict(TypedDict):
     type: ToolsType
     description: NotRequired[str]
     r"""A description of what the function does."""
-    parameters: NotRequired[ToolsParametersTypedDict]
+    parameters: NotRequired[Dict[str, Any]]
     r"""The parameters the function accepts, as a JSON Schema object."""
     strict: NotRequired[bool]
     r"""Whether to enforce strict parameter validation."""
@@ -620,7 +612,7 @@ class ToolsFunction(BaseModel):
     description: Optional[str] = None
     r"""A description of what the function does."""
 
-    parameters: Optional[ToolsParameters] = None
+    parameters: Optional[Dict[str, Any]] = None
     r"""The parameters the function accepts, as a JSON Schema object."""
 
     strict: Optional[bool] = None
