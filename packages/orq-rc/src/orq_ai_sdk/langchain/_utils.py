@@ -1,5 +1,6 @@
 """Shared helpers for the LangChain callback integration."""
 
+import json
 import logging
 import traceback
 import time
@@ -7,6 +8,31 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("orq_ai_sdk.langchain")
+
+
+def serialize_tool_payload(value: Any) -> str:
+    """JSON-encode a tool input/output, preserving structure for Pydantic models.
+
+    LangChain delivers tool inputs as either a pre-stringified ``input_str``
+    (which calls ``str()`` on a dict whose Pydantic-model values produce
+    ``Order(...)`` repr-notation) or as a structured ``inputs`` kwarg.
+    Routing the latter through ``pydantic_core.to_jsonable_python`` yields
+    valid JSON in the trace so evaluators and the trace viewer can parse it.
+
+    Strings pass through unchanged so the caller can hand back tool outputs
+    (which LangChain already coerces to ``str``) without double-quoting.
+    """
+    if isinstance(value, str):
+        return value
+    try:
+        from pydantic_core import to_jsonable_python  # type: ignore  # pylint: disable=import-error,import-outside-toplevel
+
+        return json.dumps(to_jsonable_python(value))
+    except Exception:  # pylint: disable=broad-except
+        try:
+            return json.dumps(value, default=str)
+        except Exception:  # pylint: disable=broad-except
+            return str(value)
 
 
 def get_iso_string() -> str:
