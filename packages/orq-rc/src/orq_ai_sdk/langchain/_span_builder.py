@@ -14,6 +14,24 @@ from ._models import EventType, InFlightEvent
 from ._utils import normalize_messages
 
 
+def _jsonable(value: Any) -> Any:
+    """Coerce Pydantic models (and other complex objects) to JSON-friendly form.
+
+    Without this, ``json.dumps(..., default=str)`` falls back to ``repr()`` for
+    Pydantic v2 models nested inside chain/agent inputs, producing
+    ``Order(customer_email='...')`` Python-repr in the trace instead of JSON.
+    BaseMessage objects have already been normalized to role/content dicts by
+    ``_maybe_normalize_chain_messages`` before reaching this point, so the
+    coercion here only touches values the role-normalizer left untouched.
+    """
+    try:
+        from pydantic_core import to_jsonable_python  # type: ignore  # pylint: disable=import-error,import-outside-toplevel
+
+        return to_jsonable_python(value)
+    except Exception:  # pylint: disable=broad-except
+        return value
+
+
 def _nano_timestamp() -> str:
     """Current time as nanoseconds since epoch string."""
     return str(int(time.time() * 1_000_000_000))
@@ -152,12 +170,12 @@ def _build_attributes(
     # Input as gen_ai.prompt (JSON-encoded string)
     prompt = _build_prompt(event)
     if prompt is not None:
-        attrs.append(_str_attr("gen_ai.prompt", json.dumps(prompt, default=str)))
+        attrs.append(_str_attr("gen_ai.prompt", json.dumps(_jsonable(prompt), default=str)))
 
     # Output as gen_ai.completion (JSON-encoded string)
     completion = _build_completion(event)
     if completion is not None:
-        attrs.append(_str_attr("gen_ai.completion", json.dumps(completion, default=str)))
+        attrs.append(_str_attr("gen_ai.completion", json.dumps(_jsonable(completion), default=str)))
 
     # Graph view (root trace span only)
     if event.graph_json:
@@ -273,7 +291,13 @@ def _build_prompt(event: InFlightEvent) -> Optional[Any]:
         return _maybe_normalize_chain_messages(event.inputs)
     if event.event_type == EventType.TOOL:
         if event.tool_input is not None:
-            return {"input": event.tool_input}
+            # Mirror the LLM prompt shape so the backend synthesizes
+            # gen_ai.input.messages -- the viewer's Input panel reads from
+            # input.messages, and a {"input": ...} wrapper does not feed it.
+            return {
+                "messages": [{"role": "user", "content": event.tool_input}],
+                "input": event.tool_input,
+            }
     if event.event_type == EventType.RETRIEVAL:
         if event.query is not None:
             return {"query": event.query}

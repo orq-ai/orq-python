@@ -25,6 +25,7 @@ from ._utils import (
     normalize_messages,
     resolve_span_name,
     root_output_delta,
+    serialize_tool_payload,
 )
 
 
@@ -326,7 +327,13 @@ class OrqLangchainCallback(BaseCallbackHandler):
             event = self._start_event(
                 run_id, parent_run_id, EventType.TOOL, serialized, metadata, tags
             )
-            event.tool_input = input_str
+            # LangChain's input_str is str(tool_input), which calls __repr__ on
+            # Pydantic-model values. Prefer the structured `inputs` kwarg when
+            # present so the trace carries valid JSON.
+            inputs = kwargs.get("inputs")
+            event.tool_input = (
+                serialize_tool_payload(inputs) if inputs is not None else input_str
+            )
         except Exception:
             logger.debug("on_tool_start error", exc_info=True)
 
@@ -343,7 +350,17 @@ class OrqLangchainCallback(BaseCallbackHandler):
             if not event:
                 return
             event.end_time_ns = _nano_timestamp()
-            event.tool_output = str(output)
+            # When invoked via tool_call (agents/langgraph), LangChain wraps the
+            # tool's return in a ToolMessage. The backend parses the legacy
+            # str(ToolMessage) shape to extract .content; dumping the whole
+            # message via to_jsonable_python surfaces internal fields
+            # (additional_kwargs, response_metadata, artifact, ...) in the
+            # viewer. Unwrap to .content so the result stays clean while still
+            # letting non-message Pydantic returns serialize structurally.
+            unwrapped: Any = output
+            if isinstance(output, BaseMessage):
+                unwrapped = output.content
+            event.tool_output = serialize_tool_payload(unwrapped)
             self._finish_and_send(run_id)
         except Exception:
             logger.debug("on_tool_end error", exc_info=True)
@@ -457,7 +474,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
                 event.agent_actions = []
             event.agent_actions.append({
                 "tool": action.tool,
-                "tool_input": str(action.tool_input),
+                "tool_input": serialize_tool_payload(action.tool_input),
                 "log": action.log,
             })
         except Exception:
