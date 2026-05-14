@@ -1459,11 +1459,11 @@ class Agents(BaseSDK):
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -1662,11 +1662,11 @@ class Agents(BaseSDK):
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -2172,11 +2172,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2364,11 +2364,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2561,11 +2561,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2786,11 +2786,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
