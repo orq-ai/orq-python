@@ -1,4 +1,4 @@
-# InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue
+# InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value
 
 
 ## Supported Types
@@ -13,11 +13,5 @@ value: float = /* values here */
 
 ```python
 value: bool = /* values here */
-```
-
-### `str`
-
-```python
-value: str = /* values here */
 ```
 

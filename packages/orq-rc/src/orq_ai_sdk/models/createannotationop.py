@@ -8,22 +8,18 @@ from typing import List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateAnnotationValueTypedDict = TypeAliasType(
-    "CreateAnnotationValueTypedDict", Union[str, float, List[str]]
-)
+ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, float, List[str]])
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For text/correction, provide a string."""
 
 
-CreateAnnotationValue = TypeAliasType(
-    "CreateAnnotationValue", Union[str, float, List[str]]
-)
+Value = TypeAliasType("Value", Union[str, float, List[str]])
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For text/correction, provide a string."""
 
 
 class CreateAnnotationAnnotationsTypedDict(TypedDict):
     key: str
     r"""Unique key of the review."""
-    value: CreateAnnotationValueTypedDict
+    value: ValueTypedDict
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For text/correction, provide a string."""
 
 
@@ -31,7 +27,7 @@ class CreateAnnotationAnnotations(BaseModel):
     key: str
     r"""Unique key of the review."""
 
-    value: CreateAnnotationValue
+    value: Value
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For text/correction, provide a string."""
 
 

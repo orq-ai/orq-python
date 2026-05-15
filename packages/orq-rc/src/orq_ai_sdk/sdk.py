@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.chunking import Chunking
-    from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
@@ -33,7 +32,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
-    from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.reporting import Reporting
     from orq_ai_sdk.responses import Responses
     from orq_ai_sdk.router import Router
     from orq_ai_sdk.routingrules import RoutingRules
@@ -47,14 +46,11 @@ class Orq(BaseSDK):
     https://docs.orq.ai - orq.ai Documentation
     """
 
-    contacts: "Contacts"
-    feedback: "Feedback"
     evals: "Evals"
     identities: "Identities"
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
-    remoteconfigs: "Remoteconfigs"
     tools: "Tools"
     knowledge: "Knowledge"
     chunking: "Chunking"
@@ -62,6 +58,7 @@ class Orq(BaseSDK):
     datasets: "Datasets"
     router: "Router"
     annotations: "Annotations"
+    feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     guardrail_rules: "GuardrailRules"
     policies: "Policies"
@@ -71,15 +68,13 @@ class Orq(BaseSDK):
     skills: "Skills"
     schedules: "Schedules"
     responses: "Responses"
+    reporting: "Reporting"
     _sub_sdk_map = {
-        "contacts": ("orq_ai_sdk.contacts", "Contacts"),
-        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
-        "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
@@ -87,6 +82,7 @@ class Orq(BaseSDK):
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
@@ -96,6 +92,7 @@ class Orq(BaseSDK):
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
+        "reporting": ("orq_ai_sdk.reporting", "Reporting"),
     }
 
     def __init__(
