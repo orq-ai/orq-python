@@ -296,8 +296,8 @@ with Orq(
 * [list](docs/sdks/identities/README.md#list) - List identities
 * [create](docs/sdks/identities/README.md#create) - Create an identity
 * [retrieve](docs/sdks/identities/README.md#retrieve) - Retrieve an identity
-* [update](docs/sdks/identities/README.md#update) - Update an identity
 * [delete](docs/sdks/identities/README.md#delete) - Delete an identity
+* [update](docs/sdks/identities/README.md#update) - Update an identity
 
 ### [Knowledge](docs/sdks/knowledge/README.md)
 
@@ -714,7 +714,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (47)</summary>
+<details><summary>Less common errors (43)</summary>
 
 <br />
 
@@ -739,9 +739,6 @@ with Orq(
 * [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 152 methods.*
 * [`InvokeEvalEvalsResponseResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponseresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 152 methods.*
 * [`GetV2EvaluatorsIDVersionsEvalsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 152 methods.*
-* [`RetrieveIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/retrieveidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 152 methods.*
-* [`UpdateIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/updateidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 152 methods.*
-* [`DeleteIdentityResponseBody`](./src/orq_ai_sdk/models/deleteidentityresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 152 methods.*
 * [`PostV2AgentsKeyCardRefreshAgentsResponseResponseBody`](./src/orq_ai_sdk/models/postv2agentskeycardrefreshagentsresponseresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 152 methods.*
 * [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 152 methods.*
 * [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 152 methods.*
@@ -766,7 +763,6 @@ with Orq(
 * [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 152 methods.*
 * [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 152 methods.*
 * [`InvokeEvalEvalsResponse500ResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponse500responsebody.py): Error running the evaluator. Status code `500`. Applicable to 1 of 152 methods.*
-* [`RetrieveIdentityIdentitiesResponseResponseBody`](./src/orq_ai_sdk/models/retrieveidentityidentitiesresponseresponsebody.py): Failed to fetch metrics. Status code `500`. Applicable to 1 of 152 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>

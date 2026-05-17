@@ -1283,7 +1283,7 @@ Messages = Annotated[
 ]
 
 
-class MetadataTypedDict(TypedDict):
+class InvokeDeploymentRequestMetadataTypedDict(TypedDict):
     r"""Metadata about the document"""
 
     file_name: NotRequired[str]
@@ -1294,7 +1294,7 @@ class MetadataTypedDict(TypedDict):
     r"""The page number the text is from."""
 
 
-class Metadata(BaseModel):
+class InvokeDeploymentRequestMetadata(BaseModel):
     r"""Metadata about the document"""
 
     file_name: Optional[str] = None
@@ -1326,7 +1326,7 @@ class Metadata(BaseModel):
 class DocumentsTypedDict(TypedDict):
     text: str
     r"""The text content of the document"""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[InvokeDeploymentRequestMetadataTypedDict]
     r"""Metadata about the document"""
 
 
@@ -1334,7 +1334,7 @@ class Documents(BaseModel):
     text: str
     r"""The text content of the document"""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[InvokeDeploymentRequestMetadata] = None
     r"""Metadata about the document"""
 
     @model_serializer(mode="wrap")

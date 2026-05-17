@@ -47,7 +47,6 @@ class Orq(BaseSDK):
     """
 
     evals: "Evals"
-    identities: "Identities"
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
@@ -64,6 +63,7 @@ class Orq(BaseSDK):
     policies: "Policies"
     routing_rules: "RoutingRules"
     files: "Files"
+    identities: "Identities"
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
@@ -71,7 +71,6 @@ class Orq(BaseSDK):
     reporting: "Reporting"
     _sub_sdk_map = {
         "evals": ("orq_ai_sdk.evals", "Evals"),
-        "identities": ("orq_ai_sdk.identities", "Identities"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
@@ -88,6 +87,7 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "identities": ("orq_ai_sdk.identities", "Identities"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
