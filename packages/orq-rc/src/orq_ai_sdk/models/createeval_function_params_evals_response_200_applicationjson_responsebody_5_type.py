@@ -1057,6 +1057,7 @@ class Llm2TypedDict(TypedDict):
     repetitions: NotRequired[int]
     categories: NotRequired[List[str]]
     categorical_labels: NotRequired[List[LLMCategoricalLabelsTypedDict]]
+    dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -1090,6 +1091,8 @@ class Llm2(BaseModel):
 
     categorical_labels: Optional[List[LLMCategoricalLabels]] = None
 
+    dataset_id: Optional[str] = None
+
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
@@ -1101,6 +1104,7 @@ class Llm2(BaseModel):
                 "repetitions",
                 "categories",
                 "categorical_labels",
+                "dataset_id",
                 "description",
             ]
         )
@@ -1329,6 +1333,7 @@ class Llm1TypedDict(TypedDict):
     repetitions: NotRequired[int]
     categories: NotRequired[List[str]]
     categorical_labels: NotRequired[List[CreateEvalLLMCategoricalLabelsTypedDict]]
+    dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -1362,6 +1367,8 @@ class Llm1(BaseModel):
 
     categorical_labels: Optional[List[CreateEvalLLMCategoricalLabels]] = None
 
+    dataset_id: Optional[str] = None
+
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
@@ -1373,6 +1380,7 @@ class Llm1(BaseModel):
                 "repetitions",
                 "categories",
                 "categorical_labels",
+                "dataset_id",
                 "description",
             ]
         )
@@ -1642,9 +1650,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T05:04:24.675Z"
+    created: Optional[str] = "2026-05-18T14:04:16.993Z"
 
-    updated: Optional[str] = "2026-05-18T05:04:24.675Z"
+    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1894,9 +1902,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-18T05:04:24.675Z"
+    created: Optional[str] = "2026-05-18T14:04:16.993Z"
 
-    updated: Optional[str] = "2026-05-18T05:04:24.675Z"
+    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
