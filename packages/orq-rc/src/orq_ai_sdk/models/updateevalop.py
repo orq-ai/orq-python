@@ -377,8 +377,8 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     description: NotRequired[str]
     prompt: NotRequired[str]
     output_type: NotRequired[str]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[CategoricalLabelsTypedDict]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[Nullable[List[CategoricalLabelsTypedDict]]]
     repetitions: NotRequired[float]
     mode: NotRequired[UpdateEvalMode]
     model: NotRequired[str]
@@ -409,9 +409,9 @@ class UpdateEvalRequestBody(BaseModel):
 
     output_type: Optional[str] = None
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[CategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[CategoricalLabels]] = UNSET
 
     repetitions: Optional[float] = None
 
@@ -470,7 +470,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["guardrail_config"])
+        nullable_fields = set(["categories", "categorical_labels", "guardrail_config"])
         serialized = handler(self)
         m = {}
 
@@ -748,9 +748,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -992,9 +992,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1722,9 +1722,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1932,9 +1932,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -2153,9 +2153,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -2357,9 +2357,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -2796,9 +2796,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
@@ -3083,9 +3083,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-18T14:04:16.993Z"
+    created: Optional[str] = "2026-05-19T05:02:56.176Z"
 
-    updated: Optional[str] = "2026-05-18T14:04:16.993Z"
+    updated: Optional[str] = "2026-05-19T05:02:56.176Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
