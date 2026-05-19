@@ -454,37 +454,37 @@ class Structured(BaseModel):
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval",]
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict",
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict = TypeAliasType(
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict",
     Union[float, bool],
 )
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value", Union[float, bool]
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue = TypeAliasType(
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue", Union[float, bool]
 )
 
 
-class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
+class InvokeEvalResponseBodyEvalsResponse200ValueTypedDict(TypedDict):
     type: str
-    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict
+    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict
 
 
-class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
+class InvokeEvalResponseBodyEvalsResponse200Value(BaseModel):
     type: str
 
-    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value
+    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue
 
 
 class InvokeEvalResponseBodyHTTPTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type
-    value: NotRequired[Nullable[InvokeEvalResponseBodyEvalsResponseValueTypedDict]]
+    value: NotRequired[Nullable[InvokeEvalResponseBodyEvalsResponse200ValueTypedDict]]
 
 
 class InvokeEvalResponseBodyHTTP(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type
 
-    value: OptionalNullable[InvokeEvalResponseBodyEvalsResponseValue] = UNSET
+    value: OptionalNullable[InvokeEvalResponseBodyEvalsResponse200Value] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -515,26 +515,6 @@ class InvokeEvalResponseBodyHTTP(BaseModel):
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["llm_evaluator",]
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict",
-    Union[float, bool, str],
-)
-
-
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue",
-    Union[float, bool, str],
-)
-
-
-OriginalValueTypedDict = TypeAliasType(
-    "OriginalValueTypedDict", Union[float, bool, str]
-)
-
-
-OriginalValue = TypeAliasType("OriginalValue", Union[float, bool, str])
-
-
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict",
     Union[float, bool, str],
@@ -547,12 +527,34 @@ InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value = TypeAliasType(
 )
 
 
+OriginalValueTypedDict = TypeAliasType(
+    "OriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+OriginalValue = TypeAliasType("OriginalValue", Union[float, bool, str])
+
+
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict = (
+    TypeAliasType(
+        "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict",
+        Union[float, bool, str],
+    )
+)
+
+
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue = TypeAliasType(
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue",
+    Union[float, bool, str],
+)
+
+
 class VotesTypedDict(TypedDict):
     model: str
     replacement: bool
     success: bool
     value: NotRequired[
-        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict
     ]
     explanation: NotRequired[str]
     error: NotRequired[str]
@@ -565,7 +567,9 @@ class Votes(BaseModel):
 
     success: bool
 
-    value: Optional[InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value] = None
+    value: Optional[
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue
+    ] = None
 
     explanation: Optional[str] = None
 
@@ -641,8 +645,10 @@ class ResponseBodyJury(BaseModel):
         return m
 
 
-class InvokeEvalResponseBodyEvalsValueTypedDict(TypedDict):
-    value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict]
+class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
+    value: Nullable[
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
+    ]
     workflow_run_id: NotRequired[str]
     trace_id: NotRequired[str]
     explanation: NotRequired[Nullable[str]]
@@ -651,8 +657,8 @@ class InvokeEvalResponseBodyEvalsValueTypedDict(TypedDict):
     jury: NotRequired[ResponseBodyJuryTypedDict]
 
 
-class InvokeEvalResponseBodyEvalsValue(BaseModel):
-    value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue]
+class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
+    value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value]
 
     workflow_run_id: Optional[str] = None
 
@@ -705,13 +711,13 @@ class InvokeEvalResponseBodyEvalsValue(BaseModel):
 
 class InvokeEvalResponseBodyLLMTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type
-    value: Nullable[InvokeEvalResponseBodyEvalsValueTypedDict]
+    value: Nullable[InvokeEvalResponseBodyEvalsResponseValueTypedDict]
 
 
 class InvokeEvalResponseBodyLLM(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type
 
-    value: Nullable[InvokeEvalResponseBodyEvalsValue]
+    value: Nullable[InvokeEvalResponseBodyEvalsResponseValue]
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -731,13 +737,13 @@ class InvokeEvalResponseBodyLLM(BaseModel):
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type = Literal["bert_score",]
 
 
-class InvokeEvalResponseBodyValueTypedDict(TypedDict):
+class InvokeEvalResponseBodyEvalsValueTypedDict(TypedDict):
     f1: float
     precision: float
     recall: float
 
 
-class InvokeEvalResponseBodyValue(BaseModel):
+class InvokeEvalResponseBodyEvalsValue(BaseModel):
     f1: float
 
     precision: float
@@ -747,13 +753,13 @@ class InvokeEvalResponseBodyValue(BaseModel):
 
 class BERTScoreTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type
-    value: InvokeEvalResponseBodyValueTypedDict
+    value: InvokeEvalResponseBodyEvalsValueTypedDict
 
 
 class BERTScore(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type
 
-    value: InvokeEvalResponseBodyValue
+    value: InvokeEvalResponseBodyEvalsValue
 
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["rouge_n",]
@@ -801,13 +807,13 @@ class RougeL(BaseModel):
     recall: float
 
 
-class ResponseBodyValueTypedDict(TypedDict):
+class InvokeEvalResponseBodyValueTypedDict(TypedDict):
     rouge_1: Rouge1TypedDict
     rouge_2: Rouge2TypedDict
     rouge_l: RougeLTypedDict
 
 
-class ResponseBodyValue(BaseModel):
+class InvokeEvalResponseBodyValue(BaseModel):
     rouge_1: Rouge1
 
     rouge_2: Rouge2
@@ -817,13 +823,13 @@ class ResponseBodyValue(BaseModel):
 
 class RougeNTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
-    value: ResponseBodyValueTypedDict
+    value: InvokeEvalResponseBodyValueTypedDict
 
 
 class RougeN(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
 
-    value: ResponseBodyValue
+    value: InvokeEvalResponseBodyValue
 
 
 InvokeEvalResponseBodyEvalsResponse200Type = Literal["string_array",]
@@ -843,25 +849,23 @@ class StringArray(BaseModel):
 InvokeEvalResponseBodyEvalsResponseType = Literal["boolean",]
 
 
-InvokeEvalResponseBodyEvalsResponse200ValueTypedDict = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200ValueTypedDict", Union[bool, str, float]
+ResponseBodyValueTypedDict = TypeAliasType(
+    "ResponseBodyValueTypedDict", Union[bool, str, float]
 )
 
 
-InvokeEvalResponseBodyEvalsResponse200Value = TypeAliasType(
-    "InvokeEvalResponseBodyEvalsResponse200Value", Union[bool, str, float]
-)
+ResponseBodyValue = TypeAliasType("ResponseBodyValue", Union[bool, str, float])
 
 
 class ResponseBodyBooleanTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponseType
-    value: Nullable[InvokeEvalResponseBodyEvalsResponse200ValueTypedDict]
+    value: Nullable[ResponseBodyValueTypedDict]
 
 
 class ResponseBodyBoolean(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponseType
 
-    value: Nullable[InvokeEvalResponseBodyEvalsResponse200Value]
+    value: Nullable[ResponseBodyValue]
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

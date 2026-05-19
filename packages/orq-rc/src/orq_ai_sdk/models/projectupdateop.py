@@ -10,7 +10,6 @@ from typing_extensions import Annotated, TypedDict
 
 class ProjectUpdateRequestTypedDict(TypedDict):
     project_id_param: str
-    r"""Project ID to update."""
     update_project_request: UpdateProjectRequestTypedDict
 
 
@@ -20,7 +19,6 @@ class ProjectUpdateRequest(BaseModel):
         pydantic.Field(alias="project_id"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""Project ID to update."""
 
     update_project_request: Annotated[
         UpdateProjectRequest,

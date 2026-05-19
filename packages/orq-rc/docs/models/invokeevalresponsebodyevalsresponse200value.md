@@ -1,23 +1,9 @@
 # InvokeEvalResponseBodyEvalsResponse200Value
 
 
-## Supported Types
+## Fields
 
-### `bool`
-
-```python
-value: bool = /* values here */
-```
-
-### `str`
-
-```python
-value: str = /* values here */
-```
-
-### `float`
-
-```python
-value: float = /* values here */
-```
-
+| Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                       | *str*                                                                                                                                        | :heavy_check_mark:                                                                                                                           | N/A                                                                                                                                          |
+| `value`                                                                                                                                      | [models.InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue](../models/invokeevalresponsebodyevalsresponse200applicationjsonvalue.md) | :heavy_check_mark:                                                                                                                           | N/A                                                                                                                                          |

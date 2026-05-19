@@ -10,12 +10,10 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateSkillResponseTypedDict(TypedDict):
     skill: NotRequired[SkillTypedDict]
-    r"""Newly created skill."""
 
 
 class CreateSkillResponse(BaseModel):
     skill: Optional[Skill] = None
-    r"""Newly created skill."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

@@ -10,7 +10,6 @@ from typing_extensions import Annotated, TypedDict
 
 class SkillUpdateRequestTypedDict(TypedDict):
     skill_id_param: str
-    r"""Skill ID to update."""
     update_skill_request: UpdateSkillRequestTypedDict
 
 
@@ -20,7 +19,6 @@ class SkillUpdateRequest(BaseModel):
         pydantic.Field(alias="skill_id"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""Skill ID to update."""
 
     update_skill_request: Annotated[
         UpdateSkillRequest,

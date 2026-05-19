@@ -10,26 +10,16 @@ from typing_extensions import NotRequired, TypedDict
 
 class ListSkillsResponseTypedDict(TypedDict):
     object: NotRequired[str]
-    r"""Object discriminator for list responses; always `list`."""
     data: NotRequired[List[SkillTypedDict]]
-    r"""Page of skills, ordered newest first."""
     has_more: NotRequired[bool]
-    r"""Whether more skills are available in the selected pagination
-    direction.
-    """
 
 
 class ListSkillsResponse(BaseModel):
     object: Optional[str] = None
-    r"""Object discriminator for list responses; always `list`."""
 
     data: Optional[List[Skill]] = None
-    r"""Page of skills, ordered newest first."""
 
     has_more: Optional[bool] = None
-    r"""Whether more skills are available in the selected pagination
-    direction.
-    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
