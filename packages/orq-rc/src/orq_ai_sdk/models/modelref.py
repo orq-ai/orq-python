@@ -9,6 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class ModelRefTypedDict(TypedDict):
     model: str
+    display_name: NotRequired[str]
     integration_id: NotRequired[str]
     weight: NotRequired[float]
 
@@ -16,13 +17,15 @@ class ModelRefTypedDict(TypedDict):
 class ModelRef(BaseModel):
     model: str
 
+    display_name: Optional[str] = None
+
     integration_id: Optional[str] = None
 
     weight: Optional[float] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["integration_id", "weight"])
+        optional_fields = set(["display_name", "integration_id", "weight"])
         serialized = handler(self)
         m = {}
 

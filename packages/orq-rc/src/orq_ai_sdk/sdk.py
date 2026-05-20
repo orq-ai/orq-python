@@ -7,7 +7,7 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 import importlib
-from orq_ai_sdk import models, utils
+from orq_ai_sdk import models as models_, utils
 from orq_ai_sdk._hooks import HookContext, SDKHooks
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.chunking import Chunking
-    from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
@@ -30,10 +29,11 @@ if TYPE_CHECKING:
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
+    from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
-    from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.reporting import Reporting
     from orq_ai_sdk.responses import Responses
     from orq_ai_sdk.router import Router
     from orq_ai_sdk.routingrules import RoutingRules
@@ -47,14 +47,10 @@ class Orq(BaseSDK):
     https://docs.orq.ai - orq.ai Documentation
     """
 
-    contacts: "Contacts"
-    feedback: "Feedback"
     evals: "Evals"
-    identities: "Identities"
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
-    remoteconfigs: "Remoteconfigs"
     tools: "Tools"
     knowledge: "Knowledge"
     chunking: "Chunking"
@@ -62,24 +58,24 @@ class Orq(BaseSDK):
     datasets: "Datasets"
     router: "Router"
     annotations: "Annotations"
+    feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     guardrail_rules: "GuardrailRules"
     policies: "Policies"
     routing_rules: "RoutingRules"
     files: "Files"
+    identities: "Identities"
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
+    models: "Models"
     responses: "Responses"
+    reporting: "Reporting"
     _sub_sdk_map = {
-        "contacts": ("orq_ai_sdk.contacts", "Contacts"),
-        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
-        "identities": ("orq_ai_sdk.identities", "Identities"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
-        "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
@@ -87,15 +83,19 @@ class Orq(BaseSDK):
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "identities": ("orq_ai_sdk.identities", "Identities"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
+        "models": ("orq_ai_sdk.models_", "Models"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
+        "reporting": ("orq_ai_sdk.reporting", "Reporting"),
     }
 
     def __init__(
@@ -149,15 +149,15 @@ class Orq(BaseSDK):
         security: Any = None
         if callable(api_key):
             # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(api_key=api_key())
+            security = lambda: models_.Security(api_key=api_key())
         else:
-            security = models.Security(api_key=api_key)
+            security = models_.Security(api_key=api_key)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
 
-        _globals = models.internal.Globals(
+        _globals = models_.internal.Globals(
             contact_id=utils.get_global_from_env(contact_id, "ORQ_CONTACT_ID", str),
             environment=utils.get_global_from_env(environment, "ORQ_ENVIRONMENT", str),
         )
@@ -267,8 +267,8 @@ class Orq(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.PostV2FeedbackEvaluationRemoveRequestBody,
-                models.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
+                models_.PostV2FeedbackEvaluationRemoveRequestBody,
+                models_.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -298,10 +298,10 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models.PostV2FeedbackEvaluationRemoveRequestBody]
+                request, Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody]
             )
         request = cast(
-            Optional[models.PostV2FeedbackEvaluationRemoveRequestBody], request
+            Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody], request
         )
 
         req = self._build_request(
@@ -322,7 +322,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.PostV2FeedbackEvaluationRemoveRequestBody],
+                Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -343,7 +343,7 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation/remove",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
+                    self.sdk_configuration.security, models_.Security
                 ),
             ),
             request=req,
@@ -355,20 +355,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models_.APIError("Unexpected response received", http_res)
 
     async def post_v2_feedback_evaluation_remove_async(
         self,
         *,
         request: Optional[
             Union[
-                models.PostV2FeedbackEvaluationRemoveRequestBody,
-                models.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
+                models_.PostV2FeedbackEvaluationRemoveRequestBody,
+                models_.PostV2FeedbackEvaluationRemoveRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -398,10 +398,10 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models.PostV2FeedbackEvaluationRemoveRequestBody]
+                request, Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody]
             )
         request = cast(
-            Optional[models.PostV2FeedbackEvaluationRemoveRequestBody], request
+            Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody], request
         )
 
         req = self._build_request_async(
@@ -422,7 +422,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.PostV2FeedbackEvaluationRemoveRequestBody],
+                Optional[models_.PostV2FeedbackEvaluationRemoveRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -443,7 +443,7 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation/remove",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
+                    self.sdk_configuration.security, models_.Security
                 ),
             ),
             request=req,
@@ -455,20 +455,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models_.APIError("Unexpected response received", http_res)
 
     def post_v2_feedback_evaluation(
         self,
         *,
         request: Optional[
             Union[
-                models.PostV2FeedbackEvaluationRequestBody,
-                models.PostV2FeedbackEvaluationRequestBodyTypedDict,
+                models_.PostV2FeedbackEvaluationRequestBody,
+                models_.PostV2FeedbackEvaluationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -498,9 +498,9 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models.PostV2FeedbackEvaluationRequestBody]
+                request, Optional[models_.PostV2FeedbackEvaluationRequestBody]
             )
-        request = cast(Optional[models.PostV2FeedbackEvaluationRequestBody], request)
+        request = cast(Optional[models_.PostV2FeedbackEvaluationRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -520,7 +520,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.PostV2FeedbackEvaluationRequestBody],
+                Optional[models_.PostV2FeedbackEvaluationRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -541,7 +541,7 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
+                    self.sdk_configuration.security, models_.Security
                 ),
             ),
             request=req,
@@ -553,20 +553,20 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models_.APIError("Unexpected response received", http_res)
 
     async def post_v2_feedback_evaluation_async(
         self,
         *,
         request: Optional[
             Union[
-                models.PostV2FeedbackEvaluationRequestBody,
-                models.PostV2FeedbackEvaluationRequestBodyTypedDict,
+                models_.PostV2FeedbackEvaluationRequestBody,
+                models_.PostV2FeedbackEvaluationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -596,9 +596,9 @@ class Orq(BaseSDK):
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
-                request, Optional[models.PostV2FeedbackEvaluationRequestBody]
+                request, Optional[models_.PostV2FeedbackEvaluationRequestBody]
             )
-        request = cast(Optional[models.PostV2FeedbackEvaluationRequestBody], request)
+        request = cast(Optional[models_.PostV2FeedbackEvaluationRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -618,7 +618,7 @@ class Orq(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.PostV2FeedbackEvaluationRequestBody],
+                Optional[models_.PostV2FeedbackEvaluationRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -639,7 +639,7 @@ class Orq(BaseSDK):
                 operation_id="post_/v2/feedback/evaluation",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
+                    self.sdk_configuration.security, models_.Security
                 ),
             ),
             request=req,
@@ -651,9 +651,9 @@ class Orq(BaseSDK):
             return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models_.APIError("Unexpected response received", http_res)

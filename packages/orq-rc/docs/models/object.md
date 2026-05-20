@@ -1,13 +1,15 @@
 # Object
 
+Always "model".
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Object
-value: Object = "list"
+value: Object = "model"
 ```
 
 
 ## Values
 
-- `"list"`
+- `"model"`

@@ -406,12 +406,12 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: Optional[List[str]] = None,
-        categorical_labels: Optional[
+        categories: OptionalNullable[List[str]] = UNSET,
+        categorical_labels: OptionalNullable[
             Union[
                 List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
             ]
-        ] = None,
+        ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -485,7 +485,7 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=categories,
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
                 repetitions=repetitions,
                 mode=mode,
@@ -579,12 +579,12 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: Optional[List[str]] = None,
-        categorical_labels: Optional[
+        categories: OptionalNullable[List[str]] = UNSET,
+        categorical_labels: OptionalNullable[
             Union[
                 List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
             ]
-        ] = None,
+        ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -658,7 +658,7 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=categories,
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
                 repetitions=repetitions,
                 mode=mode,

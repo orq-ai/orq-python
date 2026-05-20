@@ -23,7 +23,12 @@ class OrqResponses(BaseSDK):
         message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
+        identity: Optional[
+            Union[
+                models.CreateAgentResponseRequestIdentity,
+                models.CreateAgentResponseRequestIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
@@ -96,7 +101,9 @@ class OrqResponses(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
-                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.CreateAgentResponseRequestIdentity]
+                ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.CreateAgentResponseRequestThread]
@@ -199,7 +206,12 @@ class OrqResponses(BaseSDK):
         message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        identity: Optional[Union[models.Identity, models.IdentityTypedDict]] = None,
+        identity: Optional[
+            Union[
+                models.CreateAgentResponseRequestIdentity,
+                models.CreateAgentResponseRequestIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
@@ -272,7 +284,9 @@ class OrqResponses(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
-                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.CreateAgentResponseRequestIdentity]
+                ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.CreateAgentResponseRequestThread]
