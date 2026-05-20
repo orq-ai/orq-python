@@ -1606,6 +1606,38 @@ class DeploymentGetConfigOrEq(BaseModel):
     eq: DeploymentGetConfigOrDeploymentsEq
 
 
+DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict",
+    Union[
+        DeploymentGetConfigOrEqTypedDict,
+        DeploymentGetConfigOrNeTypedDict,
+        DeploymentGetConfigOrGtTypedDict,
+        DeploymentGetConfigOrGteTypedDict,
+        DeploymentGetConfigOrLtTypedDict,
+        DeploymentGetConfigOrLteTypedDict,
+        DeploymentGetConfigOrInTypedDict,
+        DeploymentGetConfigOrNinTypedDict,
+        DeploymentGetConfigOrExistsTypedDict,
+    ],
+)
+
+
+DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsOr",
+    Union[
+        DeploymentGetConfigOrEq,
+        DeploymentGetConfigOrNe,
+        DeploymentGetConfigOrGt,
+        DeploymentGetConfigOrGte,
+        DeploymentGetConfigOrLt,
+        DeploymentGetConfigOrLte,
+        DeploymentGetConfigOrIn,
+        DeploymentGetConfigOrNin,
+        DeploymentGetConfigOrExists,
+    ],
+)
+
+
 class DeploymentGetConfigKnowledgeFilterOrTypedDict(TypedDict):
     r"""Or"""
 
@@ -1964,38 +1996,6 @@ class DeploymentGetConfig1Eq(BaseModel):
     r"""Equal to"""
 
     eq: DeploymentGetConfig1DeploymentsEq
-
-
-DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict",
-    Union[
-        DeploymentGetConfigOrEqTypedDict,
-        DeploymentGetConfigOrNeTypedDict,
-        DeploymentGetConfigOrGtTypedDict,
-        DeploymentGetConfigOrGteTypedDict,
-        DeploymentGetConfigOrLtTypedDict,
-        DeploymentGetConfigOrLteTypedDict,
-        DeploymentGetConfigOrInTypedDict,
-        DeploymentGetConfigOrNinTypedDict,
-        DeploymentGetConfigOrExistsTypedDict,
-    ],
-)
-
-
-DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsOr",
-    Union[
-        DeploymentGetConfigOrEq,
-        DeploymentGetConfigOrNe,
-        DeploymentGetConfigOrGt,
-        DeploymentGetConfigOrGte,
-        DeploymentGetConfigOrLt,
-        DeploymentGetConfigOrLte,
-        DeploymentGetConfigOrIn,
-        DeploymentGetConfigOrNin,
-        DeploymentGetConfigOrExists,
-    ],
-)
 
 
 KnowledgeFilter1TypedDict = TypeAliasType(

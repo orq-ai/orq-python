@@ -748,9 +748,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -992,9 +992,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1722,9 +1722,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1883,311 +1883,6 @@ class UpdateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
         return m
 
 
-class UpdateEvalLLMRetryTypedDict(TypedDict):
-    count: NotRequired[int]
-    on_codes: NotRequired[List[int]]
-
-
-class UpdateEvalLLMRetry(BaseModel):
-    count: Optional[int] = 2
-
-    on_codes: Optional[List[int]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateEvalLLMFallbacksTypedDict(TypedDict):
-    model: str
-
-
-class UpdateEvalLLMFallbacks(BaseModel):
-    model: str
-
-
-class UpdateEvalLLMJudgesTypedDict(TypedDict):
-    model: str
-    retry: NotRequired[UpdateEvalLLMRetryTypedDict]
-    fallbacks: NotRequired[List[UpdateEvalLLMFallbacksTypedDict]]
-
-
-class UpdateEvalLLMJudges(BaseModel):
-    model: str
-
-    retry: Optional[UpdateEvalLLMRetry] = None
-
-    fallbacks: Optional[List[UpdateEvalLLMFallbacks]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["retry", "fallbacks"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateEvalLLMEvalsRetryTypedDict(TypedDict):
-    count: NotRequired[int]
-    on_codes: NotRequired[List[int]]
-
-
-class UpdateEvalLLMEvalsRetry(BaseModel):
-    count: Optional[int] = 2
-
-    on_codes: Optional[List[int]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateEvalLLMEvalsFallbacksTypedDict(TypedDict):
-    model: str
-
-
-class UpdateEvalLLMEvalsFallbacks(BaseModel):
-    model: str
-
-
-class UpdateEvalLLMReplacementJudgesTypedDict(TypedDict):
-    model: str
-    retry: NotRequired[UpdateEvalLLMEvalsRetryTypedDict]
-    fallbacks: NotRequired[List[UpdateEvalLLMEvalsFallbacksTypedDict]]
-
-
-class UpdateEvalLLMReplacementJudges(BaseModel):
-    model: str
-
-    retry: Optional[UpdateEvalLLMEvalsRetry] = None
-
-    fallbacks: Optional[List[UpdateEvalLLMEvalsFallbacks]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["retry", "fallbacks"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalLLMTieValue = Literal["Tie",]
-
-
-class UpdateEvalLLMJuryTypedDict(TypedDict):
-    judges: List[UpdateEvalLLMJudgesTypedDict]
-    replacement_judges: NotRequired[List[UpdateEvalLLMReplacementJudgesTypedDict]]
-    min_successful_judges: NotRequired[int]
-    tie_value: NotRequired[UpdateEvalLLMTieValue]
-
-
-class UpdateEvalLLMJury(BaseModel):
-    judges: List[UpdateEvalLLMJudges]
-
-    replacement_judges: Optional[List[UpdateEvalLLMReplacementJudges]] = None
-
-    min_successful_judges: Optional[int] = 2
-
-    tie_value: Optional[UpdateEvalLLMTieValue] = "Tie"
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            ["replacement_judges", "min_successful_judges", "tie_value"]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateEvalLLM2TypedDict(TypedDict):
-    id: str
-    description: str
-    type: UpdateEvalLLMEvalsType
-    prompt: str
-    key: str
-    mode: UpdateEvalLLMEvalsMode
-    jury: UpdateEvalLLMJuryTypedDict
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    guardrail_config: NotRequired[Nullable[UpdateEvalLLMEvalsGuardrailConfigTypedDict]]
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[UpdateEvalLLMEvalsCategoricalLabelsTypedDict]]
-
-
-class UpdateEvalLLM2(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    description: str
-
-    type: UpdateEvalLLMEvalsType
-
-    prompt: str
-
-    key: str
-
-    mode: UpdateEvalLLMEvalsMode
-
-    jury: UpdateEvalLLMJury
-
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
-
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
-
-    guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
-
-    repetitions: Optional[int] = None
-
-    categories: Optional[List[str]] = None
-
-    categorical_labels: Optional[List[UpdateEvalLLMEvalsCategoricalLabels]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "created",
-                "updated",
-                "guardrail_config",
-                "repetitions",
-                "categories",
-                "categorical_labels",
-            ]
-        )
-        nullable_fields = set(["guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type = (
-    Literal["number",]
-)
-
-
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1NumberTypedDict(
-    TypedDict
-):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
-    value: float
-    operator: (
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
-    )
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Number(
-    BaseModel
-):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
-
-    value: float
-
-    operator: (
-        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
-    )
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
     "UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict",
     Union[
@@ -2237,9 +1932,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -2458,9 +2153,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -2662,9 +2357,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -2901,6 +2596,311 @@ class UpdateEvalLLMEvalsCategoricalLabels(BaseModel):
 UpdateEvalLLMEvalsMode = Literal["jury",]
 
 
+class UpdateEvalLLMRetryTypedDict(TypedDict):
+    count: NotRequired[int]
+    on_codes: NotRequired[List[int]]
+
+
+class UpdateEvalLLMRetry(BaseModel):
+    count: Optional[int] = 2
+
+    on_codes: Optional[List[int]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateEvalLLMFallbacksTypedDict(TypedDict):
+    model: str
+
+
+class UpdateEvalLLMFallbacks(BaseModel):
+    model: str
+
+
+class UpdateEvalLLMJudgesTypedDict(TypedDict):
+    model: str
+    retry: NotRequired[UpdateEvalLLMRetryTypedDict]
+    fallbacks: NotRequired[List[UpdateEvalLLMFallbacksTypedDict]]
+
+
+class UpdateEvalLLMJudges(BaseModel):
+    model: str
+
+    retry: Optional[UpdateEvalLLMRetry] = None
+
+    fallbacks: Optional[List[UpdateEvalLLMFallbacks]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["retry", "fallbacks"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateEvalLLMEvalsRetryTypedDict(TypedDict):
+    count: NotRequired[int]
+    on_codes: NotRequired[List[int]]
+
+
+class UpdateEvalLLMEvalsRetry(BaseModel):
+    count: Optional[int] = 2
+
+    on_codes: Optional[List[int]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateEvalLLMEvalsFallbacksTypedDict(TypedDict):
+    model: str
+
+
+class UpdateEvalLLMEvalsFallbacks(BaseModel):
+    model: str
+
+
+class UpdateEvalLLMReplacementJudgesTypedDict(TypedDict):
+    model: str
+    retry: NotRequired[UpdateEvalLLMEvalsRetryTypedDict]
+    fallbacks: NotRequired[List[UpdateEvalLLMEvalsFallbacksTypedDict]]
+
+
+class UpdateEvalLLMReplacementJudges(BaseModel):
+    model: str
+
+    retry: Optional[UpdateEvalLLMEvalsRetry] = None
+
+    fallbacks: Optional[List[UpdateEvalLLMEvalsFallbacks]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["retry", "fallbacks"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalLLMTieValue = Literal["Tie",]
+
+
+class UpdateEvalLLMJuryTypedDict(TypedDict):
+    judges: List[UpdateEvalLLMJudgesTypedDict]
+    replacement_judges: NotRequired[List[UpdateEvalLLMReplacementJudgesTypedDict]]
+    min_successful_judges: NotRequired[int]
+    tie_value: NotRequired[UpdateEvalLLMTieValue]
+
+
+class UpdateEvalLLMJury(BaseModel):
+    judges: List[UpdateEvalLLMJudges]
+
+    replacement_judges: Optional[List[UpdateEvalLLMReplacementJudges]] = None
+
+    min_successful_judges: Optional[int] = 2
+
+    tie_value: Optional[UpdateEvalLLMTieValue] = "Tie"
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["replacement_judges", "min_successful_judges", "tie_value"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateEvalLLM2TypedDict(TypedDict):
+    id: str
+    description: str
+    type: UpdateEvalLLMEvalsType
+    prompt: str
+    key: str
+    mode: UpdateEvalLLMEvalsMode
+    jury: UpdateEvalLLMJuryTypedDict
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[Nullable[UpdateEvalLLMEvalsGuardrailConfigTypedDict]]
+    repetitions: NotRequired[int]
+    categories: NotRequired[List[str]]
+    categorical_labels: NotRequired[List[UpdateEvalLLMEvalsCategoricalLabelsTypedDict]]
+
+
+class UpdateEvalLLM2(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    type: UpdateEvalLLMEvalsType
+
+    prompt: str
+
+    key: str
+
+    mode: UpdateEvalLLMEvalsMode
+
+    jury: UpdateEvalLLMJury
+
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
+
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
+
+    guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
+
+    repetitions: Optional[int] = None
+
+    categories: Optional[List[str]] = None
+
+    categorical_labels: Optional[List[UpdateEvalLLMEvalsCategoricalLabels]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "created",
+                "updated",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
+        nullable_fields = set(["guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type = (
+    Literal["number",]
+)
+
+
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1NumberTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
+    value: float
+    operator: (
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
+    )
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Number(
+    BaseModel
+):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
+
+    value: float
+
+    operator: (
+        UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
+    )
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type = Literal[
     "categorical",
 ]
@@ -3078,9 +3078,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-13T10:36:29.892Z"
+    created: Optional[str] = "2026-05-20T18:15:27.999Z"
 
-    updated: Optional[str] = "2026-05-13T10:36:29.892Z"
+    updated: Optional[str] = "2026-05-20T18:15:27.999Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
@@ -3186,10 +3186,6 @@ try:
 except NameError:
     pass
 try:
-    UpdateEvalLLM2.model_rebuild()
-except NameError:
-    pass
-try:
     UpdateEvalResponseBodyPython.model_rebuild()
 except NameError:
     pass
@@ -3199,6 +3195,10 @@ except NameError:
     pass
 try:
     UpdateEvalResponseBodyJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateEvalLLM2.model_rebuild()
 except NameError:
     pass
 try:
