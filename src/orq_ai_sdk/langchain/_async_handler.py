@@ -342,7 +342,7 @@ class AsyncOrqLangchainCallback(AsyncCallbackHandler):
             # letting non-message Pydantic returns serialize structurally.
             unwrapped: Any = output
             if isinstance(output, BaseMessage):
-                unwrapped = output.content
+                unwrapped = getattr(output, "content", output)
             event.tool_output = serialize_tool_payload(unwrapped)
             await self._finish_and_send(run_id)
         except Exception:
