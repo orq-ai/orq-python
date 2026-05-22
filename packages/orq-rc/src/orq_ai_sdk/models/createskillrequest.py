@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateSkillRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
     description: NotRequired[str]
     r"""Short human-readable summary of what the skill is for."""
     tags: NotRequired[List[str]]
@@ -24,7 +24,7 @@ class CreateSkillRequestTypedDict(TypedDict):
 
 class CreateSkillRequest(BaseModel):
     display_name: Optional[str] = None
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
 
     description: Optional[str] = None
     r"""Short human-readable summary of what the skill is for."""

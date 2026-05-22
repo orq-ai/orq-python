@@ -11,7 +11,11 @@ class UpdateSkillRequestTypedDict(TypedDict):
     skill_id: NotRequired[str]
     r"""Skill ID to update."""
     display_name: NotRequired[str]
-    r"""New workspace-unique display name. Omit to keep the current name."""
+    r"""New workspace-unique display name. Omit to keep the current name.
+    Must start with a letter and may contain letters, numbers, and
+    underscores. Dashes and dots are not allowed because skill names
+    are referenced as template variables.
+    """
     description: NotRequired[str]
     r"""New description. Omit to keep the current description."""
     tags: NotRequired[List[str]]
@@ -29,7 +33,11 @@ class UpdateSkillRequest(BaseModel):
     r"""Skill ID to update."""
 
     display_name: Optional[str] = None
-    r"""New workspace-unique display name. Omit to keep the current name."""
+    r"""New workspace-unique display name. Omit to keep the current name.
+    Must start with a letter and may contain letters, numbers, and
+    underscores. Dashes and dots are not allowed because skill names
+    are referenced as template variables.
+    """
 
     description: Optional[str] = None
     r"""New description. Omit to keep the current description."""

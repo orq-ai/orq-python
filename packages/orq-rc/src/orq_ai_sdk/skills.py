@@ -220,7 +220,7 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens.
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
         :param description: Short human-readable summary of what the skill is for.
         :param tags: Free-form labels for organizing the skill.
         :param path: Project path where the skill should be stored.
@@ -325,7 +325,7 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens.
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
         :param description: Short human-readable summary of what the skill is for.
         :param tags: Free-form labels for organizing the skill.
         :param path: Project path where the skill should be stored.
@@ -785,6 +785,9 @@ class Skills(BaseSDK):
         :param skill_id_param: Skill ID to update.
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
+            Must start with a letter and may contain letters, numbers, and
+            underscores. Dashes and dots are not allowed because skill names
+            are referenced as template variables.
         :param description: New description. Omit to keep the current description.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param path: New project path. Omit to keep the current path.
@@ -902,6 +905,9 @@ class Skills(BaseSDK):
         :param skill_id_param: Skill ID to update.
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
+            Must start with a letter and may contain letters, numbers, and
+            underscores. Dashes and dots are not allowed because skill names
+            are referenced as template variables.
         :param description: New description. Omit to keep the current description.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param path: New project path. Omit to keep the current path.
