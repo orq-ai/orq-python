@@ -158,7 +158,15 @@ if TYPE_CHECKING:
         TopLogprobs,
         TopLogprobsTypedDict,
     )
+    from .allprojects import AllProjects, AllProjectsTypedDict
     from .apierror import APIError
+    from .apikey import APIKey, APIKeyTypedDict
+    from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
+    from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
+    from .apikeylistop import APIKeyListRequest, APIKeyListRequestTypedDict
+    from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
+    from .apikeystatus import APIKeyStatus
+    from .apikeyupdateop import APIKeyUpdateRequest, APIKeyUpdateRequestTypedDict
     from .audiocontentpartschema import (
         AudioContentPartSchema,
         AudioContentPartSchemaType,
@@ -629,6 +637,11 @@ if TYPE_CHECKING:
         CreateAnnotationRequestTypedDict,
         Value,
         ValueTypedDict,
+    )
+    from .createapikeyrequest import CreateAPIKeyRequest, CreateAPIKeyRequestTypedDict
+    from .createapikeyresponse import (
+        CreateAPIKeyResponse,
+        CreateAPIKeyResponseTypedDict,
     )
     from .createchatcompletionop import (
         CreateChatCompletion1Eq,
@@ -2572,6 +2585,10 @@ if TYPE_CHECKING:
         DeleteAnnotationRequestBodyTypedDict,
         DeleteAnnotationRequestTypedDict,
     )
+    from .deleteapikeyresponse import (
+        DeleteAPIKeyResponse,
+        DeleteAPIKeyResponseTypedDict,
+    )
     from .deletechunkop import DeleteChunkRequest, DeleteChunkRequestTypedDict
     from .deletechunksop import (
         DeleteChunksRequest,
@@ -3360,6 +3377,8 @@ if TYPE_CHECKING:
         DeploymentStreamUsage,
         DeploymentStreamUsageTypedDict,
     )
+    from .domain import Domain, DomainTypedDict
+    from .domaingroup import DomainGroup
     from .errorpart import ErrorPart, ErrorPartKind, ErrorPartTypedDict
     from .errorstreamingevent import (
         ErrorStreamingEvent,
@@ -3421,6 +3440,7 @@ if TYPE_CHECKING:
         FilePartKind,
         FilePartTypedDict,
     )
+    from .filepurpose import FilePurpose
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
     from .filter_ import FieldT, Filter, FilterTypedDict, Op
     from .get_v2_evaluators_id_versionsop import (
@@ -3765,6 +3785,7 @@ if TYPE_CHECKING:
         GetAllToolsResponseBody,
         GetAllToolsResponseBodyTypedDict,
     )
+    from .getapikeyresponse import GetAPIKeyResponse, GetAPIKeyResponseTypedDict
     from .getchunkscountop import (
         GetChunksCountRequest,
         GetChunksCountRequestBody,
@@ -4799,6 +4820,7 @@ if TYPE_CHECKING:
         Votes,
         VotesTypedDict,
     )
+    from .legacytokenfamily import LegacyTokenFamily
     from .limits import Limits, LimitsTypedDict
     from .list_agent_schedulesop import (
         ListAgentSchedulesRequest,
@@ -4955,6 +4977,11 @@ if TYPE_CHECKING:
         ListAgentsToolsTypedDict,
         ListAgentsType,
         QueryParamType,
+    )
+    from .listapikeysresponse import ListAPIKeysResponse, ListAPIKeysResponseTypedDict
+    from .listcapabilitiesresponse import (
+        ListCapabilitiesResponse,
+        ListCapabilitiesResponseTypedDict,
     )
     from .listchunksop import (
         ListChunksData,
@@ -5299,6 +5326,7 @@ if TYPE_CHECKING:
     from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
     from .no_response_error import NoResponseError
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
+    from .ownertype import OwnerType
     from .parseop import (
         AgenticChunker,
         AgenticChunkerStrategy,
@@ -5372,6 +5400,7 @@ if TYPE_CHECKING:
         PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType,
         PatchV2HumanEvalSetsIDResponseBodyTypedDict,
     )
+    from .permissionmode import PermissionMode
     from .policy import Policy, PolicyTypedDict
     from .policycreateop import (
         PolicyCreateRequestBody,
@@ -5535,6 +5564,7 @@ if TYPE_CHECKING:
     from .projectdeleteop import ProjectDeleteRequest, ProjectDeleteRequestTypedDict
     from .projectgetop import ProjectGetRequest, ProjectGetRequestTypedDict
     from .projectlistop import ProjectListRequest, ProjectListRequestTypedDict
+    from .projectscope import ProjectScope, ProjectScopeTypedDict
     from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
     from .publiccontact import PublicContact, PublicContactTypedDict
     from .publicidentity import PublicIdentity, PublicIdentityTypedDict
@@ -6256,6 +6286,7 @@ if TYPE_CHECKING:
         Schema,
         SchemaTypedDict,
     )
+    from .scopemode import ScopeMode
     from .searchknowledgeop import (
         AgenticRagConfig,
         AgenticRagConfigTypedDict,
@@ -6366,6 +6397,8 @@ if TYPE_CHECKING:
         SearchType,
     )
     from .security import Security, SecurityTypedDict
+    from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
+    from .singleproject import SingleProject, SingleProjectTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
@@ -7106,6 +7139,11 @@ if TYPE_CHECKING:
         UpdateAgentToolsTypedDict,
         UpdateAgentType,
         UpdateAgentVersionIncrement,
+    )
+    from .updateapikeyrequest import UpdateAPIKeyRequest, UpdateAPIKeyRequestTypedDict
+    from .updateapikeyresponse import (
+        UpdateAPIKeyResponse,
+        UpdateAPIKeyResponseTypedDict,
     )
     from .updatechunkop import (
         UpdateChunkKnowledgeMetadata,
@@ -8063,6 +8101,7 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
+    from .userowner import UserOwner, UserOwnerTypedDict
     from . import internal
 
 __all__ = [
@@ -8073,6 +8112,19 @@ __all__ = [
     "A2a",
     "A2aTypedDict",
     "APIError",
+    "APIKey",
+    "APIKeyDeleteRequest",
+    "APIKeyDeleteRequestTypedDict",
+    "APIKeyGetRequest",
+    "APIKeyGetRequestTypedDict",
+    "APIKeyListRequest",
+    "APIKeyListRequestTypedDict",
+    "APIKeyOwner",
+    "APIKeyOwnerTypedDict",
+    "APIKeyStatus",
+    "APIKeyTypedDict",
+    "APIKeyUpdateRequest",
+    "APIKeyUpdateRequestTypedDict",
     "ActionReviewRequestedStreamingEvent",
     "ActionReviewRequestedStreamingEventData",
     "ActionReviewRequestedStreamingEventDataTypedDict",
@@ -8274,6 +8326,8 @@ __all__ = [
     "AgenticChunkerStrategyTypedDict",
     "AgenticRagConfig",
     "AgenticRagConfigTypedDict",
+    "AllProjects",
+    "AllProjectsTypedDict",
     "AllowedTools",
     "AllowedToolsTypedDict",
     "And",
@@ -8401,6 +8455,10 @@ __all__ = [
     "ConversationParam",
     "ConversationParamTypedDict",
     "ConversationTypedDict",
+    "CreateAPIKeyRequest",
+    "CreateAPIKeyRequestTypedDict",
+    "CreateAPIKeyResponse",
+    "CreateAPIKeyResponseTypedDict",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools10Type",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools11Type",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type",
@@ -10313,6 +10371,8 @@ __all__ = [
     "DataTypescriptTypedDict",
     "DefaultValue",
     "DefaultValueTypedDict",
+    "DeleteAPIKeyResponse",
+    "DeleteAPIKeyResponseTypedDict",
     "DeleteAgentRequest",
     "DeleteAgentRequestTypedDict",
     "DeleteAgentResponseBody",
@@ -11032,6 +11092,9 @@ __all__ = [
     "DocumentTypedDict",
     "Documents",
     "DocumentsTypedDict",
+    "Domain",
+    "DomainGroup",
+    "DomainTypedDict",
     "EffectiveGrain",
     "Eight",
     "EightTypedDict",
@@ -11164,6 +11227,7 @@ __all__ = [
     "FilePartFileTypedDict",
     "FilePartKind",
     "FilePartTypedDict",
+    "FilePurpose",
     "FileTypedDict",
     "FileUpdateRequest",
     "FileUpdateRequestTypedDict",
@@ -11272,6 +11336,8 @@ __all__ = [
     "FunctionToolRunTypedDict",
     "FunctionToolTypedDict",
     "FunctionTypedDict",
+    "GetAPIKeyResponse",
+    "GetAPIKeyResponseTypedDict",
     "GetAgentResponse",
     "GetAgentResponseCompletionTokensDetails",
     "GetAgentResponseCompletionTokensDetailsTypedDict",
@@ -12451,8 +12517,11 @@ __all__ = [
     "Language",
     "LastMessageFull",
     "LastMessageFullTypedDict",
+    "LegacyTokenFamily",
     "Limits",
     "LimitsTypedDict",
+    "ListAPIKeysResponse",
+    "ListAPIKeysResponseTypedDict",
     "ListAgentSchedulesRequest",
     "ListAgentSchedulesRequestTypedDict",
     "ListAgentSchedulesResponseBody",
@@ -12599,6 +12668,8 @@ __all__ = [
     "ListAgentsTools",
     "ListAgentsToolsTypedDict",
     "ListAgentsType",
+    "ListCapabilitiesResponse",
+    "ListCapabilitiesResponseTypedDict",
     "ListChunksData",
     "ListChunksDataTypedDict",
     "ListChunksMetadata",
@@ -13095,6 +13166,7 @@ __all__ = [
     "OutputTokensDetails",
     "OutputTokensDetailsTypedDict",
     "OutputType",
+    "OwnerType",
     "Pages",
     "PagesTypedDict",
     "Parameters",
@@ -13146,6 +13218,7 @@ __all__ = [
     "Performance",
     "PerformanceTypedDict",
     "Period",
+    "PermissionMode",
     "PhotoRealVersion",
     "PlainText",
     "PlainTextTypedDict",
@@ -13282,6 +13355,8 @@ __all__ = [
     "ProjectGetRequestTypedDict",
     "ProjectListRequest",
     "ProjectListRequestTypedDict",
+    "ProjectScope",
+    "ProjectScopeTypedDict",
     "ProjectTypedDict",
     "ProjectUpdateRequest",
     "ProjectUpdateRequestTypedDict",
@@ -14125,6 +14200,7 @@ __all__ = [
     "RunAgentToolChoiceType",
     "Schema",
     "SchemaTypedDict",
+    "ScopeMode",
     "Scores",
     "ScoresTypedDict",
     "SearchKnowledge1Eq",
@@ -14228,6 +14304,8 @@ __all__ = [
     "SentenceChunker",
     "SentenceChunkerStrategy",
     "SentenceChunkerStrategyTypedDict",
+    "ServiceAccountOwner",
+    "ServiceAccountOwnerTypedDict",
     "ServiceTier",
     "Settings",
     "SettingsTypedDict",
@@ -14236,6 +14314,8 @@ __all__ = [
     "Seventeen",
     "SeventeenTypedDict",
     "Shorthand",
+    "SingleProject",
+    "SingleProjectTypedDict",
     "Six",
     "SixTypedDict",
     "Sixteen",
@@ -14713,6 +14793,10 @@ __all__ = [
     "TypescriptTypedDict",
     "UpdateA2AConfiguration",
     "UpdateA2AConfigurationTypedDict",
+    "UpdateAPIKeyRequest",
+    "UpdateAPIKeyRequestTypedDict",
+    "UpdateAPIKeyResponse",
+    "UpdateAPIKeyResponseTypedDict",
     "UpdateAgentA2AAgentConfiguration",
     "UpdateAgentA2AAgentConfigurationTypedDict",
     "UpdateAgentAgentToolInputCRUD",
@@ -15823,6 +15907,8 @@ __all__ = [
     "UseCases",
     "UserMessage",
     "UserMessageTypedDict",
+    "UserOwner",
+    "UserOwnerTypedDict",
     "Value",
     "ValueTypedDict",
     "Verbosity",
@@ -15972,7 +16058,22 @@ _dynamic_imports: dict[str, str] = {
     "RefusalTypedDict": ".agentthoughtstreamingevent",
     "TopLogprobs": ".agentthoughtstreamingevent",
     "TopLogprobsTypedDict": ".agentthoughtstreamingevent",
+    "AllProjects": ".allprojects",
+    "AllProjectsTypedDict": ".allprojects",
     "APIError": ".apierror",
+    "APIKey": ".apikey",
+    "APIKeyTypedDict": ".apikey",
+    "APIKeyDeleteRequest": ".apikeydeleteop",
+    "APIKeyDeleteRequestTypedDict": ".apikeydeleteop",
+    "APIKeyGetRequest": ".apikeygetop",
+    "APIKeyGetRequestTypedDict": ".apikeygetop",
+    "APIKeyListRequest": ".apikeylistop",
+    "APIKeyListRequestTypedDict": ".apikeylistop",
+    "APIKeyOwner": ".apikeyowner",
+    "APIKeyOwnerTypedDict": ".apikeyowner",
+    "APIKeyStatus": ".apikeystatus",
+    "APIKeyUpdateRequest": ".apikeyupdateop",
+    "APIKeyUpdateRequestTypedDict": ".apikeyupdateop",
     "AudioContentPartSchema": ".audiocontentpartschema",
     "AudioContentPartSchemaType": ".audiocontentpartschema",
     "AudioContentPartSchemaTypedDict": ".audiocontentpartschema",
@@ -16435,6 +16536,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateAnnotationRequestTypedDict": ".createannotationop",
     "Value": ".createannotationop",
     "ValueTypedDict": ".createannotationop",
+    "CreateAPIKeyRequest": ".createapikeyrequest",
+    "CreateAPIKeyRequestTypedDict": ".createapikeyrequest",
+    "CreateAPIKeyResponse": ".createapikeyresponse",
+    "CreateAPIKeyResponseTypedDict": ".createapikeyresponse",
     "CreateChatCompletion1Eq": ".createchatcompletionop",
     "CreateChatCompletion1EqTypedDict": ".createchatcompletionop",
     "CreateChatCompletion1Exists": ".createchatcompletionop",
@@ -18322,6 +18427,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestBody": ".deleteannotationop",
     "DeleteAnnotationRequestBodyTypedDict": ".deleteannotationop",
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
+    "DeleteAPIKeyResponse": ".deleteapikeyresponse",
+    "DeleteAPIKeyResponseTypedDict": ".deleteapikeyresponse",
     "DeleteChunkRequest": ".deletechunkop",
     "DeleteChunkRequestTypedDict": ".deletechunkop",
     "DeleteChunksRequest": ".deletechunksop",
@@ -19087,6 +19194,9 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentStreamThreadTypedDict": ".deploymentstreamop",
     "DeploymentStreamUsage": ".deploymentstreamop",
     "DeploymentStreamUsageTypedDict": ".deploymentstreamop",
+    "Domain": ".domain",
+    "DomainTypedDict": ".domain",
+    "DomainGroup": ".domaingroup",
     "ErrorPart": ".errorpart",
     "ErrorPartKind": ".errorpart",
     "ErrorPartTypedDict": ".errorpart",
@@ -19146,6 +19256,7 @@ _dynamic_imports: dict[str, str] = {
     "FilePartFileTypedDict": ".filepart",
     "FilePartKind": ".filepart",
     "FilePartTypedDict": ".filepart",
+    "FilePurpose": ".filepurpose",
     "FileUpdateRequest": ".fileupdateop",
     "FileUpdateRequestTypedDict": ".fileupdateop",
     "FieldT": ".filter_",
@@ -19470,6 +19581,8 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsRequestTypedDict": ".getalltoolsop",
     "GetAllToolsResponseBody": ".getalltoolsop",
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
+    "GetAPIKeyResponse": ".getapikeyresponse",
+    "GetAPIKeyResponseTypedDict": ".getapikeyresponse",
     "GetChunksCountRequest": ".getchunkscountop",
     "GetChunksCountRequestBody": ".getchunkscountop",
     "GetChunksCountRequestBodyTypedDict": ".getchunkscountop",
@@ -20485,6 +20598,7 @@ _dynamic_imports: dict[str, str] = {
     "TwoImageURLTypedDict": ".invokeevalop",
     "Votes": ".invokeevalop",
     "VotesTypedDict": ".invokeevalop",
+    "LegacyTokenFamily": ".legacytokenfamily",
     "Limits": ".limits",
     "LimitsTypedDict": ".limits",
     "ListAgentSchedulesRequest": ".list_agent_schedulesop",
@@ -20637,6 +20751,10 @@ _dynamic_imports: dict[str, str] = {
     "ListAgentsToolsTypedDict": ".listagentsop",
     "ListAgentsType": ".listagentsop",
     "QueryParamType": ".listagentsop",
+    "ListAPIKeysResponse": ".listapikeysresponse",
+    "ListAPIKeysResponseTypedDict": ".listapikeysresponse",
+    "ListCapabilitiesResponse": ".listcapabilitiesresponse",
+    "ListCapabilitiesResponseTypedDict": ".listcapabilitiesresponse",
     "ListChunksData": ".listchunksop",
     "ListChunksDataTypedDict": ".listchunksop",
     "ListChunksMetadata": ".listchunksop",
@@ -20970,6 +21088,7 @@ _dynamic_imports: dict[str, str] = {
     "NoResponseError": ".no_response_error",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
+    "OwnerType": ".ownertype",
     "AgenticChunker": ".parseop",
     "AgenticChunkerStrategy": ".parseop",
     "AgenticChunkerStrategyTypedDict": ".parseop",
@@ -21036,6 +21155,7 @@ _dynamic_imports: dict[str, str] = {
     "PatchV2HumanEvalSetsIDResponseBodyFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyTypedDict": ".patch_v2_human_eval_sets_id_op",
+    "PermissionMode": ".permissionmode",
     "Policy": ".policy",
     "PolicyTypedDict": ".policy",
     "PolicyCreateRequestBody": ".policycreateop",
@@ -21182,6 +21302,8 @@ _dynamic_imports: dict[str, str] = {
     "ProjectGetRequestTypedDict": ".projectgetop",
     "ProjectListRequest": ".projectlistop",
     "ProjectListRequestTypedDict": ".projectlistop",
+    "ProjectScope": ".projectscope",
+    "ProjectScopeTypedDict": ".projectscope",
     "ProjectUpdateRequest": ".projectupdateop",
     "ProjectUpdateRequestTypedDict": ".projectupdateop",
     "PublicContact": ".publiccontact",
@@ -21856,6 +21978,7 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentToolChoiceType": ".runagentop",
     "Schema": ".runagentop",
     "SchemaTypedDict": ".runagentop",
+    "ScopeMode": ".scopemode",
     "AgenticRagConfig": ".searchknowledgeop",
     "AgenticRagConfigTypedDict": ".searchknowledgeop",
     "FilterBy": ".searchknowledgeop",
@@ -21965,6 +22088,10 @@ _dynamic_imports: dict[str, str] = {
     "SearchType": ".searchknowledgeop",
     "Security": ".security",
     "SecurityTypedDict": ".security",
+    "ServiceAccountOwner": ".serviceaccountowner",
+    "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
+    "SingleProject": ".singleproject",
+    "SingleProjectTypedDict": ".singleproject",
     "Skill": ".skill",
     "SkillTypedDict": ".skill",
     "SkillDeleteRequest": ".skilldeleteop",
@@ -22682,6 +22809,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAgentToolsTypedDict": ".updateagentop",
     "UpdateAgentType": ".updateagentop",
     "UpdateAgentVersionIncrement": ".updateagentop",
+    "UpdateAPIKeyRequest": ".updateapikeyrequest",
+    "UpdateAPIKeyRequestTypedDict": ".updateapikeyrequest",
+    "UpdateAPIKeyResponse": ".updateapikeyresponse",
+    "UpdateAPIKeyResponseTypedDict": ".updateapikeyresponse",
     "UpdateChunkKnowledgeMetadata": ".updatechunkop",
     "UpdateChunkKnowledgeMetadataTypedDict": ".updatechunkop",
     "UpdateChunkMetadata": ".updatechunkop",
@@ -23610,6 +23741,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
+    "UserOwner": ".userowner",
+    "UserOwnerTypedDict": ".userowner",
 }
 
 _sub_packages = ["internal"]

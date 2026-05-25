@@ -18,6 +18,7 @@ import weakref
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.annotations import Annotations
+    from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
@@ -63,6 +64,7 @@ class Orq(BaseSDK):
     guardrail_rules: "GuardrailRules"
     policies: "Policies"
     routing_rules: "RoutingRules"
+    api_keys: "APIKeys"
     files: "Files"
     identities: "Identities"
     projects: "Projects"
@@ -88,6 +90,7 @@ class Orq(BaseSDK):
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "projects": ("orq_ai_sdk.projects", "Projects"),

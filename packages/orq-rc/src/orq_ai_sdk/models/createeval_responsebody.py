@@ -277,9 +277,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -329,27 +329,27 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator = Literal[
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody43Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody43Type
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -372,24 +372,24 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type = Lit
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategoricalTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type
     values: List[str]
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONCategorical(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type
 
     values: List[str]
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -412,24 +412,24 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type = Lite
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBooleanTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
     value: bool
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
 
     value: bool
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -500,9 +500,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[CreateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -550,27 +550,27 @@ CreateEvalGuardrailConfigEvalsResponse200Operator = Literal[
 
 
 class CreateEvalGuardrailConfigEvalsResponse200NumberTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody33Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponse200Operator
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody33Type
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsResponse200Operator
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -591,24 +591,24 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type = Lite
 
 
 class CreateEvalGuardrailConfigEvalsResponse200CategoricalTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
     values: List[str]
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200Categorical(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
 
     values: List[str]
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -629,24 +629,24 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Liter
 
 
 class CreateEvalGuardrailConfigEvalsResponse200BooleanTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
     value: bool
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
 
     value: bool
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -725,9 +725,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[CreateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -771,27 +771,27 @@ CreateEvalGuardrailConfigEvalsResponseOperator = Literal[
 
 
 class CreateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponseOperator
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsResponseOperator
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -810,24 +810,24 @@ CreateEvalGuardrailConfigEvalsResponse200Type = Literal["categorical",]
 
 
 class CreateEvalGuardrailConfigEvalsResponseCategoricalTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200Type
     values: List[str]
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponseCategorical(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200Type
 
     values: List[str]
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -846,24 +846,24 @@ CreateEvalGuardrailConfigEvalsResponseType = Literal["boolean",]
 
 
 class CreateEvalGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponseType
     value: bool
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponseType
 
     value: bool
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -925,9 +925,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[ResponseBodyGuardrailConfig] = UNSET
 
@@ -977,20 +977,18 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumberTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
     value: float
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
     )
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNumber(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMType
 
     value: float
@@ -999,11 +997,13 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNu
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMOperator
     )
 
+    enabled: Optional[bool] = True
+
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1026,26 +1026,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type = Lite
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategoricalTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
     values: List[str]
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMCategorical(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Type
 
     values: List[str]
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1068,26 +1068,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type = 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBooleanTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type
     value: bool
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBoolean(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM2Type
 
     value: bool
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1366,9 +1366,9 @@ class CreateEvalLLM2(BaseModel):
 
     jury: CreateEvalLLMJury
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[CreateEvalLLMEvalsResponseGuardrailConfig] = (
         UNSET
@@ -1436,20 +1436,18 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator = 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1NumberTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
     value: float
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
     )
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Number(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM13Type
 
     value: float
@@ -1458,11 +1456,13 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Operator
     )
 
+    enabled: Optional[bool] = True
+
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1485,26 +1485,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type =
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1CategoricalTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type
     values: List[str]
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Categorical(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM12Type
 
     values: List[str]
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1527,26 +1527,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type = 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1BooleanTypedDict(
     TypedDict
 ):
-    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
     value: bool
+    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Boolean(
     BaseModel
 ):
-    enabled: bool
-
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLM1Type
 
     value: bool
+
+    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
+        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1657,9 +1657,9 @@ class CreateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-25T07:24:03.664Z"
+    created: Optional[str] = "2026-05-25T11:28:12.993Z"
 
-    updated: Optional[str] = "2026-05-25T07:24:03.665Z"
+    updated: Optional[str] = "2026-05-25T11:28:12.993Z"
 
     guardrail_config: OptionalNullable[CreateEvalLLMEvalsGuardrailConfig] = UNSET
 
