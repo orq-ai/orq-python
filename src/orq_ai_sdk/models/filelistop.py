@@ -12,7 +12,6 @@ class FileListRequestTypedDict(TypedDict):
     limit: NotRequired[int]
     starting_after: NotRequired[str]
     ending_before: NotRequired[str]
-    project_id: NotRequired[str]
 
 
 class FileListRequest(BaseModel):
@@ -31,16 +30,9 @@ class FileListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
-    project_id: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["limit", "starting_after", "ending_before", "project_id"]
-        )
+        optional_fields = set(["limit", "starting_after", "ending_before"])
         serialized = handler(self)
         m = {}
 

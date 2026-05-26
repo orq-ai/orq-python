@@ -25,11 +25,11 @@ class CreateMemoryStoreRequestBodyTypedDict(TypedDict):
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
@@ -45,11 +45,11 @@ class CreateMemoryStoreRequestBody(BaseModel):
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     ttl: Optional[float] = None

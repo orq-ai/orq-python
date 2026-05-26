@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `project_id`                                                                                                    | *Optional[str]*                                                                                                 | :heavy_minus_sign:                                                                                              | Project ID to update.                                                                                           |
-| `name`                                                                                                          | *Optional[str]*                                                                                                 | :heavy_minus_sign:                                                                                              | New project name. Omit to keep the current name.                                                                |
-| `teams`                                                                                                         | List[*str*]                                                                                                     | :heavy_minus_sign:                                                                                              | Replacement list of team identifiers associated with the project.<br/> Leave empty to remove all team associations. |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `name`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `teams`            | List[*str*]        | :heavy_minus_sign: | N/A                |

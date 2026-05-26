@@ -10,12 +10,10 @@ from typing_extensions import NotRequired, TypedDict
 
 class GetProjectResponseTypedDict(TypedDict):
     project: NotRequired[ProjectTypedDict]
-    r"""Requested project."""
 
 
 class GetProjectResponse(BaseModel):
     project: Optional[Project] = None
-    r"""Requested project."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

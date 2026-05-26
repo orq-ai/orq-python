@@ -14,13 +14,7 @@ class SkillListRequestTypedDict(TypedDict):
     (or anything outside the range) is rejected by buf.validate.
     """
     starting_after: NotRequired[str]
-    r"""Cursor for forward pagination. Set to the `skill_id` of the last
-    item from the previous page.
-    """
     ending_before: NotRequired[str]
-    r"""Cursor for backward pagination. Set to the `skill_id` of the first
-    item from the previous page.
-    """
 
 
 class SkillListRequest(BaseModel):
@@ -36,17 +30,11 @@ class SkillListRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Cursor for forward pagination. Set to the `skill_id` of the last
-    item from the previous page.
-    """
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Cursor for backward pagination. Set to the `skill_id` of the first
-    item from the previous page.
-    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

@@ -158,15 +158,7 @@ if TYPE_CHECKING:
         TopLogprobs,
         TopLogprobsTypedDict,
     )
-    from .allprojects import AllProjects, AllProjectsTypedDict
     from .apierror import APIError
-    from .apikey import APIKey, APIKeyTypedDict
-    from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
-    from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
-    from .apikeylistop import APIKeyListRequest, APIKeyListRequestTypedDict
-    from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
-    from .apikeystatus import APIKeyStatus
-    from .apikeyupdateop import APIKeyUpdateRequest, APIKeyUpdateRequestTypedDict
     from .audiocontentpartschema import (
         AudioContentPartSchema,
         AudioContentPartSchemaType,
@@ -364,8 +356,6 @@ if TYPE_CHECKING:
         CreateAgentRequestLoadBalancerAgentsModelsTypedDict,
         CreateAgentRequestLoadBalancerAgentsResponse1,
         CreateAgentRequestLoadBalancerAgentsResponse1TypedDict,
-        CreateAgentRequestLoadBalancerAgentsResponseModels,
-        CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict,
         CreateAgentRequestLoadBalancerAgentsResponseType,
         CreateAgentRequestLoadBalancerAgentsType,
         CreateAgentRequestLoadBalancerModels,
@@ -531,6 +521,8 @@ if TYPE_CHECKING:
         ModelConfigurationType,
         ModelConfigurationTypedDict,
         ModelTypedDict,
+        Models,
+        ModelsTypedDict,
         Parameters,
         ParametersTypedDict,
         ProviderBuiltInTool,
@@ -605,8 +597,6 @@ if TYPE_CHECKING:
         Conversation,
         ConversationTypedDict,
         CreateAgentResponseRequestEngine,
-        CreateAgentResponseRequestIdentity,
-        CreateAgentResponseRequestIdentityTypedDict,
         CreateAgentResponseRequestMemory,
         CreateAgentResponseRequestMemoryTypedDict,
         CreateAgentResponseRequestRequest,
@@ -621,6 +611,8 @@ if TYPE_CHECKING:
         CreateAgentResponseRequestRoleTypedDict,
         CreateAgentResponseRequestThread,
         CreateAgentResponseRequestThreadTypedDict,
+        Identity,
+        IdentityTypedDict,
         PublicMessagePart,
         PublicMessagePartTypedDict,
         RoleToolMessage,
@@ -635,13 +627,8 @@ if TYPE_CHECKING:
         CreateAnnotationRequestBody,
         CreateAnnotationRequestBodyTypedDict,
         CreateAnnotationRequestTypedDict,
-        Value,
-        ValueTypedDict,
-    )
-    from .createapikeyrequest import CreateAPIKeyRequest, CreateAPIKeyRequestTypedDict
-    from .createapikeyresponse import (
-        CreateAPIKeyResponse,
-        CreateAPIKeyResponseTypedDict,
+        CreateAnnotationValue,
+        CreateAnnotationValueTypedDict,
     )
     from .createchatcompletionop import (
         CreateChatCompletion1Eq,
@@ -1147,6 +1134,12 @@ if TYPE_CHECKING:
         CreateCompletionVersion,
         Created,
         CreatedTypedDict,
+    )
+    from .createcontactop import (
+        CreateContactRequestBody,
+        CreateContactRequestBodyTypedDict,
+        CreateContactResponseBody,
+        CreateContactResponseBodyTypedDict,
     )
     from .createdatasetitemop import (
         CreateDatasetItem24,
@@ -1714,15 +1707,11 @@ if TYPE_CHECKING:
     )
     from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
     from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
-    from .createidentityrequest import (
-        CreateIdentityRequest,
-        CreateIdentityRequestMetadata,
-        CreateIdentityRequestMetadataTypedDict,
-        CreateIdentityRequestTypedDict,
-    )
-    from .createidentityresponse import (
-        CreateIdentityResponse,
-        CreateIdentityResponseTypedDict,
+    from .createidentityop import (
+        CreateIdentityRequestBody,
+        CreateIdentityRequestBodyTypedDict,
+        CreateIdentityResponseBody,
+        CreateIdentityResponseBodyTypedDict,
     )
     from .createimageeditop import (
         CreateImageEditCache,
@@ -2562,7 +2551,6 @@ if TYPE_CHECKING:
         ResponseBodyWordsTypedDict,
     )
     from .datapart import DataPart, DataPartKind, DataPartTypedDict
-    from .datapoint import DataPoint, DataPointTypedDict
     from .delete_agent_scheduleop import (
         DeleteAgentScheduleRequest,
         DeleteAgentScheduleRequestTypedDict,
@@ -2584,10 +2572,6 @@ if TYPE_CHECKING:
         DeleteAnnotationRequestBody,
         DeleteAnnotationRequestBodyTypedDict,
         DeleteAnnotationRequestTypedDict,
-    )
-    from .deleteapikeyresponse import (
-        DeleteAPIKeyResponse,
-        DeleteAPIKeyResponseTypedDict,
     )
     from .deletechunkop import DeleteChunkRequest, DeleteChunkRequestTypedDict
     from .deletechunksop import (
@@ -2614,10 +2598,11 @@ if TYPE_CHECKING:
         DeleteEvalResponseBodyData,
     )
     from .deletefileresponse import DeleteFileResponse, DeleteFileResponseTypedDict
-    from .deleteidentityop import DeleteIdentityRequest, DeleteIdentityRequestTypedDict
-    from .deleteidentityresponse import (
-        DeleteIdentityResponse,
-        DeleteIdentityResponseTypedDict,
+    from .deleteidentityop import (
+        DeleteIdentityRequest,
+        DeleteIdentityRequestTypedDict,
+        DeleteIdentityResponseBody,
+        DeleteIdentityResponseBodyData,
     )
     from .deleteknowledgeop import (
         DeleteKnowledgeRequest,
@@ -3377,8 +3362,6 @@ if TYPE_CHECKING:
         DeploymentStreamUsage,
         DeploymentStreamUsageTypedDict,
     )
-    from .domain import Domain, DomainTypedDict
-    from .domaingroup import DomainGroup
     from .errorpart import ErrorPart, ErrorPartKind, ErrorPartTypedDict
     from .errorstreamingevent import (
         ErrorStreamingEvent,
@@ -3440,9 +3423,7 @@ if TYPE_CHECKING:
         FilePartKind,
         FilePartTypedDict,
     )
-    from .filepurpose import FilePurpose
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
-    from .filter_ import FieldT, Filter, FilterTypedDict, Op
     from .get_v2_evaluators_id_versionsop import (
         GetV2EvaluatorsIDVersionsData,
         GetV2EvaluatorsIDVersionsDataTypedDict,
@@ -3785,7 +3766,6 @@ if TYPE_CHECKING:
         GetAllToolsResponseBody,
         GetAllToolsResponseBodyTypedDict,
     )
-    from .getapikeyresponse import GetAPIKeyResponse, GetAPIKeyResponseTypedDict
     from .getchunkscountop import (
         GetChunksCountRequest,
         GetChunksCountRequestBody,
@@ -4042,11 +4022,11 @@ if TYPE_CHECKING:
         GetEvalsLLMRetryTypedDict,
         GetEvalsLLMTieValue,
         GetEvalsLLMType,
-        GetEvalsObject,
         GetEvalsRequest,
         GetEvalsRequestTypedDict,
         GetEvalsResponseBody,
         GetEvalsResponseBodyTypedDict,
+        Object,
     )
     from .getfilecontentresponse import (
         GetFileContentResponse,
@@ -4459,8 +4439,6 @@ if TYPE_CHECKING:
         GuardrailRuleUpdateResponseBodyTypedDict,
     )
     from .honoapierror import HonoAPIError, HonoAPIErrorData
-    from .identity import Identity, IdentityTypedDict, Metadata, MetadataTypedDict
-    from .identitymetrics import IdentityMetrics, IdentityMetricsTypedDict
     from .imagecontentpartschema import (
         Detail,
         ImageContentPartSchema,
@@ -4593,8 +4571,6 @@ if TYPE_CHECKING:
         InvokeDeploymentRequestMessagesContentTypedDict,
         InvokeDeploymentRequestMessagesRole,
         InvokeDeploymentRequestMessagesType,
-        InvokeDeploymentRequestMetadata,
-        InvokeDeploymentRequestMetadataTypedDict,
         InvokeDeploymentRequestOrEq,
         InvokeDeploymentRequestOrEqTypedDict,
         InvokeDeploymentRequestOrIn,
@@ -4652,6 +4628,8 @@ if TYPE_CHECKING:
         MessagesTypedDict,
         MessagesUserMessage,
         MessagesUserMessageTypedDict,
+        Metadata,
+        MetadataTypedDict,
         Ne,
         NeTypedDict,
         Nin,
@@ -4753,9 +4731,9 @@ if TYPE_CHECKING:
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict,
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue,
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type,
-        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value,
-        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType,
         InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue,
@@ -4820,18 +4798,12 @@ if TYPE_CHECKING:
         Votes,
         VotesTypedDict,
     )
-    from .legacytokenfamily import LegacyTokenFamily
     from .limits import Limits, LimitsTypedDict
     from .list_agent_schedulesop import (
         ListAgentSchedulesRequest,
         ListAgentSchedulesRequestTypedDict,
         ListAgentSchedulesResponseBody,
         ListAgentSchedulesResponseBodyTypedDict,
-    )
-    from .list_modelsop import (
-        ListModelsObject,
-        ListModelsResponseBody,
-        ListModelsResponseBodyTypedDict,
     )
     from .listagentsop import (
         ListAgentsA2AAgentConfiguration,
@@ -4978,11 +4950,6 @@ if TYPE_CHECKING:
         ListAgentsType,
         QueryParamType,
     )
-    from .listapikeysresponse import ListAPIKeysResponse, ListAPIKeysResponseTypedDict
-    from .listcapabilitiesresponse import (
-        ListCapabilitiesResponse,
-        ListCapabilitiesResponseTypedDict,
-    )
     from .listchunksop import (
         ListChunksData,
         ListChunksDataTypedDict,
@@ -5112,10 +5079,18 @@ if TYPE_CHECKING:
         QueryParamStatusTypedDict,
     )
     from .listfilesresponse import ListFilesResponse, ListFilesResponseTypedDict
-    from .listidentitiesop import ListIdentitiesRequest, ListIdentitiesRequestTypedDict
-    from .listidentitiesresponse import (
-        ListIdentitiesResponse,
-        ListIdentitiesResponseTypedDict,
+    from .listidentitiesop import (
+        ListIdentitiesData,
+        ListIdentitiesDataTypedDict,
+        ListIdentitiesMetrics,
+        ListIdentitiesMetricsTypedDict,
+        ListIdentitiesObject,
+        ListIdentitiesRequest,
+        ListIdentitiesRequestTypedDict,
+        ListIdentitiesResponseBody,
+        ListIdentitiesResponseBodyTypedDict,
+        QueryParamFilterBy,
+        QueryParamFilterByTypedDict,
     )
     from .listknowledgebasesop import (
         Data1,
@@ -5326,7 +5301,6 @@ if TYPE_CHECKING:
     from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
     from .no_response_error import NoResponseError
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
-    from .ownertype import OwnerType
     from .parseop import (
         AgenticChunker,
         AgenticChunkerStrategy,
@@ -5400,7 +5374,6 @@ if TYPE_CHECKING:
         PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType,
         PatchV2HumanEvalSetsIDResponseBodyTypedDict,
     )
-    from .permissionmode import PermissionMode
     from .policy import Policy, PolicyTypedDict
     from .policycreateop import (
         PolicyCreateRequestBody,
@@ -5498,8 +5471,6 @@ if TYPE_CHECKING:
         PostV2FeedbackFeedbackResponseBodyData,
         PostV2FeedbackFeedbackResponseResponseBody,
         PostV2FeedbackFeedbackResponseResponseBodyData,
-        PostV2FeedbackFeedbackValue,
-        PostV2FeedbackFeedbackValueTypedDict,
         PostV2FeedbackProduct,
         PostV2FeedbackRequestBody,
         PostV2FeedbackRequestBodyTypedDict,
@@ -5507,6 +5478,8 @@ if TYPE_CHECKING:
         PostV2FeedbackResponseBodyTypedDict,
         PostV2FeedbackValue,
         PostV2FeedbackValueTypedDict,
+        Value,
+        ValueTypedDict,
     )
     from .post_v2_human_eval_setsop import (
         FilterType,
@@ -5564,11 +5537,9 @@ if TYPE_CHECKING:
     from .projectdeleteop import ProjectDeleteRequest, ProjectDeleteRequestTypedDict
     from .projectgetop import ProjectGetRequest, ProjectGetRequestTypedDict
     from .projectlistop import ProjectListRequest, ProjectListRequestTypedDict
-    from .projectscope import ProjectScope, ProjectScopeTypedDict
     from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
     from .publiccontact import PublicContact, PublicContactTypedDict
     from .publicidentity import PublicIdentity, PublicIdentityTypedDict
-    from .publicmodelentry import Object, PublicModelEntry, PublicModelEntryTypedDict
     from .publicschedule import (
         PublicSchedule,
         PublicScheduleType,
@@ -5583,18 +5554,6 @@ if TYPE_CHECKING:
         PublicSchedulePayloadTypedDict,
     )
     from .publicusage import PublicUsage, PublicUsageTypedDict
-    from .queryreportrequest import (
-        Grain,
-        GroupBy,
-        Metric,
-        QueryReportRequest,
-        QueryReportRequestTypedDict,
-    )
-    from .queryreportresponse import (
-        QueryReportResponse,
-        QueryReportResponseObject,
-        QueryReportResponseTypedDict,
-    )
     from .reasoning import Reasoning, ReasoningTypedDict
     from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
     from .reasoningpart import ReasoningPart, ReasoningPartKind, ReasoningPartTypedDict
@@ -5612,6 +5571,13 @@ if TYPE_CHECKING:
         RefusalPartSchema,
         RefusalPartSchemaType,
         RefusalPartSchemaTypedDict,
+    )
+    from .remoteconfigsgetconfigop import (
+        RemoteConfigsGetConfigRequestBody,
+        RemoteConfigsGetConfigRequestBodyTypedDict,
+        RemoteConfigsGetConfigResponseBody,
+        RemoteConfigsGetConfigResponseBodyTypedDict,
+        RemoteConfigsGetConfigType,
     )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
     from .responsedoneevent import (
@@ -5646,12 +5612,6 @@ if TYPE_CHECKING:
         ResponseFailedEventTypedDict,
     )
     from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
-    from .responsemeta import (
-        EffectiveGrain,
-        ResponseMeta,
-        ResponseMetaCurrency,
-        ResponseMetaTypedDict,
-    )
     from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
     from .responsestartedevent import (
         Data,
@@ -5917,12 +5877,16 @@ if TYPE_CHECKING:
         RetrieveDatasourceStatus,
     )
     from .retrieveidentityop import (
+        RetrieveIdentityIdentitiesResponseBody,
+        RetrieveIdentityIdentitiesResponseBodyData,
+        RetrieveIdentityIdentitiesResponseResponseBody,
+        RetrieveIdentityIdentitiesResponseResponseBodyData,
+        RetrieveIdentityMetrics,
+        RetrieveIdentityMetricsTypedDict,
         RetrieveIdentityRequest,
         RetrieveIdentityRequestTypedDict,
-    )
-    from .retrieveidentityresponse import (
-        RetrieveIdentityResponse,
-        RetrieveIdentityResponseTypedDict,
+        RetrieveIdentityResponseBody,
+        RetrieveIdentityResponseBodyTypedDict,
     )
     from .retrievememorydocumentop import (
         RetrieveMemoryDocumentRequest,
@@ -6286,7 +6250,6 @@ if TYPE_CHECKING:
         Schema,
         SchemaTypedDict,
     )
-    from .scopemode import ScopeMode
     from .searchknowledgeop import (
         AgenticRagConfig,
         AgenticRagConfigTypedDict,
@@ -6397,8 +6360,6 @@ if TYPE_CHECKING:
         SearchType,
     )
     from .security import Security, SecurityTypedDict
-    from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
-    from .singleproject import SingleProject, SingleProjectTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
@@ -6789,7 +6750,6 @@ if TYPE_CHECKING:
         ToolStartedEventType,
         ToolStartedEventTypedDict,
     )
-    from .totals import Totals, TotalsTypedDict
     from .trigger_agent_scheduleop import (
         TriggerAgentScheduleRequest,
         TriggerAgentScheduleRequestTypedDict,
@@ -7139,11 +7099,6 @@ if TYPE_CHECKING:
         UpdateAgentToolsTypedDict,
         UpdateAgentType,
         UpdateAgentVersionIncrement,
-    )
-    from .updateapikeyrequest import UpdateAPIKeyRequest, UpdateAPIKeyRequestTypedDict
-    from .updateapikeyresponse import (
-        UpdateAPIKeyResponse,
-        UpdateAPIKeyResponseTypedDict,
     )
     from .updatechunkop import (
         UpdateChunkKnowledgeMetadata,
@@ -7591,18 +7546,14 @@ if TYPE_CHECKING:
     from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
     from .updatefileresponse import UpdateFileResponse, UpdateFileResponseTypedDict
     from .updateidentityop import (
-        UpdateIdentityRequest1,
-        UpdateIdentityRequest1TypedDict,
-    )
-    from .updateidentityrequest import (
+        UpdateIdentityIdentitiesResponseBody,
+        UpdateIdentityIdentitiesResponseBodyData,
         UpdateIdentityRequest,
-        UpdateIdentityRequestMetadata,
-        UpdateIdentityRequestMetadataTypedDict,
+        UpdateIdentityRequestBody,
+        UpdateIdentityRequestBodyTypedDict,
         UpdateIdentityRequestTypedDict,
-    )
-    from .updateidentityresponse import (
-        UpdateIdentityResponse,
-        UpdateIdentityResponseTypedDict,
+        UpdateIdentityResponseBody,
+        UpdateIdentityResponseBodyTypedDict,
     )
     from .updateknowledgeop import (
         RequestBodyAgenticRagConfig,
@@ -8101,7 +8052,6 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
-    from .userowner import UserOwner, UserOwnerTypedDict
     from . import internal
 
 __all__ = [
@@ -8112,19 +8062,6 @@ __all__ = [
     "A2a",
     "A2aTypedDict",
     "APIError",
-    "APIKey",
-    "APIKeyDeleteRequest",
-    "APIKeyDeleteRequestTypedDict",
-    "APIKeyGetRequest",
-    "APIKeyGetRequestTypedDict",
-    "APIKeyListRequest",
-    "APIKeyListRequestTypedDict",
-    "APIKeyOwner",
-    "APIKeyOwnerTypedDict",
-    "APIKeyStatus",
-    "APIKeyTypedDict",
-    "APIKeyUpdateRequest",
-    "APIKeyUpdateRequestTypedDict",
     "ActionReviewRequestedStreamingEvent",
     "ActionReviewRequestedStreamingEventData",
     "ActionReviewRequestedStreamingEventDataTypedDict",
@@ -8326,8 +8263,6 @@ __all__ = [
     "AgenticChunkerStrategyTypedDict",
     "AgenticRagConfig",
     "AgenticRagConfigTypedDict",
-    "AllProjects",
-    "AllProjectsTypedDict",
     "AllowedTools",
     "AllowedToolsTypedDict",
     "And",
@@ -8455,10 +8390,6 @@ __all__ = [
     "ConversationParam",
     "ConversationParamTypedDict",
     "ConversationTypedDict",
-    "CreateAPIKeyRequest",
-    "CreateAPIKeyRequestTypedDict",
-    "CreateAPIKeyResponse",
-    "CreateAPIKeyResponseTypedDict",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools10Type",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools11Type",
     "CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type",
@@ -8550,8 +8481,6 @@ __all__ = [
     "CreateAgentRequestLoadBalancerAgentsModelsTypedDict",
     "CreateAgentRequestLoadBalancerAgentsResponse1",
     "CreateAgentRequestLoadBalancerAgentsResponse1TypedDict",
-    "CreateAgentRequestLoadBalancerAgentsResponseModels",
-    "CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict",
     "CreateAgentRequestLoadBalancerAgentsResponseType",
     "CreateAgentRequestLoadBalancerAgentsType",
     "CreateAgentRequestLoadBalancerModels",
@@ -8644,8 +8573,6 @@ __all__ = [
     "CreateAgentRequestType",
     "CreateAgentResponse",
     "CreateAgentResponseRequestEngine",
-    "CreateAgentResponseRequestIdentity",
-    "CreateAgentResponseRequestIdentityTypedDict",
     "CreateAgentResponseRequestMemory",
     "CreateAgentResponseRequestMemoryTypedDict",
     "CreateAgentResponseRequestRequest",
@@ -8682,6 +8609,8 @@ __all__ = [
     "CreateAnnotationRequestBody",
     "CreateAnnotationRequestBodyTypedDict",
     "CreateAnnotationRequestTypedDict",
+    "CreateAnnotationValue",
+    "CreateAnnotationValueTypedDict",
     "CreateChatCompletion1Eq",
     "CreateChatCompletion1EqTypedDict",
     "CreateChatCompletion1Exists",
@@ -9166,6 +9095,10 @@ __all__ = [
     "CreateCompletionUsage",
     "CreateCompletionUsageTypedDict",
     "CreateCompletionVersion",
+    "CreateContactRequestBody",
+    "CreateContactRequestBodyTypedDict",
+    "CreateContactResponseBody",
+    "CreateContactResponseBodyTypedDict",
     "CreateDatasetItem24",
     "CreateDatasetItem24TypedDict",
     "CreateDatasetItem2CacheControl",
@@ -9575,12 +9508,10 @@ __all__ = [
     "CreateFileRequestTypedDict",
     "CreateFileResponse",
     "CreateFileResponseTypedDict",
-    "CreateIdentityRequest",
-    "CreateIdentityRequestMetadata",
-    "CreateIdentityRequestMetadataTypedDict",
-    "CreateIdentityRequestTypedDict",
-    "CreateIdentityResponse",
-    "CreateIdentityResponseTypedDict",
+    "CreateIdentityRequestBody",
+    "CreateIdentityRequestBodyTypedDict",
+    "CreateIdentityResponseBody",
+    "CreateIdentityResponseBodyTypedDict",
     "CreateImageCache",
     "CreateImageCacheTypedDict",
     "CreateImageData",
@@ -10348,8 +10279,6 @@ __all__ = [
     "DataPart",
     "DataPartKind",
     "DataPartTypedDict",
-    "DataPoint",
-    "DataPointTypedDict",
     "DataPython",
     "DataPythonTypedDict",
     "DataRagas",
@@ -10371,8 +10300,6 @@ __all__ = [
     "DataTypescriptTypedDict",
     "DefaultValue",
     "DefaultValueTypedDict",
-    "DeleteAPIKeyResponse",
-    "DeleteAPIKeyResponseTypedDict",
     "DeleteAgentRequest",
     "DeleteAgentRequestTypedDict",
     "DeleteAgentResponseBody",
@@ -10407,8 +10334,8 @@ __all__ = [
     "DeleteFileResponseTypedDict",
     "DeleteIdentityRequest",
     "DeleteIdentityRequestTypedDict",
-    "DeleteIdentityResponse",
-    "DeleteIdentityResponseTypedDict",
+    "DeleteIdentityResponseBody",
+    "DeleteIdentityResponseBodyData",
     "DeleteKnowledgeRequest",
     "DeleteKnowledgeRequestTypedDict",
     "DeleteMemoryDocumentRequest",
@@ -11092,10 +11019,6 @@ __all__ = [
     "DocumentTypedDict",
     "Documents",
     "DocumentsTypedDict",
-    "Domain",
-    "DomainGroup",
-    "DomainTypedDict",
-    "EffectiveGrain",
     "Eight",
     "EightTypedDict",
     "Eighteen",
@@ -11206,7 +11129,6 @@ __all__ = [
     "FastChunker",
     "FastChunkerStrategy",
     "FastChunkerStrategyTypedDict",
-    "FieldT",
     "Fifteen",
     "FifteenTypedDict",
     "File",
@@ -11227,11 +11149,9 @@ __all__ = [
     "FilePartFileTypedDict",
     "FilePartKind",
     "FilePartTypedDict",
-    "FilePurpose",
     "FileTypedDict",
     "FileUpdateRequest",
     "FileUpdateRequestTypedDict",
-    "Filter",
     "FilterBy",
     "FilterBy1",
     "FilterBy1TypedDict",
@@ -11241,7 +11161,6 @@ __all__ = [
     "FilterByOrTypedDict",
     "FilterByTypedDict",
     "FilterType",
-    "FilterTypedDict",
     "FinishReason",
     "Five",
     "FiveTypedDict",
@@ -11336,8 +11255,6 @@ __all__ = [
     "FunctionToolRunTypedDict",
     "FunctionToolTypedDict",
     "FunctionTypedDict",
-    "GetAPIKeyResponse",
-    "GetAPIKeyResponseTypedDict",
     "GetAgentResponse",
     "GetAgentResponseCompletionTokensDetails",
     "GetAgentResponseCompletionTokensDetailsTypedDict",
@@ -11810,7 +11727,6 @@ __all__ = [
     "GetEvalsLLMRetryTypedDict",
     "GetEvalsLLMTieValue",
     "GetEvalsLLMType",
-    "GetEvalsObject",
     "GetEvalsRequest",
     "GetEvalsRequestTypedDict",
     "GetEvalsResponseBody",
@@ -12231,8 +12147,6 @@ __all__ = [
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBodyData",
     "GoogleSearchTool",
     "GoogleSearchToolTypedDict",
-    "Grain",
-    "GroupBy",
     "Gt",
     "GtTypedDict",
     "Gte",
@@ -12289,8 +12203,6 @@ __all__ = [
     "ID1",
     "IDTypedDict",
     "Identity",
-    "IdentityMetrics",
-    "IdentityMetricsTypedDict",
     "IdentityTypedDict",
     "Image",
     "ImageContentPartSchema",
@@ -12393,8 +12305,6 @@ __all__ = [
     "InvokeDeploymentRequestMessagesContentTypedDict",
     "InvokeDeploymentRequestMessagesRole",
     "InvokeDeploymentRequestMessagesType",
-    "InvokeDeploymentRequestMetadata",
-    "InvokeDeploymentRequestMetadataTypedDict",
     "InvokeDeploymentRequestOrEq",
     "InvokeDeploymentRequestOrEqTypedDict",
     "InvokeDeploymentRequestOrIn",
@@ -12441,9 +12351,9 @@ __all__ = [
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict",
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue",
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type",
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value",
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue",
@@ -12517,11 +12427,8 @@ __all__ = [
     "Language",
     "LastMessageFull",
     "LastMessageFullTypedDict",
-    "LegacyTokenFamily",
     "Limits",
     "LimitsTypedDict",
-    "ListAPIKeysResponse",
-    "ListAPIKeysResponseTypedDict",
     "ListAgentSchedulesRequest",
     "ListAgentSchedulesRequestTypedDict",
     "ListAgentSchedulesResponseBody",
@@ -12668,8 +12575,6 @@ __all__ = [
     "ListAgentsTools",
     "ListAgentsToolsTypedDict",
     "ListAgentsType",
-    "ListCapabilitiesResponse",
-    "ListCapabilitiesResponseTypedDict",
     "ListChunksData",
     "ListChunksDataTypedDict",
     "ListChunksMetadata",
@@ -12788,10 +12693,15 @@ __all__ = [
     "ListDatasourcesStatus",
     "ListFilesResponse",
     "ListFilesResponseTypedDict",
+    "ListIdentitiesData",
+    "ListIdentitiesDataTypedDict",
+    "ListIdentitiesMetrics",
+    "ListIdentitiesMetricsTypedDict",
+    "ListIdentitiesObject",
     "ListIdentitiesRequest",
     "ListIdentitiesRequestTypedDict",
-    "ListIdentitiesResponse",
-    "ListIdentitiesResponseTypedDict",
+    "ListIdentitiesResponseBody",
+    "ListIdentitiesResponseBodyTypedDict",
     "ListKnowledgeBasesData",
     "ListKnowledgeBasesDataAgenticRagConfig",
     "ListKnowledgeBasesDataAgenticRagConfigTypedDict",
@@ -12807,9 +12717,6 @@ __all__ = [
     "ListKnowledgeBasesRequestTypedDict",
     "ListKnowledgeBasesResponseBody",
     "ListKnowledgeBasesResponseBodyTypedDict",
-    "ListModelsObject",
-    "ListModelsResponseBody",
-    "ListModelsResponseBodyTypedDict",
     "ListProjectsResponse",
     "ListProjectsResponseTypedDict",
     "ListPromptVersions21",
@@ -13056,7 +12963,6 @@ __all__ = [
     "Metadata",
     "MetadataTypedDict",
     "Method",
-    "Metric",
     "Modalities",
     "Mode",
     "Model",
@@ -13098,8 +13004,10 @@ __all__ = [
     "ModelRefTypedDict",
     "ModelType",
     "ModelTypedDict",
+    "Models",
     "ModelsConfig",
     "ModelsConfigTypedDict",
+    "ModelsTypedDict",
     "Moderation",
     "Ne",
     "NeTypedDict",
@@ -13135,7 +13043,6 @@ __all__ = [
     "OneNin",
     "OneNinTypedDict",
     "OneTypedDict",
-    "Op",
     "Operator",
     "Or",
     "OrEq",
@@ -13166,7 +13073,6 @@ __all__ = [
     "OutputTokensDetails",
     "OutputTokensDetailsTypedDict",
     "OutputType",
-    "OwnerType",
     "Pages",
     "PagesTypedDict",
     "Parameters",
@@ -13218,7 +13124,6 @@ __all__ = [
     "Performance",
     "PerformanceTypedDict",
     "Period",
-    "PermissionMode",
     "PhotoRealVersion",
     "PlainText",
     "PlainTextTypedDict",
@@ -13281,8 +13186,6 @@ __all__ = [
     "PostV2FeedbackFeedbackResponseBodyData",
     "PostV2FeedbackFeedbackResponseResponseBody",
     "PostV2FeedbackFeedbackResponseResponseBodyData",
-    "PostV2FeedbackFeedbackValue",
-    "PostV2FeedbackFeedbackValueTypedDict",
     "PostV2FeedbackProduct",
     "PostV2FeedbackRemoveFeedbackProduct",
     "PostV2FeedbackRemoveFeedbackResponseBody",
@@ -13355,8 +13258,6 @@ __all__ = [
     "ProjectGetRequestTypedDict",
     "ProjectListRequest",
     "ProjectListRequestTypedDict",
-    "ProjectScope",
-    "ProjectScopeTypedDict",
     "ProjectTypedDict",
     "ProjectUpdateRequest",
     "ProjectUpdateRequestTypedDict",
@@ -13379,8 +13280,6 @@ __all__ = [
     "PublicIdentityTypedDict",
     "PublicMessagePart",
     "PublicMessagePartTypedDict",
-    "PublicModelEntry",
-    "PublicModelEntryTypedDict",
     "PublicSchedule",
     "PublicScheduleErrorDetail",
     "PublicScheduleErrorDetailTypedDict",
@@ -13397,14 +13296,11 @@ __all__ = [
     "QueryKnowledgeBaseToolTypedDict",
     "QueryMemoryStoreTool",
     "QueryMemoryStoreToolTypedDict",
+    "QueryParamFilterBy",
+    "QueryParamFilterByTypedDict",
     "QueryParamStatus",
     "QueryParamStatusTypedDict",
     "QueryParamType",
-    "QueryReportRequest",
-    "QueryReportRequestTypedDict",
-    "QueryReportResponse",
-    "QueryReportResponseObject",
-    "QueryReportResponseTypedDict",
     "Ragas",
     "RagasMetric",
     "RagasTypedDict",
@@ -13430,6 +13326,11 @@ __all__ = [
     "RefusalPartSchemaType",
     "RefusalPartSchemaTypedDict",
     "RefusalTypedDict",
+    "RemoteConfigsGetConfigRequestBody",
+    "RemoteConfigsGetConfigRequestBodyTypedDict",
+    "RemoteConfigsGetConfigResponseBody",
+    "RemoteConfigsGetConfigResponseBodyTypedDict",
+    "RemoteConfigsGetConfigType",
     "ReplacementJudges",
     "ReplacementJudgesTypedDict",
     "RequestBody",
@@ -13628,9 +13529,6 @@ __all__ = [
     "ResponseFormatTypedDict",
     "ResponseIdentity",
     "ResponseIdentityTypedDict",
-    "ResponseMeta",
-    "ResponseMetaCurrency",
-    "ResponseMetaTypedDict",
     "ResponseRetryConfig",
     "ResponseRetryConfigTypedDict",
     "ResponseStartedEvent",
@@ -13889,10 +13787,16 @@ __all__ = [
     "RetrieveDatasourceResponseBody",
     "RetrieveDatasourceResponseBodyTypedDict",
     "RetrieveDatasourceStatus",
+    "RetrieveIdentityIdentitiesResponseBody",
+    "RetrieveIdentityIdentitiesResponseBodyData",
+    "RetrieveIdentityIdentitiesResponseResponseBody",
+    "RetrieveIdentityIdentitiesResponseResponseBodyData",
+    "RetrieveIdentityMetrics",
+    "RetrieveIdentityMetricsTypedDict",
     "RetrieveIdentityRequest",
     "RetrieveIdentityRequestTypedDict",
-    "RetrieveIdentityResponse",
-    "RetrieveIdentityResponseTypedDict",
+    "RetrieveIdentityResponseBody",
+    "RetrieveIdentityResponseBodyTypedDict",
     "RetrieveKnowledgeBasesTool",
     "RetrieveKnowledgeBasesToolTypedDict",
     "RetrieveMemoryDocumentRequest",
@@ -14200,7 +14104,6 @@ __all__ = [
     "RunAgentToolChoiceType",
     "Schema",
     "SchemaTypedDict",
-    "ScopeMode",
     "Scores",
     "ScoresTypedDict",
     "SearchKnowledge1Eq",
@@ -14304,8 +14207,6 @@ __all__ = [
     "SentenceChunker",
     "SentenceChunkerStrategy",
     "SentenceChunkerStrategyTypedDict",
-    "ServiceAccountOwner",
-    "ServiceAccountOwnerTypedDict",
     "ServiceTier",
     "Settings",
     "SettingsTypedDict",
@@ -14314,8 +14215,6 @@ __all__ = [
     "Seventeen",
     "SeventeenTypedDict",
     "Shorthand",
-    "SingleProject",
-    "SingleProjectTypedDict",
     "Six",
     "SixTypedDict",
     "Sixteen",
@@ -14734,8 +14633,6 @@ __all__ = [
     "ToolsType",
     "TopLogprobs",
     "TopLogprobsTypedDict",
-    "Totals",
-    "TotalsTypedDict",
     "TriggerAgentScheduleRequest",
     "TriggerAgentScheduleRequestTypedDict",
     "TriggerAgentScheduleResponseBody",
@@ -14793,10 +14690,6 @@ __all__ = [
     "TypescriptTypedDict",
     "UpdateA2AConfiguration",
     "UpdateA2AConfigurationTypedDict",
-    "UpdateAPIKeyRequest",
-    "UpdateAPIKeyRequestTypedDict",
-    "UpdateAPIKeyResponse",
-    "UpdateAPIKeyResponseTypedDict",
     "UpdateAgentA2AAgentConfiguration",
     "UpdateAgentA2AAgentConfigurationTypedDict",
     "UpdateAgentAgentToolInputCRUD",
@@ -15424,14 +15317,14 @@ __all__ = [
     "UpdateFunctionToolTypedDict",
     "UpdateHTTPTool",
     "UpdateHTTPToolTypedDict",
+    "UpdateIdentityIdentitiesResponseBody",
+    "UpdateIdentityIdentitiesResponseBodyData",
     "UpdateIdentityRequest",
-    "UpdateIdentityRequest1",
-    "UpdateIdentityRequest1TypedDict",
-    "UpdateIdentityRequestMetadata",
-    "UpdateIdentityRequestMetadataTypedDict",
+    "UpdateIdentityRequestBody",
+    "UpdateIdentityRequestBodyTypedDict",
     "UpdateIdentityRequestTypedDict",
-    "UpdateIdentityResponse",
-    "UpdateIdentityResponseTypedDict",
+    "UpdateIdentityResponseBody",
+    "UpdateIdentityResponseBodyTypedDict",
     "UpdateJSONSchemaTool",
     "UpdateJSONSchemaToolTypedDict",
     "UpdateKnowledgeRequest",
@@ -15907,8 +15800,6 @@ __all__ = [
     "UseCases",
     "UserMessage",
     "UserMessageTypedDict",
-    "UserOwner",
-    "UserOwnerTypedDict",
     "Value",
     "ValueTypedDict",
     "Verbosity",
@@ -16058,22 +15949,7 @@ _dynamic_imports: dict[str, str] = {
     "RefusalTypedDict": ".agentthoughtstreamingevent",
     "TopLogprobs": ".agentthoughtstreamingevent",
     "TopLogprobsTypedDict": ".agentthoughtstreamingevent",
-    "AllProjects": ".allprojects",
-    "AllProjectsTypedDict": ".allprojects",
     "APIError": ".apierror",
-    "APIKey": ".apikey",
-    "APIKeyTypedDict": ".apikey",
-    "APIKeyDeleteRequest": ".apikeydeleteop",
-    "APIKeyDeleteRequestTypedDict": ".apikeydeleteop",
-    "APIKeyGetRequest": ".apikeygetop",
-    "APIKeyGetRequestTypedDict": ".apikeygetop",
-    "APIKeyListRequest": ".apikeylistop",
-    "APIKeyListRequestTypedDict": ".apikeylistop",
-    "APIKeyOwner": ".apikeyowner",
-    "APIKeyOwnerTypedDict": ".apikeyowner",
-    "APIKeyStatus": ".apikeystatus",
-    "APIKeyUpdateRequest": ".apikeyupdateop",
-    "APIKeyUpdateRequestTypedDict": ".apikeyupdateop",
     "AudioContentPartSchema": ".audiocontentpartschema",
     "AudioContentPartSchemaType": ".audiocontentpartschema",
     "AudioContentPartSchemaTypedDict": ".audiocontentpartschema",
@@ -16269,8 +16145,6 @@ _dynamic_imports: dict[str, str] = {
     "CreateAgentRequestLoadBalancerAgentsModelsTypedDict": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerAgentsResponse1": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerAgentsResponse1TypedDict": ".createagentrequestop",
-    "CreateAgentRequestLoadBalancerAgentsResponseModels": ".createagentrequestop",
-    "CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerAgentsResponseType": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerAgentsType": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerModels": ".createagentrequestop",
@@ -16436,6 +16310,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelConfigurationType": ".createagentrequestop",
     "ModelConfigurationTypedDict": ".createagentrequestop",
     "ModelTypedDict": ".createagentrequestop",
+    "Models": ".createagentrequestop",
+    "ModelsTypedDict": ".createagentrequestop",
     "Parameters": ".createagentrequestop",
     "ParametersTypedDict": ".createagentrequestop",
     "ProviderBuiltInTool": ".createagentrequestop",
@@ -16506,8 +16382,6 @@ _dynamic_imports: dict[str, str] = {
     "Conversation": ".createagentresponserequestop",
     "ConversationTypedDict": ".createagentresponserequestop",
     "CreateAgentResponseRequestEngine": ".createagentresponserequestop",
-    "CreateAgentResponseRequestIdentity": ".createagentresponserequestop",
-    "CreateAgentResponseRequestIdentityTypedDict": ".createagentresponserequestop",
     "CreateAgentResponseRequestMemory": ".createagentresponserequestop",
     "CreateAgentResponseRequestMemoryTypedDict": ".createagentresponserequestop",
     "CreateAgentResponseRequestRequest": ".createagentresponserequestop",
@@ -16522,6 +16396,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateAgentResponseRequestRoleTypedDict": ".createagentresponserequestop",
     "CreateAgentResponseRequestThread": ".createagentresponserequestop",
     "CreateAgentResponseRequestThreadTypedDict": ".createagentresponserequestop",
+    "Identity": ".createagentresponserequestop",
+    "IdentityTypedDict": ".createagentresponserequestop",
     "PublicMessagePart": ".createagentresponserequestop",
     "PublicMessagePartTypedDict": ".createagentresponserequestop",
     "RoleToolMessage": ".createagentresponserequestop",
@@ -16534,12 +16410,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateAnnotationRequestBody": ".createannotationop",
     "CreateAnnotationRequestBodyTypedDict": ".createannotationop",
     "CreateAnnotationRequestTypedDict": ".createannotationop",
-    "Value": ".createannotationop",
-    "ValueTypedDict": ".createannotationop",
-    "CreateAPIKeyRequest": ".createapikeyrequest",
-    "CreateAPIKeyRequestTypedDict": ".createapikeyrequest",
-    "CreateAPIKeyResponse": ".createapikeyresponse",
-    "CreateAPIKeyResponseTypedDict": ".createapikeyresponse",
+    "CreateAnnotationValue": ".createannotationop",
+    "CreateAnnotationValueTypedDict": ".createannotationop",
     "CreateChatCompletion1Eq": ".createchatcompletionop",
     "CreateChatCompletion1EqTypedDict": ".createchatcompletionop",
     "CreateChatCompletion1Exists": ".createchatcompletionop",
@@ -17039,6 +16911,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateCompletionVersion": ".createcompletionop",
     "Created": ".createcompletionop",
     "CreatedTypedDict": ".createcompletionop",
+    "CreateContactRequestBody": ".createcontactop",
+    "CreateContactRequestBodyTypedDict": ".createcontactop",
+    "CreateContactResponseBody": ".createcontactop",
+    "CreateContactResponseBodyTypedDict": ".createcontactop",
     "CreateDatasetItem24": ".createdatasetitemop",
     "CreateDatasetItem24TypedDict": ".createdatasetitemop",
     "CreateDatasetItem2CacheControl": ".createdatasetitemop",
@@ -17595,12 +17471,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateFileRequestTypedDict": ".createfilerequest",
     "CreateFileResponse": ".createfileresponse",
     "CreateFileResponseTypedDict": ".createfileresponse",
-    "CreateIdentityRequest": ".createidentityrequest",
-    "CreateIdentityRequestMetadata": ".createidentityrequest",
-    "CreateIdentityRequestMetadataTypedDict": ".createidentityrequest",
-    "CreateIdentityRequestTypedDict": ".createidentityrequest",
-    "CreateIdentityResponse": ".createidentityresponse",
-    "CreateIdentityResponseTypedDict": ".createidentityresponse",
+    "CreateIdentityRequestBody": ".createidentityop",
+    "CreateIdentityRequestBodyTypedDict": ".createidentityop",
+    "CreateIdentityResponseBody": ".createidentityop",
+    "CreateIdentityResponseBodyTypedDict": ".createidentityop",
     "CreateImageEditCache": ".createimageeditop",
     "CreateImageEditCacheTypedDict": ".createimageeditop",
     "CreateImageEditData": ".createimageeditop",
@@ -18411,8 +18285,6 @@ _dynamic_imports: dict[str, str] = {
     "DataPart": ".datapart",
     "DataPartKind": ".datapart",
     "DataPartTypedDict": ".datapart",
-    "DataPoint": ".datapoint",
-    "DataPointTypedDict": ".datapoint",
     "DeleteAgentScheduleRequest": ".delete_agent_scheduleop",
     "DeleteAgentScheduleRequestTypedDict": ".delete_agent_scheduleop",
     "DeleteAgentScheduleResponseBody": ".delete_agent_scheduleop",
@@ -18427,8 +18299,6 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestBody": ".deleteannotationop",
     "DeleteAnnotationRequestBodyTypedDict": ".deleteannotationop",
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
-    "DeleteAPIKeyResponse": ".deleteapikeyresponse",
-    "DeleteAPIKeyResponseTypedDict": ".deleteapikeyresponse",
     "DeleteChunkRequest": ".deletechunkop",
     "DeleteChunkRequestTypedDict": ".deletechunkop",
     "DeleteChunksRequest": ".deletechunksop",
@@ -18451,8 +18321,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteFileResponseTypedDict": ".deletefileresponse",
     "DeleteIdentityRequest": ".deleteidentityop",
     "DeleteIdentityRequestTypedDict": ".deleteidentityop",
-    "DeleteIdentityResponse": ".deleteidentityresponse",
-    "DeleteIdentityResponseTypedDict": ".deleteidentityresponse",
+    "DeleteIdentityResponseBody": ".deleteidentityop",
+    "DeleteIdentityResponseBodyData": ".deleteidentityop",
     "DeleteKnowledgeRequest": ".deleteknowledgeop",
     "DeleteKnowledgeRequestTypedDict": ".deleteknowledgeop",
     "DeleteMemoryDocumentRequest": ".deletememorydocumentop",
@@ -19194,9 +19064,6 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentStreamThreadTypedDict": ".deploymentstreamop",
     "DeploymentStreamUsage": ".deploymentstreamop",
     "DeploymentStreamUsageTypedDict": ".deploymentstreamop",
-    "Domain": ".domain",
-    "DomainTypedDict": ".domain",
-    "DomainGroup": ".domaingroup",
     "ErrorPart": ".errorpart",
     "ErrorPartKind": ".errorpart",
     "ErrorPartTypedDict": ".errorpart",
@@ -19256,13 +19123,8 @@ _dynamic_imports: dict[str, str] = {
     "FilePartFileTypedDict": ".filepart",
     "FilePartKind": ".filepart",
     "FilePartTypedDict": ".filepart",
-    "FilePurpose": ".filepurpose",
     "FileUpdateRequest": ".fileupdateop",
     "FileUpdateRequestTypedDict": ".fileupdateop",
-    "FieldT": ".filter_",
-    "Filter": ".filter_",
-    "FilterTypedDict": ".filter_",
-    "Op": ".filter_",
     "GetV2EvaluatorsIDVersionsData": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsDataTypedDict": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsEvalsResponseBody": ".get_v2_evaluators_id_versionsop",
@@ -19581,8 +19443,6 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsRequestTypedDict": ".getalltoolsop",
     "GetAllToolsResponseBody": ".getalltoolsop",
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
-    "GetAPIKeyResponse": ".getapikeyresponse",
-    "GetAPIKeyResponseTypedDict": ".getapikeyresponse",
     "GetChunksCountRequest": ".getchunkscountop",
     "GetChunksCountRequestBody": ".getchunkscountop",
     "GetChunksCountRequestBodyTypedDict": ".getchunkscountop",
@@ -19836,11 +19696,11 @@ _dynamic_imports: dict[str, str] = {
     "GetEvalsLLMRetryTypedDict": ".getevalsop",
     "GetEvalsLLMTieValue": ".getevalsop",
     "GetEvalsLLMType": ".getevalsop",
-    "GetEvalsObject": ".getevalsop",
     "GetEvalsRequest": ".getevalsop",
     "GetEvalsRequestTypedDict": ".getevalsop",
     "GetEvalsResponseBody": ".getevalsop",
     "GetEvalsResponseBodyTypedDict": ".getevalsop",
+    "Object": ".getevalsop",
     "GetFileContentResponse": ".getfilecontentresponse",
     "GetFileContentResponseTypedDict": ".getfilecontentresponse",
     "GetFileResponse": ".getfileresponse",
@@ -20239,12 +20099,6 @@ _dynamic_imports: dict[str, str] = {
     "GuardrailRuleUpdateResponseBodyTypedDict": ".guardrailruleupdateop",
     "HonoAPIError": ".honoapierror",
     "HonoAPIErrorData": ".honoapierror",
-    "Identity": ".identity",
-    "IdentityTypedDict": ".identity",
-    "Metadata": ".identity",
-    "MetadataTypedDict": ".identity",
-    "IdentityMetrics": ".identitymetrics",
-    "IdentityMetricsTypedDict": ".identitymetrics",
     "Detail": ".imagecontentpartschema",
     "ImageContentPartSchema": ".imagecontentpartschema",
     "ImageContentPartSchemaCacheControl": ".imagecontentpartschema",
@@ -20374,8 +20228,6 @@ _dynamic_imports: dict[str, str] = {
     "InvokeDeploymentRequestMessagesContentTypedDict": ".invokedeploymentrequest",
     "InvokeDeploymentRequestMessagesRole": ".invokedeploymentrequest",
     "InvokeDeploymentRequestMessagesType": ".invokedeploymentrequest",
-    "InvokeDeploymentRequestMetadata": ".invokedeploymentrequest",
-    "InvokeDeploymentRequestMetadataTypedDict": ".invokedeploymentrequest",
     "InvokeDeploymentRequestOrEq": ".invokedeploymentrequest",
     "InvokeDeploymentRequestOrEqTypedDict": ".invokedeploymentrequest",
     "InvokeDeploymentRequestOrIn": ".invokedeploymentrequest",
@@ -20433,6 +20285,8 @@ _dynamic_imports: dict[str, str] = {
     "MessagesTypedDict": ".invokedeploymentrequest",
     "MessagesUserMessage": ".invokedeploymentrequest",
     "MessagesUserMessageTypedDict": ".invokedeploymentrequest",
+    "Metadata": ".invokedeploymentrequest",
+    "MetadataTypedDict": ".invokedeploymentrequest",
     "Ne": ".invokedeploymentrequest",
     "NeTypedDict": ".invokedeploymentrequest",
     "Nin": ".invokedeploymentrequest",
@@ -20532,9 +20386,9 @@ _dynamic_imports: dict[str, str] = {
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict": ".invokeevalop",
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue": ".invokeevalop",
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type": ".invokeevalop",
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Value": ".invokeevalop",
-    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8ValueTypedDict": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType": ".invokeevalop",
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue": ".invokeevalop",
@@ -20598,16 +20452,12 @@ _dynamic_imports: dict[str, str] = {
     "TwoImageURLTypedDict": ".invokeevalop",
     "Votes": ".invokeevalop",
     "VotesTypedDict": ".invokeevalop",
-    "LegacyTokenFamily": ".legacytokenfamily",
     "Limits": ".limits",
     "LimitsTypedDict": ".limits",
     "ListAgentSchedulesRequest": ".list_agent_schedulesop",
     "ListAgentSchedulesRequestTypedDict": ".list_agent_schedulesop",
     "ListAgentSchedulesResponseBody": ".list_agent_schedulesop",
     "ListAgentSchedulesResponseBodyTypedDict": ".list_agent_schedulesop",
-    "ListModelsObject": ".list_modelsop",
-    "ListModelsResponseBody": ".list_modelsop",
-    "ListModelsResponseBodyTypedDict": ".list_modelsop",
     "ListAgentsA2AAgentConfiguration": ".listagentsop",
     "ListAgentsA2AAgentConfigurationTypedDict": ".listagentsop",
     "ListAgentsAgentsExecuteOn": ".listagentsop",
@@ -20751,10 +20601,6 @@ _dynamic_imports: dict[str, str] = {
     "ListAgentsToolsTypedDict": ".listagentsop",
     "ListAgentsType": ".listagentsop",
     "QueryParamType": ".listagentsop",
-    "ListAPIKeysResponse": ".listapikeysresponse",
-    "ListAPIKeysResponseTypedDict": ".listapikeysresponse",
-    "ListCapabilitiesResponse": ".listcapabilitiesresponse",
-    "ListCapabilitiesResponseTypedDict": ".listcapabilitiesresponse",
     "ListChunksData": ".listchunksop",
     "ListChunksDataTypedDict": ".listchunksop",
     "ListChunksMetadata": ".listchunksop",
@@ -20875,10 +20721,17 @@ _dynamic_imports: dict[str, str] = {
     "QueryParamStatusTypedDict": ".listdatasourcesop",
     "ListFilesResponse": ".listfilesresponse",
     "ListFilesResponseTypedDict": ".listfilesresponse",
+    "ListIdentitiesData": ".listidentitiesop",
+    "ListIdentitiesDataTypedDict": ".listidentitiesop",
+    "ListIdentitiesMetrics": ".listidentitiesop",
+    "ListIdentitiesMetricsTypedDict": ".listidentitiesop",
+    "ListIdentitiesObject": ".listidentitiesop",
     "ListIdentitiesRequest": ".listidentitiesop",
     "ListIdentitiesRequestTypedDict": ".listidentitiesop",
-    "ListIdentitiesResponse": ".listidentitiesresponse",
-    "ListIdentitiesResponseTypedDict": ".listidentitiesresponse",
+    "ListIdentitiesResponseBody": ".listidentitiesop",
+    "ListIdentitiesResponseBodyTypedDict": ".listidentitiesop",
+    "QueryParamFilterBy": ".listidentitiesop",
+    "QueryParamFilterByTypedDict": ".listidentitiesop",
     "Data1": ".listknowledgebasesop",
     "Data1TypedDict": ".listknowledgebasesop",
     "Data2": ".listknowledgebasesop",
@@ -21088,7 +20941,6 @@ _dynamic_imports: dict[str, str] = {
     "NoResponseError": ".no_response_error",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
-    "OwnerType": ".ownertype",
     "AgenticChunker": ".parseop",
     "AgenticChunkerStrategy": ".parseop",
     "AgenticChunkerStrategyTypedDict": ".parseop",
@@ -21155,7 +21007,6 @@ _dynamic_imports: dict[str, str] = {
     "PatchV2HumanEvalSetsIDResponseBodyFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyTypedDict": ".patch_v2_human_eval_sets_id_op",
-    "PermissionMode": ".permissionmode",
     "Policy": ".policy",
     "PolicyTypedDict": ".policy",
     "PolicyCreateRequestBody": ".policycreateop",
@@ -21237,8 +21088,6 @@ _dynamic_imports: dict[str, str] = {
     "PostV2FeedbackFeedbackResponseBodyData": ".post_v2_feedbackop",
     "PostV2FeedbackFeedbackResponseResponseBody": ".post_v2_feedbackop",
     "PostV2FeedbackFeedbackResponseResponseBodyData": ".post_v2_feedbackop",
-    "PostV2FeedbackFeedbackValue": ".post_v2_feedbackop",
-    "PostV2FeedbackFeedbackValueTypedDict": ".post_v2_feedbackop",
     "PostV2FeedbackProduct": ".post_v2_feedbackop",
     "PostV2FeedbackRequestBody": ".post_v2_feedbackop",
     "PostV2FeedbackRequestBodyTypedDict": ".post_v2_feedbackop",
@@ -21246,6 +21095,8 @@ _dynamic_imports: dict[str, str] = {
     "PostV2FeedbackResponseBodyTypedDict": ".post_v2_feedbackop",
     "PostV2FeedbackValue": ".post_v2_feedbackop",
     "PostV2FeedbackValueTypedDict": ".post_v2_feedbackop",
+    "Value": ".post_v2_feedbackop",
+    "ValueTypedDict": ".post_v2_feedbackop",
     "FilterType": ".post_v2_human_eval_setsop",
     "PostV2HumanEvalSetsRequestBody": ".post_v2_human_eval_setsop",
     "PostV2HumanEvalSetsRequestBody1": ".post_v2_human_eval_setsop",
@@ -21302,17 +21153,12 @@ _dynamic_imports: dict[str, str] = {
     "ProjectGetRequestTypedDict": ".projectgetop",
     "ProjectListRequest": ".projectlistop",
     "ProjectListRequestTypedDict": ".projectlistop",
-    "ProjectScope": ".projectscope",
-    "ProjectScopeTypedDict": ".projectscope",
     "ProjectUpdateRequest": ".projectupdateop",
     "ProjectUpdateRequestTypedDict": ".projectupdateop",
     "PublicContact": ".publiccontact",
     "PublicContactTypedDict": ".publiccontact",
     "PublicIdentity": ".publicidentity",
     "PublicIdentityTypedDict": ".publicidentity",
-    "Object": ".publicmodelentry",
-    "PublicModelEntry": ".publicmodelentry",
-    "PublicModelEntryTypedDict": ".publicmodelentry",
     "PublicSchedule": ".publicschedule",
     "PublicScheduleType": ".publicschedule",
     "PublicScheduleTypedDict": ".publicschedule",
@@ -21322,14 +21168,6 @@ _dynamic_imports: dict[str, str] = {
     "PublicSchedulePayloadTypedDict": ".publicschedulepayload",
     "PublicUsage": ".publicusage",
     "PublicUsageTypedDict": ".publicusage",
-    "Grain": ".queryreportrequest",
-    "GroupBy": ".queryreportrequest",
-    "Metric": ".queryreportrequest",
-    "QueryReportRequest": ".queryreportrequest",
-    "QueryReportRequestTypedDict": ".queryreportrequest",
-    "QueryReportResponse": ".queryreportresponse",
-    "QueryReportResponseObject": ".queryreportresponse",
-    "QueryReportResponseTypedDict": ".queryreportresponse",
     "Reasoning": ".reasoning",
     "ReasoningTypedDict": ".reasoning",
     "ReasoningParam": ".reasoningparam",
@@ -21346,6 +21184,11 @@ _dynamic_imports: dict[str, str] = {
     "RefusalPartSchema": ".refusalpartschema",
     "RefusalPartSchemaType": ".refusalpartschema",
     "RefusalPartSchemaTypedDict": ".refusalpartschema",
+    "RemoteConfigsGetConfigRequestBody": ".remoteconfigsgetconfigop",
+    "RemoteConfigsGetConfigRequestBodyTypedDict": ".remoteconfigsgetconfigop",
+    "RemoteConfigsGetConfigResponseBody": ".remoteconfigsgetconfigop",
+    "RemoteConfigsGetConfigResponseBodyTypedDict": ".remoteconfigsgetconfigop",
+    "RemoteConfigsGetConfigType": ".remoteconfigsgetconfigop",
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",
@@ -21377,10 +21220,6 @@ _dynamic_imports: dict[str, str] = {
     "ResponseFailedEventTypedDict": ".responsefailedevent",
     "ResponseIdentity": ".responseidentity",
     "ResponseIdentityTypedDict": ".responseidentity",
-    "EffectiveGrain": ".responsemeta",
-    "ResponseMeta": ".responsemeta",
-    "ResponseMetaCurrency": ".responsemeta",
-    "ResponseMetaTypedDict": ".responsemeta",
     "ResponseRetryConfig": ".responseretryconfig",
     "ResponseRetryConfigTypedDict": ".responseretryconfig",
     "Data": ".responsestartedevent",
@@ -21631,10 +21470,16 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveDatasourceResponseBody": ".retrievedatasourceop",
     "RetrieveDatasourceResponseBodyTypedDict": ".retrievedatasourceop",
     "RetrieveDatasourceStatus": ".retrievedatasourceop",
+    "RetrieveIdentityIdentitiesResponseBody": ".retrieveidentityop",
+    "RetrieveIdentityIdentitiesResponseBodyData": ".retrieveidentityop",
+    "RetrieveIdentityIdentitiesResponseResponseBody": ".retrieveidentityop",
+    "RetrieveIdentityIdentitiesResponseResponseBodyData": ".retrieveidentityop",
+    "RetrieveIdentityMetrics": ".retrieveidentityop",
+    "RetrieveIdentityMetricsTypedDict": ".retrieveidentityop",
     "RetrieveIdentityRequest": ".retrieveidentityop",
     "RetrieveIdentityRequestTypedDict": ".retrieveidentityop",
-    "RetrieveIdentityResponse": ".retrieveidentityresponse",
-    "RetrieveIdentityResponseTypedDict": ".retrieveidentityresponse",
+    "RetrieveIdentityResponseBody": ".retrieveidentityop",
+    "RetrieveIdentityResponseBodyTypedDict": ".retrieveidentityop",
     "RetrieveMemoryDocumentRequest": ".retrievememorydocumentop",
     "RetrieveMemoryDocumentRequestTypedDict": ".retrievememorydocumentop",
     "RetrieveMemoryDocumentResponseBody": ".retrievememorydocumentop",
@@ -21978,7 +21823,6 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentToolChoiceType": ".runagentop",
     "Schema": ".runagentop",
     "SchemaTypedDict": ".runagentop",
-    "ScopeMode": ".scopemode",
     "AgenticRagConfig": ".searchknowledgeop",
     "AgenticRagConfigTypedDict": ".searchknowledgeop",
     "FilterBy": ".searchknowledgeop",
@@ -22088,10 +21932,6 @@ _dynamic_imports: dict[str, str] = {
     "SearchType": ".searchknowledgeop",
     "Security": ".security",
     "SecurityTypedDict": ".security",
-    "ServiceAccountOwner": ".serviceaccountowner",
-    "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
-    "SingleProject": ".singleproject",
-    "SingleProjectTypedDict": ".singleproject",
     "Skill": ".skill",
     "SkillTypedDict": ".skill",
     "SkillDeleteRequest": ".skilldeleteop",
@@ -22463,8 +22303,6 @@ _dynamic_imports: dict[str, str] = {
     "ToolStartedEventDataTypedDict": ".toolstartedevent",
     "ToolStartedEventType": ".toolstartedevent",
     "ToolStartedEventTypedDict": ".toolstartedevent",
-    "Totals": ".totals",
-    "TotalsTypedDict": ".totals",
     "TriggerAgentScheduleRequest": ".trigger_agent_scheduleop",
     "TriggerAgentScheduleRequestTypedDict": ".trigger_agent_scheduleop",
     "TriggerAgentScheduleResponseBody": ".trigger_agent_scheduleop",
@@ -22809,10 +22647,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAgentToolsTypedDict": ".updateagentop",
     "UpdateAgentType": ".updateagentop",
     "UpdateAgentVersionIncrement": ".updateagentop",
-    "UpdateAPIKeyRequest": ".updateapikeyrequest",
-    "UpdateAPIKeyRequestTypedDict": ".updateapikeyrequest",
-    "UpdateAPIKeyResponse": ".updateapikeyresponse",
-    "UpdateAPIKeyResponseTypedDict": ".updateapikeyresponse",
     "UpdateChunkKnowledgeMetadata": ".updatechunkop",
     "UpdateChunkKnowledgeMetadataTypedDict": ".updatechunkop",
     "UpdateChunkMetadata": ".updatechunkop",
@@ -23250,14 +23084,14 @@ _dynamic_imports: dict[str, str] = {
     "UpdateFileRequestTypedDict": ".updatefilerequest",
     "UpdateFileResponse": ".updatefileresponse",
     "UpdateFileResponseTypedDict": ".updatefileresponse",
-    "UpdateIdentityRequest1": ".updateidentityop",
-    "UpdateIdentityRequest1TypedDict": ".updateidentityop",
-    "UpdateIdentityRequest": ".updateidentityrequest",
-    "UpdateIdentityRequestMetadata": ".updateidentityrequest",
-    "UpdateIdentityRequestMetadataTypedDict": ".updateidentityrequest",
-    "UpdateIdentityRequestTypedDict": ".updateidentityrequest",
-    "UpdateIdentityResponse": ".updateidentityresponse",
-    "UpdateIdentityResponseTypedDict": ".updateidentityresponse",
+    "UpdateIdentityIdentitiesResponseBody": ".updateidentityop",
+    "UpdateIdentityIdentitiesResponseBodyData": ".updateidentityop",
+    "UpdateIdentityRequest": ".updateidentityop",
+    "UpdateIdentityRequestBody": ".updateidentityop",
+    "UpdateIdentityRequestBodyTypedDict": ".updateidentityop",
+    "UpdateIdentityRequestTypedDict": ".updateidentityop",
+    "UpdateIdentityResponseBody": ".updateidentityop",
+    "UpdateIdentityResponseBodyTypedDict": ".updateidentityop",
     "RequestBodyAgenticRagConfig": ".updateknowledgeop",
     "RequestBodyAgenticRagConfigTypedDict": ".updateknowledgeop",
     "RequestBodyExternalConfig": ".updateknowledgeop",
@@ -23741,8 +23575,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
-    "UserOwner": ".userowner",
-    "UserOwnerTypedDict": ".userowner",
 }
 
 _sub_packages = ["internal"]

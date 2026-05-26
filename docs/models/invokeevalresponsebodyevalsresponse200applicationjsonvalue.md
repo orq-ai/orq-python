@@ -15,9 +15,3 @@ value: float = /* values here */
 value: bool = /* values here */
 ```
 
-### `str`
-
-```python
-value: str = /* values here */
-```
-

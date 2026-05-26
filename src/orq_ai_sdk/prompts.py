@@ -593,11 +593,11 @@ class Prompts(BaseSDK):
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param metadata:
-        :param path: Entity storage path.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            The first element identifies the project, followed by nested folders (auto-created as needed).
 
-            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -740,11 +740,11 @@ class Prompts(BaseSDK):
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param metadata:
-        :param path: Entity storage path.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            The first element identifies the project, followed by nested folders (auto-created as needed).
 
-            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

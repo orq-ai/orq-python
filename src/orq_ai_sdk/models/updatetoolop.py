@@ -125,11 +125,11 @@ class UpdateCodeExecutionToolTypedDict(TypedDict):
 
     type: UpdateToolRequestBodyToolsRequest5Type
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -150,11 +150,11 @@ class UpdateCodeExecutionTool(BaseModel):
     type: UpdateToolRequestBodyToolsRequest5Type
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: Optional[str] = None
@@ -292,7 +292,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KSFYHCZV3TNSJMDSKYETHSJK"
+    id: Optional[str] = "01KSJDRT0QNBQ1BARTTWWAAWK4"
 
     description: Optional[str] = None
 
@@ -373,11 +373,11 @@ class UpdateMCPToolTypedDict(TypedDict):
 
     type: UpdateToolRequestBodyToolsRequest4Type
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -399,11 +399,11 @@ class UpdateMCPTool(BaseModel):
     type: UpdateToolRequestBodyToolsRequest4Type
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: Optional[str] = None
@@ -668,11 +668,11 @@ class UpdateHTTPToolTypedDict(TypedDict):
 
     type: UpdateToolRequestBodyToolsRequestType
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -693,11 +693,11 @@ class UpdateHTTPTool(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: Optional[str] = None
@@ -853,11 +853,11 @@ class UpdateJSONSchemaToolTypedDict(TypedDict):
 
     type: UpdateToolRequestBodyToolsType
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -878,11 +878,11 @@ class UpdateJSONSchemaTool(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: Optional[str] = None
@@ -1042,11 +1042,11 @@ class UpdateFunctionToolTypedDict(TypedDict):
 
     type: UpdateToolRequestBodyType
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1067,11 +1067,11 @@ class UpdateFunctionTool(BaseModel):
     type: UpdateToolRequestBodyType
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: Optional[str] = None
@@ -1300,11 +1300,11 @@ class UpdateToolResponseBodyCodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1331,11 +1331,11 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -1357,7 +1357,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSFYHCZPN02GES7C8MXJNEEX"
+        "tool_01KSJDRT0C6XYPQ4MVE99KZJGV"
     )
 
     display_name: Optional[str] = None
@@ -1479,7 +1479,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KSFYHCZNQKB5Q2NNSV437DH2"
+    id: Optional[str] = "01KSJDRT0CWHESN8DQPVM03CK1"
 
     description: Optional[str] = None
 
@@ -1566,11 +1566,11 @@ class UpdateToolResponseBodyMCPToolTypedDict(TypedDict):
     r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1597,11 +1597,11 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -1623,7 +1623,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSFYHCZMBXNASX0YNPM493T0"
+        "tool_01KSJDRT0BV10EFH3Z45B5C4K9"
     )
 
     display_name: Optional[str] = None
@@ -1857,11 +1857,11 @@ class UpdateToolResponseBodyHTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1888,11 +1888,11 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -1914,7 +1914,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSFYHCZJX4HMN1DNM8WF6BDB"
+        "tool_01KSJDRT0A5QZ7DDDSHWZ057NP"
     )
 
     display_name: Optional[str] = None
@@ -2042,11 +2042,11 @@ class UpdateToolResponseBodyJSONSchemaToolTypedDict(TypedDict):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2073,11 +2073,11 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -2099,7 +2099,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSFYHCZHJEWD0GC0BF94QPAM"
+        "tool_01KSJDRT08AQC4B76VWDDBKSMR"
     )
 
     display_name: Optional[str] = None
@@ -2231,11 +2231,11 @@ class UpdateToolResponseBodyFunctionToolTypedDict(TypedDict):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2262,11 +2262,11 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -2288,7 +2288,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSFYHCZG5VTF27RXZEZ9W9ZJ"
+        "tool_01KSJDRT07S2Y2Y9E3QPTJPDFE"
     )
 
     display_name: Optional[str] = None

@@ -8,11 +8,9 @@ from typing_extensions import Annotated, TypedDict
 
 class SkillDeleteRequestTypedDict(TypedDict):
     skill_id: str
-    r"""Skill ID to delete."""
 
 
 class SkillDeleteRequest(BaseModel):
     skill_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Skill ID to delete."""

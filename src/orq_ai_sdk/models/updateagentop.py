@@ -2507,11 +2507,11 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     settings: NotRequired[UpdateAgentSettingsTypedDict]
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
@@ -2557,11 +2557,11 @@ class UpdateAgentRequestBody(BaseModel):
     settings: Optional[UpdateAgentSettings] = None
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     memory_stores: Optional[List[str]] = None
@@ -4563,11 +4563,11 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     status: UpdateAgentStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     skills: List[str]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
@@ -4615,11 +4615,11 @@ class UpdateAgentResponseBody(BaseModel):
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     skills: List[str]

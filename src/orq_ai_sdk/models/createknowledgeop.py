@@ -213,11 +213,11 @@ class CreateKnowledgeRequestBody1TypedDict(TypedDict):
     embedding_model: str
     r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     type: NotRequired[CreateKnowledgeRequestBodyType]
     description: NotRequired[str]
@@ -232,11 +232,11 @@ class CreateKnowledgeRequestBody1(BaseModel):
     r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     type: Optional[CreateKnowledgeRequestBodyType] = "internal"
@@ -424,11 +424,11 @@ class ResponseBody2TypedDict(TypedDict):
     description: NotRequired[str]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -461,11 +461,11 @@ class ResponseBody2(BaseModel):
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     created_by_id: OptionalNullable[str] = UNSET
@@ -660,11 +660,11 @@ class ResponseBody1TypedDict(TypedDict):
     description: NotRequired[str]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -696,11 +696,11 @@ class ResponseBody1(BaseModel):
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     created_by_id: OptionalNullable[str] = UNSET

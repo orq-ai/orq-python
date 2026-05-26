@@ -3,37 +3,39 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Identities(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        filter_by_tags: Optional[List[str]] = None,
-        include_metrics: Optional[bool] = None,
+        filter_by: Optional[
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+        ] = None,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListIdentitiesResponse:
+    ) -> models.ListIdentitiesResponseBody:
         r"""List identities
 
         Retrieves a paginated list of identities in your workspace. Use pagination parameters to navigate through large identity lists efficiently.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param search:
-        :param filter_by_tags:
-        :param include_metrics:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Search identities by display name or email address. Minimum 2 characters required.
+        :param filter_by: Filter identities by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
+        :param include_metrics: Include usage metrics of the last 30 days for each identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -57,7 +59,9 @@ class Identities(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            filter_by_tags=filter_by_tags,
+            filter_by=utils.get_pydantic_model(
+                filter_by, Optional[models.QueryParamFilterBy]
+            ),
             include_metrics=include_metrics,
         )
 
@@ -102,7 +106,7 @@ class Identities(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListIdentitiesResponse, http_res)
+            return unmarshal_json_response(models.ListIdentitiesResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -115,27 +119,29 @@ class Identities(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        filter_by_tags: Optional[List[str]] = None,
-        include_metrics: Optional[bool] = None,
+        filter_by: Optional[
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+        ] = None,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListIdentitiesResponse:
+    ) -> models.ListIdentitiesResponseBody:
         r"""List identities
 
         Retrieves a paginated list of identities in your workspace. Use pagination parameters to navigate through large identity lists efficiently.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param search:
-        :param filter_by_tags:
-        :param include_metrics:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Search identities by display name or email address. Minimum 2 characters required.
+        :param filter_by: Filter identities by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
+        :param include_metrics: Include usage metrics of the last 30 days for each identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -159,7 +165,9 @@ class Identities(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            filter_by_tags=filter_by_tags,
+            filter_by=utils.get_pydantic_model(
+                filter_by, Optional[models.QueryParamFilterBy]
+            ),
             include_metrics=include_metrics,
         )
 
@@ -204,7 +212,7 @@ class Identities(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListIdentitiesResponse, http_res)
+            return unmarshal_json_response(models.ListIdentitiesResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -217,32 +225,22 @@ class Identities(BaseSDK):
     def create(
         self,
         *,
-        external_id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        email: Optional[str] = None,
-        avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[
+        request: Optional[
             Union[
-                models.CreateIdentityRequestMetadata,
-                models.CreateIdentityRequestMetadataTypedDict,
+                models.CreateIdentityRequestBody,
+                models.CreateIdentityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateIdentityResponse:
+    ) -> models.CreateIdentityResponseBody:
         r"""Create an identity
 
-        Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
+        Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
 
-        :param external_id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -261,16 +259,11 @@ class Identities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateIdentityRequest(
-            external_id=external_id,
-            display_name=display_name,
-            email=email,
-            avatar_url=avatar_url,
-            tags=tags,
-            metadata=utils.get_pydantic_model(
-                metadata, Optional[models.CreateIdentityRequestMetadata]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.CreateIdentityRequestBody]
+            )
+        request = cast(Optional[models.CreateIdentityRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -278,7 +271,7 @@ class Identities(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -286,7 +279,7 @@ class Identities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateIdentityRequest
+                request, False, True, "json", Optional[models.CreateIdentityRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -315,8 +308,8 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateIdentityResponse, http_res)
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.CreateIdentityResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -329,32 +322,22 @@ class Identities(BaseSDK):
     async def create_async(
         self,
         *,
-        external_id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        email: Optional[str] = None,
-        avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[
+        request: Optional[
             Union[
-                models.CreateIdentityRequestMetadata,
-                models.CreateIdentityRequestMetadataTypedDict,
+                models.CreateIdentityRequestBody,
+                models.CreateIdentityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateIdentityResponse:
+    ) -> models.CreateIdentityResponseBody:
         r"""Create an identity
 
-        Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
+        Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
 
-        :param external_id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -373,16 +356,11 @@ class Identities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateIdentityRequest(
-            external_id=external_id,
-            display_name=display_name,
-            email=email,
-            avatar_url=avatar_url,
-            tags=tags,
-            metadata=utils.get_pydantic_model(
-                metadata, Optional[models.CreateIdentityRequestMetadata]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.CreateIdentityRequestBody]
+            )
+        request = cast(Optional[models.CreateIdentityRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -390,7 +368,7 @@ class Identities(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -398,7 +376,7 @@ class Identities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateIdentityRequest
+                request, False, True, "json", Optional[models.CreateIdentityRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -427,8 +405,8 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateIdentityResponse, http_res)
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.CreateIdentityResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -442,18 +420,18 @@ class Identities(BaseSDK):
         self,
         *,
         id: str,
-        include_metrics: Optional[bool] = None,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveIdentityResponse:
+    ) -> models.RetrieveIdentityResponseBody:
         r"""Retrieve an identity
 
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
-        :param id:
-        :param include_metrics:
+        :param id: Unique identity id or external id
+        :param include_metrics: Include usage metrics of the last 30 days for the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -517,8 +495,23 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveIdentityResponse, http_res)
+            return unmarshal_json_response(
+                models.RetrieveIdentityResponseBody, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseResponseBody(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -532,18 +525,18 @@ class Identities(BaseSDK):
         self,
         *,
         id: str,
-        include_metrics: Optional[bool] = None,
+        include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveIdentityResponse:
+    ) -> models.RetrieveIdentityResponseBody:
         r"""Retrieve an identity
 
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
-        :param id:
-        :param include_metrics:
+        :param id: Unique identity id or external id
+        :param include_metrics: Include usage metrics of the last 30 days for the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -607,8 +600,257 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveIdentityResponse, http_res)
+            return unmarshal_json_response(
+                models.RetrieveIdentityResponseBody, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveIdentityIdentitiesResponseResponseBodyData, http_res
+            )
+            raise models.RetrieveIdentityIdentitiesResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update(
+        self,
+        *,
+        id: str,
+        display_name: OptionalNullable[str] = UNSET,
+        email: OptionalNullable[str] = UNSET,
+        avatar_url: OptionalNullable[str] = UNSET,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.UpdateIdentityResponseBody:
+        r"""Update an identity
+
+        Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
+
+        :param id: Unique identity id or external id
+        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
+        :param email: Email address of the contact user
+        :param avatar_url: URL linking to the contact user's avatar image
+        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
+        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateIdentityRequest(
+            id=id,
+            request_body=models.UpdateIdentityRequestBody(
+                display_name=display_name,
+                email=email,
+                avatar_url=avatar_url,
+                tags=tags,
+                metadata=metadata,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/identities/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateIdentityRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateIdentity",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.UpdateIdentityResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateIdentityIdentitiesResponseBodyData, http_res
+            )
+            raise models.UpdateIdentityIdentitiesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        id: str,
+        display_name: OptionalNullable[str] = UNSET,
+        email: OptionalNullable[str] = UNSET,
+        avatar_url: OptionalNullable[str] = UNSET,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.UpdateIdentityResponseBody:
+        r"""Update an identity
+
+        Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
+
+        :param id: Unique identity id or external id
+        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
+        :param email: Email address of the contact user
+        :param avatar_url: URL linking to the contact user's avatar image
+        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
+        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateIdentityRequest(
+            id=id,
+            request_body=models.UpdateIdentityRequestBody(
+                display_name=display_name,
+                email=email,
+                avatar_url=avatar_url,
+                tags=tags,
+                metadata=metadata,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/identities/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateIdentityRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateIdentity",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.UpdateIdentityResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateIdentityIdentitiesResponseBodyData, http_res
+            )
+            raise models.UpdateIdentityIdentitiesResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -626,12 +868,12 @@ class Identities(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteIdentityResponse:
+    ):
         r"""Delete an identity
 
-        Permanently deletes an identity from your workspace and cleans up associated budget configurations.
+        Permanently deletes an identity from your workspace and cleans up associated budget configurations. This action cannot be undone.
 
-        :param id:
+        :param id: Identity ID or External ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -694,8 +936,14 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteIdentityResponse, http_res)
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteIdentityResponseBodyData, http_res
+            )
+            raise models.DeleteIdentityResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -713,12 +961,12 @@ class Identities(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteIdentityResponse:
+    ):
         r"""Delete an identity
 
-        Permanently deletes an identity from your workspace and cleans up associated budget configurations.
+        Permanently deletes an identity from your workspace and cleans up associated budget configurations. This action cannot be undone.
 
-        :param id:
+        :param id: Identity ID or External ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -781,250 +1029,14 @@ class Identities(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteIdentityResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def update(
-        self,
-        *,
-        id_param: str,
-        id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        email: Optional[str] = None,
-        avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateIdentityRequestMetadata,
-                models.UpdateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateIdentityResponse:
-        r"""Update an identity
-
-        Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
-
-        :param id_param:
-        :param id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateIdentityRequest1(
-            id_param=id_param,
-            update_identity_request=models.UpdateIdentityRequest(
-                id=id,
-                display_name=display_name,
-                email=email,
-                avatar_url=avatar_url,
-                tags=tags,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateIdentityRequestMetadata]
-                ),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/identities/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_identity_request,
-                False,
-                False,
-                "json",
-                models.UpdateIdentityRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateIdentity",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateIdentityResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def update_async(
-        self,
-        *,
-        id_param: str,
-        id: Optional[str] = None,
-        display_name: Optional[str] = None,
-        email: Optional[str] = None,
-        avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateIdentityRequestMetadata,
-                models.UpdateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateIdentityResponse:
-        r"""Update an identity
-
-        Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
-
-        :param id_param:
-        :param id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateIdentityRequest1(
-            id_param=id_param,
-            update_identity_request=models.UpdateIdentityRequest(
-                id=id,
-                display_name=display_name,
-                email=email,
-                avatar_url=avatar_url,
-                tags=tags,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateIdentityRequestMetadata]
-                ),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/identities/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_identity_request,
-                False,
-                False,
-                "json",
-                models.UpdateIdentityRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateIdentity",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateIdentityResponse, http_res)
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteIdentityResponseBodyData, http_res
+            )
+            raise models.DeleteIdentityResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

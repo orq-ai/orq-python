@@ -32,27 +32,27 @@ CreateEvalGuardrailConfigOperator = Literal[
 
 
 class CreateEvalGuardrailConfigNumberTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody43Type
     value: float
     operator: CreateEvalGuardrailConfigOperator
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigNumber(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody43Type
 
     value: float
 
     operator: CreateEvalGuardrailConfigOperator
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -71,24 +71,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody42Type = Literal["categorical",]
 
 
 class CreateEvalGuardrailConfigCategoricalTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody42Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigCategorical(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody42Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -107,24 +107,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody4Type = Literal["boolean",]
 
 
 class CreateEvalGuardrailConfigBooleanTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody4Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigBoolean(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody4Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -172,11 +172,11 @@ class PythonTypedDict(TypedDict):
     code: str
     type: CreateEvalRequestBodyType
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     guardrail_config: NotRequired[
@@ -192,11 +192,11 @@ class Python(BaseModel):
     type: CreateEvalRequestBodyType
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -247,27 +247,27 @@ GuardrailConfigOperator = Literal[
 
 
 class GuardrailConfigNumberTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody3Type
     value: float
     operator: GuardrailConfigOperator
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class GuardrailConfigNumber(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody3Type
 
     value: float
 
     operator: GuardrailConfigOperator
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -286,24 +286,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["categorical",]
 
 
 class GuardrailConfigCategoricalTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class GuardrailConfigCategorical(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -322,24 +322,24 @@ CreateEvalGuardrailConfigEvalsRequestType = Literal["boolean",]
 
 
 class GuardrailConfigBooleanTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestType
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class GuardrailConfigBoolean(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestType
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -399,11 +399,11 @@ class RequestBodyHTTPTypedDict(TypedDict):
     headers: Dict[str, str]
     payload: Dict[str, Any]
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     guardrail_config: NotRequired[Nullable[RequestBodyGuardrailConfigTypedDict]]
@@ -424,11 +424,11 @@ class RequestBodyHTTP(BaseModel):
     payload: Dict[str, Any]
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -480,27 +480,27 @@ CreateEvalGuardrailConfigEvalsOperator = Literal[
 
 
 class CreateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsType
     value: float
     operator: CreateEvalGuardrailConfigEvalsOperator
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsType
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsOperator
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -519,24 +519,24 @@ CreateEvalGuardrailConfigType = Literal["categorical",]
 
 
 class CreateEvalGuardrailConfigEvalsCategoricalTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigType
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsCategorical(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigType
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -555,24 +555,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody2Type = Literal["boolean",]
 
 
 class CreateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody2Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody2Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -617,11 +617,11 @@ class JSONTypedDict(TypedDict):
     type: CreateEvalRequestBodyEvalsType
     schema_: str
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     guardrail_config: NotRequired[
@@ -637,11 +637,11 @@ class JSON(BaseModel):
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -694,27 +694,27 @@ CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator = Literal[
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyNumberTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyNumber(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsRequestRequestBodyOperator
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -733,24 +733,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type = Literal["categorica
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyCategoricalTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyCategorical(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM22Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -769,24 +769,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type = Literal["boolean",]
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyBooleanTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestRequestBodyBoolean(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM2Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1042,11 +1042,11 @@ class Llm2TypedDict(TypedDict):
     type: LLMType
     prompt: str
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     mode: LLMMode
@@ -1057,7 +1057,6 @@ class Llm2TypedDict(TypedDict):
     repetitions: NotRequired[int]
     categories: NotRequired[List[str]]
     categorical_labels: NotRequired[List[LLMCategoricalLabelsTypedDict]]
-    dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -1067,11 +1066,11 @@ class Llm2(BaseModel):
     prompt: str
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -1091,8 +1090,6 @@ class Llm2(BaseModel):
 
     categorical_labels: Optional[List[LLMCategoricalLabels]] = None
 
-    dataset_id: Optional[str] = None
-
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
@@ -1104,7 +1101,6 @@ class Llm2(BaseModel):
                 "repetitions",
                 "categories",
                 "categorical_labels",
-                "dataset_id",
                 "description",
             ]
         )
@@ -1145,27 +1141,27 @@ CreateEvalGuardrailConfigEvalsRequestOperator = Literal[
 
 
 class CreateEvalGuardrailConfigEvalsRequestNumberTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM13Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsRequestOperator
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestNumber(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM13Type
 
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsRequestOperator
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1184,24 +1180,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type = Literal["categorical
 
 
 class CreateEvalGuardrailConfigEvalsRequestCategoricalTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestCategorical(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1220,24 +1216,24 @@ CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType = Literal["boolean",]
 
 
 class CreateEvalGuardrailConfigEvalsRequestBooleanTypedDict(TypedDict):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsRequestBoolean(BaseModel):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1318,11 +1314,11 @@ class Llm1TypedDict(TypedDict):
     type: CreateEvalLLMType
     prompt: str
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     key: str
     mode: CreateEvalLLMMode
@@ -1333,7 +1329,6 @@ class Llm1TypedDict(TypedDict):
     repetitions: NotRequired[int]
     categories: NotRequired[List[str]]
     categorical_labels: NotRequired[List[CreateEvalLLMCategoricalLabelsTypedDict]]
-    dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -1343,11 +1338,11 @@ class Llm1(BaseModel):
     prompt: str
 
     path: str
-    r"""Entity storage path.
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    The first element identifies the project, followed by nested folders (auto-created as needed).
 
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
     key: str
@@ -1367,8 +1362,6 @@ class Llm1(BaseModel):
 
     categorical_labels: Optional[List[CreateEvalLLMCategoricalLabels]] = None
 
-    dataset_id: Optional[str] = None
-
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
@@ -1380,7 +1373,6 @@ class Llm1(BaseModel):
                 "repetitions",
                 "categories",
                 "categorical_labels",
-                "dataset_id",
                 "description",
             ]
         )
@@ -1467,18 +1459,20 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator = 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7NumberTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody73Type
     value: float
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
     )
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Number(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody73Type
 
     value: float
@@ -1487,13 +1481,11 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
     )
 
-    enabled: Optional[bool] = True
-
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1516,26 +1508,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type = Lit
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7CategoricalTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Categorical(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1558,26 +1550,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type = Lite
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7BooleanTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boolean(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1650,9 +1642,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-25T16:12:13.080Z"
+    created: Optional[str] = "2026-05-26T15:16:54.502Z"
 
-    updated: Optional[str] = "2026-05-25T16:12:13.080Z"
+    updated: Optional[str] = "2026-05-26T15:16:54.502Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1702,18 +1694,20 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator = 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6NumberTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody63Type
     value: float
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
     )
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Number(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody63Type
 
     value: float
@@ -1722,13 +1716,11 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
     )
 
-    enabled: Optional[bool] = True
-
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1751,26 +1743,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type = Lit
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6CategoricalTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Categorical(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1793,26 +1785,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type = Lite
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6BooleanTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boolean(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -1902,9 +1894,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-25T16:12:13.080Z"
+    created: Optional[str] = "2026-05-26T15:16:54.502Z"
 
-    updated: Optional[str] = "2026-05-25T16:12:13.080Z"
+    updated: Optional[str] = "2026-05-26T15:16:54.502Z"
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1954,18 +1946,20 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator = L
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumberTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody53Type
     value: float
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
     )
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody53Type
 
     value: float
@@ -1974,13 +1968,11 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
     )
 
-    enabled: Optional[bool] = True
-
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -2003,26 +1995,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type = Lit
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategoricalTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
     values: List[str]
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyCategorical(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
 
     values: List[str]
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -2045,26 +2037,26 @@ CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type = Lite
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBooleanTypedDict(
     TypedDict
 ):
+    enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
     value: bool
-    enabled: NotRequired[bool]
     alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean(
     BaseModel
 ):
+    enabled: bool
+
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
 
     value: bool
-
-    enabled: Optional[bool] = True
 
     alert_on_failure: Optional[bool] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
+        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 

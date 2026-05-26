@@ -10,15 +10,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ProjectListRequestTypedDict(TypedDict):
     limit: NotRequired[int]
-    r"""Page size, 1-200. Unset uses the server default."""
     starting_after: NotRequired[str]
-    r"""Cursor for forward pagination. Set to the `project_id` of the last
-    item from the previous page.
-    """
     ending_before: NotRequired[str]
-    r"""Cursor for backward pagination. Set to the `project_id` of the first
-    item from the previous page.
-    """
 
 
 class ProjectListRequest(BaseModel):
@@ -26,23 +19,16 @@ class ProjectListRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Page size, 1-200. Unset uses the server default."""
 
     starting_after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Cursor for forward pagination. Set to the `project_id` of the last
-    item from the previous page.
-    """
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Cursor for backward pagination. Set to the `project_id` of the first
-    item from the previous page.
-    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
