@@ -23,12 +23,14 @@ class Skills(BaseSDK):
     ) -> models.ListSkillsResponse:
         r"""List all skills
 
-        Returns a list of skills. Skills are sorted by creation date, with the most recently created skills appearing first.
+        Returns the skills visible to the current workspace, ordered by creation time with the newest skill first. Use `starting_after` or `ending_before` to page through large collections.
 
         :param limit: Page size, 1–200. Unset uses the server default (25); explicit 0
             (or anything outside the range) is rejected by buf.validate.
-        :param starting_after:
-        :param ending_before:
+        :param starting_after: Cursor for forward pagination. Set to the `skill_id` of the last
+            item from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first
+            item from the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -117,12 +119,14 @@ class Skills(BaseSDK):
     ) -> models.ListSkillsResponse:
         r"""List all skills
 
-        Returns a list of skills. Skills are sorted by creation date, with the most recently created skills appearing first.
+        Returns the skills visible to the current workspace, ordered by creation time with the newest skill first. Use `starting_after` or `ending_before` to page through large collections.
 
         :param limit: Page size, 1–200. Unset uses the server default (25); explicit 0
             (or anything outside the range) is rejected by buf.validate.
-        :param starting_after:
-        :param ending_before:
+        :param starting_after: Cursor for forward pagination. Set to the `skill_id` of the last
+            item from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first
+            item from the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -214,14 +218,14 @@ class Skills(BaseSDK):
     ) -> models.CreateSkillResponse:
         r"""Create a new skill
 
-        Skills are modular instructions you can use to codify processes and conventions
+        Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name:
-        :param description:
-        :param tags:
-        :param path:
-        :param project_id:
-        :param instructions:
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
+        :param description: Short human-readable summary of what the skill is for.
+        :param tags: Free-form labels for organizing the skill.
+        :param path: Project path where the skill should be stored.
+        :param project_id: Project that should contain the skill.
+        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -319,14 +323,14 @@ class Skills(BaseSDK):
     ) -> models.CreateSkillResponse:
         r"""Create a new skill
 
-        Skills are modular instructions you can use to codify processes and conventions
+        Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name:
-        :param description:
-        :param tags:
-        :param path:
-        :param project_id:
-        :param instructions:
+        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
+        :param description: Short human-readable summary of what the skill is for.
+        :param tags: Free-form labels for organizing the skill.
+        :param path: Project path where the skill should be stored.
+        :param project_id: Project that should contain the skill.
+        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -419,7 +423,7 @@ class Skills(BaseSDK):
     ) -> models.GetSkillResponse:
         r"""Retrieve a skill
 
-        Retrieves an existing skill by its unique skill ID or its display name (display names are unique within a workspace).
+        Retrieves an existing skill by skill ID. Display names are also accepted for compatibility because they are unique within a workspace.
 
         :param skill_id: Accepts either the skill's ID (e.g. \"skill_01H...\") or its display
             name. Display names are unique within a workspace.
@@ -507,7 +511,7 @@ class Skills(BaseSDK):
     ) -> models.GetSkillResponse:
         r"""Retrieve a skill
 
-        Retrieves an existing skill by its unique skill ID or its display name (display names are unique within a workspace).
+        Retrieves an existing skill by skill ID. Display names are also accepted for compatibility because they are unique within a workspace.
 
         :param skill_id: Accepts either the skill's ID (e.g. \"skill_01H...\") or its display
             name. Display names are unique within a workspace.
@@ -595,7 +599,9 @@ class Skills(BaseSDK):
     ) -> models.DeleteSkillResponse:
         r"""Delete a skill
 
-        :param skill_id:
+        Deletes a skill from the workspace. The response body is empty when the delete succeeds.
+
+        :param skill_id: Skill ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -680,7 +686,9 @@ class Skills(BaseSDK):
     ) -> models.DeleteSkillResponse:
         r"""Delete a skill
 
-        :param skill_id:
+        Deletes a skill from the workspace. The response body is empty when the delete succeeds.
+
+        :param skill_id: Skill ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -772,16 +780,19 @@ class Skills(BaseSDK):
     ) -> models.UpdateSkillResponse:
         r"""Update a skill
 
-        Updates the specified skill by setting the values of the parameters passed.
+        Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
-        :param skill_id_param:
-        :param skill_id:
-        :param display_name:
-        :param description:
-        :param tags:
-        :param path:
-        :param instructions:
-        :param project_id:
+        :param skill_id_param: Skill ID to update.
+        :param skill_id: Skill ID to update.
+        :param display_name: New workspace-unique display name. Omit to keep the current name.
+            Must start with a letter and may contain letters, numbers, and
+            underscores. Dashes and dots are not allowed because skill names
+            are referenced as template variables.
+        :param description: New description. Omit to keep the current description.
+        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param path: New project path. Omit to keep the current path.
+        :param instructions: New instruction body. Omit to keep the current instructions.
+        :param project_id: New containing project. Omit to keep the current project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -889,16 +900,19 @@ class Skills(BaseSDK):
     ) -> models.UpdateSkillResponse:
         r"""Update a skill
 
-        Updates the specified skill by setting the values of the parameters passed.
+        Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
-        :param skill_id_param:
-        :param skill_id:
-        :param display_name:
-        :param description:
-        :param tags:
-        :param path:
-        :param instructions:
-        :param project_id:
+        :param skill_id_param: Skill ID to update.
+        :param skill_id: Skill ID to update.
+        :param display_name: New workspace-unique display name. Omit to keep the current name.
+            Must start with a letter and may contain letters, numbers, and
+            underscores. Dashes and dots are not allowed because skill names
+            are referenced as template variables.
+        :param description: New description. Omit to keep the current description.
+        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param path: New project path. Omit to keep the current path.
+        :param instructions: New instruction body. Omit to keep the current instructions.
+        :param project_id: New containing project. Omit to keep the current project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

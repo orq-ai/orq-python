@@ -10,17 +10,30 @@ from typing_extensions import NotRequired, TypedDict
 
 class SkillTypedDict(TypedDict):
     skill_id: NotRequired[str]
+    r"""Unique skill identifier assigned by ORQ, for example
+    `skill_01H...`. Use this value in retrieve, update, and delete
+    requests.
+    """
     display_name: NotRequired[str]
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
     description: NotRequired[str]
+    r"""Short human-readable summary of what the skill is for."""
     tags: NotRequired[List[str]]
+    r"""Free-form labels used for organization and filtering in clients."""
     project_id: NotRequired[str]
+    r"""Project that owns or contains the skill."""
     path: NotRequired[str]
-    workspace_id: NotRequired[str]
+    r"""Project path where the skill is stored in the workspace."""
     created_at: NotRequired[datetime]
+    r"""Time when the skill was created."""
     updated_at: NotRequired[datetime]
+    r"""Time when the skill was last updated."""
     created_by_id: NotRequired[str]
+    r"""User ID that created the skill."""
     updated_by_id: NotRequired[str]
+    r"""User ID that last updated the skill."""
     instructions: NotRequired[str]
+    r"""Instruction body executed or reused by clients that load this skill."""
     version: NotRequired[str]
     r"""Latest semver assigned by the activity log. Stamped on the document
     by CreateSkill / UpdateSkill so reads return it without joining
@@ -30,28 +43,40 @@ class SkillTypedDict(TypedDict):
 
 class Skill(BaseModel):
     skill_id: Optional[str] = None
+    r"""Unique skill identifier assigned by ORQ, for example
+    `skill_01H...`. Use this value in retrieve, update, and delete
+    requests.
+    """
 
     display_name: Optional[str] = None
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
 
     description: Optional[str] = None
+    r"""Short human-readable summary of what the skill is for."""
 
     tags: Optional[List[str]] = None
+    r"""Free-form labels used for organization and filtering in clients."""
 
     project_id: Optional[str] = None
+    r"""Project that owns or contains the skill."""
 
     path: Optional[str] = None
-
-    workspace_id: Optional[str] = None
+    r"""Project path where the skill is stored in the workspace."""
 
     created_at: Optional[datetime] = None
+    r"""Time when the skill was created."""
 
     updated_at: Optional[datetime] = None
+    r"""Time when the skill was last updated."""
 
     created_by_id: Optional[str] = None
+    r"""User ID that created the skill."""
 
     updated_by_id: Optional[str] = None
+    r"""User ID that last updated the skill."""
 
     instructions: Optional[str] = None
+    r"""Instruction body executed or reused by clients that load this skill."""
 
     version: Optional[str] = None
     r"""Latest semver assigned by the activity log. Stamped on the document
@@ -69,7 +94,6 @@ class Skill(BaseModel):
                 "tags",
                 "project_id",
                 "path",
-                "workspace_id",
                 "created_at",
                 "updated_at",
                 "created_by_id",

@@ -11,11 +11,13 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, float, List[str]])
+PostV2FeedbackValueTypedDict = TypeAliasType(
+    "PostV2FeedbackValueTypedDict", Union[str, float, List[str]]
+)
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
-Value = TypeAliasType("Value", Union[str, float, List[str]])
+PostV2FeedbackValue = TypeAliasType("PostV2FeedbackValue", Union[str, float, List[str]])
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
@@ -43,7 +45,7 @@ PostV2FeedbackProduct = Literal[
 class PostV2FeedbackRequestBodyTypedDict(TypedDict):
     field: str
     r"""A string describing the specific property or aspect rated."""
-    value: ValueTypedDict
+    value: PostV2FeedbackValueTypedDict
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
     trace_id: str
     r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deployments/get-config) or [`invoke`](https://docs.orq.ai/reference/deployments/invoke) endpoints"""
@@ -56,7 +58,7 @@ class PostV2FeedbackRequestBody(BaseModel):
     field: Annotated[str, pydantic.Field(alias="property")]
     r"""A string describing the specific property or aspect rated."""
 
-    value: Value
+    value: PostV2FeedbackValue
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
     trace_id: str
@@ -128,13 +130,15 @@ class PostV2FeedbackFeedbackResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-PostV2FeedbackValueTypedDict = TypeAliasType(
-    "PostV2FeedbackValueTypedDict", Union[str, float, List[str]]
+PostV2FeedbackFeedbackValueTypedDict = TypeAliasType(
+    "PostV2FeedbackFeedbackValueTypedDict", Union[str, float, List[str]]
 )
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
-PostV2FeedbackValue = TypeAliasType("PostV2FeedbackValue", Union[str, float, List[str]])
+PostV2FeedbackFeedbackValue = TypeAliasType(
+    "PostV2FeedbackFeedbackValue", Union[str, float, List[str]]
+)
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
@@ -164,7 +168,7 @@ class PostV2FeedbackResponseBodyTypedDict(TypedDict):
 
     property: str
     r"""A string describing the specific property or aspect rated."""
-    value: PostV2FeedbackValueTypedDict
+    value: PostV2FeedbackFeedbackValueTypedDict
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
     trace_id: str
     r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deployments/get-config) or [`invoke`](https://docs.orq.ai/reference/deployments/invoke) endpoints"""
@@ -179,7 +183,7 @@ class PostV2FeedbackResponseBody(BaseModel):
     property: str
     r"""A string describing the specific property or aspect rated."""
 
-    value: PostV2FeedbackValue
+    value: PostV2FeedbackFeedbackValue
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
     trace_id: str

@@ -9,28 +9,50 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateSkillRequestTypedDict(TypedDict):
     skill_id: NotRequired[str]
+    r"""Skill ID to update."""
     display_name: NotRequired[str]
+    r"""New workspace-unique display name. Omit to keep the current name.
+    Must start with a letter and may contain letters, numbers, and
+    underscores. Dashes and dots are not allowed because skill names
+    are referenced as template variables.
+    """
     description: NotRequired[str]
+    r"""New description. Omit to keep the current description."""
     tags: NotRequired[List[str]]
+    r"""Replacement tag list. Leave empty to clear tags."""
     path: NotRequired[str]
+    r"""New project path. Omit to keep the current path."""
     instructions: NotRequired[str]
+    r"""New instruction body. Omit to keep the current instructions."""
     project_id: NotRequired[str]
+    r"""New containing project. Omit to keep the current project."""
 
 
 class UpdateSkillRequest(BaseModel):
     skill_id: Optional[str] = None
+    r"""Skill ID to update."""
 
     display_name: Optional[str] = None
+    r"""New workspace-unique display name. Omit to keep the current name.
+    Must start with a letter and may contain letters, numbers, and
+    underscores. Dashes and dots are not allowed because skill names
+    are referenced as template variables.
+    """
 
     description: Optional[str] = None
+    r"""New description. Omit to keep the current description."""
 
     tags: Optional[List[str]] = None
+    r"""Replacement tag list. Leave empty to clear tags."""
 
     path: Optional[str] = None
+    r"""New project path. Omit to keep the current path."""
 
     instructions: Optional[str] = None
+    r"""New instruction body. Omit to keep the current instructions."""
 
     project_id: Optional[str] = None
+    r"""New containing project. Omit to keep the current project."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

@@ -16,6 +16,7 @@ class Files(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -28,6 +29,7 @@ class Files(BaseSDK):
         :param limit:
         :param starting_after:
         :param ending_before:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -50,6 +52,7 @@ class Files(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -109,6 +112,7 @@ class Files(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -121,6 +125,7 @@ class Files(BaseSDK):
         :param limit:
         :param starting_after:
         :param ending_before:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -143,6 +148,7 @@ class Files(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            project_id=project_id,
         )
 
         req = self._build_request_async(
@@ -201,8 +207,9 @@ class Files(BaseSDK):
         *,
         filename: Optional[str] = None,
         content: Optional[str] = None,
-        purpose: Optional[int] = None,
+        purpose: Optional[models.FilePurpose] = None,
         content_type: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -216,6 +223,7 @@ class Files(BaseSDK):
         :param content:
         :param purpose:
         :param content_type:
+        :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -239,6 +247,7 @@ class Files(BaseSDK):
             content=content,
             purpose=purpose,
             content_type=content_type,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -300,8 +309,9 @@ class Files(BaseSDK):
         *,
         filename: Optional[str] = None,
         content: Optional[str] = None,
-        purpose: Optional[int] = None,
+        purpose: Optional[models.FilePurpose] = None,
         content_type: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -315,6 +325,7 @@ class Files(BaseSDK):
         :param content:
         :param purpose:
         :param content_type:
+        :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -338,6 +349,7 @@ class Files(BaseSDK):
             content=content,
             purpose=purpose,
             content_type=content_type,
+            project_id=project_id,
         )
 
         req = self._build_request_async(

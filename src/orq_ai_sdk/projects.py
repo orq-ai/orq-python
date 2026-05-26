@@ -23,11 +23,13 @@ class Projects(BaseSDK):
     ) -> models.ListProjectsResponse:
         r"""List all projects
 
-        Returns a list of projects. Projects are sorted by creation date, with the most recently created projects appearing first.
+        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param limit: Page size, 1-200. Unset uses the server default.
+        :param starting_after: Cursor for forward pagination. Set to the `project_id` of the last
+            item from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `project_id` of the first
+            item from the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -116,11 +118,13 @@ class Projects(BaseSDK):
     ) -> models.ListProjectsResponse:
         r"""List all projects
 
-        Returns a list of projects. Projects are sorted by creation date, with the most recently created projects appearing first.
+        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param limit: Page size, 1-200. Unset uses the server default.
+        :param starting_after: Cursor for forward pagination. Set to the `project_id` of the last
+            item from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `project_id` of the first
+            item from the previous page.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -208,10 +212,10 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a new project within the workspace. Projects organize resources like skills, deployments, and datasets.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access.
 
-        :param name:
-        :param teams:
+        :param name: Project name. Names must be non-empty and at most 128 characters.
+        :param teams: Team identifiers to associate with the project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -301,10 +305,10 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a new project within the workspace. Projects organize resources like skills, deployments, and datasets.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access.
 
-        :param name:
-        :param teams:
+        :param name: Project name. Names must be non-empty and at most 128 characters.
+        :param teams: Team identifiers to associate with the project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -395,7 +399,7 @@ class Projects(BaseSDK):
 
         Retrieves the details of an existing project by its unique project ID.
 
-        :param project_id:
+        :param project_id: Project ID to retrieve.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -482,7 +486,7 @@ class Projects(BaseSDK):
 
         Retrieves the details of an existing project by its unique project ID.
 
-        :param project_id:
+        :param project_id: Project ID to retrieve.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -567,7 +571,9 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        :param project_id:
+        Deletes a project from the workspace. The response body is empty when the delete succeeds.
+
+        :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -652,7 +658,9 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        :param project_id:
+        Deletes a project from the workspace. The response body is empty when the delete succeeds.
+
+        :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -742,10 +750,11 @@ class Projects(BaseSDK):
 
         Updates the specified project by setting the values of the parameters passed.
 
-        :param project_id_param:
-        :param project_id:
-        :param name:
-        :param teams:
+        :param project_id_param: Project ID to update.
+        :param project_id: Project ID to update.
+        :param name: New project name. Omit to keep the current name.
+        :param teams: Replacement list of team identifiers associated with the project.
+            Leave empty to remove all team associations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -847,10 +856,11 @@ class Projects(BaseSDK):
 
         Updates the specified project by setting the values of the parameters passed.
 
-        :param project_id_param:
-        :param project_id:
-        :param name:
-        :param teams:
+        :param project_id_param: Project ID to update.
+        :param project_id: Project ID to update.
+        :param name: New project name. Omit to keep the current name.
+        :param teams: Replacement list of team identifiers associated with the project.
+            Leave empty to remove all team associations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

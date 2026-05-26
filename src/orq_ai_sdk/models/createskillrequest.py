@@ -9,25 +9,37 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateSkillRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
     description: NotRequired[str]
+    r"""Short human-readable summary of what the skill is for."""
     tags: NotRequired[List[str]]
+    r"""Free-form labels for organizing the skill."""
     path: NotRequired[str]
+    r"""Project path where the skill should be stored."""
     project_id: NotRequired[str]
+    r"""Project that should contain the skill."""
     instructions: NotRequired[str]
+    r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
 
 
 class CreateSkillRequest(BaseModel):
     display_name: Optional[str] = None
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
 
     description: Optional[str] = None
+    r"""Short human-readable summary of what the skill is for."""
 
     tags: Optional[List[str]] = None
+    r"""Free-form labels for organizing the skill."""
 
     path: Optional[str] = None
+    r"""Project path where the skill should be stored."""
 
     project_id: Optional[str] = None
+    r"""Project that should contain the skill."""
 
     instructions: Optional[str] = None
+    r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
