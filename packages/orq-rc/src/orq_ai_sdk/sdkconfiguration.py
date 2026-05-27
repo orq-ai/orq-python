@@ -28,7 +28,6 @@ class SDKConfiguration:
     async_client: Union[AsyncHttpClient, None]
     async_client_supplied: bool
     debug_logger: Logger
-    globals: models.internal.Globals
     security: Optional[Union[models.Security, Callable[[], models.Security]]] = None
     server_url: Optional[str] = ""
     server_idx: Optional[int] = 0

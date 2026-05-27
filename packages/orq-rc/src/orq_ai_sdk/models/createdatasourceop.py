@@ -207,6 +207,8 @@ class ChunkingOptions(BaseModel):
 class CreateDatasourceRequestBodyTypedDict(TypedDict):
     display_name: NotRequired[str]
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
+    description: NotRequired[str]
+    r"""The description of the knowledge base"""
     file_id: NotRequired[str]
     r"""The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking."""
     chunking_options: NotRequired[ChunkingOptionsTypedDict]
@@ -217,6 +219,9 @@ class CreateDatasourceRequestBody(BaseModel):
     display_name: Optional[str] = None
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
 
+    description: Optional[str] = None
+    r"""The description of the knowledge base"""
+
     file_id: Optional[str] = None
     r"""The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking."""
 
@@ -225,7 +230,9 @@ class CreateDatasourceRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["display_name", "file_id", "chunking_options"])
+        optional_fields = set(
+            ["display_name", "description", "file_id", "chunking_options"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -314,7 +321,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KSFYHD3BZFBJH31YQSQGJY66"
+        "01KSMDBSWP6195JZCBD2T9KA9E"
     )
     r"""The unique identifier of the data source"""
 

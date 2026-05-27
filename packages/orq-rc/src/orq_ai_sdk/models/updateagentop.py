@@ -2414,75 +2414,6 @@ UpdateAgentEngine = Literal[
 ]
 
 
-class UpdateAgentHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class UpdateAgentHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateA2AConfigurationTypedDict(TypedDict):
-    r"""Update A2A agent configuration (only applicable to A2A agents)"""
-
-    agent_url: NotRequired[str]
-    r"""Update the A2A agent endpoint URL"""
-    card_url: NotRequired[str]
-    r"""Update the explicit agent card URL"""
-    headers: NotRequired[Dict[str, UpdateAgentHeadersTypedDict]]
-    r"""Update HTTP headers for authentication. **Credential preservation**: Use empty string (\"\") for encrypted header values to keep existing credentials without re-entry. Provide new values to rotate credentials. Omit headers entirely to remove them."""
-
-
-class UpdateA2AConfiguration(BaseModel):
-    r"""Update A2A agent configuration (only applicable to A2A agents)"""
-
-    agent_url: Optional[str] = None
-    r"""Update the A2A agent endpoint URL"""
-
-    card_url: Optional[str] = None
-    r"""Update the explicit agent card URL"""
-
-    headers: Optional[Dict[str, UpdateAgentHeaders]] = None
-    r"""Update HTTP headers for authentication. **Credential preservation**: Use empty string (\"\") for encrypted header values to keep existing credentials without re-entry. Provide new values to rotate credentials. Omit headers entirely to remove them."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["agent_url", "card_url", "headers"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateAgentVersionIncrement = Literal[
     "major",
     "minor",
@@ -2523,8 +2454,6 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
-    a2a: NotRequired[UpdateA2AConfigurationTypedDict]
-    r"""Update A2A agent configuration (only applicable to A2A agents)"""
     version_increment: NotRequired[UpdateAgentVersionIncrement]
     r"""Optional semantic version bump to create after a successful publish."""
     version_description: NotRequired[str]
@@ -2580,9 +2509,6 @@ class UpdateAgentRequestBody(BaseModel):
 
     engine: Optional[UpdateAgentEngine] = None
 
-    a2a: Optional[UpdateA2AConfiguration] = None
-    r"""Update A2A agent configuration (only applicable to A2A agents)"""
-
     version_increment: Annotated[
         Optional[UpdateAgentVersionIncrement], pydantic.Field(alias="versionIncrement")
     ] = None
@@ -2614,7 +2540,6 @@ class UpdateAgentRequestBody(BaseModel):
                 "skills",
                 "variables",
                 "engine",
-                "a2a",
                 "versionIncrement",
                 "versionDescription",
             ]
@@ -4479,80 +4404,6 @@ class UpdateAgentModel(BaseModel):
         return m
 
 
-class UpdateAgentAgentsHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class UpdateAgentAgentsHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class UpdateAgentA2AAgentConfigurationTypedDict(TypedDict):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-    card_url: NotRequired[str]
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-    headers: NotRequired[Dict[str, UpdateAgentAgentsHeadersTypedDict]]
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-    cached_card: NotRequired[Any]
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-
-class UpdateAgentA2AAgentConfiguration(BaseModel):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-
-    card_url: Optional[str] = None
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-
-    headers: Optional[Dict[str, UpdateAgentAgentsHeaders]] = None
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-
-    cached_card: Optional[Any] = None
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["card_url", "headers", "cached_card"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent configuration successfully updated. Returns the complete updated agent manifest reflecting all changes made."""
 
@@ -4597,8 +4448,6 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[UpdateAgentAgentsSettingsTypedDict]
-    a2a: NotRequired[UpdateAgentA2AAgentConfigurationTypedDict]
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
 class UpdateAgentResponseBody(BaseModel):
@@ -4671,9 +4520,6 @@ class UpdateAgentResponseBody(BaseModel):
 
     settings: Optional[UpdateAgentAgentsSettings] = None
 
-    a2a: Optional[UpdateAgentA2AAgentConfiguration] = None
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -4694,7 +4540,6 @@ class UpdateAgentResponseBody(BaseModel):
                 "type",
                 "system_prompt",
                 "settings",
-                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])

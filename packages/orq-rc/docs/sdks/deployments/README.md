@@ -22,8 +22,6 @@ import os
 
 
 with Orq(
-    environment="<value>",
-    contact_id="<id>",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
@@ -238,8 +236,6 @@ import os
 
 
 with Orq(
-    environment="<value>",
-    contact_id="<id>",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 

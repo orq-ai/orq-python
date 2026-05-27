@@ -3,13 +3,3849 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Models(BaseSDK):
+    def create(
+        self,
+        *,
+        configuration: Dict[str, Any],
+        display_name: str,
+        has_functions: bool,
+        id: str,
+        input_cost: float,
+        metadata: Union[models.ModelMetadata, models.ModelMetadataTypedDict],
+        model_developer: str,
+        model_family: str,
+        model_id: str,
+        model_type: str,
+        output_cost: float,
+        parameters: Nullable[
+            Union[
+                List[models.CreateModelParameter],
+                List[models.CreateModelParameterTypedDict],
+            ]
+        ],
+        provider: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateResponseBody:
+        r"""Create custom model
+
+        Creates a new custom model for the workspace. Provider credentials in the configuration are encrypted using the workspace encryption key before being persisted.
+
+        :param configuration:
+        :param display_name:
+        :param has_functions:
+        :param id:
+        :param input_cost:
+        :param metadata:
+        :param model_developer:
+        :param model_family:
+        :param model_id:
+        :param model_type:
+        :param output_cost:
+        :param parameters:
+        :param provider:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateRequestBody(
+            configuration=configuration,
+            display_name=display_name,
+            has_functions=has_functions,
+            id=id,
+            input_cost=input_cost,
+            metadata=utils.get_pydantic_model(metadata, models.ModelMetadata),
+            model_developer=model_developer,
+            model_family=model_family,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            parameters=utils.get_pydantic_model(
+                parameters, Nullable[List[models.CreateModelParameter]]
+            ),
+            provider=provider,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_async(
+        self,
+        *,
+        configuration: Dict[str, Any],
+        display_name: str,
+        has_functions: bool,
+        id: str,
+        input_cost: float,
+        metadata: Union[models.ModelMetadata, models.ModelMetadataTypedDict],
+        model_developer: str,
+        model_family: str,
+        model_id: str,
+        model_type: str,
+        output_cost: float,
+        parameters: Nullable[
+            Union[
+                List[models.CreateModelParameter],
+                List[models.CreateModelParameterTypedDict],
+            ]
+        ],
+        provider: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateResponseBody:
+        r"""Create custom model
+
+        Creates a new custom model for the workspace. Provider credentials in the configuration are encrypted using the workspace encryption key before being persisted.
+
+        :param configuration:
+        :param display_name:
+        :param has_functions:
+        :param id:
+        :param input_cost:
+        :param metadata:
+        :param model_developer:
+        :param model_family:
+        :param model_id:
+        :param model_type:
+        :param output_cost:
+        :param parameters:
+        :param provider:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateRequestBody(
+            configuration=configuration,
+            display_name=display_name,
+            has_functions=has_functions,
+            id=id,
+            input_cost=input_cost,
+            metadata=utils.get_pydantic_model(metadata, models.ModelMetadata),
+            model_developer=model_developer,
+            model_family=model_family,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            parameters=utils.get_pydantic_model(
+                parameters, Nullable[List[models.CreateModelParameter]]
+            ),
+            provider=provider,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def create_autorouter(
+        self,
+        *,
+        economical_model: str,
+        key: str,
+        strong_model: str,
+        profile: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAutorouterResponseBody:
+        r"""Create autorouter custom model
+
+        Creates an autorouter model that routes between a strong and economical source model based on the requested profile. Both source models must already exist for the workspace and be marked autorouter-eligible in master data.
+
+        :param economical_model:
+        :param key:
+        :param strong_model:
+        :param profile:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAutorouterRequestBody(
+            economical_model=economical_model,
+            key=key,
+            profile=profile,
+            strong_model=strong_model,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/autorouter",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAutorouterRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_autorouter_async(
+        self,
+        *,
+        economical_model: str,
+        key: str,
+        strong_model: str,
+        profile: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAutorouterResponseBody:
+        r"""Create autorouter custom model
+
+        Creates an autorouter model that routes between a strong and economical source model based on the requested profile. Both source models must already exist for the workspace and be marked autorouter-eligible in master data.
+
+        :param economical_model:
+        :param key:
+        :param strong_model:
+        :param profile:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAutorouterRequestBody(
+            economical_model=economical_model,
+            key=key,
+            profile=profile,
+            strong_model=strong_model,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/autorouter",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAutorouterRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update_autorouter(
+        self,
+        *,
+        id: str,
+        economical_model: Optional[str] = None,
+        key: Optional[str] = None,
+        profile: Optional[str] = None,
+        strong_model: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAutorouterResponseBody:
+        r"""Update autorouter custom model
+
+        Re-configures an autorouter model. Each of key/strong_model/economical_model/profile falls back to the existing value when omitted. Changing the key enforces uniqueness and rewrites PRICING_KV.
+
+        :param id: The ID of the model
+        :param economical_model:
+        :param key:
+        :param profile:
+        :param strong_model:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAutorouterRequest(
+            id=id,
+            request_body=models.ModelUpdateAutorouterRequestBody(
+                economical_model=economical_model,
+                key=key,
+                profile=profile,
+                strong_model=strong_model,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/models/autorouter/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAutorouterRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_autorouter_async(
+        self,
+        *,
+        id: str,
+        economical_model: Optional[str] = None,
+        key: Optional[str] = None,
+        profile: Optional[str] = None,
+        strong_model: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAutorouterResponseBody:
+        r"""Update autorouter custom model
+
+        Re-configures an autorouter model. Each of key/strong_model/economical_model/profile falls back to the existing value when omitted. Changing the key enforces uniqueness and rewrites PRICING_KV.
+
+        :param id: The ID of the model
+        :param economical_model:
+        :param key:
+        :param profile:
+        :param strong_model:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAutorouterRequest(
+            id=id,
+            request_body=models.ModelUpdateAutorouterRequestBody(
+                economical_model=economical_model,
+                key=key,
+                profile=profile,
+                strong_model=strong_model,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/models/autorouter/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAutorouterRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def create_aws_bedrock(
+        self,
+        *,
+        auth_mode: str,
+        display_name: str,
+        model_developer: str,
+        model_id: str,
+        region: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        integration_id: Optional[str] = None,
+        max_tokens: Optional[int] = None,
+        model_family: Optional[str] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        supports_json_mode: Optional[bool] = None,
+        supports_json_schema: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAwsBedrockResponseBody:
+        r"""Create AWS Bedrock custom model
+
+        Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
+
+        :param auth_mode:
+        :param display_name:
+        :param model_developer:
+        :param model_id:
+        :param region:
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param integration_id:
+        :param max_tokens:
+        :param model_family:
+        :param model_type:
+        :param output_cost:
+        :param supports_json_mode:
+        :param supports_json_schema:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAwsBedrockRequestBody(
+            assume_role_arn=assume_role_arn,
+            assume_role_external_id=assume_role_external_id,
+            auth_mode=auth_mode,
+            description=description,
+            display_name=display_name,
+            has_reasoning=has_reasoning,
+            input_cost=input_cost,
+            integration_id=integration_id,
+            max_tokens=max_tokens,
+            model_developer=model_developer,
+            model_family=model_family,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            region=region,
+            supports_json_mode=supports_json_mode,
+            supports_json_schema=supports_json_schema,
+            supports_strict_tool=supports_strict_tool,
+            supports_tool_calling=supports_tool_calling,
+            supports_vision=supports_vision,
+            temperature=temperature,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/aws-bedrock",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAwsBedrockRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAwsBedrockResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_aws_bedrock_async(
+        self,
+        *,
+        auth_mode: str,
+        display_name: str,
+        model_developer: str,
+        model_id: str,
+        region: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        integration_id: Optional[str] = None,
+        max_tokens: Optional[int] = None,
+        model_family: Optional[str] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        supports_json_mode: Optional[bool] = None,
+        supports_json_schema: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAwsBedrockResponseBody:
+        r"""Create AWS Bedrock custom model
+
+        Registers an AWS Bedrock inference profile as a custom model for the workspace. Credentials are resolved at request time via either the integration reference or pod-identity — nothing is stored with the model.
+
+        :param auth_mode:
+        :param display_name:
+        :param model_developer:
+        :param model_id:
+        :param region:
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param integration_id:
+        :param max_tokens:
+        :param model_family:
+        :param model_type:
+        :param output_cost:
+        :param supports_json_mode:
+        :param supports_json_schema:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAwsBedrockRequestBody(
+            assume_role_arn=assume_role_arn,
+            assume_role_external_id=assume_role_external_id,
+            auth_mode=auth_mode,
+            description=description,
+            display_name=display_name,
+            has_reasoning=has_reasoning,
+            input_cost=input_cost,
+            integration_id=integration_id,
+            max_tokens=max_tokens,
+            model_developer=model_developer,
+            model_family=model_family,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            region=region,
+            supports_json_mode=supports_json_mode,
+            supports_json_schema=supports_json_schema,
+            supports_strict_tool=supports_strict_tool,
+            supports_tool_calling=supports_tool_calling,
+            supports_vision=supports_vision,
+            temperature=temperature,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/aws-bedrock",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAwsBedrockRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAwsBedrockResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def validate_aws_bedrock(
+        self,
+        *,
+        auth_mode: str,
+        inference_profile_arn: str,
+        region: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        integration_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Validate AWS Bedrock inference profile
+
+        Performs a live Bedrock Converse probe to verify the inference profile ARN and credentials, then best-effort enriches the response from known system models.
+
+        :param auth_mode:
+        :param inference_profile_arn:
+        :param region:
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param integration_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelValidateAwsBedrockRequestBody(
+            assume_role_arn=assume_role_arn,
+            assume_role_external_id=assume_role_external_id,
+            auth_mode=auth_mode,
+            inference_profile_arn=inference_profile_arn,
+            integration_id=integration_id,
+            region=region,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/aws-bedrock/validate",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelValidateAwsBedrockRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelValidateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def validate_aws_bedrock_async(
+        self,
+        *,
+        auth_mode: str,
+        inference_profile_arn: str,
+        region: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        integration_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Validate AWS Bedrock inference profile
+
+        Performs a live Bedrock Converse probe to verify the inference profile ARN and credentials, then best-effort enriches the response from known system models.
+
+        :param auth_mode:
+        :param inference_profile_arn:
+        :param region:
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param integration_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelValidateAwsBedrockRequestBody(
+            assume_role_arn=assume_role_arn,
+            assume_role_external_id=assume_role_external_id,
+            auth_mode=auth_mode,
+            inference_profile_arn=inference_profile_arn,
+            integration_id=integration_id,
+            region=region,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/aws-bedrock/validate",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelValidateAwsBedrockRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelValidateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update_aws_bedrock(
+        self,
+        *,
+        id: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        description: Optional[str] = None,
+        display_name: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model_developer: Optional[str] = None,
+        model_family: Optional[str] = None,
+        model_id: Optional[str] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        region: Optional[str] = None,
+        supports_json_mode: Optional[bool] = None,
+        supports_json_schema: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAwsBedrockResponseBody:
+        r"""Update AWS Bedrock custom model
+
+        Updates an AWS Bedrock custom model. ARN changes are format-validated (live AWS validation lives in the dedicated validate endpoint). Configuration and metadata are spread-merged. Parameters are replaced only when the request produces a non-empty list.
+
+        :param id: The ID of the model
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param description:
+        :param display_name:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param model_developer:
+        :param model_family:
+        :param model_id:
+        :param model_type:
+        :param output_cost:
+        :param region:
+        :param supports_json_mode:
+        :param supports_json_schema:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAwsBedrockRequest(
+            id=id,
+            request_body=models.ModelUpdateAwsBedrockRequestBody(
+                assume_role_arn=assume_role_arn,
+                assume_role_external_id=assume_role_external_id,
+                description=description,
+                display_name=display_name,
+                has_reasoning=has_reasoning,
+                input_cost=input_cost,
+                max_tokens=max_tokens,
+                model_developer=model_developer,
+                model_family=model_family,
+                model_id=model_id,
+                model_type=model_type,
+                output_cost=output_cost,
+                region=region,
+                supports_json_mode=supports_json_mode,
+                supports_json_schema=supports_json_schema,
+                supports_strict_tool=supports_strict_tool,
+                supports_tool_calling=supports_tool_calling,
+                supports_vision=supports_vision,
+                temperature=temperature,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/models/aws-bedrock/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAwsBedrockRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAwsBedrockResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_aws_bedrock_async(
+        self,
+        *,
+        id: str,
+        assume_role_arn: Optional[str] = None,
+        assume_role_external_id: Optional[str] = None,
+        description: Optional[str] = None,
+        display_name: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model_developer: Optional[str] = None,
+        model_family: Optional[str] = None,
+        model_id: Optional[str] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        region: Optional[str] = None,
+        supports_json_mode: Optional[bool] = None,
+        supports_json_schema: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAwsBedrockResponseBody:
+        r"""Update AWS Bedrock custom model
+
+        Updates an AWS Bedrock custom model. ARN changes are format-validated (live AWS validation lives in the dedicated validate endpoint). Configuration and metadata are spread-merged. Parameters are replaced only when the request produces a non-empty list.
+
+        :param id: The ID of the model
+        :param assume_role_arn:
+        :param assume_role_external_id:
+        :param description:
+        :param display_name:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param model_developer:
+        :param model_family:
+        :param model_id:
+        :param model_type:
+        :param output_cost:
+        :param region:
+        :param supports_json_mode:
+        :param supports_json_schema:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAwsBedrockRequest(
+            id=id,
+            request_body=models.ModelUpdateAwsBedrockRequestBody(
+                assume_role_arn=assume_role_arn,
+                assume_role_external_id=assume_role_external_id,
+                description=description,
+                display_name=display_name,
+                has_reasoning=has_reasoning,
+                input_cost=input_cost,
+                max_tokens=max_tokens,
+                model_developer=model_developer,
+                model_family=model_family,
+                model_id=model_id,
+                model_type=model_type,
+                output_cost=output_cost,
+                region=region,
+                supports_json_mode=supports_json_mode,
+                supports_json_schema=supports_json_schema,
+                supports_strict_tool=supports_strict_tool,
+                supports_tool_calling=supports_tool_calling,
+                supports_vision=supports_vision,
+                temperature=temperature,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/models/aws-bedrock/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAwsBedrockRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAwsBedrock",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAwsBedrockResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def azure_foundry_deployments(
+        self,
+        *,
+        api_key: str,
+        base_url: str,
+        provider: str,
+        api_version: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelAzureFoundryDeploymentsResponseBody:
+        r"""List Azure Foundry deployments under a resource
+
+        Lists Azure Foundry deployments under the given base_url and joins each entry with the Orq master-data row. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+
+        :param api_key:
+        :param base_url:
+        :param provider:
+        :param api_version:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelAzureFoundryDeploymentsRequestBody(
+            api_key=api_key,
+            api_version=api_version,
+            base_url=base_url,
+            provider=provider,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/azure-foundry/deployments",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                False,
+                "json",
+                models.ModelAzureFoundryDeploymentsRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelAzureFoundryDeployments",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelAzureFoundryDeploymentsResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def azure_foundry_deployments_async(
+        self,
+        *,
+        api_key: str,
+        base_url: str,
+        provider: str,
+        api_version: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelAzureFoundryDeploymentsResponseBody:
+        r"""List Azure Foundry deployments under a resource
+
+        Lists Azure Foundry deployments under the given base_url and joins each entry with the Orq master-data row. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+
+        :param api_key:
+        :param base_url:
+        :param provider:
+        :param api_version:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelAzureFoundryDeploymentsRequestBody(
+            api_key=api_key,
+            api_version=api_version,
+            base_url=base_url,
+            provider=provider,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/azure-foundry/deployments",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                False,
+                "json",
+                models.ModelAzureFoundryDeploymentsRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelAzureFoundryDeployments",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelAzureFoundryDeploymentsResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def import_litellm(
+        self,
+        *,
+        request: Nullable[
+            Union[List[models.LiteLLMModel], List[models.LiteLLMModelTypedDict]]
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.ModelDocument]:
+        r"""Import models from LiteLLM
+
+        Bulk-imports a list of LiteLLM model definitions into the workspace model garden.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Nullable[List[models.LiteLLMModel]])
+        request = cast(Nullable[List[models.LiteLLMModel]], request)
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/litellm/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, True, False, "json", Nullable[List[models.LiteLLMModel]]
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelLiteLLMImport",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.ModelDocument], http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def import_litellm_async(
+        self,
+        *,
+        request: Nullable[
+            Union[List[models.LiteLLMModel], List[models.LiteLLMModelTypedDict]]
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.ModelDocument]:
+        r"""Import models from LiteLLM
+
+        Bulk-imports a list of LiteLLM model definitions into the workspace model garden.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Nullable[List[models.LiteLLMModel]])
+        request = cast(Nullable[List[models.LiteLLMModel]], request)
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/litellm/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, True, False, "json", Nullable[List[models.LiteLLMModel]]
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelLiteLLMImport",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.ModelDocument], http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def list_litellm(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[Dict[str, Any]]:
+        r"""List models from configured LiteLLM instance
+
+        Fetches the list of models from the LiteLLM instance configured for the workspace. Requires a stored LiteLLM integration.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+        req = self._build_request(
+            method="GET",
+            path="/v2/models/litellm/models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=None,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelListLitellm",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[Dict[str, Any]], http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def list_litellm_async(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[Dict[str, Any]]:
+        r"""List models from configured LiteLLM instance
+
+        Fetches the list of models from the LiteLLM instance configured for the workspace. Requires a stored LiteLLM integration.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/models/litellm/models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=None,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelListLitellm",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[Dict[str, Any]], http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def create_openai_like(
+        self,
+        *,
+        api_key: str,
+        base_url: str,
+        display_name: str,
+        model_id: str,
+        model_type: str,
+        region: str,
+        cost_per_image: Optional[float] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        output_cost: Optional[float] = None,
+        supports_image_edit: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateOpenAILikeResponseBody:
+        r"""Create OpenAI-compatible custom model
+
+        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+
+        :param api_key:
+        :param base_url:
+        :param display_name:
+        :param model_id:
+        :param model_type:
+        :param region:
+        :param cost_per_image:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param output_cost:
+        :param supports_image_edit:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelCreateOpenAILikeRequestBody(
+            api_key=api_key,
+            base_url=base_url,
+            cost_per_image=cost_per_image,
+            description=description,
+            display_name=display_name,
+            has_reasoning=has_reasoning,
+            input_cost=input_cost,
+            max_tokens=max_tokens,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            region=region,
+            supports_image_edit=supports_image_edit,
+            supports_strict_tool=supports_strict_tool,
+            supports_tool_calling=supports_tool_calling,
+            supports_vision=supports_vision,
+            temperature=temperature,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/openai-like",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateOpenAILikeRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelCreateOpenAILike",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateOpenAILikeResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_openai_like_async(
+        self,
+        *,
+        api_key: str,
+        base_url: str,
+        display_name: str,
+        model_id: str,
+        model_type: str,
+        region: str,
+        cost_per_image: Optional[float] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        output_cost: Optional[float] = None,
+        supports_image_edit: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateOpenAILikeResponseBody:
+        r"""Create OpenAI-compatible custom model
+
+        Creates a custom model backed by any OpenAI-compatible endpoint. The handler probes the target API with the supplied credentials before persisting the model.
+
+        :param api_key:
+        :param base_url:
+        :param display_name:
+        :param model_id:
+        :param model_type:
+        :param region:
+        :param cost_per_image:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param output_cost:
+        :param supports_image_edit:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelCreateOpenAILikeRequestBody(
+            api_key=api_key,
+            base_url=base_url,
+            cost_per_image=cost_per_image,
+            description=description,
+            display_name=display_name,
+            has_reasoning=has_reasoning,
+            input_cost=input_cost,
+            max_tokens=max_tokens,
+            model_id=model_id,
+            model_type=model_type,
+            output_cost=output_cost,
+            region=region,
+            supports_image_edit=supports_image_edit,
+            supports_strict_tool=supports_strict_tool,
+            supports_tool_calling=supports_tool_calling,
+            supports_vision=supports_vision,
+            temperature=temperature,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/openai-like",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateOpenAILikeRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelCreateOpenAILike",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateOpenAILikeResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update_openai_like(
+        self,
+        *,
+        id: str,
+        display_name: str,
+        model_type: str,
+        region: str,
+        base_url: Optional[str] = None,
+        cost_per_image: Optional[float] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model_id: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        supports_image_edit: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateOpenAILikeResponseBody:
+        r"""Update OpenAI-compatible custom model
+
+        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+
+        :param id: The ID of the model
+        :param display_name:
+        :param model_type:
+        :param region:
+        :param base_url:
+        :param cost_per_image:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param model_id:
+        :param output_cost:
+        :param supports_image_edit:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelUpdateOpenAILikeRequest(
+            id=id,
+            request_body=models.ModelUpdateOpenAILikeRequestBody(
+                base_url=base_url,
+                cost_per_image=cost_per_image,
+                description=description,
+                display_name=display_name,
+                has_reasoning=has_reasoning,
+                input_cost=input_cost,
+                max_tokens=max_tokens,
+                model_id=model_id,
+                model_type=model_type,
+                output_cost=output_cost,
+                region=region,
+                supports_image_edit=supports_image_edit,
+                supports_strict_tool=supports_strict_tool,
+                supports_tool_calling=supports_tool_calling,
+                supports_vision=supports_vision,
+                temperature=temperature,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/models/openai-like/{id}",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateOpenAILikeRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelUpdateOpenAILike",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateOpenAILikeResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_openai_like_async(
+        self,
+        *,
+        id: str,
+        display_name: str,
+        model_type: str,
+        region: str,
+        base_url: Optional[str] = None,
+        cost_per_image: Optional[float] = None,
+        description: Optional[str] = None,
+        has_reasoning: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model_id: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        supports_image_edit: Optional[bool] = None,
+        supports_strict_tool: Optional[bool] = None,
+        supports_tool_calling: Optional[bool] = None,
+        supports_vision: Optional[bool] = None,
+        temperature: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateOpenAILikeResponseBody:
+        r"""Update OpenAI-compatible custom model
+
+        Updates an OpenAI-compatible custom model. Live-re-probes the target API when base_url or model_id changes, using the stored encrypted api_key. Metadata is merged (existing preserved, new overrides).
+
+        :param id: The ID of the model
+        :param display_name:
+        :param model_type:
+        :param region:
+        :param base_url:
+        :param cost_per_image:
+        :param description:
+        :param has_reasoning:
+        :param input_cost:
+        :param max_tokens:
+        :param model_id:
+        :param output_cost:
+        :param supports_image_edit:
+        :param supports_strict_tool:
+        :param supports_tool_calling:
+        :param supports_vision:
+        :param temperature:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelUpdateOpenAILikeRequest(
+            id=id,
+            request_body=models.ModelUpdateOpenAILikeRequestBody(
+                base_url=base_url,
+                cost_per_image=cost_per_image,
+                description=description,
+                display_name=display_name,
+                has_reasoning=has_reasoning,
+                input_cost=input_cost,
+                max_tokens=max_tokens,
+                model_id=model_id,
+                model_type=model_type,
+                output_cost=output_cost,
+                region=region,
+                supports_image_edit=supports_image_edit,
+                supports_strict_tool=supports_strict_tool,
+                supports_tool_calling=supports_tool_calling,
+                supports_vision=supports_vision,
+                temperature=temperature,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/models/openai-like/{id}",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateOpenAILikeRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelUpdateOpenAILike",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateOpenAILikeResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def validate(
+        self,
+        *,
+        api_key: str,
+        provider: str,
+        api_version: Optional[str] = None,
+        base_url: Optional[str] = None,
+        deployment_name: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        subtype: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Validate model endpoint
+
+        Validates a provider endpoint by performing a minimal live probe. Currently supports Azure OpenAI. Response includes the resolved region, whether the model is known to Orq, and either the full model document or a synthesized default.
+
+        :param api_key:
+        :param provider:
+        :param api_version:
+        :param base_url:
+        :param deployment_name:
+        :param endpoint:
+        :param subtype:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelValidateRequestBody(
+            api_key=api_key,
+            api_version=api_version,
+            base_url=base_url,
+            deployment_name=deployment_name,
+            endpoint=endpoint,
+            provider=provider,
+            subtype=subtype,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/validate",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelValidateRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelValidate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["400", "415", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def validate_async(
+        self,
+        *,
+        api_key: str,
+        provider: str,
+        api_version: Optional[str] = None,
+        base_url: Optional[str] = None,
+        deployment_name: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        subtype: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Validate model endpoint
+
+        Validates a provider endpoint by performing a minimal live probe. Currently supports Azure OpenAI. Response includes the resolved region, whether the model is known to Orq, and either the full model document or a synthesized default.
+
+        :param api_key:
+        :param provider:
+        :param api_version:
+        :param base_url:
+        :param deployment_name:
+        :param endpoint:
+        :param subtype:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url_ = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url_ = server_url
+        else:
+            base_url_ = self._get_url(base_url_, url_variables)
+
+        request = models.ModelValidateRequestBody(
+            api_key=api_key,
+            api_version=api_version,
+            base_url=base_url,
+            deployment_name=deployment_name,
+            endpoint=endpoint,
+            provider=provider,
+            subtype=subtype,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/validate",
+            base_url=base_url_,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelValidateRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url_ or "",
+                operation_id="ModelValidate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["400", "415", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def create_vertex(
+        self,
+        *,
+        configuration: Union[
+            models.VertexConfiguration, models.VertexConfigurationTypedDict
+        ],
+        display_name: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateVertexResponseBody:
+        r"""Create Vertex AI custom model
+
+        Registers a Google Vertex AI model as a custom model for the workspace. The service account credentials are probed against Vertex AI with a minimal GenerateContent call before persisting.
+
+        :param configuration:
+        :param display_name:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateVertexRequestBody(
+            configuration=utils.get_pydantic_model(
+                configuration, models.VertexConfiguration
+            ),
+            display_name=display_name,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/vertex",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateVertexRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateVertex",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateVertexResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_vertex_async(
+        self,
+        *,
+        configuration: Union[
+            models.VertexConfiguration, models.VertexConfigurationTypedDict
+        ],
+        display_name: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateVertexResponseBody:
+        r"""Create Vertex AI custom model
+
+        Registers a Google Vertex AI model as a custom model for the workspace. The service account credentials are probed against Vertex AI with a minimal GenerateContent call before persisting.
+
+        :param configuration:
+        :param display_name:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateVertexRequestBody(
+            configuration=utils.get_pydantic_model(
+                configuration, models.VertexConfiguration
+            ),
+            display_name=display_name,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/vertex",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateVertexRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateVertex",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateVertexResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def delete(
+        self,
+        *,
+        id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete custom model
+
+        Deletes a custom model from the workspace. System models cannot be deleted. Returns 200 with an explanatory message if the model is a system model or is still referenced by experiments.
+
+        :param id: The ID of the model
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelDeleteRequest(
+            id=id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/models/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelDelete",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def delete_async(
+        self,
+        *,
+        id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete custom model
+
+        Deletes a custom model from the workspace. System models cannot be deleted. Returns 200 with an explanatory message if the model is a system model or is still referenced by experiments.
+
+        :param id: The ID of the model
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelDeleteRequest(
+            id=id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/models/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelDelete",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "*"):
+            return
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update(
+        self,
+        *,
+        id: str,
+        display_name: Optional[str] = None,
+        has_functions: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        metadata: Optional[
+            Union[models.ModelMetadata, models.ModelMetadataTypedDict]
+        ] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        parameters: Optional[
+            Union[
+                List[models.UpdateModelParameter],
+                List[models.UpdateModelParameterTypedDict],
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateResponseBody:
+        r"""Update custom model
+
+        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
+
+        :param id: The ID of the model
+        :param display_name:
+        :param has_functions:
+        :param input_cost:
+        :param metadata:
+        :param model_type:
+        :param output_cost:
+        :param parameters:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateRequest(
+            id=id,
+            request_body=models.ModelUpdateRequestBody(
+                display_name=display_name,
+                has_functions=has_functions,
+                input_cost=input_cost,
+                metadata=utils.get_pydantic_model(
+                    metadata, Optional[models.ModelMetadata]
+                ),
+                model_type=model_type,
+                output_cost=output_cost,
+                parameters=utils.get_pydantic_model(
+                    parameters, Optional[List[models.UpdateModelParameter]]
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/models/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ModelUpdateResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        id: str,
+        display_name: Optional[str] = None,
+        has_functions: Optional[bool] = None,
+        input_cost: Optional[float] = None,
+        metadata: Optional[
+            Union[models.ModelMetadata, models.ModelMetadataTypedDict]
+        ] = None,
+        model_type: Optional[str] = None,
+        output_cost: Optional[float] = None,
+        parameters: Optional[
+            Union[
+                List[models.UpdateModelParameter],
+                List[models.UpdateModelParameterTypedDict],
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateResponseBody:
+        r"""Update custom model
+
+        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
+
+        :param id: The ID of the model
+        :param display_name:
+        :param has_functions:
+        :param input_cost:
+        :param metadata:
+        :param model_type:
+        :param output_cost:
+        :param parameters:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateRequest(
+            id=id,
+            request_body=models.ModelUpdateRequestBody(
+                display_name=display_name,
+                has_functions=has_functions,
+                input_cost=input_cost,
+                metadata=utils.get_pydantic_model(
+                    metadata, Optional[models.ModelMetadata]
+                ),
+                model_type=model_type,
+                output_cost=output_cost,
+                parameters=utils.get_pydantic_model(
+                    parameters, Optional[List[models.UpdateModelParameter]]
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/models/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdate",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ModelUpdateResponseBody, http_res)
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def enable(
+        self,
+        *,
+        model_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Enable model for workspace
+
+        Adds the model to the workspace's enabled set. Idempotent — re-enabling an already-enabled model returns 204 with no state change.
+
+        :param model_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelEnableRequestBody(
+            model_id=model_id,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/workspace-models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelEnableRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelEnable",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def enable_async(
+        self,
+        *,
+        model_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Enable model for workspace
+
+        Adds the model to the workspace's enabled set. Idempotent — re-enabling an already-enabled model returns 204 with no state change.
+
+        :param model_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelEnableRequestBody(
+            model_id=model_id,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/workspace-models",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelEnableRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelEnable",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def disable(
+        self,
+        *,
+        model_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Disable model for workspace
+
+        Removes the model from the workspace's enabled set. Idempotent — disabling an already-disabled model returns 204.
+
+        :param model_id: The ID of the model to disable
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelDisableRequest(
+            model_id=model_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/workspace-models/{model_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelDisable",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def disable_async(
+        self,
+        *,
+        model_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Disable model for workspace
+
+        Removes the model from the workspace's enabled set. Idempotent — disabling an already-disabled model returns 204.
+
+        :param model_id: The ID of the model to disable
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelDisableRequest(
+            model_id=model_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/workspace-models/{model_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelDisable",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def list(
         self,
         *,

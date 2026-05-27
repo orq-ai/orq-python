@@ -1,0 +1,10 @@
+# AzureFoundryDeployment
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `id`                                                                                               | *str*                                                                                              | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `master_data`                                                                                      | [Optional[models.AzureFoundryDeploymentMasterData]](../models/azurefoundrydeploymentmasterdata.md) | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `model`                                                                                            | *str*                                                                                              | :heavy_check_mark:                                                                                 | N/A                                                                                                |

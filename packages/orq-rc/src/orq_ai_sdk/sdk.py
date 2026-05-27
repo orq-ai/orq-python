@@ -62,6 +62,7 @@ class Orq(BaseSDK):
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     guardrail_rules: "GuardrailRules"
+    models: "Models"
     policies: "Policies"
     routing_rules: "RoutingRules"
     api_keys: "APIKeys"
@@ -70,7 +71,6 @@ class Orq(BaseSDK):
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
-    models: "Models"
     responses: "Responses"
     reporting: "Reporting"
     _sub_sdk_map = {
@@ -88,6 +88,7 @@ class Orq(BaseSDK):
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
+        "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
@@ -96,7 +97,6 @@ class Orq(BaseSDK):
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
-        "models": ("orq_ai_sdk.models_", "Models"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
     }
@@ -104,8 +104,6 @@ class Orq(BaseSDK):
     def __init__(
         self,
         api_key: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
-        contact_id: Optional[str] = None,
-        environment: Optional[str] = None,
         server_idx: Optional[int] = None,
         url_params: Optional[Dict[str, str]] = None,
         server_url: Optional[str] = None,
@@ -118,8 +116,6 @@ class Orq(BaseSDK):
         r"""Instantiates the SDK configuring it with the provided parameters.
 
         :param api_key: The api_key required for authentication
-        :param contact_id: Configures the contact_id parameter for all supported operations
-        :param environment: Configures the environment parameter for all supported operations
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -162,11 +158,6 @@ class Orq(BaseSDK):
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
 
-        _globals = models_.internal.Globals(
-            contact_id=utils.get_global_from_env(contact_id, "ORQ_CONTACT_ID", str),
-            environment=utils.get_global_from_env(environment, "ORQ_ENVIRONMENT", str),
-        )
-
         BaseSDK.__init__(
             self,
             SDKConfiguration(
@@ -174,7 +165,6 @@ class Orq(BaseSDK):
                 client_supplied=client_supplied,
                 async_client=async_client,
                 async_client_supplied=async_client_supplied,
-                globals=_globals,
                 security=security,
                 server_url=server_url,
                 server_idx=server_idx,

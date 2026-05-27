@@ -26,45 +26,11 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, get_discriminator
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-class DeploymentStreamGlobalsTypedDict(TypedDict):
-    environment: NotRequired[str]
-    contact_id: NotRequired[str]
-
-
-class DeploymentStreamGlobals(BaseModel):
-    environment: Annotated[
-        Optional[str],
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["environment", "contactId"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]

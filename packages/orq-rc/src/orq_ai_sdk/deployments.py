@@ -135,10 +135,6 @@ class Deployments(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentInvokeGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.InvokeDeploymentRequest
@@ -296,10 +292,6 @@ class Deployments(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentInvokeGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.InvokeDeploymentRequest
@@ -1021,10 +1013,6 @@ class Deployments(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="text/event-stream",
             http_headers=http_headers,
-            _globals=models.DeploymentStreamGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentStreamRequestBody
@@ -1204,10 +1192,6 @@ class Deployments(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="text/event-stream",
             http_headers=http_headers,
-            _globals=models.DeploymentStreamGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentStreamRequestBody

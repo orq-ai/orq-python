@@ -1734,12 +1734,12 @@ class RunAgentTeamOfAgents(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
 
 
-class RunAgentAgentToolInputRunHeadersTypedDict(TypedDict):
+class AgentToolInputRunHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class RunAgentAgentToolInputRunHeaders(BaseModel):
+class AgentToolInputRunHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -1808,7 +1808,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KSFYHCJXYPS08Y8GW67GJF7Q"
+    id: Optional[str] = "01KSMDBSHVZ5CSBECD3PW3GJXW"
 
     description: Optional[str] = None
 
@@ -1843,7 +1843,7 @@ class McpTypedDict(TypedDict):
     r"""Array of tools available from the MCP server"""
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
+    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
@@ -1857,7 +1857,7 @@ class Mcp(BaseModel):
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None
+    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
 
     @model_serializer(mode="wrap")
@@ -2371,14 +2371,10 @@ class Headers2(BaseModel):
         return m
 
 
-AgentToolInputRunHeadersTypedDict = TypeAliasType(
-    "AgentToolInputRunHeadersTypedDict", Union[Headers2TypedDict, str]
-)
+HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
 
 
-AgentToolInputRunHeaders = TypeAliasType(
-    "AgentToolInputRunHeaders", Union[Headers2, str]
-)
+Headers = TypeAliasType("Headers", Union[Headers2, str])
 
 
 class BlueprintTypedDict(TypedDict):
@@ -2388,7 +2384,7 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: Method
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
+    headers: NotRequired[Dict[str, HeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -2403,7 +2399,7 @@ class Blueprint(BaseModel):
     method: Method
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
+    headers: Optional[Dict[str, Headers]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
