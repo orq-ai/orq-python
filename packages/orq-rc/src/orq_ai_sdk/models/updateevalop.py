@@ -748,9 +748,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -992,9 +992,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1722,9 +1722,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1932,9 +1932,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -2114,18 +2114,18 @@ UpdateEvalResponseBodyEvalsGuardrailConfig = Annotated[
 UpdateEvalResponseBodyEvalsType = Literal["http_eval",]
 
 
-UpdateEvalResponseBodyMethod = Literal[
+ResponseBodyMethod = Literal[
     "GET",
     "POST",
 ]
 
 
-class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
+class ResponseBodyHTTPTypedDict(TypedDict):
     id: str
     description: str
     type: UpdateEvalResponseBodyEvalsType
     url: str
-    method: UpdateEvalResponseBodyMethod
+    method: ResponseBodyMethod
     headers: Dict[str, str]
     payload: Dict[str, Any]
     key: str
@@ -2136,7 +2136,7 @@ class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
     ]
 
 
-class UpdateEvalResponseBodyHTTP(BaseModel):
+class ResponseBodyHTTP(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     description: str
@@ -2145,7 +2145,7 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     url: str
 
-    method: UpdateEvalResponseBodyMethod
+    method: ResponseBodyMethod
 
     headers: Dict[str, str]
 
@@ -2153,9 +2153,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -2357,9 +2357,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -2796,9 +2796,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
@@ -3083,9 +3083,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-27T10:03:36.185Z"
+    created: Optional[str] = "2026-05-28T05:20:55.252Z"
 
-    updated: Optional[str] = "2026-05-27T10:03:36.185Z"
+    updated: Optional[str] = "2026-05-28T05:20:55.252Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
@@ -3155,7 +3155,7 @@ UpdateEvalResponseBodyTypedDict = TypeAliasType(
         ResponseBodyFunctionTypedDict,
         ResponseBodyTypescriptTypedDict,
         ResponseBodyRagasTypedDict,
-        UpdateEvalResponseBodyHTTPTypedDict,
+        ResponseBodyHTTPTypedDict,
         UpdateEvalResponseBodyLLMTypedDict,
     ],
 )
@@ -3170,7 +3170,7 @@ UpdateEvalResponseBody = TypeAliasType(
         ResponseBodyFunction,
         ResponseBodyTypescript,
         ResponseBodyRagas,
-        UpdateEvalResponseBodyHTTP,
+        ResponseBodyHTTP,
         UpdateEvalResponseBodyLLM,
     ],
 )
@@ -3198,7 +3198,7 @@ try:
 except NameError:
     pass
 try:
-    UpdateEvalResponseBodyHTTP.model_rebuild()
+    ResponseBodyHTTP.model_rebuild()
 except NameError:
     pass
 try:

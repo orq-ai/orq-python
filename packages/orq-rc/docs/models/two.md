@@ -3,27 +3,21 @@
 
 ## Supported Types
 
-### `models.TextContentPartSchema`
+### `models.One`
 
 ```python
-value: models.TextContentPartSchema = /* values here */
+value: models.One = /* values here */
 ```
 
-### `models.ImageContentPartSchema`
+### `models.Two2`
 
 ```python
-value: models.ImageContentPartSchema = /* values here */
+value: models.Two2 = /* values here */
 ```
 
-### `models.AudioContentPartSchema`
+### `models.Three`
 
 ```python
-value: models.AudioContentPartSchema = /* values here */
-```
-
-### `models.Four`
-
-```python
-value: models.Four = /* values here */
+value: models.Three = /* values here */
 ```
 

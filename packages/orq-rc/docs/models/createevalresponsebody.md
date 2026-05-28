@@ -17,10 +17,10 @@ value: models.ResponseBodyLLM = /* values here */
 value: models.ResponseBodyJSON = /* values here */
 ```
 
-### `models.ResponseBodyHTTP`
+### `models.CreateEvalResponseBodyHTTP`
 
 ```python
-value: models.ResponseBodyHTTP = /* values here */
+value: models.CreateEvalResponseBodyHTTP = /* values here */
 ```
 
 ### `models.ResponseBodyPython`

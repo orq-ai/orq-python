@@ -17,10 +17,10 @@ value: models.UpdateEvalResponseBodyLLM = /* values here */
 value: models.UpdateEvalResponseBodyJSON = /* values here */
 ```
 
-### `models.UpdateEvalResponseBodyHTTP`
+### `models.ResponseBodyHTTP`
 
 ```python
-value: models.UpdateEvalResponseBodyHTTP = /* values here */
+value: models.ResponseBodyHTTP = /* values here */
 ```
 
 ### `models.UpdateEvalResponseBodyPython`

@@ -31,6 +31,8 @@ class Annotations(BaseSDK):
     ):
         r"""Annotate a span
 
+        Attach one or more annotations to a specific span. Each annotation references an evaluator by key and supplies a value (string for text/single-select, number for range, array for multi-select).
+
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
         :param annotations:
@@ -146,6 +148,8 @@ class Annotations(BaseSDK):
     ):
         r"""Annotate a span
 
+        Attach one or more annotations to a specific span. Each annotation references an evaluator by key and supplies a value (string for text/single-select, number for range, array for multi-select).
+
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
         :param annotations:
@@ -252,6 +256,8 @@ class Annotations(BaseSDK):
     ):
         r"""Remove an annotation from a span
 
+        Remove one or more annotations from a specific span by their evaluator keys.
+
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
         :param keys: Unique keys of the reviews to remove
@@ -351,6 +357,8 @@ class Annotations(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Remove an annotation from a span
+
+        Remove one or more annotations from a specific span by their evaluator keys.
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span

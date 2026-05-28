@@ -1,35 +1,10 @@
 # Choices
 
 
-## Supported Types
+## Fields
 
-### `models.ChoicesSystemMessage`
-
-```python
-value: models.ChoicesSystemMessage = /* values here */
-```
-
-### `models.ChoicesDeveloperMessage`
-
-```python
-value: models.ChoicesDeveloperMessage = /* values here */
-```
-
-### `models.ChoicesUserMessage`
-
-```python
-value: models.ChoicesUserMessage = /* values here */
-```
-
-### `models.ChoicesAssistantMessage`
-
-```python
-value: models.ChoicesAssistantMessage = /* values here */
-```
-
-### `models.ChoicesToolMessage`
-
-```python
-value: models.ChoicesToolMessage = /* values here */
-```
-
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `index`                                                                | *float*                                                                | :heavy_check_mark:                                                     | N/A                                                                    |
+| `message`                                                              | [models.DeploymentInvokeMessage](../models/deploymentinvokemessage.md) | :heavy_check_mark:                                                     | N/A                                                                    |
+| `finish_reason`                                                        | *OptionalNullable[str]*                                                | :heavy_minus_sign:                                                     | N/A                                                                    |

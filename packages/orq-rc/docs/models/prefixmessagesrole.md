@@ -1,15 +1,15 @@
 # PrefixMessagesRole
 
-The role of the messages author, in this case  `developer`.
+The role of the messages author, in this case `system`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import PrefixMessagesRole
-value: PrefixMessagesRole = "developer"
+value: PrefixMessagesRole = "system"
 ```
 
 
 ## Values
 
-- `"developer"`
+- `"system"`

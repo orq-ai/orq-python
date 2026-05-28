@@ -1,5 +1,7 @@
 # RequestBodyMethod
 
+The HTTP method to use.
+
 ## Example Usage
 
 ```python
@@ -12,3 +14,5 @@ value: RequestBodyMethod = "GET"
 
 - `"GET"`
 - `"POST"`
+- `"PUT"`
+- `"DELETE"`

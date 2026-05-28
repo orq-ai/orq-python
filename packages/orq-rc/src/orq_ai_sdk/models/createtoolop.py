@@ -334,7 +334,7 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 CreateToolRequestBodyToolsRequestType = Literal["http",]
 
 
-CreateToolRequestBodyMethod = Literal[
+RequestBodyMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -385,7 +385,7 @@ class RequestBodyBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: CreateToolRequestBodyMethod
+    method: RequestBodyMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, CreateToolRequestBodyHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -399,7 +399,7 @@ class RequestBodyBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: CreateToolRequestBodyMethod
+    method: RequestBodyMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, CreateToolRequestBodyHeaders]] = None
@@ -486,14 +486,14 @@ class RequestBodyArguments(BaseModel):
         return m
 
 
-class CreateToolRequestBodyHTTPTypedDict(TypedDict):
+class RequestBodyHTTPTypedDict(TypedDict):
     blueprint: RequestBodyBlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
     arguments: NotRequired[Dict[str, RequestBodyArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class CreateToolRequestBodyHTTP(BaseModel):
+class RequestBodyHTTP(BaseModel):
     blueprint: RequestBodyBlueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -532,7 +532,7 @@ class RequestBodyHTTPToolTypedDict(TypedDict):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     type: CreateToolRequestBodyToolsRequestType
-    http: CreateToolRequestBodyHTTPTypedDict
+    http: RequestBodyHTTPTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     status: NotRequired[CreateToolRequestBodyToolsStatus]
@@ -558,7 +558,7 @@ class RequestBodyHTTPTool(BaseModel):
 
     type: CreateToolRequestBodyToolsRequestType
 
-    http: CreateToolRequestBodyHTTP
+    http: RequestBodyHTTP
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -1076,7 +1076,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSME7X0JQ9HCG0PKH2WZVGSG"
+        "tool_01KSPGF040CCKPP2Q21DQM02KR"
     )
 
     display_name: Optional[str] = None
@@ -1194,7 +1194,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KSME7X0HWTYCMZ0FNF4T3KJD"
+    id: Optional[str] = "01KSPGF03ZXTKBH6ZYJQFHAZP0"
 
     description: Optional[str] = None
 
@@ -1338,7 +1338,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSME7X0G46X59QRQT8BPEA9P"
+        "tool_01KSPGF03YRX6SZ5BT4A432JB7"
     )
 
     display_name: Optional[str] = None
@@ -1629,7 +1629,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSME7X0D0VEJ8SS8810FGE44"
+        "tool_01KSPGF03WTSSY7QCD1S39FZ39"
     )
 
     display_name: Optional[str] = None
@@ -1814,7 +1814,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSME7X0C154RRVWHH1QPEVGC"
+        "tool_01KSPGF03T2ABBF159D32W0Q8Z"
     )
 
     display_name: Optional[str] = None
@@ -2003,7 +2003,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KSME7X0A5MTGZRR0X2F6QX5A"
+        "tool_01KSPGF03SQED1A2R188XFR5CG"
     )
 
     display_name: Optional[str] = None

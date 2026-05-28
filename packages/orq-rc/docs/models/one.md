@@ -1,59 +1,11 @@
 # One
 
+Text content part of a prompt message
 
-## Supported Types
 
-### `models.OneEq`
+## Fields
 
-```python
-value: models.OneEq = /* values here */
-```
-
-### `models.OneNe`
-
-```python
-value: models.OneNe = /* values here */
-```
-
-### `models.Gt`
-
-```python
-value: models.Gt = /* values here */
-```
-
-### `models.Gte`
-
-```python
-value: models.Gte = /* values here */
-```
-
-### `models.Lt`
-
-```python
-value: models.Lt = /* values here */
-```
-
-### `models.Lte`
-
-```python
-value: models.Lte = /* values here */
-```
-
-### `models.OneIn`
-
-```python
-value: models.OneIn = /* values here */
-```
-
-### `models.OneNin`
-
-```python
-value: models.OneNin = /* values here */
-```
-
-### `models.Exists`
-
-```python
-value: models.Exists = /* values here */
-```
-
+| Field                                  | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `type`                                 | [models.TwoType](../models/twotype.md) | :heavy_check_mark:                     | N/A                                    |
+| `text`                                 | *str*                                  | :heavy_check_mark:                     | N/A                                    |

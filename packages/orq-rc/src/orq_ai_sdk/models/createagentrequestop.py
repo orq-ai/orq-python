@@ -2576,11 +2576,11 @@ class CreateAgentRequestTeamOfAgents(BaseModel):
         return m
 
 
-class CreateAgentRequestMetricsTypedDict(TypedDict):
+class MetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
 
-class CreateAgentRequestMetrics(BaseModel):
+class Metrics(BaseModel):
     total_cost: Optional[float] = 0
 
     @model_serializer(mode="wrap")
@@ -4374,7 +4374,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: NotRequired[List[CreateAgentRequestTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[CreateAgentRequestMetricsTypedDict]
+    metrics: NotRequired[MetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
@@ -4438,7 +4438,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     team_of_agents: Optional[List[CreateAgentRequestTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
-    metrics: Optional[CreateAgentRequestMetrics] = None
+    metrics: Optional[Metrics] = None
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""

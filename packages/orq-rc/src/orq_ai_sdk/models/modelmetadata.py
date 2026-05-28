@@ -19,15 +19,25 @@ class ModelMetadataTypedDict(TypedDict):
     is_private: bool
     allowed_passthrough_parameters: NotRequired[Nullable[List[str]]]
     autorouter: NotRequired[AutoRouterConfigTypedDict]
+    cached_image_input_cost: NotRequired[float]
+    cached_input_cost: NotRequired[float]
+    chain_of_thought: NotRequired[bool]
+    context_length: NotRequired[int]
     context_window: NotRequired[int]
     cost_efficiency_rating: NotRequired[int]
     cost_per_image: NotRequired[float]
+    deprecation_date: NotRequired[str]
+    embedding_dimensions: NotRequired[int]
     extended_context_pricing_mode: NotRequired[str]
     extended_context_threshold: NotRequired[int]
     generate_audio: NotRequired[bool]
+    image_input_cost: NotRequired[float]
+    image_output_cost: NotRequired[float]
     image_token_cost: NotRequired[float]
     intelligence_rating: NotRequired[int]
+    is_realtime: NotRequired[bool]
     knowledge_cutoff: NotRequired[str]
+    max_images_per_request: NotRequired[int]
     max_input_tokens: NotRequired[int]
     max_output_tokens: NotRequired[int]
     million_searches_cost: NotRequired[float]
@@ -50,9 +60,13 @@ class ModelMetadataTypedDict(TypedDict):
     million_tokens_input_cost: NotRequired[float]
     million_tokens_output_cost: NotRequired[float]
     million_tokens_reasoning_cost: NotRequired[float]
+    multilingual: NotRequired[bool]
+    offline: NotRequired[bool]
     per_video_second_cost: NotRequired[float]
     per_video_second_cost_1080p: NotRequired[float]
     pricing: NotRequired[PricingTypedDict]
+    reasoning_cost: NotRequired[float]
+    reasoning_tokens: NotRequired[int]
     region: NotRequired[str]
     speed_rating: NotRequired[int]
     supported_video_aspect_ratios: NotRequired[Nullable[List[str]]]
@@ -66,6 +80,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_b64_json_response_format: NotRequired[bool]
     supports_batch_api: NotRequired[bool]
     supports_code_execution: NotRequired[bool]
+    supports_commercial_use: NotRequired[bool]
     supports_computer_use: NotRequired[bool]
     supports_developer_message: NotRequired[bool]
     supports_direct_cost: NotRequired[bool]
@@ -75,6 +90,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_image_edit: NotRequired[bool]
     supports_image_input: NotRequired[bool]
     supports_image_output: NotRequired[bool]
+    supports_images: NotRequired[bool]
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
@@ -94,7 +110,9 @@ class ModelMetadataTypedDict(TypedDict):
     supports_sampling_params: NotRequired[bool]
     supports_streaming: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
+    supports_structured_outputs: NotRequired[bool]
     supports_system_message: NotRequired[bool]
+    supports_text: NotRequired[bool]
     supports_text_input: NotRequired[bool]
     supports_text_output: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
@@ -106,6 +124,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_video_seed: NotRequired[bool]
     supports_vision: NotRequired[bool]
     supports_web_search: NotRequired[bool]
+    supports_zdr: NotRequired[bool]
     thinking_enforced: NotRequired[bool]
 
 
@@ -116,11 +135,23 @@ class ModelMetadata(BaseModel):
 
     autorouter: Optional[AutoRouterConfig] = None
 
+    cached_image_input_cost: Optional[float] = None
+
+    cached_input_cost: Optional[float] = None
+
+    chain_of_thought: Optional[bool] = None
+
+    context_length: Optional[int] = None
+
     context_window: Optional[int] = None
 
     cost_efficiency_rating: Optional[int] = None
 
     cost_per_image: Optional[float] = None
+
+    deprecation_date: Optional[str] = None
+
+    embedding_dimensions: Optional[int] = None
 
     extended_context_pricing_mode: Optional[str] = None
 
@@ -128,11 +159,19 @@ class ModelMetadata(BaseModel):
 
     generate_audio: Optional[bool] = None
 
+    image_input_cost: Optional[float] = None
+
+    image_output_cost: Optional[float] = None
+
     image_token_cost: Optional[float] = None
 
     intelligence_rating: Optional[int] = None
 
+    is_realtime: Optional[bool] = None
+
     knowledge_cutoff: Optional[str] = None
+
+    max_images_per_request: Optional[int] = None
 
     max_input_tokens: Optional[int] = None
 
@@ -178,11 +217,19 @@ class ModelMetadata(BaseModel):
 
     million_tokens_reasoning_cost: Optional[float] = None
 
+    multilingual: Optional[bool] = None
+
+    offline: Optional[bool] = None
+
     per_video_second_cost: Optional[float] = None
 
     per_video_second_cost_1080p: Optional[float] = None
 
     pricing: Optional[Pricing] = None
+
+    reasoning_cost: Optional[float] = None
+
+    reasoning_tokens: Optional[int] = None
 
     region: Optional[str] = None
 
@@ -210,6 +257,8 @@ class ModelMetadata(BaseModel):
 
     supports_code_execution: Optional[bool] = None
 
+    supports_commercial_use: Optional[bool] = None
+
     supports_computer_use: Optional[bool] = None
 
     supports_developer_message: Optional[bool] = None
@@ -227,6 +276,8 @@ class ModelMetadata(BaseModel):
     supports_image_input: Optional[bool] = None
 
     supports_image_output: Optional[bool] = None
+
+    supports_images: Optional[bool] = None
 
     supports_json_mode_response_format: Optional[bool] = None
 
@@ -266,7 +317,11 @@ class ModelMetadata(BaseModel):
 
     supports_strict_tool: Optional[bool] = None
 
+    supports_structured_outputs: Optional[bool] = None
+
     supports_system_message: Optional[bool] = None
+
+    supports_text: Optional[bool] = None
 
     supports_text_input: Optional[bool] = None
 
@@ -290,6 +345,8 @@ class ModelMetadata(BaseModel):
 
     supports_web_search: Optional[bool] = None
 
+    supports_zdr: Optional[bool] = None
+
     thinking_enforced: Optional[bool] = None
 
     @model_serializer(mode="wrap")
@@ -298,15 +355,25 @@ class ModelMetadata(BaseModel):
             [
                 "allowed_passthrough_parameters",
                 "autorouter",
+                "cached_image_input_cost",
+                "cached_input_cost",
+                "chain_of_thought",
+                "context_length",
                 "context_window",
                 "cost_efficiency_rating",
                 "cost_per_image",
+                "deprecation_date",
+                "embedding_dimensions",
                 "extended_context_pricing_mode",
                 "extended_context_threshold",
                 "generate_audio",
+                "image_input_cost",
+                "image_output_cost",
                 "image_token_cost",
                 "intelligence_rating",
+                "is_realtime",
                 "knowledge_cutoff",
+                "max_images_per_request",
                 "max_input_tokens",
                 "max_output_tokens",
                 "million_searches_cost",
@@ -329,9 +396,13 @@ class ModelMetadata(BaseModel):
                 "million_tokens_input_cost",
                 "million_tokens_output_cost",
                 "million_tokens_reasoning_cost",
+                "multilingual",
+                "offline",
                 "per_video_second_cost",
                 "per_video_second_cost_1080p",
                 "pricing",
+                "reasoning_cost",
+                "reasoning_tokens",
                 "region",
                 "speed_rating",
                 "supported_video_aspect_ratios",
@@ -345,6 +416,7 @@ class ModelMetadata(BaseModel):
                 "supports_b64_json_response_format",
                 "supports_batch_api",
                 "supports_code_execution",
+                "supports_commercial_use",
                 "supports_computer_use",
                 "supports_developer_message",
                 "supports_direct_cost",
@@ -354,6 +426,7 @@ class ModelMetadata(BaseModel):
                 "supports_image_edit",
                 "supports_image_input",
                 "supports_image_output",
+                "supports_images",
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
@@ -373,7 +446,9 @@ class ModelMetadata(BaseModel):
                 "supports_sampling_params",
                 "supports_streaming",
                 "supports_strict_tool",
+                "supports_structured_outputs",
                 "supports_system_message",
+                "supports_text",
                 "supports_text_input",
                 "supports_text_output",
                 "supports_tool_calling",
@@ -385,6 +460,7 @@ class ModelMetadata(BaseModel):
                 "supports_video_seed",
                 "supports_vision",
                 "supports_web_search",
+                "supports_zdr",
                 "thinking_enforced",
             ]
         )

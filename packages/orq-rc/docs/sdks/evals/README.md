@@ -71,18 +71,8 @@ with Orq(
 ) as orq:
 
     res = orq.evals.create(request={
-        "output_type": "string",
-        "type": "http_eval",
-        "url": "https://total-unit.name",
-        "method": "GET",
-        "headers": {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-        },
-        "payload": {
-            "key": "<value>",
-        },
+        "type": "json_schema",
+        "schema_": "<value>",
         "path": "Default",
         "description": "",
         "key": "<key>",
@@ -251,7 +241,7 @@ with Orq(
 | `output`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The generated response from the model                                   |
 | `reference`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The reference used to compare the output                                |
 | `retrievals`                                                            | List[*str*]                                                             | :heavy_minus_sign:                                                      | Knowledge base retrievals                                               |
-| `messages`                                                              | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]   | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
+| `messages`                                                              | List[[models.Messages](../../models/messages.md)]                       | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
 | `model`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Model to use for LLM-based evaluators (e.g. "openai/gpt-4o")            |
 | `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
 

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateEvalRequestBodyType
-value: CreateEvalRequestBodyType = "python_eval"
+value: CreateEvalRequestBodyType = "json_schema"
 ```
 
 
 ## Values
 
-- `"python_eval"`
+- `"json_schema"`

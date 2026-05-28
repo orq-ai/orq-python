@@ -933,10 +933,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
         messages: Optional[
-            Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -979,7 +976,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=retrievals,
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),
@@ -1068,10 +1065,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
         messages: Optional[
-            Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1114,7 +1108,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=retrievals,
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),
