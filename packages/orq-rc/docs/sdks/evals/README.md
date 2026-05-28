@@ -71,8 +71,8 @@ with Orq(
 ) as orq:
 
     res = orq.evals.create(request={
-        "type": "json_schema",
-        "schema_": "<value>",
+        "code": "<value>",
+        "type": "python_eval",
         "path": "Default",
         "description": "",
         "key": "<key>",

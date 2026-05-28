@@ -9,12 +9,6 @@
 value: models.Llm = /* values here */
 ```
 
-### `models.JSON`
-
-```python
-value: models.JSON = /* values here */
-```
-
 ### `models.Python`
 
 ```python

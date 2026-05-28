@@ -11,10 +11,10 @@ Successfully updated an eval
 value: models.UpdateEvalResponseBodyLLM = /* values here */
 ```
 
-### `models.UpdateEvalResponseBodyJSON`
+### `models.ResponseBodyJSON`
 
 ```python
-value: models.UpdateEvalResponseBodyJSON = /* values here */
+value: models.ResponseBodyJSON = /* values here */
 ```
 
 ### `models.ResponseBodyHTTP`

@@ -11,16 +11,14 @@ from typing_extensions import NotRequired, TypedDict
 class ListCapabilitiesResponseTypedDict(TypedDict):
     domains: NotRequired[List[DomainTypedDict]]
     r"""Full capability catalog. Order is stable: workspace-admin first,
-    then platform, then gateway. Within a group, entries are sorted
-    alphabetically by display_name.
+    then platform, then gateway.
     """
 
 
 class ListCapabilitiesResponse(BaseModel):
     domains: Optional[List[Domain]] = None
     r"""Full capability catalog. Order is stable: workspace-admin first,
-    then platform, then gateway. Within a group, entries are sorted
-    alphabetically by display_name.
+    then platform, then gateway.
     """
 
     @model_serializer(mode="wrap")

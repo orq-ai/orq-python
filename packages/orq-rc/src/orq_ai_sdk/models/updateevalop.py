@@ -748,9 +748,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -992,9 +992,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1722,9 +1722,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1932,9 +1932,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[
         UpdateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -2153,9 +2153,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyEvalsGuardrailConfig] = (
         UNSET
@@ -2333,7 +2333,7 @@ UpdateEvalResponseBodyGuardrailConfig = Annotated[
 UpdateEvalResponseBodyType = Literal["json_schema",]
 
 
-class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
+class ResponseBodyJSONTypedDict(TypedDict):
     id: str
     description: str
     type: UpdateEvalResponseBodyType
@@ -2346,7 +2346,7 @@ class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
     ]
 
 
-class UpdateEvalResponseBodyJSON(BaseModel):
+class ResponseBodyJSON(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     description: str
@@ -2357,9 +2357,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[UpdateEvalResponseBodyGuardrailConfig] = UNSET
 
@@ -2796,9 +2796,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
@@ -3083,9 +3083,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-05-28T08:16:49.302Z"
+    created: Optional[str] = "2026-05-28T23:42:19.964Z"
 
-    updated: Optional[str] = "2026-05-28T08:16:49.302Z"
+    updated: Optional[str] = "2026-05-28T23:42:19.964Z"
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
@@ -3150,7 +3150,7 @@ UpdateEvalResponseBodyLLM = Annotated[
 UpdateEvalResponseBodyTypedDict = TypeAliasType(
     "UpdateEvalResponseBodyTypedDict",
     Union[
-        UpdateEvalResponseBodyJSONTypedDict,
+        ResponseBodyJSONTypedDict,
         UpdateEvalResponseBodyPythonTypedDict,
         ResponseBodyFunctionTypedDict,
         ResponseBodyTypescriptTypedDict,
@@ -3165,7 +3165,7 @@ r"""Successfully updated an eval"""
 UpdateEvalResponseBody = TypeAliasType(
     "UpdateEvalResponseBody",
     Union[
-        UpdateEvalResponseBodyJSON,
+        ResponseBodyJSON,
         UpdateEvalResponseBodyPython,
         ResponseBodyFunction,
         ResponseBodyTypescript,
@@ -3202,7 +3202,7 @@ try:
 except NameError:
     pass
 try:
-    UpdateEvalResponseBodyJSON.model_rebuild()
+    ResponseBodyJSON.model_rebuild()
 except NameError:
     pass
 try:
