@@ -205,6 +205,7 @@ class Projects(BaseSDK):
         *,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
+        description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -216,6 +217,7 @@ class Projects(BaseSDK):
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
+        :param description: Optional human-readable description, at most 500 characters.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -237,6 +239,7 @@ class Projects(BaseSDK):
         request = models.CreateProjectRequest(
             name=name,
             teams=teams,
+            description=description,
         )
 
         req = self._build_request(
@@ -298,6 +301,7 @@ class Projects(BaseSDK):
         *,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
+        description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -309,6 +313,7 @@ class Projects(BaseSDK):
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
+        :param description: Optional human-readable description, at most 500 characters.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -330,6 +335,7 @@ class Projects(BaseSDK):
         request = models.CreateProjectRequest(
             name=name,
             teams=teams,
+            description=description,
         )
 
         req = self._build_request_async(
@@ -741,6 +747,7 @@ class Projects(BaseSDK):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
+        description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -755,6 +762,7 @@ class Projects(BaseSDK):
         :param name: New project name. Omit to keep the current name.
         :param teams: Replacement list of team identifiers associated with the project.
             Leave empty to remove all team associations.
+        :param description: New project description. Omit to keep the current description.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -779,6 +787,7 @@ class Projects(BaseSDK):
                 project_id=project_id,
                 name=name,
                 teams=teams,
+                description=description,
             ),
         )
 
@@ -847,6 +856,7 @@ class Projects(BaseSDK):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
+        description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -861,6 +871,7 @@ class Projects(BaseSDK):
         :param name: New project name. Omit to keep the current name.
         :param teams: Replacement list of team identifiers associated with the project.
             Leave empty to remove all team associations.
+        :param description: New project description. Omit to keep the current description.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -885,6 +896,7 @@ class Projects(BaseSDK):
                 project_id=project_id,
                 name=name,
                 teams=teams,
+                description=description,
             ),
         )
 

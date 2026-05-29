@@ -16,6 +16,8 @@ class UpdateProjectRequestTypedDict(TypedDict):
     r"""Replacement list of team identifiers associated with the project.
     Leave empty to remove all team associations.
     """
+    description: NotRequired[str]
+    r"""New project description. Omit to keep the current description."""
 
 
 class UpdateProjectRequest(BaseModel):
@@ -30,9 +32,12 @@ class UpdateProjectRequest(BaseModel):
     Leave empty to remove all team associations.
     """
 
+    description: Optional[str] = None
+    r"""New project description. Omit to keep the current description."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["project_id", "name", "teams"])
+        optional_fields = set(["project_id", "name", "teams", "description"])
         serialized = handler(self)
         m = {}
 

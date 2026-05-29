@@ -37,6 +37,8 @@ class ProjectTypedDict(TypedDict):
     r"""User ID that created the project."""
     updated_by_id: NotRequired[str]
     r"""User ID that last updated the project."""
+    description: NotRequired[str]
+    r"""Optional human-readable description of the project."""
 
 
 class Project(BaseModel):
@@ -78,6 +80,9 @@ class Project(BaseModel):
     updated_by_id: Optional[str] = None
     r"""User ID that last updated the project."""
 
+    description: Optional[str] = None
+    r"""Optional human-readable description of the project."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -92,6 +97,7 @@ class Project(BaseModel):
                 "updated_at",
                 "created_by_id",
                 "updated_by_id",
+                "description",
             ]
         )
         serialized = handler(self)
