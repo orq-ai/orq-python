@@ -3435,6 +3435,8 @@ if TYPE_CHECKING:
         DeploymentStreamUsage,
         DeploymentStreamUsageTypedDict,
     )
+    from .detectrequest import DetectRequest, DetectRequestTypedDict
+    from .detectresponse import DetectResponse, DetectResponseTypedDict
     from .domain import Domain, DomainTypedDict
     from .errorpart import ErrorPart, ErrorPartKind, ErrorPartTypedDict
     from .errorstreamingevent import (
@@ -5535,6 +5537,8 @@ if TYPE_CHECKING:
         RedactedReasoningPartSchemaType,
         RedactedReasoningPartSchemaTypedDict,
     )
+    from .redactrequest import RedactRequest, RedactRequestTypedDict
+    from .redactresponse import RedactResponse, RedactResponseTypedDict
     from .refusalpartschema import (
         RefusalPartSchema,
         RefusalPartSchemaType,
@@ -5593,6 +5597,8 @@ if TYPE_CHECKING:
     )
     from .responsethread import ResponseThread, ResponseThreadTypedDict
     from .responsevalidationerror import ResponseValidationError
+    from .restorerequest import RestoreRequest, RestoreRequestTypedDict
+    from .restoreresponse import RestoreResponse, RestoreResponseTypedDict
     from .retrieve_agent_scheduleop import (
         RetrieveAgentScheduleRequest,
         RetrieveAgentScheduleRequestTypedDict,
@@ -10923,6 +10929,10 @@ __all__ = [
     "DeploymentsType",
     "DeploymentsVerbosity",
     "Detail",
+    "DetectRequest",
+    "DetectRequestTypedDict",
+    "DetectResponse",
+    "DetectResponseTypedDict",
     "DeveloperMessage",
     "DeveloperMessageTypedDict",
     "Dimensions",
@@ -13267,6 +13277,10 @@ __all__ = [
     "RecursiveChunker",
     "RecursiveChunkerStrategy",
     "RecursiveChunkerStrategyTypedDict",
+    "RedactRequest",
+    "RedactRequestTypedDict",
+    "RedactResponse",
+    "RedactResponseTypedDict",
     "RedactedReasoningPartSchema",
     "RedactedReasoningPartSchemaType",
     "RedactedReasoningPartSchemaTypedDict",
@@ -13485,6 +13499,10 @@ __all__ = [
     "ResponseThread",
     "ResponseThreadTypedDict",
     "ResponseValidationError",
+    "RestoreRequest",
+    "RestoreRequestTypedDict",
+    "RestoreResponse",
+    "RestoreResponseTypedDict",
     "Results",
     "Results1",
     "Results1TypedDict",
@@ -19087,6 +19105,10 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentStreamThreadTypedDict": ".deploymentstreamop",
     "DeploymentStreamUsage": ".deploymentstreamop",
     "DeploymentStreamUsageTypedDict": ".deploymentstreamop",
+    "DetectRequest": ".detectrequest",
+    "DetectRequestTypedDict": ".detectrequest",
+    "DetectResponse": ".detectresponse",
+    "DetectResponseTypedDict": ".detectresponse",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
     "ErrorPart": ".errorpart",
@@ -21092,6 +21114,10 @@ _dynamic_imports: dict[str, str] = {
     "RedactedReasoningPartSchema": ".redactedreasoningpartschema",
     "RedactedReasoningPartSchemaType": ".redactedreasoningpartschema",
     "RedactedReasoningPartSchemaTypedDict": ".redactedreasoningpartschema",
+    "RedactRequest": ".redactrequest",
+    "RedactRequestTypedDict": ".redactrequest",
+    "RedactResponse": ".redactresponse",
+    "RedactResponseTypedDict": ".redactresponse",
     "RefusalPartSchema": ".refusalpartschema",
     "RefusalPartSchemaType": ".refusalpartschema",
     "RefusalPartSchemaTypedDict": ".refusalpartschema",
@@ -21142,6 +21168,10 @@ _dynamic_imports: dict[str, str] = {
     "ResponseThread": ".responsethread",
     "ResponseThreadTypedDict": ".responsethread",
     "ResponseValidationError": ".responsevalidationerror",
+    "RestoreRequest": ".restorerequest",
+    "RestoreRequestTypedDict": ".restorerequest",
+    "RestoreResponse": ".restoreresponse",
+    "RestoreResponseTypedDict": ".restoreresponse",
     "RetrieveAgentScheduleRequest": ".retrieve_agent_scheduleop",
     "RetrieveAgentScheduleRequestTypedDict": ".retrieve_agent_scheduleop",
     "RetrieveAgentScheduleResponseBody": ".retrieve_agent_scheduleop",

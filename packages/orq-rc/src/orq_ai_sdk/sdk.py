@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
     from orq_ai_sdk.prompts import Prompts
@@ -61,6 +62,7 @@ class Orq(BaseSDK):
     annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
+    pii: "Pii"
     guardrail_rules: "GuardrailRules"
     models: "Models"
     policies: "Policies"
@@ -87,6 +89,7 @@ class Orq(BaseSDK):
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
+        "pii": ("orq_ai_sdk.pii", "Pii"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),

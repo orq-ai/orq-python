@@ -26,6 +26,9 @@ class Responses(BaseSDK):
             Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
         ] = UNSET,
         frequency_penalty: Optional[float] = None,
+        guardrails: Optional[
+            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+        ] = None,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
@@ -90,8 +93,8 @@ class Responses(BaseSDK):
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateRouterResponseResponse:
         r"""Create response
@@ -101,6 +104,7 @@ class Responses(BaseSDK):
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
+        :param guardrails: Guardrails to evaluate the request against.
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
@@ -156,6 +160,9 @@ class Responses(BaseSDK):
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
             frequency_penalty=frequency_penalty,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.EvaluatorRef]]
+            ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),
@@ -283,6 +290,9 @@ class Responses(BaseSDK):
             Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
         ] = UNSET,
         frequency_penalty: Optional[float] = None,
+        guardrails: Optional[
+            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+        ] = None,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
@@ -347,8 +357,8 @@ class Responses(BaseSDK):
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateRouterResponseResponse:
         r"""Create response
@@ -358,6 +368,7 @@ class Responses(BaseSDK):
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
+        :param guardrails: Guardrails to evaluate the request against.
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
@@ -413,6 +424,9 @@ class Responses(BaseSDK):
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
             frequency_penalty=frequency_penalty,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.EvaluatorRef]]
+            ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),

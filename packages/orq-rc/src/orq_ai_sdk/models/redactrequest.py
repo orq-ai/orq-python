@@ -3,39 +3,26 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Any, Dict, Literal, Optional
+from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-EvaluatorRefExecuteOn = Literal[
-    "input",
-    "output",
-    "both",
-]
+class RedactRequestTypedDict(TypedDict):
+    text: NotRequired[str]
+    language: NotRequired[str]
+    threshold: NotRequired[float]
 
 
-class EvaluatorRefTypedDict(TypedDict):
-    execute_on: EvaluatorRefExecuteOn
-    id: str
-    is_guardrail: NotRequired[bool]
-    options: NotRequired[Dict[str, Any]]
-    sample_rate: NotRequired[float]
+class RedactRequest(BaseModel):
+    text: Optional[str] = None
 
+    language: Optional[str] = None
 
-class EvaluatorRef(BaseModel):
-    execute_on: EvaluatorRefExecuteOn
-
-    id: str
-
-    is_guardrail: Optional[bool] = None
-
-    options: Optional[Dict[str, Any]] = None
-
-    sample_rate: Optional[float] = None
+    threshold: Optional[float] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["is_guardrail", "options", "sample_rate"])
+        optional_fields = set(["text", "language", "threshold"])
         serialized = handler(self)
         m = {}
 

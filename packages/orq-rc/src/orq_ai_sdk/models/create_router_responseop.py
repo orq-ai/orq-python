@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .conversationparam import ConversationParam, ConversationParamTypedDict
+from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
@@ -664,6 +665,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
     frequency_penalty: NotRequired[float]
     r"""Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0."""
+    guardrails: NotRequired[List[EvaluatorRefTypedDict]]
+    r"""Guardrails to evaluate the request against."""
     identity: NotRequired[ResponseIdentityTypedDict]
     input: NotRequired[CreateRouterResponseInputTypedDict]
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
@@ -723,6 +726,9 @@ class CreateRouterResponseRequestBody(BaseModel):
 
     frequency_penalty: Optional[float] = None
     r"""Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0."""
+
+    guardrails: Optional[List[EvaluatorRef]] = None
+    r"""Guardrails to evaluate the request against."""
 
     identity: Optional[ResponseIdentity] = None
 
@@ -808,6 +814,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "conversation",
                 "fallbacks",
                 "frequency_penalty",
+                "guardrails",
                 "identity",
                 "input",
                 "instructions",

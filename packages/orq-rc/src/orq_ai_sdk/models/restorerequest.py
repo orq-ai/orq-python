@@ -3,39 +3,25 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Any, Dict, Literal, Optional
+from typing import Dict, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-EvaluatorRefExecuteOn = Literal[
-    "input",
-    "output",
-    "both",
-]
+class RestoreRequestTypedDict(TypedDict):
+    redacted_text: NotRequired[str]
+    mappings: NotRequired[Dict[str, str]]
+    r"""Placeholder-to-original mapping produced by Redact."""
 
 
-class EvaluatorRefTypedDict(TypedDict):
-    execute_on: EvaluatorRefExecuteOn
-    id: str
-    is_guardrail: NotRequired[bool]
-    options: NotRequired[Dict[str, Any]]
-    sample_rate: NotRequired[float]
+class RestoreRequest(BaseModel):
+    redacted_text: Optional[str] = None
 
-
-class EvaluatorRef(BaseModel):
-    execute_on: EvaluatorRefExecuteOn
-
-    id: str
-
-    is_guardrail: Optional[bool] = None
-
-    options: Optional[Dict[str, Any]] = None
-
-    sample_rate: Optional[float] = None
+    mappings: Optional[Dict[str, str]] = None
+    r"""Placeholder-to-original mapping produced by Redact."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["is_guardrail", "options", "sample_rate"])
+        optional_fields = set(["redacted_text", "mappings"])
         serialized = handler(self)
         m = {}
 
