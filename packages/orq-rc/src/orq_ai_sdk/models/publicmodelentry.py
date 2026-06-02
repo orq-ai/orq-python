@@ -6,7 +6,7 @@ from typing import Literal
 from typing_extensions import TypedDict
 
 
-Object = Literal["model",]
+PublicModelEntryObject = Literal["model",]
 r"""Always \"model\"."""
 
 
@@ -15,7 +15,7 @@ class PublicModelEntryTypedDict(TypedDict):
     r"""Unix timestamp (seconds) when the model was added."""
     id: str
     r"""Model identifier in provider/model format (e.g. openai/gpt-4o)."""
-    object: Object
+    object: PublicModelEntryObject
     r"""Always \"model\"."""
     owned_by: str
     r"""The provider that owns the model (e.g. openai, anthropic)."""
@@ -28,7 +28,7 @@ class PublicModelEntry(BaseModel):
     id: str
     r"""Model identifier in provider/model format (e.g. openai/gpt-4o)."""
 
-    object: Object
+    object: PublicModelEntryObject
     r"""Always \"model\"."""
 
     owned_by: str

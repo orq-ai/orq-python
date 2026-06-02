@@ -15,34 +15,31 @@ class Embeddings(BaseSDK):
         *,
         input: Union[models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict],
         model: str,
-        encoding_format: Optional[models.EncodingFormat] = "float",
-        dimensions: Optional[float] = None,
-        user: Optional[str] = None,
-        name: Optional[str] = None,
-        fallbacks: Optional[
-            Union[
-                List[models.CreateEmbeddingFallbacks],
-                List[models.CreateEmbeddingFallbacksTypedDict],
-            ]
-        ] = None,
-        retry: Optional[
-            Union[models.CreateEmbeddingRetry, models.CreateEmbeddingRetryTypedDict]
-        ] = None,
         cache: Optional[
-            Union[models.CreateEmbeddingCache, models.CreateEmbeddingCacheTypedDict]
+            Union[models.EmbeddingCacheConfig, models.EmbeddingCacheConfigTypedDict]
         ] = None,
+        dimensions: Optional[int] = None,
+        encoding_format: Optional[models.EncodingFormat] = None,
+        fallbacks: OptionalNullable[
+            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+        ] = UNSET,
         load_balancer: Optional[
             Union[
-                models.CreateEmbeddingLoadBalancer,
-                models.CreateEmbeddingLoadBalancerTypedDict,
+                models.EmbeddingLoadBalancerConfig,
+                models.EmbeddingLoadBalancerConfigTypedDict,
             ]
         ] = None,
-        timeout: Optional[
-            Union[models.CreateEmbeddingTimeout, models.CreateEmbeddingTimeoutTypedDict]
-        ] = None,
+        name: Optional[str] = None,
         orq: Optional[
-            Union[models.CreateEmbeddingOrq, models.CreateEmbeddingOrqTypedDict]
+            Union[models.EmbeddingOrqParams, models.EmbeddingOrqParamsTypedDict]
         ] = None,
+        retry: Optional[
+            Union[models.EmbeddingRetryConfig, models.EmbeddingRetryConfigTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.EmbeddingTimeoutConfig, models.EmbeddingTimeoutConfigTypedDict]
+        ] = None,
+        user: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -53,17 +50,17 @@ class Embeddings(BaseSDK):
         Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
 
         :param input: Input text to embed, encoded as a string or array of tokens.
-        :param model: ID of the model to use
-        :param encoding_format: Type of the document element
+        :param model: ID of the model to use.
+        :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
-        :param user: A unique identifier representing your end-user
+        :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallbacks: Array of fallback models to use if primary model fails.
+        :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
-        :param fallbacks: Array of fallback models to use if primary model fails
-        :param retry: Retry configuration for the request
-        :param cache: Cache configuration for the request.
-        :param load_balancer: Load balancer configuration for the request.
-        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
+        :param retry:
+        :param timeout:
+        :param user: A unique identifier representing your end-user.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -83,28 +80,28 @@ class Embeddings(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateEmbeddingRequestBody(
-            input=input,
-            model=model,
-            encoding_format=encoding_format,
-            dimensions=dimensions,
-            user=user,
-            name=name,
-            fallbacks=utils.get_pydantic_model(
-                fallbacks, Optional[List[models.CreateEmbeddingFallbacks]]
-            ),
-            retry=utils.get_pydantic_model(
-                retry, Optional[models.CreateEmbeddingRetry]
-            ),
             cache=utils.get_pydantic_model(
-                cache, Optional[models.CreateEmbeddingCache]
+                cache, Optional[models.EmbeddingCacheConfig]
             ),
+            dimensions=dimensions,
+            encoding_format=encoding_format,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
+            input=input,
             load_balancer=utils.get_pydantic_model(
-                load_balancer, Optional[models.CreateEmbeddingLoadBalancer]
+                load_balancer, Optional[models.EmbeddingLoadBalancerConfig]
+            ),
+            model=model,
+            name=name,
+            orq=utils.get_pydantic_model(orq, Optional[models.EmbeddingOrqParams]),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.EmbeddingRetryConfig]
             ),
             timeout=utils.get_pydantic_model(
-                timeout, Optional[models.CreateEmbeddingTimeout]
+                timeout, Optional[models.EmbeddingTimeoutConfig]
             ),
-            orq=utils.get_pydantic_model(orq, Optional[models.CreateEmbeddingOrq]),
+            user=user,
         )
 
         req = self._build_request(
@@ -166,34 +163,31 @@ class Embeddings(BaseSDK):
         *,
         input: Union[models.CreateEmbeddingInput, models.CreateEmbeddingInputTypedDict],
         model: str,
-        encoding_format: Optional[models.EncodingFormat] = "float",
-        dimensions: Optional[float] = None,
-        user: Optional[str] = None,
-        name: Optional[str] = None,
-        fallbacks: Optional[
-            Union[
-                List[models.CreateEmbeddingFallbacks],
-                List[models.CreateEmbeddingFallbacksTypedDict],
-            ]
-        ] = None,
-        retry: Optional[
-            Union[models.CreateEmbeddingRetry, models.CreateEmbeddingRetryTypedDict]
-        ] = None,
         cache: Optional[
-            Union[models.CreateEmbeddingCache, models.CreateEmbeddingCacheTypedDict]
+            Union[models.EmbeddingCacheConfig, models.EmbeddingCacheConfigTypedDict]
         ] = None,
+        dimensions: Optional[int] = None,
+        encoding_format: Optional[models.EncodingFormat] = None,
+        fallbacks: OptionalNullable[
+            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+        ] = UNSET,
         load_balancer: Optional[
             Union[
-                models.CreateEmbeddingLoadBalancer,
-                models.CreateEmbeddingLoadBalancerTypedDict,
+                models.EmbeddingLoadBalancerConfig,
+                models.EmbeddingLoadBalancerConfigTypedDict,
             ]
         ] = None,
-        timeout: Optional[
-            Union[models.CreateEmbeddingTimeout, models.CreateEmbeddingTimeoutTypedDict]
-        ] = None,
+        name: Optional[str] = None,
         orq: Optional[
-            Union[models.CreateEmbeddingOrq, models.CreateEmbeddingOrqTypedDict]
+            Union[models.EmbeddingOrqParams, models.EmbeddingOrqParamsTypedDict]
         ] = None,
+        retry: Optional[
+            Union[models.EmbeddingRetryConfig, models.EmbeddingRetryConfigTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.EmbeddingTimeoutConfig, models.EmbeddingTimeoutConfigTypedDict]
+        ] = None,
+        user: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -204,17 +198,17 @@ class Embeddings(BaseSDK):
         Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
 
         :param input: Input text to embed, encoded as a string or array of tokens.
-        :param model: ID of the model to use
-        :param encoding_format: Type of the document element
+        :param model: ID of the model to use.
+        :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
-        :param user: A unique identifier representing your end-user
+        :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallbacks: Array of fallback models to use if primary model fails.
+        :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
-        :param fallbacks: Array of fallback models to use if primary model fails
-        :param retry: Retry configuration for the request
-        :param cache: Cache configuration for the request.
-        :param load_balancer: Load balancer configuration for the request.
-        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
+        :param retry:
+        :param timeout:
+        :param user: A unique identifier representing your end-user.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -234,28 +228,28 @@ class Embeddings(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateEmbeddingRequestBody(
-            input=input,
-            model=model,
-            encoding_format=encoding_format,
-            dimensions=dimensions,
-            user=user,
-            name=name,
-            fallbacks=utils.get_pydantic_model(
-                fallbacks, Optional[List[models.CreateEmbeddingFallbacks]]
-            ),
-            retry=utils.get_pydantic_model(
-                retry, Optional[models.CreateEmbeddingRetry]
-            ),
             cache=utils.get_pydantic_model(
-                cache, Optional[models.CreateEmbeddingCache]
+                cache, Optional[models.EmbeddingCacheConfig]
             ),
+            dimensions=dimensions,
+            encoding_format=encoding_format,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
+            input=input,
             load_balancer=utils.get_pydantic_model(
-                load_balancer, Optional[models.CreateEmbeddingLoadBalancer]
+                load_balancer, Optional[models.EmbeddingLoadBalancerConfig]
+            ),
+            model=model,
+            name=name,
+            orq=utils.get_pydantic_model(orq, Optional[models.EmbeddingOrqParams]),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.EmbeddingRetryConfig]
             ),
             timeout=utils.get_pydantic_model(
-                timeout, Optional[models.CreateEmbeddingTimeout]
+                timeout, Optional[models.EmbeddingTimeoutConfig]
             ),
-            orq=utils.get_pydantic_model(orq, Optional[models.CreateEmbeddingOrq]),
+            user=user,
         )
 
         req = self._build_request_async(

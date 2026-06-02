@@ -15,16 +15,34 @@ from typing import Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+QueryParam2 = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
+
+
+QueryParam1 = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
+
+
 ListChunksQueryParamStatusTypedDict = TypeAliasType(
-    "ListChunksQueryParamStatusTypedDict", Union[List[str], str]
+    "ListChunksQueryParamStatusTypedDict", Union[List[QueryParam1], QueryParam2]
 )
-r"""Filter datasources by status."""
+r"""Filter chunks by status."""
 
 
 ListChunksQueryParamStatus = TypeAliasType(
-    "ListChunksQueryParamStatus", Union[List[str], str]
+    "ListChunksQueryParamStatus", Union[List[QueryParam1], QueryParam2]
 )
-r"""Filter datasources by status."""
+r"""Filter chunks by status."""
 
 
 class ListChunksRequestTypedDict(TypedDict):
@@ -41,7 +59,7 @@ class ListChunksRequestTypedDict(TypedDict):
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
     status: NotRequired[ListChunksQueryParamStatusTypedDict]
-    r"""Filter datasources by status."""
+    r"""Filter chunks by status."""
 
 
 class ListChunksRequest(BaseModel):
@@ -83,7 +101,7 @@ class ListChunksRequest(BaseModel):
         Optional[ListChunksQueryParamStatus],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter datasources by status."""
+    r"""Filter chunks by status."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

@@ -211,7 +211,7 @@ InputType = Literal[
 r"""The type of item."""
 
 
-class Input2TypedDict(TypedDict):
+class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
 
     call_id: NotRequired[str]
@@ -228,7 +228,7 @@ class Input2TypedDict(TypedDict):
     r"""The type of item."""
 
 
-class Input2(BaseModel):
+class CreateRouterResponseInput2(BaseModel):
     r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
 
     call_id: Optional[str] = None
@@ -267,13 +267,14 @@ class Input2(BaseModel):
 
 
 CreateRouterResponseInputTypedDict = TypeAliasType(
-    "CreateRouterResponseInputTypedDict", Union[str, List[Input2TypedDict]]
+    "CreateRouterResponseInputTypedDict",
+    Union[str, List[CreateRouterResponseInput2TypedDict]],
 )
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
 
 
 CreateRouterResponseInput = TypeAliasType(
-    "CreateRouterResponseInput", Union[str, List[Input2]]
+    "CreateRouterResponseInput", Union[str, List[CreateRouterResponseInput2]]
 )
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
 
