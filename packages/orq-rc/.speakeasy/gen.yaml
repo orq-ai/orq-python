@@ -89,6 +89,7 @@ python:
   preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
+  rawResponseHelpers: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
