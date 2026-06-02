@@ -3423,6 +3423,7 @@ if TYPE_CHECKING:
         FilePartKind,
         FilePartTypedDict,
     )
+    from .filepurpose import FilePurpose
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
     from .get_v2_evaluators_id_versionsop import (
         GetV2EvaluatorsIDVersionsData,
@@ -11149,6 +11150,7 @@ __all__ = [
     "FilePartFileTypedDict",
     "FilePartKind",
     "FilePartTypedDict",
+    "FilePurpose",
     "FileTypedDict",
     "FileUpdateRequest",
     "FileUpdateRequestTypedDict",
@@ -19123,6 +19125,7 @@ _dynamic_imports: dict[str, str] = {
     "FilePartFileTypedDict": ".filepart",
     "FilePartKind": ".filepart",
     "FilePartTypedDict": ".filepart",
+    "FilePurpose": ".filepurpose",
     "FileUpdateRequest": ".fileupdateop",
     "FileUpdateRequestTypedDict": ".fileupdateop",
     "GetV2EvaluatorsIDVersionsData": ".get_v2_evaluators_id_versionsop",
