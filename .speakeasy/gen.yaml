@@ -47,6 +47,7 @@ python:
   authors:
     - Orq
   baseErrorName: OrqError
+  bodyVariantOverloads: false
   clientServerStatusCodesAsErrors: true
   constFieldCasing: upper
   defaultErrorName: APIError
@@ -77,8 +78,11 @@ python:
   license: ""
   maxMethodParams: 15
   methodArguments: infer-optional-args
+  methodTimeoutArgument: timeout-ms
+  methodTimeoutUnits: milliseconds
   moduleName: ""
   multipartArrayFormat: legacy
+  optionalDependencies: {}
   outputModelSuffix: output
   packageManager: uv
   packageName: orq-ai-sdk
