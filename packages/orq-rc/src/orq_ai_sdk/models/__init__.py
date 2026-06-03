@@ -4508,6 +4508,7 @@ if TYPE_CHECKING:
     from .honoapierror import HonoAPIError, HonoAPIErrorData
     from .identity import Identity, IdentityTypedDict, Metadata, MetadataTypedDict
     from .identitymetrics import IdentityMetrics, IdentityMetricsTypedDict
+    from .identitysortfield import IdentitySortField
     from .imagecontentpartschema import (
         Detail,
         ImageContentPartSchema,
@@ -12126,6 +12127,7 @@ __all__ = [
     "Identity",
     "IdentityMetrics",
     "IdentityMetricsTypedDict",
+    "IdentitySortField",
     "IdentityTypedDict",
     "Image",
     "ImageContentPartSchema",
@@ -20123,6 +20125,7 @@ _dynamic_imports: dict[str, str] = {
     "MetadataTypedDict": ".identity",
     "IdentityMetrics": ".identitymetrics",
     "IdentityMetricsTypedDict": ".identitymetrics",
+    "IdentitySortField": ".identitysortfield",
     "Detail": ".imagecontentpartschema",
     "ImageContentPartSchema": ".imagecontentpartschema",
     "ImageContentPartSchemaCacheControl": ".imagecontentpartschema",

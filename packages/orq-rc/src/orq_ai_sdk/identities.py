@@ -19,6 +19,7 @@ class Identities(BaseSDK):
         search: Optional[str] = None,
         filter_by_tags: Optional[List[str]] = None,
         include_metrics: Optional[bool] = None,
+        sort_by: Optional[models.IdentitySortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -34,6 +35,7 @@ class Identities(BaseSDK):
         :param search:
         :param filter_by_tags:
         :param include_metrics:
+        :param sort_by:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -59,6 +61,7 @@ class Identities(BaseSDK):
             search=search,
             filter_by_tags=filter_by_tags,
             include_metrics=include_metrics,
+            sort_by=sort_by,
         )
 
         req = self._build_request(
@@ -121,6 +124,7 @@ class Identities(BaseSDK):
         search: Optional[str] = None,
         filter_by_tags: Optional[List[str]] = None,
         include_metrics: Optional[bool] = None,
+        sort_by: Optional[models.IdentitySortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -136,6 +140,7 @@ class Identities(BaseSDK):
         :param search:
         :param filter_by_tags:
         :param include_metrics:
+        :param sort_by:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -161,6 +166,7 @@ class Identities(BaseSDK):
             search=search,
             filter_by_tags=filter_by_tags,
             include_metrics=include_metrics,
+            sort_by=sort_by,
         )
 
         req = self._build_request_async(
