@@ -3840,6 +3840,7 @@ if TYPE_CHECKING:
         GetChunksCountRequestTypedDict,
         GetChunksCountResponseBody,
         GetChunksCountResponseBodyTypedDict,
+        GetChunksCountStatus,
     )
     from .getevalsop import (
         DataFunction,
@@ -4842,6 +4843,7 @@ if TYPE_CHECKING:
     from .listchunkspaginatedop import (
         ListChunksPaginatedData,
         ListChunksPaginatedDataTypedDict,
+        ListChunksPaginatedKnowledgeStatus,
         ListChunksPaginatedMetadata,
         ListChunksPaginatedMetadataTypedDict,
         ListChunksPaginatedObject,
@@ -11420,6 +11422,7 @@ __all__ = [
     "GetChunksCountRequestTypedDict",
     "GetChunksCountResponseBody",
     "GetChunksCountResponseBodyTypedDict",
+    "GetChunksCountStatus",
     "GetEvalsData",
     "GetEvalsDataEvalsGuardrailConfig",
     "GetEvalsDataEvalsGuardrailConfigTypedDict",
@@ -12447,6 +12450,7 @@ __all__ = [
     "ListChunksObject",
     "ListChunksPaginatedData",
     "ListChunksPaginatedDataTypedDict",
+    "ListChunksPaginatedKnowledgeStatus",
     "ListChunksPaginatedMetadata",
     "ListChunksPaginatedMetadataTypedDict",
     "ListChunksPaginatedObject",
@@ -19469,6 +19473,7 @@ _dynamic_imports: dict[str, str] = {
     "GetChunksCountRequestTypedDict": ".getchunkscountop",
     "GetChunksCountResponseBody": ".getchunkscountop",
     "GetChunksCountResponseBodyTypedDict": ".getchunkscountop",
+    "GetChunksCountStatus": ".getchunkscountop",
     "DataFunction": ".getevalsop",
     "DataFunctionParams": ".getevalsop",
     "DataFunctionParamsTypedDict": ".getevalsop",
@@ -20446,6 +20451,7 @@ _dynamic_imports: dict[str, str] = {
     "QueryParam2": ".listchunksop",
     "ListChunksPaginatedData": ".listchunkspaginatedop",
     "ListChunksPaginatedDataTypedDict": ".listchunkspaginatedop",
+    "ListChunksPaginatedKnowledgeStatus": ".listchunkspaginatedop",
     "ListChunksPaginatedMetadata": ".listchunkspaginatedop",
     "ListChunksPaginatedMetadataTypedDict": ".listchunkspaginatedop",
     "ListChunksPaginatedObject": ".listchunkspaginatedop",

@@ -15,12 +15,22 @@ from typing import Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+ListChunksPaginatedStatus = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
+r"""Filter chunks by processing status"""
+
+
 class ListChunksPaginatedRequestBodyTypedDict(TypedDict):
     q: NotRequired[str]
     r"""Search query to find chunks by text content"""
     enabled: NotRequired[bool]
     r"""Filter chunks by enabled status"""
-    status: NotRequired[str]
+    status: NotRequired[ListChunksPaginatedStatus]
     r"""Filter chunks by processing status"""
     limit: NotRequired[int]
     page: NotRequired[int]
@@ -33,7 +43,7 @@ class ListChunksPaginatedRequestBody(BaseModel):
     enabled: Optional[bool] = None
     r"""Filter chunks by enabled status"""
 
-    status: Optional[str] = None
+    status: Optional[ListChunksPaginatedStatus] = None
     r"""Filter chunks by processing status"""
 
     limit: Optional[int] = 100
@@ -111,7 +121,7 @@ ListChunksPaginatedMetadata = TypeAliasType(
 )
 
 
-ListChunksPaginatedStatus = Literal[
+ListChunksPaginatedKnowledgeStatus = Literal[
     "pending",
     "processing",
     "completed",
@@ -128,7 +138,7 @@ class ListChunksPaginatedDataTypedDict(TypedDict):
     r"""The text content of the chunk"""
     enabled: bool
     r"""Whether the chunk is enabled"""
-    status: ListChunksPaginatedStatus
+    status: ListChunksPaginatedKnowledgeStatus
     r"""The status of the chunk"""
     created: str
     r"""The date and time the chunk was created"""
@@ -152,7 +162,7 @@ class ListChunksPaginatedData(BaseModel):
     enabled: bool
     r"""Whether the chunk is enabled"""
 
-    status: ListChunksPaginatedStatus
+    status: ListChunksPaginatedKnowledgeStatus
     r"""The status of the chunk"""
 
     created: str
