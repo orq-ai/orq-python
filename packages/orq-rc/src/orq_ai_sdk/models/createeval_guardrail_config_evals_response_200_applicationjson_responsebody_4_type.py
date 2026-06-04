@@ -1173,6 +1173,7 @@ class TypescriptTypedDict(TypedDict):
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[
         Nullable[
             CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict
@@ -1191,9 +1192,11 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-04T08:36:52.025Z"
+    created: Optional[str] = "2026-06-04T09:24:03.156Z"
 
-    updated: Optional[str] = "2026-06-04T08:36:52.025Z"
+    updated: Optional[str] = "2026-06-04T09:24:03.156Z"
+
+    updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1201,8 +1204,10 @@ class Typescript(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
+        optional_fields = set(
+            ["created", "updated", "updated_by_id", "guardrail_config"]
+        )
+        nullable_fields = set(["updated_by_id", "guardrail_config"])
         serialized = handler(self)
         m = {}
 
@@ -1425,6 +1430,7 @@ class RagasTypedDict(TypedDict):
     model: str
     created: NotRequired[str]
     updated: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[
         Nullable[CreateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict]
     ]
@@ -1443,9 +1449,11 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-04T08:36:52.025Z"
+    created: Optional[str] = "2026-06-04T09:24:03.156Z"
 
-    updated: Optional[str] = "2026-06-04T08:36:52.025Z"
+    updated: Optional[str] = "2026-06-04T09:24:03.156Z"
+
+    updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1453,8 +1461,10 @@ class Ragas(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
+        optional_fields = set(
+            ["created", "updated", "updated_by_id", "guardrail_config"]
+        )
+        nullable_fields = set(["updated_by_id", "guardrail_config"])
         serialized = handler(self)
         m = {}
 
@@ -2168,6 +2178,7 @@ class CreateEvalResponseBodyFunctionTypedDict(TypedDict):
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[
         Nullable[CreateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict]
     ]
@@ -2184,9 +2195,11 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-04T08:36:52.025Z"
+    created: Optional[str] = "2026-06-04T09:24:03.156Z"
 
-    updated: Optional[str] = "2026-06-04T08:36:52.025Z"
+    updated: Optional[str] = "2026-06-04T09:24:03.156Z"
+
+    updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[
         CreateEvalResponseBodyEvalsResponseGuardrailConfig
@@ -2194,8 +2207,10 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created", "updated", "guardrail_config"])
-        nullable_fields = set(["guardrail_config"])
+        optional_fields = set(
+            ["created", "updated", "updated_by_id", "guardrail_config"]
+        )
+        nullable_fields = set(["updated_by_id", "guardrail_config"])
         serialized = handler(self)
         m = {}
 
