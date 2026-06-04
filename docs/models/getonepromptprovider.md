@@ -42,5 +42,6 @@ value: GetOnePromptProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inceptron"`
+- `"wafer"`
 - `"slack"`
 - `"orq"`

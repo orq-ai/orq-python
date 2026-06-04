@@ -42,5 +42,6 @@ value: GetPromptVersionProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inceptron"`
+- `"wafer"`
 - `"slack"`
 - `"orq"`

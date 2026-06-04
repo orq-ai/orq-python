@@ -42,5 +42,6 @@ value: DeploymentsProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inceptron"`
+- `"wafer"`
 - `"slack"`
 - `"orq"`

@@ -44,5 +44,6 @@ value: Provider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inceptron"`
+- `"wafer"`
 - `"slack"`
 - `"orq"`
