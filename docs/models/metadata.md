@@ -1,5 +1,7 @@
 # Metadata
 
+Custom JSON metadata stored with the identity.
+
 
 ## Fields
 

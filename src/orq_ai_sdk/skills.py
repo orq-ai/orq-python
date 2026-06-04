@@ -205,7 +205,7 @@ class Skills(BaseSDK):
     def create(
         self,
         *,
-        display_name: Optional[str] = None,
+        display_name: str,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
@@ -310,7 +310,7 @@ class Skills(BaseSDK):
     async def create_async(
         self,
         *,
-        display_name: Optional[str] = None,
+        display_name: str,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         path: Optional[str] = None,
@@ -765,8 +765,7 @@ class Skills(BaseSDK):
     def update(
         self,
         *,
-        skill_id_param: str,
-        skill_id: Optional[str] = None,
+        skill_id: str,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -782,7 +781,6 @@ class Skills(BaseSDK):
 
         Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
-        :param skill_id_param: Skill ID to update.
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
             Must start with a letter and may contain letters, numbers, and
@@ -812,9 +810,8 @@ class Skills(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SkillUpdateRequest(
-            skill_id_param=skill_id_param,
+            skill_id=skill_id,
             update_skill_request=models.UpdateSkillRequest(
-                skill_id=skill_id,
                 display_name=display_name,
                 description=description,
                 tags=tags,
@@ -885,8 +882,7 @@ class Skills(BaseSDK):
     async def update_async(
         self,
         *,
-        skill_id_param: str,
-        skill_id: Optional[str] = None,
+        skill_id: str,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -902,7 +898,6 @@ class Skills(BaseSDK):
 
         Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
-        :param skill_id_param: Skill ID to update.
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
             Must start with a letter and may contain letters, numbers, and
@@ -932,9 +927,8 @@ class Skills(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SkillUpdateRequest(
-            skill_id_param=skill_id_param,
+            skill_id=skill_id,
             update_skill_request=models.UpdateSkillRequest(
-                skill_id=skill_id,
                 display_name=display_name,
                 description=description,
                 tags=tags,

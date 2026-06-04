@@ -248,7 +248,7 @@ class APIKeys(BaseSDK):
     def create(
         self,
         *,
-        name: Optional[str] = None,
+        name: str,
         owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
@@ -272,7 +272,7 @@ class APIKeys(BaseSDK):
         :param access: Per-domain access map. Required when `permission_mode` =
             `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
             catalog of valid keys (Domain.id) and AccessLevel string values,
-            or fetch the live catalog via the `ListCapabilities` RPC.
+            or fetch the live catalog via the capability catalog endpoint.
         :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
             the key once `expires_at` is in the past. Unset means the key
             never expires.
@@ -362,7 +362,7 @@ class APIKeys(BaseSDK):
     async def create_async(
         self,
         *,
-        name: Optional[str] = None,
+        name: str,
         owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
@@ -386,7 +386,7 @@ class APIKeys(BaseSDK):
         :param access: Per-domain access map. Required when `permission_mode` =
             `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
             catalog of valid keys (Domain.id) and AccessLevel string values,
-            or fetch the live catalog via the `ListCapabilities` RPC.
+            or fetch the live catalog via the capability catalog endpoint.
         :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
             the key once `expires_at` is in the past. Unset means the key
             never expires.
@@ -984,8 +984,7 @@ class APIKeys(BaseSDK):
     def update(
         self,
         *,
-        api_key_id_param: str,
-        api_key_id: Optional[str] = None,
+        api_key_id: str,
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
@@ -1004,7 +1003,6 @@ class APIKeys(BaseSDK):
 
         Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
 
-        :param api_key_id_param: API key id to update.
         :param api_key_id: API key id to update.
         :param name: New name. Omit to keep current.
         :param status:
@@ -1013,7 +1011,7 @@ class APIKeys(BaseSDK):
             `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
             map to clear. See `ApiKey.access` for the full catalog of valid
             keys (Domain.id) and AccessLevel string values, or fetch the
-            live catalog via the `ListCapabilities` RPC.
+            live catalog via the capability catalog endpoint.
         :param project_scope: New project scope. Omit to keep current.
         :param expires_at: New expiration. Omit to keep current. Set `clear_expires_at = true`
             to remove an existing expiration (a zero Timestamp here would still
@@ -1038,9 +1036,8 @@ class APIKeys(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.APIKeyUpdateRequest(
-            api_key_id_param=api_key_id_param,
+            api_key_id=api_key_id,
             update_api_key_request=models.UpdateAPIKeyRequest(
-                api_key_id=api_key_id,
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
@@ -1114,8 +1111,7 @@ class APIKeys(BaseSDK):
     async def update_async(
         self,
         *,
-        api_key_id_param: str,
-        api_key_id: Optional[str] = None,
+        api_key_id: str,
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
@@ -1134,7 +1130,6 @@ class APIKeys(BaseSDK):
 
         Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
 
-        :param api_key_id_param: API key id to update.
         :param api_key_id: API key id to update.
         :param name: New name. Omit to keep current.
         :param status:
@@ -1143,7 +1138,7 @@ class APIKeys(BaseSDK):
             `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
             map to clear. See `ApiKey.access` for the full catalog of valid
             keys (Domain.id) and AccessLevel string values, or fetch the
-            live catalog via the `ListCapabilities` RPC.
+            live catalog via the capability catalog endpoint.
         :param project_scope: New project scope. Omit to keep current.
         :param expires_at: New expiration. Omit to keep current. Set `clear_expires_at = true`
             to remove an existing expiration (a zero Timestamp here would still
@@ -1168,9 +1163,8 @@ class APIKeys(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.APIKeyUpdateRequest(
-            api_key_id_param=api_key_id_param,
+            api_key_id=api_key_id,
             update_api_key_request=models.UpdateAPIKeyRequest(
-                api_key_id=api_key_id,
                 name=name,
                 status=status,
                 permission_mode=permission_mode,

@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                                          | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `object`                                       | *Optional[str]*                                | :heavy_minus_sign:                             | N/A                                            |
-| `data`                                         | List[[models.Identity](../models/identity.md)] | :heavy_minus_sign:                             | N/A                                            |
-| `has_more`                                     | *Optional[bool]*                               | :heavy_minus_sign:                             | N/A                                            |
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `object`                                                                     | *str*                                                                        | :heavy_check_mark:                                                           | Object discriminator for list responses; always `list`.                      |
+| `data`                                                                       | List[[models.Identity](../models/identity.md)]                               | :heavy_check_mark:                                                           | Page of identities.                                                          |
+| `has_more`                                                                   | *bool*                                                                       | :heavy_check_mark:                                                           | Whether more identities are available in the selected pagination<br/> direction. |

@@ -13,11 +13,21 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ListIdentitiesRequestTypedDict(TypedDict):
     limit: NotRequired[int]
     starting_after: NotRequired[str]
+    r"""Cursor for forward pagination. Set to the `_id` of the last item from
+    the previous page.
+    """
     ending_before: NotRequired[str]
+    r"""Cursor for backward pagination. Set to the `_id` of the first item from
+    the previous page.
+    """
     search: NotRequired[str]
+    r"""Case-insensitive search text matched against identity profile fields."""
     filter_by_tags: NotRequired[List[str]]
+    r"""Return only identities that have at least one of these tags."""
     include_metrics: NotRequired[bool]
+    r"""Include aggregate usage metrics on each returned identity."""
     sort_by: NotRequired[IdentitySortField]
+    r"""Field used to order the list."""
 
 
 class ListIdentitiesRequest(BaseModel):
@@ -30,32 +40,42 @@ class ListIdentitiesRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Cursor for forward pagination. Set to the `_id` of the last item from
+    the previous page.
+    """
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Cursor for backward pagination. Set to the `_id` of the first item from
+    the previous page.
+    """
 
     search: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Case-insensitive search text matched against identity profile fields."""
 
     filter_by_tags: Annotated[
         Optional[List[str]],
         pydantic.Field(alias="filter_by.tags"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Return only identities that have at least one of these tags."""
 
     include_metrics: Annotated[
         Optional[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Include aggregate usage metrics on each returned identity."""
 
     sort_by: Annotated[
         Optional[IdentitySortField],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Field used to order the list."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

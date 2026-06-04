@@ -36,13 +36,13 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `limit`                                                                                         | *Optional[int]*                                                                                 | :heavy_minus_sign:                                                                              | Page size. Unset uses the server default.                                                       |
+| `starting_after`                                                                                | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Cursor for forward pagination. Set to the `file_id` of the last item<br/> from the previous page. |
+| `ending_before`                                                                                 | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Cursor for backward pagination. Set to the `file_id` of the first item<br/> from the previous page. |
+| `project_id`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | N/A                                                                                             |
+| `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
 
 ### Response
 
@@ -70,7 +70,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.create()
+    res = orq.files.create(filename="example.file", content="<value>")
 
     # Handle response
     print(res)
@@ -81,10 +81,10 @@ with Orq(
 
 | Parameter                                                                                                                                          | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `filename`                                                                                                                                         | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `content`                                                                                                                                          | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `filename`                                                                                                                                         | *str*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | Name to store for the uploaded file, including extension when available.                                                                           |
+| `content`                                                                                                                                          | *str*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | Base64-encoded file contents.                                                                                                                      |
 | `purpose`                                                                                                                                          | [Optional[models.FilePurpose]](../../models/filepurpose.md)                                                                                        | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `content_type`                                                                                                                                     | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `content_type`                                                                                                                                     | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | MIME type of the uploaded content, for example `application/pdf`.                                                                                  |
 | `project_id`                                                                                                                                       | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers. |
 | `retries`                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                   | :heavy_minus_sign:                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                |
 
@@ -125,7 +125,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `file_id_or_path`                                                   | *str*                                                               | :heavy_check_mark:                                                  | File ID or path used to locate the file content.                    |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -165,7 +165,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | File ID to retrieve.                                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -180,7 +180,7 @@ with Orq(
 
 ## delete
 
-Delete a file
+Permanently deletes a file and its stored content from the project.
 
 ### Example Usage
 
@@ -205,7 +205,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | File ID to delete.                                                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -234,7 +234,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.update(file_id_param="<id>")
+    res = orq.files.update(file_id="<id>", file_name="example.file")
 
     # Handle response
     print(res)
@@ -245,9 +245,8 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file_id_param`                                                     | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `file_id`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `file_name`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `file_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | File ID to update.                                                  |
+| `file_name`                                                         | *str*                                                               | :heavy_check_mark:                                                  | New display file name, including extension when available.          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

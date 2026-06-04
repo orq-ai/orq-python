@@ -4,21 +4,20 @@ from __future__ import annotations
 from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
-import pydantic
 from typing_extensions import Annotated, TypedDict
 
 
 class FileUpdateRequestTypedDict(TypedDict):
-    file_id_param: str
+    file_id: str
+    r"""File ID to update."""
     update_file_request: UpdateFileRequestTypedDict
 
 
 class FileUpdateRequest(BaseModel):
-    file_id_param: Annotated[
-        str,
-        pydantic.Field(alias="file_id"),
-        FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
+    file_id: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""File ID to update."""
 
     update_file_request: Annotated[
         UpdateFileRequest,

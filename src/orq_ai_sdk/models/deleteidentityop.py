@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteIdentityRequestTypedDict(TypedDict):
     id: str
+    r"""Identity ID to delete."""
 
 
 class DeleteIdentityRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Identity ID to delete."""

@@ -9,29 +9,29 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ProjectTypedDict(TypedDict):
-    project_id: NotRequired[str]
+    project_id: str
     r"""Unique project identifier assigned by ORQ. Use this value in
     retrieve, update, and delete requests.
     """
-    name: NotRequired[str]
+    name: str
     r"""Human-readable project name."""
-    key: NotRequired[str]
+    key: str
     r"""Stable project key generated from the name and used by internal
     workspace navigation.
     """
-    is_archived: NotRequired[bool]
+    is_archived: bool
     r"""Whether the project is archived and hidden from normal active
     project lists.
     """
-    is_default: NotRequired[bool]
+    is_default: bool
     r"""Whether this is the workspace default project."""
-    teams: NotRequired[List[str]]
+    teams: List[str]
     r"""Team identifiers associated with the project for access and
     organization.
     """
-    created_at: NotRequired[datetime]
+    created_at: datetime
     r"""Time when the project was created."""
-    updated_at: NotRequired[datetime]
+    updated_at: datetime
     r"""Time when the project was last updated."""
     created_by_id: NotRequired[str]
     r"""User ID that created the project."""
@@ -42,36 +42,36 @@ class ProjectTypedDict(TypedDict):
 
 
 class Project(BaseModel):
-    project_id: Optional[str] = None
+    project_id: str
     r"""Unique project identifier assigned by ORQ. Use this value in
     retrieve, update, and delete requests.
     """
 
-    name: Optional[str] = None
+    name: str
     r"""Human-readable project name."""
 
-    key: Optional[str] = None
+    key: str
     r"""Stable project key generated from the name and used by internal
     workspace navigation.
     """
 
-    is_archived: Optional[bool] = None
+    is_archived: bool
     r"""Whether the project is archived and hidden from normal active
     project lists.
     """
 
-    is_default: Optional[bool] = None
+    is_default: bool
     r"""Whether this is the workspace default project."""
 
-    teams: Optional[List[str]] = None
+    teams: List[str]
     r"""Team identifiers associated with the project for access and
     organization.
     """
 
-    created_at: Optional[datetime] = None
+    created_at: datetime
     r"""Time when the project was created."""
 
-    updated_at: Optional[datetime] = None
+    updated_at: datetime
     r"""Time when the project was last updated."""
 
     created_by_id: Optional[str] = None
@@ -85,21 +85,7 @@ class Project(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "project_id",
-                "name",
-                "key",
-                "is_archived",
-                "is_default",
-                "teams",
-                "created_at",
-                "updated_at",
-                "created_by_id",
-                "updated_by_id",
-                "description",
-            ]
-        )
+        optional_fields = set(["created_by_id", "updated_by_id", "description"])
         serialized = handler(self)
         m = {}
 

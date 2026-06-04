@@ -12,8 +12,6 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UpdateAPIKeyRequestTypedDict(TypedDict):
-    api_key_id: NotRequired[str]
-    r"""API key id to update."""
     name: NotRequired[str]
     r"""New name. Omit to keep current."""
     status: NotRequired[APIKeyStatus]
@@ -23,7 +21,7 @@ class UpdateAPIKeyRequestTypedDict(TypedDict):
     `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
     map to clear. See `ApiKey.access` for the full catalog of valid
     keys (Domain.id) and AccessLevel string values, or fetch the
-    live catalog via the `ListCapabilities` RPC.
+    live catalog via the capability catalog endpoint.
     """
     project_scope: NotRequired[ProjectScopeTypedDict]
     r"""New project scope. Omit to keep current."""
@@ -37,9 +35,6 @@ class UpdateAPIKeyRequestTypedDict(TypedDict):
 
 
 class UpdateAPIKeyRequest(BaseModel):
-    api_key_id: Optional[str] = None
-    r"""API key id to update."""
-
     name: Optional[str] = None
     r"""New name. Omit to keep current."""
 
@@ -52,7 +47,7 @@ class UpdateAPIKeyRequest(BaseModel):
     `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
     map to clear. See `ApiKey.access` for the full catalog of valid
     keys (Domain.id) and AccessLevel string values, or fetch the
-    live catalog via the `ListCapabilities` RPC.
+    live catalog via the capability catalog endpoint.
     """
 
     project_scope: Optional[ProjectScope] = None
@@ -71,7 +66,6 @@ class UpdateAPIKeyRequest(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "api_key_id",
                 "name",
                 "status",
                 "permission_mode",

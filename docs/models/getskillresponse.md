@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field                                        | Type                                         | Required                                     | Description                                  |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| `skill`                                      | [Optional[models.Skill]](../models/skill.md) | :heavy_minus_sign:                           | Requested skill.                             |
+| Field                              | Type                               | Required                           | Description                        |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| `skill`                            | [models.Skill](../models/skill.md) | :heavy_check_mark:                 | Requested skill.                   |

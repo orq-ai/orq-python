@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class FileContentRequestTypedDict(TypedDict):
     file_id_or_path: str
+    r"""File ID or path used to locate the file content."""
 
 
 class FileContentRequest(BaseModel):
     file_id_or_path: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""File ID or path used to locate the file content."""

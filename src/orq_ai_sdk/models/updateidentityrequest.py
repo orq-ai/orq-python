@@ -8,39 +8,46 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UpdateIdentityRequestMetadataTypedDict(TypedDict):
-    pass
+    r"""Replacement custom JSON metadata."""
 
 
 class UpdateIdentityRequestMetadata(BaseModel):
-    pass
+    r"""Replacement custom JSON metadata."""
 
 
 class UpdateIdentityRequestTypedDict(TypedDict):
-    id: NotRequired[str]
     display_name: NotRequired[str]
+    r"""New display name. Omit to keep the current display name."""
     email: NotRequired[str]
+    r"""New email address. Omit to keep the current email."""
     avatar_url: NotRequired[str]
+    r"""New avatar image URL. Omit to keep the current avatar URL."""
     tags: NotRequired[List[str]]
+    r"""Replacement tag list. Leave empty to clear tags."""
     metadata: NotRequired[UpdateIdentityRequestMetadataTypedDict]
+    r"""Replacement custom JSON metadata."""
 
 
 class UpdateIdentityRequest(BaseModel):
-    id: Optional[str] = None
-
     display_name: Optional[str] = None
+    r"""New display name. Omit to keep the current display name."""
 
     email: Optional[str] = None
+    r"""New email address. Omit to keep the current email."""
 
     avatar_url: Optional[str] = None
+    r"""New avatar image URL. Omit to keep the current avatar URL."""
 
     tags: Optional[List[str]] = None
+    r"""Replacement tag list. Leave empty to clear tags."""
 
     metadata: Optional[UpdateIdentityRequestMetadata] = None
+    r"""Replacement custom JSON metadata."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["id", "display_name", "email", "avatar_url", "tags", "metadata"]
+            ["display_name", "email", "avatar_url", "tags", "metadata"]
         )
         serialized = handler(self)
         m = {}

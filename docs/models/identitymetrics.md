@@ -3,9 +3,9 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `total_tokens`     | *Optional[float]*  | :heavy_minus_sign: | N/A                |
-| `total_cost`       | *Optional[float]*  | :heavy_minus_sign: | N/A                |
-| `total_requests`   | *Optional[float]*  | :heavy_minus_sign: | N/A                |
-| `error_rate`       | *Optional[float]*  | :heavy_minus_sign: | N/A                |
+| Field                                           | Type                                            | Required                                        | Description                                     |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `total_tokens`                                  | *float*                                         | :heavy_check_mark:                              | Total token count attributed to the identity.   |
+| `total_cost`                                    | *float*                                         | :heavy_check_mark:                              | Total cost attributed to the identity.          |
+| `total_requests`                                | *float*                                         | :heavy_check_mark:                              | Total request count attributed to the identity. |
+| `error_rate`                                    | *float*                                         | :heavy_check_mark:                              | Fraction of attributed requests that failed.    |

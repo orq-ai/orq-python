@@ -3,54 +3,42 @@
 from __future__ import annotations
 from .filepurpose import FilePurpose
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import BaseModel
 import pydantic
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 
 class FileTypedDict(TypedDict):
-    file_id: NotRequired[str]
-    purpose: NotRequired[FilePurpose]
-    file_name: NotRequired[str]
-    bytes_: NotRequired[str]
-    created_at: NotRequired[datetime]
-    project_id: NotRequired[str]
+    file_id: str
+    r"""Unique file identifier assigned by ORQ."""
+    purpose: FilePurpose
+    file_name: str
+    r"""Display file name, including extension when available."""
+    bytes_: str
+    r"""Size of the uploaded file in bytes."""
+    created_at: datetime
+    r"""Time when the file was created."""
+    project_id: str
     r"""Identifier of the project the file belongs to. Files are project-scoped; an API key may only access files in projects it is authorized for."""
 
 
 class File(BaseModel):
-    file_id: Optional[str] = None
+    file_id: str
+    r"""Unique file identifier assigned by ORQ."""
 
-    purpose: Optional[FilePurpose] = None
+    purpose: FilePurpose
 
-    file_name: Optional[str] = None
+    file_name: str
+    r"""Display file name, including extension when available."""
 
-    bytes_: Annotated[Optional[str], pydantic.Field(alias="bytes")] = None
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""Size of the uploaded file in bytes."""
 
-    created_at: Optional[datetime] = None
+    created_at: datetime
+    r"""Time when the file was created."""
 
-    project_id: Optional[str] = None
+    project_id: str
     r"""Identifier of the project the file belongs to. Files are project-scoped; an API key may only access files in projects it is authorized for."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            ["file_id", "purpose", "file_name", "bytes", "created_at", "project_id"]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 try:

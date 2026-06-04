@@ -10,66 +10,88 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class MetadataTypedDict(TypedDict):
-    pass
+    r"""Custom JSON metadata stored with the identity."""
 
 
 class Metadata(BaseModel):
-    pass
+    r"""Custom JSON metadata stored with the identity."""
 
 
 class IdentityTypedDict(TypedDict):
-    id: NotRequired[str]
-    external_id: NotRequired[str]
-    workspace_id: NotRequired[str]
+    id: str
+    r"""Unique identity identifier assigned by ORQ. Returned as `_id` for
+    compatibility with the v1 identity API.
+    """
+    external_id: str
+    r"""Customer-provided stable identifier for this identity. This value is
+    required on create and is unique within the workspace.
+    """
+    workspace_id: str
+    r"""Workspace that owns the identity."""
+    created: str
+    r"""ISO timestamp for when the identity was created."""
+    updated: str
+    r"""ISO timestamp for when the identity was last updated."""
     display_name: NotRequired[str]
+    r"""Human-readable display name for the identity."""
     email: NotRequired[str]
+    r"""Email address associated with the identity."""
     avatar_url: NotRequired[str]
+    r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
+    r"""Free-form labels used to organize and filter identities."""
     metadata: NotRequired[MetadataTypedDict]
-    created: NotRequired[str]
-    updated: NotRequired[str]
+    r"""Custom JSON metadata stored with the identity."""
     metrics: NotRequired[IdentityMetricsTypedDict]
+    r"""Optional usage and cost metrics. Present only when requested with
+    `include_metrics`.
+    """
 
 
 class Identity(BaseModel):
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+    id: Annotated[str, pydantic.Field(alias="_id")]
+    r"""Unique identity identifier assigned by ORQ. Returned as `_id` for
+    compatibility with the v1 identity API.
+    """
 
-    external_id: Optional[str] = None
+    external_id: str
+    r"""Customer-provided stable identifier for this identity. This value is
+    required on create and is unique within the workspace.
+    """
 
-    workspace_id: Optional[str] = None
+    workspace_id: str
+    r"""Workspace that owns the identity."""
+
+    created: str
+    r"""ISO timestamp for when the identity was created."""
+
+    updated: str
+    r"""ISO timestamp for when the identity was last updated."""
 
     display_name: Optional[str] = None
+    r"""Human-readable display name for the identity."""
 
     email: Optional[str] = None
+    r"""Email address associated with the identity."""
 
     avatar_url: Optional[str] = None
+    r"""URL of the identity avatar image."""
 
     tags: Optional[List[str]] = None
+    r"""Free-form labels used to organize and filter identities."""
 
     metadata: Optional[Metadata] = None
-
-    created: Optional[str] = None
-
-    updated: Optional[str] = None
+    r"""Custom JSON metadata stored with the identity."""
 
     metrics: Optional[IdentityMetrics] = None
+    r"""Optional usage and cost metrics. Present only when requested with
+    `include_metrics`.
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "_id",
-                "external_id",
-                "workspace_id",
-                "display_name",
-                "email",
-                "avatar_url",
-                "tags",
-                "metadata",
-                "created",
-                "updated",
-                "metrics",
-            ]
+            ["display_name", "email", "avatar_url", "tags", "metadata", "metrics"]
         )
         serialized = handler(self)
         m = {}

@@ -8,8 +8,6 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UpdateProjectRequestTypedDict(TypedDict):
-    project_id: NotRequired[str]
-    r"""Project ID to update."""
     name: NotRequired[str]
     r"""New project name. Omit to keep the current name."""
     teams: NotRequired[List[str]]
@@ -21,9 +19,6 @@ class UpdateProjectRequestTypedDict(TypedDict):
 
 
 class UpdateProjectRequest(BaseModel):
-    project_id: Optional[str] = None
-    r"""Project ID to update."""
-
     name: Optional[str] = None
     r"""New project name. Omit to keep the current name."""
 
@@ -37,7 +32,7 @@ class UpdateProjectRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["project_id", "name", "teams", "description"])
+        optional_fields = set(["name", "teams", "description"])
         serialized = handler(self)
         m = {}
 

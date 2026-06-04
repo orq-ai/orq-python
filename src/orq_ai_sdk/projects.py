@@ -203,7 +203,7 @@ class Projects(BaseSDK):
     def create(
         self,
         *,
-        name: Optional[str] = None,
+        name: str,
         teams: Optional[List[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -299,7 +299,7 @@ class Projects(BaseSDK):
     async def create_async(
         self,
         *,
-        name: Optional[str] = None,
+        name: str,
         teams: Optional[List[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -743,8 +743,7 @@ class Projects(BaseSDK):
     def update(
         self,
         *,
-        project_id_param: str,
-        project_id: Optional[str] = None,
+        project_id: str,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
         description: Optional[str] = None,
@@ -757,7 +756,6 @@ class Projects(BaseSDK):
 
         Updates the specified project by setting the values of the parameters passed.
 
-        :param project_id_param: Project ID to update.
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.
         :param teams: Replacement list of team identifiers associated with the project.
@@ -782,9 +780,8 @@ class Projects(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ProjectUpdateRequest(
-            project_id_param=project_id_param,
+            project_id=project_id,
             update_project_request=models.UpdateProjectRequest(
-                project_id=project_id,
                 name=name,
                 teams=teams,
                 description=description,
@@ -852,8 +849,7 @@ class Projects(BaseSDK):
     async def update_async(
         self,
         *,
-        project_id_param: str,
-        project_id: Optional[str] = None,
+        project_id: str,
         name: Optional[str] = None,
         teams: Optional[List[str]] = None,
         description: Optional[str] = None,
@@ -866,7 +862,6 @@ class Projects(BaseSDK):
 
         Updates the specified project by setting the values of the parameters passed.
 
-        :param project_id_param: Project ID to update.
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.
         :param teams: Replacement list of team identifiers associated with the project.
@@ -891,9 +886,8 @@ class Projects(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ProjectUpdateRequest(
-            project_id_param=project_id_param,
+            project_id=project_id,
             update_project_request=models.UpdateProjectRequest(
-                project_id=project_id,
                 name=name,
                 teams=teams,
                 description=description,

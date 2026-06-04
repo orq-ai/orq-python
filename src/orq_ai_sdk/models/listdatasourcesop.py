@@ -121,7 +121,7 @@ class ListDatasourcesDataTypedDict(TypedDict):
     r"""The number of chunks in the datasource"""
     id: NotRequired[str]
     r"""The unique identifier of the data source"""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base"""
     file_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the file used to create the datasource."""
@@ -150,11 +150,11 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KTA6Y5KQKWEX6Z05DG989MQH"
+        "01KTA83D697BM0VJHCKK4K4PGT"
     )
     r"""The unique identifier of the data source"""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base"""
 
     file_id: OptionalNullable[str] = UNSET
@@ -171,7 +171,9 @@ class ListDatasourcesData(BaseModel):
         optional_fields = set(
             ["_id", "description", "file_id", "created_by_id", "update_by_id"]
         )
-        nullable_fields = set(["file_id", "created_by_id", "update_by_id"])
+        nullable_fields = set(
+            ["description", "file_id", "created_by_id", "update_by_id"]
+        )
         serialized = handler(self)
         m = {}
 

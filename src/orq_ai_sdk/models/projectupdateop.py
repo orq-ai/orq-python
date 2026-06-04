@@ -4,21 +4,18 @@ from __future__ import annotations
 from .updateprojectrequest import UpdateProjectRequest, UpdateProjectRequestTypedDict
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
-import pydantic
 from typing_extensions import Annotated, TypedDict
 
 
 class ProjectUpdateRequestTypedDict(TypedDict):
-    project_id_param: str
+    project_id: str
     r"""Project ID to update."""
     update_project_request: UpdateProjectRequestTypedDict
 
 
 class ProjectUpdateRequest(BaseModel):
-    project_id_param: Annotated[
-        str,
-        pydantic.Field(alias="project_id"),
-        FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
+    project_id: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""Project ID to update."""
 

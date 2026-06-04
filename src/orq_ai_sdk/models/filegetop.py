@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class FileGetRequestTypedDict(TypedDict):
     file_id: str
+    r"""File ID to retrieve."""
 
 
 class FileGetRequest(BaseModel):
     file_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""File ID to retrieve."""

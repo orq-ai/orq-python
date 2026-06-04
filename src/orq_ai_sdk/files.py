@@ -26,9 +26,11 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param limit: Page size. Unset uses the server default.
+        :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
+            from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
+            from the previous page.
         :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -122,9 +124,11 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param limit:
-        :param starting_after:
-        :param ending_before:
+        :param limit: Page size. Unset uses the server default.
+        :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
+            from the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
+            from the previous page.
         :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -205,8 +209,8 @@ class Files(BaseSDK):
     def create(
         self,
         *,
-        filename: Optional[str] = None,
-        content: Optional[str] = None,
+        filename: str,
+        content: str,
         purpose: Optional[models.FilePurpose] = None,
         content_type: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -219,10 +223,10 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like Deployments.
 
-        :param filename:
-        :param content:
+        :param filename: Name to store for the uploaded file, including extension when available.
+        :param content: Base64-encoded file contents.
         :param purpose:
-        :param content_type:
+        :param content_type: MIME type of the uploaded content, for example `application/pdf`.
         :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -307,8 +311,8 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        filename: Optional[str] = None,
-        content: Optional[str] = None,
+        filename: str,
+        content: str,
         purpose: Optional[models.FilePurpose] = None,
         content_type: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -321,10 +325,10 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like Deployments.
 
-        :param filename:
-        :param content:
+        :param filename: Name to store for the uploaded file, including extension when available.
+        :param content: Base64-encoded file contents.
         :param purpose:
-        :param content_type:
+        :param content_type: MIME type of the uploaded content, for example `application/pdf`.
         :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -419,7 +423,7 @@ class Files(BaseSDK):
 
         Returns a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path:
+        :param file_id_or_path: File ID or path used to locate the file content.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -506,7 +510,7 @@ class Files(BaseSDK):
 
         Returns a presigned URL for downloading the file content by file ID.
 
-        :param file_id_or_path:
+        :param file_id_or_path: File ID or path used to locate the file content.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -593,7 +597,7 @@ class Files(BaseSDK):
 
         Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
 
-        :param file_id:
+        :param file_id: File ID to retrieve.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -680,7 +684,7 @@ class Files(BaseSDK):
 
         Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object.
 
-        :param file_id:
+        :param file_id: File ID to retrieve.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -765,7 +769,9 @@ class Files(BaseSDK):
     ) -> models.DeleteFileResponse:
         r"""Delete a file
 
-        :param file_id:
+        Permanently deletes a file and its stored content from the project.
+
+        :param file_id: File ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -850,7 +856,9 @@ class Files(BaseSDK):
     ) -> models.DeleteFileResponse:
         r"""Delete a file
 
-        :param file_id:
+        Permanently deletes a file and its stored content from the project.
+
+        :param file_id: File ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -927,9 +935,8 @@ class Files(BaseSDK):
     def update(
         self,
         *,
-        file_id_param: str,
-        file_id: Optional[str] = None,
-        file_name: Optional[str] = None,
+        file_id: str,
+        file_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -939,9 +946,8 @@ class Files(BaseSDK):
 
         Updates the metadata of an existing file object.
 
-        :param file_id_param:
-        :param file_id:
-        :param file_name:
+        :param file_id: File ID to update.
+        :param file_name: New display file name, including extension when available.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -961,9 +967,8 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUpdateRequest(
-            file_id_param=file_id_param,
+            file_id=file_id,
             update_file_request=models.UpdateFileRequest(
-                file_id=file_id,
                 file_name=file_name,
             ),
         )
@@ -1029,9 +1034,8 @@ class Files(BaseSDK):
     async def update_async(
         self,
         *,
-        file_id_param: str,
-        file_id: Optional[str] = None,
-        file_name: Optional[str] = None,
+        file_id: str,
+        file_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1041,9 +1045,8 @@ class Files(BaseSDK):
 
         Updates the metadata of an existing file object.
 
-        :param file_id_param:
-        :param file_id:
-        :param file_name:
+        :param file_id: File ID to update.
+        :param file_name: New display file name, including extension when available.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1063,9 +1066,8 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUpdateRequest(
-            file_id_param=file_id_param,
+            file_id=file_id,
             update_file_request=models.UpdateFileRequest(
-                file_id=file_id,
                 file_name=file_name,
             ),
         )

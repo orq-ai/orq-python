@@ -175,7 +175,7 @@ class GetOneKnowledgeResponseBody2TypedDict(TypedDict):
     updated: str
     r"""The last update date of the knowledge base."""
     external_config: GetOneKnowledgeResponseBodyExternalConfigTypedDict
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
     r"""Entity storage path.
@@ -211,7 +211,7 @@ class GetOneKnowledgeResponseBody2(BaseModel):
 
     external_config: GetOneKnowledgeResponseBodyExternalConfig
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
@@ -245,7 +245,7 @@ class GetOneKnowledgeResponseBody2(BaseModel):
                 "retrieval_settings",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["description", "created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
@@ -419,7 +419,7 @@ class GetOneKnowledgeResponseBody1TypedDict(TypedDict):
     r"""The last update date of the knowledge base."""
     model: str
     r"""The embeddings model used for the knowledge base."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
     r"""Entity storage path.
@@ -456,7 +456,7 @@ class GetOneKnowledgeResponseBody1(BaseModel):
     model: str
     r"""The embeddings model used for the knowledge base."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
@@ -488,7 +488,7 @@ class GetOneKnowledgeResponseBody1(BaseModel):
                 "retrieval_settings",
             ]
         )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["description", "created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 

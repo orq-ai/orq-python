@@ -2,16 +2,14 @@
 
 from __future__ import annotations
 from .apikey import APIKey, APIKeyTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from orq_ai_sdk.types import BaseModel
+from typing_extensions import TypedDict
 
 
 class CreateAPIKeyResponseTypedDict(TypedDict):
-    api_key: NotRequired[APIKeyTypedDict]
+    api_key: APIKeyTypedDict
     r"""Newly minted api-key record."""
-    token: NotRequired[str]
+    token: str
     r"""Raw bearer token in the form `sk-orq-<api_key_id>-<secret>`.
     Returned ONCE; the API never exposes this value again. Clients
     must persist it immediately on receipt.
@@ -19,27 +17,11 @@ class CreateAPIKeyResponseTypedDict(TypedDict):
 
 
 class CreateAPIKeyResponse(BaseModel):
-    api_key: Optional[APIKey] = None
+    api_key: APIKey
     r"""Newly minted api-key record."""
 
-    token: Optional[str] = None
+    token: str
     r"""Raw bearer token in the form `sk-orq-<api_key_id>-<secret>`.
     Returned ONCE; the API never exposes this value again. Clients
     must persist it immediately on receipt.
     """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["api_key", "token"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m

@@ -2,39 +2,38 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from orq_ai_sdk.types import BaseModel
+from typing import List
+from typing_extensions import TypedDict
 
 
 class SkillTypedDict(TypedDict):
-    skill_id: NotRequired[str]
+    skill_id: str
     r"""Unique skill identifier assigned by ORQ, for example
     `skill_01H...`. Use this value in retrieve, update, and delete
     requests.
     """
-    display_name: NotRequired[str]
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
-    description: NotRequired[str]
+    display_name: str
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    description: str
     r"""Short human-readable summary of what the skill is for."""
-    tags: NotRequired[List[str]]
+    tags: List[str]
     r"""Free-form labels used for organization and filtering in clients."""
-    project_id: NotRequired[str]
+    project_id: str
     r"""Project that owns or contains the skill."""
-    path: NotRequired[str]
+    path: str
     r"""Project path where the skill is stored in the workspace."""
-    created_at: NotRequired[datetime]
+    created_at: datetime
     r"""Time when the skill was created."""
-    updated_at: NotRequired[datetime]
+    updated_at: datetime
     r"""Time when the skill was last updated."""
-    created_by_id: NotRequired[str]
+    created_by_id: str
     r"""User ID that created the skill."""
-    updated_by_id: NotRequired[str]
+    updated_by_id: str
     r"""User ID that last updated the skill."""
-    instructions: NotRequired[str]
+    instructions: str
     r"""Instruction body executed or reused by clients that load this skill."""
-    version: NotRequired[str]
+    version: str
     r"""Latest semver assigned by the activity log. Stamped on the document
     by CreateSkill / UpdateSkill so reads return it without joining
     workspaces.activities.
@@ -42,75 +41,44 @@ class SkillTypedDict(TypedDict):
 
 
 class Skill(BaseModel):
-    skill_id: Optional[str] = None
+    skill_id: str
     r"""Unique skill identifier assigned by ORQ, for example
     `skill_01H...`. Use this value in retrieve, update, and delete
     requests.
     """
 
-    display_name: Optional[str] = None
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, underscores, and hyphens."""
+    display_name: str
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
 
-    description: Optional[str] = None
+    description: str
     r"""Short human-readable summary of what the skill is for."""
 
-    tags: Optional[List[str]] = None
+    tags: List[str]
     r"""Free-form labels used for organization and filtering in clients."""
 
-    project_id: Optional[str] = None
+    project_id: str
     r"""Project that owns or contains the skill."""
 
-    path: Optional[str] = None
+    path: str
     r"""Project path where the skill is stored in the workspace."""
 
-    created_at: Optional[datetime] = None
+    created_at: datetime
     r"""Time when the skill was created."""
 
-    updated_at: Optional[datetime] = None
+    updated_at: datetime
     r"""Time when the skill was last updated."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: str
     r"""User ID that created the skill."""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: str
     r"""User ID that last updated the skill."""
 
-    instructions: Optional[str] = None
+    instructions: str
     r"""Instruction body executed or reused by clients that load this skill."""
 
-    version: Optional[str] = None
+    version: str
     r"""Latest semver assigned by the activity log. Stamped on the document
     by CreateSkill / UpdateSkill so reads return it without joining
     workspaces.activities.
     """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "skill_id",
-                "display_name",
-                "description",
-                "tags",
-                "project_id",
-                "path",
-                "created_at",
-                "updated_at",
-                "created_by_id",
-                "updated_by_id",
-                "instructions",
-                "version",
-            ]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m

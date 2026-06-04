@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                 | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `project_id`                          | *str*                                 | :heavy_check_mark:                    | Project ID this API key is scoped to. |

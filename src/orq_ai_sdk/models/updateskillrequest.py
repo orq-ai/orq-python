@@ -8,8 +8,6 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class UpdateSkillRequestTypedDict(TypedDict):
-    skill_id: NotRequired[str]
-    r"""Skill ID to update."""
     display_name: NotRequired[str]
     r"""New workspace-unique display name. Omit to keep the current name.
     Must start with a letter and may contain letters, numbers, and
@@ -29,9 +27,6 @@ class UpdateSkillRequestTypedDict(TypedDict):
 
 
 class UpdateSkillRequest(BaseModel):
-    skill_id: Optional[str] = None
-    r"""Skill ID to update."""
-
     display_name: Optional[str] = None
     r"""New workspace-unique display name. Omit to keep the current name.
     Must start with a letter and may contain letters, numbers, and
@@ -58,7 +53,6 @@ class UpdateSkillRequest(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "skill_id",
                 "display_name",
                 "description",
                 "tags",

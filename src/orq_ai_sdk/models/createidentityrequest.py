@@ -8,39 +8,55 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class CreateIdentityRequestMetadataTypedDict(TypedDict):
-    pass
+    r"""Custom JSON metadata stored with the identity."""
 
 
 class CreateIdentityRequestMetadata(BaseModel):
-    pass
+    r"""Custom JSON metadata stored with the identity."""
 
 
 class CreateIdentityRequestTypedDict(TypedDict):
-    external_id: NotRequired[str]
+    external_id: str
+    r"""Customer-provided stable identifier for this identity. Must be unique
+    within the workspace.
+    """
     display_name: NotRequired[str]
+    r"""Human-readable display name for the identity."""
     email: NotRequired[str]
+    r"""Email address associated with the identity."""
     avatar_url: NotRequired[str]
+    r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
+    r"""Free-form labels used to organize and filter identities."""
     metadata: NotRequired[CreateIdentityRequestMetadataTypedDict]
+    r"""Custom JSON metadata stored with the identity."""
 
 
 class CreateIdentityRequest(BaseModel):
-    external_id: Optional[str] = None
+    external_id: str
+    r"""Customer-provided stable identifier for this identity. Must be unique
+    within the workspace.
+    """
 
     display_name: Optional[str] = None
+    r"""Human-readable display name for the identity."""
 
     email: Optional[str] = None
+    r"""Email address associated with the identity."""
 
     avatar_url: Optional[str] = None
+    r"""URL of the identity avatar image."""
 
     tags: Optional[List[str]] = None
+    r"""Free-form labels used to organize and filter identities."""
 
     metadata: Optional[CreateIdentityRequestMetadata] = None
+    r"""Custom JSON metadata stored with the identity."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["external_id", "display_name", "email", "avatar_url", "tags", "metadata"]
+            ["display_name", "email", "avatar_url", "tags", "metadata"]
         )
         serialized = handler(self)
         m = {}
