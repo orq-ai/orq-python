@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                                | Type                                 | Required                             | Description                          |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `rouge_1`                            | [models.Rouge1](../models/rouge1.md) | :heavy_check_mark:                   | N/A                                  |
-| `rouge_2`                            | [models.Rouge2](../models/rouge2.md) | :heavy_check_mark:                   | N/A                                  |
-| `rouge_l`                            | [models.RougeL](../models/rougel.md) | :heavy_check_mark:                   | N/A                                  |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `f1`               | *float*            | :heavy_check_mark: | N/A                |
+| `precision`        | *float*            | :heavy_check_mark: | N/A                |
+| `recall`           | *float*            | :heavy_check_mark: | N/A                |

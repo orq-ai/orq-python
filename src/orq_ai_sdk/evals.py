@@ -16,6 +16,8 @@ class Evals(BaseSDK):
         limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -26,6 +28,8 @@ class Evals(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search:
+        :param sort:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,6 +52,8 @@ class Evals(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
+            sort=sort,
         )
 
         req = self._build_request(
@@ -113,6 +119,8 @@ class Evals(BaseSDK):
         limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -123,6 +131,8 @@ class Evals(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search:
+        :param sort:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -145,6 +155,8 @@ class Evals(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
+            sort=sort,
         )
 
         req = self._build_request_async(
@@ -406,12 +418,12 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: Optional[List[str]] = None,
-        categorical_labels: Optional[
+        categories: OptionalNullable[List[str]] = UNSET,
+        categorical_labels: OptionalNullable[
             Union[
                 List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
             ]
-        ] = None,
+        ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -485,7 +497,7 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=categories,
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
                 repetitions=repetitions,
                 mode=mode,
@@ -579,12 +591,12 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: Optional[List[str]] = None,
-        categorical_labels: Optional[
+        categories: OptionalNullable[List[str]] = UNSET,
+        categorical_labels: OptionalNullable[
             Union[
                 List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
             ]
-        ] = None,
+        ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -658,7 +670,7 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=categories,
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, Optional[List[models.CategoricalLabels]]
+                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
                 repetitions=repetitions,
                 mode=mode,
@@ -933,10 +945,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
         messages: Optional[
-            Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -979,7 +988,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=retrievals,
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),
@@ -1068,10 +1077,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
         messages: Optional[
-            Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1114,7 +1120,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=retrievals,
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),

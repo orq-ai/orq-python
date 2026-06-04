@@ -1,6 +1,6 @@
 # ListChunksPaginatedStatus
 
-The status of the chunk
+Filter chunks by processing status
 
 ## Example Usage
 

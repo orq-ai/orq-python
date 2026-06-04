@@ -348,14 +348,14 @@ class Cache(BaseModel):
 LoadBalancerType = Literal["weight_based",]
 
 
-class ModelsTypedDict(TypedDict):
+class CreateAgentRequestLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class Models(BaseModel):
+class CreateAgentRequestLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -381,13 +381,13 @@ class Models(BaseModel):
 
 class LoadBalancer1TypedDict(TypedDict):
     type: LoadBalancerType
-    models: List[ModelsTypedDict]
+    models: List[CreateAgentRequestLoadBalancerModelsTypedDict]
 
 
 class LoadBalancer1(BaseModel):
     type: LoadBalancerType
 
-    models: List[Models]
+    models: List[CreateAgentRequestLoadBalancerModels]
 
 
 LoadBalancerTypedDict = LoadBalancer1TypedDict
@@ -2576,11 +2576,11 @@ class CreateAgentRequestTeamOfAgents(BaseModel):
         return m
 
 
-class CreateAgentRequestMetricsTypedDict(TypedDict):
+class MetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
 
-class CreateAgentRequestMetrics(BaseModel):
+class Metrics(BaseModel):
     total_cost: Optional[float] = 0
 
     @model_serializer(mode="wrap")
@@ -3222,14 +3222,14 @@ class CreateAgentRequestCache(BaseModel):
 CreateAgentRequestLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class CreateAgentRequestLoadBalancerModelsTypedDict(TypedDict):
+class CreateAgentRequestLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateAgentRequestLoadBalancerModels(BaseModel):
+class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -3255,13 +3255,13 @@ class CreateAgentRequestLoadBalancerModels(BaseModel):
 
 class CreateAgentRequestLoadBalancerAgents1TypedDict(TypedDict):
     type: CreateAgentRequestLoadBalancerAgentsType
-    models: List[CreateAgentRequestLoadBalancerModelsTypedDict]
+    models: List[CreateAgentRequestLoadBalancerAgentsModelsTypedDict]
 
 
 class CreateAgentRequestLoadBalancerAgents1(BaseModel):
     type: CreateAgentRequestLoadBalancerAgentsType
 
-    models: List[CreateAgentRequestLoadBalancerModels]
+    models: List[CreateAgentRequestLoadBalancerAgentsModels]
 
 
 CreateAgentRequestLoadBalancerTypedDict = CreateAgentRequestLoadBalancerAgents1TypedDict
@@ -3891,14 +3891,14 @@ class CreateAgentRequestFallbackModelConfigurationCache(BaseModel):
 CreateAgentRequestLoadBalancerAgentsResponseType = Literal["weight_based",]
 
 
-class CreateAgentRequestLoadBalancerAgentsModelsTypedDict(TypedDict):
+class CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
+class CreateAgentRequestLoadBalancerAgentsResponseModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -3924,13 +3924,13 @@ class CreateAgentRequestLoadBalancerAgentsModels(BaseModel):
 
 class CreateAgentRequestLoadBalancerAgentsResponse1TypedDict(TypedDict):
     type: CreateAgentRequestLoadBalancerAgentsResponseType
-    models: List[CreateAgentRequestLoadBalancerAgentsModelsTypedDict]
+    models: List[CreateAgentRequestLoadBalancerAgentsResponseModelsTypedDict]
 
 
 class CreateAgentRequestLoadBalancerAgentsResponse1(BaseModel):
     type: CreateAgentRequestLoadBalancerAgentsResponseType
 
-    models: List[CreateAgentRequestLoadBalancerAgentsModels]
+    models: List[CreateAgentRequestLoadBalancerAgentsResponseModels]
 
 
 CreateAgentRequestFallbackModelConfigurationLoadBalancerTypedDict = (
@@ -4341,80 +4341,6 @@ class Model(BaseModel):
         return m
 
 
-class CreateAgentRequestHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class CreateAgentRequestHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class A2AAgentConfigurationTypedDict(TypedDict):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-    card_url: NotRequired[str]
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-    headers: NotRequired[Dict[str, CreateAgentRequestHeadersTypedDict]]
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-    cached_card: NotRequired[Any]
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-
-class A2AAgentConfiguration(BaseModel):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-
-    card_url: Optional[str] = None
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-
-    headers: Optional[Dict[str, CreateAgentRequestHeaders]] = None
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-
-    cached_card: Optional[Any] = None
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["card_url", "headers", "cached_card"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
 
@@ -4425,11 +4351,11 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     status: CreateAgentRequestStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
+    r"""Entity storage path.
 
-    The first element identifies the project, followed by nested folders (auto-created as needed).
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     skills: List[str]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
@@ -4448,7 +4374,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: NotRequired[List[CreateAgentRequestTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[CreateAgentRequestMetricsTypedDict]
+    metrics: NotRequired[MetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
@@ -4459,8 +4385,6 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[CreateAgentRequestAgentsSettingsTypedDict]
-    a2a: NotRequired[A2AAgentConfigurationTypedDict]
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
 class CreateAgentRequestResponseBody(BaseModel):
@@ -4477,11 +4401,11 @@ class CreateAgentRequestResponseBody(BaseModel):
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
+    r"""Entity storage path.
 
-    The first element identifies the project, followed by nested folders (auto-created as needed).
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
     skills: List[str]
@@ -4514,7 +4438,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     team_of_agents: Optional[List[CreateAgentRequestTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
-    metrics: Optional[CreateAgentRequestMetrics] = None
+    metrics: Optional[Metrics] = None
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
@@ -4532,9 +4456,6 @@ class CreateAgentRequestResponseBody(BaseModel):
     system_prompt: OptionalNullable[str] = UNSET
 
     settings: Optional[CreateAgentRequestAgentsSettings] = None
-
-    a2a: Optional[A2AAgentConfiguration] = None
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -4556,7 +4477,6 @@ class CreateAgentRequestResponseBody(BaseModel):
                 "type",
                 "system_prompt",
                 "settings",
-                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])

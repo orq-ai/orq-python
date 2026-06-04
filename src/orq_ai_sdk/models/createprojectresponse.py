@@ -10,10 +10,12 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateProjectResponseTypedDict(TypedDict):
     project: NotRequired[ProjectTypedDict]
+    r"""Newly created project."""
 
 
 class CreateProjectResponse(BaseModel):
     project: Optional[Project] = None
+    r"""Newly created project."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

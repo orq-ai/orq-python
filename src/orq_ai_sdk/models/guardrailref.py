@@ -3,7 +3,7 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Literal, Optional
+from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,6 +18,7 @@ class GuardrailRefTypedDict(TypedDict):
     execute_on: ExecuteOn
     id: str
     is_guardrail: NotRequired[bool]
+    options: NotRequired[Dict[str, Any]]
     sample_rate: NotRequired[float]
 
 
@@ -28,11 +29,13 @@ class GuardrailRef(BaseModel):
 
     is_guardrail: Optional[bool] = None
 
+    options: Optional[Dict[str, Any]] = None
+
     sample_rate: Optional[float] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["is_guardrail", "sample_rate"])
+        optional_fields = set(["is_guardrail", "options", "sample_rate"])
         serialized = handler(self)
         m = {}
 

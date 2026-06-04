@@ -1,35 +1,11 @@
 # Messages
 
 
-## Supported Types
+## Fields
 
-### `models.MessagesSystemMessage`
-
-```python
-value: models.MessagesSystemMessage = /* values here */
-```
-
-### `models.MessagesDeveloperMessage`
-
-```python
-value: models.MessagesDeveloperMessage = /* values here */
-```
-
-### `models.MessagesUserMessage`
-
-```python
-value: models.MessagesUserMessage = /* values here */
-```
-
-### `models.MessagesAssistantMessage`
-
-```python
-value: models.MessagesAssistantMessage = /* values here */
-```
-
-### `models.MessagesToolMessage`
-
-```python
-value: models.MessagesToolMessage = /* values here */
-```
-
+| Field                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `role`                                                                                                                                                                                                                                                                                                                      | [models.InvokeEvalRole](../models/invokeevalrole.md)                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                          | The role of the prompt message                                                                                                                                                                                                                                                                                              |
+| `content`                                                                                                                                                                                                                                                                                                                   | [Nullable[models.InvokeEvalContent]](../models/invokeevalcontent.md)                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                          | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios. |
+| `tool_calls`                                                                                                                                                                                                                                                                                                                | List[[models.InvokeEvalToolCalls](../models/invokeevaltoolcalls.md)]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
+| `tool_call_id`                                                                                                                                                                                                                                                                                                              | *OptionalNullable[str]*                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |

@@ -10,10 +10,12 @@ from typing_extensions import NotRequired, TypedDict
 
 class GetSkillResponseTypedDict(TypedDict):
     skill: NotRequired[SkillTypedDict]
+    r"""Requested skill."""
 
 
 class GetSkillResponse(BaseModel):
     skill: Optional[Skill] = None
+    r"""Requested skill."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

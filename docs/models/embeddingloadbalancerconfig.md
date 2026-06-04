@@ -1,0 +1,9 @@
+# EmbeddingLoadBalancerConfig
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `models`                                                                                       | List[[models.EmbeddingLoadBalancerModelConfig](../models/embeddingloadbalancermodelconfig.md)] | :heavy_check_mark:                                                                             | Array of models with weights for load balancing requests.                                      |
+| `type`                                                                                         | [models.EmbeddingLoadBalancerConfigType](../models/embeddingloadbalancerconfigtype.md)         | :heavy_check_mark:                                                                             | Load balancer type.                                                                            |

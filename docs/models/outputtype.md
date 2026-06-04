@@ -11,3 +11,4 @@ value: OutputType = "boolean"
 ## Values
 
 - `"boolean"`
+- `"number"`

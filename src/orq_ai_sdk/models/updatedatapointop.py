@@ -1445,7 +1445,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-02T14:36:35.431Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-04T20:59:28.848Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1513,7 +1513,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-02T14:36:35.430Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-04T20:59:28.848Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1581,7 +1581,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-02T14:36:35.430Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-04T20:59:28.847Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1639,9 +1639,9 @@ class UpdateDatapointResponseBodyTypedDict(TypedDict):
     r"""Evaluations associated with the datapoint"""
     snapshot_version: NotRequired[str]
     r"""The version of the dataset snapshot"""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who created the dataset"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who last updated the dataset"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
@@ -1675,16 +1675,16 @@ class UpdateDatapointResponseBody(BaseModel):
     snapshot_version: Optional[str] = None
     r"""The version of the dataset snapshot"""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the user who created the dataset"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the user who last updated the dataset"""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-06-02T14:36:21.484Z")
+    updated: Optional[datetime] = parse_datetime("2026-06-04T20:58:59.272Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1702,15 +1702,24 @@ class UpdateDatapointResponseBody(BaseModel):
                 "updated",
             ]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

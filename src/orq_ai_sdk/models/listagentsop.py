@@ -27,11 +27,8 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-QueryParamType = Literal[
-    "internal",
-    "a2a",
-]
-r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
+QueryParamType = Literal["internal",]
+r"""Filter agents by type"""
 
 
 class ListAgentsRequestTypedDict(TypedDict):
@@ -42,7 +39,7 @@ class ListAgentsRequestTypedDict(TypedDict):
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     type: NotRequired[QueryParamType]
-    r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
+    r"""Filter agents by type"""
 
 
 class ListAgentsRequest(BaseModel):
@@ -68,7 +65,7 @@ class ListAgentsRequest(BaseModel):
         Optional[QueryParamType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents"""
+    r"""Filter agents by type"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1835,80 +1832,6 @@ class ListAgentsModel(BaseModel):
         return m
 
 
-class ListAgentsHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class ListAgentsHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class ListAgentsA2AAgentConfigurationTypedDict(TypedDict):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-    card_url: NotRequired[str]
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-    headers: NotRequired[Dict[str, ListAgentsHeadersTypedDict]]
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-    cached_card: NotRequired[Any]
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-
-class ListAgentsA2AAgentConfiguration(BaseModel):
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-
-    card_url: Optional[str] = None
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-
-    headers: Optional[Dict[str, ListAgentsHeaders]] = None
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-
-    cached_card: Optional[Any] = None
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["card_url", "headers", "cached_card"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
@@ -1916,11 +1839,11 @@ class ListAgentsDataTypedDict(TypedDict):
     status: ListAgentsStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
+    r"""Entity storage path.
 
-    The first element identifies the project, followed by nested folders (auto-created as needed).
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     skills: List[str]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
@@ -1950,8 +1873,6 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[ListAgentsSettingsTypedDict]
-    a2a: NotRequired[ListAgentsA2AAgentConfigurationTypedDict]
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
 class ListAgentsData(BaseModel):
@@ -1964,11 +1885,11 @@ class ListAgentsData(BaseModel):
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
+    r"""Entity storage path.
 
-    The first element identifies the project, followed by nested folders (auto-created as needed).
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
     skills: List[str]
@@ -2020,9 +1941,6 @@ class ListAgentsData(BaseModel):
 
     settings: Optional[ListAgentsSettings] = None
 
-    a2a: Optional[ListAgentsA2AAgentConfiguration] = None
-    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2043,7 +1961,6 @@ class ListAgentsData(BaseModel):
                 "type",
                 "system_prompt",
                 "settings",
-                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id", "system_prompt"])

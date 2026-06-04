@@ -14,9 +14,10 @@ class FileTypedDict(TypedDict):
     file_id: NotRequired[str]
     purpose: NotRequired[FilePurpose]
     file_name: NotRequired[str]
-    workspace_id: NotRequired[str]
     bytes_: NotRequired[str]
     created_at: NotRequired[datetime]
+    project_id: NotRequired[str]
+    r"""Identifier of the project the file belongs to. Files are project-scoped; an API key may only access files in projects it is authorized for."""
 
 
 class File(BaseModel):
@@ -26,16 +27,17 @@ class File(BaseModel):
 
     file_name: Optional[str] = None
 
-    workspace_id: Optional[str] = None
-
     bytes_: Annotated[Optional[str], pydantic.Field(alias="bytes")] = None
 
     created_at: Optional[datetime] = None
 
+    project_id: Optional[str] = None
+    r"""Identifier of the project the file belongs to. Files are project-scoped; an API key may only access files in projects it is authorized for."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["file_id", "purpose", "file_name", "workspace_id", "bytes", "created_at"]
+            ["file_id", "purpose", "file_name", "bytes", "created_at", "project_id"]
         )
         serialized = handler(self)
         m = {}

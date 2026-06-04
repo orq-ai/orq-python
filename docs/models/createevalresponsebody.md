@@ -11,16 +11,16 @@ Successfully created an evaluator
 value: models.ResponseBodyLLM = /* values here */
 ```
 
-### `models.ResponseBodyJSON`
+### `models.JSON`
 
 ```python
-value: models.ResponseBodyJSON = /* values here */
+value: models.JSON = /* values here */
 ```
 
-### `models.ResponseBodyHTTP`
+### `models.CreateEvalResponseBodyHTTP`
 
 ```python
-value: models.ResponseBodyHTTP = /* values here */
+value: models.CreateEvalResponseBodyHTTP = /* values here */
 ```
 
 ### `models.ResponseBodyPython`

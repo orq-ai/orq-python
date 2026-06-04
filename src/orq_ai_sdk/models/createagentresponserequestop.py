@@ -114,7 +114,7 @@ class A2AMessage(BaseModel):
         return m
 
 
-class IdentityTypedDict(TypedDict):
+class CreateAgentResponseRequestIdentityTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
@@ -131,7 +131,7 @@ class IdentityTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
-class Identity(BaseModel):
+class CreateAgentResponseRequestIdentity(BaseModel):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
@@ -338,7 +338,7 @@ class CreateAgentResponseRequestRequestBodyTypedDict(TypedDict):
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
-    identity: NotRequired[IdentityTypedDict]
+    identity: NotRequired[CreateAgentResponseRequestIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[ContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
@@ -370,7 +370,7 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    identity: Optional[Identity] = None
+    identity: Optional[CreateAgentResponseRequestIdentity] = None
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     contact: Annotated[

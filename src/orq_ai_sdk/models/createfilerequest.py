@@ -13,6 +13,8 @@ class CreateFileRequestTypedDict(TypedDict):
     content: NotRequired[str]
     purpose: NotRequired[FilePurpose]
     content_type: NotRequired[str]
+    project_id: NotRequired[str]
+    r"""Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers."""
 
 
 class CreateFileRequest(BaseModel):
@@ -24,9 +26,14 @@ class CreateFileRequest(BaseModel):
 
     content_type: Optional[str] = None
 
+    project_id: Optional[str] = None
+    r"""Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["filename", "content", "purpose", "content_type"])
+        optional_fields = set(
+            ["filename", "content", "purpose", "content_type", "project_id"]
+        )
         serialized = handler(self)
         m = {}
 

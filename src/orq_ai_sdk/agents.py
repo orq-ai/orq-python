@@ -5,10 +5,10 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.orq_responses import OrqResponses
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
@@ -26,478 +26,6 @@ class Agents(BaseSDK):
         self.responses = OrqResponses(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
-
-    def post_v2_agents_a2a(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models.PostV2AgentsA2aRequestBody,
-                models.PostV2AgentsA2aRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2AgentsA2aResponseBody:
-        r"""Register external A2A agent
-
-        Register an external A2A-compliant agent into Orquesta. The agent card will be fetched during registration to validate the agent and cache its capabilities.
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.PostV2AgentsA2aRequestBody]
-            )
-        request = cast(Optional[models.PostV2AgentsA2aRequestBody], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/agents/a2a",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.PostV2AgentsA2aRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/agents/a2a",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.PostV2AgentsA2aResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsA2aAgentsResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsA2aAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsA2aAgentsResponseResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsA2aAgentsResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def post_v2_agents_a2a_async(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models.PostV2AgentsA2aRequestBody,
-                models.PostV2AgentsA2aRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2AgentsA2aResponseBody:
-        r"""Register external A2A agent
-
-        Register an external A2A-compliant agent into Orquesta. The agent card will be fetched during registration to validate the agent and cache its capabilities.
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.PostV2AgentsA2aRequestBody]
-            )
-        request = cast(Optional[models.PostV2AgentsA2aRequestBody], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/agents/a2a",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.PostV2AgentsA2aRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/agents/a2a",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.PostV2AgentsA2aResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsA2aAgentsResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsA2aAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsA2aAgentsResponseResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsA2aAgentsResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def post_v2_agents_key_card_refresh(
-        self,
-        *,
-        key: str,
-        request_body: Optional[
-            Union[
-                models.PostV2AgentsKeyCardRefreshRequestBody,
-                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
-        r"""Refresh A2A agent card
-
-        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
-
-        :param key: The unique key identifier of the agent
-        :param request_body:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PostV2AgentsKeyCardRefreshRequest(
-            key=key,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/agents/{key}/card/refresh",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/agents/{key}/card/refresh",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
-            )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
-                http_res,
-            )
-            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def post_v2_agents_key_card_refresh_async(
-        self,
-        *,
-        key: str,
-        request_body: Optional[
-            Union[
-                models.PostV2AgentsKeyCardRefreshRequestBody,
-                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
-        r"""Refresh A2A agent card
-
-        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
-
-        :param key: The unique key identifier of the agent
-        :param request_body:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PostV2AgentsKeyCardRefreshRequest(
-            key=key,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/agents/{key}/card/refresh",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="post_/v2/agents/{key}/card/refresh",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
-            )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
-            )
-            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
-                http_res,
-            )
-            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -842,7 +370,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents
+        :param type: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -938,7 +466,7 @@ class Agents(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter agents by type: \"internal\" for Orquesta-managed agents, \"a2a\" for external A2A-compliant agents
+        :param type: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1434,9 +962,6 @@ class Agents(BaseSDK):
         skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
-        a2a: Optional[
-            Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
-        ] = None,
         version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1459,18 +984,17 @@ class Agents(BaseSDK):
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables: Extracted variables from agent instructions
         :param engine:
-        :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
@@ -1522,9 +1046,6 @@ class Agents(BaseSDK):
                 skills=skills,
                 variables=variables,
                 engine=engine,
-                a2a=utils.get_pydantic_model(
-                    a2a, Optional[models.UpdateA2AConfiguration]
-                ),
                 version_increment=version_increment,
                 version_description=version_description,
             ),
@@ -1637,9 +1158,6 @@ class Agents(BaseSDK):
         skills: OptionalNullable[List[str]] = UNSET,
         variables: Optional[Dict[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
-        a2a: Optional[
-            Union[models.UpdateA2AConfiguration, models.UpdateA2AConfigurationTypedDict]
-        ] = None,
         version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1662,18 +1180,17 @@ class Agents(BaseSDK):
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
         :param variables: Extracted variables from agent instructions
         :param engine:
-        :param a2a: Update A2A agent configuration (only applicable to A2A agents)
         :param version_increment: Optional semantic version bump to create after a successful publish.
         :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
@@ -1725,9 +1242,6 @@ class Agents(BaseSDK):
                 skills=skills,
                 variables=variables,
                 engine=engine,
-                a2a=utils.get_pydantic_model(
-                    a2a, Optional[models.UpdateA2AConfiguration]
-                ),
                 version_increment=version_increment,
                 version_description=version_description,
             ),
@@ -2172,11 +1686,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2364,11 +1878,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2561,11 +2075,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -2786,11 +2300,11 @@ class Agents(BaseSDK):
         :param role: Specifies the agent's function and area of expertise.
         :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
         :param message: The A2A format message containing the task for the agent to perform.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+        :param path: Entity storage path.
 
-            The first element identifies the project, followed by nested folders (auto-created as needed).
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
 
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
@@ -3284,3 +2798,247 @@ class Agents(BaseSDK):
 
         http_res_text = await utils.stream_to_text_async(http_res)
         raise models.APIError("Unexpected response received", http_res, http_res_text)
+
+    def post_v2_agents_key_card_refresh(
+        self,
+        *,
+        key: str,
+        request_body: Optional[
+            Union[
+                models.PostV2AgentsKeyCardRefreshRequestBody,
+                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
+        r"""Refresh A2A agent card
+
+        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
+
+        :param key: The unique key identifier of the agent
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2AgentsKeyCardRefreshRequest(
+            key=key,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/{key}/card/refresh",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/{key}/card/refresh",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
+                http_res,
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def post_v2_agents_key_card_refresh_async(
+        self,
+        *,
+        key: str,
+        request_body: Optional[
+            Union[
+                models.PostV2AgentsKeyCardRefreshRequestBody,
+                models.PostV2AgentsKeyCardRefreshRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2AgentsKeyCardRefreshResponseBody:
+        r"""Refresh A2A agent card
+
+        Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
+
+        :param key: The unique key identifier of the agent
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2AgentsKeyCardRefreshRequest(
+            key=key,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[models.PostV2AgentsKeyCardRefreshRequestBody]
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/{key}/card/refresh",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2AgentsKeyCardRefreshRequestBody],
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/agents/{key}/card/refresh",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshResponseBody, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseBodyData, http_res
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBodyData,
+                http_res,
+            )
+            raise models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)

@@ -11,9 +11,9 @@ Input text to embed, encoded as a string or array of tokens.
 value: str = /* values here */
 ```
 
-### `List[str]`
+### `List[models.Input2]`
 
 ```python
-value: List[str] = /* values here */
+value: List[models.Input2] = /* values here */
 ```
 

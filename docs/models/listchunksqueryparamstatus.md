@@ -1,19 +1,19 @@
 # ListChunksQueryParamStatus
 
-Filter datasources by status.
+Filter chunks by status.
 
 
 ## Supported Types
 
-### `List[str]`
+### `List[models.QueryParam1]`
 
 ```python
-value: List[str] = /* values here */
+value: List[models.QueryParam1] = /* values here */
 ```
 
-### `str`
+### `models.QueryParam2`
 
 ```python
-value: str = /* values here */
+value: models.QueryParam2 = /* values here */
 ```
 

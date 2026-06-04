@@ -1,16 +1,16 @@
 # EncodingFormat
 
-Type of the document element
+The format to return the embeddings in. Can be either float or base64.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import EncodingFormat
-value: EncodingFormat = "base64"
+value: EncodingFormat = "float"
 ```
 
 
 ## Values
 
-- `"base64"`
 - `"float"`
+- `"base64"`

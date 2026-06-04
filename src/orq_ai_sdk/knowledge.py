@@ -1407,6 +1407,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         display_name: Optional[str] = None,
+        description: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
@@ -1420,6 +1421,7 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param display_name: The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized.
+        :param description: The description of the knowledge base
         :param file_id: The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking.
         :param chunking_options: Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted.
         :param retries: Override the default retry configuration for this method
@@ -1444,6 +1446,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             request_body=models.CreateDatasourceRequestBody(
                 display_name=display_name,
+                description=description,
                 file_id=file_id,
                 chunking_options=utils.get_pydantic_model(
                     chunking_options, Optional[models.ChunkingOptions]
@@ -1516,6 +1519,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         display_name: Optional[str] = None,
+        description: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
@@ -1529,6 +1533,7 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param display_name: The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized.
+        :param description: The description of the knowledge base
         :param file_id: The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking.
         :param chunking_options: Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted.
         :param retries: Override the default retry configuration for this method
@@ -1553,6 +1558,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             request_body=models.CreateDatasourceRequestBody(
                 display_name=display_name,
+                description=description,
                 file_id=file_id,
                 chunking_options=utils.get_pydantic_model(
                     chunking_options, Optional[models.ChunkingOptions]
@@ -2416,7 +2422,7 @@ class Knowledge(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param status: Filter datasources by status.
+        :param status: Filter chunks by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2524,7 +2530,7 @@ class Knowledge(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param status: Filter datasources by status.
+        :param status: Filter chunks by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2811,7 +2817,7 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[str] = None,
+        status: Optional[models.ListChunksPaginatedStatus] = None,
         limit: Optional[int] = 100,
         page: Optional[int] = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2925,7 +2931,7 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[str] = None,
+        status: Optional[models.ListChunksPaginatedStatus] = None,
         limit: Optional[int] = 100,
         page: Optional[int] = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3039,13 +3045,15 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[str] = None,
+        status: Optional[models.GetChunksCountStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetChunksCountResponseBody:
         r"""Get chunks total count
+
+        Returns the total count of chunks in a datasource. When `q` is provided, the count reflects indexed chunks only — recently created chunks may not be counted until embedding completes.
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
@@ -3145,13 +3153,15 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[str] = None,
+        status: Optional[models.GetChunksCountStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetChunksCountResponseBody:
         r"""Get chunks total count
+
+        Returns the total count of chunks in a datasource. When `q` is provided, the count reflects indexed chunks only — recently created chunks may not be counted until embedding completes.
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.

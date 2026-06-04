@@ -1,0 +1,14 @@
+# ModelUpdateRequestBody
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `display_name`                                                         | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `has_functions`                                                        | *Optional[bool]*                                                       | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `input_cost`                                                           | *Optional[float]*                                                      | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `metadata`                                                             | [Optional[models.ModelMetadata]](../models/modelmetadata.md)           | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `model_type`                                                           | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `output_cost`                                                          | *Optional[float]*                                                      | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `parameters`                                                           | List[[models.UpdateModelParameter](../models/updatemodelparameter.md)] | :heavy_minus_sign:                                                     | N/A                                                                    |

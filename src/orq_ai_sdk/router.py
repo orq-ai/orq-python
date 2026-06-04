@@ -20,11 +20,11 @@ from typing import List, Mapping, Optional, Union
 class Router(BaseSDK):
     chat: Chat
     moderations: Moderations
-    embeddings: Embeddings
     rerank: Rerank
     audio: Audio
     completions: Completions
     images: Images
+    embeddings: Embeddings
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -38,13 +38,13 @@ class Router(BaseSDK):
         self.moderations = Moderations(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
-        self.embeddings = Embeddings(self.sdk_configuration, parent_ref=self.parent_ref)
         self.rerank = Rerank(self.sdk_configuration, parent_ref=self.parent_ref)
         self.audio = Audio(self.sdk_configuration, parent_ref=self.parent_ref)
         self.completions = Completions(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.images = Images(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.embeddings = Embeddings(self.sdk_configuration, parent_ref=self.parent_ref)
 
     def ocr(
         self,
