@@ -68,7 +68,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.projects.create()
+    res = orq.projects.create(name="<value>")
 
     # Handle response
     print(res)
@@ -79,7 +79,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `name`                                                              | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Project name. Names must be non-empty and at most 128 characters.   |
+| `name`                                                              | *str*                                                               | :heavy_check_mark:                                                  | Project name. Names must be non-empty and at most 128 characters.   |
 | `teams`                                                             | List[*str*]                                                         | :heavy_minus_sign:                                                  | Team identifiers to associate with the project.                     |
 | `description`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional human-readable description, at most 500 characters.        |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
@@ -190,7 +190,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.projects.update(project_id_param="<value>")
+    res = orq.projects.update(project_id="<value>")
 
     # Handle response
     print(res)
@@ -201,8 +201,7 @@ with Orq(
 
 | Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `project_id_param`                                                                                              | *str*                                                                                                           | :heavy_check_mark:                                                                                              | Project ID to update.                                                                                           |
-| `project_id`                                                                                                    | *Optional[str]*                                                                                                 | :heavy_minus_sign:                                                                                              | Project ID to update.                                                                                           |
+| `project_id`                                                                                                    | *str*                                                                                                           | :heavy_check_mark:                                                                                              | Project ID to update.                                                                                           |
 | `name`                                                                                                          | *Optional[str]*                                                                                                 | :heavy_minus_sign:                                                                                              | New project name. Omit to keep the current name.                                                                |
 | `teams`                                                                                                         | List[*str*]                                                                                                     | :heavy_minus_sign:                                                                                              | Replacement list of team identifiers associated with the project.<br/> Leave empty to remove all team associations. |
 | `description`                                                                                                   | *Optional[str]*                                                                                                 | :heavy_minus_sign:                                                                                              | New project description. Omit to keep the current description.                                                  |

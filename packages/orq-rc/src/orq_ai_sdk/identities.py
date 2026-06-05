@@ -30,12 +30,14 @@ class Identities(BaseSDK):
         Retrieves a paginated list of identities in your workspace. Use pagination parameters to navigate through large identity lists efficiently.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param search:
-        :param filter_by_tags:
-        :param include_metrics:
-        :param sort_by:
+        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from
+            the previous page.
+        :param search: Case-insensitive search text matched against identity profile fields.
+        :param filter_by_tags: Return only identities that have at least one of these tags.
+        :param include_metrics: Include aggregate usage metrics on each returned identity.
+        :param sort_by: Field used to order the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -135,12 +137,14 @@ class Identities(BaseSDK):
         Retrieves a paginated list of identities in your workspace. Use pagination parameters to navigate through large identity lists efficiently.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param search:
-        :param filter_by_tags:
-        :param include_metrics:
-        :param sort_by:
+        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from
+            the previous page.
+        :param search: Case-insensitive search text matched against identity profile fields.
+        :param filter_by_tags: Return only identities that have at least one of these tags.
+        :param include_metrics: Include aggregate usage metrics on each returned identity.
+        :param sort_by: Field used to order the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -223,7 +227,7 @@ class Identities(BaseSDK):
     def create(
         self,
         *,
-        external_id: Optional[str] = None,
+        external_id: str,
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
@@ -243,12 +247,13 @@ class Identities(BaseSDK):
 
         Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
 
-        :param external_id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param external_id: Customer-provided stable identifier for this identity. Must be unique
+            within the workspace.
+        :param display_name: Human-readable display name for the identity.
+        :param email: Email address associated with the identity.
+        :param avatar_url: URL of the identity avatar image.
+        :param tags: Free-form labels used to organize and filter identities.
+        :param metadata: Custom JSON metadata stored with the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -335,7 +340,7 @@ class Identities(BaseSDK):
     async def create_async(
         self,
         *,
-        external_id: Optional[str] = None,
+        external_id: str,
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
@@ -355,12 +360,13 @@ class Identities(BaseSDK):
 
         Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
 
-        :param external_id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param external_id: Customer-provided stable identifier for this identity. Must be unique
+            within the workspace.
+        :param display_name: Human-readable display name for the identity.
+        :param email: Email address associated with the identity.
+        :param avatar_url: URL of the identity avatar image.
+        :param tags: Free-form labels used to organize and filter identities.
+        :param metadata: Custom JSON metadata stored with the identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -458,8 +464,8 @@ class Identities(BaseSDK):
 
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
-        :param id:
-        :param include_metrics:
+        :param id: Identity ID to retrieve.
+        :param include_metrics: Include aggregate usage metrics on the returned identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -548,8 +554,8 @@ class Identities(BaseSDK):
 
         Retrieves detailed information about a specific identity using their identity ID or external ID from your system.
 
-        :param id:
-        :param include_metrics:
+        :param id: Identity ID to retrieve.
+        :param include_metrics: Include aggregate usage metrics on the returned identity.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -637,7 +643,7 @@ class Identities(BaseSDK):
 
         Permanently deletes an identity from your workspace and cleans up associated budget configurations.
 
-        :param id:
+        :param id: Identity ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -724,7 +730,7 @@ class Identities(BaseSDK):
 
         Permanently deletes an identity from your workspace and cleans up associated budget configurations.
 
-        :param id:
+        :param id: Identity ID to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -801,8 +807,7 @@ class Identities(BaseSDK):
     def update(
         self,
         *,
-        id_param: str,
-        id: Optional[str] = None,
+        id: str,
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
@@ -822,13 +827,12 @@ class Identities(BaseSDK):
 
         Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
 
-        :param id_param:
-        :param id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param id: Identity ID to update.
+        :param display_name: New display name. Omit to keep the current display name.
+        :param email: New email address. Omit to keep the current email.
+        :param avatar_url: New avatar image URL. Omit to keep the current avatar URL.
+        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param metadata: Replacement custom JSON metadata.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -848,9 +852,8 @@ class Identities(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateIdentityRequest1(
-            id_param=id_param,
+            id=id,
             update_identity_request=models.UpdateIdentityRequest(
-                id=id,
                 display_name=display_name,
                 email=email,
                 avatar_url=avatar_url,
@@ -922,8 +925,7 @@ class Identities(BaseSDK):
     async def update_async(
         self,
         *,
-        id_param: str,
-        id: Optional[str] = None,
+        id: str,
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
@@ -943,13 +945,12 @@ class Identities(BaseSDK):
 
         Updates specific fields of an existing identity. Only the fields provided in the request body will be updated.
 
-        :param id_param:
-        :param id:
-        :param display_name:
-        :param email:
-        :param avatar_url:
-        :param tags:
-        :param metadata:
+        :param id: Identity ID to update.
+        :param display_name: New display name. Omit to keep the current display name.
+        :param email: New email address. Omit to keep the current email.
+        :param avatar_url: New avatar image URL. Omit to keep the current avatar URL.
+        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param metadata: Replacement custom JSON metadata.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -969,9 +970,8 @@ class Identities(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateIdentityRequest1(
-            id_param=id_param,
+            id=id,
             update_identity_request=models.UpdateIdentityRequest(
-                id=id,
                 display_name=display_name,
                 email=email,
                 avatar_url=avatar_url,

@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `file`                                     | [Optional[models.File]](../models/file.md) | :heavy_minus_sign:                         | N/A                                        |
+| Field                            | Type                             | Required                         | Description                      |
+| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
+| `file`                           | [models.File](../models/file.md) | :heavy_check_mark:               | Requested file metadata.         |

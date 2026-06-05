@@ -3,9 +3,9 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `limit`            | *Optional[int]*    | :heavy_minus_sign: | N/A                |
-| `starting_after`   | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `ending_before`    | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `limit`                                                                                         | *Optional[int]*                                                                                 | :heavy_minus_sign:                                                                              | Page size. Unset uses the server default.                                                       |
+| `starting_after`                                                                                | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Cursor for forward pagination. Set to the `file_id` of the last item<br/> from the previous page. |
+| `ending_before`                                                                                 | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Cursor for backward pagination. Set to the `file_id` of the first item<br/> from the previous page. |
+| `project_id`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | N/A                                                                                             |

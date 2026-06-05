@@ -19,22 +19,31 @@ class APIKeyTypedDict(TypedDict):
     expiration, and revocation (see ADR 0001).
     """
 
-    api_key_id: NotRequired[str]
+    api_key_id: str
     r"""Canonical key identifier (ULID). Embedded in opaque tokens as
     `sk-orq-<id>-<secret>`.
     """
-    name: NotRequired[str]
+    name: str
     r"""Human-readable name shown in the dashboard."""
-    owner: NotRequired[APIKeyOwnerTypedDict]
+    owner: APIKeyOwnerTypedDict
     r"""Owner attribution (drives lifecycle)."""
-    project_scope: NotRequired[ProjectScopeTypedDict]
+    project_scope: ProjectScopeTypedDict
     r"""Project authorization scope."""
-    permission_mode: NotRequired[PermissionMode]
+    permission_mode: PermissionMode
+    token_prefix: str
+    r"""Displayable prefix for UI listings (e.g. \"sk-orq-01HXY...\"). Safe
+    to expose.
+    """
+    status: APIKeyStatus
+    created_at: datetime
+    r"""Time the key was created."""
+    updated_at: datetime
+    r"""Time the key was last updated."""
     access: NotRequired[Dict[str, int]]
     r"""Per-domain access map. Only populated when `permission_mode` is
     `PERMISSION_MODE_RESTRICTED`. The authoritative list of valid
     keys and the per-domain read / write semantics are exposed at
-    runtime via the `ListCapabilities` RPC.
+    runtime via the capability catalog endpoint.
 
     Valid keys are the Domain.id values in the capability catalog —
     see libs/catalog/orq/apikeys/v1/catalog.textpb for the canonical
@@ -45,11 +54,6 @@ class APIKeyTypedDict(TypedDict):
     \"ACCESS_LEVEL_READ\"  — list / view verbs
     \"ACCESS_LEVEL_WRITE\" — list / view + mutating / execute verbs
     """
-    token_prefix: NotRequired[str]
-    r"""Displayable prefix for UI listings (e.g. \"sk-orq-01HXY...\"). Safe
-    to expose.
-    """
-    status: NotRequired[APIKeyStatus]
     created_by_id: NotRequired[str]
     r"""Audit: user who created the key. Optional. Distinct from
     `owner.user_id` — created_by is provenance only, while owner
@@ -57,10 +61,6 @@ class APIKeyTypedDict(TypedDict):
     """
     updated_by_id: NotRequired[str]
     r"""Audit: user who last updated the key."""
-    created_at: NotRequired[datetime]
-    r"""Time the key was created."""
-    updated_at: NotRequired[datetime]
-    r"""Time the key was last updated."""
     last_used_at: NotRequired[datetime]
     r"""Last authenticated use. Updated via NATS debounce + 1% sampler."""
     expires_at: NotRequired[datetime]
@@ -80,27 +80,40 @@ class APIKey(BaseModel):
     expiration, and revocation (see ADR 0001).
     """
 
-    api_key_id: Optional[str] = None
+    api_key_id: str
     r"""Canonical key identifier (ULID). Embedded in opaque tokens as
     `sk-orq-<id>-<secret>`.
     """
 
-    name: Optional[str] = None
+    name: str
     r"""Human-readable name shown in the dashboard."""
 
-    owner: Optional[APIKeyOwner] = None
+    owner: APIKeyOwner
     r"""Owner attribution (drives lifecycle)."""
 
-    project_scope: Optional[ProjectScope] = None
+    project_scope: ProjectScope
     r"""Project authorization scope."""
 
-    permission_mode: Optional[PermissionMode] = None
+    permission_mode: PermissionMode
+
+    token_prefix: str
+    r"""Displayable prefix for UI listings (e.g. \"sk-orq-01HXY...\"). Safe
+    to expose.
+    """
+
+    status: APIKeyStatus
+
+    created_at: datetime
+    r"""Time the key was created."""
+
+    updated_at: datetime
+    r"""Time the key was last updated."""
 
     access: Optional[Dict[str, int]] = None
     r"""Per-domain access map. Only populated when `permission_mode` is
     `PERMISSION_MODE_RESTRICTED`. The authoritative list of valid
     keys and the per-domain read / write semantics are exposed at
-    runtime via the `ListCapabilities` RPC.
+    runtime via the capability catalog endpoint.
 
     Valid keys are the Domain.id values in the capability catalog —
     see libs/catalog/orq/apikeys/v1/catalog.textpb for the canonical
@@ -112,13 +125,6 @@ class APIKey(BaseModel):
     \"ACCESS_LEVEL_WRITE\" — list / view + mutating / execute verbs
     """
 
-    token_prefix: Optional[str] = None
-    r"""Displayable prefix for UI listings (e.g. \"sk-orq-01HXY...\"). Safe
-    to expose.
-    """
-
-    status: Optional[APIKeyStatus] = None
-
     created_by_id: Optional[str] = None
     r"""Audit: user who created the key. Optional. Distinct from
     `owner.user_id` — created_by is provenance only, while owner
@@ -127,12 +133,6 @@ class APIKey(BaseModel):
 
     updated_by_id: Optional[str] = None
     r"""Audit: user who last updated the key."""
-
-    created_at: Optional[datetime] = None
-    r"""Time the key was created."""
-
-    updated_at: Optional[datetime] = None
-    r"""Time the key was last updated."""
 
     last_used_at: Optional[datetime] = None
     r"""Last authenticated use. Updated via NATS debounce + 1% sampler."""
@@ -153,18 +153,9 @@ class APIKey(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "api_key_id",
-                "name",
-                "owner",
-                "project_scope",
-                "permission_mode",
                 "access",
-                "token_prefix",
-                "status",
                 "created_by_id",
                 "updated_by_id",
-                "created_at",
-                "updated_at",
                 "last_used_at",
                 "expires_at",
                 "legacy_token_family",

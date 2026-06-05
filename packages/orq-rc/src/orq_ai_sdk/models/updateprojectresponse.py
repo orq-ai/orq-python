@@ -2,33 +2,15 @@
 
 from __future__ import annotations
 from .project import Project, ProjectTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from orq_ai_sdk.types import BaseModel
+from typing_extensions import TypedDict
 
 
 class UpdateProjectResponseTypedDict(TypedDict):
-    project: NotRequired[ProjectTypedDict]
+    project: ProjectTypedDict
     r"""Updated project."""
 
 
 class UpdateProjectResponse(BaseModel):
-    project: Optional[Project] = None
+    project: Project
     r"""Updated project."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["project"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m

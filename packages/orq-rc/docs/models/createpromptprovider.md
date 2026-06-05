@@ -42,5 +42,6 @@ value: CreatePromptProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inceptron"`
+- `"wafer"`
 - `"slack"`
 - `"orq"`

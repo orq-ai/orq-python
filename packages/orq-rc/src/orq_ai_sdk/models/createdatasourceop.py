@@ -207,7 +207,7 @@ class ChunkingOptions(BaseModel):
 class CreateDatasourceRequestBodyTypedDict(TypedDict):
     display_name: NotRequired[str]
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base"""
     file_id: NotRequired[str]
     r"""The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking."""
@@ -219,7 +219,7 @@ class CreateDatasourceRequestBody(BaseModel):
     display_name: Optional[str] = None
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base"""
 
     file_id: Optional[str] = None
@@ -233,15 +233,24 @@ class CreateDatasourceRequestBody(BaseModel):
         optional_fields = set(
             ["display_name", "description", "file_id", "chunking_options"]
         )
+        nullable_fields = set(["description"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -290,7 +299,7 @@ class CreateDatasourceResponseBodyTypedDict(TypedDict):
     r"""The number of chunks in the datasource"""
     id: NotRequired[str]
     r"""The unique identifier of the data source"""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base"""
     file_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the file used to create the datasource."""
@@ -321,11 +330,11 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KT9EQSHWA3KCHWFEMKJE3X88"
+        "01KTB6K60JRA6Z0WS8753R5G4Y"
     )
     r"""The unique identifier of the data source"""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base"""
 
     file_id: OptionalNullable[str] = UNSET
@@ -342,7 +351,9 @@ class CreateDatasourceResponseBody(BaseModel):
         optional_fields = set(
             ["_id", "description", "file_id", "created_by_id", "update_by_id"]
         )
-        nullable_fields = set(["file_id", "created_by_id", "update_by_id"])
+        nullable_fields = set(
+            ["description", "file_id", "created_by_id", "update_by_id"]
+        )
         serialized = handler(self)
         m = {}
 

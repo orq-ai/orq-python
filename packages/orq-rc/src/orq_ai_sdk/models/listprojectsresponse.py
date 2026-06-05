@@ -2,47 +2,30 @@
 
 from __future__ import annotations
 from .project import Project, ProjectTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from orq_ai_sdk.types import BaseModel
+from typing import List
+from typing_extensions import TypedDict
 
 
 class ListProjectsResponseTypedDict(TypedDict):
-    object: NotRequired[str]
+    object: str
     r"""Object discriminator for list responses; always `list`."""
-    data: NotRequired[List[ProjectTypedDict]]
+    data: List[ProjectTypedDict]
     r"""Page of projects, ordered newest first."""
-    has_more: NotRequired[bool]
+    has_more: bool
     r"""Whether more projects are available in the selected pagination
     direction.
     """
 
 
 class ListProjectsResponse(BaseModel):
-    object: Optional[str] = None
+    object: str
     r"""Object discriminator for list responses; always `list`."""
 
-    data: Optional[List[Project]] = None
+    data: List[Project]
     r"""Page of projects, ordered newest first."""
 
-    has_more: Optional[bool] = None
+    has_more: bool
     r"""Whether more projects are available in the selected pagination
     direction.
     """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["object", "data", "has_more"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m

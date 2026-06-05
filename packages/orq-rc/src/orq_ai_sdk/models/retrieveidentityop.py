@@ -10,18 +10,22 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class RetrieveIdentityRequestTypedDict(TypedDict):
     id: str
+    r"""Identity ID to retrieve."""
     include_metrics: NotRequired[bool]
+    r"""Include aggregate usage metrics on the returned identity."""
 
 
 class RetrieveIdentityRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Identity ID to retrieve."""
 
     include_metrics: Annotated[
         Optional[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Include aggregate usage metrics on the returned identity."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

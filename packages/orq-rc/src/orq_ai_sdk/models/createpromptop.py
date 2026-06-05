@@ -1966,6 +1966,7 @@ CreatePromptProvider = Literal[
     "scaleway",
     "hcompany",
     "inceptron",
+    "wafer",
     "slack",
     "orq",
 ]

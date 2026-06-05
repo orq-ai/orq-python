@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
@@ -105,8 +111,8 @@ class GetAllMemoryDocumentsDataTypedDict(TypedDict):
     created: str
     updated: str
     workspace_id: str
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     metadata: NotRequired[Dict[str, str]]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
@@ -127,9 +133,9 @@ class GetAllMemoryDocumentsData(BaseModel):
 
     workspace_id: str
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     metadata: Optional[Dict[str, str]] = None
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
@@ -137,15 +143,24 @@ class GetAllMemoryDocumentsData(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created_by_id", "updated_by_id", "metadata"])
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

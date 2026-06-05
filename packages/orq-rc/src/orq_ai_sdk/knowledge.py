@@ -1407,7 +1407,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         display_name: Optional[str] = None,
-        description: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
@@ -1519,7 +1519,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         display_name: Optional[str] = None,
-        description: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]

@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `user_id`          | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                          | Type                           | Required                       | Description                    |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `user_id`                      | *str*                          | :heavy_check_mark:             | User ID that owns the API key. |

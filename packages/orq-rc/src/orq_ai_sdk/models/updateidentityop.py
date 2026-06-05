@@ -4,21 +4,20 @@ from __future__ import annotations
 from .updateidentityrequest import UpdateIdentityRequest, UpdateIdentityRequestTypedDict
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
-import pydantic
 from typing_extensions import Annotated, TypedDict
 
 
 class UpdateIdentityRequest1TypedDict(TypedDict):
-    id_param: str
+    id: str
+    r"""Identity ID to update."""
     update_identity_request: UpdateIdentityRequestTypedDict
 
 
 class UpdateIdentityRequest1(BaseModel):
-    id_param: Annotated[
-        str,
-        pydantic.Field(alias="id"),
-        FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
+    id: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Identity ID to update."""
 
     update_identity_request: Annotated[
         UpdateIdentityRequest,

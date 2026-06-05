@@ -2,33 +2,15 @@
 
 from __future__ import annotations
 from .skill import Skill, SkillTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from orq_ai_sdk.types import BaseModel
+from typing_extensions import TypedDict
 
 
 class GetSkillResponseTypedDict(TypedDict):
-    skill: NotRequired[SkillTypedDict]
+    skill: SkillTypedDict
     r"""Requested skill."""
 
 
 class GetSkillResponse(BaseModel):
-    skill: Optional[Skill] = None
+    skill: Skill
     r"""Requested skill."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["skill"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m

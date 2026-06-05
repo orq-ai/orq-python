@@ -550,6 +550,7 @@ ListPromptVersionsProvider = Literal[
     "scaleway",
     "hcompany",
     "inceptron",
+    "wafer",
     "slack",
     "orq",
 ]
