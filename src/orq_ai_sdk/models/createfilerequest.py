@@ -17,7 +17,7 @@ class CreateFileRequestTypedDict(TypedDict):
     content_type: NotRequired[str]
     r"""MIME type of the uploaded content, for example `application/pdf`."""
     project_id: NotRequired[str]
-    r"""Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers."""
+    r"""Project the file is created in. Optional: project-scoped API keys default to the key's bound project; workspace-scoped callers default to the workspace's default project."""
 
 
 class CreateFileRequest(BaseModel):
@@ -33,7 +33,7 @@ class CreateFileRequest(BaseModel):
     r"""MIME type of the uploaded content, for example `application/pdf`."""
 
     project_id: Optional[str] = None
-    r"""Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers."""
+    r"""Project the file is created in. Optional: project-scoped API keys default to the key's bound project; workspace-scoped callers default to the workspace's default project."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
