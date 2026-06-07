@@ -9,7 +9,7 @@
 * [update](#update) - Update an Evaluator
 * [delete](#delete) - Delete an Evaluator
 * [invoke](#invoke) - Invoke a Custom Evaluator
-* [get_v2_evaluators_id_versions](#get_v2_evaluators_id_versions) - List evaluator versions
+* [list_versions](#list_versions) - List evaluator versions
 
 ## all
 
@@ -255,7 +255,7 @@ with Orq(
 | models.InvokeEvalEvalsResponse500ResponseBody | 500                                           | application/json                              |
 | models.APIError                               | 4XX, 5XX                                      | \*/\*                                         |
 
-## get_v2_evaluators_id_versions
+## list_versions
 
 Returns version history for a specific evaluator
 
@@ -271,7 +271,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.evals.get_v2_evaluators_id_versions(id="<id>", limit=10)
+    res = orq.evals.list_versions(id="<id>", limit=10)
 
     # Handle response
     print(res)

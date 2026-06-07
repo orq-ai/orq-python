@@ -13,7 +13,7 @@
 * [~~run~~](#run) - Run an agent with configuration :warning: **Deprecated**
 * [~~stream_run~~](#stream_run) - Run agent with streaming response :warning: **Deprecated**
 * [~~stream~~](#stream) - Stream agent execution in real-time :warning: **Deprecated**
-* [post_v2_agents_key_card_refresh](#post_v2_agents_key_card_refresh) - Refresh A2A agent card
+* [refresh_key_card](#refresh_key_card) - Refresh A2A agent card
 
 ## create
 
@@ -661,7 +661,7 @@ with Orq(
 | models.StreamAgentAgentsResponseBody | 404                                  | application/json                     |
 | models.APIError                      | 4XX, 5XX                             | \*/\*                                |
 
-## post_v2_agents_key_card_refresh
+## refresh_key_card
 
 Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
 
@@ -677,7 +677,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.post_v2_agents_key_card_refresh(key="<key>")
+    res = orq.agents.refresh_key_card(key="<key>")
 
     # Handle response
     print(res)

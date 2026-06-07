@@ -4,13 +4,13 @@
 
 ### Available Operations
 
-* [get_v2_human_eval_sets](#get_v2_human_eval_sets) - Get all human review sets
-* [post_v2_human_eval_sets](#post_v2_human_eval_sets) - Create a human review set
-* [get_v2_human_eval_sets_id_](#get_v2_human_eval_sets_id_) - Get a human review set by ID
-* [patch_v2_human_eval_sets_id_](#patch_v2_human_eval_sets_id_) - Update a human review set
-* [delete_v2_human_eval_sets_id_](#delete_v2_human_eval_sets_id_) - Delete a human review set
+* [list](#list) - Get all human review sets
+* [create](#create) - Create a human review set
+* [get](#get) - Get a human review set by ID
+* [update](#update) - Update a human review set
+* [delete](#delete) - Delete a human review set
 
-## get_v2_human_eval_sets
+## list
 
 Get all human review sets
 
@@ -26,7 +26,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.human_review_sets.get_v2_human_eval_sets()
+    res = orq.human_review_sets.list()
 
     # Handle response
     print(res)
@@ -50,7 +50,7 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## post_v2_human_eval_sets
+## create
 
 Create a human review set
 
@@ -66,7 +66,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.human_review_sets.post_v2_human_eval_sets()
+    res = orq.human_review_sets.create()
 
     # Handle response
     print(res)
@@ -90,7 +90,7 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## get_v2_human_eval_sets_id_
+## get
 
 Get a human review set by ID
 
@@ -106,7 +106,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.human_review_sets.get_v2_human_eval_sets_id_(id="<id>")
+    res = orq.human_review_sets.get(id="<id>")
 
     # Handle response
     print(res)
@@ -130,7 +130,7 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## patch_v2_human_eval_sets_id_
+## update
 
 Update a human review set
 
@@ -146,7 +146,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.human_review_sets.patch_v2_human_eval_sets_id_(id="<id>")
+    res = orq.human_review_sets.update(id="<id>")
 
     # Handle response
     print(res)
@@ -171,7 +171,7 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## delete_v2_human_eval_sets_id_
+## delete
 
 Delete a human review set
 
@@ -187,7 +187,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.human_review_sets.delete_v2_human_eval_sets_id_(id="<id>")
+    orq.human_review_sets.delete(id="<id>")
 
     # Use the SDK ...
 

@@ -13,13 +13,13 @@ PostV2FeedbackEvaluationRequestBodyEvaluationType = Literal["human_review",]
 r"""The type of evaluation"""
 
 
-PostV2FeedbackEvaluationRequestBodyRequestSource = Literal[
+PostV2FeedbackEvaluationRequestBodyFeedbackSource = Literal[
     "orq",
     "external",
 ]
 
 
-PostV2FeedbackEvaluationRequestBodyRequestType = Literal["string_array",]
+PostV2FeedbackEvaluationRequestBodyFeedbackRequestType = Literal["string_array",]
 
 
 class RequestBody3TypedDict(TypedDict):
@@ -29,10 +29,10 @@ class RequestBody3TypedDict(TypedDict):
     r"""The type of evaluation"""
     human_review_id: str
     r"""The unique identifier of the human review"""
-    type: PostV2FeedbackEvaluationRequestBodyRequestType
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
     values: List[str]
     trace_id: str
-    source: NotRequired[PostV2FeedbackEvaluationRequestBodyRequestSource]
+    source: NotRequired[PostV2FeedbackEvaluationRequestBodyFeedbackSource]
     reviewed_at: NotRequired[datetime]
     r"""The date and time the item was reviewed"""
 
@@ -47,15 +47,15 @@ class RequestBody3(BaseModel):
     human_review_id: str
     r"""The unique identifier of the human review"""
 
-    type: PostV2FeedbackEvaluationRequestBodyRequestType
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
 
     values: List[str]
 
     trace_id: str
 
-    source: Optional[PostV2FeedbackEvaluationRequestBodyRequestSource] = "orq"
+    source: Optional[PostV2FeedbackEvaluationRequestBodyFeedbackSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-05T21:33:02.799Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-07T07:50:47.570Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -85,17 +85,17 @@ PostV2FeedbackEvaluationRequestBodySource = Literal[
 ]
 
 
-PostV2FeedbackEvaluationRequestBodyType = Literal["number",]
+PostV2FeedbackEvaluationRequestBodyFeedbackType = Literal["number",]
 
 
-class RequestBody2TypedDict(TypedDict):
+class PostV2FeedbackEvaluationRequestBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the human evaluation"""
     evaluation_type: RequestBodyEvaluationType
     r"""The type of evaluation"""
     human_review_id: str
     r"""The unique identifier of the human review"""
-    type: PostV2FeedbackEvaluationRequestBodyType
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackType
     value: float
     trace_id: str
     source: NotRequired[PostV2FeedbackEvaluationRequestBodySource]
@@ -103,7 +103,7 @@ class RequestBody2TypedDict(TypedDict):
     r"""The date and time the item was reviewed"""
 
 
-class RequestBody2(BaseModel):
+class PostV2FeedbackEvaluationRequestBody2(BaseModel):
     id: str
     r"""The unique identifier of the human evaluation"""
 
@@ -113,7 +113,7 @@ class RequestBody2(BaseModel):
     human_review_id: str
     r"""The unique identifier of the human review"""
 
-    type: PostV2FeedbackEvaluationRequestBodyType
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackType
 
     value: float
 
@@ -121,7 +121,7 @@ class RequestBody2(BaseModel):
 
     source: Optional[PostV2FeedbackEvaluationRequestBodySource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-05T21:33:02.799Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-07T07:50:47.569Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -151,17 +151,17 @@ RequestBodySource = Literal[
 ]
 
 
-RequestBodyType = Literal["string",]
+PostV2FeedbackEvaluationRequestBodyType = Literal["string",]
 
 
-class RequestBody1TypedDict(TypedDict):
+class PostV2FeedbackEvaluationRequestBody1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the human evaluation"""
     evaluation_type: EvaluationType
     r"""The type of evaluation"""
     human_review_id: str
     r"""The unique identifier of the human review"""
-    type: RequestBodyType
+    type: PostV2FeedbackEvaluationRequestBodyType
     value: str
     trace_id: str
     source: NotRequired[RequestBodySource]
@@ -169,7 +169,7 @@ class RequestBody1TypedDict(TypedDict):
     r"""The date and time the item was reviewed"""
 
 
-class RequestBody1(BaseModel):
+class PostV2FeedbackEvaluationRequestBody1(BaseModel):
     id: str
     r"""The unique identifier of the human evaluation"""
 
@@ -179,7 +179,7 @@ class RequestBody1(BaseModel):
     human_review_id: str
     r"""The unique identifier of the human review"""
 
-    type: RequestBodyType
+    type: PostV2FeedbackEvaluationRequestBodyType
 
     value: str
 
@@ -187,7 +187,7 @@ class RequestBody1(BaseModel):
 
     source: Optional[RequestBodySource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-05T21:33:02.798Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-07T07:50:47.569Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -209,14 +209,18 @@ class RequestBody1(BaseModel):
 
 PostV2FeedbackEvaluationRequestBodyTypedDict = TypeAliasType(
     "PostV2FeedbackEvaluationRequestBodyTypedDict",
-    Union[RequestBody1TypedDict, RequestBody2TypedDict, RequestBody3TypedDict],
+    Union[
+        PostV2FeedbackEvaluationRequestBody1TypedDict,
+        PostV2FeedbackEvaluationRequestBody2TypedDict,
+        RequestBody3TypedDict,
+    ],
 )
 
 
 PostV2FeedbackEvaluationRequestBody = Annotated[
     Union[
-        Annotated[RequestBody1, Tag("string")],
-        Annotated[RequestBody2, Tag("number")],
+        Annotated[PostV2FeedbackEvaluationRequestBody1, Tag("string")],
+        Annotated[PostV2FeedbackEvaluationRequestBody2, Tag("number")],
         Annotated[RequestBody3, Tag("string_array")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),

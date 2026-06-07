@@ -950,7 +950,7 @@ class Tools(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def get_v2_tools_tool_id_versions(
+    def list_versions(
         self,
         *,
         tool_id: str,
@@ -1056,7 +1056,7 @@ class Tools(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def get_v2_tools_tool_id_versions_async(
+    async def list_versions_async(
         self,
         *,
         tool_id: str,
@@ -1162,7 +1162,7 @@ class Tools(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def get_v2_tools_tool_id_versions_version_id_(
+    def get_version(
         self,
         *,
         tool_id: str,
@@ -1262,7 +1262,7 @@ class Tools(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def get_v2_tools_tool_id_versions_version_id__async(
+    async def get_version_async(
         self,
         *,
         tool_id: str,

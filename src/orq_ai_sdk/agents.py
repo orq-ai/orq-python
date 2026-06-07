@@ -2799,7 +2799,7 @@ class Agents(BaseSDK):
         http_res_text = await utils.stream_to_text_async(http_res)
         raise models.APIError("Unexpected response received", http_res, http_res_text)
 
-    def post_v2_agents_key_card_refresh(
+    def refresh_key_card(
         self,
         *,
         key: str,
@@ -2921,7 +2921,7 @@ class Agents(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def post_v2_agents_key_card_refresh_async(
+    async def refresh_key_card_async(
         self,
         *,
         key: str,

@@ -10,7 +10,7 @@ from typing import List, Mapping, Optional, Union, cast
 
 
 class HumanReviewSets(BaseSDK):
-    def get_v2_human_eval_sets(
+    def list(
         self,
         *,
         project_id: Optional[str] = None,
@@ -97,7 +97,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def get_v2_human_eval_sets_async(
+    async def list_async(
         self,
         *,
         project_id: Optional[str] = None,
@@ -184,7 +184,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def post_v2_human_eval_sets(
+    def create(
         self,
         *,
         request: Optional[
@@ -285,7 +285,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def post_v2_human_eval_sets_async(
+    async def create_async(
         self,
         *,
         request: Optional[
@@ -386,7 +386,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def get_v2_human_eval_sets_id_(
+    def get(
         self,
         *,
         id: str,
@@ -473,7 +473,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def get_v2_human_eval_sets_id__async(
+    async def get_async(
         self,
         *,
         id: str,
@@ -560,7 +560,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def patch_v2_human_eval_sets_id_(
+    def update(
         self,
         *,
         id: str,
@@ -664,7 +664,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def patch_v2_human_eval_sets_id__async(
+    async def update_async(
         self,
         *,
         id: str,
@@ -768,7 +768,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def delete_v2_human_eval_sets_id_(
+    def delete(
         self,
         *,
         id: str,
@@ -853,7 +853,7 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def delete_v2_human_eval_sets_id__async(
+    async def delete_async(
         self,
         *,
         id: str,

@@ -131,9 +131,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove()
+    res = orq.evals.all(limit=10)
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -152,9 +153,10 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        await orq.post_v2_feedback_evaluation_remove_async()
+        res = await orq.evals.all_async(limit=10)
 
-        # Use the SDK ...
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```
@@ -181,9 +183,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove()
+    res = orq.evals.all(limit=10)
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 <!-- End Authentication [security] -->
@@ -193,11 +196,6 @@ with Orq(
 
 <details open>
 <summary>Available methods</summary>
-
-### [Orq SDK](docs/sdks/orq/README.md)
-
-* [post_v2_feedback_evaluation_remove](docs/sdks/orq/README.md#post_v2_feedback_evaluation_remove)
-* [post_v2_feedback_evaluation](docs/sdks/orq/README.md#post_v2_feedback_evaluation)
 
 ### [Agents](docs/sdks/agents/README.md)
 
@@ -210,7 +208,7 @@ with Orq(
 * [~~run~~](docs/sdks/agents/README.md#run) - Run an agent with configuration :warning: **Deprecated**
 * [~~stream_run~~](docs/sdks/agents/README.md#stream_run) - Run agent with streaming response :warning: **Deprecated**
 * [~~stream~~](docs/sdks/agents/README.md#stream) - Stream agent execution in real-time :warning: **Deprecated**
-* [post_v2_agents_key_card_refresh](docs/sdks/agents/README.md#post_v2_agents_key_card_refresh) - Refresh A2A agent card
+* [refresh_key_card](docs/sdks/agents/README.md#refresh_key_card) - Refresh A2A agent card
 
 #### [Agents.Responses](docs/sdks/orqresponses/README.md)
 
@@ -263,12 +261,14 @@ with Orq(
 * [update](docs/sdks/evals/README.md#update) - Update an Evaluator
 * [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
 * [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
-* [get_v2_evaluators_id_versions](docs/sdks/evals/README.md#get_v2_evaluators_id_versions) - List evaluator versions
+* [list_versions](docs/sdks/evals/README.md#list_versions) - List evaluator versions
 
 ### [Feedback](docs/sdks/feedback/README.md)
 
-* [post_v2_feedback_remove](docs/sdks/feedback/README.md#post_v2_feedback_remove)
-* [post_v2_feedback](docs/sdks/feedback/README.md#post_v2_feedback)
+* [remove_evaluation](docs/sdks/feedback/README.md#remove_evaluation)
+* [create_evaluation](docs/sdks/feedback/README.md#create_evaluation)
+* [remove](docs/sdks/feedback/README.md#remove)
+* [create](docs/sdks/feedback/README.md#create)
 
 ### [Files](docs/sdks/files/README.md)
 
@@ -289,11 +289,11 @@ with Orq(
 
 ### [HumanReviewSets](docs/sdks/humanreviewsets/README.md)
 
-* [get_v2_human_eval_sets](docs/sdks/humanreviewsets/README.md#get_v2_human_eval_sets) - Get all human review sets
-* [post_v2_human_eval_sets](docs/sdks/humanreviewsets/README.md#post_v2_human_eval_sets) - Create a human review set
-* [get_v2_human_eval_sets_id_](docs/sdks/humanreviewsets/README.md#get_v2_human_eval_sets_id_) - Get a human review set by ID
-* [patch_v2_human_eval_sets_id_](docs/sdks/humanreviewsets/README.md#patch_v2_human_eval_sets_id_) - Update a human review set
-* [delete_v2_human_eval_sets_id_](docs/sdks/humanreviewsets/README.md#delete_v2_human_eval_sets_id_) - Delete a human review set
+* [list](docs/sdks/humanreviewsets/README.md#list) - Get all human review sets
+* [create](docs/sdks/humanreviewsets/README.md#create) - Create a human review set
+* [get](docs/sdks/humanreviewsets/README.md#get) - Get a human review set by ID
+* [update](docs/sdks/humanreviewsets/README.md#update) - Update a human review set
+* [delete](docs/sdks/humanreviewsets/README.md#delete) - Delete a human review set
 
 ### [Identities](docs/sdks/identities/README.md)
 
@@ -485,8 +485,8 @@ with Orq(
 * [update](docs/sdks/tools/README.md#update) - Update tool
 * [delete](docs/sdks/tools/README.md#delete) - Delete tool
 * [retrieve](docs/sdks/tools/README.md#retrieve) - Retrieve tool
-* [get_v2_tools_tool_id_versions](docs/sdks/tools/README.md#get_v2_tools_tool_id_versions) - List tool versions
-* [get_v2_tools_tool_id_versions_version_id_](docs/sdks/tools/README.md#get_v2_tools_tool_id_versions_version_id_) - Get tool version
+* [list_versions](docs/sdks/tools/README.md#list_versions) - List tool versions
+* [get_version](docs/sdks/tools/README.md#get_version) - Get tool version
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -668,10 +668,11 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove(,
+    res = orq.evals.all(limit=10,
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
@@ -687,9 +688,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove()
+    res = orq.evals.all(limit=10)
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 <!-- End Retries [retries] -->
@@ -813,9 +815,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove()
+    res = orq.evals.all(limit=10)
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 <!-- End Server Selection [server] -->
