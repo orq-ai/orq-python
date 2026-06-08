@@ -285,9 +285,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -517,9 +517,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1246,9 +1246,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1455,9 +1455,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1694,9 +1694,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1911,9 +1911,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2344,9 +2344,11 @@ class GetEvalsLLM2TypedDict(TypedDict):
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[Nullable[GetEvalsLLMEvalsGuardrailConfigTypedDict]]
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[GetEvalsLLMEvalsCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[
+        Nullable[List[GetEvalsLLMEvalsCategoricalLabelsTypedDict]]
+    ]
     dataset_id: NotRequired[str]
 
 
@@ -2365,19 +2367,21 @@ class GetEvalsLLM2(BaseModel):
 
     jury: GetEvalsLLMJury
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[GetEvalsLLMEvalsGuardrailConfig] = UNSET
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[GetEvalsLLMEvalsCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[GetEvalsLLMEvalsCategoricalLabels]] = (
+        UNSET
+    )
 
     dataset_id: Optional[str] = None
 
@@ -2395,7 +2399,15 @@ class GetEvalsLLM2(BaseModel):
                 "dataset_id",
             ]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(
+            [
+                "updated_by_id",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -2645,9 +2657,11 @@ class GetEvalsLLM1TypedDict(TypedDict):
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[Nullable[GetEvalsLLMGuardrailConfigTypedDict]]
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[GetEvalsLLMCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[
+        Nullable[List[GetEvalsLLMCategoricalLabelsTypedDict]]
+    ]
     dataset_id: NotRequired[str]
 
 
@@ -2666,19 +2680,19 @@ class GetEvalsLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-08T12:11:45.895Z"
+    created: Optional[str] = "2026-06-08T12:17:45.633Z"
 
-    updated: Optional[str] = "2026-06-08T12:11:45.895Z"
+    updated: Optional[str] = "2026-06-08T12:17:45.633Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[GetEvalsLLMGuardrailConfig] = UNSET
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[GetEvalsLLMCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[GetEvalsLLMCategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -2696,7 +2710,15 @@ class GetEvalsLLM1(BaseModel):
                 "dataset_id",
             ]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(
+            [
+                "updated_by_id",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         serialized = handler(self)
         m = {}
 

@@ -16,21 +16,14 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class ListKnowledgeBasesRequestTypedDict(TypedDict):
-    limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    limit: NotRequired[float]
 
 
 class ListKnowledgeBasesRequest(BaseModel):
-    limit: Annotated[
-        Optional[int],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 10
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
-
     starting_after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -43,9 +36,14 @@ class ListKnowledgeBasesRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
+    limit: Annotated[
+        Optional[float],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 300
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "starting_after", "ending_before"])
+        optional_fields = set(["starting_after", "ending_before", "limit"])
         serialized = handler(self)
         m = {}
 
