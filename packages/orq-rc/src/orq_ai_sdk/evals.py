@@ -1200,7 +1200,7 @@ class Evals(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    def get_v2_evaluators_id_versions(
+    def list_versions(
         self,
         *,
         id: str,
@@ -1306,7 +1306,7 @@ class Evals(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def get_v2_evaluators_id_versions_async(
+    async def list_versions_async(
         self,
         *,
         id: str,

@@ -9,9 +9,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.post_v2_feedback_evaluation_remove()
+    res = orq.evals.all(limit=10)
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -30,9 +31,10 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        await orq.post_v2_feedback_evaluation_remove_async()
+        res = await orq.evals.all_async(limit=10)
 
-        # Use the SDK ...
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```

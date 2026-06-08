@@ -2,11 +2,25 @@
 
 from __future__ import annotations
 from .guardrailrule import GuardrailRule, GuardrailRuleTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+SortBy = Literal[
+    "created_at",
+    "updated_at",
+    "display_name",
+]
+r"""Field to sort by. Defaults to created_at (newest first)."""
 
 
 class GuardrailRuleListRequestTypedDict(TypedDict):
@@ -17,6 +31,14 @@ class GuardrailRuleListRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination."""
     project_id: NotRequired[str]
     r"""Optional filter by project ID."""
+    search: NotRequired[str]
+    r"""Filter by display name or description (case-insensitive)."""
+    sort_by: NotRequired[SortBy]
+    r"""Field to sort by. Defaults to created_at (newest first)."""
+    enabled: NotRequired[Nullable[bool]]
+    r"""Filter by enabled status."""
+    guardrail_id: NotRequired[Nullable[List[str]]]
+    r"""Filter by referenced guardrail ids (comma-separated)."""
 
 
 class GuardrailRuleListRequest(BaseModel):
@@ -43,20 +65,62 @@ class GuardrailRuleListRequest(BaseModel):
     ] = None
     r"""Optional filter by project ID."""
 
+    search: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = None
+    r"""Filter by display name or description (case-insensitive)."""
+
+    sort_by: Annotated[
+        Optional[SortBy],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = None
+    r"""Field to sort by. Defaults to created_at (newest first)."""
+
+    enabled: Annotated[
+        OptionalNullable[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = UNSET
+    r"""Filter by enabled status."""
+
+    guardrail_id: Annotated[
+        OptionalNullable[List[str]],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = UNSET
+    r"""Filter by referenced guardrail ids (comma-separated)."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "project_id"]
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "project_id",
+                "search",
+                "sort_by",
+                "enabled",
+                "guardrail_id",
+            ]
         )
+        nullable_fields = set(["enabled", "guardrail_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

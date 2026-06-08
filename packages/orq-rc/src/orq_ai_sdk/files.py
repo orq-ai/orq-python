@@ -227,7 +227,7 @@ class Files(BaseSDK):
         :param content: Base64-encoded file contents.
         :param purpose:
         :param content_type: MIME type of the uploaded content, for example `application/pdf`.
-        :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
+        :param project_id: Project the file is created in. Optional: project-scoped API keys default to the key's bound project; workspace-scoped callers default to the workspace's default project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -329,7 +329,7 @@ class Files(BaseSDK):
         :param content: Base64-encoded file contents.
         :param purpose:
         :param content_type: MIME type of the uploaded content, for example `application/pdf`.
-        :param project_id: Project the file is created in. Optional for project-scoped API keys (defaults to the key's bound project); required for workspace-scoped callers.
+        :param project_id: Project the file is created in. Optional: project-scoped API keys default to the key's bound project; workspace-scoped callers default to the workspace's default project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

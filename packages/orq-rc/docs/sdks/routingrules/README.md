@@ -6,6 +6,7 @@
 
 * [list](#list) - List routing rules
 * [create](#create) - Create routing rule
+* [list_used_models](#list_used_models) - List used models
 * [delete](#delete) - Delete routing rule
 * [retrieve](#retrieve) - Get routing rule
 * [update](#update) - Update routing rule
@@ -41,6 +42,9 @@ with Orq(
 | `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
 | `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
 | `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional filter by project ID.                                      |
+| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional search term matched against name and description.          |
+| `enabled`                                                           | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | Filter by enabled status.                                           |
+| `model`                                                             | List[*str*]                                                         | :heavy_minus_sign:                                                  | Filter by referenced model refs (comma-separated).                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -92,6 +96,45 @@ with Orq(
 ### Response
 
 **[models.RoutingRuleCreateResponseBody](../../models/routingrulecreateresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## list_used_models
+
+Returns the distinct model refs referenced across all routing rules in scope.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="RoutingRuleListUsedModels" method="get" path="/v2/routing-rules/used-models" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.routing_rules.list_used_models()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.RoutingRuleListUsedModelsResponseBody](../../models/routingrulelistusedmodelsresponsebody.md)**
 
 ### Errors
 

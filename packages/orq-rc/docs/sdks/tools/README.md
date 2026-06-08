@@ -9,8 +9,8 @@
 * [update](#update) - Update tool
 * [delete](#delete) - Delete tool
 * [retrieve](#retrieve) - Retrieve tool
-* [get_v2_tools_tool_id_versions](#get_v2_tools_tool_id_versions) - List tool versions
-* [get_v2_tools_tool_id_versions_version_id_](#get_v2_tools_tool_id_versions_version_id_) - Get tool version
+* [list_versions](#list_versions) - List tool versions
+* [get_version](#get_version) - Get tool version
 
 ## list
 
@@ -235,7 +235,7 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## get_v2_tools_tool_id_versions
+## list_versions
 
 Returns version history for a specific tool
 
@@ -251,7 +251,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.get_v2_tools_tool_id_versions(tool_id="<id>", limit=10)
+    res = orq.tools.list_versions(tool_id="<id>", limit=10)
 
     # Handle response
     print(res)
@@ -279,7 +279,7 @@ with Orq(
 | models.GetV2ToolsToolIDVersionsToolsResponseBody | 404                                              | application/json                                 |
 | models.APIError                                  | 4XX, 5XX                                         | \*/\*                                            |
 
-## get_v2_tools_tool_id_versions_version_id_
+## get_version
 
 Returns a specific version of a tool
 
@@ -295,7 +295,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.get_v2_tools_tool_id_versions_version_id_(tool_id="<id>", version_id="<id>")
+    res = orq.tools.get_version(tool_id="<id>", version_id="<id>")
 
     # Handle response
     print(res)

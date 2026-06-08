@@ -165,12 +165,12 @@ OutputType = Literal[
 ]
 
 
-CreateEvalRequestBodyType = Literal["python_eval",]
+RequestBodyType = Literal["python_eval",]
 
 
 class PythonTypedDict(TypedDict):
     code: str
-    type: CreateEvalRequestBodyType
+    type: RequestBodyType
     path: str
     r"""Entity storage path.
 
@@ -187,7 +187,7 @@ class PythonTypedDict(TypedDict):
 class Python(BaseModel):
     code: str
 
-    type: CreateEvalRequestBodyType
+    type: RequestBodyType
 
     path: str
     r"""Entity storage path.
@@ -1192,9 +1192,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-05T06:12:28.028Z"
+    created: Optional[str] = "2026-06-08T05:34:20.335Z"
 
-    updated: Optional[str] = "2026-06-05T06:12:28.028Z"
+    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1449,9 +1449,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-05T06:12:28.028Z"
+    created: Optional[str] = "2026-06-08T05:34:20.335Z"
 
-    updated: Optional[str] = "2026-06-05T06:12:28.028Z"
+    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2195,9 +2195,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-05T06:12:28.028Z"
+    created: Optional[str] = "2026-06-08T05:34:20.335Z"
 
-    updated: Optional[str] = "2026-06-05T06:12:28.028Z"
+    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
