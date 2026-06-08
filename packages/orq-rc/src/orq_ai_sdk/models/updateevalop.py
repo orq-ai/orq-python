@@ -749,9 +749,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -998,9 +998,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1733,9 +1733,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1948,9 +1948,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2174,9 +2174,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2383,9 +2383,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2806,9 +2806,11 @@ class UpdateEvalLLM2TypedDict(TypedDict):
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[Nullable[UpdateEvalLLMEvalsGuardrailConfigTypedDict]]
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[UpdateEvalLLMEvalsCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[
+        Nullable[List[UpdateEvalLLMEvalsCategoricalLabelsTypedDict]]
+    ]
     dataset_id: NotRequired[str]
 
 
@@ -2827,19 +2829,21 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[UpdateEvalLLMEvalsGuardrailConfig] = UNSET
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[UpdateEvalLLMEvalsCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[UpdateEvalLLMEvalsCategoricalLabels]] = (
+        UNSET
+    )
 
     dataset_id: Optional[str] = None
 
@@ -2857,7 +2861,15 @@ class UpdateEvalLLM2(BaseModel):
                 "dataset_id",
             ]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(
+            [
+                "updated_by_id",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -3097,9 +3109,11 @@ class UpdateEvalLLM1TypedDict(TypedDict):
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
     guardrail_config: NotRequired[Nullable[UpdateEvalLLMGuardrailConfigTypedDict]]
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[UpdateEvalLLMCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[
+        Nullable[List[UpdateEvalLLMCategoricalLabelsTypedDict]]
+    ]
     dataset_id: NotRequired[str]
 
 
@@ -3118,19 +3132,19 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
     guardrail_config: OptionalNullable[UpdateEvalLLMGuardrailConfig] = UNSET
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[UpdateEvalLLMCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[UpdateEvalLLMCategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -3148,7 +3162,15 @@ class UpdateEvalLLM1(BaseModel):
                 "dataset_id",
             ]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(
+            [
+                "updated_by_id",
+                "guardrail_config",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+            ]
+        )
         serialized = handler(self)
         m = {}
 

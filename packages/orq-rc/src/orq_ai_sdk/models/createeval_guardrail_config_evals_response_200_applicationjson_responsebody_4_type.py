@@ -598,9 +598,9 @@ class Llm2TypedDict(TypedDict):
     guardrail_config: NotRequired[Nullable[LLMGuardrailConfigTypedDict]]
     output_type: NotRequired[LLMOutputType]
     r"""The type of output expected from the evaluator"""
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[LLMCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[Nullable[List[LLMCategoricalLabelsTypedDict]]]
     dataset_id: NotRequired[str]
     description: NotRequired[str]
 
@@ -629,11 +629,11 @@ class Llm2(BaseModel):
     output_type: Optional[LLMOutputType] = None
     r"""The type of output expected from the evaluator"""
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[LLMCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[LLMCategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -652,7 +652,9 @@ class Llm2(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(["guardrail_config"])
+        nullable_fields = set(
+            ["guardrail_config", "repetitions", "categories", "categorical_labels"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -874,9 +876,11 @@ class Llm1TypedDict(TypedDict):
     guardrail_config: NotRequired[Nullable[CreateEvalLLMGuardrailConfigTypedDict]]
     output_type: NotRequired[CreateEvalLLMOutputType]
     r"""The type of output expected from the evaluator"""
-    repetitions: NotRequired[int]
-    categories: NotRequired[List[str]]
-    categorical_labels: NotRequired[List[CreateEvalLLMCategoricalLabelsTypedDict]]
+    repetitions: NotRequired[Nullable[int]]
+    categories: NotRequired[Nullable[List[str]]]
+    categorical_labels: NotRequired[
+        Nullable[List[CreateEvalLLMCategoricalLabelsTypedDict]]
+    ]
     dataset_id: NotRequired[str]
     description: NotRequired[str]
 
@@ -905,11 +909,11 @@ class Llm1(BaseModel):
     output_type: Optional[CreateEvalLLMOutputType] = None
     r"""The type of output expected from the evaluator"""
 
-    repetitions: Optional[int] = None
+    repetitions: OptionalNullable[int] = UNSET
 
-    categories: Optional[List[str]] = None
+    categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: Optional[List[CreateEvalLLMCategoricalLabels]] = None
+    categorical_labels: OptionalNullable[List[CreateEvalLLMCategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -928,7 +932,9 @@ class Llm1(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(["guardrail_config"])
+        nullable_fields = set(
+            ["guardrail_config", "repetitions", "categories", "categorical_labels"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -1192,9 +1198,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1449,9 +1455,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2195,9 +2201,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-08T05:34:20.335Z"
+    created: Optional[str] = "2026-06-08T13:07:18.574Z"
 
-    updated: Optional[str] = "2026-06-08T05:34:20.335Z"
+    updated: Optional[str] = "2026-06-08T13:07:18.574Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
