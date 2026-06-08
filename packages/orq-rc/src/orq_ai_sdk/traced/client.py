@@ -160,18 +160,25 @@ _client: Optional[OrqClient] = None
 
 
 def get_client() -> OrqClient:
-    """Get the global client instance."""
+    """Get the global client instance (cached).
+
+    The client is created once and reused; it is rebuilt only when the resolved
+    config changes (handled in init_from_orq). The previous behavior rebuilt the
+    client on every span, which destroyed the queue/flush thread and silently
+    dropped concurrent spans (subspans under asyncio.gather).
+    """
     global _client  # pylint: disable=global-statement
 
     # Try to find an Orq instance and auto-initialize from it
     orq_instance = _find_orq_instance()
     if orq_instance:
         try:
-            init_from_orq(orq_instance)
+            init_from_orq(orq_instance)  # no-op when config is unchanged
         except Exception:
-            # If auto-init fails, fall back to default client
-            _client = OrqClient()
-    else:
+            if _client is None:
+                # Auto-init failed and we have nothing yet — fall back to a default client.
+                _client = OrqClient()
+    elif _client is None:
         _client = OrqClient()
 
     assert _client is not None  # This should always be true
@@ -219,9 +226,15 @@ def init_from_orq(orq_instance: "Orq") -> None:
 
     # Create config with extracted values
     config = Config(**config_kwargs)
+    # Idempotent: reuse the existing client when the resolved config is unchanged.
+    # Rebuilding tears down the queue + background flush thread, which silently drops
+    # spans submitted concurrently (e.g. asyncio.gather) and never recovers them
+    # during the process (orphaned clients flush only at interpreter exit).
+    if _client is not None and _client.config == config:
+        return
     set_config(config)
-    
-    # Reset client to use new config
+
+    # Reset client to use the new config
     if _client:
         _client.shutdown()
     _client = OrqClient(config)

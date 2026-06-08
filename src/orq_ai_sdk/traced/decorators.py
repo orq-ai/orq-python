@@ -195,11 +195,12 @@ def traced(
             try:
                 with SpanContextManager(span_context, span):
                     result = func(*args, **kwargs)
-                    _finalize_span_success(span, result, capture_output, otel_span, config)
-                    return result
             except Exception as e:
                 _finalize_span_error(span, e, otel_span)
                 raise
+            else:
+                _finalize_span_success(span, result, capture_output, otel_span, config)
+                return result
             finally:
                 _teardown_tracing(span, otel_span, otel_context_token, client, config)
 
@@ -217,11 +218,12 @@ def traced(
             try:
                 async with SpanContextManager(span_context, span):
                     result = await func(*args, **kwargs)
-                    _finalize_span_success(span, result, capture_output, otel_span, config)
-                    return result
             except Exception as e:
                 _finalize_span_error(span, e, otel_span)
                 raise
+            else:
+                _finalize_span_success(span, result, capture_output, otel_span, config)
+                return result
             finally:
                 _teardown_tracing(span, otel_span, otel_context_token, client, config)
 
