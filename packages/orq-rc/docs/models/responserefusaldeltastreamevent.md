@@ -1,0 +1,9 @@
+# ResponseRefusalDeltaStreamEvent
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `data`                                                                                           | [models.ResponseRefusalDeltaStreamEventData](../models/responserefusaldeltastreameventdata.md)   | :heavy_check_mark:                                                                               | The event payload.                                                                               |
+| `event`                                                                                          | [models.ResponseRefusalDeltaStreamEventEvent](../models/responserefusaldeltastreameventevent.md) | :heavy_check_mark:                                                                               | The SSE event name, equal to the payload's `type`.                                               |

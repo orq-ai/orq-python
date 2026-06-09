@@ -9,12 +9,100 @@ from .memoryparam import MemoryParam, MemoryParamTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
+from .responsecodeinterpretercodedeltastreamevent import (
+    ResponseCodeInterpreterCodeDeltaStreamEvent,
+    ResponseCodeInterpreterCodeDeltaStreamEventTypedDict,
+)
+from .responsecodeinterpretercodedonestreamevent import (
+    ResponseCodeInterpreterCodeDoneStreamEvent,
+    ResponseCodeInterpreterCodeDoneStreamEventTypedDict,
+)
+from .responsecontentpartstreamevent import (
+    ResponseContentPartStreamEvent,
+    ResponseContentPartStreamEventTypedDict,
+)
 from .responseerror import ResponseError, ResponseErrorTypedDict
+from .responseerrorstreamevent import (
+    ResponseErrorStreamEvent,
+    ResponseErrorStreamEventTypedDict,
+)
 from .responseexecutionlimits import (
     ResponseExecutionLimits,
     ResponseExecutionLimitsTypedDict,
 )
+from .responsefunctioncallargumentsdeltastreamevent import (
+    ResponseFunctionCallArgumentsDeltaStreamEvent,
+    ResponseFunctionCallArgumentsDeltaStreamEventTypedDict,
+)
+from .responsefunctioncallargumentsdonestreamevent import (
+    ResponseFunctionCallArgumentsDoneStreamEvent,
+    ResponseFunctionCallArgumentsDoneStreamEventTypedDict,
+)
+from .responsehostedtoolcallstreamevent import (
+    ResponseHostedToolCallStreamEvent,
+    ResponseHostedToolCallStreamEventTypedDict,
+)
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
+from .responseimagegenerationpartialimagestreamevent import (
+    ResponseImageGenerationPartialImageStreamEvent,
+    ResponseImageGenerationPartialImageStreamEventTypedDict,
+)
+from .responselifecyclestreamevent import (
+    ResponseLifecycleStreamEvent,
+    ResponseLifecycleStreamEventTypedDict,
+)
+from .responsemcpcallargumentsdeltastreamevent import (
+    ResponseMcpCallArgumentsDeltaStreamEvent,
+    ResponseMcpCallArgumentsDeltaStreamEventTypedDict,
+)
+from .responsemcpcallargumentsdonestreamevent import (
+    ResponseMcpCallArgumentsDoneStreamEvent,
+    ResponseMcpCallArgumentsDoneStreamEventTypedDict,
+)
+from .responseoutputitemstreamevent import (
+    ResponseOutputItemStreamEvent,
+    ResponseOutputItemStreamEventTypedDict,
+)
+from .responseoutputtextannotationaddedstreamevent import (
+    ResponseOutputTextAnnotationAddedStreamEvent,
+    ResponseOutputTextAnnotationAddedStreamEventTypedDict,
+)
+from .responseoutputtextdeltastreamevent import (
+    ResponseOutputTextDeltaStreamEvent,
+    ResponseOutputTextDeltaStreamEventTypedDict,
+)
+from .responseoutputtextdonestreamevent import (
+    ResponseOutputTextDoneStreamEvent,
+    ResponseOutputTextDoneStreamEventTypedDict,
+)
+from .responsereasoningdeltastreamevent import (
+    ResponseReasoningDeltaStreamEvent,
+    ResponseReasoningDeltaStreamEventTypedDict,
+)
+from .responsereasoningdonestreamevent import (
+    ResponseReasoningDoneStreamEvent,
+    ResponseReasoningDoneStreamEventTypedDict,
+)
+from .responsereasoningsummarypartstreamevent import (
+    ResponseReasoningSummaryPartStreamEvent,
+    ResponseReasoningSummaryPartStreamEventTypedDict,
+)
+from .responsereasoningsummarytextdeltastreamevent import (
+    ResponseReasoningSummaryTextDeltaStreamEvent,
+    ResponseReasoningSummaryTextDeltaStreamEventTypedDict,
+)
+from .responsereasoningsummarytextdonestreamevent import (
+    ResponseReasoningSummaryTextDoneStreamEvent,
+    ResponseReasoningSummaryTextDoneStreamEventTypedDict,
+)
+from .responserefusaldeltastreamevent import (
+    ResponseRefusalDeltaStreamEvent,
+    ResponseRefusalDeltaStreamEventTypedDict,
+)
+from .responserefusaldonestreamevent import (
+    ResponseRefusalDoneStreamEvent,
+    ResponseRefusalDoneStreamEventTypedDict,
+)
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
@@ -1219,83 +1307,171 @@ class CreateRouterResponseRequestBody(BaseModel):
         return m
 
 
-CreateRouterResponseResponsesType = Literal[
-    "response.queued",
-    "response.created",
-    "response.in_progress",
-    "response.completed",
-    "response.failed",
-    "response.incomplete",
-    "response.output_item.added",
-    "response.output_item.done",
-    "response.content_part.added",
-    "response.content_part.done",
-    "response.output_text.delta",
-    "response.output_text.done",
-    "response.function_call_arguments.delta",
-    "response.function_call_arguments.done",
-    "response.mcp_call.in_progress",
-    "response.mcp_call.completed",
-    "response.mcp_call.failed",
-    "response.mcp_call_arguments.delta",
-    "response.mcp_call_arguments.done",
-    "response.reasoning.delta",
-    "response.reasoning.done",
-    "error",
+CreateRouterResponseResponsesResponseBodyTypedDict = TypeAliasType(
+    "CreateRouterResponseResponsesResponseBodyTypedDict",
+    Union[
+        ResponseLifecycleStreamEventTypedDict,
+        ResponseOutputItemStreamEventTypedDict,
+        ResponseContentPartStreamEventTypedDict,
+        ResponseOutputTextDeltaStreamEventTypedDict,
+        ResponseOutputTextDoneStreamEventTypedDict,
+        ResponseOutputTextAnnotationAddedStreamEventTypedDict,
+        ResponseRefusalDeltaStreamEventTypedDict,
+        ResponseRefusalDoneStreamEventTypedDict,
+        ResponseFunctionCallArgumentsDeltaStreamEventTypedDict,
+        ResponseFunctionCallArgumentsDoneStreamEventTypedDict,
+        ResponseReasoningDeltaStreamEventTypedDict,
+        ResponseReasoningDoneStreamEventTypedDict,
+        ResponseReasoningSummaryTextDeltaStreamEventTypedDict,
+        ResponseReasoningSummaryTextDoneStreamEventTypedDict,
+        ResponseReasoningSummaryPartStreamEventTypedDict,
+        ResponseHostedToolCallStreamEventTypedDict,
+        ResponseCodeInterpreterCodeDeltaStreamEventTypedDict,
+        ResponseCodeInterpreterCodeDoneStreamEventTypedDict,
+        ResponseMcpCallArgumentsDeltaStreamEventTypedDict,
+        ResponseMcpCallArgumentsDoneStreamEventTypedDict,
+        ResponseImageGenerationPartialImageStreamEventTypedDict,
+        ResponseErrorStreamEventTypedDict,
+    ],
+)
+r"""A server-sent event in the response stream. The frame's `event` field selects the payload shape carried in `data`."""
+
+
+CreateRouterResponseResponsesResponseBody = Annotated[
+    Union[
+        Annotated[ResponseErrorStreamEvent, Tag("error")],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.code_interpreter_call.completed"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.code_interpreter_call.in_progress"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.code_interpreter_call.interpreting"),
+        ],
+        Annotated[
+            ResponseCodeInterpreterCodeDeltaStreamEvent,
+            Tag("response.code_interpreter_call_code.delta"),
+        ],
+        Annotated[
+            ResponseCodeInterpreterCodeDoneStreamEvent,
+            Tag("response.code_interpreter_call_code.done"),
+        ],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.completed")],
+        Annotated[ResponseContentPartStreamEvent, Tag("response.content_part.added")],
+        Annotated[ResponseContentPartStreamEvent, Tag("response.content_part.done")],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.created")],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.failed")],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.file_search_call.completed"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.file_search_call.in_progress"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.file_search_call.searching"),
+        ],
+        Annotated[
+            ResponseFunctionCallArgumentsDeltaStreamEvent,
+            Tag("response.function_call_arguments.delta"),
+        ],
+        Annotated[
+            ResponseFunctionCallArgumentsDoneStreamEvent,
+            Tag("response.function_call_arguments.done"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.image_generation_call.completed"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.image_generation_call.generating"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.image_generation_call.in_progress"),
+        ],
+        Annotated[
+            ResponseImageGenerationPartialImageStreamEvent,
+            Tag("response.image_generation_call.partial_image"),
+        ],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.in_progress")],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.incomplete")],
+        Annotated[
+            ResponseHostedToolCallStreamEvent, Tag("response.mcp_call.completed")
+        ],
+        Annotated[ResponseHostedToolCallStreamEvent, Tag("response.mcp_call.failed")],
+        Annotated[
+            ResponseHostedToolCallStreamEvent, Tag("response.mcp_call.in_progress")
+        ],
+        Annotated[
+            ResponseMcpCallArgumentsDeltaStreamEvent,
+            Tag("response.mcp_call_arguments.delta"),
+        ],
+        Annotated[
+            ResponseMcpCallArgumentsDoneStreamEvent,
+            Tag("response.mcp_call_arguments.done"),
+        ],
+        Annotated[ResponseOutputItemStreamEvent, Tag("response.output_item.added")],
+        Annotated[ResponseOutputItemStreamEvent, Tag("response.output_item.done")],
+        Annotated[
+            ResponseOutputTextAnnotationAddedStreamEvent,
+            Tag("response.output_text.annotation.added"),
+        ],
+        Annotated[
+            ResponseOutputTextDeltaStreamEvent, Tag("response.output_text.delta")
+        ],
+        Annotated[ResponseOutputTextDoneStreamEvent, Tag("response.output_text.done")],
+        Annotated[ResponseLifecycleStreamEvent, Tag("response.queued")],
+        Annotated[ResponseReasoningDeltaStreamEvent, Tag("response.reasoning.delta")],
+        Annotated[ResponseReasoningDoneStreamEvent, Tag("response.reasoning.done")],
+        Annotated[
+            ResponseReasoningSummaryPartStreamEvent,
+            Tag("response.reasoning_summary_part.added"),
+        ],
+        Annotated[
+            ResponseReasoningSummaryPartStreamEvent,
+            Tag("response.reasoning_summary_part.done"),
+        ],
+        Annotated[
+            ResponseReasoningSummaryTextDeltaStreamEvent,
+            Tag("response.reasoning_summary_text.delta"),
+        ],
+        Annotated[
+            ResponseReasoningSummaryTextDoneStreamEvent,
+            Tag("response.reasoning_summary_text.done"),
+        ],
+        Annotated[
+            ResponseReasoningDeltaStreamEvent, Tag("response.reasoning_text.delta")
+        ],
+        Annotated[
+            ResponseReasoningDoneStreamEvent, Tag("response.reasoning_text.done")
+        ],
+        Annotated[ResponseRefusalDeltaStreamEvent, Tag("response.refusal.delta")],
+        Annotated[ResponseRefusalDoneStreamEvent, Tag("response.refusal.done")],
+        Annotated[
+            ResponseHostedToolCallStreamEvent, Tag("response.web_search_call.completed")
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent,
+            Tag("response.web_search_call.in_progress"),
+        ],
+        Annotated[
+            ResponseHostedToolCallStreamEvent, Tag("response.web_search_call.searching")
+        ],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "event", "event")),
 ]
-r"""The event type."""
+r"""A server-sent event in the response stream. The frame's `event` field selects the payload shape carried in `data`."""
 
 
-class CreateRouterResponseDataTypedDict(TypedDict):
-    r"""A server-sent event in the response stream."""
-
-    sequence_number: int
-    r"""Monotonically increasing sequence number for ordering events."""
-    type: CreateRouterResponseResponsesType
-    r"""The event type."""
-
-
-class CreateRouterResponseData(BaseModel):
-    r"""A server-sent event in the response stream."""
-
-    sequence_number: int
-    r"""Monotonically increasing sequence number for ordering events."""
-
-    type: CreateRouterResponseResponsesType
-    r"""The event type."""
-
-
-class CreateRouterResponseResponsesResponseBodyTypedDict(TypedDict):
-    r"""A server-sent event in the response stream."""
-
-    data: NotRequired[CreateRouterResponseDataTypedDict]
-    r"""A server-sent event in the response stream."""
-
-
-class CreateRouterResponseResponsesResponseBody(BaseModel):
-    r"""A server-sent event in the response stream."""
-
-    data: Optional[CreateRouterResponseData] = None
-    r"""A server-sent event in the response stream."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["data"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-ServiceTier = Literal[
+CreateRouterResponseServiceTier = Literal[
     "auto",
     "default",
     "flex",
@@ -1313,7 +1489,7 @@ CreateRouterResponseStatus = Literal[
 ]
 
 
-Truncation = Literal[
+CreateRouterResponseTruncation = Literal[
     "disabled",
     "auto",
 ]
@@ -1348,7 +1524,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     prompt_cache_retention: Nullable[str]
     reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
-    service_tier: ServiceTier
+    service_tier: CreateRouterResponseServiceTier
     status: CreateRouterResponseStatus
     store: bool
     temperature: float
@@ -1360,7 +1536,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     r"""Array of tool configurations used in this response"""
     top_logprobs: int
     top_p: float
-    truncation: Truncation
+    truncation: CreateRouterResponseTruncation
     usage: PublicUsageTypedDict
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
@@ -1419,7 +1595,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     safety_identifier: Nullable[str]
 
-    service_tier: ServiceTier
+    service_tier: CreateRouterResponseServiceTier
 
     status: CreateRouterResponseStatus
 
@@ -1440,7 +1616,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     top_p: float
 
-    truncation: Truncation
+    truncation: CreateRouterResponseTruncation
 
     usage: PublicUsage
 

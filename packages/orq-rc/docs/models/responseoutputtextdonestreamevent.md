@@ -1,0 +1,9 @@
+# ResponseOutputTextDoneStreamEvent
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `data`                                                                                               | [models.ResponseOutputTextDoneStreamEventData](../models/responseoutputtextdonestreameventdata.md)   | :heavy_check_mark:                                                                                   | The event payload.                                                                                   |
+| `event`                                                                                              | [models.ResponseOutputTextDoneStreamEventEvent](../models/responseoutputtextdonestreameventevent.md) | :heavy_check_mark:                                                                                   | The SSE event name, equal to the payload's `type`.                                                   |

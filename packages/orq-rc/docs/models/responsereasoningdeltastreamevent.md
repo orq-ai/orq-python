@@ -1,0 +1,9 @@
+# ResponseReasoningDeltaStreamEvent
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `data`                                                                                               | [models.ResponseReasoningDeltaStreamEventData](../models/responsereasoningdeltastreameventdata.md)   | :heavy_check_mark:                                                                                   | The event payload.                                                                                   |
+| `event`                                                                                              | [models.ResponseReasoningDeltaStreamEventEvent](../models/responsereasoningdeltastreameventevent.md) | :heavy_check_mark:                                                                                   | The SSE event name, equal to the payload's `type`.                                                   |

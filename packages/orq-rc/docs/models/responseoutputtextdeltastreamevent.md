@@ -1,0 +1,9 @@
+# ResponseOutputTextDeltaStreamEvent
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `data`                                                                                                 | [models.ResponseOutputTextDeltaStreamEventData](../models/responseoutputtextdeltastreameventdata.md)   | :heavy_check_mark:                                                                                     | The event payload.                                                                                     |
+| `event`                                                                                                | [models.ResponseOutputTextDeltaStreamEventEvent](../models/responseoutputtextdeltastreameventevent.md) | :heavy_check_mark:                                                                                     | The SSE event name, equal to the payload's `type`.                                                     |

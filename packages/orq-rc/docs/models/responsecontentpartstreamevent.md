@@ -1,0 +1,9 @@
+# ResponseContentPartStreamEvent
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `data`                                                                                         | [models.ResponseContentPartStreamEventData](../models/responsecontentpartstreameventdata.md)   | :heavy_check_mark:                                                                             | The event payload.                                                                             |
+| `event`                                                                                        | [models.ResponseContentPartStreamEventEvent](../models/responsecontentpartstreameventevent.md) | :heavy_check_mark:                                                                             | The SSE event name, equal to the payload's `type`.                                             |

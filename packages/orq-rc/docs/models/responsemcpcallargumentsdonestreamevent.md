@@ -1,0 +1,9 @@
+# ResponseMcpCallArgumentsDoneStreamEvent
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `data`                                                                                                           | [models.ResponseMcpCallArgumentsDoneStreamEventData](../models/responsemcpcallargumentsdonestreameventdata.md)   | :heavy_check_mark:                                                                                               | The event payload.                                                                                               |
+| `event`                                                                                                          | [models.ResponseMcpCallArgumentsDoneStreamEventEvent](../models/responsemcpcallargumentsdonestreameventevent.md) | :heavy_check_mark:                                                                                               | The SSE event name, equal to the payload's `type`.                                                               |
