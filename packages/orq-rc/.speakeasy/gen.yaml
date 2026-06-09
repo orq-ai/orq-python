@@ -55,6 +55,9 @@ python:
   enableCustomCodeRegions: false
   enumFormat: union
   envVarPrefix: ORQ
+  eventStreamClassNames:
+    async: EventStreamAsync
+    sync: EventStream
   fixFlags:
     asyncPaginationSep2025: false
     conflictResistantModelImportsFeb2026: true
