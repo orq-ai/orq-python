@@ -34,6 +34,8 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     model_family: NotRequired[str]
     model_type: NotRequired[str]
     output_cost: NotRequired[float]
+    supports_adaptive_reasoning: NotRequired[bool]
+    supports_extended_thinking: NotRequired[bool]
     supports_json_mode: NotRequired[bool]
     supports_json_schema: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
@@ -73,6 +75,10 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
 
     output_cost: Optional[float] = None
 
+    supports_adaptive_reasoning: Optional[bool] = None
+
+    supports_extended_thinking: Optional[bool] = None
+
     supports_json_mode: Optional[bool] = None
 
     supports_json_schema: Optional[bool] = None
@@ -99,6 +105,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "model_family",
                 "model_type",
                 "output_cost",
+                "supports_adaptive_reasoning",
+                "supports_extended_thinking",
                 "supports_json_mode",
                 "supports_json_schema",
                 "supports_strict_tool",

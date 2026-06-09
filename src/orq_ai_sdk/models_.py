@@ -716,6 +716,8 @@ class Models(BaseSDK):
         model_family: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
+        supports_adaptive_reasoning: Optional[bool] = None,
+        supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
@@ -746,6 +748,8 @@ class Models(BaseSDK):
         :param model_family:
         :param model_type:
         :param output_cost:
+        :param supports_adaptive_reasoning:
+        :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
         :param supports_strict_tool:
@@ -786,6 +790,8 @@ class Models(BaseSDK):
             model_type=model_type,
             output_cost=output_cost,
             region=region,
+            supports_adaptive_reasoning=supports_adaptive_reasoning,
+            supports_extended_thinking=supports_extended_thinking,
             supports_json_mode=supports_json_mode,
             supports_json_schema=supports_json_schema,
             supports_strict_tool=supports_strict_tool,
@@ -868,6 +874,8 @@ class Models(BaseSDK):
         model_family: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
+        supports_adaptive_reasoning: Optional[bool] = None,
+        supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
@@ -898,6 +906,8 @@ class Models(BaseSDK):
         :param model_family:
         :param model_type:
         :param output_cost:
+        :param supports_adaptive_reasoning:
+        :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
         :param supports_strict_tool:
@@ -938,6 +948,8 @@ class Models(BaseSDK):
             model_type=model_type,
             output_cost=output_cost,
             region=region,
+            supports_adaptive_reasoning=supports_adaptive_reasoning,
+            supports_extended_thinking=supports_extended_thinking,
             supports_json_mode=supports_json_mode,
             supports_json_schema=supports_json_schema,
             supports_strict_tool=supports_strict_tool,
@@ -1229,6 +1241,8 @@ class Models(BaseSDK):
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
+        supports_adaptive_reasoning: Optional[bool] = None,
+        supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
@@ -1258,6 +1272,8 @@ class Models(BaseSDK):
         :param model_type:
         :param output_cost:
         :param region:
+        :param supports_adaptive_reasoning:
+        :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
         :param supports_strict_tool:
@@ -1298,6 +1314,8 @@ class Models(BaseSDK):
                 model_type=model_type,
                 output_cost=output_cost,
                 region=region,
+                supports_adaptive_reasoning=supports_adaptive_reasoning,
+                supports_extended_thinking=supports_extended_thinking,
                 supports_json_mode=supports_json_mode,
                 supports_json_schema=supports_json_schema,
                 supports_strict_tool=supports_strict_tool,
@@ -1384,6 +1402,8 @@ class Models(BaseSDK):
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
+        supports_adaptive_reasoning: Optional[bool] = None,
+        supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
@@ -1413,6 +1433,8 @@ class Models(BaseSDK):
         :param model_type:
         :param output_cost:
         :param region:
+        :param supports_adaptive_reasoning:
+        :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
         :param supports_strict_tool:
@@ -1453,6 +1475,8 @@ class Models(BaseSDK):
                 model_type=model_type,
                 output_cost=output_cost,
                 region=region,
+                supports_adaptive_reasoning=supports_adaptive_reasoning,
+                supports_extended_thinking=supports_extended_thinking,
                 supports_json_mode=supports_json_mode,
                 supports_json_schema=supports_json_schema,
                 supports_strict_tool=supports_strict_tool,

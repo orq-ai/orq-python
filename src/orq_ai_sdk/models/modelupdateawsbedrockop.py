@@ -33,6 +33,8 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     model_type: NotRequired[str]
     output_cost: NotRequired[float]
     region: NotRequired[str]
+    supports_adaptive_reasoning: NotRequired[bool]
+    supports_extended_thinking: NotRequired[bool]
     supports_json_mode: NotRequired[bool]
     supports_json_schema: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
@@ -68,6 +70,10 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
 
     region: Optional[str] = None
 
+    supports_adaptive_reasoning: Optional[bool] = None
+
+    supports_extended_thinking: Optional[bool] = None
+
     supports_json_mode: Optional[bool] = None
 
     supports_json_schema: Optional[bool] = None
@@ -97,6 +103,8 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "model_type",
                 "output_cost",
                 "region",
+                "supports_adaptive_reasoning",
+                "supports_extended_thinking",
                 "supports_json_mode",
                 "supports_json_schema",
                 "supports_strict_tool",
