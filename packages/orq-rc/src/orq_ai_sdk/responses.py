@@ -19,6 +19,12 @@ class Responses(BaseSDK):
     def create(
         self,
         *,
+        cache_control: Optional[
+            Union[
+                models.CreateRouterResponseCacheControl,
+                models.CreateRouterResponseCacheControlTypedDict,
+            ]
+        ] = None,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -101,6 +107,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
@@ -153,6 +160,9 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateRouterResponseCacheControl]
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),
@@ -283,6 +293,12 @@ class Responses(BaseSDK):
     async def create_async(
         self,
         *,
+        cache_control: Optional[
+            Union[
+                models.CreateRouterResponseCacheControl,
+                models.CreateRouterResponseCacheControlTypedDict,
+            ]
+        ] = None,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -365,6 +381,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
@@ -417,6 +434,9 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateRouterResponseCacheControl]
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),

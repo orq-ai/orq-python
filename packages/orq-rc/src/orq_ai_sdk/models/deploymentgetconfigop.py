@@ -2338,7 +2338,7 @@ DeploymentGetConfigContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-DeploymentGetConfigDeploymentsResponseType = Literal["function",]
+DeploymentGetConfigDeploymentsResponse200Type = Literal["function",]
 
 
 class DeploymentGetConfigDeploymentsFunctionTypedDict(TypedDict):
@@ -2355,14 +2355,14 @@ class DeploymentGetConfigDeploymentsFunction(BaseModel):
 
 
 class DeploymentGetConfigToolCallsTypedDict(TypedDict):
-    type: DeploymentGetConfigDeploymentsResponseType
+    type: DeploymentGetConfigDeploymentsResponse200Type
     function: DeploymentGetConfigDeploymentsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class DeploymentGetConfigToolCalls(BaseModel):
-    type: DeploymentGetConfigDeploymentsResponseType
+    type: DeploymentGetConfigDeploymentsResponse200Type
 
     function: DeploymentGetConfigDeploymentsFunction
 
@@ -2597,6 +2597,70 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
+DeploymentGetConfigDeploymentsResponseType = Literal["ephemeral",]
+r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+
+DeploymentGetConfigTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class DeploymentGetConfigCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: DeploymentGetConfigDeploymentsResponseType
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[DeploymentGetConfigTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class DeploymentGetConfigCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: DeploymentGetConfigDeploymentsResponseType
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[DeploymentGetConfigTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 PhotoRealVersion = Literal[
     "v1",
     "v2",
@@ -2674,6 +2738,8 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
+    cache_control: NotRequired[Nullable[DeploymentGetConfigCacheControlTypedDict]]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
     photo_real_version: NotRequired[PhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[DeploymentGetConfigEncodingFormat]
@@ -2746,6 +2812,12 @@ class DeploymentGetConfigParameters(BaseModel):
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
 
+    cache_control: Annotated[
+        OptionalNullable[DeploymentGetConfigCacheControl],
+        pydantic.Field(alias="cacheControl"),
+    ] = UNSET
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
     photo_real_version: Annotated[
         Optional[PhotoRealVersion], pydantic.Field(alias="photoRealVersion")
     ] = None
@@ -2791,6 +2863,7 @@ class DeploymentGetConfigParameters(BaseModel):
                 "quality",
                 "style",
                 "responseFormat",
+                "cacheControl",
                 "photoRealVersion",
                 "encoding_format",
                 "reasoningEffort",
@@ -2799,7 +2872,7 @@ class DeploymentGetConfigParameters(BaseModel):
                 "thinkingLevel",
             ]
         )
-        nullable_fields = set(["responseFormat"])
+        nullable_fields = set(["responseFormat", "cacheControl"])
         serialized = handler(self)
         m = {}
 
