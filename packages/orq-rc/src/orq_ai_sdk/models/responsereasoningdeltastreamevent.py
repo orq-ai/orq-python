@@ -8,15 +8,12 @@ from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-ResponseReasoningDeltaStreamEventType = Literal[
-    "response.reasoning.delta",
-    "response.reasoning_text.delta",
-]
-r"""The event type. Matches the SSE `event` field."""
+ResponseReasoningDeltaStreamEventType = Literal["response.reasoning.delta",]
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseReasoningDeltaStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseReasoningDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.reasoning.delta` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -29,13 +26,13 @@ class ResponseReasoningDeltaStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseReasoningDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
     obfuscation: NotRequired[str]
     r"""Obfuscation padding accompanying the delta, when present."""
 
 
-class ResponseReasoningDeltaStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseReasoningDeltaStreamEvent(BaseModel):
+    r"""A `response.reasoning.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -58,7 +55,7 @@ class ResponseReasoningDeltaStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseReasoningDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     obfuscation: Optional[str] = None
     r"""Obfuscation padding accompanying the delta, when present."""
@@ -89,25 +86,3 @@ class ResponseReasoningDeltaStreamEventData(BaseModel):
             m[k] = v
 
         return m
-
-
-ResponseReasoningDeltaStreamEventEvent = Literal[
-    "response.reasoning.delta",
-    "response.reasoning_text.delta",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningDeltaStreamEventTypedDict(TypedDict):
-    data: ResponseReasoningDeltaStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseReasoningDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningDeltaStreamEvent(BaseModel):
-    data: ResponseReasoningDeltaStreamEventData
-    r"""The event payload."""
-
-    event: ResponseReasoningDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

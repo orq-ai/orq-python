@@ -1,6 +1,6 @@
 # ResponseReasoningDeltaStreamEventType
 
-The event type. Matches the SSE `event` field.
+The event type. Discriminates the payload.
 
 ## Example Usage
 
@@ -13,4 +13,3 @@ value: ResponseReasoningDeltaStreamEventType = "response.reasoning.delta"
 ## Values
 
 - `"response.reasoning.delta"`
-- `"response.reasoning_text.delta"`

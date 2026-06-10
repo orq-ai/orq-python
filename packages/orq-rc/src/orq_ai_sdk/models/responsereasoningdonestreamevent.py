@@ -8,15 +8,12 @@ from typing import Any, Dict, Literal
 from typing_extensions import TypedDict
 
 
-ResponseReasoningDoneStreamEventType = Literal[
-    "response.reasoning.done",
-    "response.reasoning_text.done",
-]
-r"""The event type. Matches the SSE `event` field."""
+ResponseReasoningDoneStreamEventType = Literal["response.reasoning.done",]
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseReasoningDoneStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseReasoningDoneStreamEventTypedDict(TypedDict):
+    r"""A `response.reasoning.done` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -29,11 +26,11 @@ class ResponseReasoningDoneStreamEventDataTypedDict(TypedDict):
     text: str
     r"""The completed reasoning text."""
     type: ResponseReasoningDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseReasoningDoneStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseReasoningDoneStreamEvent(BaseModel):
+    r"""A `response.reasoning.done` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -56,7 +53,7 @@ class ResponseReasoningDoneStreamEventData(BaseModel):
     r"""The completed reasoning text."""
 
     type: ResponseReasoningDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -65,25 +62,3 @@ class ResponseReasoningDoneStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseReasoningDoneStreamEventEvent = Literal[
-    "response.reasoning.done",
-    "response.reasoning_text.done",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningDoneStreamEventTypedDict(TypedDict):
-    data: ResponseReasoningDoneStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseReasoningDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningDoneStreamEvent(BaseModel):
-    data: ResponseReasoningDoneStreamEventData
-    r"""The event payload."""
-
-    event: ResponseReasoningDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

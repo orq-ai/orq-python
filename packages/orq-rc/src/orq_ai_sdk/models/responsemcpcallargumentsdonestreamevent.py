@@ -8,14 +8,14 @@ from typing import Any, Dict, Literal
 from typing_extensions import TypedDict
 
 
-ResponseMcpCallArgumentsDoneStreamEventType = Literal[
+ResponseMCPCallArgumentsDoneStreamEventType = Literal[
     "response.mcp_call_arguments.done",
 ]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseMcpCallArgumentsDoneStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseMCPCallArgumentsDoneStreamEventTypedDict(TypedDict):
+    r"""A `response.mcp_call_arguments.done` server-sent event."""
 
     arguments: str
     r"""The completed MCP-call arguments JSON."""
@@ -25,12 +25,12 @@ class ResponseMcpCallArgumentsDoneStreamEventDataTypedDict(TypedDict):
     r"""Index of the output item in the response output array."""
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
-    type: ResponseMcpCallArgumentsDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    type: ResponseMCPCallArgumentsDoneStreamEventType
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseMcpCallArgumentsDoneStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseMCPCallArgumentsDoneStreamEvent(BaseModel):
+    r"""A `response.mcp_call_arguments.done` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -49,8 +49,8 @@ class ResponseMcpCallArgumentsDoneStreamEventData(BaseModel):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
 
-    type: ResponseMcpCallArgumentsDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    type: ResponseMCPCallArgumentsDoneStreamEventType
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -59,24 +59,3 @@ class ResponseMcpCallArgumentsDoneStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseMcpCallArgumentsDoneStreamEventEvent = Literal[
-    "response.mcp_call_arguments.done",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseMcpCallArgumentsDoneStreamEventTypedDict(TypedDict):
-    data: ResponseMcpCallArgumentsDoneStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseMcpCallArgumentsDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseMcpCallArgumentsDoneStreamEvent(BaseModel):
-    data: ResponseMcpCallArgumentsDoneStreamEventData
-    r"""The event payload."""
-
-    event: ResponseMcpCallArgumentsDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

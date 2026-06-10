@@ -1,12 +1,12 @@
-# ResponseMcpCallArgumentsDeltaStreamEventType
+# ResponseMCPCallArgumentsDeltaStreamEventType
 
-The event type. Matches the SSE `event` field.
+The event type. Discriminates the payload.
 
 ## Example Usage
 
 ```python
-from orq_ai_sdk.models import ResponseMcpCallArgumentsDeltaStreamEventType
-value: ResponseMcpCallArgumentsDeltaStreamEventType = "response.mcp_call_arguments.delta"
+from orq_ai_sdk.models import ResponseMCPCallArgumentsDeltaStreamEventType
+value: ResponseMCPCallArgumentsDeltaStreamEventType = "response.mcp_call_arguments.delta"
 ```
 
 

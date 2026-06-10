@@ -11,11 +11,11 @@ from typing_extensions import TypedDict
 ResponseOutputTextAnnotationAddedStreamEventType = Literal[
     "response.output_text.annotation.added",
 ]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseOutputTextAnnotationAddedStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseOutputTextAnnotationAddedStreamEventTypedDict(TypedDict):
+    r"""A `response.output_text.annotation.added` server-sent event."""
 
     annotation: Dict[str, Any]
     r"""The annotation added to the output text."""
@@ -30,11 +30,11 @@ class ResponseOutputTextAnnotationAddedStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseOutputTextAnnotationAddedStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseOutputTextAnnotationAddedStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseOutputTextAnnotationAddedStreamEvent(BaseModel):
+    r"""A `response.output_text.annotation.added` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -60,7 +60,7 @@ class ResponseOutputTextAnnotationAddedStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseOutputTextAnnotationAddedStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -69,24 +69,3 @@ class ResponseOutputTextAnnotationAddedStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseOutputTextAnnotationAddedStreamEventEvent = Literal[
-    "response.output_text.annotation.added",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextAnnotationAddedStreamEventTypedDict(TypedDict):
-    data: ResponseOutputTextAnnotationAddedStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseOutputTextAnnotationAddedStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextAnnotationAddedStreamEvent(BaseModel):
-    data: ResponseOutputTextAnnotationAddedStreamEventData
-    r"""The event payload."""
-
-    event: ResponseOutputTextAnnotationAddedStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

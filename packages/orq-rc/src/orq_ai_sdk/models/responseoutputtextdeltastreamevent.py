@@ -9,11 +9,11 @@ from typing_extensions import NotRequired, TypedDict
 
 
 ResponseOutputTextDeltaStreamEventType = Literal["response.output_text.delta",]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseOutputTextDeltaStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseOutputTextDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.output_text.delta` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -28,13 +28,13 @@ class ResponseOutputTextDeltaStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseOutputTextDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
     obfuscation: NotRequired[str]
     r"""Obfuscation padding accompanying the delta, when present."""
 
 
-class ResponseOutputTextDeltaStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseOutputTextDeltaStreamEvent(BaseModel):
+    r"""A `response.output_text.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -60,7 +60,7 @@ class ResponseOutputTextDeltaStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseOutputTextDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     obfuscation: Optional[str] = None
     r"""Obfuscation padding accompanying the delta, when present."""
@@ -91,22 +91,3 @@ class ResponseOutputTextDeltaStreamEventData(BaseModel):
             m[k] = v
 
         return m
-
-
-ResponseOutputTextDeltaStreamEventEvent = Literal["response.output_text.delta",]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextDeltaStreamEventTypedDict(TypedDict):
-    data: ResponseOutputTextDeltaStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseOutputTextDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextDeltaStreamEvent(BaseModel):
-    data: ResponseOutputTextDeltaStreamEventData
-    r"""The event payload."""
-
-    event: ResponseOutputTextDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

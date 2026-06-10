@@ -1,9 +1,0 @@
-# ResponseReasoningSummaryPartStreamEvent
-
-
-## Fields
-
-| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `data`                                                                                                           | [models.ResponseReasoningSummaryPartStreamEventData](../models/responsereasoningsummarypartstreameventdata.md)   | :heavy_check_mark:                                                                                               | The event payload.                                                                                               |
-| `event`                                                                                                          | [models.ResponseReasoningSummaryPartStreamEventEvent](../models/responsereasoningsummarypartstreameventevent.md) | :heavy_check_mark:                                                                                               | The SSE event name, equal to the payload's `type`.                                                               |

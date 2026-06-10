@@ -11,11 +11,11 @@ from typing_extensions import NotRequired, TypedDict
 ResponseReasoningSummaryTextDeltaStreamEventType = Literal[
     "response.reasoning_summary_text.delta",
 ]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseReasoningSummaryTextDeltaStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseReasoningSummaryTextDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.reasoning_summary_text.delta` server-sent event."""
 
     delta: str
     r"""Incremental text or argument chunk."""
@@ -28,13 +28,13 @@ class ResponseReasoningSummaryTextDeltaStreamEventDataTypedDict(TypedDict):
     summary_index: int
     r"""Index of the reasoning summary part."""
     type: ResponseReasoningSummaryTextDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
     obfuscation: NotRequired[str]
     r"""Obfuscation padding accompanying the delta, when present."""
 
 
-class ResponseReasoningSummaryTextDeltaStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseReasoningSummaryTextDeltaStreamEvent(BaseModel):
+    r"""A `response.reasoning_summary_text.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -57,7 +57,7 @@ class ResponseReasoningSummaryTextDeltaStreamEventData(BaseModel):
     r"""Index of the reasoning summary part."""
 
     type: ResponseReasoningSummaryTextDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     obfuscation: Optional[str] = None
     r"""Obfuscation padding accompanying the delta, when present."""
@@ -88,24 +88,3 @@ class ResponseReasoningSummaryTextDeltaStreamEventData(BaseModel):
             m[k] = v
 
         return m
-
-
-ResponseReasoningSummaryTextDeltaStreamEventEvent = Literal[
-    "response.reasoning_summary_text.delta",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningSummaryTextDeltaStreamEventTypedDict(TypedDict):
-    data: ResponseReasoningSummaryTextDeltaStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseReasoningSummaryTextDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseReasoningSummaryTextDeltaStreamEvent(BaseModel):
-    data: ResponseReasoningSummaryTextDeltaStreamEventData
-    r"""The event payload."""
-
-    event: ResponseReasoningSummaryTextDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

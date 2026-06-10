@@ -1,6 +1,6 @@
 # ResponseReasoningSummaryTextDoneStreamEventType
 
-The event type. Matches the SSE `event` field.
+The event type. Discriminates the payload.
 
 ## Example Usage
 

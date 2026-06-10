@@ -1,9 +1,0 @@
-# ResponseHostedToolCallStreamEvent
-
-
-## Fields
-
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `data`                                                                                               | [models.ResponseHostedToolCallStreamEventData](../models/responsehostedtoolcallstreameventdata.md)   | :heavy_check_mark:                                                                                   | The event payload.                                                                                   |
-| `event`                                                                                              | [models.ResponseHostedToolCallStreamEventEvent](../models/responsehostedtoolcallstreameventevent.md) | :heavy_check_mark:                                                                                   | The SSE event name, equal to the payload's `type`.                                                   |

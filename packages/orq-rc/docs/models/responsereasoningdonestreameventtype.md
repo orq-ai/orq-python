@@ -1,6 +1,6 @@
 # ResponseReasoningDoneStreamEventType
 
-The event type. Matches the SSE `event` field.
+The event type. Discriminates the payload.
 
 ## Example Usage
 
@@ -13,4 +13,3 @@ value: ResponseReasoningDoneStreamEventType = "response.reasoning.done"
 ## Values
 
 - `"response.reasoning.done"`
-- `"response.reasoning_text.done"`

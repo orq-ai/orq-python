@@ -11,11 +11,11 @@ from typing_extensions import TypedDict
 ResponseFunctionCallArgumentsDoneStreamEventType = Literal[
     "response.function_call_arguments.done",
 ]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseFunctionCallArgumentsDoneStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseFunctionCallArgumentsDoneStreamEventTypedDict(TypedDict):
+    r"""A `response.function_call_arguments.done` server-sent event."""
 
     arguments: str
     r"""The completed function-call arguments JSON."""
@@ -26,11 +26,11 @@ class ResponseFunctionCallArgumentsDoneStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseFunctionCallArgumentsDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseFunctionCallArgumentsDoneStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseFunctionCallArgumentsDoneStreamEvent(BaseModel):
+    r"""A `response.function_call_arguments.done` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -50,7 +50,7 @@ class ResponseFunctionCallArgumentsDoneStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseFunctionCallArgumentsDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -59,24 +59,3 @@ class ResponseFunctionCallArgumentsDoneStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseFunctionCallArgumentsDoneStreamEventEvent = Literal[
-    "response.function_call_arguments.done",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseFunctionCallArgumentsDoneStreamEventTypedDict(TypedDict):
-    data: ResponseFunctionCallArgumentsDoneStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseFunctionCallArgumentsDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseFunctionCallArgumentsDoneStreamEvent(BaseModel):
-    data: ResponseFunctionCallArgumentsDoneStreamEventData
-    r"""The event payload."""
-
-    event: ResponseFunctionCallArgumentsDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

@@ -9,11 +9,11 @@ from typing_extensions import TypedDict
 
 
 ResponseOutputTextDoneStreamEventType = Literal["response.output_text.done",]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseOutputTextDoneStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseOutputTextDoneStreamEventTypedDict(TypedDict):
+    r"""A `response.output_text.done` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -28,11 +28,11 @@ class ResponseOutputTextDoneStreamEventDataTypedDict(TypedDict):
     text: str
     r"""The completed output text."""
     type: ResponseOutputTextDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseOutputTextDoneStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseOutputTextDoneStreamEvent(BaseModel):
+    r"""A `response.output_text.done` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -58,7 +58,7 @@ class ResponseOutputTextDoneStreamEventData(BaseModel):
     r"""The completed output text."""
 
     type: ResponseOutputTextDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -67,22 +67,3 @@ class ResponseOutputTextDoneStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseOutputTextDoneStreamEventEvent = Literal["response.output_text.done",]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextDoneStreamEventTypedDict(TypedDict):
-    data: ResponseOutputTextDoneStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseOutputTextDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseOutputTextDoneStreamEvent(BaseModel):
-    data: ResponseOutputTextDoneStreamEventData
-    r"""The event payload."""
-
-    event: ResponseOutputTextDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

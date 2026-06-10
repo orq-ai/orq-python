@@ -9,11 +9,11 @@ from typing_extensions import TypedDict
 
 
 ResponseRefusalDoneStreamEventType = Literal["response.refusal.done",]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseRefusalDoneStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseRefusalDoneStreamEventTypedDict(TypedDict):
+    r"""A `response.refusal.done` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -26,11 +26,11 @@ class ResponseRefusalDoneStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseRefusalDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseRefusalDoneStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseRefusalDoneStreamEvent(BaseModel):
+    r"""A `response.refusal.done` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -53,7 +53,7 @@ class ResponseRefusalDoneStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseRefusalDoneStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -62,22 +62,3 @@ class ResponseRefusalDoneStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseRefusalDoneStreamEventEvent = Literal["response.refusal.done",]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseRefusalDoneStreamEventTypedDict(TypedDict):
-    data: ResponseRefusalDoneStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseRefusalDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseRefusalDoneStreamEvent(BaseModel):
-    data: ResponseRefusalDoneStreamEventData
-    r"""The event payload."""
-
-    event: ResponseRefusalDoneStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

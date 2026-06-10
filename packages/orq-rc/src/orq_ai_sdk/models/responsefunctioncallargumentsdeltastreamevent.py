@@ -11,11 +11,11 @@ from typing_extensions import NotRequired, TypedDict
 ResponseFunctionCallArgumentsDeltaStreamEventType = Literal[
     "response.function_call_arguments.delta",
 ]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseFunctionCallArgumentsDeltaStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseFunctionCallArgumentsDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.function_call_arguments.delta` server-sent event."""
 
     delta: str
     r"""Incremental text or argument chunk."""
@@ -26,13 +26,13 @@ class ResponseFunctionCallArgumentsDeltaStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseFunctionCallArgumentsDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
     obfuscation: NotRequired[str]
     r"""Obfuscation padding accompanying the delta, when present."""
 
 
-class ResponseFunctionCallArgumentsDeltaStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseFunctionCallArgumentsDeltaStreamEvent(BaseModel):
+    r"""A `response.function_call_arguments.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -52,7 +52,7 @@ class ResponseFunctionCallArgumentsDeltaStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseFunctionCallArgumentsDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     obfuscation: Optional[str] = None
     r"""Obfuscation padding accompanying the delta, when present."""
@@ -83,24 +83,3 @@ class ResponseFunctionCallArgumentsDeltaStreamEventData(BaseModel):
             m[k] = v
 
         return m
-
-
-ResponseFunctionCallArgumentsDeltaStreamEventEvent = Literal[
-    "response.function_call_arguments.delta",
-]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseFunctionCallArgumentsDeltaStreamEventTypedDict(TypedDict):
-    data: ResponseFunctionCallArgumentsDeltaStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseFunctionCallArgumentsDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseFunctionCallArgumentsDeltaStreamEvent(BaseModel):
-    data: ResponseFunctionCallArgumentsDeltaStreamEventData
-    r"""The event payload."""
-
-    event: ResponseFunctionCallArgumentsDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

@@ -41,10 +41,10 @@ class PublicResponseResourceTypedDict(TypedDict):
     background: bool
     completed_at: Nullable[int]
     created_at: int
-    error: ResponseErrorTypedDict
+    error: Nullable[ResponseErrorTypedDict]
     frequency_penalty: float
     id: str
-    incomplete_details: IncompleteDetailsTypedDict
+    incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
@@ -62,7 +62,7 @@ class PublicResponseResourceTypedDict(TypedDict):
     previous_response_id: Nullable[str]
     prompt_cache_key: Nullable[str]
     prompt_cache_retention: Nullable[str]
-    reasoning: ReasoningTypedDict
+    reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
     service_tier: ServiceTier
     status: PublicResponseResourceStatus
@@ -77,7 +77,7 @@ class PublicResponseResourceTypedDict(TypedDict):
     top_logprobs: int
     top_p: float
     truncation: Truncation
-    usage: PublicUsageTypedDict
+    usage: Nullable[PublicUsageTypedDict]
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
@@ -91,13 +91,13 @@ class PublicResponseResource(BaseModel):
 
     created_at: int
 
-    error: ResponseError
+    error: Nullable[ResponseError]
 
     frequency_penalty: float
 
     id: str
 
-    incomplete_details: IncompleteDetails
+    incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
@@ -129,7 +129,7 @@ class PublicResponseResource(BaseModel):
 
     prompt_cache_retention: Nullable[str]
 
-    reasoning: Reasoning
+    reasoning: Nullable[Reasoning]
 
     safety_identifier: Nullable[str]
 
@@ -156,7 +156,7 @@ class PublicResponseResource(BaseModel):
 
     truncation: Truncation
 
-    usage: PublicUsage
+    usage: Nullable[PublicUsage]
 
     user: Nullable[str]
 
@@ -172,6 +172,8 @@ class PublicResponseResource(BaseModel):
         nullable_fields = set(
             [
                 "completed_at",
+                "error",
+                "incomplete_details",
                 "input",
                 "instructions",
                 "max_output_tokens",
@@ -180,8 +182,10 @@ class PublicResponseResource(BaseModel):
                 "previous_response_id",
                 "prompt_cache_key",
                 "prompt_cache_retention",
+                "reasoning",
                 "safety_identifier",
                 "tools",
+                "usage",
                 "user",
             ]
         )

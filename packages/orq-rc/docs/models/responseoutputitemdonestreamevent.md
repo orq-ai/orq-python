@@ -1,0 +1,14 @@
+# ResponseOutputItemDoneStreamEvent
+
+A `response.output_item.done` server-sent event.
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `item`                                                                                             | Dict[str, *Any*]                                                                                   | :heavy_check_mark:                                                                                 | The output item (message, function call, reasoning, etc.).                                         |
+| `output_index`                                                                                     | *int*                                                                                              | :heavy_check_mark:                                                                                 | Index of the output item in the response output array.                                             |
+| `sequence_number`                                                                                  | *int*                                                                                              | :heavy_check_mark:                                                                                 | Monotonically increasing sequence number for ordering events.                                      |
+| `type`                                                                                             | [models.ResponseOutputItemDoneStreamEventType](../models/responseoutputitemdonestreameventtype.md) | :heavy_check_mark:                                                                                 | The event type. Discriminates the payload.                                                         |
+| `__pydantic_extra__`                                                                               | Dict[str, *Any*]                                                                                   | :heavy_minus_sign:                                                                                 | N/A                                                                                                |

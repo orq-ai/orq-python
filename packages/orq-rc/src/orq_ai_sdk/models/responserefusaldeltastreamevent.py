@@ -9,11 +9,11 @@ from typing_extensions import TypedDict
 
 
 ResponseRefusalDeltaStreamEventType = Literal["response.refusal.delta",]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseRefusalDeltaStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseRefusalDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.refusal.delta` server-sent event."""
 
     content_index: int
     r"""Index of the content part within the output item."""
@@ -26,11 +26,11 @@ class ResponseRefusalDeltaStreamEventDataTypedDict(TypedDict):
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseRefusalDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseRefusalDeltaStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseRefusalDeltaStreamEvent(BaseModel):
+    r"""A `response.refusal.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -53,7 +53,7 @@ class ResponseRefusalDeltaStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseRefusalDeltaStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -62,22 +62,3 @@ class ResponseRefusalDeltaStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseRefusalDeltaStreamEventEvent = Literal["response.refusal.delta",]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseRefusalDeltaStreamEventTypedDict(TypedDict):
-    data: ResponseRefusalDeltaStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseRefusalDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseRefusalDeltaStreamEvent(BaseModel):
-    data: ResponseRefusalDeltaStreamEventData
-    r"""The event payload."""
-
-    event: ResponseRefusalDeltaStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""

@@ -1,12 +1,12 @@
-# ResponseMcpCallArgumentsDoneStreamEventType
+# ResponseMCPCallArgumentsDoneStreamEventType
 
-The event type. Matches the SSE `event` field.
+The event type. Discriminates the payload.
 
 ## Example Usage
 
 ```python
-from orq_ai_sdk.models import ResponseMcpCallArgumentsDoneStreamEventType
-value: ResponseMcpCallArgumentsDoneStreamEventType = "response.mcp_call_arguments.done"
+from orq_ai_sdk.models import ResponseMCPCallArgumentsDoneStreamEventType
+value: ResponseMCPCallArgumentsDoneStreamEventType = "response.mcp_call_arguments.done"
 ```
 
 

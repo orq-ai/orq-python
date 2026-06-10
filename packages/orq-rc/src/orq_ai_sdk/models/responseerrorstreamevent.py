@@ -10,21 +10,21 @@ from typing_extensions import TypedDict
 
 
 ResponseErrorStreamEventType = Literal["error",]
-r"""The event type. Matches the SSE `event` field."""
+r"""The event type. Discriminates the payload."""
 
 
-class ResponseErrorStreamEventDataTypedDict(TypedDict):
-    r"""The event payload."""
+class ResponseErrorStreamEventTypedDict(TypedDict):
+    r"""A `error` server-sent event."""
 
     error: ResponseErrorTypedDict
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
     type: ResponseErrorStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
 
-class ResponseErrorStreamEventData(BaseModel):
-    r"""The event payload."""
+class ResponseErrorStreamEvent(BaseModel):
+    r"""A `error` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -37,7 +37,7 @@ class ResponseErrorStreamEventData(BaseModel):
     r"""Monotonically increasing sequence number for ordering events."""
 
     type: ResponseErrorStreamEventType
-    r"""The event type. Matches the SSE `event` field."""
+    r"""The event type. Discriminates the payload."""
 
     @property
     def additional_properties(self):
@@ -46,22 +46,3 @@ class ResponseErrorStreamEventData(BaseModel):
     @additional_properties.setter
     def additional_properties(self, value):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
-
-
-ResponseErrorStreamEventEvent = Literal["error",]
-r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseErrorStreamEventTypedDict(TypedDict):
-    data: ResponseErrorStreamEventDataTypedDict
-    r"""The event payload."""
-    event: ResponseErrorStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
-
-
-class ResponseErrorStreamEvent(BaseModel):
-    data: ResponseErrorStreamEventData
-    r"""The event payload."""
-
-    event: ResponseErrorStreamEventEvent
-    r"""The SSE event name, equal to the payload's `type`."""
