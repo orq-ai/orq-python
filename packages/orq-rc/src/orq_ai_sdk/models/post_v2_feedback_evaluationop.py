@@ -55,7 +55,7 @@ class RequestBody3(BaseModel):
 
     source: Optional[PostV2FeedbackEvaluationRequestBodyFeedbackSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T10:48:18.256Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T11:26:28.002Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -121,7 +121,7 @@ class PostV2FeedbackEvaluationRequestBody2(BaseModel):
 
     source: Optional[PostV2FeedbackEvaluationRequestBodySource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T10:48:18.255Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T11:26:28.001Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -187,7 +187,7 @@ class PostV2FeedbackEvaluationRequestBody1(BaseModel):
 
     source: Optional[RequestBodySource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T10:48:18.255Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-10T11:26:28.000Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
