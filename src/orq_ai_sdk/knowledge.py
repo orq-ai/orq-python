@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union, cast
+from typing import Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Knowledge(BaseSDK):
@@ -1246,7 +1246,7 @@ class Knowledge(BaseSDK):
             ending_before=ending_before,
             q=q,
             limit=limit,
-            status=status,
+            status=utils.unmarshal(status, Optional[models.QueryParamStatus]),
         )
 
         req = self._build_request(
@@ -1348,7 +1348,7 @@ class Knowledge(BaseSDK):
             ending_before=ending_before,
             q=q,
             limit=limit,
-            status=status,
+            status=utils.unmarshal(status, Optional[models.QueryParamStatus]),
         )
 
         req = self._build_request_async(
@@ -2196,7 +2196,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2298,7 +2298,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2448,7 +2448,7 @@ class Knowledge(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             q=q,
-            status=status,
+            status=utils.unmarshal(status, Optional[models.ListChunksQueryParamStatus]),
         )
 
         req = self._build_request(
@@ -2556,7 +2556,7 @@ class Knowledge(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             q=q,
-            status=status,
+            status=utils.unmarshal(status, Optional[models.ListChunksQueryParamStatus]),
         )
 
         req = self._build_request_async(
@@ -2615,7 +2615,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         datasource_id: str,
-        chunk_ids: List[str],
+        chunk_ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2648,7 +2648,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             datasource_id=datasource_id,
             request_body=models.DeleteChunksRequestBody(
-                chunk_ids=chunk_ids,
+                chunk_ids=utils.unmarshal(chunk_ids, List[str]),
             ),
         )
 
@@ -2715,7 +2715,7 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         datasource_id: str,
-        chunk_ids: List[str],
+        chunk_ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2748,7 +2748,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             datasource_id=datasource_id,
             request_body=models.DeleteChunksRequestBody(
-                chunk_ids=chunk_ids,
+                chunk_ids=utils.unmarshal(chunk_ids, List[str]),
             ),
         )
 
@@ -3261,11 +3261,11 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         knowledge_id: str,
         text: Optional[str] = None,
-        embedding: Optional[List[float]] = None,
+        embedding: Optional[Iterable[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models.UpdateChunkMetadata],
-                Dict[str, models.UpdateChunkMetadataTypedDict],
+                Mapping[str, models.UpdateChunkMetadata],
+                Mapping[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3305,8 +3305,10 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             request_body=models.UpdateChunkRequestBody(
                 text=text,
-                embedding=embedding,
-                metadata=metadata,
+                embedding=utils.unmarshal(embedding, Optional[List[float]]),
+                metadata=utils.unmarshal(
+                    metadata, Optional[Dict[str, models.UpdateChunkMetadata]]
+                ),
             ),
         )
 
@@ -3375,11 +3377,11 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         knowledge_id: str,
         text: Optional[str] = None,
-        embedding: Optional[List[float]] = None,
+        embedding: Optional[Iterable[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models.UpdateChunkMetadata],
-                Dict[str, models.UpdateChunkMetadataTypedDict],
+                Mapping[str, models.UpdateChunkMetadata],
+                Mapping[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3419,8 +3421,10 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             request_body=models.UpdateChunkRequestBody(
                 text=text,
-                embedding=embedding,
-                metadata=metadata,
+                embedding=utils.unmarshal(embedding, Optional[List[float]]),
+                metadata=utils.unmarshal(
+                    metadata, Optional[Dict[str, models.UpdateChunkMetadata]]
+                ),
             ),
         )
 

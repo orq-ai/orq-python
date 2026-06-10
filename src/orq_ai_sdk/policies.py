@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Policies(BaseSDK):
@@ -209,7 +209,7 @@ class Policies(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         evaluators: OptionalNullable[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = UNSET,
         limits: Optional[Union[models.Limits, models.LimitsTypedDict]] = None,
         models_config: Optional[
@@ -335,7 +335,7 @@ class Policies(BaseSDK):
         description: Optional[str] = None,
         enabled: Optional[bool] = None,
         evaluators: OptionalNullable[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = UNSET,
         limits: Optional[Union[models.Limits, models.LimitsTypedDict]] = None,
         models_config: Optional[
@@ -810,7 +810,7 @@ class Policies(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         evaluators: Optional[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = None,
         limits: Optional[Union[models.Limits, models.LimitsTypedDict]] = None,
         models_config: Optional[
@@ -945,7 +945,7 @@ class Policies(BaseSDK):
         display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         evaluators: Optional[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = None,
         limits: Optional[Union[models.Limits, models.LimitsTypedDict]] = None,
         models_config: Optional[

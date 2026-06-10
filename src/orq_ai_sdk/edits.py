@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Edits(BaseSDK):
@@ -24,8 +24,8 @@ class Edits(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateImageEditFallbacks],
-                List[models.CreateImageEditFallbacksTypedDict],
+                Iterable[models.CreateImageEditFallbacks],
+                Iterable[models.CreateImageEditFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -184,8 +184,8 @@ class Edits(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateImageEditFallbacks],
-                List[models.CreateImageEditFallbacksTypedDict],
+                Iterable[models.CreateImageEditFallbacks],
+                Iterable[models.CreateImageEditFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[

@@ -43,7 +43,7 @@ class Moderations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateModerationRequestBody(
-            input=input,
+            input=utils.unmarshal(input, models.Input),
             model=model,
         )
 
@@ -144,7 +144,7 @@ class Moderations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateModerationRequestBody(
-            input=input,
+            input=utils.unmarshal(input, models.Input),
             model=model,
         )
 

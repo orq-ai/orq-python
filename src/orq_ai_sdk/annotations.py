@@ -5,7 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Annotations(BaseSDK):
@@ -15,8 +15,8 @@ class Annotations(BaseSDK):
         trace_id: str,
         span_id: str,
         annotations: Union[
-            List[models.CreateAnnotationAnnotations],
-            List[models.CreateAnnotationAnnotationsTypedDict],
+            Iterable[models.CreateAnnotationAnnotations],
+            Iterable[models.CreateAnnotationAnnotationsTypedDict],
         ],
         metadata: Optional[
             Union[
@@ -132,8 +132,8 @@ class Annotations(BaseSDK):
         trace_id: str,
         span_id: str,
         annotations: Union[
-            List[models.CreateAnnotationAnnotations],
-            List[models.CreateAnnotationAnnotationsTypedDict],
+            Iterable[models.CreateAnnotationAnnotations],
+            Iterable[models.CreateAnnotationAnnotationsTypedDict],
         ],
         metadata: Optional[
             Union[
@@ -248,7 +248,7 @@ class Annotations(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
-        keys: List[str],
+        keys: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -283,7 +283,7 @@ class Annotations(BaseSDK):
             trace_id=trace_id,
             span_id=span_id,
             request_body=models.DeleteAnnotationRequestBody(
-                keys=keys,
+                keys=utils.unmarshal(keys, List[str]),
             ),
         )
 
@@ -350,7 +350,7 @@ class Annotations(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
-        keys: List[str],
+        keys: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -385,7 +385,7 @@ class Annotations(BaseSDK):
             trace_id=trace_id,
             span_id=span_id,
             request_body=models.DeleteAnnotationRequestBody(
-                keys=keys,
+                keys=utils.unmarshal(keys, List[str]),
             ),
         )
 

@@ -1,10 +1,10 @@
 # CreateRouterResponseResponsesResponseBody
 
-A server-sent event in the response stream.
+Returns a response object or a stream of events.
 
 
 ## Fields
 
-| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `data`                                                                             | [Optional[models.CreateRouterResponseData]](../models/createrouterresponsedata.md) | :heavy_minus_sign:                                                                 | A server-sent event in the response stream.                                        |
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `data`                                                                                                 | [Optional[models.ResponseStreamEvent]](../models/responsestreamevent.md)                               | :heavy_minus_sign:                                                                                     | A single server-sent event emitted on the response stream. The `type` field discriminates the payload. |

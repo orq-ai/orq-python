@@ -6,14 +6,14 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Models(BaseSDK):
     def create(
         self,
         *,
-        configuration: Dict[str, Any],
+        configuration: Mapping[str, Any],
         display_name: str,
         has_functions: bool,
         id: str,
@@ -26,8 +26,8 @@ class Models(BaseSDK):
         output_cost: float,
         parameters: Nullable[
             Union[
-                List[models.CreateModelParameter],
-                List[models.CreateModelParameterTypedDict],
+                Iterable[models.CreateModelParameter],
+                Iterable[models.CreateModelParameterTypedDict],
             ]
         ],
         provider: str,
@@ -72,7 +72,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
-            configuration=configuration,
+            configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
             id=id,
@@ -146,7 +146,7 @@ class Models(BaseSDK):
     async def create_async(
         self,
         *,
-        configuration: Dict[str, Any],
+        configuration: Mapping[str, Any],
         display_name: str,
         has_functions: bool,
         id: str,
@@ -159,8 +159,8 @@ class Models(BaseSDK):
         output_cost: float,
         parameters: Nullable[
             Union[
-                List[models.CreateModelParameter],
-                List[models.CreateModelParameterTypedDict],
+                Iterable[models.CreateModelParameter],
+                Iterable[models.CreateModelParameterTypedDict],
             ]
         ],
         provider: str,
@@ -205,7 +205,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
-            configuration=configuration,
+            configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
             id=id,
@@ -1760,7 +1760,7 @@ class Models(BaseSDK):
         self,
         *,
         request: Nullable[
-            Union[List[models.LiteLLMModel], List[models.LiteLLMModelTypedDict]]
+            Union[Iterable[models.LiteLLMModel], Iterable[models.LiteLLMModelTypedDict]]
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1852,7 +1852,7 @@ class Models(BaseSDK):
         self,
         *,
         request: Nullable[
-            Union[List[models.LiteLLMModel], List[models.LiteLLMModelTypedDict]]
+            Union[Iterable[models.LiteLLMModel], Iterable[models.LiteLLMModelTypedDict]]
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -3274,8 +3274,8 @@ class Models(BaseSDK):
         output_cost: Optional[float] = None,
         parameters: Optional[
             Union[
-                List[models.UpdateModelParameter],
-                List[models.UpdateModelParameterTypedDict],
+                Iterable[models.UpdateModelParameter],
+                Iterable[models.UpdateModelParameterTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3402,8 +3402,8 @@ class Models(BaseSDK):
         output_cost: Optional[float] = None,
         parameters: Optional[
             Union[
-                List[models.UpdateModelParameter],
-                List[models.UpdateModelParameterTypedDict],
+                Iterable[models.UpdateModelParameter],
+                Iterable[models.UpdateModelParameterTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

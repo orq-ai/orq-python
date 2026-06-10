@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Identities(BaseSDK):
@@ -17,7 +17,7 @@ class Identities(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        filter_by_tags: Optional[List[str]] = None,
+        filter_by_tags: Optional[Iterable[str]] = None,
         include_metrics: Optional[bool] = None,
         sort_by: Optional[models.IdentitySortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -61,7 +61,7 @@ class Identities(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            filter_by_tags=filter_by_tags,
+            filter_by_tags=utils.unmarshal(filter_by_tags, Optional[List[str]]),
             include_metrics=include_metrics,
             sort_by=sort_by,
         )
@@ -124,7 +124,7 @@ class Identities(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        filter_by_tags: Optional[List[str]] = None,
+        filter_by_tags: Optional[Iterable[str]] = None,
         include_metrics: Optional[bool] = None,
         sort_by: Optional[models.IdentitySortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -168,7 +168,7 @@ class Identities(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             search=search,
-            filter_by_tags=filter_by_tags,
+            filter_by_tags=utils.unmarshal(filter_by_tags, Optional[List[str]]),
             include_metrics=include_metrics,
             sort_by=sort_by,
         )
@@ -231,7 +231,7 @@ class Identities(BaseSDK):
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         metadata: Optional[
             Union[
                 models.CreateIdentityRequestMetadata,
@@ -277,7 +277,7 @@ class Identities(BaseSDK):
             display_name=display_name,
             email=email,
             avatar_url=avatar_url,
-            tags=tags,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
             metadata=utils.get_pydantic_model(
                 metadata, Optional[models.CreateIdentityRequestMetadata]
             ),
@@ -344,7 +344,7 @@ class Identities(BaseSDK):
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         metadata: Optional[
             Union[
                 models.CreateIdentityRequestMetadata,
@@ -390,7 +390,7 @@ class Identities(BaseSDK):
             display_name=display_name,
             email=email,
             avatar_url=avatar_url,
-            tags=tags,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
             metadata=utils.get_pydantic_model(
                 metadata, Optional[models.CreateIdentityRequestMetadata]
             ),
@@ -811,7 +811,7 @@ class Identities(BaseSDK):
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         metadata: Optional[
             Union[
                 models.UpdateIdentityRequestMetadata,
@@ -857,7 +857,7 @@ class Identities(BaseSDK):
                 display_name=display_name,
                 email=email,
                 avatar_url=avatar_url,
-                tags=tags,
+                tags=utils.unmarshal(tags, Optional[List[str]]),
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdateIdentityRequestMetadata]
                 ),
@@ -929,7 +929,7 @@ class Identities(BaseSDK):
         display_name: Optional[str] = None,
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         metadata: Optional[
             Union[
                 models.UpdateIdentityRequestMetadata,
@@ -975,7 +975,7 @@ class Identities(BaseSDK):
                 display_name=display_name,
                 email=email,
                 avatar_url=avatar_url,
-                tags=tags,
+                tags=utils.unmarshal(tags, Optional[List[str]]),
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdateIdentityRequestMetadata]
                 ),

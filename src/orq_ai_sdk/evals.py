@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Evals(BaseSDK):
@@ -418,10 +418,11 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: OptionalNullable[List[str]] = UNSET,
+        categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
+                Iterable[models.CategoricalLabels],
+                Iterable[models.CategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
@@ -431,8 +432,8 @@ class Evals(BaseSDK):
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
-        headers: Optional[Dict[str, str]] = None,
-        payload: Optional[Dict[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
         guardrail_config: OptionalNullable[
             Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
@@ -495,7 +496,7 @@ class Evals(BaseSDK):
                 description=description,
                 prompt=prompt,
                 output_type=output_type,
-                categories=categories,
+                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
                     categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
@@ -506,8 +507,8 @@ class Evals(BaseSDK):
                 schema_=schema,
                 url=url,
                 method=method,
-                headers=headers,
-                payload=payload,
+                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
+                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
                 guardrail_config=utils.get_pydantic_model(
                     guardrail_config, OptionalNullable[models.GuardrailConfig]
@@ -591,10 +592,11 @@ class Evals(BaseSDK):
         description: Optional[str] = None,
         prompt: Optional[str] = None,
         output_type: Optional[str] = None,
-        categories: OptionalNullable[List[str]] = UNSET,
+        categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                List[models.CategoricalLabels], List[models.CategoricalLabelsTypedDict]
+                Iterable[models.CategoricalLabels],
+                Iterable[models.CategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
@@ -604,8 +606,8 @@ class Evals(BaseSDK):
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
-        headers: Optional[Dict[str, str]] = None,
-        payload: Optional[Dict[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
         guardrail_config: OptionalNullable[
             Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
@@ -668,7 +670,7 @@ class Evals(BaseSDK):
                 description=description,
                 prompt=prompt,
                 output_type=output_type,
-                categories=categories,
+                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
                     categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
                 ),
@@ -679,8 +681,8 @@ class Evals(BaseSDK):
                 schema_=schema,
                 url=url,
                 method=method,
-                headers=headers,
-                payload=payload,
+                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
+                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
                 guardrail_config=utils.get_pydantic_model(
                     guardrail_config, OptionalNullable[models.GuardrailConfig]
@@ -943,9 +945,9 @@ class Evals(BaseSDK):
         query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
-        retrievals: Optional[List[str]] = None,
+        retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[List[models.Messages], List[models.MessagesTypedDict]]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -986,7 +988,7 @@ class Evals(BaseSDK):
                 query=query,
                 output=output,
                 reference=reference,
-                retrievals=retrievals,
+                retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.Messages]]
                 ),
@@ -1075,9 +1077,9 @@ class Evals(BaseSDK):
         query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
-        retrievals: Optional[List[str]] = None,
+        retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[List[models.Messages], List[models.MessagesTypedDict]]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1118,7 +1120,7 @@ class Evals(BaseSDK):
                 query=query,
                 output=output,
                 reference=reference,
-                retrievals=retrievals,
+                retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.Messages]]
                 ),

@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -23,11 +23,14 @@ class Responses(BaseSDK):
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
         fallbacks: OptionalNullable[
-            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
         ] = UNSET,
         frequency_penalty: Optional[float] = None,
         guardrails: Optional[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = None,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
@@ -47,7 +50,7 @@ class Responses(BaseSDK):
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
         memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         presence_penalty: Optional[float] = None,
@@ -84,13 +87,13 @@ class Responses(BaseSDK):
         ] = None,
         tools: Optional[
             Union[
-                List[models.CreateRouterResponseTools],
-                List[models.CreateRouterResponseToolsTypedDict],
+                Iterable[models.CreateRouterResponseTools],
+                Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
@@ -176,7 +179,7 @@ class Responses(BaseSDK):
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
             memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             presence_penalty=presence_penalty,
@@ -206,7 +209,7 @@ class Responses(BaseSDK):
             ),
             top_logprobs=top_logprobs,
             top_p=top_p,
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request(
@@ -287,11 +290,14 @@ class Responses(BaseSDK):
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
         fallbacks: OptionalNullable[
-            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
         ] = UNSET,
         frequency_penalty: Optional[float] = None,
         guardrails: Optional[
-            Union[List[models.EvaluatorRef], List[models.EvaluatorRefTypedDict]]
+            Union[Iterable[models.EvaluatorRef], Iterable[models.EvaluatorRefTypedDict]]
         ] = None,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
@@ -311,7 +317,7 @@ class Responses(BaseSDK):
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
         memory: Optional[Union[models.MemoryParam, models.MemoryParamTypedDict]] = None,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         presence_penalty: Optional[float] = None,
@@ -348,13 +354,13 @@ class Responses(BaseSDK):
         ] = None,
         tools: Optional[
             Union[
-                List[models.CreateRouterResponseTools],
-                List[models.CreateRouterResponseToolsTypedDict],
+                Iterable[models.CreateRouterResponseTools],
+                Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         accept_header_override: Optional[CreateAcceptEnum] = None,
@@ -440,7 +446,7 @@ class Responses(BaseSDK):
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
             memory=utils.get_pydantic_model(memory, Optional[models.MemoryParam]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             presence_penalty=presence_penalty,
@@ -470,7 +476,7 @@ class Responses(BaseSDK):
             ),
             top_logprobs=top_logprobs,
             top_p=top_p,
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request_async(

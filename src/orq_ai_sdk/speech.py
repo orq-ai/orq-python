@@ -5,7 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Speech(BaseSDK):
@@ -20,8 +20,8 @@ class Speech(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateSpeechFallbacks],
-                List[models.CreateSpeechFallbacksTypedDict],
+                Iterable[models.CreateSpeechFallbacks],
+                Iterable[models.CreateSpeechFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -170,8 +170,8 @@ class Speech(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateSpeechFallbacks],
-                List[models.CreateSpeechFallbacksTypedDict],
+                Iterable[models.CreateSpeechFallbacks],
+                Iterable[models.CreateSpeechFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[

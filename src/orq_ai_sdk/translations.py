@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Translations(BaseSDK):
@@ -27,8 +27,8 @@ class Translations(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateTranslationFallbacks],
-                List[models.CreateTranslationFallbacksTypedDict],
+                Iterable[models.CreateTranslationFallbacks],
+                Iterable[models.CreateTranslationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -202,8 +202,8 @@ class Translations(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateTranslationFallbacks],
-                List[models.CreateTranslationFallbacksTypedDict],
+                Iterable[models.CreateTranslationFallbacks],
+                Iterable[models.CreateTranslationFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[

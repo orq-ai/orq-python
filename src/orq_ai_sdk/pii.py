@@ -404,7 +404,7 @@ class Pii(BaseSDK):
         self,
         *,
         redacted_text: Optional[str] = None,
-        mappings: Optional[Dict[str, str]] = None,
+        mappings: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -436,7 +436,7 @@ class Pii(BaseSDK):
 
         request = models.RestoreRequest(
             redacted_text=redacted_text,
-            mappings=mappings,
+            mappings=utils.unmarshal(mappings, Optional[Dict[str, str]]),
         )
 
         req = self._build_request(
@@ -497,7 +497,7 @@ class Pii(BaseSDK):
         self,
         *,
         redacted_text: Optional[str] = None,
-        mappings: Optional[Dict[str, str]] = None,
+        mappings: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -529,7 +529,7 @@ class Pii(BaseSDK):
 
         request = models.RestoreRequest(
             redacted_text=redacted_text,
-            mappings=mappings,
+            mappings=utils.unmarshal(mappings, Optional[Dict[str, str]]),
         )
 
         req = self._build_request_async(

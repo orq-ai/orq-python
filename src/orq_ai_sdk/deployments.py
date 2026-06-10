@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Deployments(BaseSDK):
@@ -15,25 +15,28 @@ class Deployments(BaseSDK):
         *,
         key: str,
         stream: Optional[bool] = False,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
-            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
+            Union[
+                Iterable[models.PrefixMessages],
+                Iterable[models.PrefixMessagesTypedDict],
+            ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentInvokeMessages],
-                List[models.DeploymentInvokeMessagesTypedDict],
+                Iterable[models.DeploymentInvokeMessages],
+                Iterable[models.DeploymentInvokeMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
-            Union[List[models.Documents], List[models.DocumentsTypedDict]]
+            Union[Iterable[models.Documents], Iterable[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
@@ -86,8 +89,8 @@ class Deployments(BaseSDK):
         request = models.DeploymentInvokeRequestBody(
             key=key,
             stream=stream,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
@@ -97,9 +100,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.Documents]]
             ),
@@ -175,25 +178,28 @@ class Deployments(BaseSDK):
         *,
         key: str,
         stream: Optional[bool] = False,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
-            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
+            Union[
+                Iterable[models.PrefixMessages],
+                Iterable[models.PrefixMessagesTypedDict],
+            ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentInvokeMessages],
-                List[models.DeploymentInvokeMessagesTypedDict],
+                Iterable[models.DeploymentInvokeMessages],
+                Iterable[models.DeploymentInvokeMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
-            Union[List[models.Documents], List[models.DocumentsTypedDict]]
+            Union[Iterable[models.Documents], Iterable[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
@@ -246,8 +252,8 @@ class Deployments(BaseSDK):
         request = models.DeploymentInvokeRequestBody(
             key=key,
             stream=stream,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
@@ -257,9 +263,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.Documents]]
             ),
@@ -528,30 +534,30 @@ class Deployments(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models.DeploymentGetConfigPrefixMessages],
-                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
+                Iterable[models.DeploymentGetConfigPrefixMessages],
+                Iterable[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentGetConfigMessages],
-                List[models.DeploymentGetConfigMessagesTypedDict],
+                Iterable[models.DeploymentGetConfigMessages],
+                Iterable[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models.DeploymentGetConfigDocuments],
-                List[models.DeploymentGetConfigDocumentsTypedDict],
+                Iterable[models.DeploymentGetConfigDocuments],
+                Iterable[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
@@ -614,8 +620,8 @@ class Deployments(BaseSDK):
 
         request = models.DeploymentGetConfigRequestBody(
             key=key,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages,
                 Optional[List[models.DeploymentGetConfigPrefixMessages]],
@@ -626,9 +632,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.DeploymentGetConfigDocuments]]
             ),
@@ -705,30 +711,30 @@ class Deployments(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models.DeploymentGetConfigPrefixMessages],
-                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
+                Iterable[models.DeploymentGetConfigPrefixMessages],
+                Iterable[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentGetConfigMessages],
-                List[models.DeploymentGetConfigMessagesTypedDict],
+                Iterable[models.DeploymentGetConfigMessages],
+                Iterable[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models.DeploymentGetConfigDocuments],
-                List[models.DeploymentGetConfigDocumentsTypedDict],
+                Iterable[models.DeploymentGetConfigDocuments],
+                Iterable[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
@@ -791,8 +797,8 @@ class Deployments(BaseSDK):
 
         request = models.DeploymentGetConfigRequestBody(
             key=key,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages,
                 Optional[List[models.DeploymentGetConfigPrefixMessages]],
@@ -803,9 +809,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.DeploymentGetConfigDocuments]]
             ),
@@ -882,30 +888,30 @@ class Deployments(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models.DeploymentStreamPrefixMessages],
-                List[models.DeploymentStreamPrefixMessagesTypedDict],
+                Iterable[models.DeploymentStreamPrefixMessages],
+                Iterable[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentStreamMessages],
-                List[models.DeploymentStreamMessagesTypedDict],
+                Iterable[models.DeploymentStreamMessages],
+                Iterable[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models.DeploymentStreamDocuments],
-                List[models.DeploymentStreamDocumentsTypedDict],
+                Iterable[models.DeploymentStreamDocuments],
+                Iterable[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
@@ -965,8 +971,8 @@ class Deployments(BaseSDK):
 
         request = models.DeploymentStreamRequestBody(
             key=key,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages, Optional[List[models.DeploymentStreamPrefixMessages]]
             ),
@@ -976,9 +982,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.DeploymentStreamDocuments]]
             ),
@@ -1061,30 +1067,30 @@ class Deployments(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
+        context: Optional[Mapping[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models.DeploymentStreamPrefixMessages],
-                List[models.DeploymentStreamPrefixMessagesTypedDict],
+                Iterable[models.DeploymentStreamPrefixMessages],
+                Iterable[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models.DeploymentStreamMessages],
-                List[models.DeploymentStreamMessagesTypedDict],
+                Iterable[models.DeploymentStreamMessages],
+                Iterable[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
         ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+        file_ids: Optional[Iterable[str]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
+        extra_params: Optional[Mapping[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models.DeploymentStreamDocuments],
-                List[models.DeploymentStreamDocumentsTypedDict],
+                Iterable[models.DeploymentStreamDocuments],
+                Iterable[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
@@ -1144,8 +1150,8 @@ class Deployments(BaseSDK):
 
         request = models.DeploymentStreamRequestBody(
             key=key,
-            inputs=inputs,
-            context=context,
+            inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+            context=utils.unmarshal(context, Optional[Dict[str, Any]]),
             prefix_messages=utils.get_pydantic_model(
                 prefix_messages, Optional[List[models.DeploymentStreamPrefixMessages]]
             ),
@@ -1155,9 +1161,9 @@ class Deployments(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
             ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
+            file_ids=utils.unmarshal(file_ids, Optional[List[str]]),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
+            extra_params=utils.unmarshal(extra_params, Optional[Dict[str, Any]]),
             documents=utils.get_pydantic_model(
                 documents, Optional[List[models.DeploymentStreamDocuments]]
             ),

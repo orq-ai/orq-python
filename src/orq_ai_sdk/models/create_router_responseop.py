@@ -16,6 +16,7 @@ from .responseexecutionlimits import (
 )
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
+from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
 from orq_ai_sdk.types import (
@@ -869,64 +870,18 @@ class CreateRouterResponseRequestBody(BaseModel):
         return m
 
 
-CreateRouterResponseType = Literal[
-    "response.queued",
-    "response.created",
-    "response.in_progress",
-    "response.completed",
-    "response.failed",
-    "response.incomplete",
-    "response.output_item.added",
-    "response.output_item.done",
-    "response.content_part.added",
-    "response.content_part.done",
-    "response.output_text.delta",
-    "response.output_text.done",
-    "response.function_call_arguments.delta",
-    "response.function_call_arguments.done",
-    "response.mcp_call.in_progress",
-    "response.mcp_call.completed",
-    "response.mcp_call.failed",
-    "response.mcp_call_arguments.delta",
-    "response.mcp_call_arguments.done",
-    "response.reasoning.delta",
-    "response.reasoning.done",
-    "error",
-]
-r"""The event type."""
-
-
-class CreateRouterResponseDataTypedDict(TypedDict):
-    r"""A server-sent event in the response stream."""
-
-    sequence_number: int
-    r"""Monotonically increasing sequence number for ordering events."""
-    type: CreateRouterResponseType
-    r"""The event type."""
-
-
-class CreateRouterResponseData(BaseModel):
-    r"""A server-sent event in the response stream."""
-
-    sequence_number: int
-    r"""Monotonically increasing sequence number for ordering events."""
-
-    type: CreateRouterResponseType
-    r"""The event type."""
-
-
 class CreateRouterResponseResponsesResponseBodyTypedDict(TypedDict):
-    r"""A server-sent event in the response stream."""
+    r"""Returns a response object or a stream of events."""
 
-    data: NotRequired[CreateRouterResponseDataTypedDict]
-    r"""A server-sent event in the response stream."""
+    data: NotRequired[ResponseStreamEventTypedDict]
+    r"""A single server-sent event emitted on the response stream. The `type` field discriminates the payload."""
 
 
 class CreateRouterResponseResponsesResponseBody(BaseModel):
-    r"""A server-sent event in the response stream."""
+    r"""Returns a response object or a stream of events."""
 
-    data: Optional[CreateRouterResponseData] = None
-    r"""A server-sent event in the response stream."""
+    data: Optional[ResponseStreamEvent] = None
+    r"""A single server-sent event emitted on the response stream. The `type` field discriminates the payload."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -945,7 +900,7 @@ class CreateRouterResponseResponsesResponseBody(BaseModel):
         return m
 
 
-ServiceTier = Literal[
+CreateRouterResponseServiceTier = Literal[
     "auto",
     "default",
     "flex",
@@ -963,7 +918,7 @@ CreateRouterResponseStatus = Literal[
 ]
 
 
-Truncation = Literal[
+CreateRouterResponseTruncation = Literal[
     "disabled",
     "auto",
 ]
@@ -998,7 +953,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     prompt_cache_retention: Nullable[str]
     reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
-    service_tier: ServiceTier
+    service_tier: CreateRouterResponseServiceTier
     status: CreateRouterResponseStatus
     store: bool
     temperature: float
@@ -1010,7 +965,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     r"""Array of tool configurations used in this response"""
     top_logprobs: int
     top_p: float
-    truncation: Truncation
+    truncation: CreateRouterResponseTruncation
     usage: PublicUsageTypedDict
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
@@ -1069,7 +1024,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     safety_identifier: Nullable[str]
 
-    service_tier: ServiceTier
+    service_tier: CreateRouterResponseServiceTier
 
     status: CreateRouterResponseStatus
 
@@ -1090,7 +1045,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     top_p: float
 
-    truncation: Truncation
+    truncation: CreateRouterResponseTruncation
 
     usage: PublicUsage
 

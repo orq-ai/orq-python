@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Union
 
 
 class APIKeys(BaseSDK):
@@ -20,8 +20,8 @@ class APIKeys(BaseSDK):
         project_id: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         search: Optional[str] = None,
-        owner_type: Optional[List[models.OwnerType]] = None,
-        permission_mode: Optional[List[models.PermissionMode]] = None,
+        owner_type: Optional[Iterable[models.OwnerType]] = None,
+        permission_mode: Optional[Iterable[models.PermissionMode]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -73,8 +73,10 @@ class APIKeys(BaseSDK):
             project_id=project_id,
             status=status,
             search=search,
-            owner_type=owner_type,
-            permission_mode=permission_mode,
+            owner_type=utils.unmarshal(owner_type, Optional[List[models.OwnerType]]),
+            permission_mode=utils.unmarshal(
+                permission_mode, Optional[List[models.PermissionMode]]
+            ),
         )
 
         req = self._build_request(
@@ -137,8 +139,8 @@ class APIKeys(BaseSDK):
         project_id: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         search: Optional[str] = None,
-        owner_type: Optional[List[models.OwnerType]] = None,
-        permission_mode: Optional[List[models.PermissionMode]] = None,
+        owner_type: Optional[Iterable[models.OwnerType]] = None,
+        permission_mode: Optional[Iterable[models.PermissionMode]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -190,8 +192,10 @@ class APIKeys(BaseSDK):
             project_id=project_id,
             status=status,
             search=search,
-            owner_type=owner_type,
-            permission_mode=permission_mode,
+            owner_type=utils.unmarshal(owner_type, Optional[List[models.OwnerType]]),
+            permission_mode=utils.unmarshal(
+                permission_mode, Optional[List[models.PermissionMode]]
+            ),
         )
 
         req = self._build_request_async(
@@ -254,7 +258,7 @@ class APIKeys(BaseSDK):
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Dict[str, int]] = None,
+        access: Optional[Mapping[str, int]] = None,
         expires_at: Optional[datetime] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -301,7 +305,7 @@ class APIKeys(BaseSDK):
                 project_scope, Optional[models.ProjectScope]
             ),
             permission_mode=permission_mode,
-            access=access,
+            access=utils.unmarshal(access, Optional[Dict[str, int]]),
             expires_at=expires_at,
         )
 
@@ -368,7 +372,7 @@ class APIKeys(BaseSDK):
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Dict[str, int]] = None,
+        access: Optional[Mapping[str, int]] = None,
         expires_at: Optional[datetime] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -415,7 +419,7 @@ class APIKeys(BaseSDK):
                 project_scope, Optional[models.ProjectScope]
             ),
             permission_mode=permission_mode,
-            access=access,
+            access=utils.unmarshal(access, Optional[Dict[str, int]]),
             expires_at=expires_at,
         )
 
@@ -988,7 +992,7 @@ class APIKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Dict[str, int]] = None,
+        access: Optional[Mapping[str, int]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
@@ -1041,7 +1045,7 @@ class APIKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=access,
+                access=utils.unmarshal(access, Optional[Dict[str, int]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),
@@ -1115,7 +1119,7 @@ class APIKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Dict[str, int]] = None,
+        access: Optional[Mapping[str, int]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
@@ -1168,7 +1172,7 @@ class APIKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=access,
+                access=utils.unmarshal(access, Optional[Dict[str, int]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),
