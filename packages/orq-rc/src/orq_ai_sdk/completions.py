@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -36,8 +36,8 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateCompletionFallbacks],
-                List[models.CreateCompletionFallbacksTypedDict],
+                Iterable[models.CreateCompletionFallbacks],
+                Iterable[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -125,7 +125,7 @@ class Completions(BaseSDK):
             max_tokens=max_tokens,
             presence_penalty=presence_penalty,
             seed=seed,
-            stop=stop,
+            stop=utils.unmarshal(stop, OptionalNullable[models.CreateCompletionStop]),
             temperature=temperature,
             top_p=top_p,
             n=n,
@@ -244,8 +244,8 @@ class Completions(BaseSDK):
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateCompletionFallbacks],
-                List[models.CreateCompletionFallbacksTypedDict],
+                Iterable[models.CreateCompletionFallbacks],
+                Iterable[models.CreateCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -333,7 +333,7 @@ class Completions(BaseSDK):
             max_tokens=max_tokens,
             presence_penalty=presence_penalty,
             seed=seed,
-            stop=stop,
+            stop=utils.unmarshal(stop, OptionalNullable[models.CreateCompletionStop]),
             temperature=temperature,
             top_p=top_p,
             n=n,

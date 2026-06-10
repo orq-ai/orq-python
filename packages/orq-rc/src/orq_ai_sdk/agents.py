@@ -8,7 +8,7 @@ from orq_ai_sdk.orq_responses import OrqResponses
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
@@ -44,19 +44,22 @@ class Agents(BaseSDK):
         system_prompt: OptionalNullable[str] = UNSET,
         fallback_models: Optional[
             Union[
-                List[models.FallbackModelConfiguration],
-                List[models.FallbackModelConfigurationTypedDict],
+                Iterable[models.FallbackModelConfiguration],
+                Iterable[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
-            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
+            Union[
+                Iterable[models.KnowledgeBases],
+                Iterable[models.KnowledgeBasesTypedDict],
+            ]
         ] = None,
         team_of_agents: Optional[
-            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
+            Union[Iterable[models.TeamOfAgents], Iterable[models.TeamOfAgentsTypedDict]]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
-        variables: Optional[Dict[str, Any]] = None,
+        skills: OptionalNullable[Iterable[str]] = UNSET,
+        variables: Optional[Mapping[str, Any]] = None,
         source: Optional[models.Source] = None,
         engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -120,15 +123,15 @@ class Agents(BaseSDK):
             settings=utils.get_pydantic_model(
                 settings, models.CreateAgentRequestSettings
             ),
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.KnowledgeBases]]
             ),
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
-            skills=skills,
-            variables=variables,
+            skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             source=source,
             engine=engine,
         )
@@ -206,19 +209,22 @@ class Agents(BaseSDK):
         system_prompt: OptionalNullable[str] = UNSET,
         fallback_models: Optional[
             Union[
-                List[models.FallbackModelConfiguration],
-                List[models.FallbackModelConfigurationTypedDict],
+                Iterable[models.FallbackModelConfiguration],
+                Iterable[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
-            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
+            Union[
+                Iterable[models.KnowledgeBases],
+                Iterable[models.KnowledgeBasesTypedDict],
+            ]
         ] = None,
         team_of_agents: Optional[
-            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
+            Union[Iterable[models.TeamOfAgents], Iterable[models.TeamOfAgentsTypedDict]]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
-        variables: Optional[Dict[str, Any]] = None,
+        skills: OptionalNullable[Iterable[str]] = UNSET,
+        variables: Optional[Mapping[str, Any]] = None,
         source: Optional[models.Source] = None,
         engine: Optional[models.Engine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -282,15 +288,15 @@ class Agents(BaseSDK):
             settings=utils.get_pydantic_model(
                 settings, models.CreateAgentRequestSettings
             ),
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.KnowledgeBases]]
             ),
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
-            skills=skills,
-            variables=variables,
+            skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             source=source,
             engine=engine,
         )
@@ -938,29 +944,29 @@ class Agents(BaseSDK):
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models.UpdateAgentFallbackModelConfiguration],
-                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.UpdateAgentFallbackModelConfiguration],
+                Iterable[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
             Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.UpdateAgentKnowledgeBases],
-                List[models.UpdateAgentKnowledgeBasesTypedDict],
+                Iterable[models.UpdateAgentKnowledgeBases],
+                Iterable[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.UpdateAgentTeamOfAgents],
-                List[models.UpdateAgentTeamOfAgentsTypedDict],
+                Iterable[models.UpdateAgentTeamOfAgents],
+                Iterable[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
-        variables: Optional[Dict[str, Any]] = None,
+        skills: OptionalNullable[Iterable[str]] = UNSET,
+        variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -1036,15 +1042,15 @@ class Agents(BaseSDK):
                     settings, Optional[models.UpdateAgentSettings]
                 ),
                 path=path,
-                memory_stores=memory_stores,
+                memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
                 knowledge_bases=utils.get_pydantic_model(
                     knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
                 ),
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                skills=skills,
-                variables=variables,
+                skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 engine=engine,
                 version_increment=version_increment,
                 version_description=version_description,
@@ -1134,29 +1140,29 @@ class Agents(BaseSDK):
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models.UpdateAgentFallbackModelConfiguration],
-                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.UpdateAgentFallbackModelConfiguration],
+                Iterable[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
             Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.UpdateAgentKnowledgeBases],
-                List[models.UpdateAgentKnowledgeBasesTypedDict],
+                Iterable[models.UpdateAgentKnowledgeBases],
+                Iterable[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.UpdateAgentTeamOfAgents],
-                List[models.UpdateAgentTeamOfAgentsTypedDict],
+                Iterable[models.UpdateAgentTeamOfAgents],
+                Iterable[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        skills: OptionalNullable[List[str]] = UNSET,
-        variables: Optional[Dict[str, Any]] = None,
+        skills: OptionalNullable[Iterable[str]] = UNSET,
+        variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -1232,15 +1238,15 @@ class Agents(BaseSDK):
                     settings, Optional[models.UpdateAgentSettings]
                 ),
                 path=path,
-                memory_stores=memory_stores,
+                memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
                 knowledge_bases=utils.get_pydantic_model(
                     knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
                 ),
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                skills=skills,
-                variables=variables,
+                skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 engine=engine,
                 version_increment=version_increment,
                 version_description=version_description,
@@ -1322,7 +1328,7 @@ class Agents(BaseSDK):
             models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.InvokeAgentIdentity, models.InvokeAgentIdentityTypedDict]
         ] = None,
@@ -1335,7 +1341,7 @@ class Agents(BaseSDK):
         memory: Optional[
             Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
@@ -1386,7 +1392,7 @@ class Agents(BaseSDK):
             request_body=models.InvokeAgentRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.InvokeAgentIdentity]
                 ),
@@ -1399,7 +1405,7 @@ class Agents(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.InvokeAgentMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
@@ -1476,7 +1482,7 @@ class Agents(BaseSDK):
             models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.InvokeAgentIdentity, models.InvokeAgentIdentityTypedDict]
         ] = None,
@@ -1489,7 +1495,7 @@ class Agents(BaseSDK):
         memory: Optional[
             Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.InvokeAgentEngine] = None,
         configuration: Optional[
             Union[
@@ -1540,7 +1546,7 @@ class Agents(BaseSDK):
             request_body=models.InvokeAgentRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.InvokeAgentIdentity]
                 ),
@@ -1553,7 +1559,7 @@ class Agents(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.InvokeAgentMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.InvokeAgentConfiguration]
@@ -1638,11 +1644,11 @@ class Agents(BaseSDK):
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models.RunAgentFallbackModelConfiguration],
-                List[models.RunAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.RunAgentFallbackModelConfiguration],
+                Iterable[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.RunAgentIdentity, models.RunAgentIdentityTypedDict]
         ] = None,
@@ -1657,20 +1663,20 @@ class Agents(BaseSDK):
         ] = None,
         description: Optional[str] = None,
         system_prompt: OptionalNullable[str] = UNSET,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.RunAgentKnowledgeBases],
-                List[models.RunAgentKnowledgeBasesTypedDict],
+                Iterable[models.RunAgentKnowledgeBases],
+                Iterable[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.RunAgentTeamOfAgents],
-                List[models.RunAgentTeamOfAgentsTypedDict],
+                Iterable[models.RunAgentTeamOfAgents],
+                Iterable[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1735,7 +1741,7 @@ class Agents(BaseSDK):
             role=role,
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.RunAgentIdentity]
             ),
@@ -1745,7 +1751,7 @@ class Agents(BaseSDK):
             path=path,
             description=description,
             system_prompt=system_prompt,
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.RunAgentKnowledgeBases]]
             ),
@@ -1753,7 +1759,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.RunAgentTeamOfAgents]]
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             engine=engine,
         )
 
@@ -1830,11 +1836,11 @@ class Agents(BaseSDK):
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models.RunAgentFallbackModelConfiguration],
-                List[models.RunAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.RunAgentFallbackModelConfiguration],
+                Iterable[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.RunAgentIdentity, models.RunAgentIdentityTypedDict]
         ] = None,
@@ -1849,20 +1855,20 @@ class Agents(BaseSDK):
         ] = None,
         description: Optional[str] = None,
         system_prompt: OptionalNullable[str] = UNSET,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.RunAgentKnowledgeBases],
-                List[models.RunAgentKnowledgeBasesTypedDict],
+                Iterable[models.RunAgentKnowledgeBases],
+                Iterable[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.RunAgentTeamOfAgents],
-                List[models.RunAgentTeamOfAgentsTypedDict],
+                Iterable[models.RunAgentTeamOfAgents],
+                Iterable[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.RunAgentEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1927,7 +1933,7 @@ class Agents(BaseSDK):
             role=role,
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.RunAgentIdentity]
             ),
@@ -1937,7 +1943,7 @@ class Agents(BaseSDK):
             path=path,
             description=description,
             system_prompt=system_prompt,
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.RunAgentKnowledgeBases]]
             ),
@@ -1945,7 +1951,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.RunAgentTeamOfAgents]]
             ),
             settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             engine=engine,
         )
 
@@ -2026,11 +2032,11 @@ class Agents(BaseSDK):
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models.StreamRunAgentFallbackModelConfiguration],
-                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.StreamRunAgentFallbackModelConfiguration],
+                Iterable[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.StreamRunAgentIdentity, models.StreamRunAgentIdentityTypedDict]
         ] = None,
@@ -2045,20 +2051,20 @@ class Agents(BaseSDK):
         ] = None,
         description: Optional[str] = None,
         system_prompt: OptionalNullable[str] = UNSET,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.StreamRunAgentKnowledgeBases],
-                List[models.StreamRunAgentKnowledgeBasesTypedDict],
+                Iterable[models.StreamRunAgentKnowledgeBases],
+                Iterable[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.StreamRunAgentTeamOfAgents],
-                List[models.StreamRunAgentTeamOfAgentsTypedDict],
+                Iterable[models.StreamRunAgentTeamOfAgents],
+                Iterable[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2127,7 +2133,7 @@ class Agents(BaseSDK):
             role=role,
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.StreamRunAgentIdentity]
             ),
@@ -2143,7 +2149,7 @@ class Agents(BaseSDK):
             path=path,
             description=description,
             system_prompt=system_prompt,
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.StreamRunAgentKnowledgeBases]]
             ),
@@ -2151,7 +2157,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.StreamRunAgentTeamOfAgents]]
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
@@ -2251,11 +2257,11 @@ class Agents(BaseSDK):
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models.StreamRunAgentFallbackModelConfiguration],
-                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
+                Iterable[models.StreamRunAgentFallbackModelConfiguration],
+                Iterable[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.StreamRunAgentIdentity, models.StreamRunAgentIdentityTypedDict]
         ] = None,
@@ -2270,20 +2276,20 @@ class Agents(BaseSDK):
         ] = None,
         description: Optional[str] = None,
         system_prompt: OptionalNullable[str] = UNSET,
-        memory_stores: Optional[List[str]] = None,
+        memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models.StreamRunAgentKnowledgeBases],
-                List[models.StreamRunAgentKnowledgeBasesTypedDict],
+                Iterable[models.StreamRunAgentKnowledgeBases],
+                Iterable[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models.StreamRunAgentTeamOfAgents],
-                List[models.StreamRunAgentTeamOfAgentsTypedDict],
+                Iterable[models.StreamRunAgentTeamOfAgents],
+                Iterable[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.StreamRunAgentEngine] = "text",
         stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2352,7 +2358,7 @@ class Agents(BaseSDK):
             role=role,
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.StreamRunAgentIdentity]
             ),
@@ -2368,7 +2374,7 @@ class Agents(BaseSDK):
             path=path,
             description=description,
             system_prompt=system_prompt,
-            memory_stores=memory_stores,
+            memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.StreamRunAgentKnowledgeBases]]
             ),
@@ -2376,7 +2382,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.StreamRunAgentTeamOfAgents]]
             ),
             settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             engine=engine,
             stream_timeout_seconds=stream_timeout_seconds,
         )
@@ -2464,7 +2470,7 @@ class Agents(BaseSDK):
             models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.StreamAgentIdentity, models.StreamAgentIdentityTypedDict]
         ] = None,
@@ -2477,7 +2483,7 @@ class Agents(BaseSDK):
         memory: Optional[
             Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
@@ -2530,7 +2536,7 @@ class Agents(BaseSDK):
             request_body=models.StreamAgentRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.StreamAgentIdentity]
                 ),
@@ -2543,7 +2549,7 @@ class Agents(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.StreamAgentMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]
@@ -2637,7 +2643,7 @@ class Agents(BaseSDK):
             models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[models.StreamAgentIdentity, models.StreamAgentIdentityTypedDict]
         ] = None,
@@ -2650,7 +2656,7 @@ class Agents(BaseSDK):
         memory: Optional[
             Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.StreamAgentEngine] = None,
         configuration: Optional[
             Union[
@@ -2703,7 +2709,7 @@ class Agents(BaseSDK):
             request_body=models.StreamAgentRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.StreamAgentIdentity]
                 ),
@@ -2716,7 +2722,7 @@ class Agents(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.StreamAgentMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.StreamAgentConfiguration]

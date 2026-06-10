@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Datasets(BaseSDK):
@@ -1174,8 +1174,8 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models.CreateDatasetItemRequestBody],
-                List[models.CreateDatasetItemRequestBodyTypedDict],
+                Iterable[models.CreateDatasetItemRequestBody],
+                Iterable[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1280,8 +1280,8 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models.CreateDatasetItemRequestBody],
-                List[models.CreateDatasetItemRequestBodyTypedDict],
+                Iterable[models.CreateDatasetItemRequestBody],
+                Iterable[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1577,11 +1577,11 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models.UpdateDatapointMessages],
-                List[models.UpdateDatapointMessagesTypedDict],
+                Iterable[models.UpdateDatapointMessages],
+                Iterable[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1619,7 +1619,7 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             request_body=models.UpdateDatapointRequestBody(
-                inputs=inputs,
+                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.UpdateDatapointMessages]]
                 ),
@@ -1694,11 +1694,11 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models.UpdateDatapointMessages],
-                List[models.UpdateDatapointMessagesTypedDict],
+                Iterable[models.UpdateDatapointMessages],
+                Iterable[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1736,7 +1736,7 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             request_body=models.UpdateDatapointRequestBody(
-                inputs=inputs,
+                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.UpdateDatapointMessages]]
                 ),

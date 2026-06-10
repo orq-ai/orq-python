@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Transcriptions(BaseSDK):
@@ -23,12 +23,14 @@ class Transcriptions(BaseSDK):
         timestamps_granularity: Optional[models.TimestampsGranularity] = "word",
         temperature: Optional[float] = None,
         language: Optional[str] = None,
-        timestamp_granularities: Optional[List[models.TimestampGranularities]] = None,
+        timestamp_granularities: Optional[
+            Iterable[models.TimestampGranularities]
+        ] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateTranscriptionFallbacks],
-                List[models.CreateTranscriptionFallbacksTypedDict],
+                Iterable[models.CreateTranscriptionFallbacks],
+                Iterable[models.CreateTranscriptionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -111,7 +113,9 @@ class Transcriptions(BaseSDK):
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
             language=language,
-            timestamp_granularities=timestamp_granularities,
+            timestamp_granularities=utils.unmarshal(
+                timestamp_granularities, Optional[List[models.TimestampGranularities]]
+            ),
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]
@@ -213,12 +217,14 @@ class Transcriptions(BaseSDK):
         timestamps_granularity: Optional[models.TimestampsGranularity] = "word",
         temperature: Optional[float] = None,
         language: Optional[str] = None,
-        timestamp_granularities: Optional[List[models.TimestampGranularities]] = None,
+        timestamp_granularities: Optional[
+            Iterable[models.TimestampGranularities]
+        ] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateTranscriptionFallbacks],
-                List[models.CreateTranscriptionFallbacksTypedDict],
+                Iterable[models.CreateTranscriptionFallbacks],
+                Iterable[models.CreateTranscriptionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -301,7 +307,9 @@ class Transcriptions(BaseSDK):
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
             language=language,
-            timestamp_granularities=timestamp_granularities,
+            timestamp_granularities=utils.unmarshal(
+                timestamp_granularities, Optional[List[models.TimestampGranularities]]
+            ),
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]

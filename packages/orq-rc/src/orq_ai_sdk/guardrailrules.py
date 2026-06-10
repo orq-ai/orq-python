@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class GuardrailRules(BaseSDK):
@@ -20,7 +20,7 @@ class GuardrailRules(BaseSDK):
         search: Optional[str] = None,
         sort_by: Optional[models.SortBy] = None,
         enabled: OptionalNullable[bool] = UNSET,
-        guardrail_id: OptionalNullable[List[str]] = UNSET,
+        guardrail_id: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -64,7 +64,7 @@ class GuardrailRules(BaseSDK):
             search=search,
             sort_by=sort_by,
             enabled=enabled,
-            guardrail_id=guardrail_id,
+            guardrail_id=utils.unmarshal(guardrail_id, OptionalNullable[List[str]]),
         )
 
         req = self._build_request(
@@ -130,7 +130,7 @@ class GuardrailRules(BaseSDK):
         search: Optional[str] = None,
         sort_by: Optional[models.SortBy] = None,
         enabled: OptionalNullable[bool] = UNSET,
-        guardrail_id: OptionalNullable[List[str]] = UNSET,
+        guardrail_id: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -174,7 +174,7 @@ class GuardrailRules(BaseSDK):
             search=search,
             sort_by=sort_by,
             enabled=enabled,
-            guardrail_id=guardrail_id,
+            guardrail_id=utils.unmarshal(guardrail_id, OptionalNullable[List[str]]),
         )
 
         req = self._build_request_async(
@@ -240,7 +240,7 @@ class GuardrailRules(BaseSDK):
             Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
-            Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
+            Union[Iterable[models.GuardrailRef], Iterable[models.GuardrailRefTypedDict]]
         ] = UNSET,
         project_id: Optional[str] = None,
         timeout: Optional[int] = None,
@@ -358,7 +358,7 @@ class GuardrailRules(BaseSDK):
             Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: OptionalNullable[
-            Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
+            Union[Iterable[models.GuardrailRef], Iterable[models.GuardrailRefTypedDict]]
         ] = UNSET,
         project_id: Optional[str] = None,
         timeout: Optional[int] = None,
@@ -993,7 +993,7 @@ class GuardrailRules(BaseSDK):
             Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
-            Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
+            Union[Iterable[models.GuardrailRef], Iterable[models.GuardrailRefTypedDict]]
         ] = None,
         timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1117,7 +1117,7 @@ class GuardrailRules(BaseSDK):
             Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         guardrails: Optional[
-            Union[List[models.GuardrailRef], List[models.GuardrailRefTypedDict]]
+            Union[Iterable[models.GuardrailRef], Iterable[models.GuardrailRefTypedDict]]
         ] = None,
         timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

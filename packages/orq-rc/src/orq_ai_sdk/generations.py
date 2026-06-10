@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Generations(BaseSDK):
@@ -24,12 +24,12 @@ class Generations(BaseSDK):
         response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models.Style] = UNSET,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateImageFallbacks],
-                List[models.CreateImageFallbacksTypedDict],
+                Iterable[models.CreateImageFallbacks],
+                Iterable[models.CreateImageFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -107,7 +107,7 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
@@ -191,12 +191,12 @@ class Generations(BaseSDK):
         response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models.Style] = UNSET,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateImageFallbacks],
-                List[models.CreateImageFallbacksTypedDict],
+                Iterable[models.CreateImageFallbacks],
+                Iterable[models.CreateImageFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -274,7 +274,7 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]

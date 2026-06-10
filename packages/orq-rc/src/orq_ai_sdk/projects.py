@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional
 
 
 class Projects(BaseSDK):
@@ -204,7 +204,7 @@ class Projects(BaseSDK):
         self,
         *,
         name: str,
-        teams: Optional[List[str]] = None,
+        teams: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -238,7 +238,7 @@ class Projects(BaseSDK):
 
         request = models.CreateProjectRequest(
             name=name,
-            teams=teams,
+            teams=utils.unmarshal(teams, Optional[List[str]]),
             description=description,
         )
 
@@ -300,7 +300,7 @@ class Projects(BaseSDK):
         self,
         *,
         name: str,
-        teams: Optional[List[str]] = None,
+        teams: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -334,7 +334,7 @@ class Projects(BaseSDK):
 
         request = models.CreateProjectRequest(
             name=name,
-            teams=teams,
+            teams=utils.unmarshal(teams, Optional[List[str]]),
             description=description,
         )
 
@@ -745,7 +745,7 @@ class Projects(BaseSDK):
         *,
         project_id: str,
         name: Optional[str] = None,
-        teams: Optional[List[str]] = None,
+        teams: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -783,7 +783,7 @@ class Projects(BaseSDK):
             project_id=project_id,
             update_project_request=models.UpdateProjectRequest(
                 name=name,
-                teams=teams,
+                teams=utils.unmarshal(teams, Optional[List[str]]),
                 description=description,
             ),
         )
@@ -851,7 +851,7 @@ class Projects(BaseSDK):
         *,
         project_id: str,
         name: Optional[str] = None,
-        teams: Optional[List[str]] = None,
+        teams: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -889,7 +889,7 @@ class Projects(BaseSDK):
             project_id=project_id,
             update_project_request=models.UpdateProjectRequest(
                 name=name,
-                teams=teams,
+                teams=utils.unmarshal(teams, Optional[List[str]]),
                 description=description,
             ),
         )

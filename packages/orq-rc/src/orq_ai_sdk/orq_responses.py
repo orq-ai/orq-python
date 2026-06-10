@@ -22,7 +22,7 @@ class OrqResponses(BaseSDK):
         agent_key: str,
         message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[
                 models.CreateAgentResponseRequestIdentity,
@@ -42,7 +42,7 @@ class OrqResponses(BaseSDK):
                 models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
@@ -100,7 +100,7 @@ class OrqResponses(BaseSDK):
             request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.CreateAgentResponseRequestIdentity]
                 ),
@@ -111,7 +111,7 @@ class OrqResponses(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]
@@ -205,7 +205,7 @@ class OrqResponses(BaseSDK):
         agent_key: str,
         message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[
                 models.CreateAgentResponseRequestIdentity,
@@ -225,7 +225,7 @@ class OrqResponses(BaseSDK):
                 models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
@@ -283,7 +283,7 @@ class OrqResponses(BaseSDK):
             request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
-                variables=variables,
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
                     identity, Optional[models.CreateAgentResponseRequestIdentity]
                 ),
@@ -294,7 +294,7 @@ class OrqResponses(BaseSDK):
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.CreateAgentResponseRequestMemory]
                 ),
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
                     configuration, Optional[models.Configuration]

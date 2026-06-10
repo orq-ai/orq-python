@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Rerank(BaseSDK):
@@ -14,15 +14,15 @@ class Rerank(BaseSDK):
         self,
         *,
         query: str,
-        documents: List[str],
+        documents: Iterable[str],
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateRerankFallbacks],
-                List[models.CreateRerankFallbacksTypedDict],
+                Iterable[models.CreateRerankFallbacks],
+                Iterable[models.CreateRerankFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -84,7 +84,7 @@ class Rerank(BaseSDK):
 
         request = models.CreateRerankRequestBody(
             query=query,
-            documents=documents,
+            documents=utils.unmarshal(documents, List[str]),
             model=model,
             top_n=top_n,
             filename=filename,
@@ -161,15 +161,15 @@ class Rerank(BaseSDK):
         self,
         *,
         query: str,
-        documents: List[str],
+        documents: Iterable[str],
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateRerankFallbacks],
-                List[models.CreateRerankFallbacksTypedDict],
+                Iterable[models.CreateRerankFallbacks],
+                Iterable[models.CreateRerankFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -231,7 +231,7 @@ class Rerank(BaseSDK):
 
         request = models.CreateRerankRequestBody(
             query=query,
-            documents=documents,
+            documents=utils.unmarshal(documents, List[str]),
             model=model,
             top_n=top_n,
             filename=filename,

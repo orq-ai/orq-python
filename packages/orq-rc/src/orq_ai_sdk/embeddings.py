@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Embeddings(BaseSDK):
@@ -21,7 +21,10 @@ class Embeddings(BaseSDK):
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
         fallbacks: OptionalNullable[
-            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
         ] = UNSET,
         load_balancer: Optional[
             Union[
@@ -88,7 +91,7 @@ class Embeddings(BaseSDK):
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
-            input=input,
+            input=utils.unmarshal(input, models.CreateEmbeddingInput),
             load_balancer=utils.get_pydantic_model(
                 load_balancer, Optional[models.EmbeddingLoadBalancerConfig]
             ),
@@ -169,7 +172,10 @@ class Embeddings(BaseSDK):
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
         fallbacks: OptionalNullable[
-            Union[List[models.FallbackConfig], List[models.FallbackConfigTypedDict]]
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
         ] = UNSET,
         load_balancer: Optional[
             Union[
@@ -236,7 +242,7 @@ class Embeddings(BaseSDK):
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
-            input=input,
+            input=utils.unmarshal(input, models.CreateEmbeddingInput),
             load_balancer=utils.get_pydantic_model(
                 load_balancer, Optional[models.EmbeddingLoadBalancerConfig]
             ),

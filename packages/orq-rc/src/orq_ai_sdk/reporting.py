@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Reporting(BaseSDK):
@@ -18,9 +18,9 @@ class Reporting(BaseSDK):
         from_: datetime,
         to: datetime,
         grain: Optional[models.Grain] = None,
-        group_by: Optional[List[models.GroupBy]] = None,
+        group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
-            Union[List[models.Filter], List[models.FilterTypedDict]]
+            Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
         ] = None,
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
@@ -69,7 +69,7 @@ class Reporting(BaseSDK):
             from_=from_,
             to=to,
             grain=grain,
-            group_by=group_by,
+            group_by=utils.unmarshal(group_by, Optional[List[models.GroupBy]]),
             filters=utils.get_pydantic_model(filters, Optional[List[models.Filter]]),
             limit=limit,
             time_zone=time_zone,
@@ -137,9 +137,9 @@ class Reporting(BaseSDK):
         from_: datetime,
         to: datetime,
         grain: Optional[models.Grain] = None,
-        group_by: Optional[List[models.GroupBy]] = None,
+        group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
-            Union[List[models.Filter], List[models.FilterTypedDict]]
+            Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
         ] = None,
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
@@ -188,7 +188,7 @@ class Reporting(BaseSDK):
             from_=from_,
             to=to,
             grain=grain,
-            group_by=group_by,
+            group_by=utils.unmarshal(group_by, Optional[List[models.GroupBy]]),
             filters=utils.get_pydantic_model(filters, Optional[List[models.Filter]]),
             limit=limit,
             time_zone=time_zone,

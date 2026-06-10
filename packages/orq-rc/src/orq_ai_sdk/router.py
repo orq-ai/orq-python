@@ -14,7 +14,7 @@ from orq_ai_sdk.rerank import Rerank
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Router(BaseSDK):
@@ -51,7 +51,7 @@ class Router(BaseSDK):
         *,
         model: str,
         document: Union[models.Document, models.DocumentTypedDict],
-        pages: OptionalNullable[List[int]] = UNSET,
+        pages: OptionalNullable[Iterable[int]] = UNSET,
         ocr_settings: Optional[
             Union[models.OcrSettings, models.OcrSettingsTypedDict]
         ] = None,
@@ -87,7 +87,7 @@ class Router(BaseSDK):
         request = models.PostV2RouterOcrRequestBody(
             model=model,
             document=utils.get_pydantic_model(document, models.Document),
-            pages=pages,
+            pages=utils.unmarshal(pages, OptionalNullable[List[int]]),
             ocr_settings=utils.get_pydantic_model(
                 ocr_settings, Optional[models.OcrSettings]
             ),
@@ -152,7 +152,7 @@ class Router(BaseSDK):
         *,
         model: str,
         document: Union[models.Document, models.DocumentTypedDict],
-        pages: OptionalNullable[List[int]] = UNSET,
+        pages: OptionalNullable[Iterable[int]] = UNSET,
         ocr_settings: Optional[
             Union[models.OcrSettings, models.OcrSettingsTypedDict]
         ] = None,
@@ -188,7 +188,7 @@ class Router(BaseSDK):
         request = models.PostV2RouterOcrRequestBody(
             model=model,
             document=utils.get_pydantic_model(document, models.Document),
-            pages=pages,
+            pages=utils.unmarshal(pages, OptionalNullable[List[int]]),
             ocr_settings=utils.get_pydantic_model(
                 ocr_settings, Optional[models.OcrSettings]
             ),

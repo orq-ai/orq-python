@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -20,11 +20,11 @@ class OrqCompletions(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models.CreateChatCompletionMessages],
-            List[models.CreateChatCompletionMessagesTypedDict],
+            Iterable[models.CreateChatCompletionMessages],
+            Iterable[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
@@ -71,8 +71,8 @@ class OrqCompletions(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models.CreateChatCompletionTools],
-                List[models.CreateChatCompletionToolsTypedDict],
+                Iterable[models.CreateChatCompletionTools],
+                Iterable[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
@@ -83,18 +83,18 @@ class OrqCompletions(BaseSDK):
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models.CreateChatCompletionModalities]
+            Iterable[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models.CreateChatCompletionGuardrails],
-                List[models.CreateChatCompletionGuardrailsTypedDict],
+                Iterable[models.CreateChatCompletionGuardrails],
+                Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateChatCompletionFallbacks],
-                List[models.CreateChatCompletionFallbacksTypedDict],
+                Iterable[models.CreateChatCompletionFallbacks],
+                Iterable[models.CreateChatCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -121,7 +121,7 @@ class OrqCompletions(BaseSDK):
                 models.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         cache_control: Optional[
             Union[
                 models.CreateChatCompletionCacheControl,
@@ -215,7 +215,7 @@ class OrqCompletions(BaseSDK):
                 messages, List[models.CreateChatCompletionMessages]
             ),
             model=model,
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
             audio=utils.get_pydantic_model(
                 audio, OptionalNullable[models.CreateChatCompletionAudio]
@@ -233,7 +233,9 @@ class OrqCompletions(BaseSDK):
             reasoning_effort=reasoning_effort,
             verbosity=verbosity,
             seed=seed,
-            stop=stop,
+            stop=utils.unmarshal(
+                stop, OptionalNullable[models.CreateChatCompletionStop]
+            ),
             stream_options=utils.get_pydantic_model(
                 stream_options,
                 OptionalNullable[models.CreateChatCompletionStreamOptions],
@@ -251,7 +253,10 @@ class OrqCompletions(BaseSDK):
                 tool_choice, Optional[models.CreateChatCompletionToolChoice]
             ),
             parallel_tool_calls=parallel_tool_calls,
-            modalities=modalities,
+            modalities=utils.unmarshal(
+                modalities,
+                OptionalNullable[List[models.CreateChatCompletionModalities]],
+            ),
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
             ),
@@ -270,7 +275,7 @@ class OrqCompletions(BaseSDK):
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateChatCompletionCacheControl]
             ),
@@ -354,11 +359,11 @@ class OrqCompletions(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models.CreateChatCompletionMessages],
-            List[models.CreateChatCompletionMessagesTypedDict],
+            Iterable[models.CreateChatCompletionMessages],
+            Iterable[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
@@ -405,8 +410,8 @@ class OrqCompletions(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models.CreateChatCompletionTools],
-                List[models.CreateChatCompletionToolsTypedDict],
+                Iterable[models.CreateChatCompletionTools],
+                Iterable[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
@@ -417,18 +422,18 @@ class OrqCompletions(BaseSDK):
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models.CreateChatCompletionModalities]
+            Iterable[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models.CreateChatCompletionGuardrails],
-                List[models.CreateChatCompletionGuardrailsTypedDict],
+                Iterable[models.CreateChatCompletionGuardrails],
+                Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         fallbacks: Optional[
             Union[
-                List[models.CreateChatCompletionFallbacks],
-                List[models.CreateChatCompletionFallbacksTypedDict],
+                Iterable[models.CreateChatCompletionFallbacks],
+                Iterable[models.CreateChatCompletionFallbacksTypedDict],
             ]
         ] = None,
         retry: Optional[
@@ -455,7 +460,7 @@ class OrqCompletions(BaseSDK):
                 models.CreateChatCompletionTimeoutTypedDict,
             ]
         ] = None,
-        variables: Optional[Dict[str, Any]] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         cache_control: Optional[
             Union[
                 models.CreateChatCompletionCacheControl,
@@ -549,7 +554,7 @@ class OrqCompletions(BaseSDK):
                 messages, List[models.CreateChatCompletionMessages]
             ),
             model=model,
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
             audio=utils.get_pydantic_model(
                 audio, OptionalNullable[models.CreateChatCompletionAudio]
@@ -567,7 +572,9 @@ class OrqCompletions(BaseSDK):
             reasoning_effort=reasoning_effort,
             verbosity=verbosity,
             seed=seed,
-            stop=stop,
+            stop=utils.unmarshal(
+                stop, OptionalNullable[models.CreateChatCompletionStop]
+            ),
             stream_options=utils.get_pydantic_model(
                 stream_options,
                 OptionalNullable[models.CreateChatCompletionStreamOptions],
@@ -585,7 +592,10 @@ class OrqCompletions(BaseSDK):
                 tool_choice, Optional[models.CreateChatCompletionToolChoice]
             ),
             parallel_tool_calls=parallel_tool_calls,
-            modalities=modalities,
+            modalities=utils.unmarshal(
+                modalities,
+                OptionalNullable[List[models.CreateChatCompletionModalities]],
+            ),
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
             ),
@@ -604,7 +614,7 @@ class OrqCompletions(BaseSDK):
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
-            variables=variables,
+            variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateChatCompletionCacheControl]
             ),

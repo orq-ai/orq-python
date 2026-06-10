@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional
 
 
 class Skills(BaseSDK):
@@ -207,7 +207,7 @@ class Skills(BaseSDK):
         *,
         display_name: str,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         path: Optional[str] = None,
         project_id: Optional[str] = None,
         instructions: Optional[str] = None,
@@ -247,7 +247,7 @@ class Skills(BaseSDK):
         request = models.CreateSkillRequest(
             display_name=display_name,
             description=description,
-            tags=tags,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
             path=path,
             project_id=project_id,
             instructions=instructions,
@@ -312,7 +312,7 @@ class Skills(BaseSDK):
         *,
         display_name: str,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         path: Optional[str] = None,
         project_id: Optional[str] = None,
         instructions: Optional[str] = None,
@@ -352,7 +352,7 @@ class Skills(BaseSDK):
         request = models.CreateSkillRequest(
             display_name=display_name,
             description=description,
-            tags=tags,
+            tags=utils.unmarshal(tags, Optional[List[str]]),
             path=path,
             project_id=project_id,
             instructions=instructions,
@@ -768,7 +768,7 @@ class Skills(BaseSDK):
         skill_id: str,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -814,7 +814,7 @@ class Skills(BaseSDK):
             update_skill_request=models.UpdateSkillRequest(
                 display_name=display_name,
                 description=description,
-                tags=tags,
+                tags=utils.unmarshal(tags, Optional[List[str]]),
                 path=path,
                 instructions=instructions,
                 project_id=project_id,
@@ -885,7 +885,7 @@ class Skills(BaseSDK):
         skill_id: str,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[Iterable[str]] = None,
         path: Optional[str] = None,
         instructions: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -931,7 +931,7 @@ class Skills(BaseSDK):
             update_skill_request=models.UpdateSkillRequest(
                 display_name=display_name,
                 description=description,
-                tags=tags,
+                tags=utils.unmarshal(tags, Optional[List[str]]),
                 path=path,
                 instructions=instructions,
                 project_id=project_id,

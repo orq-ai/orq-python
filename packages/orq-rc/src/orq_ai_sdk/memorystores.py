@@ -1566,7 +1566,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         memory_entity_id: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1601,7 +1601,7 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             memory_entity_id=memory_entity_id,
             request_body=models.UpdateMemoryRequestBody(
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 
@@ -1668,7 +1668,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         memory_entity_id: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1703,7 +1703,7 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             memory_entity_id=memory_entity_id,
             request_body=models.UpdateMemoryRequestBody(
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 
@@ -2175,7 +2175,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_entity_id: str,
         text: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2212,7 +2212,7 @@ class MemoryStores(BaseSDK):
             memory_entity_id=memory_entity_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 
@@ -2282,7 +2282,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_entity_id: str,
         text: str,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2319,7 +2319,7 @@ class MemoryStores(BaseSDK):
             memory_entity_id=memory_entity_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 
@@ -2580,7 +2580,7 @@ class MemoryStores(BaseSDK):
         memory_entity_id: str,
         document_id: str,
         text: Optional[str] = None,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2619,7 +2619,7 @@ class MemoryStores(BaseSDK):
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 
@@ -2690,7 +2690,7 @@ class MemoryStores(BaseSDK):
         memory_entity_id: str,
         document_id: str,
         text: Optional[str] = None,
-        metadata: Optional[Dict[str, str]] = None,
+        metadata: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2729,7 +2729,7 @@ class MemoryStores(BaseSDK):
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
-                metadata=metadata,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
         )
 

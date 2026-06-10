@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class RoutingRules(BaseSDK):
@@ -19,7 +19,7 @@ class RoutingRules(BaseSDK):
         project_id: Optional[str] = None,
         search: Optional[str] = None,
         enabled: OptionalNullable[bool] = UNSET,
-        model: OptionalNullable[List[str]] = UNSET,
+        model: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -61,7 +61,7 @@ class RoutingRules(BaseSDK):
             project_id=project_id,
             search=search,
             enabled=enabled,
-            model=model,
+            model=utils.unmarshal(model, OptionalNullable[List[str]]),
         )
 
         req = self._build_request(
@@ -124,7 +124,7 @@ class RoutingRules(BaseSDK):
         project_id: Optional[str] = None,
         search: Optional[str] = None,
         enabled: OptionalNullable[bool] = UNSET,
-        model: OptionalNullable[List[str]] = UNSET,
+        model: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -166,7 +166,7 @@ class RoutingRules(BaseSDK):
             project_id=project_id,
             search=search,
             enabled=enabled,
-            model=model,
+            model=utils.unmarshal(model, OptionalNullable[List[str]]),
         )
 
         req = self._build_request_async(
