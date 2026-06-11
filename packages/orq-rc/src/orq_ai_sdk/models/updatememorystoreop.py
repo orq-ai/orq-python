@@ -18,7 +18,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class UpdateMemoryStoreRequestBodyTypedDict(TypedDict):
     description: NotRequired[str]
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
-    ttl: NotRequired[float]
+    ttl: NotRequired[Nullable[float]]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
     path: NotRequired[str]
 
@@ -27,7 +27,7 @@ class UpdateMemoryStoreRequestBody(BaseModel):
     description: Optional[str] = None
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
 
-    ttl: Optional[float] = None
+    ttl: OptionalNullable[float] = UNSET
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
     path: Optional[str] = None
@@ -35,15 +35,24 @@ class UpdateMemoryStoreRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["description", "ttl", "path"])
+        nullable_fields = set(["ttl"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -111,7 +120,7 @@ class UpdateMemoryStoreResponseBodyTypedDict(TypedDict):
     r"""The user ID of the creator"""
     updated_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the last updater"""
-    ttl: NotRequired[float]
+    ttl: NotRequired[Nullable[float]]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
@@ -141,13 +150,13 @@ class UpdateMemoryStoreResponseBody(BaseModel):
     updated_by_id: OptionalNullable[str] = UNSET
     r"""The user ID of the last updater"""
 
-    ttl: Optional[float] = None
+    ttl: OptionalNullable[float] = UNSET
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created_by_id", "updated_by_id", "ttl"])
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "ttl"])
         serialized = handler(self)
         m = {}
 
