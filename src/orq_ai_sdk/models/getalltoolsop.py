@@ -176,9 +176,9 @@ class DataCodeExecutionToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -214,16 +214,16 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD3E8RRP0VHKJDJD9A0T"
+        "tool_01KTTQS0JENAT2W13RQ72TH3VF"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[GetAllToolsDataToolsResponse200Status] = "live"
@@ -234,15 +234,24 @@ class DataCodeExecutionTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -332,7 +341,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KTRKVD3CZH9BGHZBJ3J03MPX"
+    id: Optional[str] = "01KTTQS0JDCRN59HQK4VEYH1EW"
 
     description: Optional[str] = None
 
@@ -438,9 +447,9 @@ class DataMCPToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -476,16 +485,16 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD3BHZ0JRN1GD75ZPXQB"
+        "tool_01KTTQS0JCHAD9V1GYAJM1R6BW"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[GetAllToolsDataToolsResponseStatus] = "live"
@@ -496,15 +505,24 @@ class DataMCPTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -726,9 +744,9 @@ class DataHTTPToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -764,16 +782,16 @@ class DataHTTPTool(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD38VMKA7KZNENTAA834"
+        "tool_01KTTQS0JATNWESEAFMB0GJVE9"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[GetAllToolsDataToolsStatus] = "live"
@@ -784,15 +802,24 @@ class DataHTTPTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -911,9 +938,9 @@ class DataJSONSchemaToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[GetAllToolsDataStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -949,16 +976,16 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD3538F6RZ37BTEXVHWK"
+        "tool_01KTTQS0J87RX3PH93MMAMYMWT"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[GetAllToolsDataStatus] = "live"
@@ -969,15 +996,24 @@ class DataJSONSchemaTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1100,9 +1136,9 @@ class DataFunctionToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[DataStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -1138,16 +1174,16 @@ class DataFunctionTool(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD33PVYVWGW21GMCT1PW"
+        "tool_01KTTQS0J6ZBK86XFKKEHHW7VQ"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[DataStatus] = "live"
@@ -1158,15 +1194,24 @@ class DataFunctionTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

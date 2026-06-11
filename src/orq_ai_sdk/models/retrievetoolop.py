@@ -138,9 +138,9 @@ class RetrieveToolResponseBodyCodeExecutionToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -176,16 +176,16 @@ class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD5AT45KFP8C18A3P2GG"
+        "tool_01KTTQS0MWX7QTB1YZYZGQKX8M"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus] = (
@@ -198,15 +198,24 @@ class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -298,7 +307,7 @@ class RetrieveToolResponseBodyTools(BaseModel):
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KTRKVD59SZ6RG5K4VTCFRRSK"
+    id: Optional[str] = "01KTTQS0MTQ8S1A3VSYP6M7RWK"
 
     description: Optional[str] = None
 
@@ -404,9 +413,9 @@ class RetrieveToolResponseBodyMCPToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[RetrieveToolResponseBodyToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -442,16 +451,16 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD58VN44GH1H516KXVHC"
+        "tool_01KTTQS0MS6ESYA075QCA0P72D"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[RetrieveToolResponseBodyToolsResponse200Status] = "live"
@@ -462,15 +471,24 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -695,9 +713,9 @@ class RetrieveToolResponseBodyHTTPToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[RetrieveToolResponseBodyToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -733,16 +751,16 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD56KJMS8XB2856KNJZA"
+        "tool_01KTTQS0MPG3A1FWM0B3SRQYAP"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[RetrieveToolResponseBodyToolsResponseStatus] = "live"
@@ -753,15 +771,24 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -880,9 +907,9 @@ class RetrieveToolResponseBodyJSONSchemaToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[RetrieveToolResponseBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -918,16 +945,16 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD55E7ZFCNJSN66FV3MQ"
+        "tool_01KTTQS0MNPE1JE2BFC93NX7GQ"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[RetrieveToolResponseBodyToolsStatus] = "live"
@@ -938,15 +965,24 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1069,9 +1105,9 @@ class RetrieveToolResponseBodyFunctionToolTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[str]
+    updated_by_id: NotRequired[Nullable[str]]
     r"""The id of the user that last updated the tool"""
     status: NotRequired[RetrieveToolResponseBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
@@ -1107,16 +1143,16 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KTRKVD53DT4MJCFWW4DWJ9KM"
+        "tool_01KTTQS0MKXDEPAW41KXSWD2PM"
     )
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that created the tool"""
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
     r"""The id of the user that last updated the tool"""
 
     status: Optional[RetrieveToolResponseBodyStatus] = "live"
@@ -1127,15 +1163,24 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
         optional_fields = set(
             ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
         )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

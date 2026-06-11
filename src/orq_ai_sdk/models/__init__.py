@@ -4495,6 +4495,11 @@ if TYPE_CHECKING:
         GuardrailRuleListRequestTypedDict,
         GuardrailRuleListResponseBody,
         GuardrailRuleListResponseBodyTypedDict,
+        SortBy,
+    )
+    from .guardrailrulelistusedguardrailsop import (
+        GuardrailRuleListUsedGuardrailsResponseBody,
+        GuardrailRuleListUsedGuardrailsResponseBodyTypedDict,
     )
     from .guardrailruleupdateop import (
         GuardrailRuleUpdateRequest,
@@ -12333,6 +12338,8 @@ __all__ = [
     "GuardrailRuleListRequestTypedDict",
     "GuardrailRuleListResponseBody",
     "GuardrailRuleListResponseBodyTypedDict",
+    "GuardrailRuleListUsedGuardrailsResponseBody",
+    "GuardrailRuleListUsedGuardrailsResponseBodyTypedDict",
     "GuardrailRuleTypedDict",
     "GuardrailRuleUpdateRequest",
     "GuardrailRuleUpdateRequestBody",
@@ -14558,6 +14565,7 @@ __all__ = [
     "SkillUpdateRequest",
     "SkillUpdateRequestTypedDict",
     "Sort",
+    "SortBy",
     "Source",
     "SpecificFunction",
     "SpecificFunctionTypedDict",
@@ -20493,6 +20501,9 @@ _dynamic_imports: dict[str, str] = {
     "GuardrailRuleListRequestTypedDict": ".guardrailrulelistop",
     "GuardrailRuleListResponseBody": ".guardrailrulelistop",
     "GuardrailRuleListResponseBodyTypedDict": ".guardrailrulelistop",
+    "SortBy": ".guardrailrulelistop",
+    "GuardrailRuleListUsedGuardrailsResponseBody": ".guardrailrulelistusedguardrailsop",
+    "GuardrailRuleListUsedGuardrailsResponseBodyTypedDict": ".guardrailrulelistusedguardrailsop",
     "GuardrailRuleUpdateRequest": ".guardrailruleupdateop",
     "GuardrailRuleUpdateRequestBody": ".guardrailruleupdateop",
     "GuardrailRuleUpdateRequestBodyTypedDict": ".guardrailruleupdateop",
