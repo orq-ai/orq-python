@@ -111,9 +111,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-11T05:06:49.112Z"
+    created: Optional[str] = "2026-06-11T09:48:20.170Z"
 
-    updated: Optional[str] = "2026-06-11T05:06:49.112Z"
+    updated: Optional[str] = "2026-06-11T09:48:20.170Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -341,9 +341,9 @@ class CreateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-11T05:06:49.112Z"
+    created: Optional[str] = "2026-06-11T09:48:20.170Z"
 
-    updated: Optional[str] = "2026-06-11T05:06:49.112Z"
+    updated: Optional[str] = "2026-06-11T09:48:20.170Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -544,9 +544,9 @@ class JSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-11T05:06:49.112Z"
+    created: Optional[str] = "2026-06-11T09:48:20.170Z"
 
-    updated: Optional[str] = "2026-06-11T05:06:49.112Z"
+    updated: Optional[str] = "2026-06-11T09:48:20.170Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -990,9 +990,9 @@ class CreateEvalLLM2(BaseModel):
 
     jury: CreateEvalLLMJury
 
-    created: Optional[str] = "2026-06-11T05:06:49.112Z"
+    created: Optional[str] = "2026-06-11T09:48:20.170Z"
 
-    updated: Optional[str] = "2026-06-11T05:06:49.112Z"
+    updated: Optional[str] = "2026-06-11T09:48:20.170Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1297,9 +1297,9 @@ class CreateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-11T05:06:49.112Z"
+    created: Optional[str] = "2026-06-11T09:48:20.170Z"
 
-    updated: Optional[str] = "2026-06-11T05:06:49.112Z"
+    updated: Optional[str] = "2026-06-11T09:48:20.170Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
