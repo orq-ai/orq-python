@@ -6209,6 +6209,10 @@ if TYPE_CHECKING:
         RoutingRuleListResponseBody,
         RoutingRuleListResponseBodyTypedDict,
     )
+    from .routingrulelistusedmodelsop import (
+        RoutingRuleListUsedModelsResponseBody,
+        RoutingRuleListUsedModelsResponseBodyTypedDict,
+    )
     from .routingruleupdateop import (
         RoutingRuleUpdateRequest,
         RoutingRuleUpdateRequestBody,
@@ -14248,6 +14252,8 @@ __all__ = [
     "RoutingRuleListRequestTypedDict",
     "RoutingRuleListResponseBody",
     "RoutingRuleListResponseBodyTypedDict",
+    "RoutingRuleListUsedModelsResponseBody",
+    "RoutingRuleListUsedModelsResponseBodyTypedDict",
     "RoutingRuleTypedDict",
     "RoutingRuleUpdateRequest",
     "RoutingRuleUpdateRequestBody",
@@ -22017,6 +22023,8 @@ _dynamic_imports: dict[str, str] = {
     "RoutingRuleListRequestTypedDict": ".routingrulelistop",
     "RoutingRuleListResponseBody": ".routingrulelistop",
     "RoutingRuleListResponseBodyTypedDict": ".routingrulelistop",
+    "RoutingRuleListUsedModelsResponseBody": ".routingrulelistusedmodelsop",
+    "RoutingRuleListUsedModelsResponseBodyTypedDict": ".routingrulelistusedmodelsop",
     "RoutingRuleUpdateRequest": ".routingruleupdateop",
     "RoutingRuleUpdateRequestBody": ".routingruleupdateop",
     "RoutingRuleUpdateRequestBodyTypedDict": ".routingruleupdateop",

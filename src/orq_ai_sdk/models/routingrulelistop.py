@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .routingrule import RoutingRule, RoutingRuleTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import List, Optional
@@ -17,6 +23,12 @@ class RoutingRuleListRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination."""
     project_id: NotRequired[str]
     r"""Optional filter by project ID."""
+    search: NotRequired[str]
+    r"""Optional search term matched against name and description."""
+    enabled: NotRequired[Nullable[bool]]
+    r"""Filter by enabled status."""
+    model: NotRequired[Nullable[List[str]]]
+    r"""Filter by referenced model refs (comma-separated)."""
 
 
 class RoutingRuleListRequest(BaseModel):
@@ -43,20 +55,55 @@ class RoutingRuleListRequest(BaseModel):
     ] = None
     r"""Optional filter by project ID."""
 
+    search: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = None
+    r"""Optional search term matched against name and description."""
+
+    enabled: Annotated[
+        OptionalNullable[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = UNSET
+    r"""Filter by enabled status."""
+
+    model: Annotated[
+        OptionalNullable[List[str]],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
+    ] = UNSET
+    r"""Filter by referenced model refs (comma-separated)."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "project_id"]
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "project_id",
+                "search",
+                "enabled",
+                "model",
+            ]
         )
+        nullable_fields = set(["enabled", "model"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
