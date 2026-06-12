@@ -5,15 +5,15 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.777.2
   generationVersion: 2.903.5
-  releaseVersion: 4.10.20
-  configChecksum: f41a38b4a7baa93ce4f648ce0a6d01a4
+  releaseVersion: 4.10.21
+  configChecksum: 6dab32e4452c372d8b64835f27dd64ba
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
 persistentEdits:
-  generation_id: 67d587dc-7541-40f4-b4ac-5c1735a31fd8
-  pristine_commit_hash: 7953d2ee71315400665798662b91d1fadb03f7f0
-  pristine_tree_hash: 8dc43550a462da4bb1c5dadbaca57e0800e0d198
+  generation_id: 8bf95a21-76d1-4c3d-be65-847897163ea0
+  pristine_commit_hash: ac50373ff6a5d8af5e28d81e134da0c5a6973230
+  pristine_tree_hash: 2608384b770ff6700ad16cf984f56dfaa96a2189
 features:
   python:
     acceptHeaders: 3.0.0
@@ -19197,8 +19197,8 @@ trackedFiles:
     pristine_git_object: e91ced7260c5a1b204066af4829ef6a9761a224f
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:5da1332823ea327ed10e69920f3a01cfa57d8b1e
-    pristine_git_object: 7b539335b212d447dde86c401af58e30dddd77e9
+    last_write_checksum: sha1:29d0ab70faa3d315d5ef98727a33056cef89b2f7
+    pristine_git_object: 31e1f56fe696a4a821cc5d1066f94b4ff9676de2
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:3a32c3480026facbb2d064639e813bc6f65b8921
@@ -19225,8 +19225,8 @@ trackedFiles:
     pristine_git_object: 926d24b0d4a20482c2ef5fa62b38269ae2524b64
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:acc1422f7f5b90448559e94f8fe8de053c31281d
-    pristine_git_object: bf6e04cbc066bd8883e10be99fdc017d6e557d2d
+    last_write_checksum: sha1:26c0962081b6b26be8270f4eb68ac380a021d311
+    pristine_git_object: a6909993d54787bcf640569f84c9f60f6e1b2e55
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
     last_write_checksum: sha1:b51d9c973958d9bb72298b451b067801051b0c55
