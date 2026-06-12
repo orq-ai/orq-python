@@ -9,11 +9,11 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class MetadataTypedDict(TypedDict):
+class IdentityMetadataTypedDict(TypedDict):
     r"""Custom JSON metadata stored with the identity."""
 
 
-class Metadata(BaseModel):
+class IdentityMetadata(BaseModel):
     r"""Custom JSON metadata stored with the identity."""
 
 
@@ -40,7 +40,7 @@ class IdentityTypedDict(TypedDict):
     r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
     r"""Free-form labels used to organize and filter identities."""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[IdentityMetadataTypedDict]
     r"""Custom JSON metadata stored with the identity."""
     metrics: NotRequired[IdentityMetricsTypedDict]
     r"""Optional usage and cost metrics. Present only when requested with
@@ -80,7 +80,7 @@ class Identity(BaseModel):
     tags: Optional[List[str]] = None
     r"""Free-form labels used to organize and filter identities."""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[IdentityMetadata] = None
     r"""Custom JSON metadata stored with the identity."""
 
     metrics: Optional[IdentityMetrics] = None

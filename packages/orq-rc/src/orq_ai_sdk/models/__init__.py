@@ -161,6 +161,7 @@ if TYPE_CHECKING:
     from .allprojects import AllProjects, AllProjectsTypedDict
     from .apierror import APIError
     from .apikey import APIKey, APIKeyTypedDict
+    from .apikeybudgetscope import APIKeyBudgetScope, APIKeyBudgetScopeTypedDict
     from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
     from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
     from .apikeylistop import APIKeyListRequest, APIKeyListRequestTypedDict
@@ -184,7 +185,36 @@ if TYPE_CHECKING:
         AzureFoundryDeploymentMasterData,
         AzureFoundryDeploymentMasterDataTypedDict,
     )
+    from .budget import Budget, BudgetTypedDict
+    from .budgetdeleteop import BudgetDeleteRequest, BudgetDeleteRequestTypedDict
+    from .budgetgetconsumptionop import (
+        BudgetGetConsumptionRequest,
+        BudgetGetConsumptionRequestTypedDict,
+    )
+    from .budgetgetop import BudgetGetRequest, BudgetGetRequestTypedDict
     from .budgetlimit import BudgetLimit, BudgetLimitTypedDict, Currency, Period
+    from .budgetlimits import BudgetLimits, BudgetLimitsTypedDict
+    from .budgetlistop import BudgetListRequest, BudgetListRequestTypedDict
+    from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
+    from .budgetperiod import BudgetPeriod
+    from .budgetrejection import BudgetRejection, BudgetRejectionTypedDict
+    from .budgetresetconsumptionop import (
+        BudgetResetConsumptionRequest,
+        BudgetResetConsumptionRequestTypedDict,
+    )
+    from .budgetscope import BudgetScope, BudgetScopeTypedDict
+    from .budgetscopekind import BudgetScopeKind
+    from .budgetupdateop import BudgetUpdateRequest, BudgetUpdateRequestTypedDict
+    from .checkbudgetsrequest import (
+        CheckBudgetsRequest,
+        CheckBudgetsRequestTypedDict,
+        Metadata,
+        MetadataTypedDict,
+    )
+    from .checkbudgetsresponse import (
+        CheckBudgetsResponse,
+        CheckBudgetsResponseTypedDict,
+    )
     from .cleardatasetop import ClearDatasetRequest, ClearDatasetRequestTypedDict
     from .conversationparam import ConversationParam, ConversationParamTypedDict
     from .create_agent_scheduleop import (
@@ -682,6 +712,11 @@ if TYPE_CHECKING:
     from .createapikeyresponse import (
         CreateAPIKeyResponse,
         CreateAPIKeyResponseTypedDict,
+    )
+    from .createbudgetrequest import CreateBudgetRequest, CreateBudgetRequestTypedDict
+    from .createbudgetresponse import (
+        CreateBudgetResponse,
+        CreateBudgetResponseTypedDict,
     )
     from .createchatcompletionop import (
         CreateChatCompletion1Eq,
@@ -2577,6 +2612,10 @@ if TYPE_CHECKING:
         DeleteAPIKeyResponse,
         DeleteAPIKeyResponseTypedDict,
     )
+    from .deletebudgetresponse import (
+        DeleteBudgetResponse,
+        DeleteBudgetResponseTypedDict,
+    )
     from .deletechunkop import DeleteChunkRequest, DeleteChunkRequestTypedDict
     from .deletechunksop import (
         DeleteChunksRequest,
@@ -3457,6 +3496,7 @@ if TYPE_CHECKING:
     )
     from .detectrequest import DetectRequest, DetectRequestTypedDict
     from .detectresponse import DetectResponse, DetectResponseTypedDict
+    from .dimensioninfo import DimensionInfo, DimensionInfoTypedDict
     from .domain import Domain, DomainTypedDict
     from .embeddingcacheconfig import (
         EmbeddingCacheConfig,
@@ -3900,6 +3940,11 @@ if TYPE_CHECKING:
         GetAllToolsResponseBodyTypedDict,
     )
     from .getapikeyresponse import GetAPIKeyResponse, GetAPIKeyResponseTypedDict
+    from .getbudgetconsumptionresponse import (
+        GetBudgetConsumptionResponse,
+        GetBudgetConsumptionResponseTypedDict,
+    )
+    from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import (
         GetChunksCountRequest,
         GetChunksCountRequestBody,
@@ -4596,7 +4641,13 @@ if TYPE_CHECKING:
         GuardrailRuleUpdateResponseBodyTypedDict,
     )
     from .honoapierror import HonoAPIError, HonoAPIErrorData
-    from .identity import Identity, IdentityTypedDict, Metadata, MetadataTypedDict
+    from .identity import (
+        Identity,
+        IdentityMetadata,
+        IdentityMetadataTypedDict,
+        IdentityTypedDict,
+    )
+    from .identitybudgetscope import IdentityBudgetScope, IdentityBudgetScopeTypedDict
     from .identitymetrics import IdentityMetrics, IdentityMetricsTypedDict
     from .identitysortfield import IdentitySortField
     from .imagecontentpartschema import (
@@ -4917,6 +4968,7 @@ if TYPE_CHECKING:
         QueryParamType,
     )
     from .listapikeysresponse import ListAPIKeysResponse, ListAPIKeysResponseTypedDict
+    from .listbudgetsresponse import ListBudgetsResponse, ListBudgetsResponseTypedDict
     from .listcapabilitiesresponse import (
         ListCapabilitiesResponse,
         ListCapabilitiesResponseTypedDict,
@@ -5280,6 +5332,7 @@ if TYPE_CHECKING:
         ModelAzureFoundryDeploymentsResponseBody,
         ModelAzureFoundryDeploymentsResponseBodyTypedDict,
     )
+    from .modelbudgetscope import ModelBudgetScope, ModelBudgetScopeTypedDict
     from .modelconfigurationresponse import (
         ModelConfigurationResponse,
         ModelConfigurationResponseTypedDict,
@@ -5588,11 +5641,13 @@ if TYPE_CHECKING:
     from .pricing import Pricing, PricingTypedDict
     from .pricingvariant import PricingVariant, PricingVariantTypedDict
     from .project import Project, ProjectTypedDict
+    from .projectbudgetscope import ProjectBudgetScope, ProjectBudgetScopeTypedDict
     from .projectdeleteop import ProjectDeleteRequest, ProjectDeleteRequestTypedDict
     from .projectgetop import ProjectGetRequest, ProjectGetRequestTypedDict
     from .projectlistop import ProjectListRequest, ProjectListRequestTypedDict
     from .projectscope import ProjectScope, ProjectScopeTypedDict
     from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
+    from .providerbudgetscope import ProviderBudgetScope, ProviderBudgetScopeTypedDict
     from .publiccontact import PublicContact, PublicContactTypedDict
     from .publicembeddingdata import (
         Object,
@@ -5642,6 +5697,7 @@ if TYPE_CHECKING:
         QueryReportResponseObject,
         QueryReportResponseTypedDict,
     )
+    from .ratelimit import RateLimit, RateLimitTypedDict
     from .reasoning import (
         Reasoning,
         ReasoningEffort,
@@ -5668,6 +5724,14 @@ if TYPE_CHECKING:
         RefusalPartSchemaTypedDict,
     )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
+    from .resetbudgetconsumptionrequest import (
+        ResetBudgetConsumptionRequest,
+        ResetBudgetConsumptionRequestTypedDict,
+    )
+    from .resetbudgetconsumptionresponse import (
+        ResetBudgetConsumptionResponse,
+        ResetBudgetConsumptionResponseTypedDict,
+    )
     from .responsecodeinterpretercallcodedeltastreamevent import (
         ResponseCodeInterpreterCallCodeDeltaStreamEvent,
         ResponseCodeInterpreterCallCodeDeltaStreamEventType,
@@ -7465,6 +7529,11 @@ if TYPE_CHECKING:
         UpdateAPIKeyResponse,
         UpdateAPIKeyResponseTypedDict,
     )
+    from .updatebudgetrequest import UpdateBudgetRequest, UpdateBudgetRequestTypedDict
+    from .updatebudgetresponse import (
+        UpdateBudgetResponse,
+        UpdateBudgetResponseTypedDict,
+    )
     from .updatechunkop import (
         UpdateChunkKnowledgeMetadata,
         UpdateChunkKnowledgeMetadataTypedDict,
@@ -8447,12 +8516,18 @@ if TYPE_CHECKING:
     from .vertexparameters import VertexParameters, VertexParametersTypedDict
     from .vertexparamrange import VertexParamRange, VertexParamRangeTypedDict
     from .vertexparamrangeint import VertexParamRangeInt, VertexParamRangeIntTypedDict
+    from .workspacebudgetscope import (
+        WorkspaceBudgetScope,
+        WorkspaceBudgetScopeTypedDict,
+    )
 
 __all__ = [
     "A2AMessage",
     "A2AMessageTypedDict",
     "APIError",
     "APIKey",
+    "APIKeyBudgetScope",
+    "APIKeyBudgetScopeTypedDict",
     "APIKeyDeleteRequest",
     "APIKeyDeleteRequestTypedDict",
     "APIKeyGetRequest",
@@ -8710,8 +8785,32 @@ __all__ = [
     "BlueprintTypedDict",
     "Boolean",
     "BooleanTypedDict",
+    "Budget",
+    "BudgetDeleteRequest",
+    "BudgetDeleteRequestTypedDict",
+    "BudgetGetConsumptionRequest",
+    "BudgetGetConsumptionRequestTypedDict",
+    "BudgetGetRequest",
+    "BudgetGetRequestTypedDict",
     "BudgetLimit",
     "BudgetLimitTypedDict",
+    "BudgetLimits",
+    "BudgetLimitsTypedDict",
+    "BudgetListRequest",
+    "BudgetListRequestTypedDict",
+    "BudgetMatch",
+    "BudgetMatchTypedDict",
+    "BudgetPeriod",
+    "BudgetRejection",
+    "BudgetRejectionTypedDict",
+    "BudgetResetConsumptionRequest",
+    "BudgetResetConsumptionRequestTypedDict",
+    "BudgetScope",
+    "BudgetScopeKind",
+    "BudgetScopeTypedDict",
+    "BudgetTypedDict",
+    "BudgetUpdateRequest",
+    "BudgetUpdateRequestTypedDict",
     "Cache",
     "CacheControl",
     "CacheControlTypedDict",
@@ -8728,6 +8827,10 @@ __all__ = [
     "CategoryAppliedInputTypesTypedDict",
     "CategoryScores",
     "CategoryScoresTypedDict",
+    "CheckBudgetsRequest",
+    "CheckBudgetsRequestTypedDict",
+    "CheckBudgetsResponse",
+    "CheckBudgetsResponseTypedDict",
     "Choice",
     "ChoiceTypedDict",
     "Choices",
@@ -9006,6 +9109,10 @@ __all__ = [
     "CreateAnnotationRequestBody",
     "CreateAnnotationRequestBodyTypedDict",
     "CreateAnnotationRequestTypedDict",
+    "CreateBudgetRequest",
+    "CreateBudgetRequestTypedDict",
+    "CreateBudgetResponse",
+    "CreateBudgetResponseTypedDict",
     "CreateChatCompletion1Eq",
     "CreateChatCompletion1EqTypedDict",
     "CreateChatCompletion1Exists",
@@ -10674,6 +10781,8 @@ __all__ = [
     "DeleteAnnotationRequestBody",
     "DeleteAnnotationRequestBodyTypedDict",
     "DeleteAnnotationRequestTypedDict",
+    "DeleteBudgetResponse",
+    "DeleteBudgetResponseTypedDict",
     "DeleteChunkRequest",
     "DeleteChunkRequestTypedDict",
     "DeleteChunksRequest",
@@ -11356,6 +11465,8 @@ __all__ = [
     "DetectResponseTypedDict",
     "DeveloperMessage",
     "DeveloperMessageTypedDict",
+    "DimensionInfo",
+    "DimensionInfoTypedDict",
     "Dimensions",
     "DimensionsTypedDict",
     "Document",
@@ -11880,6 +11991,10 @@ __all__ = [
     "GetAllToolsRequestTypedDict",
     "GetAllToolsResponseBody",
     "GetAllToolsResponseBodyTypedDict",
+    "GetBudgetConsumptionResponse",
+    "GetBudgetConsumptionResponseTypedDict",
+    "GetBudgetResponse",
+    "GetBudgetResponseTypedDict",
     "GetChunksCountRequest",
     "GetChunksCountRequestBody",
     "GetChunksCountRequestBodyTypedDict",
@@ -12610,6 +12725,10 @@ __all__ = [
     "ID1",
     "IDTypedDict",
     "Identity",
+    "IdentityBudgetScope",
+    "IdentityBudgetScopeTypedDict",
+    "IdentityMetadata",
+    "IdentityMetadataTypedDict",
     "IdentityMetrics",
     "IdentityMetricsTypedDict",
     "IdentitySortField",
@@ -12931,6 +13050,8 @@ __all__ = [
     "ListAgentsTools",
     "ListAgentsToolsTypedDict",
     "ListAgentsType",
+    "ListBudgetsResponse",
+    "ListBudgetsResponseTypedDict",
     "ListCapabilitiesResponse",
     "ListCapabilitiesResponseTypedDict",
     "ListChunksData",
@@ -13344,6 +13465,8 @@ __all__ = [
     "ModelAzureFoundryDeploymentsRequestBodyTypedDict",
     "ModelAzureFoundryDeploymentsResponseBody",
     "ModelAzureFoundryDeploymentsResponseBodyTypedDict",
+    "ModelBudgetScope",
+    "ModelBudgetScopeTypedDict",
     "ModelConfiguration",
     "ModelConfiguration2",
     "ModelConfiguration2TypedDict",
@@ -13696,6 +13819,8 @@ __all__ = [
     "PricingVariantTypedDict",
     "Product",
     "Project",
+    "ProjectBudgetScope",
+    "ProjectBudgetScopeTypedDict",
     "ProjectDeleteRequest",
     "ProjectDeleteRequestTypedDict",
     "ProjectGetRequest",
@@ -13718,6 +13843,8 @@ __all__ = [
     "PromptTokensDetailsTypedDict",
     "PromptTypedDict",
     "Provider",
+    "ProviderBudgetScope",
+    "ProviderBudgetScopeTypedDict",
     "ProviderBuiltInTool",
     "ProviderBuiltInToolTypedDict",
     "PublicContact",
@@ -13765,6 +13892,8 @@ __all__ = [
     "Ragas",
     "RagasMetric",
     "RagasTypedDict",
+    "RateLimit",
+    "RateLimitTypedDict",
     "Reasoning",
     "ReasoningEffort",
     "ReasoningParam",
@@ -13861,6 +13990,10 @@ __all__ = [
     "RequestLimitTypedDict",
     "RerankConfig",
     "RerankConfigTypedDict",
+    "ResetBudgetConsumptionRequest",
+    "ResetBudgetConsumptionRequestTypedDict",
+    "ResetBudgetConsumptionResponse",
+    "ResetBudgetConsumptionResponseTypedDict",
     "ResponseBody",
     "ResponseBody1",
     "ResponseBody1TypedDict",
@@ -15612,6 +15745,10 @@ __all__ = [
     "UpdateAgentToolsTypedDict",
     "UpdateAgentType",
     "UpdateAgentVersionIncrement",
+    "UpdateBudgetRequest",
+    "UpdateBudgetRequestTypedDict",
+    "UpdateBudgetResponse",
+    "UpdateBudgetResponseTypedDict",
     "UpdateChunkKnowledgeMetadata",
     "UpdateChunkKnowledgeMetadataTypedDict",
     "UpdateChunkMetadata",
@@ -16480,6 +16617,8 @@ __all__ = [
     "WebScraperToolTypedDict",
     "Words",
     "WordsTypedDict",
+    "WorkspaceBudgetScope",
+    "WorkspaceBudgetScopeTypedDict",
     "WriteMemoryStoreTool",
     "WriteMemoryStoreToolTypedDict",
 ]
@@ -16622,6 +16761,8 @@ _dynamic_imports: dict[str, str] = {
     "APIError": ".apierror",
     "APIKey": ".apikey",
     "APIKeyTypedDict": ".apikey",
+    "APIKeyBudgetScope": ".apikeybudgetscope",
+    "APIKeyBudgetScopeTypedDict": ".apikeybudgetscope",
     "APIKeyDeleteRequest": ".apikeydeleteop",
     "APIKeyDeleteRequestTypedDict": ".apikeydeleteop",
     "APIKeyGetRequest": ".apikeygetop",
@@ -16645,10 +16786,40 @@ _dynamic_imports: dict[str, str] = {
     "AzureFoundryDeploymentTypedDict": ".azurefoundrydeployment",
     "AzureFoundryDeploymentMasterData": ".azurefoundrydeploymentmasterdata",
     "AzureFoundryDeploymentMasterDataTypedDict": ".azurefoundrydeploymentmasterdata",
+    "Budget": ".budget",
+    "BudgetTypedDict": ".budget",
+    "BudgetDeleteRequest": ".budgetdeleteop",
+    "BudgetDeleteRequestTypedDict": ".budgetdeleteop",
+    "BudgetGetConsumptionRequest": ".budgetgetconsumptionop",
+    "BudgetGetConsumptionRequestTypedDict": ".budgetgetconsumptionop",
+    "BudgetGetRequest": ".budgetgetop",
+    "BudgetGetRequestTypedDict": ".budgetgetop",
     "BudgetLimit": ".budgetlimit",
     "BudgetLimitTypedDict": ".budgetlimit",
     "Currency": ".budgetlimit",
     "Period": ".budgetlimit",
+    "BudgetLimits": ".budgetlimits",
+    "BudgetLimitsTypedDict": ".budgetlimits",
+    "BudgetListRequest": ".budgetlistop",
+    "BudgetListRequestTypedDict": ".budgetlistop",
+    "BudgetMatch": ".budgetmatch",
+    "BudgetMatchTypedDict": ".budgetmatch",
+    "BudgetPeriod": ".budgetperiod",
+    "BudgetRejection": ".budgetrejection",
+    "BudgetRejectionTypedDict": ".budgetrejection",
+    "BudgetResetConsumptionRequest": ".budgetresetconsumptionop",
+    "BudgetResetConsumptionRequestTypedDict": ".budgetresetconsumptionop",
+    "BudgetScope": ".budgetscope",
+    "BudgetScopeTypedDict": ".budgetscope",
+    "BudgetScopeKind": ".budgetscopekind",
+    "BudgetUpdateRequest": ".budgetupdateop",
+    "BudgetUpdateRequestTypedDict": ".budgetupdateop",
+    "CheckBudgetsRequest": ".checkbudgetsrequest",
+    "CheckBudgetsRequestTypedDict": ".checkbudgetsrequest",
+    "Metadata": ".checkbudgetsrequest",
+    "MetadataTypedDict": ".checkbudgetsrequest",
+    "CheckBudgetsResponse": ".checkbudgetsresponse",
+    "CheckBudgetsResponseTypedDict": ".checkbudgetsresponse",
     "ClearDatasetRequest": ".cleardatasetop",
     "ClearDatasetRequestTypedDict": ".cleardatasetop",
     "ConversationParam": ".conversationparam",
@@ -17134,6 +17305,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateAPIKeyRequestTypedDict": ".createapikeyrequest",
     "CreateAPIKeyResponse": ".createapikeyresponse",
     "CreateAPIKeyResponseTypedDict": ".createapikeyresponse",
+    "CreateBudgetRequest": ".createbudgetrequest",
+    "CreateBudgetRequestTypedDict": ".createbudgetrequest",
+    "CreateBudgetResponse": ".createbudgetresponse",
+    "CreateBudgetResponseTypedDict": ".createbudgetresponse",
     "CreateChatCompletion1Eq": ".createchatcompletionop",
     "CreateChatCompletion1EqTypedDict": ".createchatcompletionop",
     "CreateChatCompletion1Exists": ".createchatcompletionop",
@@ -18969,6 +19144,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
     "DeleteAPIKeyResponse": ".deleteapikeyresponse",
     "DeleteAPIKeyResponseTypedDict": ".deleteapikeyresponse",
+    "DeleteBudgetResponse": ".deletebudgetresponse",
+    "DeleteBudgetResponseTypedDict": ".deletebudgetresponse",
     "DeleteChunkRequest": ".deletechunkop",
     "DeleteChunkRequestTypedDict": ".deletechunkop",
     "DeleteChunksRequest": ".deletechunksop",
@@ -19830,6 +20007,8 @@ _dynamic_imports: dict[str, str] = {
     "DetectRequestTypedDict": ".detectrequest",
     "DetectResponse": ".detectresponse",
     "DetectResponseTypedDict": ".detectresponse",
+    "DimensionInfo": ".dimensioninfo",
+    "DimensionInfoTypedDict": ".dimensioninfo",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
     "EmbeddingCacheConfig": ".embeddingcacheconfig",
@@ -20242,6 +20421,10 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
     "GetAPIKeyResponse": ".getapikeyresponse",
     "GetAPIKeyResponseTypedDict": ".getapikeyresponse",
+    "GetBudgetConsumptionResponse": ".getbudgetconsumptionresponse",
+    "GetBudgetConsumptionResponseTypedDict": ".getbudgetconsumptionresponse",
+    "GetBudgetResponse": ".getbudgetresponse",
+    "GetBudgetResponseTypedDict": ".getbudgetresponse",
     "GetChunksCountRequest": ".getchunkscountop",
     "GetChunksCountRequestBody": ".getchunkscountop",
     "GetChunksCountRequestBodyTypedDict": ".getchunkscountop",
@@ -20920,9 +21103,11 @@ _dynamic_imports: dict[str, str] = {
     "HonoAPIError": ".honoapierror",
     "HonoAPIErrorData": ".honoapierror",
     "Identity": ".identity",
+    "IdentityMetadata": ".identity",
+    "IdentityMetadataTypedDict": ".identity",
     "IdentityTypedDict": ".identity",
-    "Metadata": ".identity",
-    "MetadataTypedDict": ".identity",
+    "IdentityBudgetScope": ".identitybudgetscope",
+    "IdentityBudgetScopeTypedDict": ".identitybudgetscope",
     "IdentityMetrics": ".identitymetrics",
     "IdentityMetricsTypedDict": ".identitymetrics",
     "IdentitySortField": ".identitysortfield",
@@ -21236,6 +21421,8 @@ _dynamic_imports: dict[str, str] = {
     "QueryParamType": ".listagentsop",
     "ListAPIKeysResponse": ".listapikeysresponse",
     "ListAPIKeysResponseTypedDict": ".listapikeysresponse",
+    "ListBudgetsResponse": ".listbudgetsresponse",
+    "ListBudgetsResponseTypedDict": ".listbudgetsresponse",
     "ListCapabilitiesResponse": ".listcapabilitiesresponse",
     "ListCapabilitiesResponseTypedDict": ".listcapabilitiesresponse",
     "ListChunksData": ".listchunksop",
@@ -21584,6 +21771,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelAzureFoundryDeploymentsRequestBodyTypedDict": ".modelazurefoundrydeploymentsop",
     "ModelAzureFoundryDeploymentsResponseBody": ".modelazurefoundrydeploymentsop",
     "ModelAzureFoundryDeploymentsResponseBodyTypedDict": ".modelazurefoundrydeploymentsop",
+    "ModelBudgetScope": ".modelbudgetscope",
+    "ModelBudgetScopeTypedDict": ".modelbudgetscope",
     "ModelConfigurationResponse": ".modelconfigurationresponse",
     "ModelConfigurationResponseTypedDict": ".modelconfigurationresponse",
     "ModelCreateAutorouterRequestBody": ".modelcreateautorouterop",
@@ -21853,6 +22042,8 @@ _dynamic_imports: dict[str, str] = {
     "PricingVariantTypedDict": ".pricingvariant",
     "Project": ".project",
     "ProjectTypedDict": ".project",
+    "ProjectBudgetScope": ".projectbudgetscope",
+    "ProjectBudgetScopeTypedDict": ".projectbudgetscope",
     "ProjectDeleteRequest": ".projectdeleteop",
     "ProjectDeleteRequestTypedDict": ".projectdeleteop",
     "ProjectGetRequest": ".projectgetop",
@@ -21863,6 +22054,8 @@ _dynamic_imports: dict[str, str] = {
     "ProjectScopeTypedDict": ".projectscope",
     "ProjectUpdateRequest": ".projectupdateop",
     "ProjectUpdateRequestTypedDict": ".projectupdateop",
+    "ProviderBudgetScope": ".providerbudgetscope",
+    "ProviderBudgetScopeTypedDict": ".providerbudgetscope",
     "PublicContact": ".publiccontact",
     "PublicContactTypedDict": ".publiccontact",
     "Object": ".publicembeddingdata",
@@ -21897,6 +22090,8 @@ _dynamic_imports: dict[str, str] = {
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
+    "RateLimit": ".ratelimit",
+    "RateLimitTypedDict": ".ratelimit",
     "Reasoning": ".reasoning",
     "ReasoningEffort": ".reasoning",
     "ReasoningSummary": ".reasoning",
@@ -21924,6 +22119,10 @@ _dynamic_imports: dict[str, str] = {
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",
+    "ResetBudgetConsumptionRequest": ".resetbudgetconsumptionrequest",
+    "ResetBudgetConsumptionRequestTypedDict": ".resetbudgetconsumptionrequest",
+    "ResetBudgetConsumptionResponse": ".resetbudgetconsumptionresponse",
+    "ResetBudgetConsumptionResponseTypedDict": ".resetbudgetconsumptionresponse",
     "ResponseCodeInterpreterCallCodeDeltaStreamEvent": ".responsecodeinterpretercallcodedeltastreamevent",
     "ResponseCodeInterpreterCallCodeDeltaStreamEventType": ".responsecodeinterpretercallcodedeltastreamevent",
     "ResponseCodeInterpreterCallCodeDeltaStreamEventTypedDict": ".responsecodeinterpretercallcodedeltastreamevent",
@@ -23561,6 +23760,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAPIKeyRequestTypedDict": ".updateapikeyrequest",
     "UpdateAPIKeyResponse": ".updateapikeyresponse",
     "UpdateAPIKeyResponseTypedDict": ".updateapikeyresponse",
+    "UpdateBudgetRequest": ".updatebudgetrequest",
+    "UpdateBudgetRequestTypedDict": ".updatebudgetrequest",
+    "UpdateBudgetResponse": ".updatebudgetresponse",
+    "UpdateBudgetResponseTypedDict": ".updatebudgetresponse",
     "UpdateChunkKnowledgeMetadata": ".updatechunkop",
     "UpdateChunkKnowledgeMetadataTypedDict": ".updatechunkop",
     "UpdateChunkMetadata": ".updatechunkop",
@@ -24517,6 +24720,8 @@ _dynamic_imports: dict[str, str] = {
     "VertexParamRangeTypedDict": ".vertexparamrange",
     "VertexParamRangeInt": ".vertexparamrangeint",
     "VertexParamRangeIntTypedDict": ".vertexparamrangeint",
+    "WorkspaceBudgetScope": ".workspacebudgetscope",
+    "WorkspaceBudgetScopeTypedDict": ".workspacebudgetscope",
 }
 
 
