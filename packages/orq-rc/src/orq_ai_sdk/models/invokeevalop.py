@@ -643,6 +643,7 @@ class InvokeEvalResponseBodyEvalsValueTypedDict(TypedDict):
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict]
     workflow_run_id: NotRequired[str]
     trace_id: NotRequired[str]
+    span_id: NotRequired[str]
     explanation: NotRequired[Nullable[str]]
     original_value: NotRequired[Nullable[OriginalValueTypedDict]]
     original_explanation: NotRequired[Nullable[str]]
@@ -655,6 +656,8 @@ class InvokeEvalResponseBodyEvalsValue(BaseModel):
     workflow_run_id: Optional[str] = None
 
     trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
 
     explanation: OptionalNullable[str] = UNSET
 
@@ -670,6 +673,7 @@ class InvokeEvalResponseBodyEvalsValue(BaseModel):
             [
                 "workflow_run_id",
                 "trace_id",
+                "span_id",
                 "explanation",
                 "original_value",
                 "original_explanation",
