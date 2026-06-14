@@ -3,7 +3,7 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
@@ -1577,7 +1577,12 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[Mapping[str, Any]] = None,
+        inputs: Optional[
+            Union[
+                Mapping[str, Nullable[models.UpdateDatapointInputs]],
+                Mapping[str, Nullable[models.UpdateDatapointInputsTypedDict]],
+            ]
+        ] = None,
         messages: Optional[
             Union[
                 Iterable[models.UpdateDatapointMessages],
@@ -1594,7 +1599,7 @@ class Datasets(BaseSDK):
 
         :param dataset_id: The unique identifier of the dataset
         :param datapoint_id: The unique identifier of the datapoint
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
+        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported.
         :param messages: A list of messages comprising the conversation so far
         :param expected_output:
         :param retries: Override the default retry configuration for this method
@@ -1619,7 +1624,9 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             request_body=models.UpdateDatapointRequestBody(
-                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+                inputs=utils.unmarshal(
+                    inputs, Optional[Dict[str, Nullable[models.UpdateDatapointInputs]]]
+                ),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.UpdateDatapointMessages]]
                 ),
@@ -1694,7 +1701,12 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[Mapping[str, Any]] = None,
+        inputs: Optional[
+            Union[
+                Mapping[str, Nullable[models.UpdateDatapointInputs]],
+                Mapping[str, Nullable[models.UpdateDatapointInputsTypedDict]],
+            ]
+        ] = None,
         messages: Optional[
             Union[
                 Iterable[models.UpdateDatapointMessages],
@@ -1711,7 +1723,7 @@ class Datasets(BaseSDK):
 
         :param dataset_id: The unique identifier of the dataset
         :param datapoint_id: The unique identifier of the datapoint
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
+        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported.
         :param messages: A list of messages comprising the conversation so far
         :param expected_output:
         :param retries: Override the default retry configuration for this method
@@ -1736,7 +1748,9 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             request_body=models.UpdateDatapointRequestBody(
-                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
+                inputs=utils.unmarshal(
+                    inputs, Optional[Dict[str, Nullable[models.UpdateDatapointInputs]]]
+                ),
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.UpdateDatapointMessages]]
                 ),

@@ -79,6 +79,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_audio_output: NotRequired[bool]
     supports_b64_json_response_format: NotRequired[bool]
     supports_batch_api: NotRequired[bool]
+    supports_citations: NotRequired[bool]
     supports_code_execution: NotRequired[bool]
     supports_commercial_use: NotRequired[bool]
     supports_computer_use: NotRequired[bool]
@@ -102,6 +103,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning_effort_default: NotRequired[bool]
     supports_reasoning_effort_high: NotRequired[bool]
     supports_reasoning_effort_low: NotRequired[bool]
+    supports_reasoning_effort_max: NotRequired[bool]
     supports_reasoning_effort_medium: NotRequired[bool]
     supports_reasoning_effort_minimal: NotRequired[bool]
     supports_reasoning_effort_none: NotRequired[bool]
@@ -255,6 +257,8 @@ class ModelMetadata(BaseModel):
 
     supports_batch_api: Optional[bool] = None
 
+    supports_citations: Optional[bool] = None
+
     supports_code_execution: Optional[bool] = None
 
     supports_commercial_use: Optional[bool] = None
@@ -300,6 +304,8 @@ class ModelMetadata(BaseModel):
     supports_reasoning_effort_high: Optional[bool] = None
 
     supports_reasoning_effort_low: Optional[bool] = None
+
+    supports_reasoning_effort_max: Optional[bool] = None
 
     supports_reasoning_effort_medium: Optional[bool] = None
 
@@ -415,6 +421,7 @@ class ModelMetadata(BaseModel):
                 "supports_audio_output",
                 "supports_b64_json_response_format",
                 "supports_batch_api",
+                "supports_citations",
                 "supports_code_execution",
                 "supports_commercial_use",
                 "supports_computer_use",
@@ -438,6 +445,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning_effort_default",
                 "supports_reasoning_effort_high",
                 "supports_reasoning_effort_low",
+                "supports_reasoning_effort_max",
                 "supports_reasoning_effort_medium",
                 "supports_reasoning_effort_minimal",
                 "supports_reasoning_effort_none",
