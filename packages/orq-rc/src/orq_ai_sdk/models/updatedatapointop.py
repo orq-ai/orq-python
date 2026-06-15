@@ -38,6 +38,14 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+UpdateDatapointInputsTypedDict = TypeAliasType(
+    "UpdateDatapointInputsTypedDict", Union[str, float, bool]
+)
+
+
+UpdateDatapointInputs = TypeAliasType("UpdateDatapointInputs", Union[str, float, bool])
+
+
 UpdateDatapointMessagesDatasetsRequestRequestBody5Role = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
@@ -671,16 +679,16 @@ UpdateDatapointMessages = Annotated[
 
 
 class UpdateDatapointRequestBodyTypedDict(TypedDict):
-    inputs: NotRequired[Dict[str, Any]]
-    r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
+    inputs: NotRequired[Dict[str, Nullable[UpdateDatapointInputsTypedDict]]]
+    r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported."""
     messages: NotRequired[List[UpdateDatapointMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
 
 
 class UpdateDatapointRequestBody(BaseModel):
-    inputs: Optional[Dict[str, Any]] = None
-    r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
+    inputs: Optional[Dict[str, Nullable[UpdateDatapointInputs]]] = None
+    r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported."""
 
     messages: Optional[List[UpdateDatapointMessages]] = None
     r"""A list of messages comprising the conversation so far"""
@@ -1445,7 +1453,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-14T13:29:47.488Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-15T05:10:28.321Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1513,7 +1521,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-14T13:29:47.488Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-15T05:10:28.320Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1581,7 +1589,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-14T13:29:47.487Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-15T05:10:28.320Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1684,7 +1692,7 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-06-14T13:29:29.915Z")
+    updated: Optional[datetime] = parse_datetime("2026-06-15T05:10:09.577Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

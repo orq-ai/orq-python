@@ -2,8 +2,8 @@ speakeasyVersion: 1.778.0
 sources:
     orq-ai-sdk-prerelease-python:
         sourceNamespace: orq-ai-sdk-prerelease-python
-        sourceRevisionDigest: sha256:098e468b442e20a268ded3a5d2ba2653599ccbbcfe7f11daed31b15f0acc07c2
-        sourceBlobDigest: sha256:a1d881cea881573e4a0064b128e1c1e370581e19dad78e18ad54bbb6107f088e
+        sourceRevisionDigest: sha256:6166f696c922e63fd83784cc1966b197bf1f85ba6d821c1d80381decd1d0b648
+        sourceBlobDigest: sha256:67117d7f03d257012539a36c28a953341195f8f447ed849bacfb98bb9dd48169
         tags:
             - latest
             - "2.0"
@@ -18,10 +18,10 @@ targets:
     orq-ai-sdk-prerelease-python:
         source: orq-ai-sdk-prerelease-python
         sourceNamespace: orq-ai-sdk-prerelease-python
-        sourceRevisionDigest: sha256:098e468b442e20a268ded3a5d2ba2653599ccbbcfe7f11daed31b15f0acc07c2
-        sourceBlobDigest: sha256:a1d881cea881573e4a0064b128e1c1e370581e19dad78e18ad54bbb6107f088e
+        sourceRevisionDigest: sha256:6166f696c922e63fd83784cc1966b197bf1f85ba6d821c1d80381decd1d0b648
+        sourceBlobDigest: sha256:67117d7f03d257012539a36c28a953341195f8f447ed849bacfb98bb9dd48169
         codeSamplesNamespace: orq-ai-sdk-prerelease-python-code-samples
-        codeSamplesRevisionDigest: sha256:384b47bd517df13bb409dfadaafe7d247a52c71d571a8b0de87c53e904f89b86
+        codeSamplesRevisionDigest: sha256:2d9ae7b5f896976baba03cffb5b11ec2961bdebb34c4891a514f724600e22a40
     orq-ai-sdk-python:
         source: orq-ai-sdk-python
         sourceNamespace: orq-ai-sdk-python

@@ -1523,13 +1523,15 @@ class Inputs2(BaseModel):
         return m
 
 
-InputsTypedDict = TypeAliasType(
-    "InputsTypedDict", Union[Dict[str, Any], List[Inputs2TypedDict]]
+CreateChatCompletionInputsTypedDict = TypeAliasType(
+    "CreateChatCompletionInputsTypedDict", Union[Dict[str, Any], List[Inputs2TypedDict]]
 )
 r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
-Inputs = TypeAliasType("Inputs", Union[Dict[str, Any], List[Inputs2]])
+CreateChatCompletionInputs = TypeAliasType(
+    "CreateChatCompletionInputs", Union[Dict[str, Any], List[Inputs2]]
+)
 r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
@@ -2441,7 +2443,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[CreateChatCompletionThreadTypedDict]
     r"""Thread information to group related requests"""
-    inputs: NotRequired[InputsTypedDict]
+    inputs: NotRequired[CreateChatCompletionInputsTypedDict]
     r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
     cache: NotRequired[CreateChatCompletionRouterChatCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
@@ -2487,7 +2489,7 @@ class CreateChatCompletionOrq(BaseModel):
     r"""Thread information to group related requests"""
 
     inputs: Annotated[
-        Optional[Inputs],
+        Optional[CreateChatCompletionInputs],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
