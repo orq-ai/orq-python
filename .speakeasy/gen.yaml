@@ -55,6 +55,7 @@ python:
   enableCustomCodeRegions: false
   enumFormat: union
   envVarPrefix: ORQ
+  errorSchemaValidation: true
   eventStreamClassNames:
     async: EventStreamAsync
     sync: EventStream
