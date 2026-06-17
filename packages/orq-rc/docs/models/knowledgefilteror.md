@@ -1,59 +1,10 @@
 # KnowledgeFilterOr
 
+Or
 
-## Supported Types
 
-### `models.OrEq`
+## Fields
 
-```python
-value: models.OrEq = /* values here */
-```
-
-### `models.OrNe`
-
-```python
-value: models.OrNe = /* values here */
-```
-
-### `models.OrGt`
-
-```python
-value: models.OrGt = /* values here */
-```
-
-### `models.OrGte`
-
-```python
-value: models.OrGte = /* values here */
-```
-
-### `models.OrLt`
-
-```python
-value: models.OrLt = /* values here */
-```
-
-### `models.OrLte`
-
-```python
-value: models.OrLte = /* values here */
-```
-
-### `models.OrIn`
-
-```python
-value: models.OrIn = /* values here */
-```
-
-### `models.OrNin`
-
-```python
-value: models.OrNin = /* values here */
-```
-
-### `models.OrExists`
-
-```python
-value: models.OrExists = /* values here */
-```
-
+| Field                                          | Type                                           | Required                                       | Description                                    |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `or_`                                          | List[Dict[str, [models.Or](../models/or_.md)]] | :heavy_check_mark:                             | N/A                                            |

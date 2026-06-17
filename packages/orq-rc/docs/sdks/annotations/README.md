@@ -9,7 +9,7 @@
 
 ## create
 
-Attach one or more annotations to a specific span. Each annotation references an evaluator by key and supplies a value (string for text/single-select, number for range, array for multi-select).
+Attach one or more annotations to a specific span. A standard annotation references a human review by key and supplies a value. A correction references an existing evaluator output by parent_annotation_id and supplies the corrected value, validated against that evaluator's output schema.
 
 ### Example Usage
 
@@ -47,7 +47,7 @@ with Orq(
 
 ## delete
 
-Remove one or more annotations from a specific span by their evaluator keys.
+Remove one or more annotations from a specific span by their evaluator keys, or remove corrections by the eval ids of their parent annotations.
 
 ### Example Usage
 
@@ -61,9 +61,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.annotations.delete(trace_id="<id>", span_id="<id>", keys=[
-        "<value 1>",
-    ])
+    orq.annotations.delete(trace_id="<id>", span_id="<id>")
 
     # Use the SDK ...
 
@@ -71,12 +69,14 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trace_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the trace                                      |
-| `span_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the span                                       |
-| `keys`                                                              | List[*str*]                                                         | :heavy_check_mark:                                                  | Unique keys of the reviews to remove                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `trace_id`                                                                            | *str*                                                                                 | :heavy_check_mark:                                                                    | Unique identifier of the trace                                                        |
+| `span_id`                                                                             | *str*                                                                                 | :heavy_check_mark:                                                                    | Unique identifier of the span                                                         |
+| `keys`                                                                                | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | Unique keys of the reviews to remove                                                  |
+| `parent_annotation_ids`                                                               | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | Eval ids whose corrections should be removed                                          |
+| `metadata`                                                                            | [Optional[models.DeleteAnnotationMetadata]](../../models/deleteannotationmetadata.md) | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
 
 ### Errors
 

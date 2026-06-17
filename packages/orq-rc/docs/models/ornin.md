@@ -1,10 +1,23 @@
 # OrNin
 
-Not in
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `nin`                                                                    | List[[models.DeploymentInvokeOrNin](../models/deploymentinvokeornin.md)] | :heavy_check_mark:                                                       | N/A                                                                      |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

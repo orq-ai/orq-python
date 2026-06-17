@@ -738,6 +738,43 @@ ListDatasetDatapointsEvaluationsDatasetsSource = Literal[
 ]
 
 
+ListDatasetDatapointsEvaluationsDatasetsKind = Literal[
+    "llm",
+    "code",
+    "human",
+    "automation",
+]
+r"""The kind of annotator that produced the evaluation"""
+
+
+class ListDatasetDatapointsEvaluationsAnnotatorTypedDict(TypedDict):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsDatasetsKind
+    r"""The kind of annotator that produced the evaluation"""
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+class ListDatasetDatapointsEvaluationsAnnotator(BaseModel):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsDatasetsKind
+    r"""The kind of annotator that produced the evaluation"""
+
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+ListDatasetDatapointsEvaluationsOutputSchema = Literal[
+    "boolean",
+    "number",
+    "categorical",
+    "string",
+]
+r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+
 ListDatasetDatapointsEvaluationsDatasetsType = Literal["string_array",]
 
 
@@ -746,15 +783,23 @@ class ListDatasetDatapointsEvaluations3TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: ListDatasetDatapointsEvaluationsEvaluationType
     r"""The type of evaluation"""
-    human_review_id: str
-    r"""The unique identifier of the human review"""
     reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
     type: ListDatasetDatapointsEvaluationsDatasetsType
     values: List[str]
+    human_review_id: NotRequired[str]
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[ListDatasetDatapointsEvaluationsDatasetsSource]
+    annotator: NotRequired[ListDatasetDatapointsEvaluationsAnnotatorTypedDict]
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+    output_schema: NotRequired[ListDatasetDatapointsEvaluationsOutputSchema]
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+    parent_annotation_id: NotRequired[str]
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+    explanation: NotRequired[str]
+    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""The date and time the item was reviewed"""
+    r"""Deprecated. The date and time the item was reviewed"""
 
 
 class ListDatasetDatapointsEvaluations3(BaseModel):
@@ -764,24 +809,56 @@ class ListDatasetDatapointsEvaluations3(BaseModel):
     evaluation_type: ListDatasetDatapointsEvaluationsEvaluationType
     r"""The type of evaluation"""
 
-    human_review_id: str
-    r"""The unique identifier of the human review"""
-
-    reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    reviewed_by_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
 
     type: ListDatasetDatapointsEvaluationsDatasetsType
 
     values: List[str]
 
+    human_review_id: Optional[str] = None
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
+
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-17T09:58:33.426Z")
-    r"""The date and time the item was reviewed"""
+    annotator: Optional[ListDatasetDatapointsEvaluationsAnnotator] = None
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    output_schema: Optional[ListDatasetDatapointsEvaluationsOutputSchema] = None
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+    parent_annotation_id: Optional[str] = None
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+
+    explanation: Optional[str] = None
+    r"""Optional free-text explanation of the value"""
+
+    reviewed_at: Annotated[
+        Optional[datetime],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = parse_datetime("2026-06-17T11:59:36.958Z")
+    r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["source", "reviewed_at"])
+        optional_fields = set(
+            [
+                "human_review_id",
+                "source",
+                "annotator",
+                "output_schema",
+                "parent_annotation_id",
+                "explanation",
+                "reviewed_at",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -808,6 +885,43 @@ ListDatasetDatapointsEvaluationsSource = Literal[
 ]
 
 
+ListDatasetDatapointsEvaluationsKind = Literal[
+    "llm",
+    "code",
+    "human",
+    "automation",
+]
+r"""The kind of annotator that produced the evaluation"""
+
+
+class ListDatasetDatapointsEvaluationsDatasetsResponseAnnotatorTypedDict(TypedDict):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsKind
+    r"""The kind of annotator that produced the evaluation"""
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+class ListDatasetDatapointsEvaluationsDatasetsResponseAnnotator(BaseModel):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsKind
+    r"""The kind of annotator that produced the evaluation"""
+
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+ListDatasetDatapointsEvaluationsDatasetsResponseOutputSchema = Literal[
+    "boolean",
+    "number",
+    "categorical",
+    "string",
+]
+r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+
 ListDatasetDatapointsEvaluationsType = Literal["number",]
 
 
@@ -816,15 +930,27 @@ class ListDatasetDatapointsEvaluations2TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType
     r"""The type of evaluation"""
-    human_review_id: str
-    r"""The unique identifier of the human review"""
     reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
     type: ListDatasetDatapointsEvaluationsType
     value: float
+    human_review_id: NotRequired[str]
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[ListDatasetDatapointsEvaluationsSource]
+    annotator: NotRequired[
+        ListDatasetDatapointsEvaluationsDatasetsResponseAnnotatorTypedDict
+    ]
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+    output_schema: NotRequired[
+        ListDatasetDatapointsEvaluationsDatasetsResponseOutputSchema
+    ]
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+    parent_annotation_id: NotRequired[str]
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+    explanation: NotRequired[str]
+    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""The date and time the item was reviewed"""
+    r"""Deprecated. The date and time the item was reviewed"""
 
 
 class ListDatasetDatapointsEvaluations2(BaseModel):
@@ -834,24 +960,60 @@ class ListDatasetDatapointsEvaluations2(BaseModel):
     evaluation_type: ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType
     r"""The type of evaluation"""
 
-    human_review_id: str
-    r"""The unique identifier of the human review"""
-
-    reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    reviewed_by_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
 
     type: ListDatasetDatapointsEvaluationsType
 
     value: float
 
+    human_review_id: Optional[str] = None
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
+
     source: Optional[ListDatasetDatapointsEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-17T09:58:33.425Z")
-    r"""The date and time the item was reviewed"""
+    annotator: Optional[ListDatasetDatapointsEvaluationsDatasetsResponseAnnotator] = (
+        None
+    )
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    output_schema: Optional[
+        ListDatasetDatapointsEvaluationsDatasetsResponseOutputSchema
+    ] = None
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+    parent_annotation_id: Optional[str] = None
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+
+    explanation: Optional[str] = None
+    r"""Optional free-text explanation of the value"""
+
+    reviewed_at: Annotated[
+        Optional[datetime],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = parse_datetime("2026-06-17T11:59:36.957Z")
+    r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["source", "reviewed_at"])
+        optional_fields = set(
+            [
+                "human_review_id",
+                "source",
+                "annotator",
+                "output_schema",
+                "parent_annotation_id",
+                "explanation",
+                "reviewed_at",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -876,6 +1038,43 @@ ListDatasetDatapointsEvaluationsDatasetsResponseSource = Literal[
 ]
 
 
+ListDatasetDatapointsEvaluationsDatasetsResponseKind = Literal[
+    "llm",
+    "code",
+    "human",
+    "automation",
+]
+r"""The kind of annotator that produced the evaluation"""
+
+
+class ListDatasetDatapointsEvaluationsDatasetsAnnotatorTypedDict(TypedDict):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsDatasetsResponseKind
+    r"""The kind of annotator that produced the evaluation"""
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+class ListDatasetDatapointsEvaluationsDatasetsAnnotator(BaseModel):
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    kind: ListDatasetDatapointsEvaluationsDatasetsResponseKind
+    r"""The kind of annotator that produced the evaluation"""
+
+    actor_id: str
+    r"""Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation."""
+
+
+ListDatasetDatapointsEvaluationsDatasetsOutputSchema = Literal[
+    "boolean",
+    "number",
+    "categorical",
+    "string",
+]
+r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+
 ListDatasetDatapointsEvaluationsDatasetsResponseType = Literal["string",]
 
 
@@ -884,15 +1083,23 @@ class ListDatasetDatapointsEvaluations1TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: ListDatasetDatapointsEvaluationsDatasetsEvaluationType
     r"""The type of evaluation"""
-    human_review_id: str
-    r"""The unique identifier of the human review"""
     reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
     type: ListDatasetDatapointsEvaluationsDatasetsResponseType
     value: str
+    human_review_id: NotRequired[str]
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[ListDatasetDatapointsEvaluationsDatasetsResponseSource]
+    annotator: NotRequired[ListDatasetDatapointsEvaluationsDatasetsAnnotatorTypedDict]
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+    output_schema: NotRequired[ListDatasetDatapointsEvaluationsDatasetsOutputSchema]
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+    parent_annotation_id: NotRequired[str]
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+    explanation: NotRequired[str]
+    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""The date and time the item was reviewed"""
+    r"""Deprecated. The date and time the item was reviewed"""
 
 
 class ListDatasetDatapointsEvaluations1(BaseModel):
@@ -902,24 +1109,56 @@ class ListDatasetDatapointsEvaluations1(BaseModel):
     evaluation_type: ListDatasetDatapointsEvaluationsDatasetsEvaluationType
     r"""The type of evaluation"""
 
-    human_review_id: str
-    r"""The unique identifier of the human review"""
-
-    reviewed_by_id: str
-    r"""The unique identifier of the user who reviewed the item"""
+    reviewed_by_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Deprecated: use annotator.actor_id. The unique identifier of the user who reviewed the item."""
 
     type: ListDatasetDatapointsEvaluationsDatasetsResponseType
 
     value: str
 
+    human_review_id: Optional[str] = None
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
+
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-06-17T09:58:33.425Z")
-    r"""The date and time the item was reviewed"""
+    annotator: Optional[ListDatasetDatapointsEvaluationsDatasetsAnnotator] = None
+    r"""The annotator that produced this evaluation. Optional during the dual-write deprecation window."""
+
+    output_schema: Optional[ListDatasetDatapointsEvaluationsDatasetsOutputSchema] = None
+    r"""The expected shape of the value. Derived from the human review type, or inherited from the parent annotation for corrections."""
+
+    parent_annotation_id: Optional[str] = None
+    r"""When present, references the id of the annotation this entry corrects. Presence of this field marks the entry as a correction."""
+
+    explanation: Optional[str] = None
+    r"""Optional free-text explanation of the value"""
+
+    reviewed_at: Annotated[
+        Optional[datetime],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = parse_datetime("2026-06-17T11:59:36.956Z")
+    r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["source", "reviewed_at"])
+        optional_fields = set(
+            [
+                "human_review_id",
+                "source",
+                "annotator",
+                "output_schema",
+                "parent_annotation_id",
+                "explanation",
+                "reviewed_at",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -1013,7 +1252,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-06-17T09:58:08.470Z")
+    updated: Optional[datetime] = parse_datetime("2026-06-17T11:59:16.603Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

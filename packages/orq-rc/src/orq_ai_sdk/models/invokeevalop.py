@@ -144,32 +144,32 @@ class Two2(BaseModel):
     image_url: TwoImageURL
 
 
-TwoType = Literal["text",]
+InvokeEval2EvalsRequestType = Literal["text",]
 
 
-class OneTypedDict(TypedDict):
+class Two1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: TwoType
+    type: InvokeEval2EvalsRequestType
     text: str
 
 
-class One(BaseModel):
+class Two1(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: TwoType
+    type: InvokeEval2EvalsRequestType
 
     text: str
 
 
-TwoTypedDict = TypeAliasType(
-    "TwoTypedDict", Union[OneTypedDict, Two2TypedDict, ThreeTypedDict]
+InvokeEvalContent2TypedDict = TypeAliasType(
+    "InvokeEvalContent2TypedDict", Union[Two1TypedDict, Two2TypedDict, ThreeTypedDict]
 )
 
 
-Two = Annotated[
+InvokeEvalContent2 = Annotated[
     Union[
-        Annotated[One, Tag("text")],
+        Annotated[Two1, Tag("text")],
         Annotated[Two2, Tag("image_url")],
         Annotated[Three, Tag("file")],
     ],
@@ -178,12 +178,14 @@ Two = Annotated[
 
 
 InvokeEvalContentTypedDict = TypeAliasType(
-    "InvokeEvalContentTypedDict", Union[str, List[TwoTypedDict]]
+    "InvokeEvalContentTypedDict", Union[str, List[InvokeEvalContent2TypedDict]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-InvokeEvalContent = TypeAliasType("InvokeEvalContent", Union[str, List[Two]])
+InvokeEvalContent = TypeAliasType(
+    "InvokeEvalContent", Union[str, List[InvokeEvalContent2]]
+)
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
@@ -236,7 +238,7 @@ class InvokeEvalToolCalls(BaseModel):
         return m
 
 
-class MessagesTypedDict(TypedDict):
+class InvokeEvalMessagesTypedDict(TypedDict):
     role: InvokeEvalRole
     r"""The role of the prompt message"""
     content: Nullable[InvokeEvalContentTypedDict]
@@ -245,7 +247,7 @@ class MessagesTypedDict(TypedDict):
     tool_call_id: NotRequired[Nullable[str]]
 
 
-class Messages(BaseModel):
+class InvokeEvalMessages(BaseModel):
     role: InvokeEvalRole
     r"""The role of the prompt message"""
 
@@ -291,7 +293,7 @@ class InvokeEvalRequestBodyTypedDict(TypedDict):
     r"""The reference used to compare the output"""
     retrievals: NotRequired[List[str]]
     r"""Knowledge base retrievals"""
-    messages: NotRequired[List[MessagesTypedDict]]
+    messages: NotRequired[List[InvokeEvalMessagesTypedDict]]
     r"""The messages used to generate the output, without the last user message"""
     model: NotRequired[str]
     r"""Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")"""
@@ -310,7 +312,7 @@ class InvokeEvalRequestBody(BaseModel):
     retrievals: Optional[List[str]] = None
     r"""Knowledge base retrievals"""
 
-    messages: Optional[List[Messages]] = None
+    messages: Optional[List[InvokeEvalMessages]] = None
     r"""The messages used to generate the output, without the last user message"""
 
     model: Optional[str] = None

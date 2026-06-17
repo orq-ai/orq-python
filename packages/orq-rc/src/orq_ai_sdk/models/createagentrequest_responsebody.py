@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from .createagentrequest_id_agents_1 import (
+    CreateAgentRequestAgentsEngine,
     CreateAgentRequestAgentsSettings,
     CreateAgentRequestAgentsSettingsTypedDict,
-    CreateAgentRequestEngine,
     CreateAgentRequestIDAgents1,
     CreateAgentRequestKnowledgeBases,
     CreateAgentRequestKnowledgeBasesTypedDict,
@@ -1445,7 +1445,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[CreateAgentRequestSource]
-    engine: NotRequired[CreateAgentRequestEngine]
+    engine: NotRequired[CreateAgentRequestAgentsEngine]
     type: NotRequired[CreateAgentRequestType]
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
@@ -1513,7 +1513,7 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     source: Optional[CreateAgentRequestSource] = None
 
-    engine: Optional[CreateAgentRequestEngine] = "text"
+    engine: Optional[CreateAgentRequestAgentsEngine] = "text"
 
     type: Optional[CreateAgentRequestType] = "internal"
     r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""

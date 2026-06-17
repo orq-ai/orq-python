@@ -1538,7 +1538,9 @@ class UpdatePromptMetadata(BaseModel):
         return m
 
 
-class UpdatePromptRequestBodyTypedDict(TypedDict):
+class UpdatePromptUpdatePromptRequestTypedDict(TypedDict):
+    r"""Request body for updating an existing prompt. All fields are optional."""
+
     owner: NotRequired[str]
     domain_id: NotRequired[str]
     created: NotRequired[str]
@@ -1561,7 +1563,9 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     """
 
 
-class UpdatePromptRequestBody(BaseModel):
+class UpdatePromptUpdatePromptRequest(BaseModel):
+    r"""Request body for updating an existing prompt. All fields are optional."""
+
     owner: Optional[str] = None
 
     domain_id: Optional[str] = None
@@ -1636,7 +1640,7 @@ class UpdatePromptRequestBody(BaseModel):
 class UpdatePromptRequestTypedDict(TypedDict):
     id: str
     r"""Unique identifier of the prompt"""
-    request_body: NotRequired[UpdatePromptRequestBodyTypedDict]
+    request_body: NotRequired[UpdatePromptUpdatePromptRequestTypedDict]
 
 
 class UpdatePromptRequest(BaseModel):
@@ -1646,7 +1650,7 @@ class UpdatePromptRequest(BaseModel):
     r"""Unique identifier of the prompt"""
 
     request_body: Annotated[
-        Optional[UpdatePromptRequestBody],
+        Optional[UpdatePromptUpdatePromptRequest],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 

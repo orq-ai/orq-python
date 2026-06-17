@@ -8,14 +8,62 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
+class DeleteAnnotationMetadataTypedDict(TypedDict):
+    identity_id: NotRequired[str]
+
+
+class DeleteAnnotationMetadata(BaseModel):
+    identity_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["identity_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class DeleteAnnotationRequestBodyTypedDict(TypedDict):
-    keys: List[str]
+    keys: NotRequired[List[str]]
     r"""Unique keys of the reviews to remove"""
+    parent_annotation_ids: NotRequired[List[str]]
+    r"""Eval ids whose corrections should be removed"""
+    metadata: NotRequired[DeleteAnnotationMetadataTypedDict]
 
 
 class DeleteAnnotationRequestBody(BaseModel):
-    keys: List[str]
+    keys: Optional[List[str]] = None
     r"""Unique keys of the reviews to remove"""
+
+    parent_annotation_ids: Optional[List[str]] = None
+    r"""Eval ids whose corrections should be removed"""
+
+    metadata: Optional[DeleteAnnotationMetadata] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["keys", "parent_annotation_ids", "metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class DeleteAnnotationRequestTypedDict(TypedDict):

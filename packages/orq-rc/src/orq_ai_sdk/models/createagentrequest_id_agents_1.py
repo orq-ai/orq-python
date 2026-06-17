@@ -2555,7 +2555,7 @@ Source = Literal[
 ]
 
 
-Engine = Literal[
+CreateAgentRequestEngine = Literal[
     "text",
     "jinja",
     "mustache",
@@ -2596,7 +2596,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     variables: NotRequired[Dict[str, Any]]
     source: NotRequired[Source]
-    engine: NotRequired[Engine]
+    engine: NotRequired[CreateAgentRequestEngine]
 
 
 class CreateAgentRequestRequestBody(BaseModel):
@@ -2649,7 +2649,7 @@ class CreateAgentRequestRequestBody(BaseModel):
 
     source: Optional[Source] = None
 
-    engine: Optional[Engine] = "text"
+    engine: Optional[CreateAgentRequestEngine] = "text"
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2771,7 +2771,7 @@ CreateAgentRequestSource = Literal[
 ]
 
 
-CreateAgentRequestEngine = Literal[
+CreateAgentRequestAgentsEngine = Literal[
     "text",
     "jinja",
     "mustache",

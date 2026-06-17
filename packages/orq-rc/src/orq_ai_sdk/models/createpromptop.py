@@ -1528,7 +1528,9 @@ class PromptInput(BaseModel):
         return m
 
 
-class CreatePromptRequestBodyTypedDict(TypedDict):
+class CreatePromptCreatePromptRequestTypedDict(TypedDict):
+    r"""Request body for creating a new prompt."""
+
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
     prompt: PromptInputTypedDict
@@ -1545,7 +1547,9 @@ class CreatePromptRequestBodyTypedDict(TypedDict):
     metadata: NotRequired[CreatePromptMetadataTypedDict]
 
 
-class CreatePromptRequestBody(BaseModel):
+class CreatePromptCreatePromptRequest(BaseModel):
+    r"""Request body for creating a new prompt."""
+
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
 

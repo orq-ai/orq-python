@@ -41,11 +41,11 @@ Product = Literal[
 r"""Orquesta product"""
 
 
-class MemoryTypedDict(TypedDict):
+class ToolExecutionStartedStreamingEventMemoryTypedDict(TypedDict):
     entity_id: str
 
 
-class Memory(BaseModel):
+class ToolExecutionStartedStreamingEventMemory(BaseModel):
     entity_id: str
 
 
@@ -57,7 +57,7 @@ class ToolExecutionContextTypedDict(TypedDict):
     agent_execution_id: str
     product: Product
     r"""Orquesta product"""
-    memory: NotRequired[MemoryTypedDict]
+    memory: NotRequired[ToolExecutionStartedStreamingEventMemoryTypedDict]
     parent_id: NotRequired[str]
     variables: NotRequired[Dict[str, Any]]
     secret_keys: NotRequired[List[str]]
@@ -77,7 +77,7 @@ class ToolExecutionContext(BaseModel):
     product: Product
     r"""Orquesta product"""
 
-    memory: Optional[Memory] = None
+    memory: Optional[ToolExecutionStartedStreamingEventMemory] = None
 
     parent_id: Optional[str] = None
 
