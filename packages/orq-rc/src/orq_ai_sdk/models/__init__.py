@@ -204,6 +204,7 @@ if TYPE_CHECKING:
     )
     from .budgetscope import BudgetScope, BudgetScopeTypedDict
     from .budgetscopekind import BudgetScopeKind
+    from .budgetsortfield import BudgetSortField
     from .budgetupdateop import BudgetUpdateRequest, BudgetUpdateRequestTypedDict
     from .checkbudgetsrequest import (
         CheckBudgetsRequest,
@@ -8813,6 +8814,7 @@ __all__ = [
     "BudgetScope",
     "BudgetScopeKind",
     "BudgetScopeTypedDict",
+    "BudgetSortField",
     "BudgetTypedDict",
     "BudgetUpdateRequest",
     "BudgetUpdateRequestTypedDict",
@@ -16822,6 +16824,7 @@ _dynamic_imports: dict[str, str] = {
     "BudgetScope": ".budgetscope",
     "BudgetScopeTypedDict": ".budgetscope",
     "BudgetScopeKind": ".budgetscopekind",
+    "BudgetSortField": ".budgetsortfield",
     "BudgetUpdateRequest": ".budgetupdateop",
     "BudgetUpdateRequestTypedDict": ".budgetupdateop",
     "CheckBudgetsRequest": ".checkbudgetsrequest",

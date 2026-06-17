@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .budgetperiod import BudgetPeriod
 from .budgetscopekind import BudgetScopeKind
+from .budgetsortfield import BudgetSortField
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
@@ -38,6 +39,8 @@ class BudgetListRequestTypedDict(TypedDict):
     search over the denormalized `scope_target_name` and id fields on
     the per-workspace `{workspace_id}_budgets` collection.
     """
+    sort_by: NotRequired[BudgetSortField]
+    r"""Field used to order the list. Unset orders by most-recently-updated."""
 
 
 class BudgetListRequest(BaseModel):
@@ -100,6 +103,12 @@ class BudgetListRequest(BaseModel):
     the per-workspace `{workspace_id}_budgets` collection.
     """
 
+    sort_by: Annotated[
+        Optional[BudgetSortField],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Field used to order the list. Unset orders by most-recently-updated."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -112,6 +121,7 @@ class BudgetListRequest(BaseModel):
                 "is_active",
                 "period",
                 "query",
+                "sort_by",
             ]
         )
         serialized = handler(self)

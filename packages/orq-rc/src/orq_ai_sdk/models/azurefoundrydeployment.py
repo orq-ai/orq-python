@@ -14,7 +14,10 @@ from typing_extensions import NotRequired, TypedDict
 class AzureFoundryDeploymentTypedDict(TypedDict):
     id: str
     model: str
+    base_url: NotRequired[str]
     master_data: NotRequired[AzureFoundryDeploymentMasterDataTypedDict]
+    publisher: NotRequired[str]
+    wire: NotRequired[str]
 
 
 class AzureFoundryDeployment(BaseModel):
@@ -22,11 +25,17 @@ class AzureFoundryDeployment(BaseModel):
 
     model: str
 
+    base_url: Optional[str] = None
+
     master_data: Optional[AzureFoundryDeploymentMasterData] = None
+
+    publisher: Optional[str] = None
+
+    wire: Optional[str] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["master_data"])
+        optional_fields = set(["base_url", "master_data", "publisher", "wire"])
         serialized = handler(self)
         m = {}
 

@@ -22,6 +22,7 @@ class Budgets(BaseSDK):
         is_active: Optional[bool] = None,
         period: Optional[Iterable[models.BudgetPeriod]] = None,
         query: Optional[str] = None,
+        sort_by: Optional[models.BudgetSortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -45,6 +46,7 @@ class Budgets(BaseSDK):
         :param query: Optional free-text query. Server translates this into a Typesense
             search over the denormalized `scope_target_name` and id fields on
             the per-workspace `{workspace_id}_budgets` collection.
+        :param sort_by: Field used to order the list. Unset orders by most-recently-updated.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -74,6 +76,7 @@ class Budgets(BaseSDK):
             is_active=is_active,
             period=utils.unmarshal(period, Optional[List[models.BudgetPeriod]]),
             query=query,
+            sort_by=sort_by,
         )
 
         req = self._build_request(
@@ -138,6 +141,7 @@ class Budgets(BaseSDK):
         is_active: Optional[bool] = None,
         period: Optional[Iterable[models.BudgetPeriod]] = None,
         query: Optional[str] = None,
+        sort_by: Optional[models.BudgetSortField] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -161,6 +165,7 @@ class Budgets(BaseSDK):
         :param query: Optional free-text query. Server translates this into a Typesense
             search over the denormalized `scope_target_name` and id fields on
             the per-workspace `{workspace_id}_budgets` collection.
+        :param sort_by: Field used to order the list. Unset orders by most-recently-updated.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -190,6 +195,7 @@ class Budgets(BaseSDK):
             is_active=is_active,
             period=utils.unmarshal(period, Optional[List[models.BudgetPeriod]]),
             query=query,
+            sort_by=sort_by,
         )
 
         req = self._build_request_async(
