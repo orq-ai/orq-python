@@ -26,6 +26,8 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     region: str
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
+    autorouter_id: NotRequired[str]
+    autorouter_version: NotRequired[str]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -58,6 +60,10 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     assume_role_arn: Optional[str] = None
 
     assume_role_external_id: Optional[str] = None
+
+    autorouter_id: Optional[str] = None
+
+    autorouter_version: Optional[str] = None
 
     description: Optional[str] = None
 
@@ -97,6 +103,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
             [
                 "assume_role_arn",
                 "assume_role_external_id",
+                "autorouter_id",
+                "autorouter_version",
                 "description",
                 "has_reasoning",
                 "input_cost",

@@ -14,6 +14,7 @@ class ModelValidateAwsBedrockRequestBodyTypedDict(TypedDict):
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     integration_id: NotRequired[str]
+    model_type: NotRequired[str]
 
 
 class ModelValidateAwsBedrockRequestBody(BaseModel):
@@ -29,10 +30,17 @@ class ModelValidateAwsBedrockRequestBody(BaseModel):
 
     integration_id: Optional[str] = None
 
+    model_type: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["assume_role_arn", "assume_role_external_id", "integration_id"]
+            [
+                "assume_role_arn",
+                "assume_role_external_id",
+                "integration_id",
+                "model_type",
+            ]
         )
         serialized = handler(self)
         m = {}

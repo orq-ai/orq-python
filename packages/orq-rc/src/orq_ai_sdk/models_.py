@@ -708,6 +708,8 @@ class Models(BaseSDK):
         region: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -740,6 +742,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -778,6 +782,8 @@ class Models(BaseSDK):
             assume_role_arn=assume_role_arn,
             assume_role_external_id=assume_role_external_id,
             auth_mode=auth_mode,
+            autorouter_id=autorouter_id,
+            autorouter_version=autorouter_version,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -866,6 +872,8 @@ class Models(BaseSDK):
         region: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -898,6 +906,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -936,6 +946,8 @@ class Models(BaseSDK):
             assume_role_arn=assume_role_arn,
             assume_role_external_id=assume_role_external_id,
             auth_mode=auth_mode,
+            autorouter_id=autorouter_id,
+            autorouter_version=autorouter_version,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -1023,6 +1035,7 @@ class Models(BaseSDK):
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
         integration_id: Optional[str] = None,
+        model_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1038,6 +1051,7 @@ class Models(BaseSDK):
         :param assume_role_arn:
         :param assume_role_external_id:
         :param integration_id:
+        :param model_type:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1062,6 +1076,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             inference_profile_arn=inference_profile_arn,
             integration_id=integration_id,
+            model_type=model_type,
             region=region,
         )
 
@@ -1128,6 +1143,7 @@ class Models(BaseSDK):
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
         integration_id: Optional[str] = None,
+        model_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1143,6 +1159,7 @@ class Models(BaseSDK):
         :param assume_role_arn:
         :param assume_role_external_id:
         :param integration_id:
+        :param model_type:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1167,6 +1184,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             inference_profile_arn=inference_profile_arn,
             integration_id=integration_id,
+            model_type=model_type,
             region=region,
         )
 
@@ -1230,6 +1248,8 @@ class Models(BaseSDK):
         id: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1238,7 +1258,6 @@ class Models(BaseSDK):
         model_developer: Optional[str] = None,
         model_family: Optional[str] = None,
         model_id: Optional[str] = None,
-        model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
         supports_adaptive_reasoning: Optional[bool] = None,
@@ -1261,6 +1280,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1269,7 +1290,6 @@ class Models(BaseSDK):
         :param model_developer:
         :param model_family:
         :param model_id:
-        :param model_type:
         :param output_cost:
         :param region:
         :param supports_adaptive_reasoning:
@@ -1303,6 +1323,8 @@ class Models(BaseSDK):
             request_body=models.ModelUpdateAwsBedrockRequestBody(
                 assume_role_arn=assume_role_arn,
                 assume_role_external_id=assume_role_external_id,
+                autorouter_id=autorouter_id,
+                autorouter_version=autorouter_version,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1311,7 +1333,6 @@ class Models(BaseSDK):
                 model_developer=model_developer,
                 model_family=model_family,
                 model_id=model_id,
-                model_type=model_type,
                 output_cost=output_cost,
                 region=region,
                 supports_adaptive_reasoning=supports_adaptive_reasoning,
@@ -1391,6 +1412,8 @@ class Models(BaseSDK):
         id: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1399,7 +1422,6 @@ class Models(BaseSDK):
         model_developer: Optional[str] = None,
         model_family: Optional[str] = None,
         model_id: Optional[str] = None,
-        model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
         supports_adaptive_reasoning: Optional[bool] = None,
@@ -1422,6 +1444,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1430,7 +1454,6 @@ class Models(BaseSDK):
         :param model_developer:
         :param model_family:
         :param model_id:
-        :param model_type:
         :param output_cost:
         :param region:
         :param supports_adaptive_reasoning:
@@ -1464,6 +1487,8 @@ class Models(BaseSDK):
             request_body=models.ModelUpdateAwsBedrockRequestBody(
                 assume_role_arn=assume_role_arn,
                 assume_role_external_id=assume_role_external_id,
+                autorouter_id=autorouter_id,
+                autorouter_version=autorouter_version,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1472,7 +1497,6 @@ class Models(BaseSDK):
                 model_developer=model_developer,
                 model_family=model_family,
                 model_id=model_id,
-                model_type=model_type,
                 output_cost=output_cost,
                 region=region,
                 supports_adaptive_reasoning=supports_adaptive_reasoning,

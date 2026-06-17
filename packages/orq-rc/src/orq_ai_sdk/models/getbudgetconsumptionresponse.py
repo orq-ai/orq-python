@@ -18,8 +18,11 @@ class GetBudgetConsumptionResponseTypedDict(TypedDict):
     """
     cost: NotRequired[float]
     r"""Cost accumulated in the current period, in USD."""
-    tokens: NotRequired[str]
-    r"""Tokens accumulated in the current period."""
+    tokens: NotRequired[float]
+    r"""Tokens accumulated in the current period. Carried as a double (not
+    int64) so it serializes as a JSON number rather than a quoted
+    string, matching BudgetUsage.tokens and limits.token_limit.
+    """
     requests_in_window: NotRequired[int]
     r"""Requests counted in the current 60-second rolling window."""
 
@@ -38,8 +41,11 @@ class GetBudgetConsumptionResponse(BaseModel):
     cost: Optional[float] = None
     r"""Cost accumulated in the current period, in USD."""
 
-    tokens: Optional[str] = None
-    r"""Tokens accumulated in the current period."""
+    tokens: Optional[float] = None
+    r"""Tokens accumulated in the current period. Carried as a double (not
+    int64) so it serializes as a JSON number rather than a quoted
+    string, matching BudgetUsage.tokens and limits.token_limit.
+    """
 
     requests_in_window: Optional[int] = None
     r"""Requests counted in the current 60-second rolling window."""

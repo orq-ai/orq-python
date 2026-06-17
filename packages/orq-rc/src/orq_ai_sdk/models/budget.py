@@ -4,6 +4,7 @@ from __future__ import annotations
 from .budgetlimits import BudgetLimits, BudgetLimitsTypedDict
 from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
 from .budgetscope import BudgetScope, BudgetScopeTypedDict
+from .budgetusage import BudgetUsage, BudgetUsageTypedDict
 from .ratelimit import RateLimit, RateLimitTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -46,6 +47,13 @@ class BudgetTypedDict(TypedDict):
     expires_at: NotRequired[datetime]
     created_at: NotRequired[datetime]
     updated_at: NotRequired[datetime]
+    usage: NotRequired[BudgetUsageTypedDict]
+    r"""Live consumption for the current period, read from the Redis
+    counters the enforcement gate maintains. Populated by read paths
+    (Get / List); omitted on write responses (Create / Update / Reset)
+    where it carries no signal. Absent or all-zero for a budget that
+    has not been spent against in the current period.
+    """
 
 
 class Budget(BaseModel):
@@ -91,6 +99,14 @@ class Budget(BaseModel):
 
     updated_at: Optional[datetime] = None
 
+    usage: Optional[BudgetUsage] = None
+    r"""Live consumption for the current period, read from the Redis
+    counters the enforcement gate maintains. Populated by read paths
+    (Get / List); omitted on write responses (Create / Update / Reset)
+    where it carries no signal. Absent or all-zero for a budget that
+    has not been spent against in the current period.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -104,6 +120,7 @@ class Budget(BaseModel):
                 "expires_at",
                 "created_at",
                 "updated_at",
+                "usage",
             ]
         )
         serialized = handler(self)

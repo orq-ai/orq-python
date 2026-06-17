@@ -16,7 +16,12 @@ class BudgetLimitsTypedDict(TypedDict):
 
     period: NotRequired[BudgetPeriod]
     amount: NotRequired[float]
-    token_limit: NotRequired[str]
+    token_limit: NotRequired[float]
+    r"""Token ceiling. Carried as a double so it serializes as a JSON number
+    (proto int64 would serialize as a quoted string); token counts are
+    whole and well within double's exact-integer range (2^53). Stored as
+    an integer server-side.
+    """
 
 
 class BudgetLimits(BaseModel):
@@ -29,7 +34,12 @@ class BudgetLimits(BaseModel):
 
     amount: Optional[float] = None
 
-    token_limit: Optional[str] = None
+    token_limit: Optional[float] = None
+    r"""Token ceiling. Carried as a double so it serializes as a JSON number
+    (proto int64 would serialize as a quoted string); token counts are
+    whole and well within double's exact-integer range (2^53). Stored as
+    an integer server-side.
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

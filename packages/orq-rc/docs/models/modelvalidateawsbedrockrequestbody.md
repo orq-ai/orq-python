@@ -10,4 +10,5 @@
 | `auth_mode`               | *str*                     | :heavy_check_mark:        | N/A                       |
 | `inference_profile_arn`   | *str*                     | :heavy_check_mark:        | N/A                       |
 | `integration_id`          | *Optional[str]*           | :heavy_minus_sign:        | N/A                       |
+| `model_type`              | *Optional[str]*           | :heavy_minus_sign:        | N/A                       |
 | `region`                  | *str*                     | :heavy_check_mark:        | N/A                       |
