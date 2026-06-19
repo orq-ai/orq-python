@@ -96,6 +96,7 @@ python:
   pytestTimeout: 0
   rawResponseHelpers: false
   responseFormat: flat
+  responseSchemaValidation: true
   sseFlatResponse: false
   templateVersion: v2
   useAsyncHooks: false
