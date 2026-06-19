@@ -5363,9 +5363,6 @@ if TYPE_CHECKING:
         ListPromptVersionsVoice,
     )
     from .listskillsresponse import ListSkillsResponse, ListSkillsResponseTypedDict
-    from .litellmmodel import LiteLLMModel, LiteLLMModelTypedDict
-    from .litellmmodelinfo import LiteLLMModelInfo, LiteLLMModelInfoTypedDict
-    from .litellmparams import LiteLLMParams, LiteLLMParamsTypedDict
     from .memoryparam import MemoryParam, MemoryParamTypedDict
     from .modelazurefoundrydeploymentsop import (
         ModelAzureFoundryDeploymentsRequestBody,
@@ -5410,7 +5407,6 @@ if TYPE_CHECKING:
     )
     from .modeldeleteop import ModelDeleteRequest, ModelDeleteRequestTypedDict
     from .modeldisableop import ModelDisableRequest, ModelDisableRequestTypedDict
-    from .modeldocument import ModelDocument, ModelDocumentTypedDict
     from .modelenableop import ModelEnableRequestBody, ModelEnableRequestBodyTypedDict
     from .modelmetadata import ModelMetadata, ModelMetadataTypedDict
     from .modelparameterdocument import (
@@ -13476,12 +13472,6 @@ __all__ = [
     "ListPromptVersionsVoice",
     "ListSkillsResponse",
     "ListSkillsResponseTypedDict",
-    "LiteLLMModel",
-    "LiteLLMModelInfo",
-    "LiteLLMModelInfoTypedDict",
-    "LiteLLMModelTypedDict",
-    "LiteLLMParams",
-    "LiteLLMParamsTypedDict",
     "Llm",
     "Llm1",
     "Llm1TypedDict",
@@ -13630,8 +13620,6 @@ __all__ = [
     "ModelDeleteRequestTypedDict",
     "ModelDisableRequest",
     "ModelDisableRequestTypedDict",
-    "ModelDocument",
-    "ModelDocumentTypedDict",
     "ModelEnableRequestBody",
     "ModelEnableRequestBodyTypedDict",
     "ModelMetadata",
@@ -21928,12 +21916,6 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsVoice": ".listpromptversionsop",
     "ListSkillsResponse": ".listskillsresponse",
     "ListSkillsResponseTypedDict": ".listskillsresponse",
-    "LiteLLMModel": ".litellmmodel",
-    "LiteLLMModelTypedDict": ".litellmmodel",
-    "LiteLLMModelInfo": ".litellmmodelinfo",
-    "LiteLLMModelInfoTypedDict": ".litellmmodelinfo",
-    "LiteLLMParams": ".litellmparams",
-    "LiteLLMParamsTypedDict": ".litellmparams",
     "MemoryParam": ".memoryparam",
     "MemoryParamTypedDict": ".memoryparam",
     "ModelAzureFoundryDeploymentsRequestBody": ".modelazurefoundrydeploymentsop",
@@ -21968,8 +21950,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelDeleteRequestTypedDict": ".modeldeleteop",
     "ModelDisableRequest": ".modeldisableop",
     "ModelDisableRequestTypedDict": ".modeldisableop",
-    "ModelDocument": ".modeldocument",
-    "ModelDocumentTypedDict": ".modeldocument",
     "ModelEnableRequestBody": ".modelenableop",
     "ModelEnableRequestBodyTypedDict": ".modelenableop",
     "ModelMetadata": ".modelmetadata",

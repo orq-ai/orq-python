@@ -26,7 +26,6 @@ value: GetPromptVersionProvider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
-- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`

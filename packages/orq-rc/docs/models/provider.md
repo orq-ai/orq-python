@@ -28,7 +28,6 @@ value: Provider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
-- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`

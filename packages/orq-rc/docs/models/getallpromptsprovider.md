@@ -26,7 +26,6 @@ value: GetAllPromptsProvider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
-- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`
