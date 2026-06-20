@@ -1198,9 +1198,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-19T14:53:39.469Z"
+    created: Optional[str] = "2026-06-20T23:12:01.536Z"
 
-    updated: Optional[str] = "2026-06-19T14:53:39.469Z"
+    updated: Optional[str] = "2026-06-20T23:12:01.536Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1455,9 +1455,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-19T14:53:39.469Z"
+    created: Optional[str] = "2026-06-20T23:12:01.536Z"
 
-    updated: Optional[str] = "2026-06-19T14:53:39.469Z"
+    updated: Optional[str] = "2026-06-20T23:12:01.536Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2201,9 +2201,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-19T14:53:39.469Z"
+    created: Optional[str] = "2026-06-20T23:12:01.536Z"
 
-    updated: Optional[str] = "2026-06-19T14:53:39.469Z"
+    updated: Optional[str] = "2026-06-20T23:12:01.536Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
