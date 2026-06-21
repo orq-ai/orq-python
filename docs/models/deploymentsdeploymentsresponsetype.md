@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import DeploymentsDeploymentsResponseType
-value: DeploymentsDeploymentsResponseType = "function"
+value: DeploymentsDeploymentsResponseType = "object"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"object"`

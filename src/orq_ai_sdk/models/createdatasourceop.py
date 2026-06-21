@@ -205,8 +205,6 @@ class ChunkingOptions(BaseModel):
 
 
 class CreateDatasourceRequestBodyTypedDict(TypedDict):
-    r"""The request body for creating a new datasource. If `file_id` is provided, the file is immediately queued for chunking."""
-
     display_name: NotRequired[str]
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
     description: NotRequired[Nullable[str]]
@@ -218,8 +216,6 @@ class CreateDatasourceRequestBodyTypedDict(TypedDict):
 
 
 class CreateDatasourceRequestBody(BaseModel):
-    r"""The request body for creating a new datasource. If `file_id` is provided, the file is immediately queued for chunking."""
-
     display_name: Optional[str] = None
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
 
@@ -334,7 +330,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KVMMQ8EF1P3TNPB3HE6D8DNA"
+        "01KVP3FXX37QDRG11G7XDGZPZR"
     )
     r"""The unique identifier of the data source"""
 

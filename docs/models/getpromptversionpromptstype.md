@@ -1,15 +1,13 @@
 # GetPromptVersionPromptsType
 
-Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import GetPromptVersionPromptsType
-value: GetPromptVersionPromptsType = "ephemeral"
+value: GetPromptVersionPromptsType = "function"
 ```
 
 
 ## Values
 
-- `"ephemeral"`
+- `"function"`

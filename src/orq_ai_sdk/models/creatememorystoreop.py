@@ -10,6 +10,7 @@ from orq_ai_sdk.types import (
 )
 import pydantic
 from pydantic import model_serializer
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -36,7 +37,7 @@ class CreateMemoryStoreRequestBodyTypedDict(TypedDict):
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
-    ttl: NotRequired[Nullable[float]]
+    ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
@@ -57,30 +58,21 @@ class CreateMemoryStoreRequestBody(BaseModel):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
-    ttl: OptionalNullable[float] = UNSET
+    ttl: Optional[float] = None
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
-        nullable_fields = set(["ttl"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
 
             if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
+                if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
@@ -114,7 +106,7 @@ class CreateMemoryStoreResponseBodyTypedDict(TypedDict):
     r"""The user ID of the creator"""
     updated_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the last updater"""
-    ttl: NotRequired[Nullable[float]]
+    ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
@@ -144,13 +136,13 @@ class CreateMemoryStoreResponseBody(BaseModel):
     updated_by_id: OptionalNullable[str] = UNSET
     r"""The user ID of the last updater"""
 
-    ttl: OptionalNullable[float] = UNSET
+    ttl: Optional[float] = None
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created_by_id", "updated_by_id", "ttl"])
-        nullable_fields = set(["created_by_id", "updated_by_id", "ttl"])
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 

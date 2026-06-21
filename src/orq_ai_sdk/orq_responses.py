@@ -25,20 +25,25 @@ class OrqResponses(BaseSDK):
         variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[
-                models.AgentResponseRequestIdentity,
-                models.AgentResponseRequestIdentityTypedDict,
+                models.CreateAgentResponseRequestIdentity,
+                models.CreateAgentResponseRequestIdentityTypedDict,
             ]
         ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models.AgentResponseRequestThread,
-                models.AgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        memory: Optional[
+            Union[
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
+            ]
+        ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
-        engine: Optional[models.Engine] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
@@ -92,18 +97,20 @@ class OrqResponses(BaseSDK):
 
         request = models.CreateAgentResponseRequestRequest(
             agent_key=agent_key,
-            agent_response_request=models.AgentResponseRequest(
+            request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
-                    identity, Optional[models.AgentResponseRequestIdentity]
+                    identity, Optional[models.CreateAgentResponseRequestIdentity]
                 ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
-                    thread, Optional[models.AgentResponseRequestThread]
+                    thread, Optional[models.CreateAgentResponseRequestThread]
                 ),
-                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.CreateAgentResponseRequestMemory]
+                ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
@@ -133,11 +140,11 @@ class OrqResponses(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.agent_response_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.AgentResponseRequest,
+                models.CreateAgentResponseRequestRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -201,20 +208,25 @@ class OrqResponses(BaseSDK):
         variables: Optional[Mapping[str, Any]] = None,
         identity: Optional[
             Union[
-                models.AgentResponseRequestIdentity,
-                models.AgentResponseRequestIdentityTypedDict,
+                models.CreateAgentResponseRequestIdentity,
+                models.CreateAgentResponseRequestIdentityTypedDict,
             ]
         ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models.AgentResponseRequestThread,
-                models.AgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        memory: Optional[
+            Union[
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
+            ]
+        ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
-        engine: Optional[models.Engine] = None,
+        engine: Optional[models.CreateAgentResponseRequestEngine] = None,
         configuration: Optional[
             Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
@@ -268,18 +280,20 @@ class OrqResponses(BaseSDK):
 
         request = models.CreateAgentResponseRequestRequest(
             agent_key=agent_key,
-            agent_response_request=models.AgentResponseRequest(
+            request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 identity=utils.get_pydantic_model(
-                    identity, Optional[models.AgentResponseRequestIdentity]
+                    identity, Optional[models.CreateAgentResponseRequestIdentity]
                 ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
-                    thread, Optional[models.AgentResponseRequestThread]
+                    thread, Optional[models.CreateAgentResponseRequestThread]
                 ),
-                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.CreateAgentResponseRequestMemory]
+                ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
@@ -309,11 +323,11 @@ class OrqResponses(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.agent_response_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.AgentResponseRequest,
+                models.CreateAgentResponseRequestRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

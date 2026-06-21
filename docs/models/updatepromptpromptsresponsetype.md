@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import UpdatePromptPromptsResponseType
-value: UpdatePromptPromptsResponseType = "prompt"
+value: UpdatePromptPromptsResponseType = "exact_match"
 ```
 
 
 ## Values
 
-- `"prompt"`
+- `"exact_match"`

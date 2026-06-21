@@ -1,7 +1,5 @@
 # CreateDatasourceRequestBody
 
-The request body for creating a new datasource. If `file_id` is provided, the file is immediately queued for chunking.
-
 
 ## Fields
 

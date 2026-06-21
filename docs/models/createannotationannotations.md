@@ -1,17 +1,9 @@
 # CreateAnnotationAnnotations
 
 
-## Supported Types
+## Fields
 
-### `models.Annotations1`
-
-```python
-value: models.Annotations1 = /* values here */
-```
-
-### `models.Annotations2`
-
-```python
-value: models.Annotations2 = /* values here */
-```
-
+| Field                                                                                                                                                                                                           | Type                                                                                                                                                                                                            | Required                                                                                                                                                                                                        | Description                                                                                                                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                                                                                                           | *str*                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                              | Unique key of the review.                                                                                                                                                                                       |
+| `value`                                                                                                                                                                                                         | [models.Value](../models/value.md)                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                              | The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For text/correction, provide a string. |

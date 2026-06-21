@@ -15,26 +15,13 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ListKnowledgeBasesQueryParamType = Literal[
-    "internal",
-    "external",
-]
-r"""Filter knowledge bases by type"""
-
-
 class ListKnowledgeBasesRequestTypedDict(TypedDict):
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25"""
-    search: NotRequired[str]
-    r"""Filter knowledge bases by key (case-insensitive match)"""
-    updated_by: NotRequired[str]
-    r"""Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs"""
-    type: NotRequired[ListKnowledgeBasesQueryParamType]
-    r"""Filter knowledge bases by type"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
 
 class ListKnowledgeBasesRequest(BaseModel):
@@ -54,31 +41,11 @@ class ListKnowledgeBasesRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 25
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25"""
-
-    search: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter knowledge bases by key (case-insensitive match)"""
-
-    updated_by: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs"""
-
-    type: Annotated[
-        Optional[ListKnowledgeBasesQueryParamType],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter knowledge bases by type"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["starting_after", "ending_before", "limit", "search", "updated_by", "type"]
-        )
+        optional_fields = set(["starting_after", "ending_before", "limit"])
         serialized = handler(self)
         m = {}
 

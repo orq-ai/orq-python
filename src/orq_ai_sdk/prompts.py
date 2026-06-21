@@ -201,8 +201,7 @@ class Prompts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreatePromptCreatePromptRequest,
-                models.CreatePromptCreatePromptRequestTypedDict,
+                models.CreatePromptRequestBody, models.CreatePromptRequestBodyTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -232,10 +231,8 @@ class Prompts(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreatePromptCreatePromptRequest]
-            )
-        request = cast(Optional[models.CreatePromptCreatePromptRequest], request)
+            request = utils.unmarshal(request, Optional[models.CreatePromptRequestBody])
+        request = cast(Optional[models.CreatePromptRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -251,11 +248,7 @@ class Prompts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreatePromptCreatePromptRequest],
+                request, False, True, "json", Optional[models.CreatePromptRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -300,8 +293,7 @@ class Prompts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreatePromptCreatePromptRequest,
-                models.CreatePromptCreatePromptRequestTypedDict,
+                models.CreatePromptRequestBody, models.CreatePromptRequestBodyTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -331,10 +323,8 @@ class Prompts(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreatePromptCreatePromptRequest]
-            )
-        request = cast(Optional[models.CreatePromptCreatePromptRequest], request)
+            request = utils.unmarshal(request, Optional[models.CreatePromptRequestBody])
+        request = cast(Optional[models.CreatePromptRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -350,11 +340,7 @@ class Prompts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreatePromptCreatePromptRequest],
+                request, False, True, "json", Optional[models.CreatePromptRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -632,7 +618,7 @@ class Prompts(BaseSDK):
 
         request = models.UpdatePromptRequest(
             id=id,
-            request_body=models.UpdatePromptUpdatePromptRequest(
+            request_body=models.UpdatePromptRequestBody(
                 owner=owner,
                 domain_id=domain_id,
                 created=created,
@@ -669,7 +655,7 @@ class Prompts(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.UpdatePromptUpdatePromptRequest],
+                Optional[models.UpdatePromptRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -779,7 +765,7 @@ class Prompts(BaseSDK):
 
         request = models.UpdatePromptRequest(
             id=id,
-            request_body=models.UpdatePromptUpdatePromptRequest(
+            request_body=models.UpdatePromptRequestBody(
                 owner=owner,
                 domain_id=domain_id,
                 created=created,
@@ -816,7 +802,7 @@ class Prompts(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.UpdatePromptUpdatePromptRequest],
+                Optional[models.UpdatePromptRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

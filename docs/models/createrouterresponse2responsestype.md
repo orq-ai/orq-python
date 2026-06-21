@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponse2ResponsesType
-value: CreateRouterResponse2ResponsesType = "input_text"
+value: CreateRouterResponse2ResponsesType = "input_image"
 ```
 
 
 ## Values
 
-- `"input_text"`
+- `"input_image"`

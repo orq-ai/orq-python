@@ -73,7 +73,7 @@ DeploymentsType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
-DeploymentsDeploymentsResponse200Type = Literal["object",]
+DeploymentsDeploymentsResponseType = Literal["object",]
 
 
 class DeploymentsParametersTypedDict(TypedDict):
@@ -82,7 +82,7 @@ class DeploymentsParametersTypedDict(TypedDict):
     Omitting `parameters` defines a function with an empty parameter list.
     """
 
-    type: DeploymentsDeploymentsResponse200Type
+    type: DeploymentsDeploymentsResponseType
     properties: Dict[str, Any]
     required: NotRequired[List[str]]
     additional_properties: Literal[False]
@@ -94,7 +94,7 @@ class DeploymentsParameters(BaseModel):
     Omitting `parameters` defines a function with an empty parameter list.
     """
 
-    type: DeploymentsDeploymentsResponse200Type
+    type: DeploymentsDeploymentsResponseType
 
     properties: Dict[str, Any]
 
@@ -279,7 +279,7 @@ DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema",]
 class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
-    description: NotRequired[Nullable[str]]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -288,31 +288,22 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
-    description: OptionalNullable[str] = UNSET
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["description", "strict"])
-        nullable_fields = set(["description"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
 
             if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
+                if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
@@ -388,70 +379,6 @@ Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the 
 
 Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
 """
-
-
-DeploymentsDeploymentsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentsCacheControlTypedDict(TypedDict):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: DeploymentsDeploymentsType
-    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentsCacheControl(BaseModel):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: DeploymentsDeploymentsType
-    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["ttl"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 DeploymentsPhotoRealVersion = Literal[
@@ -531,8 +458,6 @@ class DeploymentsModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    cache_control: NotRequired[Nullable[DeploymentsCacheControlTypedDict]]
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
     photo_real_version: NotRequired[DeploymentsPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[DeploymentsEncodingFormat]
@@ -605,11 +530,6 @@ class DeploymentsModelParameters(BaseModel):
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
 
-    cache_control: Annotated[
-        OptionalNullable[DeploymentsCacheControl], pydantic.Field(alias="cacheControl")
-    ] = UNSET
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
     photo_real_version: Annotated[
         Optional[DeploymentsPhotoRealVersion], pydantic.Field(alias="photoRealVersion")
     ] = None
@@ -653,7 +573,6 @@ class DeploymentsModelParameters(BaseModel):
                 "quality",
                 "style",
                 "responseFormat",
-                "cacheControl",
                 "photoRealVersion",
                 "encoding_format",
                 "reasoningEffort",
@@ -662,7 +581,7 @@ class DeploymentsModelParameters(BaseModel):
                 "thinkingLevel",
             ]
         )
-        nullable_fields = set(["responseFormat", "cacheControl"])
+        nullable_fields = set(["responseFormat"])
         serialized = handler(self)
         m = {}
 
@@ -702,6 +621,7 @@ DeploymentsProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -895,7 +815,7 @@ DeploymentsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-DeploymentsDeploymentsResponseType = Literal["function",]
+DeploymentsDeploymentsType = Literal["function",]
 
 
 class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
@@ -912,14 +832,14 @@ class DeploymentsDeploymentsFunction(BaseModel):
 
 
 class DeploymentsToolCallsTypedDict(TypedDict):
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
     function: DeploymentsDeploymentsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class DeploymentsToolCalls(BaseModel):
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
 
     function: DeploymentsDeploymentsFunction
 

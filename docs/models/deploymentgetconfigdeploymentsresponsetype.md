@@ -1,15 +1,13 @@
 # DeploymentGetConfigDeploymentsResponseType
 
-Create a cache control breakpoint. Accepts only the value "ephemeral".
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigDeploymentsResponseType
-value: DeploymentGetConfigDeploymentsResponseType = "ephemeral"
+value: DeploymentGetConfigDeploymentsResponseType = "function"
 ```
 
 
 ## Values
 
-- `"ephemeral"`
+- `"function"`

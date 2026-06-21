@@ -810,70 +810,6 @@ class RetrieveAgentRequestTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
-RetrieveAgentRequestAgentsResponseType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-RetrieveAgentRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class RetrieveAgentRequestCacheControlTypedDict(TypedDict):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: RetrieveAgentRequestAgentsResponseType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[RetrieveAgentRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class RetrieveAgentRequestCacheControl(BaseModel):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: RetrieveAgentRequestAgentsResponseType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[RetrieveAgentRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["ttl"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
@@ -931,10 +867,6 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[RetrieveAgentRequestTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
-    cache_control: NotRequired[RetrieveAgentRequestCacheControlTypedDict]
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-    prompt_cache_key: NotRequired[str]
-    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class RetrieveAgentRequestParameters(BaseModel):
@@ -1016,12 +948,6 @@ class RetrieveAgentRequestParameters(BaseModel):
     timeout: Optional[RetrieveAgentRequestTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
-    cache_control: Optional[RetrieveAgentRequestCacheControl] = None
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    prompt_cache_key: Optional[str] = None
-    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1048,8 +974,6 @@ class RetrieveAgentRequestParameters(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
-                "cache_control",
-                "prompt_cache_key",
             ]
         )
         nullable_fields = set(
@@ -1542,70 +1466,6 @@ class RetrieveAgentRequestFallbackModelConfigurationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
-RetrieveAgentRequestFallbackModelConfigurationAgentsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-RetrieveAgentRequestFallbackModelConfigurationTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class RetrieveAgentRequestFallbackModelConfigurationCacheControlTypedDict(TypedDict):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: RetrieveAgentRequestFallbackModelConfigurationAgentsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[RetrieveAgentRequestFallbackModelConfigurationTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class RetrieveAgentRequestFallbackModelConfigurationCacheControl(BaseModel):
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    type: RetrieveAgentRequestFallbackModelConfigurationAgentsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[RetrieveAgentRequestFallbackModelConfigurationTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["ttl"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -1681,12 +1541,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[RetrieveAgentRequestFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
-    cache_control: NotRequired[
-        RetrieveAgentRequestFallbackModelConfigurationCacheControlTypedDict
-    ]
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-    prompt_cache_key: NotRequired[str]
-    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
@@ -1782,14 +1636,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     timeout: Optional[RetrieveAgentRequestFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
-    cache_control: Optional[
-        RetrieveAgentRequestFallbackModelConfigurationCacheControl
-    ] = None
-    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
-
-    prompt_cache_key: Optional[str] = None
-    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1816,8 +1662,6 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
-                "cache_control",
-                "prompt_cache_key",
             ]
         )
         nullable_fields = set(

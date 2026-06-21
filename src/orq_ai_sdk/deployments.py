@@ -24,7 +24,10 @@ class Deployments(BaseSDK):
             ]
         ] = None,
         messages: Optional[
-            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
+            Union[
+                Iterable[models.DeploymentInvokeMessages],
+                Iterable[models.DeploymentInvokeMessagesTypedDict],
+            ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
@@ -83,7 +86,7 @@ class Deployments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InvokeDeploymentRequest(
+        request = models.DeploymentInvokeRequestBody(
             key=key,
             stream=stream,
             inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
@@ -92,7 +95,7 @@ class Deployments(BaseSDK):
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
             messages=utils.get_pydantic_model(
-                messages, Optional[List[models.Messages]]
+                messages, Optional[List[models.DeploymentInvokeMessages]]
             ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
@@ -126,7 +129,7 @@ class Deployments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.InvokeDeploymentRequest
+                request, False, False, "json", models.DeploymentInvokeRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -184,7 +187,10 @@ class Deployments(BaseSDK):
             ]
         ] = None,
         messages: Optional[
-            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
+            Union[
+                Iterable[models.DeploymentInvokeMessages],
+                Iterable[models.DeploymentInvokeMessagesTypedDict],
+            ]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
@@ -243,7 +249,7 @@ class Deployments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InvokeDeploymentRequest(
+        request = models.DeploymentInvokeRequestBody(
             key=key,
             stream=stream,
             inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
@@ -252,7 +258,7 @@ class Deployments(BaseSDK):
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
             messages=utils.get_pydantic_model(
-                messages, Optional[List[models.Messages]]
+                messages, Optional[List[models.DeploymentInvokeMessages]]
             ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
@@ -286,7 +292,7 @@ class Deployments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.InvokeDeploymentRequest
+                request, False, False, "json", models.DeploymentInvokeRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

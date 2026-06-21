@@ -18,7 +18,6 @@ class Evals(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         sort: Optional[models.Sort] = None,
-        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -31,7 +30,6 @@ class Evals(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
-        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -56,7 +54,6 @@ class Evals(BaseSDK):
             ending_before=ending_before,
             search=search,
             sort=sort,
-            project_id=project_id,
         )
 
         req = self._build_request(
@@ -124,7 +121,6 @@ class Evals(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         sort: Optional[models.Sort] = None,
-        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -137,7 +133,6 @@ class Evals(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
-        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -162,7 +157,6 @@ class Evals(BaseSDK):
             ending_before=ending_before,
             search=search,
             sort=sort,
-            project_id=project_id,
         )
 
         req = self._build_request_async(
@@ -953,10 +947,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[
-                Iterable[models.InvokeEvalMessages],
-                Iterable[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -999,7 +990,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),
@@ -1088,10 +1079,7 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[
-                Iterable[models.InvokeEvalMessages],
-                Iterable[models.InvokeEvalMessagesTypedDict],
-            ]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1134,7 +1122,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.Messages]]
                 ),
                 model=model,
             ),

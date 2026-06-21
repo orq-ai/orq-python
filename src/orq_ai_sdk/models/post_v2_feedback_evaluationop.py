@@ -4,7 +4,6 @@ from __future__ import annotations
 from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import get_discriminator, parse_datetime
-import pydantic
 from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
@@ -28,16 +27,14 @@ class RequestBody3TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: PostV2FeedbackEvaluationRequestBodyEvaluationType
     r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
     type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
     values: List[str]
     trace_id: str
-    human_review_id: NotRequired[str]
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[PostV2FeedbackEvaluationRequestBodyFeedbackSource]
-    explanation: NotRequired[str]
-    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""Deprecated. The date and time the item was reviewed"""
+    r"""The date and time the item was reviewed"""
 
 
 class RequestBody3(BaseModel):
@@ -47,33 +44,23 @@ class RequestBody3(BaseModel):
     evaluation_type: PostV2FeedbackEvaluationRequestBodyEvaluationType
     r"""The type of evaluation"""
 
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
     type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
 
     values: List[str]
 
     trace_id: str
 
-    human_review_id: Optional[str] = None
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
-
     source: Optional[PostV2FeedbackEvaluationRequestBodyFeedbackSource] = "orq"
 
-    explanation: Optional[str] = None
-    r"""Optional free-text explanation of the value"""
-
-    reviewed_at: Annotated[
-        Optional[datetime],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = parse_datetime("2026-06-21T08:28:28.771Z")
-    r"""Deprecated. The date and time the item was reviewed"""
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-21T22:05:51.681Z")
+    r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["human_review_id", "source", "explanation", "reviewed_at"]
-        )
+        optional_fields = set(["source", "reviewed_at"])
         serialized = handler(self)
         m = {}
 
@@ -106,16 +93,14 @@ class PostV2FeedbackEvaluationRequestBody2TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: RequestBodyEvaluationType
     r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
     type: PostV2FeedbackEvaluationRequestBodyFeedbackType
     value: float
     trace_id: str
-    human_review_id: NotRequired[str]
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[PostV2FeedbackEvaluationRequestBodySource]
-    explanation: NotRequired[str]
-    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""Deprecated. The date and time the item was reviewed"""
+    r"""The date and time the item was reviewed"""
 
 
 class PostV2FeedbackEvaluationRequestBody2(BaseModel):
@@ -125,33 +110,23 @@ class PostV2FeedbackEvaluationRequestBody2(BaseModel):
     evaluation_type: RequestBodyEvaluationType
     r"""The type of evaluation"""
 
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
     type: PostV2FeedbackEvaluationRequestBodyFeedbackType
 
     value: float
 
     trace_id: str
 
-    human_review_id: Optional[str] = None
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
-
     source: Optional[PostV2FeedbackEvaluationRequestBodySource] = "orq"
 
-    explanation: Optional[str] = None
-    r"""Optional free-text explanation of the value"""
-
-    reviewed_at: Annotated[
-        Optional[datetime],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = parse_datetime("2026-06-21T08:28:28.770Z")
-    r"""Deprecated. The date and time the item was reviewed"""
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-21T22:05:51.680Z")
+    r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["human_review_id", "source", "explanation", "reviewed_at"]
-        )
+        optional_fields = set(["source", "reviewed_at"])
         serialized = handler(self)
         m = {}
 
@@ -184,16 +159,14 @@ class PostV2FeedbackEvaluationRequestBody1TypedDict(TypedDict):
     r"""The unique identifier of the human evaluation"""
     evaluation_type: EvaluationType
     r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
     type: PostV2FeedbackEvaluationRequestBodyType
     value: str
     trace_id: str
-    human_review_id: NotRequired[str]
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
     source: NotRequired[RequestBodySource]
-    explanation: NotRequired[str]
-    r"""Optional free-text explanation of the value"""
     reviewed_at: NotRequired[datetime]
-    r"""Deprecated. The date and time the item was reviewed"""
+    r"""The date and time the item was reviewed"""
 
 
 class PostV2FeedbackEvaluationRequestBody1(BaseModel):
@@ -203,33 +176,23 @@ class PostV2FeedbackEvaluationRequestBody1(BaseModel):
     evaluation_type: EvaluationType
     r"""The type of evaluation"""
 
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
     type: PostV2FeedbackEvaluationRequestBodyType
 
     value: str
 
     trace_id: str
 
-    human_review_id: Optional[str] = None
-    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
-
     source: Optional[RequestBodySource] = "orq"
 
-    explanation: Optional[str] = None
-    r"""Optional free-text explanation of the value"""
-
-    reviewed_at: Annotated[
-        Optional[datetime],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = parse_datetime("2026-06-21T08:28:28.770Z")
-    r"""Deprecated. The date and time the item was reviewed"""
+    reviewed_at: Optional[datetime] = parse_datetime("2026-06-21T22:05:51.680Z")
+    r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["human_review_id", "source", "explanation", "reviewed_at"]
-        )
+        optional_fields = set(["source", "reviewed_at"])
         serialized = handler(self)
         m = {}
 

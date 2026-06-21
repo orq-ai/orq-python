@@ -1,7 +1,5 @@
 # Engine
 
-Override template engine for this invocation. If not provided, uses the agent default.
-
 ## Example Usage
 
 ```python

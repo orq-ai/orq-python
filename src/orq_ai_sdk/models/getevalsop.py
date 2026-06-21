@@ -33,7 +33,6 @@ class GetEvalsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     search: NotRequired[str]
     sort: NotRequired[Sort]
-    project_id: NotRequired[str]
 
 
 class GetEvalsRequest(BaseModel):
@@ -65,15 +64,10 @@ class GetEvalsRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
-    project_id: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "search", "sort", "project_id"]
+            ["limit", "starting_after", "ending_before", "search", "sort"]
         )
         serialized = handler(self)
         m = {}
@@ -291,9 +285,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -523,9 +517,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1252,9 +1246,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1461,9 +1455,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1700,9 +1694,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -1917,9 +1911,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2373,9 +2367,9 @@ class GetEvalsLLM2(BaseModel):
 
     jury: GetEvalsLLMJury
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
@@ -2686,9 +2680,9 @@ class GetEvalsLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-06-21T08:28:00.705Z"
+    created: Optional[str] = "2026-06-21T22:05:24.014Z"
 
-    updated: Optional[str] = "2026-06-21T08:28:00.705Z"
+    updated: Optional[str] = "2026-06-21T22:05:24.014Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 

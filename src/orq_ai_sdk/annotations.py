@@ -31,7 +31,7 @@ class Annotations(BaseSDK):
     ):
         r"""Annotate a span
 
-        Attach one or more annotations to a specific span. A standard annotation references a human review by key and supplies a value. A correction references an existing evaluator output by parent_annotation_id and supplies the corrected value, validated against that evaluator's output schema.
+        Attach one or more annotations to a specific span. Each annotation references an evaluator by key and supplies a value (string for text/single-select, number for range, array for multi-select).
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
@@ -148,7 +148,7 @@ class Annotations(BaseSDK):
     ):
         r"""Annotate a span
 
-        Attach one or more annotations to a specific span. A standard annotation references a human review by key and supplies a value. A correction references an existing evaluator output by parent_annotation_id and supplies the corrected value, validated against that evaluator's output schema.
+        Attach one or more annotations to a specific span. Each annotation references an evaluator by key and supplies a value (string for text/single-select, number for range, array for multi-select).
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
@@ -248,14 +248,7 @@ class Annotations(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
-        keys: Optional[Iterable[str]] = None,
-        parent_annotation_ids: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.DeleteAnnotationMetadata,
-                models.DeleteAnnotationMetadataTypedDict,
-            ]
-        ] = None,
+        keys: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -263,13 +256,11 @@ class Annotations(BaseSDK):
     ):
         r"""Remove an annotation from a span
 
-        Remove one or more annotations from a specific span by their evaluator keys, or remove corrections by the eval ids of their parent annotations.
+        Remove one or more annotations from a specific span by their evaluator keys.
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
         :param keys: Unique keys of the reviews to remove
-        :param parent_annotation_ids: Eval ids whose corrections should be removed
-        :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -292,13 +283,7 @@ class Annotations(BaseSDK):
             trace_id=trace_id,
             span_id=span_id,
             request_body=models.DeleteAnnotationRequestBody(
-                keys=utils.unmarshal(keys, Optional[List[str]]),
-                parent_annotation_ids=utils.unmarshal(
-                    parent_annotation_ids, Optional[List[str]]
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.DeleteAnnotationMetadata]
-                ),
+                keys=utils.unmarshal(keys, List[str]),
             ),
         )
 
@@ -365,14 +350,7 @@ class Annotations(BaseSDK):
         *,
         trace_id: str,
         span_id: str,
-        keys: Optional[Iterable[str]] = None,
-        parent_annotation_ids: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.DeleteAnnotationMetadata,
-                models.DeleteAnnotationMetadataTypedDict,
-            ]
-        ] = None,
+        keys: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -380,13 +358,11 @@ class Annotations(BaseSDK):
     ):
         r"""Remove an annotation from a span
 
-        Remove one or more annotations from a specific span by their evaluator keys, or remove corrections by the eval ids of their parent annotations.
+        Remove one or more annotations from a specific span by their evaluator keys.
 
         :param trace_id: Unique identifier of the trace
         :param span_id: Unique identifier of the span
         :param keys: Unique keys of the reviews to remove
-        :param parent_annotation_ids: Eval ids whose corrections should be removed
-        :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -409,13 +385,7 @@ class Annotations(BaseSDK):
             trace_id=trace_id,
             span_id=span_id,
             request_body=models.DeleteAnnotationRequestBody(
-                keys=utils.unmarshal(keys, Optional[List[str]]),
-                parent_annotation_ids=utils.unmarshal(
-                    parent_annotation_ids, Optional[List[str]]
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.DeleteAnnotationMetadata]
-                ),
+                keys=utils.unmarshal(keys, List[str]),
             ),
         )
 

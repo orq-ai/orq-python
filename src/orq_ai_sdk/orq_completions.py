@@ -122,13 +122,6 @@ class OrqCompletions(BaseSDK):
             ]
         ] = None,
         variables: Optional[Mapping[str, Any]] = None,
-        cache_control: Optional[
-            Union[
-                models.CreateChatCompletionCacheControl,
-                models.CreateChatCompletionCacheControlTypedDict,
-            ]
-        ] = None,
-        prompt_cache_key: Optional[str] = None,
         orq: Optional[
             Union[
                 models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
@@ -187,8 +180,6 @@ class OrqCompletions(BaseSDK):
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
-        :param cache_control: Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models.
-        :param prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -276,10 +267,6 @@ class OrqCompletions(BaseSDK):
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
-            cache_control=utils.get_pydantic_model(
-                cache_control, Optional[models.CreateChatCompletionCacheControl]
-            ),
-            prompt_cache_key=prompt_cache_key,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )
@@ -461,13 +448,6 @@ class OrqCompletions(BaseSDK):
             ]
         ] = None,
         variables: Optional[Mapping[str, Any]] = None,
-        cache_control: Optional[
-            Union[
-                models.CreateChatCompletionCacheControl,
-                models.CreateChatCompletionCacheControlTypedDict,
-            ]
-        ] = None,
-        prompt_cache_key: Optional[str] = None,
         orq: Optional[
             Union[
                 models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
@@ -526,8 +506,6 @@ class OrqCompletions(BaseSDK):
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
-        :param cache_control: Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models.
-        :param prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -615,10 +593,6 @@ class OrqCompletions(BaseSDK):
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
-            cache_control=utils.get_pydantic_model(
-                cache_control, Optional[models.CreateChatCompletionCacheControl]
-            ),
-            prompt_cache_key=prompt_cache_key,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )

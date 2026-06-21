@@ -377,9 +377,7 @@ class StreamAgentConfiguration(BaseModel):
         return m
 
 
-class StreamAgentA2AInvokeRequestTypedDict(TypedDict):
-    r"""Request body for invoking an existing agent (stream-task endpoint). Used to start a new task or continue an existing conversation."""
-
+class StreamAgentRequestBodyTypedDict(TypedDict):
     message: StreamAgentA2AMessageTypedDict
     r"""The A2A message to send to the agent (user input or tool results)"""
     task_id: NotRequired[str]
@@ -404,9 +402,7 @@ class StreamAgentA2AInvokeRequestTypedDict(TypedDict):
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
 
 
-class StreamAgentA2AInvokeRequest(BaseModel):
-    r"""Request body for invoking an existing agent (stream-task endpoint). Used to start a new task or continue an existing conversation."""
-
+class StreamAgentRequestBody(BaseModel):
     message: StreamAgentA2AMessage
     r"""The A2A message to send to the agent (user input or tool results)"""
 
@@ -478,7 +474,7 @@ class StreamAgentA2AInvokeRequest(BaseModel):
 class StreamAgentRequestTypedDict(TypedDict):
     key: str
     r"""The key or ID of the agent to invoke"""
-    request_body: StreamAgentA2AInvokeRequestTypedDict
+    request_body: StreamAgentRequestBodyTypedDict
 
 
 class StreamAgentRequest(BaseModel):
@@ -488,7 +484,7 @@ class StreamAgentRequest(BaseModel):
     r"""The key or ID of the agent to invoke"""
 
     request_body: Annotated[
-        StreamAgentA2AInvokeRequest,
+        StreamAgentRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
 
