@@ -315,7 +315,9 @@ class InvokeAgentConfiguration(BaseModel):
         return m
 
 
-class InvokeAgentRequestBodyTypedDict(TypedDict):
+class InvokeAgentA2AInvokeRequestTypedDict(TypedDict):
+    r"""Request body for invoking an existing agent (stream-task endpoint). Used to start a new task or continue an existing conversation."""
+
     message: InvokeAgentA2AMessageTypedDict
     r"""The A2A message to send to the agent (user input or tool results)"""
     task_id: NotRequired[str]
@@ -338,7 +340,9 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
     r"""Configuration options for the agent invocation"""
 
 
-class InvokeAgentRequestBody(BaseModel):
+class InvokeAgentA2AInvokeRequest(BaseModel):
+    r"""Request body for invoking an existing agent (stream-task endpoint). Used to start a new task or continue an existing conversation."""
+
     message: InvokeAgentA2AMessage
     r"""The A2A message to send to the agent (user input or tool results)"""
 
@@ -406,7 +410,7 @@ class InvokeAgentRequestBody(BaseModel):
 class InvokeAgentRequestTypedDict(TypedDict):
     key: str
     r"""The key or ID of the agent to invoke"""
-    request_body: NotRequired[InvokeAgentRequestBodyTypedDict]
+    request_body: NotRequired[InvokeAgentA2AInvokeRequestTypedDict]
 
 
 class InvokeAgentRequest(BaseModel):
@@ -416,7 +420,7 @@ class InvokeAgentRequest(BaseModel):
     r"""The key or ID of the agent to invoke"""
 
     request_body: Annotated[
-        Optional[InvokeAgentRequestBody],
+        Optional[InvokeAgentA2AInvokeRequest],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 

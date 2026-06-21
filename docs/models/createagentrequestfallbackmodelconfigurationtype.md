@@ -1,13 +1,15 @@
 # CreateAgentRequestFallbackModelConfigurationType
 
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateAgentRequestFallbackModelConfigurationType
-value: CreateAgentRequestFallbackModelConfigurationType = "exact_match"
+value: CreateAgentRequestFallbackModelConfigurationType = "ephemeral"
 ```
 
 
 ## Values
 
-- `"exact_match"`
+- `"ephemeral"`

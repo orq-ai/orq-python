@@ -3,57 +3,57 @@
 
 ## Supported Types
 
-### `models.Eq`
+### `models.DeploymentGetConfig1Eq`
 
 ```python
-value: models.Eq = /* values here */
+value: models.DeploymentGetConfig1Eq = /* values here */
 ```
 
-### `models.Ne`
+### `models.DeploymentGetConfig1Ne`
 
 ```python
-value: models.Ne = /* values here */
+value: models.DeploymentGetConfig1Ne = /* values here */
 ```
 
-### `models.Gt`
+### `models.OneGt`
 
 ```python
-value: models.Gt = /* values here */
+value: models.OneGt = /* values here */
 ```
 
-### `models.Gte`
+### `models.OneGte`
 
 ```python
-value: models.Gte = /* values here */
+value: models.OneGte = /* values here */
 ```
 
-### `models.Lt`
+### `models.OneLt`
 
 ```python
-value: models.Lt = /* values here */
+value: models.OneLt = /* values here */
 ```
 
-### `models.Lte`
+### `models.OneLte`
 
 ```python
-value: models.Lte = /* values here */
+value: models.OneLte = /* values here */
 ```
 
-### `models.In`
+### `models.DeploymentGetConfig1In`
 
 ```python
-value: models.In = /* values here */
+value: models.DeploymentGetConfig1In = /* values here */
 ```
 
-### `models.Nin`
+### `models.DeploymentGetConfig1Nin`
 
 ```python
-value: models.Nin = /* values here */
+value: models.DeploymentGetConfig1Nin = /* values here */
 ```
 
-### `models.Exists`
+### `models.OneExists`
 
 ```python
-value: models.Exists = /* values here */
+value: models.OneExists = /* values here */
 ```
 

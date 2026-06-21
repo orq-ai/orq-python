@@ -1,10 +1,23 @@
 # OrIn
 
-In
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `in_`                                                                  | List[[models.DeploymentInvokeOrIn](../models/deploymentinvokeorin.md)] | :heavy_check_mark:                                                     | N/A                                                                    |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

@@ -40,6 +40,13 @@ class ExternalConfig(BaseModel):
 class RequestBody2TypedDict(TypedDict):
     key: str
     external_config: ExternalConfigTypedDict
+    path: str
+    r"""Entity storage path.
+
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    """
     type: NotRequired[CreateKnowledgeRequestBodyKnowledgeType]
     description: NotRequired[str]
 
@@ -48,6 +55,14 @@ class RequestBody2(BaseModel):
     key: str
 
     external_config: ExternalConfig
+
+    path: str
+    r"""Entity storage path.
+
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+
+    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
+    """
 
     type: Optional[CreateKnowledgeRequestBodyKnowledgeType] = "external"
 

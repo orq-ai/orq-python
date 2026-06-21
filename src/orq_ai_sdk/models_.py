@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
+from orq_ai_sdk.types import Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Models(BaseSDK):
@@ -708,6 +708,8 @@ class Models(BaseSDK):
         region: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -740,6 +742,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -778,6 +782,8 @@ class Models(BaseSDK):
             assume_role_arn=assume_role_arn,
             assume_role_external_id=assume_role_external_id,
             auth_mode=auth_mode,
+            autorouter_id=autorouter_id,
+            autorouter_version=autorouter_version,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -866,6 +872,8 @@ class Models(BaseSDK):
         region: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -898,6 +906,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -936,6 +946,8 @@ class Models(BaseSDK):
             assume_role_arn=assume_role_arn,
             assume_role_external_id=assume_role_external_id,
             auth_mode=auth_mode,
+            autorouter_id=autorouter_id,
+            autorouter_version=autorouter_version,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -1023,6 +1035,7 @@ class Models(BaseSDK):
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
         integration_id: Optional[str] = None,
+        model_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1038,6 +1051,7 @@ class Models(BaseSDK):
         :param assume_role_arn:
         :param assume_role_external_id:
         :param integration_id:
+        :param model_type:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1062,6 +1076,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             inference_profile_arn=inference_profile_arn,
             integration_id=integration_id,
+            model_type=model_type,
             region=region,
         )
 
@@ -1128,6 +1143,7 @@ class Models(BaseSDK):
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
         integration_id: Optional[str] = None,
+        model_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1143,6 +1159,7 @@ class Models(BaseSDK):
         :param assume_role_arn:
         :param assume_role_external_id:
         :param integration_id:
+        :param model_type:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1167,6 +1184,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             inference_profile_arn=inference_profile_arn,
             integration_id=integration_id,
+            model_type=model_type,
             region=region,
         )
 
@@ -1230,6 +1248,8 @@ class Models(BaseSDK):
         id: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1238,7 +1258,6 @@ class Models(BaseSDK):
         model_developer: Optional[str] = None,
         model_family: Optional[str] = None,
         model_id: Optional[str] = None,
-        model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
         supports_adaptive_reasoning: Optional[bool] = None,
@@ -1261,6 +1280,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1269,7 +1290,6 @@ class Models(BaseSDK):
         :param model_developer:
         :param model_family:
         :param model_id:
-        :param model_type:
         :param output_cost:
         :param region:
         :param supports_adaptive_reasoning:
@@ -1303,6 +1323,8 @@ class Models(BaseSDK):
             request_body=models.ModelUpdateAwsBedrockRequestBody(
                 assume_role_arn=assume_role_arn,
                 assume_role_external_id=assume_role_external_id,
+                autorouter_id=autorouter_id,
+                autorouter_version=autorouter_version,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1311,7 +1333,6 @@ class Models(BaseSDK):
                 model_developer=model_developer,
                 model_family=model_family,
                 model_id=model_id,
-                model_type=model_type,
                 output_cost=output_cost,
                 region=region,
                 supports_adaptive_reasoning=supports_adaptive_reasoning,
@@ -1391,6 +1412,8 @@ class Models(BaseSDK):
         id: str,
         assume_role_arn: Optional[str] = None,
         assume_role_external_id: Optional[str] = None,
+        autorouter_id: Optional[str] = None,
+        autorouter_version: Optional[str] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1399,7 +1422,6 @@ class Models(BaseSDK):
         model_developer: Optional[str] = None,
         model_family: Optional[str] = None,
         model_id: Optional[str] = None,
-        model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         region: Optional[str] = None,
         supports_adaptive_reasoning: Optional[bool] = None,
@@ -1422,6 +1444,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
+        :param autorouter_id:
+        :param autorouter_version:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1430,7 +1454,6 @@ class Models(BaseSDK):
         :param model_developer:
         :param model_family:
         :param model_id:
-        :param model_type:
         :param output_cost:
         :param region:
         :param supports_adaptive_reasoning:
@@ -1464,6 +1487,8 @@ class Models(BaseSDK):
             request_body=models.ModelUpdateAwsBedrockRequestBody(
                 assume_role_arn=assume_role_arn,
                 assume_role_external_id=assume_role_external_id,
+                autorouter_id=autorouter_id,
+                autorouter_version=autorouter_version,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1472,7 +1497,6 @@ class Models(BaseSDK):
                 model_developer=model_developer,
                 model_family=model_family,
                 model_id=model_id,
-                model_type=model_type,
                 output_cost=output_cost,
                 region=region,
                 supports_adaptive_reasoning=supports_adaptive_reasoning,
@@ -1751,350 +1775,6 @@ class Models(BaseSDK):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def import_litellm(
-        self,
-        *,
-        request: Nullable[
-            Union[Iterable[models.LiteLLMModel], Iterable[models.LiteLLMModelTypedDict]]
-        ],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.ModelDocument]:
-        r"""Import models from LiteLLM
-
-        Bulk-imports a list of LiteLLM model definitions into the workspace model garden.
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Nullable[List[models.LiteLLMModel]])
-        request = cast(Nullable[List[models.LiteLLMModel]], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/models/litellm/import",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, True, False, "json", Nullable[List[models.LiteLLMModel]]
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ModelLiteLLMImport",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ModelDocument], http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def import_litellm_async(
-        self,
-        *,
-        request: Nullable[
-            Union[Iterable[models.LiteLLMModel], Iterable[models.LiteLLMModelTypedDict]]
-        ],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.ModelDocument]:
-        r"""Import models from LiteLLM
-
-        Bulk-imports a list of LiteLLM model definitions into the workspace model garden.
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Nullable[List[models.LiteLLMModel]])
-        request = cast(Nullable[List[models.LiteLLMModel]], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/models/litellm/import",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, True, False, "json", Nullable[List[models.LiteLLMModel]]
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ModelLiteLLMImport",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ModelDocument], http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def list_litellm(
-        self,
-        *,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[Dict[str, Any]]:
-        r"""List models from configured LiteLLM instance
-
-        Fetches the list of models from the LiteLLM instance configured for the workspace. Requires a stored LiteLLM integration.
-
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-        req = self._build_request(
-            method="GET",
-            path="/v2/models/litellm/models",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ModelListLitellm",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[Dict[str, Any]], http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def list_litellm_async(
-        self,
-        *,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[Dict[str, Any]]:
-        r"""List models from configured LiteLLM instance
-
-        Fetches the list of models from the LiteLLM instance configured for the workspace. Requires a stored LiteLLM integration.
-
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/models/litellm/models",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=None,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ModelListLitellm",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[Dict[str, Any]], http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
 

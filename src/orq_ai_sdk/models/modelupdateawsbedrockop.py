@@ -22,6 +22,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
+    autorouter_id: NotRequired[str]
+    autorouter_version: NotRequired[str]
     description: NotRequired[str]
     display_name: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -30,7 +32,6 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     model_developer: NotRequired[str]
     model_family: NotRequired[str]
     model_id: NotRequired[str]
-    model_type: NotRequired[str]
     output_cost: NotRequired[float]
     region: NotRequired[str]
     supports_adaptive_reasoning: NotRequired[bool]
@@ -48,6 +49,10 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
 
     assume_role_external_id: Optional[str] = None
 
+    autorouter_id: Optional[str] = None
+
+    autorouter_version: Optional[str] = None
+
     description: Optional[str] = None
 
     display_name: Optional[str] = None
@@ -63,8 +68,6 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
     model_family: Optional[str] = None
 
     model_id: Optional[str] = None
-
-    model_type: Optional[str] = None
 
     output_cost: Optional[float] = None
 
@@ -92,6 +95,8 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
             [
                 "assume_role_arn",
                 "assume_role_external_id",
+                "autorouter_id",
+                "autorouter_version",
                 "description",
                 "display_name",
                 "has_reasoning",
@@ -100,7 +105,6 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "model_developer",
                 "model_family",
                 "model_id",
-                "model_type",
                 "output_cost",
                 "region",
                 "supports_adaptive_reasoning",

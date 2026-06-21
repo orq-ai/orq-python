@@ -3,19 +3,42 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Optional
+from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+ReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
+
+ReasoningSummary = Literal[
+    "concise",
+    "detailed",
+    "auto",
+]
+r"""The format of the reasoning summary returned by the model."""
+
+
 class ReasoningTypedDict(TypedDict):
-    effort: NotRequired[str]
-    summary: NotRequired[str]
+    effort: NotRequired[ReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    summary: NotRequired[ReasoningSummary]
+    r"""The format of the reasoning summary returned by the model."""
 
 
 class Reasoning(BaseModel):
-    effort: Optional[str] = None
+    effort: Optional[ReasoningEffort] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-    summary: Optional[str] = None
+    summary: Optional[ReasoningSummary] = None
+    r"""The format of the reasoning summary returned by the model."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

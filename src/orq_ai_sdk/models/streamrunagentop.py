@@ -505,6 +505,70 @@ class StreamRunAgentModelConfigurationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+StreamRunAgentModelConfigurationAgentsType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+StreamRunAgentModelConfigurationTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class StreamRunAgentModelConfigurationCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: StreamRunAgentModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[StreamRunAgentModelConfigurationTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class StreamRunAgentModelConfigurationCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: StreamRunAgentModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[StreamRunAgentModelConfigurationTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -564,6 +628,10 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[StreamRunAgentModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    cache_control: NotRequired[StreamRunAgentModelConfigurationCacheControlTypedDict]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class StreamRunAgentModelConfigurationParameters(BaseModel):
@@ -647,6 +715,12 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     timeout: Optional[StreamRunAgentModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
+    cache_control: Optional[StreamRunAgentModelConfigurationCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -673,6 +747,8 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
+                "cache_control",
+                "prompt_cache_key",
             ]
         )
         nullable_fields = set(
@@ -1217,6 +1293,70 @@ class StreamRunAgentFallbackModelConfigurationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+StreamRunAgentFallbackModelConfigurationAgentsType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+StreamRunAgentFallbackModelConfigurationTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class StreamRunAgentFallbackModelConfigurationCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: StreamRunAgentFallbackModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[StreamRunAgentFallbackModelConfigurationTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class StreamRunAgentFallbackModelConfigurationCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: StreamRunAgentFallbackModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[StreamRunAgentFallbackModelConfigurationTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -1288,6 +1428,12 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[StreamRunAgentFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    cache_control: NotRequired[
+        StreamRunAgentFallbackModelConfigurationCacheControlTypedDict
+    ]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
@@ -1377,6 +1523,12 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     timeout: Optional[StreamRunAgentFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
+    cache_control: Optional[StreamRunAgentFallbackModelConfigurationCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1403,6 +1555,8 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
+                "cache_control",
+                "prompt_cache_key",
             ]
         )
         nullable_fields = set(
@@ -1903,7 +2057,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KVAJVTRR5K9DN13BG4J563A7"
+    id: Optional[str] = "01KVMMQ847J09Q2CFZF21PXC2B"
 
     description: Optional[str] = None
 

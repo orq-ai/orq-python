@@ -26,7 +26,6 @@ value: UpdatePromptProvider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
-- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`

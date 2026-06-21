@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
+    from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
@@ -67,6 +68,7 @@ class Orq(BaseSDK):
     policies: "Policies"
     routing_rules: "RoutingRules"
     api_keys: "APIKeys"
+    budgets: "Budgets"
     files: "Files"
     identities: "Identities"
     projects: "Projects"
@@ -94,6 +96,7 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
+        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "projects": ("orq_ai_sdk.projects", "Projects"),

@@ -8,6 +8,8 @@
 | `assume_role_arn`             | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `assume_role_external_id`     | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `auth_mode`                   | *str*                         | :heavy_check_mark:            | N/A                           |
+| `autorouter_id`               | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
+| `autorouter_version`          | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `description`                 | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `display_name`                | *str*                         | :heavy_check_mark:            | N/A                           |
 | `has_reasoning`               | *Optional[bool]*              | :heavy_minus_sign:            | N/A                           |

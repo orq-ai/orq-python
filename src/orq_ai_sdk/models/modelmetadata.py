@@ -79,6 +79,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_audio_output: NotRequired[bool]
     supports_b64_json_response_format: NotRequired[bool]
     supports_batch_api: NotRequired[bool]
+    supports_cache_control: NotRequired[bool]
     supports_citations: NotRequired[bool]
     supports_code_execution: NotRequired[bool]
     supports_commercial_use: NotRequired[bool]
@@ -257,6 +258,8 @@ class ModelMetadata(BaseModel):
 
     supports_batch_api: Optional[bool] = None
 
+    supports_cache_control: Optional[bool] = None
+
     supports_citations: Optional[bool] = None
 
     supports_code_execution: Optional[bool] = None
@@ -421,6 +424,7 @@ class ModelMetadata(BaseModel):
                 "supports_audio_output",
                 "supports_b64_json_response_format",
                 "supports_batch_api",
+                "supports_cache_control",
                 "supports_citations",
                 "supports_code_execution",
                 "supports_commercial_use",
