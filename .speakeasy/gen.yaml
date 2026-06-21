@@ -38,7 +38,7 @@ python:
       opentelemetry-sdk: ^1.20.0
       types-requests: ^2.32.4.20250809
     main:
-      requests: ==2.32.4
+      requests: '>=2.33.0,<3.0.0'
   allowedRedefinedBuiltins:
     - id
     - object
