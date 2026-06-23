@@ -1,0 +1,4 @@
+# Preserve the ENG-1983 local fix (get_discriminator returns None instead of
+# raising). Upstream Speakeasy still raises; do not let regen revert this.
+# Remove this entry once the fix lands upstream and the CLI/template is bumped.
+src/orq_ai_sdk/utils/annotations.py

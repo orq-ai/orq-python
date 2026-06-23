@@ -79,6 +79,6 @@ def get_discriminator(model: Any, fieldname: str, key: str) -> Optional[str]:
     # ENG-1983: return None instead of raising so pydantic treats an absent
     # discriminator (UNSET / type-less values) as a soft per-branch miss and
     # falls through to the None/UNSET arm of the union, rather than aborting
-    # model construction. Upstream Speakeasy raises here; this is a persisted
-    # local edit (see .speakeasy/gen.lock persistentEdits).
+    # model construction. Upstream Speakeasy raises here; this file is frozen
+    # against regen via .genignore so the edit is not reverted.
     return None
