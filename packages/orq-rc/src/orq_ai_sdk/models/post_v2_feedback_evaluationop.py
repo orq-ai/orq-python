@@ -66,7 +66,7 @@ class RequestBody3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-06-22T14:03:29.859Z")
+    ] = parse_datetime("2026-06-23T06:18:52.692Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -144,7 +144,7 @@ class PostV2FeedbackEvaluationRequestBody2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-06-22T14:03:29.858Z")
+    ] = parse_datetime("2026-06-23T06:18:52.691Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -222,7 +222,7 @@ class PostV2FeedbackEvaluationRequestBody1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-06-22T14:03:29.857Z")
+    ] = parse_datetime("2026-06-23T06:18:52.690Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
