@@ -4,7 +4,7 @@ from enum import Enum
 from typing import Any, Optional
 
 
-def get_discriminator(model: Any, fieldname: str, key: str) -> str:
+def get_discriminator(model: Any, fieldname: str, key: str) -> Optional[str]:
     """
     Recursively search for the discriminator attribute in a model.
 
@@ -76,4 +76,9 @@ def get_discriminator(model: Any, fieldname: str, key: str) -> str:
     if discriminator is not None:
         return discriminator
 
-    raise ValueError(f"Could not find discriminator field {fieldname} in {model}")
+    # ENG-1983: return None instead of raising so pydantic treats an absent
+    # discriminator (UNSET / type-less values) as a soft per-branch miss and
+    # falls through to the None/UNSET arm of the union, rather than aborting
+    # model construction. Upstream Speakeasy raises here; this is a persisted
+    # local edit (see .speakeasy/gen.lock persistentEdits).
+    return None
