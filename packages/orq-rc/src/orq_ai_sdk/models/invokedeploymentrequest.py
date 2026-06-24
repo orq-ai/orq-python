@@ -455,8 +455,8 @@ class Four(BaseModel):
         return m
 
 
-TwoTypedDict = TypeAliasType(
-    "TwoTypedDict",
+InvokeDeploymentRequestContentPrefixMessages2TypedDict = TypeAliasType(
+    "InvokeDeploymentRequestContentPrefixMessages2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
@@ -466,7 +466,7 @@ TwoTypedDict = TypeAliasType(
 )
 
 
-Two = Annotated[
+InvokeDeploymentRequestContentPrefixMessages2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
@@ -479,13 +479,14 @@ Two = Annotated[
 
 InvokeDeploymentRequestPrefixMessagesContentTypedDict = TypeAliasType(
     "InvokeDeploymentRequestPrefixMessagesContentTypedDict",
-    Union[str, List[TwoTypedDict]],
+    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 InvokeDeploymentRequestPrefixMessagesContent = TypeAliasType(
-    "InvokeDeploymentRequestPrefixMessagesContent", Union[str, List[Two]]
+    "InvokeDeploymentRequestPrefixMessagesContent",
+    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2]],
 )
 r"""The contents of the user message."""
 

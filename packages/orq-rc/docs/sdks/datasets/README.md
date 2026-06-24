@@ -262,9 +262,10 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.HonoAPIError | 404                 | application/json    |
+| models.APIError     | 4XX, 5XX            | \*/\*               |
 
 ## create_datapoint
 
