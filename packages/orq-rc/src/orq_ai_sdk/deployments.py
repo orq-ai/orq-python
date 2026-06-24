@@ -1040,8 +1040,8 @@ class Deployments(BaseSDK):
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStream(
                 http_res,
-                lambda raw: utils.unmarshal_json(
-                    raw, models.DeploymentStreamResponseBody
+                lambda raw: unmarshal_json_response(
+                    models.DeploymentStreamResponseBody, http_res, raw
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
@@ -1219,8 +1219,8 @@ class Deployments(BaseSDK):
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStreamAsync(
                 http_res,
-                lambda raw: utils.unmarshal_json(
-                    raw, models.DeploymentStreamResponseBody
+                lambda raw: unmarshal_json_response(
+                    models.DeploymentStreamResponseBody, http_res, raw
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
