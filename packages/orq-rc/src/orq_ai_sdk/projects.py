@@ -88,6 +88,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List projects",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List projects",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.projects.list(\n    limit=25,\n)\n\nfor project in page.data:\n    print(project.project_id, project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - List projects",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -183,6 +203,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List projects",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List projects",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.projects.list(\n    limit=25,\n)\n\nfor project in page.data:\n    print(project.project_id, project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - List projects",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -279,6 +319,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create project",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.create(\n    name="Customer Success",\n    description="Production automations for customer success workflows",\n    teams=["team_support", "team_growth"],\n)\n\nprint(result.project.project_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -375,6 +435,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create project",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.create(\n    name="Customer Success",\n    description="Production automations for customer success workflows",\n    teams=["team_support", "team_growth"],\n)\n\nprint(result.project.project_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -462,6 +542,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve project",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.get(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -549,6 +649,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve project",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.get(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -636,6 +756,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete project",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.projects.delete(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -723,6 +863,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete project",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.projects.delete(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -829,6 +989,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update project",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.update(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    name="Customer Success Production",\n    description="Production support and retention automations",\n    teams=["team_support"],\n)\n\nprint(result.project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Update project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -935,6 +1115,26 @@ class Projects(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Projects"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update project",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update project",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.projects.update(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    name="Customer Success Production",\n    description="Production support and retention automations",\n    teams=["team_support"],\n)\n\nprint(result.project.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Update project",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

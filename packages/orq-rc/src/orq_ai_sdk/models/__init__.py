@@ -1951,6 +1951,14 @@ if TYPE_CHECKING:
         RetrievalSettingsTypedDict,
         RetrievalType,
     )
+    from .createmanagementkeyrequest import (
+        CreateManagementKeyRequest,
+        CreateManagementKeyRequestTypedDict,
+    )
+    from .createmanagementkeyresponse import (
+        CreateManagementKeyResponse,
+        CreateManagementKeyResponseTypedDict,
+    )
     from .creatememorydocumentop import (
         CreateMemoryDocumentRequest,
         CreateMemoryDocumentRequestBody,
@@ -2682,6 +2690,10 @@ if TYPE_CHECKING:
     from .deleteknowledgeop import (
         DeleteKnowledgeRequest,
         DeleteKnowledgeRequestTypedDict,
+    )
+    from .deletemanagementkeyresponse import (
+        DeleteManagementKeyResponse,
+        DeleteManagementKeyResponseTypedDict,
     )
     from .deletememorydocumentop import (
         DeleteMemoryDocumentRequest,
@@ -4045,6 +4057,10 @@ if TYPE_CHECKING:
         GetFileContentResponseTypedDict,
     )
     from .getfileresponse import GetFileResponse, GetFileResponseTypedDict
+    from .getmanagementkeyresponse import (
+        GetManagementKeyResponse,
+        GetManagementKeyResponseTypedDict,
+    )
     from .getonechunkop import (
         GetOneChunkMetadata,
         GetOneChunkMetadataTypedDict,
@@ -5188,6 +5204,14 @@ if TYPE_CHECKING:
         ListKnowledgeBasesResponseBody,
         ListKnowledgeBasesResponseBodyTypedDict,
     )
+    from .listmanagementcapabilitiesresponse import (
+        ListManagementCapabilitiesResponse,
+        ListManagementCapabilitiesResponseTypedDict,
+    )
+    from .listmanagementkeysresponse import (
+        ListManagementKeysResponse,
+        ListManagementKeysResponseTypedDict,
+    )
     from .listprojectsresponse import (
         ListProjectsResponse,
         ListProjectsResponseTypedDict,
@@ -5370,6 +5394,25 @@ if TYPE_CHECKING:
         ListPromptVersionsVoice,
     )
     from .listskillsresponse import ListSkillsResponse, ListSkillsResponseTypedDict
+    from .managementkey import ManagementKey, ManagementKeyTypedDict
+    from .managementkeydeleteop import (
+        ManagementKeyDeleteRequest,
+        ManagementKeyDeleteRequestTypedDict,
+    )
+    from .managementkeygetop import (
+        ManagementKeyGetRequest,
+        ManagementKeyGetRequestTypedDict,
+    )
+    from .managementkeylistop import (
+        ManagementKeyListRequest,
+        ManagementKeyListRequestTypedDict,
+    )
+    from .managementkeystatus import ManagementKeyStatus
+    from .managementkeyupdateop import (
+        ManagementKeyUpdateRequest,
+        ManagementKeyUpdateRequestTypedDict,
+    )
+    from .managementpermissionmode import ManagementPermissionMode
     from .memoryparam import MemoryParam, MemoryParamTypedDict
     from .modelazurefoundrydeploymentsop import (
         ModelAzureFoundryDeploymentsRequestBody,
@@ -8113,6 +8156,14 @@ if TYPE_CHECKING:
         UpdateKnowledgeResponseBodyType,
         UpdateKnowledgeResponseBodyTypedDict,
     )
+    from .updatemanagementkeyrequest import (
+        UpdateManagementKeyRequest,
+        UpdateManagementKeyRequestTypedDict,
+    )
+    from .updatemanagementkeyresponse import (
+        UpdateManagementKeyResponse,
+        UpdateManagementKeyResponseTypedDict,
+    )
     from .updatememorydocumentop import (
         UpdateMemoryDocumentRequest,
         UpdateMemoryDocumentRequestBody,
@@ -10204,6 +10255,10 @@ __all__ = [
     "CreateKnowledgeResponseBodyRetrievalSettingsTypedDict",
     "CreateKnowledgeResponseBodyType",
     "CreateKnowledgeResponseBodyTypedDict",
+    "CreateManagementKeyRequest",
+    "CreateManagementKeyRequestTypedDict",
+    "CreateManagementKeyResponse",
+    "CreateManagementKeyResponseTypedDict",
     "CreateMemoryDocumentRequest",
     "CreateMemoryDocumentRequestBody",
     "CreateMemoryDocumentRequestBodyTypedDict",
@@ -10905,6 +10960,8 @@ __all__ = [
     "DeleteIdentityResponseTypedDict",
     "DeleteKnowledgeRequest",
     "DeleteKnowledgeRequestTypedDict",
+    "DeleteManagementKeyResponse",
+    "DeleteManagementKeyResponseTypedDict",
     "DeleteMemoryDocumentRequest",
     "DeleteMemoryDocumentRequestTypedDict",
     "DeleteMemoryDocumentTool",
@@ -12268,6 +12325,8 @@ __all__ = [
     "GetFileContentResponseTypedDict",
     "GetFileResponse",
     "GetFileResponseTypedDict",
+    "GetManagementKeyResponse",
+    "GetManagementKeyResponseTypedDict",
     "GetOneChunkMetadata",
     "GetOneChunkMetadataTypedDict",
     "GetOneChunkRequest",
@@ -13301,6 +13360,10 @@ __all__ = [
     "ListKnowledgeBasesRequestTypedDict",
     "ListKnowledgeBasesResponseBody",
     "ListKnowledgeBasesResponseBodyTypedDict",
+    "ListManagementCapabilitiesResponse",
+    "ListManagementCapabilitiesResponseTypedDict",
+    "ListManagementKeysResponse",
+    "ListManagementKeysResponseTypedDict",
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
@@ -13506,6 +13569,18 @@ __all__ = [
     "MCPToolRun",
     "MCPToolRunTypedDict",
     "MCPToolTypedDict",
+    "ManagementKey",
+    "ManagementKeyDeleteRequest",
+    "ManagementKeyDeleteRequestTypedDict",
+    "ManagementKeyGetRequest",
+    "ManagementKeyGetRequestTypedDict",
+    "ManagementKeyListRequest",
+    "ManagementKeyListRequestTypedDict",
+    "ManagementKeyStatus",
+    "ManagementKeyTypedDict",
+    "ManagementKeyUpdateRequest",
+    "ManagementKeyUpdateRequestTypedDict",
+    "ManagementPermissionMode",
     "Matches",
     "MatchesTypedDict",
     "Mcp",
@@ -16275,6 +16350,10 @@ __all__ = [
     "UpdateKnowledgeResponseBodyTypedDict",
     "UpdateMCPTool",
     "UpdateMCPToolTypedDict",
+    "UpdateManagementKeyRequest",
+    "UpdateManagementKeyRequestTypedDict",
+    "UpdateManagementKeyResponse",
+    "UpdateManagementKeyResponseTypedDict",
     "UpdateMemoryDocumentRequest",
     "UpdateMemoryDocumentRequestBody",
     "UpdateMemoryDocumentRequestBodyTypedDict",
@@ -18643,6 +18722,10 @@ _dynamic_imports: dict[str, str] = {
     "RetrievalSettings": ".createknowledgeop",
     "RetrievalSettingsTypedDict": ".createknowledgeop",
     "RetrievalType": ".createknowledgeop",
+    "CreateManagementKeyRequest": ".createmanagementkeyrequest",
+    "CreateManagementKeyRequestTypedDict": ".createmanagementkeyrequest",
+    "CreateManagementKeyResponse": ".createmanagementkeyresponse",
+    "CreateManagementKeyResponseTypedDict": ".createmanagementkeyresponse",
     "CreateMemoryDocumentRequest": ".creatememorydocumentop",
     "CreateMemoryDocumentRequestBody": ".creatememorydocumentop",
     "CreateMemoryDocumentRequestBodyTypedDict": ".creatememorydocumentop",
@@ -19331,6 +19414,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteIdentityResponseTypedDict": ".deleteidentityresponse",
     "DeleteKnowledgeRequest": ".deleteknowledgeop",
     "DeleteKnowledgeRequestTypedDict": ".deleteknowledgeop",
+    "DeleteManagementKeyResponse": ".deletemanagementkeyresponse",
+    "DeleteManagementKeyResponseTypedDict": ".deletemanagementkeyresponse",
     "DeleteMemoryDocumentRequest": ".deletememorydocumentop",
     "DeleteMemoryDocumentRequestTypedDict": ".deletememorydocumentop",
     "DeleteMemoryRequest": ".deletememoryop",
@@ -20646,6 +20731,8 @@ _dynamic_imports: dict[str, str] = {
     "GetFileContentResponseTypedDict": ".getfilecontentresponse",
     "GetFileResponse": ".getfileresponse",
     "GetFileResponseTypedDict": ".getfileresponse",
+    "GetManagementKeyResponse": ".getmanagementkeyresponse",
+    "GetManagementKeyResponseTypedDict": ".getmanagementkeyresponse",
     "GetOneChunkMetadata": ".getonechunkop",
     "GetOneChunkMetadataTypedDict": ".getonechunkop",
     "GetOneChunkRequest": ".getonechunkop",
@@ -21752,6 +21839,10 @@ _dynamic_imports: dict[str, str] = {
     "ListKnowledgeBasesRequestTypedDict": ".listknowledgebasesop",
     "ListKnowledgeBasesResponseBody": ".listknowledgebasesop",
     "ListKnowledgeBasesResponseBodyTypedDict": ".listknowledgebasesop",
+    "ListManagementCapabilitiesResponse": ".listmanagementcapabilitiesresponse",
+    "ListManagementCapabilitiesResponseTypedDict": ".listmanagementcapabilitiesresponse",
+    "ListManagementKeysResponse": ".listmanagementkeysresponse",
+    "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
     "ListProjectsResponse": ".listprojectsresponse",
     "ListProjectsResponseTypedDict": ".listprojectsresponse",
     "ListPromptVersions21": ".listpromptversionsop",
@@ -21931,6 +22022,18 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsVoice": ".listpromptversionsop",
     "ListSkillsResponse": ".listskillsresponse",
     "ListSkillsResponseTypedDict": ".listskillsresponse",
+    "ManagementKey": ".managementkey",
+    "ManagementKeyTypedDict": ".managementkey",
+    "ManagementKeyDeleteRequest": ".managementkeydeleteop",
+    "ManagementKeyDeleteRequestTypedDict": ".managementkeydeleteop",
+    "ManagementKeyGetRequest": ".managementkeygetop",
+    "ManagementKeyGetRequestTypedDict": ".managementkeygetop",
+    "ManagementKeyListRequest": ".managementkeylistop",
+    "ManagementKeyListRequestTypedDict": ".managementkeylistop",
+    "ManagementKeyStatus": ".managementkeystatus",
+    "ManagementKeyUpdateRequest": ".managementkeyupdateop",
+    "ManagementKeyUpdateRequestTypedDict": ".managementkeyupdateop",
+    "ManagementPermissionMode": ".managementpermissionmode",
     "MemoryParam": ".memoryparam",
     "MemoryParamTypedDict": ".memoryparam",
     "ModelAzureFoundryDeploymentsRequestBody": ".modelazurefoundrydeploymentsop",
@@ -24447,6 +24550,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateKnowledgeResponseBodyRetrievalType": ".updateknowledgeop",
     "UpdateKnowledgeResponseBodyType": ".updateknowledgeop",
     "UpdateKnowledgeResponseBodyTypedDict": ".updateknowledgeop",
+    "UpdateManagementKeyRequest": ".updatemanagementkeyrequest",
+    "UpdateManagementKeyRequestTypedDict": ".updatemanagementkeyrequest",
+    "UpdateManagementKeyResponse": ".updatemanagementkeyresponse",
+    "UpdateManagementKeyResponseTypedDict": ".updatemanagementkeyresponse",
     "UpdateMemoryDocumentRequest": ".updatememorydocumentop",
     "UpdateMemoryDocumentRequestBody": ".updatememorydocumentop",
     "UpdateMemoryDocumentRequestBodyTypedDict": ".updatememorydocumentop",

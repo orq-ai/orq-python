@@ -100,6 +100,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "list",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List identities by tag",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
+                        },
+                        {
+                            "label": "Python - List identities by tag",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by={"tags": ["enterprise"]},\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List identities by tag",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterBy: {\n    tags: ['enterprise'],\n  },\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -207,6 +229,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "list",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List identities by tag",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
+                        },
+                        {
+                            "label": "Python - List identities by tag",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.identities.list(\n    limit=25,\n    search="acme",\n    filter_by={"tags": ["enterprise"]},\n    include_metrics=True,\n)\n\nfor identity in page.data:\n    print(identity.external_id, identity.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List identities by tag",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.identities.list({\n  limit: 25,\n  search: 'acme',\n  filterBy: {\n    tags: ['enterprise'],\n  },\n  includeMetrics: true,\n});\n\nfor (const identity of page.data) {\n  console.log(identity.externalId, identity.displayName);\n}\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -320,6 +364,43 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create customer identity",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create customer identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.create(\n    external_id="customer_12345",\n    display_name="Ada Lovelace",\n    email="ada@example.com",\n    tags=["enterprise", "beta"],\n    metadata={\n        "plan": "enterprise",\n        "region": "eu",\n    },\n)\n\nprint(result.identity.external_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create customer identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.identity.externalId);\n",
+                        },
+                        {
+                            "label": "Core - Create minimal identity",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Create minimal identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.create(\n    external_id="user_9f4b2a",\n)\n\nprint(result.identity.external_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create minimal identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.identity.externalId);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -433,6 +514,43 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create customer identity",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create customer identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.create(\n    external_id="customer_12345",\n    display_name="Ada Lovelace",\n    email="ada@example.com",\n    tags=["enterprise", "beta"],\n    metadata={\n        "plan": "enterprise",\n        "region": "eu",\n    },\n)\n\nprint(result.identity.external_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create customer identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'customer_12345',\n  displayName: 'Ada Lovelace',\n  email: 'ada@example.com',\n  tags: ['enterprise', 'beta'],\n  metadata: {\n    plan: 'enterprise',\n    region: 'eu',\n  },\n});\n\nconsole.log(result.identity.externalId);\n",
+                        },
+                        {
+                            "label": "Core - Create minimal identity",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Create minimal identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.create(\n    external_id="user_9f4b2a",\n)\n\nprint(result.identity.external_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create minimal identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.create({\n  externalId: 'user_9f4b2a',\n});\n\nconsole.log(result.identity.externalId);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -523,6 +641,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "retrieve",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve identity with metrics",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'include_metrics=true'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve identity with metrics",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.retrieve(\n    id="customer_12345",\n    include_metrics=True,\n)\n\nprint(result.identity.display_name)\nprint(result.identity.metrics.total_requests)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve identity with metrics",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.retrieve({\n  id: 'customer_12345',\n  includeMetrics: true,\n});\n\nconsole.log(result.identity.displayName);\nconsole.log(result.identity.metrics.totalRequests);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -613,6 +753,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "retrieve",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve identity with metrics",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'include_metrics=true'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve identity with metrics",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.retrieve(\n    id="customer_12345",\n    include_metrics=True,\n)\n\nprint(result.identity.display_name)\nprint(result.identity.metrics.total_requests)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve identity with metrics",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.retrieve({\n  id: 'customer_12345',\n  includeMetrics: true,\n});\n\nconsole.log(result.identity.displayName);\nconsole.log(result.identity.metrics.totalRequests);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -700,6 +862,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete identity",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.identities.delete(\n    id="customer_12345",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.identities.delete({\n  id: 'customer_12345',\n});\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -787,6 +971,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete identity",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete identity",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.identities.delete(\n    id="customer_12345",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete identity",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.identities.delete({\n  id: 'customer_12345',\n});\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -905,6 +1111,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update identity profile",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update identity profile",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.update(\n    id="customer_12345",\n    display_name="Ada L.",\n    tags=["enterprise", "priority"],\n    metadata={\n        "plan": "enterprise",\n        "lifecycle": "renewal",\n    },\n)\n\nprint(result.identity.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Update identity profile",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  displayName: 'Ada L.',\n  tags: ['enterprise', 'priority'],\n  metadata: {\n    plan: 'enterprise',\n    lifecycle: 'renewal',\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1023,6 +1251,28 @@ class Identities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Identities"],
+                extensions={
+                    "x-cli-group": "identities",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update identity profile",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update identity profile",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.identities.update(\n    id="customer_12345",\n    display_name="Ada L.",\n    tags=["enterprise", "priority"],\n    metadata={\n        "plan": "enterprise",\n        "lifecycle": "renewal",\n    },\n)\n\nprint(result.identity.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Update identity profile",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.identities.update({\n  id: 'customer_12345',\n  displayName: 'Ada L.',\n  tags: ['enterprise', 'priority'],\n  metadata: {\n    plan: 'enterprise',\n    lifecycle: 'renewal',\n  },\n});\n\nconsole.log(result.identity.displayName);\n",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

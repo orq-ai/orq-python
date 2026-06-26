@@ -149,6 +149,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -309,6 +311,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -406,6 +410,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -503,6 +509,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -680,6 +688,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "getConfig"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -857,6 +867,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "getConfig"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1030,6 +1042,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1209,6 +1223,8 @@ class Deployments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Deployments"],
+                extensions={"x-cli-group": "deployments", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

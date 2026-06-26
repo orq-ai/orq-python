@@ -173,6 +173,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -338,6 +340,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -436,6 +440,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -532,6 +538,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -619,6 +627,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -712,6 +722,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -805,6 +817,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -900,6 +914,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1098,6 +1114,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1294,6 +1312,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1454,6 +1474,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1608,6 +1630,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1800,6 +1824,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1992,6 +2018,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2199,6 +2227,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2424,6 +2454,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2599,6 +2631,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2774,6 +2808,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2896,6 +2932,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "refreshAgentCard"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3018,6 +3056,8 @@ class Agents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "refreshAgentCard"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

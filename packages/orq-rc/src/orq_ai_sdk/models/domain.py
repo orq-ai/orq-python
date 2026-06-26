@@ -3,28 +3,24 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class DomainTypedDict(TypedDict):
-    r"""Domain describes a permission domain that can be granted to an
-    API key. Verbs are derived from id + group + readable/writable.
+    r"""Domain describes a permission domain that can be granted to a
+    management key. Verbs are derived from id + readable/writable.
     """
 
     id: NotRequired[str]
-    r"""Stable domain identifier (e.g. \"agent\", \"chat_completions\"). Used
-    as the key in ApiKey.access and as the verb prefix in resolved
-    permissions (e.g. agent.list, agent.view, agent.create).
+    r"""Stable domain identifier (e.g. \"api-key\", \"budget\"). Used as the
+    key in ManagementKey.access and as the verb prefix in resolved
+    permissions (e.g. budget.list, budget.view, budget.create).
     """
     display_name: NotRequired[str]
     r"""Human-readable label for the dashboard."""
     group: NotRequired[int]
     r"""Logical group used by the UI to render this entry."""
-    allowed_scopes: NotRequired[List[int]]
-    r"""Project scopes this domain may be granted under. A workspace-
-    admin domain like `member` is typically SCOPE_MODE_ALL only.
-    """
     readable: NotRequired[bool]
     r"""Whether this domain can be granted read access."""
     writable: NotRequired[bool]
@@ -32,14 +28,14 @@ class DomainTypedDict(TypedDict):
 
 
 class Domain(BaseModel):
-    r"""Domain describes a permission domain that can be granted to an
-    API key. Verbs are derived from id + group + readable/writable.
+    r"""Domain describes a permission domain that can be granted to a
+    management key. Verbs are derived from id + readable/writable.
     """
 
     id: Optional[str] = None
-    r"""Stable domain identifier (e.g. \"agent\", \"chat_completions\"). Used
-    as the key in ApiKey.access and as the verb prefix in resolved
-    permissions (e.g. agent.list, agent.view, agent.create).
+    r"""Stable domain identifier (e.g. \"api-key\", \"budget\"). Used as the
+    key in ManagementKey.access and as the verb prefix in resolved
+    permissions (e.g. budget.list, budget.view, budget.create).
     """
 
     display_name: Optional[str] = None
@@ -47,11 +43,6 @@ class Domain(BaseModel):
 
     group: Optional[int] = None
     r"""Logical group used by the UI to render this entry."""
-
-    allowed_scopes: Optional[List[int]] = None
-    r"""Project scopes this domain may be granted under. A workspace-
-    admin domain like `member` is typically SCOPE_MODE_ALL only.
-    """
 
     readable: Optional[bool] = None
     r"""Whether this domain can be granted read access."""
@@ -61,9 +52,7 @@ class Domain(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["id", "display_name", "group", "allowed_scopes", "readable", "writable"]
-        )
+        optional_fields = set(["id", "display_name", "group", "readable", "writable"])
         serialized = handler(self)
         m = {}
 

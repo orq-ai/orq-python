@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.pii import Pii
@@ -71,6 +72,7 @@ class Orq(BaseSDK):
     budgets: "Budgets"
     files: "Files"
     identities: "Identities"
+    management_keys: "ManagementKeys"
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
@@ -99,6 +101,7 @@ class Orq(BaseSDK):
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
+        "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),

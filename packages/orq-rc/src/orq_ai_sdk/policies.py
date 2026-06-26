@@ -89,6 +89,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -185,6 +191,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "list",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -311,6 +323,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -437,6 +455,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "create",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -524,6 +548,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -611,6 +641,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "delete",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -698,6 +734,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -785,6 +827,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "retrieve",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -920,6 +968,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1055,6 +1109,12 @@ class Policies(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Policies"],
+                extensions={
+                    "x-cli-group": "policies",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

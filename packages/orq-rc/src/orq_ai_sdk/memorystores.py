@@ -93,6 +93,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -198,6 +200,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -303,6 +307,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -404,6 +410,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -493,6 +501,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -586,6 +596,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -697,6 +709,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -804,6 +818,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -893,6 +909,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -980,6 +998,8 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1079,6 +1099,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "listMemories",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1178,6 +1203,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "listMemories",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1277,6 +1307,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "createMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1376,6 +1411,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "createMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1466,6 +1506,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "retrieveMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1556,6 +1601,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "retrieveMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1658,6 +1708,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1760,6 +1815,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1855,6 +1915,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "deleteMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1950,6 +2015,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "deleteMemory",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2055,6 +2125,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "listDocuments",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2162,6 +2237,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "listDocuments",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2269,6 +2349,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "createDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2376,6 +2461,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "createDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2471,6 +2561,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "retrieveDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2566,6 +2661,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "retrieveDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2676,6 +2776,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2786,6 +2891,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2886,6 +2996,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "deleteDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2984,6 +3099,11 @@ class MemoryStores(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "deleteDocument",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
