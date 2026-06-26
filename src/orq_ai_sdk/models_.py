@@ -126,6 +126,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -259,6 +271,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -358,6 +382,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAutorouter({\n  key: "my-router",\n  strong_model: "openai/gpt-4o",\n  economical_model: "openai/gpt-4o-mini",\n  profile: "balanced",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -459,6 +495,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAutorouter({\n  key: "my-router",\n  strong_model: "openai/gpt-4o",\n  economical_model: "openai/gpt-4o-mini",\n  profile: "balanced",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -569,6 +617,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAutorouter({\n  id: "019d...",\n  profile: "cost",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -679,6 +739,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAutorouter({\n  id: "019d...",\n  profile: "cost",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -843,6 +915,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1007,6 +1091,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1117,6 +1213,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "validateAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1225,6 +1333,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "validateAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1387,6 +1507,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1551,6 +1683,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAwsBedrock",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1656,6 +1800,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "azureFoundryDeployments",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1761,6 +1917,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "azureFoundryDeployments",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1855,6 +2023,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "importLitellm",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1947,6 +2127,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "importLitellm",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2027,6 +2219,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "listLitellm",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": "await orq.models.listLitellm();",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2107,6 +2311,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "listLitellm",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": "await orq.models.listLitellm();",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2245,6 +2461,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createOpenaiLike",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2385,6 +2613,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createOpenaiLike",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2531,6 +2771,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateOpenaiLike",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2677,6 +2929,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateOpenaiLike",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2787,6 +3051,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "validate",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2895,6 +3171,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "validate",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2992,6 +3280,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createVertex",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3091,6 +3391,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createVertex",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3180,6 +3492,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.delete({ id: "019d..." });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3267,6 +3591,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.delete({ id: "019d..." });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3395,6 +3731,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.update({\n  id: "019d...",\n  displayName: "New display name",\n  hasFunctions: true,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3523,6 +3871,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.update({\n  id: "019d...",\n  displayName: "New display name",\n  hasFunctions: true,\n});',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3613,6 +3973,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "enable",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.enable({ modelId: "model_123" });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3703,6 +4075,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "enable",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.enable({ modelId: "model_123" });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3790,6 +4174,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "disable",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.disable({ modelId: "model_123" });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3877,6 +4273,18 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "disable",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.disable({ modelId: "model_123" });',
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3957,6 +4365,12 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "list",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -4037,6 +4451,12 @@ class Models(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "list",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -86,6 +86,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -179,6 +181,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -276,6 +280,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -373,6 +379,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -460,6 +468,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -551,6 +561,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -664,6 +676,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -777,6 +791,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -868,6 +884,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -955,6 +973,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1051,6 +1071,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "listDatapoints"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1149,6 +1171,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "listDatapoints"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1255,6 +1279,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "createDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1361,6 +1387,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "createDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1453,6 +1481,11 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieveDatapoint",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1549,6 +1582,11 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={
+                    "x-cli-group": "datasets",
+                    "x-cli-name": "retrieveDatapoint",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1675,6 +1713,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "updateDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1799,6 +1839,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "updateDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1893,6 +1935,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "deleteDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1987,6 +2031,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "deleteDatapoint"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2078,6 +2124,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "clear"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2165,6 +2213,8 @@ class Datasets(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasets"],
+                extensions={"x-cli-group": "datasets", "x-cli-name": "clear"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

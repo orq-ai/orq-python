@@ -192,6 +192,12 @@ class Completions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Completions"],
+                extensions={
+                    "x-cli-group": "completions",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": "true",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -400,6 +406,12 @@ class Completions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Completions"],
+                extensions={
+                    "x-cli-group": "completions",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": "true",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -130,6 +130,8 @@ class Router(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Router"],
+                extensions={"x-cli-group": "ocr", "x-cli-name": "ocr"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -231,6 +233,8 @@ class Router(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Router"],
+                extensions={"x-cli-group": "ocr", "x-cli-name": "ocr"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

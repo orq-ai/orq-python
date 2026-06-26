@@ -89,6 +89,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List skills",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List skills",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.skills.list(\n    limit=25,\n)\n\nfor skill in page.data:\n    print(skill.skill_id, skill.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List skills",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.skills.list({\n  limit: 25,\n});\n\nfor (const skill of page.data) {\n  console.log(skill.skillId, skill.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -185,6 +205,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List skills",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List skills",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.skills.list(\n    limit=25,\n)\n\nfor skill in page.data:\n    print(skill.skill_id, skill.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List skills",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.skills.list({\n  limit: 25,\n});\n\nfor (const skill of page.data) {\n  console.log(skill.skillId, skill.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -290,6 +330,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create project skill",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create project skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.create(\n    display_name="summarize_support_ticket",\n    description="Summarize support tickets into concise resolution notes.",\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    path="/customer-success/skills/summarize-support-ticket",\n    tags=["support", "summarization"],\n    instructions=(\n        "Read the ticket conversation and return the problem, "\n        "customer sentiment, and proposed next step."\n    ),\n)\n\nprint(result.skill.skill_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create project skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.create({\n  displayName: 'summarize_support_ticket',\n  description: 'Summarize support tickets into concise resolution notes.',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: '/customer-success/skills/summarize-support-ticket',\n  tags: ['support', 'summarization'],\n  instructions:\n    'Read the ticket conversation and return the problem, customer sentiment, and proposed next step.',\n});\n\nconsole.log(result.skill.skillId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -395,6 +455,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create project skill",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create project skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.create(\n    display_name="summarize_support_ticket",\n    description="Summarize support tickets into concise resolution notes.",\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    path="/customer-success/skills/summarize-support-ticket",\n    tags=["support", "summarization"],\n    instructions=(\n        "Read the ticket conversation and return the problem, "\n        "customer sentiment, and proposed next step."\n    ),\n)\n\nprint(result.skill.skill_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create project skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.create({\n  displayName: 'summarize_support_ticket',\n  description: 'Summarize support tickets into concise resolution notes.',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: '/customer-success/skills/summarize-support-ticket',\n  tags: ['support', 'summarization'],\n  instructions:\n    'Read the ticket conversation and return the problem, customer sentiment, and proposed next step.',\n});\n\nconsole.log(result.skill.skillId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -483,6 +563,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve skill",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.get(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.skill.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.get({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.skill.displayName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -571,6 +671,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve skill",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.get(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.skill.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.get({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.skill.displayName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -658,6 +778,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete skill",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.skills.delete(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.skills.delete({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -745,6 +885,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete skill",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete skill",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.skills.delete(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete skill",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.skills.delete({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -862,6 +1022,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update skill instructions",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update skill instructions",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.update(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    description="Summarize support tickets for escalation handoff.",\n    tags=["support", "handoff"],\n    instructions=(\n        "Return the issue summary, urgency, attempted fixes, "\n        "and recommended owner."\n    ),\n)\n\nprint(result.skill.version)\n',
+                        },
+                        {
+                            "label": "Node.js - Update skill instructions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.update({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  description: 'Summarize support tickets for escalation handoff.',\n  tags: ['support', 'handoff'],\n  instructions:\n    'Return the issue summary, urgency, attempted fixes, and recommended owner.',\n});\n\nconsole.log(result.skill.version);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -979,6 +1159,26 @@ class Skills(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Skills"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update skill instructions",
+                            "lang": "curl",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Update skill instructions",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.skills.update(\n    skill_id="skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    description="Summarize support tickets for escalation handoff.",\n    tags=["support", "handoff"],\n    instructions=(\n        "Return the issue summary, urgency, attempted fixes, "\n        "and recommended owner."\n    ),\n)\n\nprint(result.skill.version)\n',
+                        },
+                        {
+                            "label": "Node.js - Update skill instructions",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.update({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  description: 'Summarize support tickets for escalation handoff.',\n  tags: ['support', 'handoff'],\n  instructions:\n    'Return the issue summary, urgency, attempted fixes, and recommended owner.',\n});\n\nconsole.log(result.skill.version);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

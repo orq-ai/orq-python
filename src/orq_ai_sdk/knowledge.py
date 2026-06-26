@@ -86,6 +86,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -181,6 +183,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -274,6 +278,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -365,6 +371,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -452,6 +460,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -539,6 +549,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "retrieve"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -639,6 +651,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -739,6 +753,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -826,6 +842,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -913,6 +931,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1047,6 +1067,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1181,6 +1203,8 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={"x-cli-group": "knowledge-bases", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1283,6 +1307,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listDatasources",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1385,6 +1414,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listDatasources",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1495,6 +1529,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "createDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1607,6 +1646,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "createDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1697,6 +1741,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "retrieveDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1787,6 +1836,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "retrieveDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1879,6 +1933,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1969,6 +2028,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2069,6 +2133,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "updateDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2171,6 +2240,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "updateDatasource",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2275,6 +2349,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "createChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2377,6 +2456,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "createChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2485,6 +2569,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2593,6 +2682,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2693,6 +2787,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2793,6 +2892,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteChunks",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2905,6 +3009,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listChunksPaginated",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3019,6 +3128,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "listChunksPaginated",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3129,6 +3243,12 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getChunksCount",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3237,6 +3357,12 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getChunksCount",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3353,6 +3479,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "updateChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3469,6 +3600,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "updateChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3560,6 +3696,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3651,6 +3792,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "deleteChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3742,6 +3888,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "retrieveChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -3833,6 +3984,11 @@ class Knowledge(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "retrieveChunk",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

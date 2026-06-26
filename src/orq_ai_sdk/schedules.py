@@ -80,6 +80,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "list",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -169,6 +175,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "list",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -281,6 +293,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -408,6 +426,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -515,6 +539,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "delete",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -611,6 +641,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "delete",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -707,6 +743,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "retrieve",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -807,6 +849,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "retrieve",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -935,6 +983,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "update",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1070,6 +1124,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "update",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1177,6 +1237,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "trigger",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1284,6 +1350,12 @@ class Schedules(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agent Schedules"],
+                extensions={
+                    "x-cli-group": "schedules",
+                    "x-cli-name": "trigger",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -113,6 +113,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List active project keys",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/api-keys' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                        },
+                        {
+                            "label": "Python - List active project keys",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in page.data:\n    print(api_key.name, api_key.token_prefix)\n',
+                        },
+                        {
+                            "label": "Node.js - List active project keys",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of page.data) {\n  console.log(apiKey.name, apiKey.tokenPrefix);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -232,6 +252,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List active project keys",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/api-keys' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                        },
+                        {
+                            "label": "Python - List active project keys",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in page.data:\n    print(api_key.name, api_key.token_prefix)\n',
+                        },
+                        {
+                            "label": "Node.js - List active project keys",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of page.data) {\n  console.log(apiKey.name, apiKey.tokenPrefix);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -346,6 +386,41 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create service account key",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create service account key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                        },
+                        {
+                            "label": "Node.js - Create service account key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                        },
+                        {
+                            "label": "Core - Create restricted project key",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create restricted project key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.api_key.api_key_id)\nprint(result.token)\n',
+                        },
+                        {
+                            "label": "Node.js - Create restricted project key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.apiKey.apiKeyId);\nconsole.log(result.token);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -460,6 +535,41 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create service account key",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create service account key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                        },
+                        {
+                            "label": "Node.js - Create service account key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                        },
+                        {
+                            "label": "Core - Create restricted project key",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Create restricted project key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.api_key.api_key_id)\nprint(result.token)\n',
+                        },
+                        {
+                            "label": "Node.js - Create restricted project key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.apiKey.apiKeyId);\nconsole.log(result.token);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -540,6 +650,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List capability catalog",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/capabilities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - List capability catalog",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncatalog = client.api_keys.list_capabilities()\n\nfor domain in catalog.domains:\n    print(domain.id, domain.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List capability catalog",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst catalog = await client.apiKeys.listCapabilities();\n\nfor (const domain of catalog.domains) {\n  console.log(domain.id, domain.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -620,6 +750,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List capability catalog",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/capabilities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - List capability catalog",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncatalog = client.api_keys.list_capabilities()\n\nfor domain in catalog.domains:\n    print(domain.id, domain.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List capability catalog",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst catalog = await client.apiKeys.listCapabilities();\n\nfor (const domain of catalog.domains) {\n  console.log(domain.id, domain.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -707,6 +857,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve key metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve key metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.api_key.name)\nprint(result.api_key.token_prefix)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve key metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.apiKey.name);\nconsole.log(result.apiKey.tokenPrefix);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -794,6 +964,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve key metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve key metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.api_key.name)\nprint(result.api_key.token_prefix)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve key metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.apiKey.name);\nconsole.log(result.apiKey.tokenPrefix);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -881,6 +1071,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete a key",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete a key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.api_keys.delete(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete a key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.apiKeys.delete({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -968,6 +1178,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete a key",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete a key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.api_keys.delete(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete a key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.apiKeys.delete({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1095,6 +1325,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Disable a key",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Disable a key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.api_key.status)\n',
+                        },
+                        {
+                            "label": "Node.js - Disable a key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.apiKey.status);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1222,6 +1472,26 @@ class APIKeys(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Disable a key",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Disable a key",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.api_key.status)\n',
+                        },
+                        {
+                            "label": "Node.js - Disable a key",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.apiKey.status);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

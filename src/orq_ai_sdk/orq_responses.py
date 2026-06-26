@@ -167,6 +167,28 @@ class OrqResponses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={
+                    "x-cli-group": "agents-responses",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                        },
+                        {
+                            "label": "Python",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(\n    api_key=os.environ.get("ORQ_API_KEY")\n)\n\nresponse = client.agents.responses.create(\n    agent_key="customer_support",\n    message={\n        "role": "user",\n        "parts": [\n            {\n                "kind": "text",\n                "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n            }\n        ]\n    }\n)\n\nprint(response.output[0].parts[0].text)\nprint(response.usage)',
+                        },
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create({\n  agentKey: 'customer_support',\n  message: {\n    role: 'user',\n    parts: [\n      {\n        kind: 'text',\n        text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n      },\n    ],\n  }\n});\n\nconsole.log(response.output[0].parts[0].text);\nconsole.log(response.usage);",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -350,6 +372,28 @@ class OrqResponses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={
+                    "x-cli-group": "agents-responses",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                        },
+                        {
+                            "label": "Python",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(\n    api_key=os.environ.get("ORQ_API_KEY")\n)\n\nresponse = client.agents.responses.create(\n    agent_key="customer_support",\n    message={\n        "role": "user",\n        "parts": [\n            {\n                "kind": "text",\n                "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n            }\n        ]\n    }\n)\n\nprint(response.output[0].parts[0].text)\nprint(response.usage)',
+                        },
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst response = await client.agents.responses.create({\n  agentKey: 'customer_support',\n  message: {\n    role: 'user',\n    parts: [\n      {\n        kind: 'text',\n        text: 'Hi! I am testing your capabilities. Can you describe what you can do?',\n      },\n    ],\n  }\n});\n\nconsole.log(response.output[0].parts[0].text);\nconsole.log(response.usage);",
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -455,6 +499,8 @@ class OrqResponses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "getResponse"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -549,6 +595,8 @@ class OrqResponses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-cli-group": "agents", "x-cli-name": "getResponse"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

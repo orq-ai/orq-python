@@ -251,6 +251,12 @@ class Responses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Responses"],
+                extensions={
+                    "x-cli-group": "responses",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -518,6 +524,12 @@ class Responses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Responses"],
+                extensions={
+                    "x-cli-group": "responses",
+                    "x-cli-name": "create",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -620,6 +632,12 @@ class Responses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Responses"],
+                extensions={
+                    "x-cli-group": "responses",
+                    "x-cli-name": "get",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -709,6 +727,12 @@ class Responses(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Responses"],
+                extensions={
+                    "x-cli-group": "responses",
+                    "x-cli-name": "get",
+                    "x-orq-gateway-group": True,
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

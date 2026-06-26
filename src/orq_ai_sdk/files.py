@@ -91,6 +91,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List project files",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
+                        },
+                        {
+                            "label": "Python - List project files",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.files.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nfor file in page.data:\n    print(file.file_id, file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List project files",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.files.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const file of page.data) {\n  console.log(file.fileId, file.fileName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -189,6 +209,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List project files",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
+                        },
+                        {
+                            "label": "Python - List project files",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.files.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nfor file in page.data:\n    print(file.file_id, file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List project files",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.files.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const file of page.data) {\n  console.log(file.fileId, file.fileName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -291,6 +331,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Upload retrieval file",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Upload retrieval file",
+                            "lang": "python",
+                            "source": 'import base64\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncontent = base64.b64encode(\n    b"# Support FAQ\\n\\nCommon resolutions and escalation paths."\n).decode("utf-8")\n\nresult = client.files.create(\n    filename="support-faq.md",\n    content=content,\n    content_type="text/markdown",\n    purpose="FILE_PURPOSE_RETRIEVAL",\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.file.file_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Upload retrieval file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst content = Buffer.from(\n  '# Support FAQ\\n\\nCommon resolutions and escalation paths.',\n).toString('base64');\n\nconst result = await client.files.create({\n  filename: 'support-faq.md',\n  content,\n  contentType: 'text/markdown',\n  purpose: 'FILE_PURPOSE_RETRIEVAL',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -393,6 +453,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Upload retrieval file",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Upload retrieval file",
+                            "lang": "python",
+                            "source": 'import base64\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ncontent = base64.b64encode(\n    b"# Support FAQ\\n\\nCommon resolutions and escalation paths."\n).decode("utf-8")\n\nresult = client.files.create(\n    filename="support-faq.md",\n    content=content,\n    content_type="text/markdown",\n    purpose="FILE_PURPOSE_RETRIEVAL",\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.file.file_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Upload retrieval file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst content = Buffer.from(\n  '# Support FAQ\\n\\nCommon resolutions and escalation paths.',\n).toString('base64');\n\nconst result = await client.files.create({\n  filename: 'support-faq.md',\n  content,\n  contentType: 'text/markdown',\n  purpose: 'FILE_PURPOSE_RETRIEVAL',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -480,6 +560,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Get download URL",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Get download URL",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.get_content(\n    file_id_or_path="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.download_url)\n',
+                        },
+                        {
+                            "label": "Node.js - Get download URL",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.getContent({\n  fileIdOrPath: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.downloadUrl);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -567,6 +667,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Get download URL",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Get download URL",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.get_content(\n    file_id_or_path="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.download_url)\n',
+                        },
+                        {
+                            "label": "Node.js - Get download URL",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.getContent({\n  fileIdOrPath: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.downloadUrl);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -654,6 +774,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve file metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve file metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.get(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve file metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.get({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -741,6 +881,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve file metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve file metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.get(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve file metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.get({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -828,6 +988,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete file",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete file",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.files.delete(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.files.delete({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -915,6 +1095,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete file",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete file",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.files.delete(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.files.delete({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1014,6 +1214,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Rename file",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Rename file",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.update(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    file_name="support-faq-v2.md",\n)\n\nprint(result.file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Rename file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1113,6 +1333,26 @@ class Files(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Files"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Rename file",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Rename file",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.files.update(\n    file_id="file_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    file_name="support-faq-v2.md",\n)\n\nprint(result.file.file_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Rename file",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

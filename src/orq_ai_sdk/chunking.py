@@ -85,6 +85,23 @@ class Chunking(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chunking"],
+                extensions={
+                    "x-cli-group": "chunking",
+                    "x-cli-name": "parse",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunk_size: 256,\n  threshold: 0.8,\n  embedding_model: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
+                        },
+                        {
+                            "label": "Python",
+                            "lang": "python",
+                            "source": 'from orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    text="Your long text content here...",\n    strategy="semantic",\n    chunk_size=256,\n    threshold=0.8,\n    embedding_model="openai/text-embedding-3-small",\n    dimensions=512\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -177,6 +194,23 @@ class Chunking(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chunking"],
+                extensions={
+                    "x-cli-group": "chunking",
+                    "x-cli-name": "parse",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunk_size: 256,\n  threshold: 0.8,\n  embedding_model: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
+                        },
+                        {
+                            "label": "Python",
+                            "lang": "python",
+                            "source": 'from orq_ai_sdk import Orq\n\norq = Orq(api_key=os.getenv("ORQ_API_KEY"))\n\nresult = orq.chunking.parse(\n    text="Your long text content here...",\n    strategy="semantic",\n    chunk_size=256,\n    threshold=0.8,\n    embedding_model="openai/text-embedding-3-small",\n    dimensions=512\n)\n\nfor chunk in result.chunks:\n    print(f"Chunk {chunk.index}: {chunk.text[:50]}...")',
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
