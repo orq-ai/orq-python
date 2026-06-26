@@ -31,7 +31,6 @@ value: ListPromptVersionsProvider = "openai"
 - `"bytedance"`
 - `"mistral"`
 - `"deepseek"`
-- `"contextualai"`
 - `"moonshotai"`
 - `"zai"`
 - `"minimax"`

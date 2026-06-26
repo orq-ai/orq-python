@@ -612,7 +612,6 @@ GetAllPromptsProvider = Literal[
     "bytedance",
     "mistral",
     "deepseek",
-    "contextualai",
     "moonshotai",
     "zai",
     "minimax",

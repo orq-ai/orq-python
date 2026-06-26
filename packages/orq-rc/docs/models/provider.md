@@ -33,7 +33,6 @@ value: Provider = "openai"
 - `"bytedance"`
 - `"mistral"`
 - `"deepseek"`
-- `"contextualai"`
 - `"moonshotai"`
 - `"zai"`
 - `"minimax"`

@@ -31,7 +31,6 @@ value: GetOnePromptProvider = "openai"
 - `"bytedance"`
 - `"mistral"`
 - `"deepseek"`
-- `"contextualai"`
 - `"moonshotai"`
 - `"zai"`
 - `"minimax"`

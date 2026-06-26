@@ -31,7 +31,6 @@ value: CreatePromptProvider = "openai"
 - `"bytedance"`
 - `"mistral"`
 - `"deepseek"`
-- `"contextualai"`
 - `"moonshotai"`
 - `"zai"`
 - `"minimax"`

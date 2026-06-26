@@ -33,7 +33,6 @@ value: DeploymentStreamProvider = "openai"
 - `"bytedance"`
 - `"mistral"`
 - `"deepseek"`
-- `"contextualai"`
 - `"moonshotai"`
 - `"zai"`
 - `"minimax"`
