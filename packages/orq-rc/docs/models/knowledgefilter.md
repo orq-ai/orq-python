@@ -5,10 +5,10 @@ A filter to apply to the knowledge base chunk metadata when using  knowledge bas
 
 ## Supported Types
 
-### `Dict[str, models.One]`
+### `Dict[str, models.KnowledgeFilter1]`
 
 ```python
-value: Dict[str, models.One] = /* values here */
+value: Dict[str, models.KnowledgeFilter1] = /* values here */
 ```
 
 ### `models.KnowledgeFilterAnd`

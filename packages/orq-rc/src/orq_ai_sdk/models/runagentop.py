@@ -5,6 +5,10 @@ from .datapart import DataPart, DataPartTypedDict
 from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .textpart import TextPart, TextPartTypedDict
@@ -332,17 +336,18 @@ class RunAgentModelConfigurationGuardrails(BaseModel):
 
 RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentModelConfigurationPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-RunAgentModelConfigurationPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+RunAgentModelConfigurationPlugins = TypeAliasType(
+    "RunAgentModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class RunAgentModelConfigurationFallbacksTypedDict(TypedDict):
@@ -1130,17 +1135,18 @@ class RunAgentFallbackModelConfigurationGuardrails(BaseModel):
 
 RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-RunAgentFallbackModelConfigurationPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "RunAgentFallbackModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class RunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -2004,7 +2010,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KW90VNVAZ8DQNANQY4RKFM32"
+    id: Optional[str] = "01KW9AEE92JM8FVRVZQ02KZ0A0"
 
     description: Optional[str] = None
 
@@ -2531,7 +2537,7 @@ class CodeToolRun(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal["http",]
 
 
-Method = Literal[
+AgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2578,7 +2584,7 @@ class BlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: Method
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, HeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2592,7 +2598,7 @@ class Blueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: Method
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, Headers]] = None

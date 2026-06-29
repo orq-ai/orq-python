@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateEvalGuardrailConfigEvalsRequestType
-value: CreateEvalGuardrailConfigEvalsRequestType = "boolean"
+value: CreateEvalGuardrailConfigEvalsRequestType = "number"
 ```
 
 
 ## Values
 
-- `"boolean"`
+- `"number"`

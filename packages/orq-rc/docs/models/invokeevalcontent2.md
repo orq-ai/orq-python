@@ -15,9 +15,9 @@ value: models.Two1 = /* values here */
 value: models.Two2 = /* values here */
 ```
 
-### `models.Three`
+### `models.Two3`
 
 ```python
-value: models.Three = /* values here */
+value: models.Two3 = /* values here */
 ```
 

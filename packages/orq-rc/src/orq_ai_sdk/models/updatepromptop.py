@@ -10,6 +10,10 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
@@ -986,17 +990,18 @@ class UpdatePromptGuardrails(BaseModel):
 
 UpdatePromptPluginsTypedDict = TypeAliasType(
     "UpdatePromptPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-UpdatePromptPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+UpdatePromptPlugins = TypeAliasType(
+    "UpdatePromptPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class UpdatePromptFallbacksTypedDict(TypedDict):
@@ -2979,17 +2984,18 @@ class UpdatePromptPromptsGuardrails(BaseModel):
 
 UpdatePromptPromptsPluginsTypedDict = TypeAliasType(
     "UpdatePromptPromptsPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-UpdatePromptPromptsPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+UpdatePromptPromptsPlugins = TypeAliasType(
+    "UpdatePromptPromptsPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class UpdatePromptPromptsFallbacksTypedDict(TypedDict):

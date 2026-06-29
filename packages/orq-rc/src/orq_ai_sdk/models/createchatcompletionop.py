@@ -10,6 +10,10 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .publiccontact import PublicContact, PublicContactTypedDict
@@ -1182,17 +1186,18 @@ class CreateChatCompletionGuardrails(BaseModel):
 
 CreateChatCompletionPluginsTypedDict = TypeAliasType(
     "CreateChatCompletionPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-CreateChatCompletionPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+CreateChatCompletionPlugins = TypeAliasType(
+    "CreateChatCompletionPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class CreateChatCompletionFallbacksTypedDict(TypedDict):

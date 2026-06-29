@@ -52,6 +52,10 @@ from .executionreviewrequiredstreamingevent import (
     ExecutionReviewRequiredStreamingEventTypedDict,
 )
 from .filepart import FilePart, FilePartTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .textpart import TextPart, TextPartTypedDict
@@ -394,17 +398,18 @@ class StreamRunAgentModelConfigurationGuardrails(BaseModel):
 
 StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-StreamRunAgentModelConfigurationPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+StreamRunAgentModelConfigurationPlugins = TypeAliasType(
+    "StreamRunAgentModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class StreamRunAgentModelConfigurationFallbacksTypedDict(TypedDict):
@@ -1203,17 +1208,18 @@ class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
 
 StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-StreamRunAgentFallbackModelConfigurationPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+StreamRunAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class StreamRunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -2101,7 +2107,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KW90VNX90AX1TV3ENR14H3KV"
+    id: Optional[str] = "01KW9AEEAPMN6857DCTH0DV867"
 
     description: Optional[str] = None
 
@@ -2636,7 +2642,7 @@ StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Lit
 ]
 
 
-AgentToolInputRunMethod = Literal[
+StreamRunAgentAgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2688,7 +2694,7 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: AgentToolInputRunMethod
+    method: StreamRunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, StreamRunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2702,7 +2708,7 @@ class AgentToolInputRunBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: AgentToolInputRunMethod
+    method: StreamRunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunHeaders]] = None

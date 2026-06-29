@@ -1,0 +1,23 @@
+# EvaluatorResponseJSONSchemaGuardrailConfig
+
+
+## Supported Types
+
+### `models.GuardrailConfigBoolean`
+
+```python
+value: models.GuardrailConfigBoolean = /* values here */
+```
+
+### `models.GuardrailConfigCategorical`
+
+```python
+value: models.GuardrailConfigCategorical = /* values here */
+```
+
+### `models.GuardrailConfigNumber`
+
+```python
+value: models.GuardrailConfigNumber = /* values here */
+```
+

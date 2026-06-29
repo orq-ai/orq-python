@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import InvokeEvalResponseBodyType
-value: InvokeEvalResponseBodyType = "string"
+value: InvokeEvalResponseBodyType = "number"
 ```
 
 
 ## Values
 
-- `"string"`
+- `"number"`

@@ -1,5 +1,7 @@
 # DataMethod
 
+The HTTP method to use.
+
 ## Example Usage
 
 ```python
@@ -12,3 +14,5 @@ value: DataMethod = "GET"
 
 - `"GET"`
 - `"POST"`
+- `"PUT"`
+- `"DELETE"`

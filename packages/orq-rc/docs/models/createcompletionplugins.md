@@ -3,6 +3,12 @@
 
 ## Supported Types
 
+### `models.PIIRedactionPluginAuto`
+
+```python
+value: models.PIIRedactionPluginAuto = /* values here */
+```
+
 ### `models.PIIRedactionPluginEn`
 
 ```python

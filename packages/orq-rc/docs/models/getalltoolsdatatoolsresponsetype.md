@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import GetAllToolsDataToolsResponseType
-value: GetAllToolsDataToolsResponseType = "http"
+value: GetAllToolsDataToolsResponseType = "mcp"
 ```
 
 
 ## Values
 
-- `"http"`
+- `"mcp"`

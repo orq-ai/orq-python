@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type
-value: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type = "categorical"
+value: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type = "boolean"
 ```
 
 
 ## Values
 
-- `"categorical"`
+- `"boolean"`

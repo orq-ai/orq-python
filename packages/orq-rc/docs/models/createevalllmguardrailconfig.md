@@ -3,21 +3,21 @@
 
 ## Supported Types
 
-### `models.CreateEvalGuardrailConfigBoolean`
+### `models.CreateEvalGuardrailConfigEvalsBoolean`
 
 ```python
-value: models.CreateEvalGuardrailConfigBoolean = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsBoolean = /* values here */
 ```
 
-### `models.CreateEvalGuardrailConfigCategorical`
+### `models.CreateEvalGuardrailConfigEvalsCategorical`
 
 ```python
-value: models.CreateEvalGuardrailConfigCategorical = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsCategorical = /* values here */
 ```
 
-### `models.CreateEvalGuardrailConfigNumber`
+### `models.CreateEvalGuardrailConfigEvalsNumber`
 
 ```python
-value: models.CreateEvalGuardrailConfigNumber = /* values here */
+value: models.CreateEvalGuardrailConfigEvalsNumber = /* values here */
 ```
 

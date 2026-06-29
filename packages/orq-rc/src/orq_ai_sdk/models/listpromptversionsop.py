@@ -10,6 +10,10 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
@@ -1358,17 +1362,18 @@ class ListPromptVersionsGuardrails(BaseModel):
 
 ListPromptVersionsPluginsTypedDict = TypeAliasType(
     "ListPromptVersionsPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-ListPromptVersionsPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+ListPromptVersionsPlugins = TypeAliasType(
+    "ListPromptVersionsPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class ListPromptVersionsFallbacksTypedDict(TypedDict):

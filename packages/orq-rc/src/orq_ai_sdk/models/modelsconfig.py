@@ -8,7 +8,7 @@ from typing import List, Literal
 from typing_extensions import TypedDict
 
 
-Mode = Literal[
+ModelsConfigMode = Literal[
     "fallback",
     "weighted",
     "round_robin",
@@ -16,12 +16,12 @@ Mode = Literal[
 
 
 class ModelsConfigTypedDict(TypedDict):
-    mode: Mode
+    mode: ModelsConfigMode
     models: Nullable[List[ModelRefTypedDict]]
 
 
 class ModelsConfig(BaseModel):
-    mode: Mode
+    mode: ModelsConfigMode
 
     models: Nullable[List[ModelRef]]
 

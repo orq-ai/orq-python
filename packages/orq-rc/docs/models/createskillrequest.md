@@ -9,9 +9,9 @@
 value: models.CreateSkillRequest1 = /* values here */
 ```
 
-### `models.Two`
+### `models.CreateSkillRequest2`
 
 ```python
-value: models.Two = /* values here */
+value: models.CreateSkillRequest2 = /* values here */
 ```
 

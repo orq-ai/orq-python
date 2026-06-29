@@ -24,6 +24,10 @@ from .createagentrequest_tool_choice import (
     Metrics,
     MetricsTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .thinkingconfigadaptiveschema import (
@@ -98,17 +102,18 @@ class CreateAgentRequestAgentsResponseGuardrails(BaseModel):
 
 CreateAgentRequestPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-CreateAgentRequestPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+CreateAgentRequestPlugins = TypeAliasType(
+    "CreateAgentRequestPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class CreateAgentRequestFallbacksTypedDict(TypedDict):
@@ -864,17 +869,18 @@ class CreateAgentRequestFallbackModelConfigurationGuardrails(BaseModel):
 
 CreateAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationPluginsTypedDict",
-    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
 )
 
 
-CreateAgentRequestFallbackModelConfigurationPlugins = Annotated[
-    Union[
-        Annotated[PIIRedactionPluginEn, Tag("en")],
-        Annotated[PIIRedactionPluginNl, Tag("nl")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "language", "language")),
-]
+CreateAgentRequestFallbackModelConfigurationPlugins = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
 
 
 class CreateAgentRequestFallbackModelConfigurationFallbacksTypedDict(TypedDict):

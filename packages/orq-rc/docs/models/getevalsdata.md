@@ -3,45 +3,45 @@
 
 ## Supported Types
 
-### `models.DataLLM`
+### `models.EvaluatorResponseLlm`
 
 ```python
-value: models.DataLLM = /* values here */
+value: models.EvaluatorResponseLlm = /* values here */
 ```
 
-### `models.DataJSON`
+### `models.EvaluatorResponseJSONSchema`
 
 ```python
-value: models.DataJSON = /* values here */
+value: models.EvaluatorResponseJSONSchema = /* values here */
 ```
 
-### `models.DataHTTP`
+### `models.EvaluatorResponseHTTP`
 
 ```python
-value: models.DataHTTP = /* values here */
+value: models.EvaluatorResponseHTTP = /* values here */
 ```
 
-### `models.DataPython`
+### `models.EvaluatorResponsePython`
 
 ```python
-value: models.DataPython = /* values here */
+value: models.EvaluatorResponsePython = /* values here */
 ```
 
-### `models.DataFunction`
+### `models.EvaluatorResponseFunction`
 
 ```python
-value: models.DataFunction = /* values here */
+value: models.EvaluatorResponseFunction = /* values here */
 ```
 
-### `models.DataRagas`
+### `models.EvaluatorResponseRagas`
 
 ```python
-value: models.DataRagas = /* values here */
+value: models.EvaluatorResponseRagas = /* values here */
 ```
 
-### `models.DataTypescript`
+### `models.EvaluatorResponseTypescript`
 
 ```python
-value: models.DataTypescript = /* values here */
+value: models.EvaluatorResponseTypescript = /* values here */
 ```
 

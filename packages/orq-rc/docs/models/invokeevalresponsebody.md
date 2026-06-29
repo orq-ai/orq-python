@@ -41,16 +41,16 @@ value: models.RougeN = /* values here */
 value: models.BERTScore = /* values here */
 ```
 
-### `models.InvokeEvalResponseBodyLLM`
+### `models.ResponseBodyLLM`
 
 ```python
-value: models.InvokeEvalResponseBodyLLM = /* values here */
+value: models.ResponseBodyLLM = /* values here */
 ```
 
-### `models.InvokeEvalResponseBodyHTTP`
+### `models.ResponseBodyHTTP`
 
 ```python
-value: models.InvokeEvalResponseBodyHTTP = /* values here */
+value: models.ResponseBodyHTTP = /* values here */
 ```
 
 ### `models.Structured`

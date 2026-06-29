@@ -11,9 +11,9 @@ The contents of the tool message.
 value: str = /* values here */
 ```
 
-### `List[models.InvokeDeploymentRequestContent2]`
+### `List[models.InvokeDeploymentRequestContentPrefixMessages2]`
 
 ```python
-value: List[models.InvokeDeploymentRequestContent2] = /* values here */
+value: List[models.InvokeDeploymentRequestContentPrefixMessages2] = /* values here */
 ```
 

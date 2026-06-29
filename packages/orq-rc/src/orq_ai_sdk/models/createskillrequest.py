@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-class TwoTypedDict(TypedDict):
+class CreateSkillRequest2TypedDict(TypedDict):
     display_name: str
     r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
     project_id: str
@@ -22,7 +22,7 @@ class TwoTypedDict(TypedDict):
     r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
 
 
-class Two(BaseModel):
+class CreateSkillRequest2(BaseModel):
     display_name: str
     r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
 
@@ -110,10 +110,11 @@ class CreateSkillRequest1(BaseModel):
 
 
 CreateSkillRequestTypedDict = TypeAliasType(
-    "CreateSkillRequestTypedDict", Union[CreateSkillRequest1TypedDict, TwoTypedDict]
+    "CreateSkillRequestTypedDict",
+    Union[CreateSkillRequest1TypedDict, CreateSkillRequest2TypedDict],
 )
 
 
 CreateSkillRequest = TypeAliasType(
-    "CreateSkillRequest", Union[CreateSkillRequest1, Two]
+    "CreateSkillRequest", Union[CreateSkillRequest1, CreateSkillRequest2]
 )

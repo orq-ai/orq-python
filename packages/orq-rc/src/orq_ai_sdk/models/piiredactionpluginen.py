@@ -7,11 +7,11 @@ from typing import List, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-ID = Literal["pii_redaction",]
+PIIRedactionPluginEnID = Literal["pii_redaction",]
 r"""Plugin discriminator. Must be `pii_redaction`."""
 
 
-OnFailure = Literal[
+PIIRedactionPluginEnOnFailure = Literal[
     "block",
     "passthrough",
 ]
@@ -22,7 +22,7 @@ Language = Literal["en",]
 r"""Detector language."""
 
 
-Entities = Literal[
+PIIRedactionPluginEnEntities = Literal[
     "AGE",
     "API_KEY",
     "BANK_ROUTING",
@@ -82,32 +82,32 @@ Entities = Literal[
 
 
 class PIIRedactionPluginEnTypedDict(TypedDict):
-    id: ID
+    id: PIIRedactionPluginEnID
     r"""Plugin discriminator. Must be `pii_redaction`."""
     language: Language
     r"""Detector language."""
-    on_failure: NotRequired[OnFailure]
+    on_failure: NotRequired[PIIRedactionPluginEnOnFailure]
     r"""Behavior when redaction is unavailable. `block` (default) fails the request; `passthrough` sends the original text."""
     threshold: NotRequired[float]
     r"""Detector confidence cutoff in [0,1]."""
-    entities: NotRequired[List[Entities]]
+    entities: NotRequired[List[PIIRedactionPluginEnEntities]]
     r"""English entity types to redact. Omit to redact every type detected for the language."""
 
 
 class PIIRedactionPluginEn(BaseModel):
-    id: ID
+    id: PIIRedactionPluginEnID
     r"""Plugin discriminator. Must be `pii_redaction`."""
 
     language: Language
     r"""Detector language."""
 
-    on_failure: Optional[OnFailure] = None
+    on_failure: Optional[PIIRedactionPluginEnOnFailure] = None
     r"""Behavior when redaction is unavailable. `block` (default) fails the request; `passthrough` sends the original text."""
 
     threshold: Optional[float] = None
     r"""Detector confidence cutoff in [0,1]."""
 
-    entities: Optional[List[Entities]] = None
+    entities: Optional[List[PIIRedactionPluginEnEntities]] = None
     r"""English entity types to redact. Omit to redact every type detected for the language."""
 
     @model_serializer(mode="wrap")

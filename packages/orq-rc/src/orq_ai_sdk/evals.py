@@ -435,14 +435,16 @@ class Evals(BaseSDK):
         categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                Iterable[models.CategoricalLabels],
-                Iterable[models.CategoricalLabelsTypedDict],
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
-        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
@@ -450,7 +452,10 @@ class Evals(BaseSDK):
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
         guardrail_config: OptionalNullable[
-            Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
+            Union[
+                models.UpdateEvalGuardrailConfig,
+                models.UpdateEvalGuardrailConfigTypedDict,
+            ]
         ] = UNSET,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -512,12 +517,13 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
                 schema_=schema,
                 url=url,
                 method=method,
@@ -525,7 +531,7 @@ class Evals(BaseSDK):
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
                 guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.GuardrailConfig]
+                    guardrail_config, OptionalNullable[models.UpdateEvalGuardrailConfig]
                 ),
                 version_increment=version_increment,
                 version_description=version_description,
@@ -611,14 +617,16 @@ class Evals(BaseSDK):
         categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                Iterable[models.CategoricalLabels],
-                Iterable[models.CategoricalLabelsTypedDict],
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
-        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
@@ -626,7 +634,10 @@ class Evals(BaseSDK):
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
         guardrail_config: OptionalNullable[
-            Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
+            Union[
+                models.UpdateEvalGuardrailConfig,
+                models.UpdateEvalGuardrailConfigTypedDict,
+            ]
         ] = UNSET,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
@@ -688,12 +699,13 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
                 schema_=schema,
                 url=url,
                 method=method,
@@ -701,7 +713,7 @@ class Evals(BaseSDK):
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
                 guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.GuardrailConfig]
+                    guardrail_config, OptionalNullable[models.UpdateEvalGuardrailConfig]
                 ),
                 version_increment=version_increment,
                 version_description=version_description,

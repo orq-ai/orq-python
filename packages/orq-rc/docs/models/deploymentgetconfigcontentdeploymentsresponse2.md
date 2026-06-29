@@ -15,9 +15,9 @@ value: models.DeploymentGetConfig21 = /* values here */
 value: models.DeploymentGetConfig22 = /* values here */
 ```
 
-### `models.Two3`
+### `models.DeploymentGetConfig23`
 
 ```python
-value: models.Two3 = /* values here */
+value: models.DeploymentGetConfig23 = /* values here */
 ```
 

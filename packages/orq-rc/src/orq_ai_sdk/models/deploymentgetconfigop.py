@@ -1998,8 +1998,8 @@ class DeploymentGetConfig1Eq(BaseModel):
     eq: DeploymentGetConfig1DeploymentsEq
 
 
-KnowledgeFilter1TypedDict = TypeAliasType(
-    "KnowledgeFilter1TypedDict",
+DeploymentGetConfigKnowledgeFilter1TypedDict = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilter1TypedDict",
     Union[
         DeploymentGetConfig1EqTypedDict,
         DeploymentGetConfig1NeTypedDict,
@@ -2014,8 +2014,8 @@ KnowledgeFilter1TypedDict = TypeAliasType(
 )
 
 
-KnowledgeFilter1 = TypeAliasType(
-    "KnowledgeFilter1",
+DeploymentGetConfigKnowledgeFilter1 = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilter1",
     Union[
         DeploymentGetConfig1Eq,
         DeploymentGetConfig1Ne,
@@ -2035,7 +2035,7 @@ DeploymentGetConfigKnowledgeFilterTypedDict = TypeAliasType(
     Union[
         DeploymentGetConfigKnowledgeFilterAndTypedDict,
         DeploymentGetConfigKnowledgeFilterOrTypedDict,
-        Dict[str, KnowledgeFilter1TypedDict],
+        Dict[str, DeploymentGetConfigKnowledgeFilter1TypedDict],
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
@@ -2046,7 +2046,7 @@ DeploymentGetConfigKnowledgeFilter = TypeAliasType(
     Union[
         DeploymentGetConfigKnowledgeFilterAnd,
         DeploymentGetConfigKnowledgeFilterOr,
-        Dict[str, KnowledgeFilter1],
+        Dict[str, DeploymentGetConfigKnowledgeFilter1],
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
@@ -2223,13 +2223,13 @@ class DeploymentGetConfig2File(BaseModel):
         return m
 
 
-class Two3TypedDict(TypedDict):
+class DeploymentGetConfig23TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
 
 
-class Two3(BaseModel):
+class DeploymentGetConfig23(BaseModel):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2311,7 +2311,9 @@ class DeploymentGetConfig21(BaseModel):
 DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsResponse2TypedDict",
     Union[
-        DeploymentGetConfig21TypedDict, DeploymentGetConfig22TypedDict, Two3TypedDict
+        DeploymentGetConfig21TypedDict,
+        DeploymentGetConfig22TypedDict,
+        DeploymentGetConfig23TypedDict,
     ],
 )
 
@@ -2320,7 +2322,7 @@ DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
         Annotated[DeploymentGetConfig21, Tag("text")],
         Annotated[DeploymentGetConfig22, Tag("image_url")],
-        Annotated[Two3, Tag("file")],
+        Annotated[DeploymentGetConfig23, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

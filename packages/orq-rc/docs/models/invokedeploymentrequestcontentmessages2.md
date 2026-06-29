@@ -21,9 +21,9 @@ value: models.ImageContentPartSchema = /* values here */
 value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.Two4`
+### `models.InvokeDeploymentRequest24`
 
 ```python
-value: models.Two4 = /* values here */
+value: models.InvokeDeploymentRequest24 = /* values here */
 ```
 
