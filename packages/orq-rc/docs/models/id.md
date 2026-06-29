@@ -1,17 +1,15 @@
 # ID
 
+Plugin discriminator. Must be `pii_redaction`.
 
-## Supported Types
-
-### `models.ID1`
-
-```python
-value: models.ID1 = /* values here */
-```
-
-### `str`
+## Example Usage
 
 ```python
-value: str = /* values here */
+from orq_ai_sdk.models import ID
+value: ID = "pii_redaction"
 ```
 
+
+## Values
+
+- `"pii_redaction"`

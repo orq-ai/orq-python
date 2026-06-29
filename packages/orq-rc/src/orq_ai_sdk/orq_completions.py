@@ -91,6 +91,12 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateChatCompletionPlugins],
+                Iterable[models.CreateChatCompletionPluginsTypedDict],
+            ]
+        ] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -181,6 +187,7 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -259,6 +266,9 @@ class OrqCompletions(BaseSDK):
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateChatCompletionPlugins]]
             ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]
@@ -438,6 +448,12 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateChatCompletionPlugins],
+                Iterable[models.CreateChatCompletionPluginsTypedDict],
+            ]
+        ] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -528,6 +544,7 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -606,6 +623,9 @@ class OrqCompletions(BaseSDK):
             ),
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateChatCompletionPlugins]]
             ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]

@@ -19,6 +19,7 @@ class Knowledge(BaseSDK):
         search: Optional[str] = None,
         updated_by: Optional[str] = None,
         type_: Optional[models.ListKnowledgeBasesQueryParamType] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -34,6 +35,7 @@ class Knowledge(BaseSDK):
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
         :param type: Filter knowledge bases by type
+        :param project_id: Filter knowledge bases by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -59,6 +61,7 @@ class Knowledge(BaseSDK):
             search=search,
             updated_by=updated_by,
             type=type_,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -125,6 +128,7 @@ class Knowledge(BaseSDK):
         search: Optional[str] = None,
         updated_by: Optional[str] = None,
         type_: Optional[models.ListKnowledgeBasesQueryParamType] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -140,6 +144,7 @@ class Knowledge(BaseSDK):
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
         :param type: Filter knowledge bases by type
+        :param project_id: Filter knowledge bases by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -165,6 +170,7 @@ class Knowledge(BaseSDK):
             search=search,
             updated_by=updated_by,
             type=type_,
+            project_id=project_id,
         )
 
         req = self._build_request_async(

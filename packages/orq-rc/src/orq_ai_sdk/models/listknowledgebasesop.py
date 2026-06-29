@@ -35,6 +35,8 @@ class ListKnowledgeBasesRequestTypedDict(TypedDict):
     r"""Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs"""
     type: NotRequired[ListKnowledgeBasesQueryParamType]
     r"""Filter knowledge bases by type"""
+    project_id: NotRequired[str]
+    r"""Filter knowledge bases by project ID"""
 
 
 class ListKnowledgeBasesRequest(BaseModel):
@@ -74,10 +76,24 @@ class ListKnowledgeBasesRequest(BaseModel):
     ] = None
     r"""Filter knowledge bases by type"""
 
+    project_id: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter knowledge bases by project ID"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["starting_after", "ending_before", "limit", "search", "updated_by", "type"]
+            [
+                "starting_after",
+                "ending_before",
+                "limit",
+                "search",
+                "updated_by",
+                "type",
+                "project_id",
+            ]
         )
         serialized = handler(self)
         m = {}

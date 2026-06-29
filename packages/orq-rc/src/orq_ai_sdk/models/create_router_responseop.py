@@ -6,6 +6,10 @@ from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .publicpiiredactionplugin import (
+    PublicPIIRedactionPlugin,
+    PublicPIIRedactionPluginTypedDict,
+)
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
@@ -1032,6 +1036,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
+    plugins: NotRequired[Nullable[List[PublicPIIRedactionPluginTypedDict]]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     presence_penalty: NotRequired[float]
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
     previous_response_id: NotRequired[str]
@@ -1108,6 +1114,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
 
+    plugins: OptionalNullable[List[PublicPIIRedactionPlugin]] = UNSET
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     presence_penalty: Optional[float] = None
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
 
@@ -1177,6 +1186,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "metadata",
                 "model",
                 "parallel_tool_calls",
+                "plugins",
                 "presence_penalty",
                 "previous_response_id",
                 "prompt_cache_key",
@@ -1197,7 +1207,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallbacks", "plugins"])
         serialized = handler(self)
         m = {}
 

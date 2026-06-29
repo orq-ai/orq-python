@@ -63,6 +63,12 @@ class Completions(BaseSDK):
                 models.CreateCompletionThinkingTypedDict,
             ]
         ] = UNSET,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateCompletionPlugins],
+                Iterable[models.CreateCompletionPluginsTypedDict],
+            ]
+        ] = None,
         orq: Optional[
             Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
@@ -96,6 +102,7 @@ class Completions(BaseSDK):
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param thinking: Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -148,6 +155,9 @@ class Completions(BaseSDK):
             ),
             thinking=utils.get_pydantic_model(
                 thinking, OptionalNullable[models.CreateCompletionThinking]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateCompletionPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,
@@ -277,6 +287,12 @@ class Completions(BaseSDK):
                 models.CreateCompletionThinkingTypedDict,
             ]
         ] = UNSET,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateCompletionPlugins],
+                Iterable[models.CreateCompletionPluginsTypedDict],
+            ]
+        ] = None,
         orq: Optional[
             Union[models.CreateCompletionOrq, models.CreateCompletionOrqTypedDict]
         ] = None,
@@ -310,6 +326,7 @@ class Completions(BaseSDK):
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param thinking: Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -362,6 +379,9 @@ class Completions(BaseSDK):
             ),
             thinking=utils.get_pydantic_model(
                 thinking, OptionalNullable[models.CreateCompletionThinking]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateCompletionPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,

@@ -19,6 +19,7 @@ class MemoryStores(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         updated_by: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -33,6 +34,7 @@ class MemoryStores(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the memory store. Accepts a comma-separated list of user IDs
+        :param project_id: Filter memory stores by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -57,6 +59,7 @@ class MemoryStores(BaseSDK):
             ending_before=ending_before,
             search=search,
             updated_by=updated_by,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -126,6 +129,7 @@ class MemoryStores(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         updated_by: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -140,6 +144,7 @@ class MemoryStores(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the memory store. Accepts a comma-separated list of user IDs
+        :param project_id: Filter memory stores by project ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -164,6 +169,7 @@ class MemoryStores(BaseSDK):
             ending_before=ending_before,
             search=search,
             updated_by=updated_by,
+            project_id=project_id,
         )
 
         req = self._build_request_async(

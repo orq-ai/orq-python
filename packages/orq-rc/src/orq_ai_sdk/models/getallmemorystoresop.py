@@ -26,6 +26,8 @@ class GetAllMemoryStoresRequestTypedDict(TypedDict):
     r"""Filter memory stores by key (case-insensitive match)"""
     updated_by: NotRequired[str]
     r"""Filter by the users who last updated the memory store. Accepts a comma-separated list of user IDs"""
+    project_id: NotRequired[str]
+    r"""Filter memory stores by project ID"""
 
 
 class GetAllMemoryStoresRequest(BaseModel):
@@ -59,10 +61,23 @@ class GetAllMemoryStoresRequest(BaseModel):
     ] = None
     r"""Filter by the users who last updated the memory store. Accepts a comma-separated list of user IDs"""
 
+    project_id: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter memory stores by project ID"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "search", "updated_by"]
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "search",
+                "updated_by",
+                "project_id",
+            ]
         )
         serialized = handler(self)
         m = {}

@@ -52,6 +52,8 @@ from .executionreviewrequiredstreamingevent import (
     ExecutionReviewRequiredStreamingEventTypedDict,
 )
 from .filepart import FilePart, FilePartTypedDict
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -390,6 +392,21 @@ class StreamRunAgentModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+StreamRunAgentModelConfigurationPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class StreamRunAgentModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -620,6 +637,8 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[StreamRunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[StreamRunAgentModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[StreamRunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
@@ -703,6 +722,9 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[StreamRunAgentModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[StreamRunAgentModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[StreamRunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -743,6 +765,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
@@ -1178,6 +1201,21 @@ class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+StreamRunAgentFallbackModelConfigurationPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class StreamRunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1416,6 +1454,8 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         List[StreamRunAgentFallbackModelConfigurationGuardrailsTypedDict]
     ]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[StreamRunAgentFallbackModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[
         List[StreamRunAgentFallbackModelConfigurationFallbacksTypedDict]
     ]
@@ -1511,6 +1551,9 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     )
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[StreamRunAgentFallbackModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[StreamRunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -1551,6 +1594,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
@@ -2057,7 +2101,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KW2P02XG8N1F0VAXR3TX05RE"
+    id: Optional[str] = "01KW90VNX90AX1TV3ENR14H3KV"
 
     description: Optional[str] = None
 
@@ -2500,11 +2544,11 @@ class StreamRunAgentAgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-AgentToolInputRunLanguage = Literal["python",]
+StreamRunAgentAgentToolInputRunLanguage = Literal["python",]
 
 
 class AgentToolInputRunCodeToolTypedDict(TypedDict):
-    language: AgentToolInputRunLanguage
+    language: StreamRunAgentAgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[StreamRunAgentAgentToolInputRunParametersTypedDict]
@@ -2512,7 +2556,7 @@ class AgentToolInputRunCodeToolTypedDict(TypedDict):
 
 
 class AgentToolInputRunCodeTool(BaseModel):
-    language: AgentToolInputRunLanguage
+    language: StreamRunAgentAgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""

@@ -10,6 +10,8 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -982,6 +984,21 @@ class UpdatePromptGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+UpdatePromptPluginsTypedDict = TypeAliasType(
+    "UpdatePromptPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+UpdatePromptPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class UpdatePromptFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1257,6 +1274,8 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[UpdatePromptGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[UpdatePromptPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[UpdatePromptFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[UpdatePromptRetryTypedDict]
@@ -1361,6 +1380,9 @@ class UpdatePromptPromptInput(BaseModel):
     guardrails: Optional[List[UpdatePromptGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[UpdatePromptPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[UpdatePromptFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -1411,6 +1433,7 @@ class UpdatePromptPromptInput(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "retry",
                 "cache",
@@ -2954,6 +2977,21 @@ class UpdatePromptPromptsGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+UpdatePromptPromptsPluginsTypedDict = TypeAliasType(
+    "UpdatePromptPromptsPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+UpdatePromptPromptsPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class UpdatePromptPromptsFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -3818,6 +3856,8 @@ class UpdatePromptPromptFieldTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[UpdatePromptPromptsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[UpdatePromptPromptsPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[UpdatePromptPromptsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[UpdatePromptPromptsRetryTypedDict]
@@ -3921,6 +3961,9 @@ class UpdatePromptPromptField(BaseModel):
     guardrails: Optional[List[UpdatePromptPromptsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[UpdatePromptPromptsPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[UpdatePromptPromptsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -3977,6 +4020,7 @@ class UpdatePromptPromptField(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "retry",
                 "cache",

@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .expression import Expression, ExpressionTypedDict
 from .guardrailref import GuardrailRef, GuardrailRefTypedDict
+from .plugin import Plugin, PluginTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -45,6 +46,7 @@ class GuardrailRuleGetResponseBodyTypedDict(TypedDict):
     description: NotRequired[str]
     expression: NotRequired[ExpressionTypedDict]
     guardrails: NotRequired[Nullable[List[GuardrailRefTypedDict]]]
+    plugins: NotRequired[Nullable[List[PluginTypedDict]]]
 
 
 class GuardrailRuleGetResponseBody(BaseModel):
@@ -74,10 +76,12 @@ class GuardrailRuleGetResponseBody(BaseModel):
 
     guardrails: OptionalNullable[List[GuardrailRef]] = UNSET
 
+    plugins: OptionalNullable[List[Plugin]] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "expression", "guardrails"])
-        nullable_fields = set(["guardrails"])
+        optional_fields = set(["description", "expression", "guardrails", "plugins"])
+        nullable_fields = set(["guardrails", "plugins"])
         serialized = handler(self)
         m = {}
 

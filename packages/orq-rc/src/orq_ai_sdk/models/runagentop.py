@@ -5,6 +5,8 @@ from .datapart import DataPart, DataPartTypedDict
 from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -328,6 +330,21 @@ class RunAgentModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+RunAgentModelConfigurationPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class RunAgentModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -554,6 +571,8 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[RunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[RunAgentModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentModelConfigurationCacheTypedDict]
@@ -635,6 +654,9 @@ class RunAgentModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[RunAgentModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[RunAgentModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[RunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -675,6 +697,7 @@ class RunAgentModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
@@ -1105,6 +1128,21 @@ class RunAgentFallbackModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationPluginsTypedDict",
+    Union[PIIRedactionPluginEnTypedDict, PIIRedactionPluginNlTypedDict],
+)
+
+
+RunAgentFallbackModelConfigurationPlugins = Annotated[
+    Union[
+        Annotated[PIIRedactionPluginEn, Tag("en")],
+        Annotated[PIIRedactionPluginNl, Tag("nl")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "language", "language")),
+]
+
+
 class RunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1337,6 +1375,8 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[RunAgentFallbackModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[RunAgentFallbackModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentFallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentFallbackModelConfigurationCacheTypedDict]
@@ -1420,6 +1460,9 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[RunAgentFallbackModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[RunAgentFallbackModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[RunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -1460,6 +1503,7 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
@@ -1960,7 +2004,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KW2P02TP430RJFV8W3HHV0S5"
+    id: Optional[str] = "01KW90VNVAZ8DQNANQY4RKFM32"
 
     description: Optional[str] = None
 
@@ -2397,11 +2441,11 @@ class AgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-Language = Literal["python",]
+AgentToolInputRunLanguage = Literal["python",]
 
 
 class CodeToolTypedDict(TypedDict):
-    language: Language
+    language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[AgentToolInputRunParametersTypedDict]
@@ -2409,7 +2453,7 @@ class CodeToolTypedDict(TypedDict):
 
 
 class CodeTool(BaseModel):
-    language: Language
+    language: AgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""
