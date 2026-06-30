@@ -28,6 +28,11 @@ class ListIdentitiesRequestTypedDict(TypedDict):
     r"""Include aggregate usage metrics on each returned identity."""
     sort_by: NotRequired[IdentitySortField]
     r"""Field used to order the list."""
+    include_budget: NotRequired[bool]
+    r"""When true, embed each identity's identity-scoped budget (config and
+    limits only, no live usage) on the returned records. Adds one budget
+    lookup for the page; omit to skip it.
+    """
 
 
 class ListIdentitiesRequest(BaseModel):
@@ -77,6 +82,15 @@ class ListIdentitiesRequest(BaseModel):
     ] = None
     r"""Field used to order the list."""
 
+    include_budget: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""When true, embed each identity's identity-scoped budget (config and
+    limits only, no live usage) on the returned records. Adds one budget
+    lookup for the page; omit to skip it.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -88,6 +102,7 @@ class ListIdentitiesRequest(BaseModel):
                 "filter_by.tags",
                 "include_metrics",
                 "sort_by",
+                "include_budget",
             ]
         )
         serialized = handler(self)

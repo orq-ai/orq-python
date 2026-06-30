@@ -20,6 +20,7 @@ class Identities(BaseSDK):
         filter_by_tags: Optional[Iterable[str]] = None,
         include_metrics: Optional[bool] = None,
         sort_by: Optional[models.IdentitySortField] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -38,6 +39,9 @@ class Identities(BaseSDK):
         :param filter_by_tags: Return only identities that have at least one of these tags.
         :param include_metrics: Include aggregate usage metrics on each returned identity.
         :param sort_by: Field used to order the list.
+        :param include_budget: When true, embed each identity's identity-scoped budget (config and
+            limits only, no live usage) on the returned records. Adds one budget
+            lookup for the page; omit to skip it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -64,6 +68,7 @@ class Identities(BaseSDK):
             filter_by_tags=utils.unmarshal(filter_by_tags, Optional[List[str]]),
             include_metrics=include_metrics,
             sort_by=sort_by,
+            include_budget=include_budget,
         )
 
         req = self._build_request(
@@ -149,6 +154,7 @@ class Identities(BaseSDK):
         filter_by_tags: Optional[Iterable[str]] = None,
         include_metrics: Optional[bool] = None,
         sort_by: Optional[models.IdentitySortField] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -167,6 +173,9 @@ class Identities(BaseSDK):
         :param filter_by_tags: Return only identities that have at least one of these tags.
         :param include_metrics: Include aggregate usage metrics on each returned identity.
         :param sort_by: Field used to order the list.
+        :param include_budget: When true, embed each identity's identity-scoped budget (config and
+            limits only, no live usage) on the returned records. Adds one budget
+            lookup for the page; omit to skip it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -193,6 +202,7 @@ class Identities(BaseSDK):
             filter_by_tags=utils.unmarshal(filter_by_tags, Optional[List[str]]),
             include_metrics=include_metrics,
             sort_by=sort_by,
+            include_budget=include_budget,
         )
 
         req = self._build_request_async(
@@ -573,6 +583,7 @@ class Identities(BaseSDK):
         *,
         id: str,
         include_metrics: Optional[bool] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -584,6 +595,8 @@ class Identities(BaseSDK):
 
         :param id: Identity ID to retrieve.
         :param include_metrics: Include aggregate usage metrics on the returned identity.
+        :param include_budget: When true, embed the identity-scoped budget (config and limits only,
+            no live usage) on the returned record.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -605,6 +618,7 @@ class Identities(BaseSDK):
         request = models.RetrieveIdentityRequest(
             id=id,
             include_metrics=include_metrics,
+            include_budget=include_budget,
         )
 
         req = self._build_request(
@@ -685,6 +699,7 @@ class Identities(BaseSDK):
         *,
         id: str,
         include_metrics: Optional[bool] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -696,6 +711,8 @@ class Identities(BaseSDK):
 
         :param id: Identity ID to retrieve.
         :param include_metrics: Include aggregate usage metrics on the returned identity.
+        :param include_budget: When true, embed the identity-scoped budget (config and limits only,
+            no live usage) on the returned record.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -717,6 +734,7 @@ class Identities(BaseSDK):
         request = models.RetrieveIdentityRequest(
             id=id,
             include_metrics=include_metrics,
+            include_budget=include_budget,
         )
 
         req = self._build_request_async(

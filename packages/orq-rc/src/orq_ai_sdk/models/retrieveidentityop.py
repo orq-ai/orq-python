@@ -13,6 +13,10 @@ class RetrieveIdentityRequestTypedDict(TypedDict):
     r"""Identity ID to retrieve."""
     include_metrics: NotRequired[bool]
     r"""Include aggregate usage metrics on the returned identity."""
+    include_budget: NotRequired[bool]
+    r"""When true, embed the identity-scoped budget (config and limits only,
+    no live usage) on the returned record.
+    """
 
 
 class RetrieveIdentityRequest(BaseModel):
@@ -27,9 +31,17 @@ class RetrieveIdentityRequest(BaseModel):
     ] = None
     r"""Include aggregate usage metrics on the returned identity."""
 
+    include_budget: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""When true, embed the identity-scoped budget (config and limits only,
+    no live usage) on the returned record.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["include_metrics"])
+        optional_fields = set(["include_metrics", "include_budget"])
         serialized = handler(self)
         m = {}
 

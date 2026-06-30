@@ -22,6 +22,7 @@ class APIKeys(BaseSDK):
         search: Optional[str] = None,
         owner_type: Optional[Iterable[models.OwnerType]] = None,
         permission_mode: Optional[Iterable[models.PermissionMode]] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -48,6 +49,9 @@ class APIKeys(BaseSDK):
             no owner-type filter.
         :param permission_mode: Optional filter: only return keys whose permission mode is one
             of the listed presets. Empty means no permission-mode filter.
+        :param include_budget: When true, embed each key's api-key-scoped budget (config and limits
+            only, no live usage) on the returned records. Adds one budget lookup
+            for the page; omit to skip it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -77,6 +81,7 @@ class APIKeys(BaseSDK):
             permission_mode=utils.unmarshal(
                 permission_mode, Optional[List[models.PermissionMode]]
             ),
+            include_budget=include_budget,
         )
 
         req = self._build_request(
@@ -161,6 +166,7 @@ class APIKeys(BaseSDK):
         search: Optional[str] = None,
         owner_type: Optional[Iterable[models.OwnerType]] = None,
         permission_mode: Optional[Iterable[models.PermissionMode]] = None,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -187,6 +193,9 @@ class APIKeys(BaseSDK):
             no owner-type filter.
         :param permission_mode: Optional filter: only return keys whose permission mode is one
             of the listed presets. Empty means no permission-mode filter.
+        :param include_budget: When true, embed each key's api-key-scoped budget (config and limits
+            only, no live usage) on the returned records. Adds one budget lookup
+            for the page; omit to skip it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -216,6 +225,7 @@ class APIKeys(BaseSDK):
             permission_mode=utils.unmarshal(
                 permission_mode, Optional[List[models.PermissionMode]]
             ),
+            include_budget=include_budget,
         )
 
         req = self._build_request_async(
@@ -791,6 +801,7 @@ class APIKeys(BaseSDK):
         self,
         *,
         api_key_id: str,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -801,6 +812,8 @@ class APIKeys(BaseSDK):
         Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
 
         :param api_key_id: API key id to retrieve (e.g. `01H...`).
+        :param include_budget: When true, embed the api-key-scoped budget (config and limits only,
+            no live usage) on the returned record.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -821,6 +834,7 @@ class APIKeys(BaseSDK):
 
         request = models.APIKeyGetRequest(
             api_key_id=api_key_id,
+            include_budget=include_budget,
         )
 
         req = self._build_request(
@@ -898,6 +912,7 @@ class APIKeys(BaseSDK):
         self,
         *,
         api_key_id: str,
+        include_budget: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -908,6 +923,8 @@ class APIKeys(BaseSDK):
         Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
 
         :param api_key_id: API key id to retrieve (e.g. `01H...`).
+        :param include_budget: When true, embed the api-key-scoped budget (config and limits only,
+            no live usage) on the returned record.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -928,6 +945,7 @@ class APIKeys(BaseSDK):
 
         request = models.APIKeyGetRequest(
             api_key_id=api_key_id,
+            include_budget=include_budget,
         )
 
         req = self._build_request_async(

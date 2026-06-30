@@ -185,7 +185,7 @@ if TYPE_CHECKING:
     )
     from .allprojects import AllProjects, AllProjectsTypedDict
     from .apierror import APIError
-    from .apikey import APIKey, APIKeyTypedDict
+    from .apikey import APIKey, APIKeyBudget, APIKeyBudgetTypedDict, APIKeyTypedDict
     from .apikeybudgetscope import APIKeyBudgetScope, APIKeyBudgetScopeTypedDict
     from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
     from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
@@ -4265,6 +4265,8 @@ if TYPE_CHECKING:
     from .honoapierror import HonoAPIError, HonoAPIErrorData
     from .identity import (
         Identity,
+        IdentityBudget,
+        IdentityBudgetTypedDict,
         IdentityMetadata,
         IdentityMetadataTypedDict,
         IdentityTypedDict,
@@ -8241,8 +8243,10 @@ __all__ = [
     "A2AMessageTypedDict",
     "APIError",
     "APIKey",
+    "APIKeyBudget",
     "APIKeyBudgetScope",
     "APIKeyBudgetScopeTypedDict",
+    "APIKeyBudgetTypedDict",
     "APIKeyDeleteRequest",
     "APIKeyDeleteRequestTypedDict",
     "APIKeyGetRequest",
@@ -12092,8 +12096,10 @@ __all__ = [
     "ID",
     "ID1",
     "Identity",
+    "IdentityBudget",
     "IdentityBudgetScope",
     "IdentityBudgetScopeTypedDict",
+    "IdentityBudgetTypedDict",
     "IdentityMetadata",
     "IdentityMetadataTypedDict",
     "IdentityMetrics",
@@ -16162,6 +16168,8 @@ _dynamic_imports: dict[str, str] = {
     "AllProjectsTypedDict": ".allprojects",
     "APIError": ".apierror",
     "APIKey": ".apikey",
+    "APIKeyBudget": ".apikey",
+    "APIKeyBudgetTypedDict": ".apikey",
     "APIKeyTypedDict": ".apikey",
     "APIKeyBudgetScope": ".apikeybudgetscope",
     "APIKeyBudgetScopeTypedDict": ".apikeybudgetscope",
@@ -20080,6 +20088,8 @@ _dynamic_imports: dict[str, str] = {
     "HonoAPIError": ".honoapierror",
     "HonoAPIErrorData": ".honoapierror",
     "Identity": ".identity",
+    "IdentityBudget": ".identity",
+    "IdentityBudgetTypedDict": ".identity",
     "IdentityMetadata": ".identity",
     "IdentityMetadataTypedDict": ".identity",
     "IdentityTypedDict": ".identity",
