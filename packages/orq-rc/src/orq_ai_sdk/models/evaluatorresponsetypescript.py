@@ -186,9 +186,9 @@ class EvaluatorResponseTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-07-01T06:53:34.724Z"
+    created: Optional[str] = "2026-07-01T08:24:55.375Z"
 
-    updated: Optional[str] = "2026-07-01T06:53:34.724Z"
+    updated: Optional[str] = "2026-07-01T08:24:55.376Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
