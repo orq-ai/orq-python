@@ -35,7 +35,6 @@ PIIRedactionPluginEnEntities = Literal[
     "DATE_TIME",
     "DEVICE_ID",
     "EDUCATION_LEVEL",
-    "EMAIL",
     "EMAIL_ADDRESS",
     "EMPLOYMENT_STATUS",
     "GENDER",
