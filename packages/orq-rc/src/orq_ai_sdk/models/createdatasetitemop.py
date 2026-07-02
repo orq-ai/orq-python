@@ -1507,7 +1507,7 @@ class Evaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-02T07:06:35.773Z")
+    ] = parse_datetime("2026-07-02T10:35:37.151Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1652,7 +1652,7 @@ class Evaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-02T07:06:35.772Z")
+    ] = parse_datetime("2026-07-02T10:35:37.150Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1797,7 +1797,7 @@ class Evaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-02T07:06:35.771Z")
+    ] = parse_datetime("2026-07-02T10:35:37.149Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1902,7 +1902,7 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-07-02T07:06:04.736Z")
+    updated: Optional[datetime] = parse_datetime("2026-07-02T10:35:04.852Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
