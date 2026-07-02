@@ -246,147 +246,6 @@ class UpdateEvalJury(BaseModel):
         return m
 
 
-UpdateEvalGuardrailConfigEvalsRequestType = Literal["number",]
-
-
-UpdateEvalGuardrailConfigOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class UpdateEvalGuardrailConfigNumberTypedDict(TypedDict):
-    type: UpdateEvalGuardrailConfigEvalsRequestType
-    value: float
-    operator: UpdateEvalGuardrailConfigOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigNumber(BaseModel):
-    type: UpdateEvalGuardrailConfigEvalsRequestType
-
-    value: float
-
-    operator: UpdateEvalGuardrailConfigOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsType = Literal["categorical",]
-
-
-class UpdateEvalGuardrailConfigCategoricalTypedDict(TypedDict):
-    type: UpdateEvalGuardrailConfigEvalsType
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigCategorical(BaseModel):
-    type: UpdateEvalGuardrailConfigEvalsType
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigType = Literal["boolean",]
-
-
-class UpdateEvalGuardrailConfigBooleanTypedDict(TypedDict):
-    type: UpdateEvalGuardrailConfigType
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigBoolean(BaseModel):
-    type: UpdateEvalGuardrailConfigType
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigTypedDict = TypeAliasType(
-    "UpdateEvalGuardrailConfigTypedDict",
-    Union[
-        UpdateEvalGuardrailConfigBooleanTypedDict,
-        UpdateEvalGuardrailConfigCategoricalTypedDict,
-        UpdateEvalGuardrailConfigNumberTypedDict,
-    ],
-)
-
-
-UpdateEvalGuardrailConfig = Annotated[
-    Union[
-        Annotated[UpdateEvalGuardrailConfigBoolean, Tag("boolean")],
-        Annotated[UpdateEvalGuardrailConfigCategorical, Tag("categorical")],
-        Annotated[UpdateEvalGuardrailConfigNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
 VersionIncrement = Literal[
     "major",
     "minor",
@@ -417,7 +276,7 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     headers: NotRequired[Dict[str, str]]
     payload: NotRequired[Dict[str, Any]]
     code: NotRequired[str]
-    guardrail_config: NotRequired[Nullable[UpdateEvalGuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[Any]
     version_increment: NotRequired[VersionIncrement]
     version_description: NotRequired[str]
 
@@ -461,7 +320,7 @@ class UpdateEvalRequestBody(BaseModel):
 
     code: Optional[str] = None
 
-    guardrail_config: OptionalNullable[UpdateEvalGuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     version_increment: Annotated[
         Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
@@ -498,7 +357,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["categories", "categorical_labels", "guardrail_config"])
+        nullable_fields = set(["categories", "categorical_labels"])
         serialized = handler(self)
         m = {}
 

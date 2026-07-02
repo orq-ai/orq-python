@@ -8,152 +8,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-EvaluatorResponseJSONSchemaGuardrailConfig3Type = Literal["number",]
-
-
-GuardrailConfigOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class GuardrailConfigNumberTypedDict(TypedDict):
-    type: EvaluatorResponseJSONSchemaGuardrailConfig3Type
-    value: float
-    operator: GuardrailConfigOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class GuardrailConfigNumber(BaseModel):
-    type: EvaluatorResponseJSONSchemaGuardrailConfig3Type
-
-    value: float
-
-    operator: GuardrailConfigOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseJSONSchemaGuardrailConfig2Type = Literal["categorical",]
-
-
-class GuardrailConfigCategoricalTypedDict(TypedDict):
-    type: EvaluatorResponseJSONSchemaGuardrailConfig2Type
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class GuardrailConfigCategorical(BaseModel):
-    type: EvaluatorResponseJSONSchemaGuardrailConfig2Type
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseJSONSchemaGuardrailConfigType = Literal["boolean",]
-
-
-class GuardrailConfigBooleanTypedDict(TypedDict):
-    type: EvaluatorResponseJSONSchemaGuardrailConfigType
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class GuardrailConfigBoolean(BaseModel):
-    type: EvaluatorResponseJSONSchemaGuardrailConfigType
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseJSONSchemaGuardrailConfigTypedDict = TypeAliasType(
-    "EvaluatorResponseJSONSchemaGuardrailConfigTypedDict",
-    Union[
-        GuardrailConfigBooleanTypedDict,
-        GuardrailConfigCategoricalTypedDict,
-        GuardrailConfigNumberTypedDict,
-    ],
-)
-
-
-EvaluatorResponseJSONSchemaGuardrailConfig = Annotated[
-    Union[
-        Annotated[GuardrailConfigBoolean, Tag("boolean")],
-        Annotated[GuardrailConfigCategorical, Tag("categorical")],
-        Annotated[GuardrailConfigNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
+from pydantic import model_serializer
+from typing import Any, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 EvaluatorResponseJSONSchemaType = Literal["json_schema",]
@@ -168,9 +26,7 @@ class EvaluatorResponseJSONSchemaTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
-    guardrail_config: NotRequired[
-        Nullable[EvaluatorResponseJSONSchemaGuardrailConfigTypedDict]
-    ]
+    guardrail_config: NotRequired[Any]
 
 
 class EvaluatorResponseJSONSchema(BaseModel):
@@ -184,22 +40,20 @@ class EvaluatorResponseJSONSchema(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-07-01T12:58:10.623Z"
+    created: Optional[str] = "2026-07-02T01:19:40.024Z"
 
-    updated: Optional[str] = "2026-07-01T12:58:10.623Z"
+    updated: Optional[str] = "2026-07-02T01:19:40.024Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
-    guardrail_config: OptionalNullable[EvaluatorResponseJSONSchemaGuardrailConfig] = (
-        UNSET
-    )
+    guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             ["created", "updated", "updated_by_id", "guardrail_config"]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(["updated_by_id"])
         serialized = handler(self)
         m = {}
 

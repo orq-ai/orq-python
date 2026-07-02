@@ -8,148 +8,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-EvaluatorResponseLlmGuardrailConfigType = Literal["number",]
-
-
-Operator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class NumberTypedDict(TypedDict):
-    type: EvaluatorResponseLlmGuardrailConfigType
-    value: float
-    operator: Operator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class Number(BaseModel):
-    type: EvaluatorResponseLlmGuardrailConfigType
-
-    value: float
-
-    operator: Operator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-GuardrailConfigType = Literal["categorical",]
-
-
-class CategoricalTypedDict(TypedDict):
-    type: GuardrailConfigType
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class Categorical(BaseModel):
-    type: GuardrailConfigType
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseLlmGuardrailConfig1Type = Literal["boolean",]
-
-
-class BooleanTypedDict(TypedDict):
-    type: EvaluatorResponseLlmGuardrailConfig1Type
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class Boolean(BaseModel):
-    type: EvaluatorResponseLlmGuardrailConfig1Type
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-GuardrailConfigTypedDict = TypeAliasType(
-    "GuardrailConfigTypedDict",
-    Union[BooleanTypedDict, CategoricalTypedDict, NumberTypedDict],
-)
-
-
-GuardrailConfig = Annotated[
-    Union[
-        Annotated[Boolean, Tag("boolean")],
-        Annotated[Categorical, Tag("categorical")],
-        Annotated[Number, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
+from pydantic import model_serializer
+from typing import Any, List, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 Type = Literal["llm_eval",]
@@ -366,7 +228,7 @@ class EvaluatorResponseLlmTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
-    guardrail_config: NotRequired[Nullable[GuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[Any]
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[Nullable[List[CategoricalLabelsTypedDict]]]
@@ -388,13 +250,13 @@ class EvaluatorResponseLlm(BaseModel):
 
     mode: Mode
 
-    created: Optional[str] = "2026-07-01T12:58:10.623Z"
+    created: Optional[str] = "2026-07-02T01:19:40.024Z"
 
-    updated: Optional[str] = "2026-07-01T12:58:10.623Z"
+    updated: Optional[str] = "2026-07-02T01:19:40.024Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
-    guardrail_config: OptionalNullable[GuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     repetitions: OptionalNullable[int] = UNSET
 
@@ -425,13 +287,7 @@ class EvaluatorResponseLlm(BaseModel):
             ]
         )
         nullable_fields = set(
-            [
-                "updated_by_id",
-                "guardrail_config",
-                "repetitions",
-                "categories",
-                "categorical_labels",
-            ]
+            ["updated_by_id", "repetitions", "categories", "categorical_labels"]
         )
         serialized = handler(self)
         m = {}

@@ -8,152 +8,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-EvaluatorResponseRagasGuardrailConfig3Type = Literal["number",]
-
-
-EvaluatorResponseRagasGuardrailConfigOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class EvaluatorResponseRagasGuardrailConfigNumberTypedDict(TypedDict):
-    type: EvaluatorResponseRagasGuardrailConfig3Type
-    value: float
-    operator: EvaluatorResponseRagasGuardrailConfigOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class EvaluatorResponseRagasGuardrailConfigNumber(BaseModel):
-    type: EvaluatorResponseRagasGuardrailConfig3Type
-
-    value: float
-
-    operator: EvaluatorResponseRagasGuardrailConfigOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseRagasGuardrailConfig2Type = Literal["categorical",]
-
-
-class EvaluatorResponseRagasGuardrailConfigCategoricalTypedDict(TypedDict):
-    type: EvaluatorResponseRagasGuardrailConfig2Type
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class EvaluatorResponseRagasGuardrailConfigCategorical(BaseModel):
-    type: EvaluatorResponseRagasGuardrailConfig2Type
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseRagasGuardrailConfigType = Literal["boolean",]
-
-
-class EvaluatorResponseRagasGuardrailConfigBooleanTypedDict(TypedDict):
-    type: EvaluatorResponseRagasGuardrailConfigType
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class EvaluatorResponseRagasGuardrailConfigBoolean(BaseModel):
-    type: EvaluatorResponseRagasGuardrailConfigType
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-EvaluatorResponseRagasGuardrailConfigTypedDict = TypeAliasType(
-    "EvaluatorResponseRagasGuardrailConfigTypedDict",
-    Union[
-        EvaluatorResponseRagasGuardrailConfigBooleanTypedDict,
-        EvaluatorResponseRagasGuardrailConfigCategoricalTypedDict,
-        EvaluatorResponseRagasGuardrailConfigNumberTypedDict,
-    ],
-)
-
-
-EvaluatorResponseRagasGuardrailConfig = Annotated[
-    Union[
-        Annotated[EvaluatorResponseRagasGuardrailConfigBoolean, Tag("boolean")],
-        Annotated[EvaluatorResponseRagasGuardrailConfigCategorical, Tag("categorical")],
-        Annotated[EvaluatorResponseRagasGuardrailConfigNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
+from pydantic import model_serializer
+from typing import Any, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 EvaluatorResponseRagasType = Literal["ragas",]
@@ -185,9 +43,7 @@ class EvaluatorResponseRagasTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
-    guardrail_config: NotRequired[
-        Nullable[EvaluatorResponseRagasGuardrailConfigTypedDict]
-    ]
+    guardrail_config: NotRequired[Any]
 
 
 class EvaluatorResponseRagas(BaseModel):
@@ -203,20 +59,20 @@ class EvaluatorResponseRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-07-01T12:58:10.623Z"
+    created: Optional[str] = "2026-07-02T01:19:40.024Z"
 
-    updated: Optional[str] = "2026-07-01T12:58:10.623Z"
+    updated: Optional[str] = "2026-07-02T01:19:40.024Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
-    guardrail_config: OptionalNullable[EvaluatorResponseRagasGuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             ["created", "updated", "updated_by_id", "guardrail_config"]
         )
-        nullable_fields = set(["updated_by_id", "guardrail_config"])
+        nullable_fields = set(["updated_by_id"])
         serialized = handler(self)
         m = {}
 

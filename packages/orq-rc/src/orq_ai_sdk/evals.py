@@ -451,12 +451,7 @@ class Evals(BaseSDK):
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
-        guardrail_config: OptionalNullable[
-            Union[
-                models.UpdateEvalGuardrailConfig,
-                models.UpdateEvalGuardrailConfigTypedDict,
-            ]
-        ] = UNSET,
+        guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -530,9 +525,7 @@ class Evals(BaseSDK):
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
-                guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.UpdateEvalGuardrailConfig]
-                ),
+                guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,
             ),
@@ -633,12 +626,7 @@ class Evals(BaseSDK):
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
-        guardrail_config: OptionalNullable[
-            Union[
-                models.UpdateEvalGuardrailConfig,
-                models.UpdateEvalGuardrailConfigTypedDict,
-            ]
-        ] = UNSET,
+        guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -712,9 +700,7 @@ class Evals(BaseSDK):
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
-                guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.UpdateEvalGuardrailConfig]
-                ),
+                guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,
             ),

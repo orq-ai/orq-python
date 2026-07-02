@@ -857,12 +857,12 @@ InvokeEvalResponseBodyEvalsResponse200Value = TypeAliasType(
 )
 
 
-class ResponseBodyBooleanTypedDict(TypedDict):
+class BooleanTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsType
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200ValueTypedDict]
 
 
-class ResponseBodyBoolean(BaseModel):
+class Boolean(BaseModel):
     type: InvokeEvalResponseBodyEvalsType
 
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200Value]
@@ -918,14 +918,14 @@ FormatOptionsTypedDict = TypeAliasType(
 FormatOptions = TypeAliasType("FormatOptions", Union[FormatOptions1, FormatOptions2])
 
 
-class ResponseBodyNumberTypedDict(TypedDict):
+class NumberTypedDict(TypedDict):
     type: InvokeEvalResponseBodyType
     value: Nullable[float]
     original_value: NotRequired[Nullable[float]]
     format_options: NotRequired[FormatOptionsTypedDict]
 
 
-class ResponseBodyNumber(BaseModel):
+class Number(BaseModel):
     type: InvokeEvalResponseBodyType
 
     value: Nullable[float]
@@ -1005,7 +1005,7 @@ class String(BaseModel):
 InvokeEvalResponseBodyTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyTypedDict",
     Union[
-        ResponseBodyBooleanTypedDict,
+        BooleanTypedDict,
         StringArrayTypedDict,
         RougeNTypedDict,
         BERTScoreTypedDict,
@@ -1013,7 +1013,7 @@ InvokeEvalResponseBodyTypedDict = TypeAliasType(
         ResponseBodyHTTPTypedDict,
         StructuredTypedDict,
         StringTypedDict,
-        ResponseBodyNumberTypedDict,
+        NumberTypedDict,
     ],
 )
 r"""Returns the result of the evaluator run"""
@@ -1022,8 +1022,8 @@ r"""Returns the result of the evaluator run"""
 InvokeEvalResponseBody = Annotated[
     Union[
         Annotated[String, Tag("string")],
-        Annotated[ResponseBodyNumber, Tag("number")],
-        Annotated[ResponseBodyBoolean, Tag("boolean")],
+        Annotated[Number, Tag("number")],
+        Annotated[Boolean, Tag("boolean")],
         Annotated[StringArray, Tag("string_array")],
         Annotated[RougeN, Tag("rouge_n")],
         Annotated[BERTScore, Tag("bert_score")],

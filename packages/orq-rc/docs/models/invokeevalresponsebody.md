@@ -11,16 +11,16 @@ Returns the result of the evaluator run
 value: models.String = /* values here */
 ```
 
-### `models.ResponseBodyNumber`
+### `models.Number`
 
 ```python
-value: models.ResponseBodyNumber = /* values here */
+value: models.Number = /* values here */
 ```
 
-### `models.ResponseBodyBoolean`
+### `models.Boolean`
 
 ```python
-value: models.ResponseBodyBoolean = /* values here */
+value: models.Boolean = /* values here */
 ```
 
 ### `models.StringArray`

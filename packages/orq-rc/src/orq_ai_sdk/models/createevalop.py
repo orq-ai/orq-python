@@ -35,149 +35,8 @@ from orq_ai_sdk.types import (
 )
 from orq_ai_sdk.utils import get_discriminator
 from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-CreateEvalGuardrailConfigEvalsRequestType = Literal["number",]
-
-
-CreateEvalGuardrailConfigOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class CreateEvalGuardrailConfigNumberTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestType
-    value: float
-    operator: CreateEvalGuardrailConfigOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigNumber(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestType
-
-    value: float
-
-    operator: CreateEvalGuardrailConfigOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigEvalsType = Literal["categorical",]
-
-
-class CreateEvalGuardrailConfigCategoricalTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsType
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigCategorical(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsType
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigType = Literal["boolean",]
-
-
-class CreateEvalGuardrailConfigBooleanTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigType
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigBoolean(BaseModel):
-    type: CreateEvalGuardrailConfigType
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RequestBodyGuardrailConfigTypedDict = TypeAliasType(
-    "RequestBodyGuardrailConfigTypedDict",
-    Union[
-        CreateEvalGuardrailConfigBooleanTypedDict,
-        CreateEvalGuardrailConfigCategoricalTypedDict,
-        CreateEvalGuardrailConfigNumberTypedDict,
-    ],
-)
-
-
-RequestBodyGuardrailConfig = Annotated[
-    Union[
-        Annotated[CreateEvalGuardrailConfigBoolean, Tag("boolean")],
-        Annotated[CreateEvalGuardrailConfigCategorical, Tag("categorical")],
-        Annotated[CreateEvalGuardrailConfigNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
 
 
 OutputType = Literal[
@@ -200,7 +59,7 @@ class PythonTypedDict(TypedDict):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     key: str
-    guardrail_config: NotRequired[Nullable[RequestBodyGuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[Any]
     output_type: NotRequired[OutputType]
     description: NotRequired[str]
 
@@ -220,7 +79,7 @@ class Python(BaseModel):
 
     key: str
 
-    guardrail_config: OptionalNullable[RequestBodyGuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     output_type: Optional[OutputType] = None
 
@@ -229,64 +88,6 @@ class Python(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["guardrail_config", "output_type", "description"])
-        nullable_fields = set(["guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType = Literal["number",]
-
-
-CreateEvalGuardrailConfigEvalsOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class CreateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType
-    value: float
-    operator: CreateEvalGuardrailConfigEvalsOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLMType
-
-    value: float
-
-    operator: CreateEvalGuardrailConfigEvalsOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -299,98 +100,6 @@ class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
                     m[k] = val
 
         return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBody1Type = Literal["categorical",]
-
-
-class CreateEvalGuardrailConfigEvalsCategoricalTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsCategorical(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1Type
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["boolean",]
-
-
-class CreateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalLLMGuardrailConfigTypedDict = TypeAliasType(
-    "CreateEvalLLMGuardrailConfigTypedDict",
-    Union[
-        CreateEvalGuardrailConfigEvalsBooleanTypedDict,
-        CreateEvalGuardrailConfigEvalsCategoricalTypedDict,
-        CreateEvalGuardrailConfigEvalsNumberTypedDict,
-    ],
-)
-
-
-CreateEvalLLMGuardrailConfig = Annotated[
-    Union[
-        Annotated[CreateEvalGuardrailConfigEvalsBoolean, Tag("boolean")],
-        Annotated[CreateEvalGuardrailConfigEvalsCategorical, Tag("categorical")],
-        Annotated[CreateEvalGuardrailConfigEvalsNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
 
 
 LLMOutputType = Literal[
@@ -616,7 +325,7 @@ class Llm2TypedDict(TypedDict):
     key: str
     mode: CreateEvalLLMMode
     jury: LLMJuryTypedDict
-    guardrail_config: NotRequired[Nullable[CreateEvalLLMGuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[Any]
     output_type: NotRequired[LLMOutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
@@ -647,7 +356,7 @@ class Llm2(BaseModel):
 
     jury: LLMJury
 
-    guardrail_config: OptionalNullable[CreateEvalLLMGuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     output_type: Optional[LLMOutputType] = None
     r"""The type of output expected from the evaluator"""
@@ -675,9 +384,7 @@ class Llm2(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(
-            ["guardrail_config", "repetitions", "categories", "categorical_labels"]
-        )
+        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
         serialized = handler(self)
         m = {}
 
@@ -698,147 +405,6 @@ class Llm2(BaseModel):
                     m[k] = val
 
         return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM13Type = Literal["number",]
-
-
-CreateEvalGuardrailConfigEvalsRequestOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class CreateEvalGuardrailConfigEvalsRequestNumberTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM13Type
-    value: float
-    operator: CreateEvalGuardrailConfigEvalsRequestOperator
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsRequestNumber(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM13Type
-
-    value: float
-
-    operator: CreateEvalGuardrailConfigEvalsRequestOperator
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM12Type = Literal["categorical",]
-
-
-class CreateEvalGuardrailConfigEvalsRequestCategoricalTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM12Type
-    values: List[str]
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsRequestCategorical(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM12Type
-
-    values: List[str]
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type = Literal["boolean",]
-
-
-class CreateEvalGuardrailConfigEvalsRequestBooleanTypedDict(TypedDict):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type
-    value: bool
-    enabled: NotRequired[bool]
-    alert_on_failure: NotRequired[bool]
-
-
-class CreateEvalGuardrailConfigEvalsRequestBoolean(BaseModel):
-    type: CreateEvalGuardrailConfigEvalsRequestRequestBody1LLM1Type
-
-    value: bool
-
-    enabled: Optional[bool] = True
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["enabled", "alert_on_failure"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-LLMGuardrailConfigTypedDict = TypeAliasType(
-    "LLMGuardrailConfigTypedDict",
-    Union[
-        CreateEvalGuardrailConfigEvalsRequestBooleanTypedDict,
-        CreateEvalGuardrailConfigEvalsRequestCategoricalTypedDict,
-        CreateEvalGuardrailConfigEvalsRequestNumberTypedDict,
-    ],
-)
-
-
-LLMGuardrailConfig = Annotated[
-    Union[
-        Annotated[CreateEvalGuardrailConfigEvalsRequestBoolean, Tag("boolean")],
-        Annotated[CreateEvalGuardrailConfigEvalsRequestCategorical, Tag("categorical")],
-        Annotated[CreateEvalGuardrailConfigEvalsRequestNumber, Tag("number")],
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
 
 
 CreateEvalLLMOutputType = Literal[
@@ -896,7 +462,7 @@ class Llm1TypedDict(TypedDict):
     key: str
     mode: LLMMode
     model: str
-    guardrail_config: NotRequired[Nullable[LLMGuardrailConfigTypedDict]]
+    guardrail_config: NotRequired[Any]
     output_type: NotRequired[CreateEvalLLMOutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
@@ -925,7 +491,7 @@ class Llm1(BaseModel):
 
     model: str
 
-    guardrail_config: OptionalNullable[LLMGuardrailConfig] = UNSET
+    guardrail_config: Optional[Any] = None
 
     output_type: Optional[CreateEvalLLMOutputType] = None
     r"""The type of output expected from the evaluator"""
@@ -953,9 +519,7 @@ class Llm1(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(
-            ["guardrail_config", "repetitions", "categories", "categorical_labels"]
-        )
+        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
         serialized = handler(self)
         m = {}
 
