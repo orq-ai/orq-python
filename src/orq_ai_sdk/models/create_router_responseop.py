@@ -6,6 +6,10 @@ from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .publicpiiredactionplugin import (
+    PublicPIIRedactionPlugin,
+    PublicPIIRedactionPluginTypedDict,
+)
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
@@ -33,13 +37,140 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateRouterResponse2ResponsesRequestType = Literal["input_file",]
+CreateRouterResponseTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponseType = Literal["ephemeral",]
+r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponseCacheControlTypedDict(TypedDict):
+    r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
+
+    type: CreateRouterResponseType
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponseTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponseCacheControl(BaseModel):
+    r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
+
+    type: CreateRouterResponseType
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponseTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesRequestTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyInputType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponse2ResponsesRequestCacheControlTypedDict(TypedDict):
+    type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
+    type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponse2ResponsesRequestTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyInput2Type = Literal["input_file",]
 
 
 class CreateRouterResponse2FileTypedDict(TypedDict):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
-    type: CreateRouterResponse2ResponsesRequestType
+    type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
+    cache_control: NotRequired[
+        CreateRouterResponse2ResponsesRequestCacheControlTypedDict
+    ]
     file_data: NotRequired[str]
     r"""Base64-encoded file content."""
     file_id: NotRequired[str]
@@ -55,7 +186,9 @@ class CreateRouterResponse2FileTypedDict(TypedDict):
 class CreateRouterResponse2File(BaseModel):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
-    type: CreateRouterResponse2ResponsesRequestType
+    type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
+
+    cache_control: Optional[CreateRouterResponse2ResponsesRequestCacheControl] = None
 
     file_data: Optional[str] = None
     r"""Base64-encoded file content."""
@@ -75,8 +208,75 @@ class CreateRouterResponse2File(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["file_data", "file_id", "file_url", "filename", "mime_type"]
+            [
+                "cache_control",
+                "file_data",
+                "file_id",
+                "file_url",
+                "filename",
+                "mime_type",
+            ]
         )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponse2ResponsesRequestType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponse2ResponsesCacheControlTypedDict(TypedDict):
+    type: CreateRouterResponse2ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponse2ResponsesCacheControl(BaseModel):
+    type: CreateRouterResponse2ResponsesRequestType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponse2ResponsesTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
         serialized = handler(self)
         m = {}
 
@@ -99,13 +299,14 @@ TwoDetail = Literal[
 r"""The detail level for image understanding."""
 
 
-CreateRouterResponse2ResponsesType = Literal["input_image",]
+CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
 class ImageTypedDict(TypedDict):
     r"""An image content part."""
 
-    type: CreateRouterResponse2ResponsesType
+    type: CreateRouterResponse2ResponsesRequestRequestBodyType
+    cache_control: NotRequired[CreateRouterResponse2ResponsesCacheControlTypedDict]
     detail: NotRequired[TwoDetail]
     r"""The detail level for image understanding."""
     file_id: NotRequired[str]
@@ -117,7 +318,9 @@ class ImageTypedDict(TypedDict):
 class Image(BaseModel):
     r"""An image content part."""
 
-    type: CreateRouterResponse2ResponsesType
+    type: CreateRouterResponse2ResponsesRequestRequestBodyType
+
+    cache_control: Optional[CreateRouterResponse2ResponsesCacheControl] = None
 
     detail: Optional[TwoDetail] = None
     r"""The detail level for image understanding."""
@@ -130,7 +333,7 @@ class Image(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["detail", "file_id", "image_url"])
+        optional_fields = set(["cache_control", "detail", "file_id", "image_url"])
         serialized = handler(self)
         m = {}
 
@@ -145,7 +348,67 @@ class Image(BaseModel):
         return m
 
 
-CreateRouterResponse2Type = Literal["input_text",]
+CreateRouterResponse2TTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+CreateRouterResponse2Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class CreateRouterResponse2CacheControlTypedDict(TypedDict):
+    type: CreateRouterResponse2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateRouterResponse2TTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class CreateRouterResponse2CacheControl(BaseModel):
+    type: CreateRouterResponse2Type
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateRouterResponse2TTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesType = Literal["input_text",]
 
 
 class TwoTextTypedDict(TypedDict):
@@ -153,7 +416,8 @@ class TwoTextTypedDict(TypedDict):
 
     text: str
     r"""The text content."""
-    type: CreateRouterResponse2Type
+    type: CreateRouterResponse2ResponsesType
+    cache_control: NotRequired[CreateRouterResponse2CacheControlTypedDict]
 
 
 class TwoText(BaseModel):
@@ -162,7 +426,25 @@ class TwoText(BaseModel):
     text: str
     r"""The text content."""
 
-    type: CreateRouterResponse2Type
+    type: CreateRouterResponse2ResponsesType
+
+    cache_control: Optional[CreateRouterResponse2CacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["cache_control"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 CreateRouterResponseContent2TypedDict = TypeAliasType(
@@ -370,6 +652,7 @@ Verbosity = Literal[
     "medium",
     "high",
 ]
+r"""Controls the verbosity of the model output."""
 
 
 class CreateRouterResponseTextTypedDict(TypedDict):
@@ -378,6 +661,7 @@ class CreateRouterResponseTextTypedDict(TypedDict):
     format_: NotRequired[CreateRouterResponseFormatTypedDict]
     r"""The output format: plain text or structured JSON schema."""
     verbosity: NotRequired[Verbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class CreateRouterResponseText(BaseModel):
@@ -389,6 +673,7 @@ class CreateRouterResponseText(BaseModel):
     r"""The output format: plain text or structured JSON schema."""
 
     verbosity: Optional[Verbosity] = None
+    r"""Controls the verbosity of the model output."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -483,13 +768,13 @@ class AllowedTools(BaseModel):
         return m
 
 
-CreateRouterResponseToolsResponsesType = Literal["mcp",]
+CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
 class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesType
+    type: CreateRouterResponseToolsResponsesRequestType
     allowed_tools: NotRequired[AllowedToolsTypedDict]
     r"""Filter which tools from the MCP server are exposed."""
     headers: NotRequired[Dict[str, str]]
@@ -505,7 +790,7 @@ class ToolsMCPToolTypedDict(TypedDict):
 class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesType
+    type: CreateRouterResponseToolsResponsesRequestType
 
     allowed_tools: Optional[AllowedTools] = None
     r"""Filter which tools from the MCP server are exposed."""
@@ -541,7 +826,7 @@ class ToolsMCPTool(BaseModel):
         return m
 
 
-CreateRouterResponseToolsType = Literal[
+CreateRouterResponseToolsResponsesType = Literal[
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
@@ -555,7 +840,7 @@ r"""The orq.ai tool type."""
 class OrqAiToolTypedDict(TypedDict):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsType
+    type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
@@ -564,7 +849,7 @@ class OrqAiToolTypedDict(TypedDict):
 class OrqAiTool(BaseModel):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsType
+    type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
 
     tool_id: Optional[str] = None
@@ -587,7 +872,67 @@ class OrqAiTool(BaseModel):
         return m
 
 
-ToolsType = Literal["function",]
+ToolsTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by Anthropic Claude models.
+"""
+
+
+ToolsType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+class ToolsCacheControlTypedDict(TypedDict):
+    type: ToolsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[ToolsTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+
+class ToolsCacheControl(BaseModel):
+    type: ToolsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[ToolsTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by Anthropic Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponseToolsType = Literal["function",]
 
 
 class ToolsFunctionTypedDict(TypedDict):
@@ -595,7 +940,8 @@ class ToolsFunctionTypedDict(TypedDict):
 
     name: str
     r"""The name of the function."""
-    type: ToolsType
+    type: CreateRouterResponseToolsType
+    cache_control: NotRequired[ToolsCacheControlTypedDict]
     description: NotRequired[str]
     r"""A description of what the function does."""
     parameters: NotRequired[Dict[str, Any]]
@@ -610,7 +956,9 @@ class ToolsFunction(BaseModel):
     name: str
     r"""The name of the function."""
 
-    type: ToolsType
+    type: CreateRouterResponseToolsType
+
+    cache_control: Optional[ToolsCacheControl] = None
 
     description: Optional[str] = None
     r"""A description of what the function does."""
@@ -623,7 +971,7 @@ class ToolsFunction(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "parameters", "strict"])
+        optional_fields = set(["cache_control", "description", "parameters", "strict"])
         serialized = handler(self)
         m = {}
 
@@ -662,6 +1010,8 @@ r"""A tool definition. The \"type\" field determines the tool kind."""
 
 
 class CreateRouterResponseRequestBodyTypedDict(TypedDict):
+    cache_control: NotRequired[CreateRouterResponseCacheControlTypedDict]
+    r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
     conversation: NotRequired[ConversationParamTypedDict]
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
@@ -686,6 +1036,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
+    plugins: NotRequired[Nullable[List[PublicPIIRedactionPluginTypedDict]]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     presence_penalty: NotRequired[float]
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
     previous_response_id: NotRequired[str]
@@ -721,6 +1073,9 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
 
 
 class CreateRouterResponseRequestBody(BaseModel):
+    cache_control: Optional[CreateRouterResponseCacheControl] = None
+    r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
+
     conversation: Optional[ConversationParam] = None
 
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
@@ -758,6 +1113,9 @@ class CreateRouterResponseRequestBody(BaseModel):
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
+
+    plugins: OptionalNullable[List[PublicPIIRedactionPlugin]] = UNSET
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
 
     presence_penalty: Optional[float] = None
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
@@ -813,6 +1171,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "cache_control",
                 "conversation",
                 "fallbacks",
                 "frequency_penalty",
@@ -827,6 +1186,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "metadata",
                 "model",
                 "parallel_tool_calls",
+                "plugins",
                 "presence_penalty",
                 "previous_response_id",
                 "prompt_cache_key",
@@ -847,7 +1207,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallbacks", "plugins"])
         serialized = handler(self)
         m = {}
 

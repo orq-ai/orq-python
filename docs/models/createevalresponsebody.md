@@ -5,45 +5,45 @@ Successfully created an evaluator
 
 ## Supported Types
 
-### `models.ResponseBodyLLM`
+### `models.EvaluatorResponseLlm`
 
 ```python
-value: models.ResponseBodyLLM = /* values here */
+value: models.EvaluatorResponseLlm = /* values here */
 ```
 
-### `models.JSON`
+### `models.EvaluatorResponseJSONSchema`
 
 ```python
-value: models.JSON = /* values here */
+value: models.EvaluatorResponseJSONSchema = /* values here */
 ```
 
-### `models.CreateEvalResponseBodyHTTP`
+### `models.EvaluatorResponseHTTP`
 
 ```python
-value: models.CreateEvalResponseBodyHTTP = /* values here */
+value: models.EvaluatorResponseHTTP = /* values here */
 ```
 
-### `models.ResponseBodyPython`
+### `models.EvaluatorResponsePython`
 
 ```python
-value: models.ResponseBodyPython = /* values here */
+value: models.EvaluatorResponsePython = /* values here */
 ```
 
-### `models.CreateEvalResponseBodyFunction`
+### `models.EvaluatorResponseFunction`
 
 ```python
-value: models.CreateEvalResponseBodyFunction = /* values here */
+value: models.EvaluatorResponseFunction = /* values here */
 ```
 
-### `models.Ragas`
+### `models.EvaluatorResponseRagas`
 
 ```python
-value: models.Ragas = /* values here */
+value: models.EvaluatorResponseRagas = /* values here */
 ```
 
-### `models.Typescript`
+### `models.EvaluatorResponseTypescript`
 
 ```python
-value: models.Typescript = /* values here */
+value: models.EvaluatorResponseTypescript = /* values here */
 ```
 

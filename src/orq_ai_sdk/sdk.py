@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
+    from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
@@ -28,6 +29,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.pii import Pii
@@ -67,8 +69,10 @@ class Orq(BaseSDK):
     policies: "Policies"
     routing_rules: "RoutingRules"
     api_keys: "APIKeys"
+    budgets: "Budgets"
     files: "Files"
     identities: "Identities"
+    management_keys: "ManagementKeys"
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
@@ -94,8 +98,10 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
+        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
+        "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),

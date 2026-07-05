@@ -61,7 +61,7 @@ class Agents(BaseSDK):
         skills: OptionalNullable[Iterable[str]] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         source: Optional[models.Source] = None,
-        engine: Optional[models.Engine] = "text",
+        engine: Optional[models.CreateAgentRequestEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -228,7 +228,7 @@ class Agents(BaseSDK):
         skills: OptionalNullable[Iterable[str]] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         source: Optional[models.Source] = None,
-        engine: Optional[models.Engine] = "text",
+        engine: Optional[models.CreateAgentRequestEngine] = "text",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1409,7 +1409,7 @@ class Agents(BaseSDK):
 
         request = models.InvokeAgentRequest(
             key=key,
-            request_body=models.InvokeAgentRequestBody(
+            request_body=models.InvokeAgentA2AInvokeRequest(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -1451,7 +1451,7 @@ class Agents(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.InvokeAgentRequestBody],
+                Optional[models.InvokeAgentA2AInvokeRequest],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1565,7 +1565,7 @@ class Agents(BaseSDK):
 
         request = models.InvokeAgentRequest(
             key=key,
-            request_body=models.InvokeAgentRequestBody(
+            request_body=models.InvokeAgentA2AInvokeRequest(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -1607,7 +1607,7 @@ class Agents(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.InvokeAgentRequestBody],
+                Optional[models.InvokeAgentA2AInvokeRequest],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -2565,7 +2565,7 @@ class Agents(BaseSDK):
 
         request = models.StreamAgentRequest(
             key=key,
-            request_body=models.StreamAgentRequestBody(
+            request_body=models.StreamAgentA2AInvokeRequest(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -2608,7 +2608,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.StreamAgentRequestBody,
+                models.StreamAgentA2AInvokeRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -2742,7 +2742,7 @@ class Agents(BaseSDK):
 
         request = models.StreamAgentRequest(
             key=key,
-            request_body=models.StreamAgentRequestBody(
+            request_body=models.StreamAgentA2AInvokeRequest(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -2785,7 +2785,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.StreamAgentRequestBody,
+                models.StreamAgentA2AInvokeRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

@@ -10,6 +10,12 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -181,7 +187,7 @@ GetAllPromptsResponseFormatPromptsResponse200Type = Literal["json_schema",]
 class GetAllPromptsResponseFormatPromptsResponseJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     strict: NotRequired[bool]
 
 
@@ -190,22 +196,31 @@ class GetAllPromptsResponseFormatPromptsResponseJSONSchema(BaseModel):
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
 
     strict: Optional[bool] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["description", "strict"])
+        nullable_fields = set(["description"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -281,6 +296,70 @@ Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the 
 
 Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
 """
+
+
+GetAllPromptsPromptsResponse200Type = Literal["ephemeral",]
+r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+
+GetAllPromptsPromptsTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class GetAllPromptsPromptsCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: GetAllPromptsPromptsResponse200Type
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[GetAllPromptsPromptsTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class GetAllPromptsPromptsCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: GetAllPromptsPromptsResponse200Type
+    r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[GetAllPromptsPromptsTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 GetAllPromptsPhotoRealVersion = Literal[
@@ -360,6 +439,8 @@ class GetAllPromptsModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
+    cache_control: NotRequired[Nullable[GetAllPromptsPromptsCacheControlTypedDict]]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
     photo_real_version: NotRequired[GetAllPromptsPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[GetAllPromptsEncodingFormat]
@@ -432,6 +513,12 @@ class GetAllPromptsModelParameters(BaseModel):
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
 
+    cache_control: Annotated[
+        OptionalNullable[GetAllPromptsPromptsCacheControl],
+        pydantic.Field(alias="cacheControl"),
+    ] = UNSET
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
     photo_real_version: Annotated[
         Optional[GetAllPromptsPhotoRealVersion],
         pydantic.Field(alias="photoRealVersion"),
@@ -477,6 +564,7 @@ class GetAllPromptsModelParameters(BaseModel):
                 "quality",
                 "style",
                 "responseFormat",
+                "cacheControl",
                 "photoRealVersion",
                 "encoding_format",
                 "reasoningEffort",
@@ -485,7 +573,7 @@ class GetAllPromptsModelParameters(BaseModel):
                 "thinkingLevel",
             ]
         )
-        nullable_fields = set(["responseFormat"])
+        nullable_fields = set(["responseFormat", "cacheControl"])
         serialized = handler(self)
         m = {}
 
@@ -525,13 +613,11 @@ GetAllPromptsProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
-    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
     "mistral",
     "deepseek",
-    "contextualai",
     "moonshotai",
     "zai",
     "minimax",
@@ -719,7 +805,7 @@ GetAllPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-GetAllPromptsPromptsResponseType = Literal["function",]
+GetAllPromptsPromptsResponse200ApplicationJSONType = Literal["function",]
 
 
 class GetAllPromptsFunctionTypedDict(TypedDict):
@@ -736,14 +822,14 @@ class GetAllPromptsFunction(BaseModel):
 
 
 class GetAllPromptsToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsPromptsResponseType
+    type: GetAllPromptsPromptsResponse200ApplicationJSONType
     function: GetAllPromptsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class GetAllPromptsToolCalls(BaseModel):
-    type: GetAllPromptsPromptsResponseType
+    type: GetAllPromptsPromptsResponse200ApplicationJSONType
 
     function: GetAllPromptsFunction
 
@@ -1255,6 +1341,22 @@ class GetAllPromptsGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+GetAllPromptsPluginsTypedDict = TypeAliasType(
+    "GetAllPromptsPluginsTypedDict",
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
+)
+
+
+GetAllPromptsPlugins = TypeAliasType(
+    "GetAllPromptsPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
+
+
 class GetAllPromptsFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1401,6 +1503,70 @@ class GetAllPromptsTimeout(BaseModel):
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
+
+
+GetAllPromptsPromptsResponseType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+GetAllPromptsTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class GetAllPromptsCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: GetAllPromptsPromptsResponseType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[GetAllPromptsTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class GetAllPromptsCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: GetAllPromptsPromptsResponseType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[GetAllPromptsTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 GetAllPromptsMessagesPromptsResponse200Role = Literal["tool",]
@@ -2035,6 +2201,8 @@ class GetAllPromptsPromptFieldTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[GetAllPromptsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[GetAllPromptsPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[GetAllPromptsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[GetAllPromptsRetryTypedDict]
@@ -2045,6 +2213,10 @@ class GetAllPromptsPromptFieldTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[GetAllPromptsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    cache_control: NotRequired[GetAllPromptsCacheControlTypedDict]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
     messages: NotRequired[List[GetAllPromptsPromptsMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
@@ -2134,6 +2306,9 @@ class GetAllPromptsPromptField(BaseModel):
     guardrails: Optional[List[GetAllPromptsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[GetAllPromptsPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[GetAllPromptsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -2148,6 +2323,12 @@ class GetAllPromptsPromptField(BaseModel):
 
     timeout: Optional[GetAllPromptsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    cache_control: Optional[GetAllPromptsCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
     messages: Optional[List[GetAllPromptsPromptsMessages]] = None
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
@@ -2184,11 +2365,14 @@ class GetAllPromptsPromptField(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
+                "cache_control",
+                "prompt_cache_key",
                 "messages",
                 "model",
                 "version",

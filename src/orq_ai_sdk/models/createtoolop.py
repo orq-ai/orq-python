@@ -1076,7 +1076,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EZFP6KYXTGHRPKF3X9N"
+        "tool_01KWRNAJSY5NH0JF6Y2K8GSH39"
     )
 
     display_name: Optional[str] = None
@@ -1203,7 +1203,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KW839EZE9W46NKBERX847MYG"
+    id: Optional[str] = "01KWRNAJSX9CGRDSZRBCVX9E6G"
 
     description: Optional[str] = None
 
@@ -1347,7 +1347,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EZDZH05VP3Y47YE7XVW"
+        "tool_01KWRNAJSW0NQ7E1328Z5KFF69"
     )
 
     display_name: Optional[str] = None
@@ -1402,7 +1402,7 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 CreateToolResponseBodyToolsResponseType = Literal["http",]
 
 
-CreateToolResponseBodyMethod = Literal[
+ResponseBodyMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -1454,7 +1454,7 @@ class ResponseBodyBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: CreateToolResponseBodyMethod
+    method: ResponseBodyMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, CreateToolResponseBodyHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -1468,7 +1468,7 @@ class ResponseBodyBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: CreateToolResponseBodyMethod
+    method: ResponseBodyMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, CreateToolResponseBodyHeaders]] = None
@@ -1647,7 +1647,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EZBDJMR2HVE33N49BK2"
+        "tool_01KWRNAJSTQJAD711KJZST65P5"
     )
 
     display_name: Optional[str] = None
@@ -1841,7 +1841,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EZ9PH8J42JHQ3CTN7R5"
+        "tool_01KWRNAJSRFRHVT6TR0JAF7JTD"
     )
 
     display_name: Optional[str] = None
@@ -1937,7 +1937,7 @@ class ResponseBodyParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-class CreateToolResponseBodyFunctionTypedDict(TypedDict):
+class ResponseBodyFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -1948,7 +1948,7 @@ class CreateToolResponseBodyFunctionTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class CreateToolResponseBodyFunction(BaseModel):
+class ResponseBodyFunction(BaseModel):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -1997,7 +1997,7 @@ class ResponseBodyFunctionToolTypedDict(TypedDict):
     created: str
     updated: str
     type: CreateToolResponseBodyType
-    function: CreateToolResponseBodyFunctionTypedDict
+    function: ResponseBodyFunctionTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -2036,10 +2036,10 @@ class ResponseBodyFunctionTool(BaseModel):
 
     type: CreateToolResponseBodyType
 
-    function: CreateToolResponseBodyFunction
+    function: ResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EZ7N0KZTWT7A99GVCGE"
+        "tool_01KWRNAJSP6DCJWD51PRMQM7ME"
     )
 
     display_name: Optional[str] = None

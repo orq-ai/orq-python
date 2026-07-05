@@ -10,6 +10,12 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .publiccontact import PublicContact, PublicContactTypedDict
 from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
@@ -1178,6 +1184,22 @@ class CreateChatCompletionGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+CreateChatCompletionPluginsTypedDict = TypeAliasType(
+    "CreateChatCompletionPluginsTypedDict",
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
+)
+
+
+CreateChatCompletionPlugins = TypeAliasType(
+    "CreateChatCompletionPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
+
+
 class CreateChatCompletionFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1326,6 +1348,70 @@ class CreateChatCompletionTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+CreateChatCompletionRouterChatCompletionsRequestRequestBodyType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+CreateChatCompletionTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class CreateChatCompletionCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[CreateChatCompletionTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class CreateChatCompletionCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[CreateChatCompletionTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionRouterChatCompletionsRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -1471,7 +1557,7 @@ CreateChatCompletionInputs = TypeAliasType(
 r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
-CreateChatCompletionRouterChatCompletionsRequestRequestBodyType = Literal[
+CreateChatCompletionRouterChatCompletionsRequestRequestBodyOrqType = Literal[
     "exact_match",
 ]
 
@@ -1479,7 +1565,7 @@ CreateChatCompletionRouterChatCompletionsRequestRequestBodyType = Literal[
 class CreateChatCompletionRouterChatCompletionsCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyOrqType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
@@ -1487,7 +1573,7 @@ class CreateChatCompletionRouterChatCompletionsCacheTypedDict(TypedDict):
 class CreateChatCompletionRouterChatCompletionsCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyOrqType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -2542,6 +2628,8 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[CreateChatCompletionGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[CreateChatCompletionPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[CreateChatCompletionFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateChatCompletionRetryTypedDict]
@@ -2554,6 +2642,10 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     variables: NotRequired[Dict[str, Any]]
     r"""Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`."""
+    cache_control: NotRequired[CreateChatCompletionCacheControlTypedDict]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
     orq: NotRequired[CreateChatCompletionOrqTypedDict]
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
@@ -2651,6 +2743,9 @@ class CreateChatCompletionRequestBody(BaseModel):
     guardrails: Optional[List[CreateChatCompletionGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[CreateChatCompletionPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[CreateChatCompletionFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -2668,6 +2763,12 @@ class CreateChatCompletionRequestBody(BaseModel):
 
     variables: Optional[Dict[str, Any]] = None
     r"""Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`."""
+
+    cache_control: Optional[CreateChatCompletionCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
     orq: Annotated[
         Optional[CreateChatCompletionOrq],
@@ -2708,12 +2809,15 @@ class CreateChatCompletionRequestBody(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
                 "variables",
+                "cache_control",
+                "prompt_cache_key",
                 "orq",
                 "stream",
             ]

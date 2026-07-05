@@ -11,7 +11,6 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -55,7 +54,7 @@ class RetrieveMemoryStoreResponseBodyTypedDict(TypedDict):
     r"""The user ID of the creator"""
     updated_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the last updater"""
-    ttl: NotRequired[float]
+    ttl: NotRequired[Nullable[float]]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
@@ -85,13 +84,13 @@ class RetrieveMemoryStoreResponseBody(BaseModel):
     updated_by_id: OptionalNullable[str] = UNSET
     r"""The user ID of the last updater"""
 
-    ttl: Optional[float] = None
+    ttl: OptionalNullable[float] = UNSET
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created_by_id", "updated_by_id", "ttl"])
-        nullable_fields = set(["created_by_id", "updated_by_id"])
+        nullable_fields = set(["created_by_id", "updated_by_id", "ttl"])
         serialized = handler(self)
         m = {}
 

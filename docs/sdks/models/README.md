@@ -11,8 +11,6 @@
 * [validate_aws_bedrock](#validate_aws_bedrock) - Validate AWS Bedrock inference profile
 * [update_aws_bedrock](#update_aws_bedrock) - Update AWS Bedrock custom model
 * [azure_foundry_deployments](#azure_foundry_deployments) - List Azure Foundry deployments under a resource
-* [import_litellm](#import_litellm) - Import models from LiteLLM
-* [list_litellm](#list_litellm) - List models from configured LiteLLM instance
 * [create_openai_like](#create_openai_like) - Create OpenAI-compatible custom model
 * [update_openai_like](#update_openai_like) - Update OpenAI-compatible custom model
 * [validate](#validate) - Validate model endpoint
@@ -379,102 +377,6 @@ with Orq(
 ### Response
 
 **[models.ModelAzureFoundryDeploymentsResponseBody](../../models/modelazurefoundrydeploymentsresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## import_litellm
-
-Bulk-imports a list of LiteLLM model definitions into the workspace model garden.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ModelLiteLLMImport" method="post" path="/v2/models/litellm/import" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.models.import_litellm(request=[
-        {
-            "litellm_params": {
-                "merge_reasoning_content_in_choices": False,
-                "model": "CX-9",
-                "use_in_pass_through": False,
-                "use_litellm_proxy": False,
-            },
-            "model_info": {
-                "db_model": True,
-                "id": "<id>",
-                "key": "<key>",
-                "litellm_provider": "<value>",
-                "mode": "<value>",
-            },
-            "model_name": "<value>",
-        },
-    ])
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [List[models.LiteLLMModel]](../../models/.md)                       | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[List[models.ModelDocument]](../../models/.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## list_litellm
-
-Fetches the list of models from the LiteLLM instance configured for the workspace. Requires a stored LiteLLM integration.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ModelListLitellm" method="get" path="/v2/models/litellm/models" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.models.list_litellm()
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[List[Dict[str, Any]]](../../models/.md)**
 
 ### Errors
 

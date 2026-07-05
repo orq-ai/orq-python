@@ -11,16 +11,16 @@ Returns the result of the evaluator run
 value: models.String = /* values here */
 ```
 
-### `models.ResponseBodyNumber`
+### `models.Number`
 
 ```python
-value: models.ResponseBodyNumber = /* values here */
+value: models.Number = /* values here */
 ```
 
-### `models.ResponseBodyBoolean`
+### `models.Boolean`
 
 ```python
-value: models.ResponseBodyBoolean = /* values here */
+value: models.Boolean = /* values here */
 ```
 
 ### `models.StringArray`
@@ -41,16 +41,16 @@ value: models.RougeN = /* values here */
 value: models.BERTScore = /* values here */
 ```
 
-### `models.InvokeEvalResponseBodyLLM`
+### `models.ResponseBodyLLM`
 
 ```python
-value: models.InvokeEvalResponseBodyLLM = /* values here */
+value: models.ResponseBodyLLM = /* values here */
 ```
 
-### `models.InvokeEvalResponseBodyHTTP`
+### `models.ResponseBodyHTTP`
 
 ```python
-value: models.InvokeEvalResponseBodyHTTP = /* values here */
+value: models.ResponseBodyHTTP = /* values here */
 ```
 
 ### `models.Structured`

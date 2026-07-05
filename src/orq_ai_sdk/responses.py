@@ -19,6 +19,12 @@ class Responses(BaseSDK):
     def create(
         self,
         *,
+        cache_control: Optional[
+            Union[
+                models.CreateRouterResponseCacheControl,
+                models.CreateRouterResponseCacheControlTypedDict,
+            ]
+        ] = None,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -53,6 +59,12 @@ class Responses(BaseSDK):
         metadata: Optional[Mapping[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
+        plugins: OptionalNullable[
+            Union[
+                Iterable[models.PublicPIIRedactionPlugin],
+                Iterable[models.PublicPIIRedactionPluginTypedDict],
+            ]
+        ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
         prompt_cache_key: Optional[str] = None,
@@ -104,6 +116,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
@@ -118,6 +131,7 @@ class Responses(BaseSDK):
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
@@ -156,6 +170,9 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateRouterResponseCacheControl]
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),
@@ -182,6 +199,9 @@ class Responses(BaseSDK):
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             parallel_tool_calls=parallel_tool_calls,
+            plugins=utils.get_pydantic_model(
+                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
+            ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
             prompt_cache_key=prompt_cache_key,
@@ -292,6 +312,12 @@ class Responses(BaseSDK):
     async def create_async(
         self,
         *,
+        cache_control: Optional[
+            Union[
+                models.CreateRouterResponseCacheControl,
+                models.CreateRouterResponseCacheControlTypedDict,
+            ]
+        ] = None,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -326,6 +352,12 @@ class Responses(BaseSDK):
         metadata: Optional[Mapping[str, str]] = None,
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
+        plugins: OptionalNullable[
+            Union[
+                Iterable[models.PublicPIIRedactionPlugin],
+                Iterable[models.PublicPIIRedactionPluginTypedDict],
+            ]
+        ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
         prompt_cache_key: Optional[str] = None,
@@ -377,6 +409,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
@@ -391,6 +424,7 @@ class Responses(BaseSDK):
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
@@ -429,6 +463,9 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateRouterResponseCacheControl]
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),
@@ -455,6 +492,9 @@ class Responses(BaseSDK):
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             parallel_tool_calls=parallel_tool_calls,
+            plugins=utils.get_pydantic_model(
+                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
+            ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
             prompt_cache_key=prompt_cache_key,

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateEvalLLMMode
-value: CreateEvalLLMMode = "single"
+value: CreateEvalLLMMode = "jury"
 ```
 
 
 ## Values
 
-- `"single"`
+- `"jury"`

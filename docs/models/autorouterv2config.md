@@ -1,0 +1,12 @@
+# AutoRouterV2Config
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `aa_slug`                                                                           | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `default_effort`                                                                    | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `intelligence_index`                                                                | *float*                                                                             | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `price`                                                                             | *float*                                                                             | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `reasoning_efforts`                                                                 | Dict[str, [models.AutoRouterV2EffortConfig](../models/autorouterv2effortconfig.md)] | :heavy_minus_sign:                                                                  | N/A                                                                                 |

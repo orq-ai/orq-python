@@ -1,23 +1,9 @@
 # Two
 
 
-## Supported Types
+## Fields
 
-### `models.One`
-
-```python
-value: models.One = /* values here */
-```
-
-### `models.Two2`
-
-```python
-value: models.Two2 = /* values here */
-```
-
-### `models.Three`
-
-```python
-value: models.Three = /* values here */
-```
-
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                         | [models.EvaluatorResponseFunctionFunctionParamsType](../models/evaluatorresponsefunctionfunctionparamstype.md) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `keywords`                                                                                                     | List[*str*]                                                                                                    | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

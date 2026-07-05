@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import LLMMode
-value: LLMMode = "jury"
+value: LLMMode = "single"
 ```
 
 
 ## Values
 
-- `"jury"`
+- `"single"`

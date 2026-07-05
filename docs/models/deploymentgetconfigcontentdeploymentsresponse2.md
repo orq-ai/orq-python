@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.Two1`
+### `models.DeploymentGetConfig21`
 
 ```python
-value: models.Two1 = /* values here */
+value: models.DeploymentGetConfig21 = /* values here */
 ```
 
 ### `models.DeploymentGetConfig22`
@@ -15,9 +15,9 @@ value: models.Two1 = /* values here */
 value: models.DeploymentGetConfig22 = /* values here */
 ```
 
-### `models.Two3`
+### `models.DeploymentGetConfig23`
 
 ```python
-value: models.Two3 = /* values here */
+value: models.DeploymentGetConfig23 = /* values here */
 ```
 

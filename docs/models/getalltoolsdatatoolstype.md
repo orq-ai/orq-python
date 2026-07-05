@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import GetAllToolsDataToolsType
-value: GetAllToolsDataToolsType = "json_schema"
+value: GetAllToolsDataToolsType = "http"
 ```
 
 
 ## Values
 
-- `"json_schema"`
+- `"http"`

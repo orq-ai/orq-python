@@ -18,6 +18,7 @@ class Evals(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         sort: Optional[models.Sort] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,6 +31,7 @@ class Evals(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -54,6 +56,7 @@ class Evals(BaseSDK):
             ending_before=ending_before,
             search=search,
             sort=sort,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -123,6 +126,7 @@ class Evals(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         sort: Optional[models.Sort] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -135,6 +139,7 @@ class Evals(BaseSDK):
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -159,6 +164,7 @@ class Evals(BaseSDK):
             ending_before=ending_before,
             search=search,
             sort=sort,
+            project_id=project_id,
         )
 
         req = self._build_request_async(
@@ -429,23 +435,23 @@ class Evals(BaseSDK):
         categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                Iterable[models.CategoricalLabels],
-                Iterable[models.CategoricalLabelsTypedDict],
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
-        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
-        guardrail_config: OptionalNullable[
-            Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
-        ] = UNSET,
+        guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -506,21 +512,20 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
                 schema_=schema,
                 url=url,
                 method=method,
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
-                guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.GuardrailConfig]
-                ),
+                guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,
             ),
@@ -605,23 +610,23 @@ class Evals(BaseSDK):
         categories: OptionalNullable[Iterable[str]] = UNSET,
         categorical_labels: OptionalNullable[
             Union[
-                Iterable[models.CategoricalLabels],
-                Iterable[models.CategoricalLabelsTypedDict],
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
-        jury: Optional[Union[models.Jury, models.JuryTypedDict]] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
         schema: Optional[str] = None,
         url: Optional[str] = None,
         method: Optional[str] = None,
         headers: Optional[Mapping[str, str]] = None,
         payload: Optional[Mapping[str, Any]] = None,
         code: Optional[str] = None,
-        guardrail_config: OptionalNullable[
-            Union[models.GuardrailConfig, models.GuardrailConfigTypedDict]
-        ] = UNSET,
+        guardrail_config: Optional[Any] = None,
         version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -682,21 +687,20 @@ class Evals(BaseSDK):
                 output_type=output_type,
                 categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
                 categorical_labels=utils.get_pydantic_model(
-                    categorical_labels, OptionalNullable[List[models.CategoricalLabels]]
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.Jury]),
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
                 schema_=schema,
                 url=url,
                 method=method,
                 headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
                 payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
                 code=code,
-                guardrail_config=utils.get_pydantic_model(
-                    guardrail_config, OptionalNullable[models.GuardrailConfig]
-                ),
+                guardrail_config=guardrail_config,
                 version_increment=version_increment,
                 version_description=version_description,
             ),
@@ -963,7 +967,10 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
+            Union[
+                Iterable[models.InvokeEvalMessages],
+                Iterable[models.InvokeEvalMessagesTypedDict],
+            ]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1006,7 +1013,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.Messages]]
+                    messages, Optional[List[models.InvokeEvalMessages]]
                 ),
                 model=model,
             ),
@@ -1097,7 +1104,10 @@ class Evals(BaseSDK):
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
-            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
+            Union[
+                Iterable[models.InvokeEvalMessages],
+                Iterable[models.InvokeEvalMessagesTypedDict],
+            ]
         ] = None,
         model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1140,7 +1150,7 @@ class Evals(BaseSDK):
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.Messages]]
+                    messages, Optional[List[models.InvokeEvalMessages]]
                 ),
                 model=model,
             ),

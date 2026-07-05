@@ -3,28 +3,31 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-class CreateSkillRequestTypedDict(TypedDict):
+class CreateSkillRequest2TypedDict(TypedDict):
     display_name: str
     r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    project_id: str
+    r"""Project that should contain the skill."""
     description: NotRequired[str]
     r"""Short human-readable summary of what the skill is for."""
     tags: NotRequired[List[str]]
     r"""Free-form labels for organizing the skill."""
     path: NotRequired[str]
     r"""Project path where the skill should be stored."""
-    project_id: NotRequired[str]
-    r"""Project that should contain the skill."""
     instructions: NotRequired[str]
     r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
 
 
-class CreateSkillRequest(BaseModel):
+class CreateSkillRequest2(BaseModel):
     display_name: str
     r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+
+    project_id: str
+    r"""Project that should contain the skill."""
 
     description: Optional[str] = None
     r"""Short human-readable summary of what the skill is for."""
@@ -35,17 +38,12 @@ class CreateSkillRequest(BaseModel):
     path: Optional[str] = None
     r"""Project path where the skill should be stored."""
 
-    project_id: Optional[str] = None
-    r"""Project that should contain the skill."""
-
     instructions: Optional[str] = None
     r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["description", "tags", "path", "project_id", "instructions"]
-        )
+        optional_fields = set(["description", "tags", "path", "instructions"])
         serialized = handler(self)
         m = {}
 
@@ -58,3 +56,65 @@ class CreateSkillRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+class CreateSkillRequest1TypedDict(TypedDict):
+    display_name: str
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    path: str
+    r"""Project path where the skill should be stored."""
+    description: NotRequired[str]
+    r"""Short human-readable summary of what the skill is for."""
+    tags: NotRequired[List[str]]
+    r"""Free-form labels for organizing the skill."""
+    project_id: NotRequired[str]
+    r"""Project that should contain the skill."""
+    instructions: NotRequired[str]
+    r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
+
+
+class CreateSkillRequest1(BaseModel):
+    display_name: str
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+
+    path: str
+    r"""Project path where the skill should be stored."""
+
+    description: Optional[str] = None
+    r"""Short human-readable summary of what the skill is for."""
+
+    tags: Optional[List[str]] = None
+    r"""Free-form labels for organizing the skill."""
+
+    project_id: Optional[str] = None
+    r"""Project that should contain the skill."""
+
+    instructions: Optional[str] = None
+    r"""Instruction body for the skill. Omit to create metadata first and fill instructions later."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "tags", "project_id", "instructions"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateSkillRequestTypedDict = TypeAliasType(
+    "CreateSkillRequestTypedDict",
+    Union[CreateSkillRequest1TypedDict, CreateSkillRequest2TypedDict],
+)
+
+
+CreateSkillRequest = TypeAliasType(
+    "CreateSkillRequest", Union[CreateSkillRequest1, CreateSkillRequest2]
+)

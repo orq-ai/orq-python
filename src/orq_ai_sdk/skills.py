@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional, Union, cast
 
 
 class Skills(BaseSDK):
@@ -245,12 +245,7 @@ class Skills(BaseSDK):
     def create(
         self,
         *,
-        display_name: str,
-        description: Optional[str] = None,
-        tags: Optional[Iterable[str]] = None,
-        path: Optional[str] = None,
-        project_id: Optional[str] = None,
-        instructions: Optional[str] = None,
+        request: Union[models.CreateSkillRequest, models.CreateSkillRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -260,12 +255,7 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
-        :param description: Short human-readable summary of what the skill is for.
-        :param tags: Free-form labels for organizing the skill.
-        :param path: Project path where the skill should be stored.
-        :param project_id: Project that should contain the skill.
-        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -284,14 +274,9 @@ class Skills(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateSkillRequest(
-            display_name=display_name,
-            description=description,
-            tags=utils.unmarshal(tags, Optional[List[str]]),
-            path=path,
-            project_id=project_id,
-            instructions=instructions,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.CreateSkillRequest)
+        request = cast(models.CreateSkillRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -370,12 +355,7 @@ class Skills(BaseSDK):
     async def create_async(
         self,
         *,
-        display_name: str,
-        description: Optional[str] = None,
-        tags: Optional[Iterable[str]] = None,
-        path: Optional[str] = None,
-        project_id: Optional[str] = None,
-        instructions: Optional[str] = None,
+        request: Union[models.CreateSkillRequest, models.CreateSkillRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -385,12 +365,7 @@ class Skills(BaseSDK):
 
         Creates a reusable skill in the workspace. Skills store instructions, metadata, and an optional project location so teams can standardize repeatable AI workflows.
 
-        :param display_name: Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed.
-        :param description: Short human-readable summary of what the skill is for.
-        :param tags: Free-form labels for organizing the skill.
-        :param path: Project path where the skill should be stored.
-        :param project_id: Project that should contain the skill.
-        :param instructions: Instruction body for the skill. Omit to create metadata first and fill instructions later.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -409,14 +384,9 @@ class Skills(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateSkillRequest(
-            display_name=display_name,
-            description=description,
-            tags=utils.unmarshal(tags, Optional[List[str]]),
-            path=path,
-            project_id=project_id,
-            instructions=instructions,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.CreateSkillRequest)
+        request = cast(models.CreateSkillRequest, request)
 
         req = self._build_request_async(
             method="POST",

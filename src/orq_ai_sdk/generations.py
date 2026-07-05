@@ -46,6 +46,12 @@ class Generations(BaseSDK):
         timeout: Optional[
             Union[models.CreateImageTimeout, models.CreateImageTimeoutTypedDict]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateImagePlugins],
+                Iterable[models.CreateImagePluginsTypedDict],
+            ]
+        ] = None,
         orq: Optional[
             Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
@@ -76,6 +82,7 @@ class Generations(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -119,6 +126,9 @@ class Generations(BaseSDK):
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateImageTimeout]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateImagePlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )
@@ -219,6 +229,12 @@ class Generations(BaseSDK):
         timeout: Optional[
             Union[models.CreateImageTimeout, models.CreateImageTimeoutTypedDict]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateImagePlugins],
+                Iterable[models.CreateImagePluginsTypedDict],
+            ]
+        ] = None,
         orq: Optional[
             Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
@@ -249,6 +265,7 @@ class Generations(BaseSDK):
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -292,6 +309,9 @@ class Generations(BaseSDK):
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateImageTimeout]
+            ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateImagePlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )

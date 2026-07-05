@@ -1,15 +1,17 @@
 # GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
 
-The type must be "object"
+The type of the argument.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
-value: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = "object"
+value: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = "string"
 ```
 
 
 ## Values
 
-- `"object"`
+- `"string"`
+- `"number"`
+- `"boolean"`

@@ -72,7 +72,7 @@ GetAllToolsDataToolsResponse200Status = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONType = Literal["code",]
+GetAllToolsDataToolsResponse200Type = Literal["code",]
 
 
 GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type = Literal["object",]
@@ -171,7 +171,7 @@ class DataCodeExecutionToolTypedDict(TypedDict):
     workspace_id: str
     created: str
     updated: str
-    type: GetAllToolsDataToolsResponse200ApplicationJSONType
+    type: GetAllToolsDataToolsResponse200Type
     code_tool: DataCodeToolTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
@@ -209,12 +209,12 @@ class DataCodeExecutionTool(BaseModel):
 
     updated: str
 
-    type: GetAllToolsDataToolsResponse200ApplicationJSONType
+    type: GetAllToolsDataToolsResponse200Type
 
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EYVEPM3MZPRNKBEX5X0"
+        "tool_01KWRNAJSASS8AGSDXHJEXBWA4"
     )
 
     display_name: Optional[str] = None
@@ -266,7 +266,7 @@ GetAllToolsDataToolsResponseStatus = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataToolsResponse200Type = Literal["mcp",]
+GetAllToolsDataToolsResponseType = Literal["mcp",]
 
 
 class DataHeadersTypedDict(TypedDict):
@@ -341,7 +341,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KW839EYTZZZVCJXWN6FPEHK1"
+    id: Optional[str] = "01KWRNAJS93TE5SWZ426A2MCYF"
 
     description: Optional[str] = None
 
@@ -442,7 +442,7 @@ class DataMCPToolTypedDict(TypedDict):
     workspace_id: str
     created: str
     updated: str
-    type: GetAllToolsDataToolsResponse200Type
+    type: GetAllToolsDataToolsResponseType
     mcp: DataMcpTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
@@ -480,12 +480,12 @@ class DataMCPTool(BaseModel):
 
     updated: str
 
-    type: GetAllToolsDataToolsResponse200Type
+    type: GetAllToolsDataToolsResponseType
 
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EYRFZ80DQHJ4RN70AMR"
+        "tool_01KWRNAJS8RDVWREB49RZPYMAJ"
     )
 
     display_name: Optional[str] = None
@@ -537,10 +537,10 @@ GetAllToolsDataToolsStatus = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataToolsResponseType = Literal["http",]
+GetAllToolsDataToolsType = Literal["http",]
 
 
-GetAllToolsDataMethod = Literal[
+DataMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -591,7 +591,7 @@ class DataBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: GetAllToolsDataMethod
+    method: DataMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -605,7 +605,7 @@ class DataBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: GetAllToolsDataMethod
+    method: DataMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
@@ -631,7 +631,7 @@ class DataBlueprint(BaseModel):
         return m
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBody3Type = Literal[
+GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal[
     "string",
     "number",
     "boolean",
@@ -650,7 +650,7 @@ r"""The default value of the argument."""
 
 
 class DataArgumentsTypedDict(TypedDict):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody3Type
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -661,7 +661,7 @@ class DataArgumentsTypedDict(TypedDict):
 
 
 class DataArguments(BaseModel):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody3Type
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
     r"""The type of the argument."""
 
     description: str
@@ -690,14 +690,14 @@ class DataArguments(BaseModel):
         return m
 
 
-class GetAllToolsDataHTTPTypedDict(TypedDict):
+class DataHTTPTypedDict(TypedDict):
     blueprint: DataBlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
     arguments: NotRequired[Dict[str, DataArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class GetAllToolsDataHTTP(BaseModel):
+class DataHTTP(BaseModel):
     blueprint: DataBlueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -739,8 +739,8 @@ class DataHTTPToolTypedDict(TypedDict):
     workspace_id: str
     created: str
     updated: str
-    type: GetAllToolsDataToolsResponseType
-    http: GetAllToolsDataHTTPTypedDict
+    type: GetAllToolsDataToolsType
+    http: DataHTTPTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -777,12 +777,12 @@ class DataHTTPTool(BaseModel):
 
     updated: str
 
-    type: GetAllToolsDataToolsResponseType
+    type: GetAllToolsDataToolsType
 
-    http: GetAllToolsDataHTTP
+    http: DataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EYPSJY5DF907JA4PS4R"
+        "tool_01KWRNAJS543ZYR69FDP62Q1RF"
     )
 
     display_name: Optional[str] = None
@@ -834,7 +834,7 @@ GetAllToolsDataStatus = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataToolsType = Literal["json_schema",]
+GetAllToolsDataType = Literal["json_schema",]
 
 
 class DataSchemaTypedDict(TypedDict):
@@ -933,7 +933,7 @@ class DataJSONSchemaToolTypedDict(TypedDict):
     workspace_id: str
     created: str
     updated: str
-    type: GetAllToolsDataToolsType
+    type: GetAllToolsDataType
     json_schema: DataJSONSchemaTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
@@ -971,12 +971,12 @@ class DataJSONSchemaTool(BaseModel):
 
     updated: str
 
-    type: GetAllToolsDataToolsType
+    type: GetAllToolsDataType
 
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EYMESVF2Y9EFW9F1SJP"
+        "tool_01KWRNAJS4ES36X79RBNRXWP2A"
     )
 
     display_name: Optional[str] = None
@@ -1028,17 +1028,17 @@ DataStatus = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataType = Literal["function",]
+DataType = Literal["function",]
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal["object",]
+GetAllToolsDataToolsResponse200ApplicationJSONType = Literal["object",]
 r"""The type must be \"object\" """
 
 
 class DataParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    type: GetAllToolsDataToolsResponse200ApplicationJSONType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -1054,7 +1054,7 @@ class DataParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    type: GetAllToolsDataToolsResponse200ApplicationJSONType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -1072,7 +1072,7 @@ class DataParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-class GetAllToolsDataFunctionTypedDict(TypedDict):
+class DataFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -1083,7 +1083,7 @@ class GetAllToolsDataFunctionTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class GetAllToolsDataFunction(BaseModel):
+class DataFunction(BaseModel):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -1131,8 +1131,8 @@ class DataFunctionToolTypedDict(TypedDict):
     workspace_id: str
     created: str
     updated: str
-    type: GetAllToolsDataType
-    function: GetAllToolsDataFunctionTypedDict
+    type: DataType
+    function: DataFunctionTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -1169,12 +1169,12 @@ class DataFunctionTool(BaseModel):
 
     updated: str
 
-    type: GetAllToolsDataType
+    type: DataType
 
-    function: GetAllToolsDataFunction
+    function: DataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KW839EYJSZR8EESFQN0W5CXF"
+        "tool_01KWRNAJS2J1S6QYSYCWPWW0D6"
     )
 
     display_name: Optional[str] = None

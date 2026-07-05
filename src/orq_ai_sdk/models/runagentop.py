@@ -5,6 +5,12 @@ from .datapart import DataPart, DataPartTypedDict
 from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -328,6 +334,22 @@ class RunAgentModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationPluginsTypedDict",
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
+)
+
+
+RunAgentModelConfigurationPlugins = TypeAliasType(
+    "RunAgentModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
+
+
 class RunAgentModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -441,6 +463,70 @@ class RunAgentModelConfigurationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+RunAgentModelConfigurationAgentsType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+RunAgentModelConfigurationTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class RunAgentModelConfigurationCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: RunAgentModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[RunAgentModelConfigurationTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class RunAgentModelConfigurationCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: RunAgentModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[RunAgentModelConfigurationTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -490,6 +576,8 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[RunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[RunAgentModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentModelConfigurationCacheTypedDict]
@@ -498,6 +586,10 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[RunAgentModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    cache_control: NotRequired[RunAgentModelConfigurationCacheControlTypedDict]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class RunAgentModelConfigurationParameters(BaseModel):
@@ -567,6 +659,9 @@ class RunAgentModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[RunAgentModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[RunAgentModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[RunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -578,6 +673,12 @@ class RunAgentModelConfigurationParameters(BaseModel):
 
     timeout: Optional[RunAgentModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    cache_control: Optional[RunAgentModelConfigurationCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -601,10 +702,13 @@ class RunAgentModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
                 "timeout",
+                "cache_control",
+                "prompt_cache_key",
             ]
         )
         nullable_fields = set(
@@ -1029,6 +1133,22 @@ class RunAgentFallbackModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationPluginsTypedDict",
+    Union[
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
+    ],
+)
+
+
+RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "RunAgentFallbackModelConfigurationPlugins",
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+)
+
+
 class RunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
@@ -1144,6 +1264,70 @@ class RunAgentFallbackModelConfigurationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+RunAgentFallbackModelConfigurationAgentsType = Literal["ephemeral",]
+r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+
+RunAgentFallbackModelConfigurationTTL = Literal[
+    "5m",
+    "1h",
+]
+r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+- `5m`: 5 minutes
+- `1h`: 1 hour
+
+Defaults to `5m`. Only supported by `Anthropic` Claude models.
+"""
+
+
+class RunAgentFallbackModelConfigurationCacheControlTypedDict(TypedDict):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: RunAgentFallbackModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+    ttl: NotRequired[RunAgentFallbackModelConfigurationTTL]
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+
+class RunAgentFallbackModelConfigurationCacheControl(BaseModel):
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    type: RunAgentFallbackModelConfigurationAgentsType
+    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+
+    ttl: Optional[RunAgentFallbackModelConfigurationTTL] = "5m"
+    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+
+    - `5m`: 5 minutes
+    - `1h`: 1 hour
+
+    Defaults to `5m`. Only supported by `Anthropic` Claude models.
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -1197,6 +1381,8 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[RunAgentFallbackModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    plugins: NotRequired[List[RunAgentFallbackModelConfigurationPluginsTypedDict]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentFallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentFallbackModelConfigurationCacheTypedDict]
@@ -1205,6 +1391,10 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[RunAgentFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    cache_control: NotRequired[RunAgentFallbackModelConfigurationCacheControlTypedDict]
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+    prompt_cache_key: NotRequired[str]
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
 
 class RunAgentFallbackModelConfigurationParameters(BaseModel):
@@ -1276,6 +1466,9 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[RunAgentFallbackModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    plugins: Optional[List[RunAgentFallbackModelConfigurationPlugins]] = None
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+
     fallbacks: Optional[List[RunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -1287,6 +1480,12 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
 
     timeout: Optional[RunAgentFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    cache_control: Optional[RunAgentFallbackModelConfigurationCacheControl] = None
+    r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
+
+    prompt_cache_key: Optional[str] = None
+    r"""Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1310,10 +1509,13 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "plugins",
                 "fallbacks",
                 "cache",
                 "load_balancer",
                 "timeout",
+                "cache_control",
+                "prompt_cache_key",
             ]
         )
         nullable_fields = set(
@@ -1808,7 +2010,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KW839ES1RS3R4Q5TKFAYP4TH"
+    id: Optional[str] = "01KWRNAJKSNR9HS5CHRBFWDNQK"
 
     description: Optional[str] = None
 
@@ -2245,11 +2447,11 @@ class AgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-Language = Literal["python",]
+AgentToolInputRunLanguage = Literal["python",]
 
 
 class CodeToolTypedDict(TypedDict):
-    language: Language
+    language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[AgentToolInputRunParametersTypedDict]
@@ -2257,7 +2459,7 @@ class CodeToolTypedDict(TypedDict):
 
 
 class CodeTool(BaseModel):
-    language: Language
+    language: AgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""
@@ -2335,7 +2537,7 @@ class CodeToolRun(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal["http",]
 
 
-Method = Literal[
+AgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2382,7 +2584,7 @@ class BlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: Method
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, HeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2396,7 +2598,7 @@ class Blueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: Method
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, Headers]] = None

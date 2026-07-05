@@ -23,6 +23,10 @@ class ListDatasetsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    search: NotRequired[str]
+    r"""Filter datasets by display name (case-insensitive match)."""
+    updated_by: NotRequired[str]
+    r"""Comma-separated list of user IDs; returns datasets last updated by any of them."""
 
 
 class ListDatasetsRequest(BaseModel):
@@ -44,9 +48,23 @@ class ListDatasetsRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
+    search: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter datasets by display name (case-insensitive match)."""
+
+    updated_by: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Comma-separated list of user IDs; returns datasets last updated by any of them."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "starting_after", "ending_before"])
+        optional_fields = set(
+            ["limit", "starting_after", "ending_before", "search", "updated_by"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -119,7 +137,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-06-28T21:48:18.406Z")
+    updated: Optional[datetime] = parse_datetime("2026-07-05T08:11:17.110Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

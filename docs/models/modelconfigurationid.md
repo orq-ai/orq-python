@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.UpdateAgentID1`
+### `models.ID1`
 
 ```python
-value: models.UpdateAgentID1 = /* values here */
+value: models.ID1 = /* values here */
 ```
 
 ### `str`

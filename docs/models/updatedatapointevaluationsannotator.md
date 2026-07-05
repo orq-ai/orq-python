@@ -1,0 +1,11 @@
+# UpdateDatapointEvaluationsAnnotator
+
+The annotator that produced this evaluation. Optional during the dual-write deprecation window.
+
+
+## Fields
+
+| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `kind`                                                                                                                                | [models.UpdateDatapointEvaluationsKind](../models/updatedatapointevaluationskind.md)                                                  | :heavy_check_mark:                                                                                                                    | The kind of annotator that produced the evaluation                                                                                    |
+| `actor_id`                                                                                                                            | *str*                                                                                                                                 | :heavy_check_mark:                                                                                                                    | Who/what produced this annotation. User/contact id for human, evaluator eval span id for llm/code, automation rule id for automation. |

@@ -91,6 +91,12 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateChatCompletionPlugins],
+                Iterable[models.CreateChatCompletionPluginsTypedDict],
+            ]
+        ] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -122,6 +128,13 @@ class OrqCompletions(BaseSDK):
             ]
         ] = None,
         variables: Optional[Mapping[str, Any]] = None,
+        cache_control: Optional[
+            Union[
+                models.CreateChatCompletionCacheControl,
+                models.CreateChatCompletionCacheControlTypedDict,
+            ]
+        ] = None,
+        prompt_cache_key: Optional[str] = None,
         orq: Optional[
             Union[
                 models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
@@ -174,12 +187,15 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
+        :param cache_control: Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models.
+        :param prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -251,6 +267,9 @@ class OrqCompletions(BaseSDK):
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
             ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateChatCompletionPlugins]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]
             ),
@@ -267,6 +286,10 @@ class OrqCompletions(BaseSDK):
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateChatCompletionCacheControl]
+            ),
+            prompt_cache_key=prompt_cache_key,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )
@@ -425,6 +448,12 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.CreateChatCompletionPlugins],
+                Iterable[models.CreateChatCompletionPluginsTypedDict],
+            ]
+        ] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -456,6 +485,13 @@ class OrqCompletions(BaseSDK):
             ]
         ] = None,
         variables: Optional[Mapping[str, Any]] = None,
+        cache_control: Optional[
+            Union[
+                models.CreateChatCompletionCacheControl,
+                models.CreateChatCompletionCacheControlTypedDict,
+            ]
+        ] = None,
+        prompt_cache_key: Optional[str] = None,
         orq: Optional[
             Union[
                 models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
@@ -508,12 +544,15 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
         :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param variables: Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`.
+        :param cache_control: Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models.
+        :param prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the legacy `user` field for prompt caching.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -585,6 +624,9 @@ class OrqCompletions(BaseSDK):
             guardrails=utils.get_pydantic_model(
                 guardrails, Optional[List[models.CreateChatCompletionGuardrails]]
             ),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.CreateChatCompletionPlugins]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]
             ),
@@ -601,6 +643,10 @@ class OrqCompletions(BaseSDK):
                 timeout, Optional[models.CreateChatCompletionTimeout]
             ),
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
+            cache_control=utils.get_pydantic_model(
+                cache_control, Optional[models.CreateChatCompletionCacheControl]
+            ),
+            prompt_cache_key=prompt_cache_key,
             orq=utils.get_pydantic_model(orq, Optional[models.CreateChatCompletionOrq]),
             stream=stream,
         )

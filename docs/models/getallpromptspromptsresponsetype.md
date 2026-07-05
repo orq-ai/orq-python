@@ -1,13 +1,15 @@
 # GetAllPromptsPromptsResponseType
 
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import GetAllPromptsPromptsResponseType
-value: GetAllPromptsPromptsResponseType = "function"
+value: GetAllPromptsPromptsResponseType = "ephemeral"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"ephemeral"`

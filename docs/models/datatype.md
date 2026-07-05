@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import DataType
-value: DataType = "http_eval"
+value: DataType = "function"
 ```
 
 
 ## Values
 
-- `"http_eval"`
+- `"function"`

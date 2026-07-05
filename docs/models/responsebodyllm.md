@@ -1,17 +1,9 @@
 # ResponseBodyLLM
 
 
-## Supported Types
+## Fields
 
-### `models.CreateEvalLLM1`
-
-```python
-value: models.CreateEvalLLM1 = /* values here */
-```
-
-### `models.CreateEvalLLM2`
-
-```python
-value: models.CreateEvalLLM2 = /* values here */
-```
-
+| Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                       | [models.InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type](../models/invokeevalresponsebodyevalsresponse200applicationjson7type.md) | :heavy_check_mark:                                                                                                                           | N/A                                                                                                                                          |
+| `value`                                                                                                                                      | [Nullable[models.InvokeEvalResponseBodyEvalsValue]](../models/invokeevalresponsebodyevalsvalue.md)                                           | :heavy_check_mark:                                                                                                                           | N/A                                                                                                                                          |

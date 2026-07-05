@@ -43,6 +43,11 @@ class APIKeyListRequestTypedDict(TypedDict):
     r"""Optional filter: only return keys whose permission mode is one
     of the listed presets. Empty means no permission-mode filter.
     """
+    include_budget: NotRequired[bool]
+    r"""When true, embed each key's api-key-scoped budget (config and limits
+    only, no live usage) on the returned records. Adds one budget lookup
+    for the page; omit to skip it.
+    """
 
 
 class APIKeyListRequest(BaseModel):
@@ -109,6 +114,15 @@ class APIKeyListRequest(BaseModel):
     of the listed presets. Empty means no permission-mode filter.
     """
 
+    include_budget: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""When true, embed each key's api-key-scoped budget (config and limits
+    only, no live usage) on the returned records. Adds one budget lookup
+    for the page; omit to skip it.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -121,6 +135,7 @@ class APIKeyListRequest(BaseModel):
                 "search",
                 "owner_type",
                 "permission_mode",
+                "include_budget",
             ]
         )
         serialized = handler(self)

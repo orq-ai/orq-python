@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.Eq`
+### `models.OneEq`
 
 ```python
-value: models.Eq = /* values here */
+value: models.OneEq = /* values here */
 ```
 
-### `models.Ne`
+### `models.OneNe`
 
 ```python
-value: models.Ne = /* values here */
+value: models.OneNe = /* values here */
 ```
 
 ### `models.Gt`
@@ -39,16 +39,16 @@ value: models.Lt = /* values here */
 value: models.Lte = /* values here */
 ```
 
-### `models.In`
+### `models.OneIn`
 
 ```python
-value: models.In = /* values here */
+value: models.OneIn = /* values here */
 ```
 
-### `models.Nin`
+### `models.OneNin`
 
 ```python
-value: models.Nin = /* values here */
+value: models.OneNin = /* values here */
 ```
 
 ### `models.Exists`

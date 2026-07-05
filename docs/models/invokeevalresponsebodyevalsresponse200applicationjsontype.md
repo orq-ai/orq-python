@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
-value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType = "rouge_n"
+value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType = "bert_score"
 ```
 
 
 ## Values
 
-- `"rouge_n"`
+- `"bert_score"`

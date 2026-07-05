@@ -1,13 +1,15 @@
 # Language
 
+Detector language.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Language
-value: Language = "python"
+value: Language = "en"
 ```
 
 
 ## Values
 
-- `"python"`
+- `"en"`
