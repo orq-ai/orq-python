@@ -1,0 +1,11 @@
+# NotifierListRequest
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `limit`                                                                                    | *Optional[int]*                                                                            | :heavy_minus_sign:                                                                         | Optional. Number of notifiers to return. Defaults to 25 and must be between 1 and 200.     |
+| `starting_after`                                                                           | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Cursor for forward pagination. Set to the `_id` of the last item from the previous page.   |
+| `ending_before`                                                                            | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Cursor for backward pagination. Set to the `_id` of the first item from the previous page. |
+| `project_id`                                                                               | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Restrict results to one project. Must be a project the caller is authorized for.           |

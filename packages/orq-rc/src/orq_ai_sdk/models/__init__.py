@@ -183,6 +183,14 @@ if TYPE_CHECKING:
         TopLogprobs,
         TopLogprobsTypedDict,
     )
+    from .aggregatetracesrequest import (
+        AggregateTracesRequest,
+        AggregateTracesRequestTypedDict,
+    )
+    from .aggregatetracesresponse import (
+        AggregateTracesResponse,
+        AggregateTracesResponseTypedDict,
+    )
     from .allprojects import AllProjects, AllProjectsTypedDict
     from .apierror import APIError
     from .apikey import APIKey, APIKeyBudget, APIKeyBudgetTypedDict, APIKeyTypedDict
@@ -1755,6 +1763,32 @@ if TYPE_CHECKING:
         ResultsCategoryScoresTypedDict,
         ResultsTypedDict,
     )
+    from .createnotifierrequest import (
+        CreateNotifierRequest,
+        CreateNotifierRequest2Headers,
+        CreateNotifierRequest2HeadersTypedDict,
+        CreateNotifierRequest2Metadata,
+        CreateNotifierRequest2MetadataTypedDict,
+        CreateNotifierRequest3Headers,
+        CreateNotifierRequest3HeadersTypedDict,
+        CreateNotifierRequest3Metadata,
+        CreateNotifierRequest3MetadataTypedDict,
+        CreateNotifierRequestHeaders,
+        CreateNotifierRequestHeadersTypedDict,
+        CreateNotifierRequestMetadata,
+        CreateNotifierRequestMetadataTypedDict,
+        CreateNotifierRequestTypedDict,
+        EmailNotifierCreateRequest,
+        EmailNotifierCreateRequestTypedDict,
+        GenericWebhookNotifierCreateRequest,
+        GenericWebhookNotifierCreateRequestTypedDict,
+        SlackWebhookNotifierCreateRequest,
+        SlackWebhookNotifierCreateRequestTypedDict,
+    )
+    from .createnotifierresponse import (
+        CreateNotifierResponse,
+        CreateNotifierResponseTypedDict,
+    )
     from .createprojectrequest import (
         CreateProjectRequest,
         CreateProjectRequestTypedDict,
@@ -2447,6 +2481,10 @@ if TYPE_CHECKING:
     from .deletememorystoreop import (
         DeleteMemoryStoreRequest,
         DeleteMemoryStoreRequestTypedDict,
+    )
+    from .deletenotifierresponse import (
+        DeleteNotifierResponse,
+        DeleteNotifierResponseTypedDict,
     )
     from .deleteprojectresponse import (
         DeleteProjectResponse,
@@ -3717,6 +3755,7 @@ if TYPE_CHECKING:
         GetManagementKeyResponse,
         GetManagementKeyResponseTypedDict,
     )
+    from .getnotifierresponse import GetNotifierResponse, GetNotifierResponseTypedDict
     from .getonechunkop import (
         GetOneChunkMetadata,
         GetOneChunkMetadataTypedDict,
@@ -4110,6 +4149,11 @@ if TYPE_CHECKING:
         GetPromptVersionVoice,
     )
     from .getskillresponse import GetSkillResponse, GetSkillResponseTypedDict
+    from .gettraceresponse import GetTraceResponse, GetTraceResponseTypedDict
+    from .gettracespanresponse import (
+        GetTraceSpanResponse,
+        GetTraceSpanResponseTypedDict,
+    )
     from .guardrailref import ExecuteOn, GuardrailRef, GuardrailRefTypedDict
     from .guardrailrule import GuardrailRule, GuardrailRuleTypedDict
     from .guardrailrulecreateop import (
@@ -4878,6 +4922,10 @@ if TYPE_CHECKING:
         ListManagementKeysResponse,
         ListManagementKeysResponseTypedDict,
     )
+    from .listnotifiersresponse import (
+        ListNotifiersResponse,
+        ListNotifiersResponseTypedDict,
+    )
     from .listprojectsresponse import (
         ListProjectsResponse,
         ListProjectsResponseTypedDict,
@@ -5062,6 +5110,22 @@ if TYPE_CHECKING:
         ListPromptVersionsVoice,
     )
     from .listskillsresponse import ListSkillsResponse, ListSkillsResponseTypedDict
+    from .listtracefacetsresponse import (
+        ListTraceFacetsResponse,
+        ListTraceFacetsResponseTypedDict,
+    )
+    from .listtracefacetvaluesresponse import (
+        ListTraceFacetValuesResponse,
+        ListTraceFacetValuesResponseTypedDict,
+    )
+    from .listtracefieldsresponse import (
+        ListTraceFieldsResponse,
+        ListTraceFieldsResponseTypedDict,
+    )
+    from .listtracespansresponse import (
+        ListTraceSpansResponse,
+        ListTraceSpansResponseTypedDict,
+    )
     from .managementkey import ManagementKey, ManagementKeyTypedDict
     from .managementkeydeleteop import (
         ManagementKeyDeleteRequest,
@@ -5174,6 +5238,33 @@ if TYPE_CHECKING:
         ModelValidateRequestBodyTypedDict,
     )
     from .no_response_error import NoResponseError
+    from .notifier import (
+        EmailNotifier,
+        EmailNotifierTypedDict,
+        GenericWebhookNotifier,
+        GenericWebhookNotifierTypedDict,
+        Notifier,
+        Notifier1Headers,
+        Notifier1HeadersTypedDict,
+        Notifier2Metadata,
+        Notifier2MetadataTypedDict,
+        Notifier3Headers,
+        Notifier3HeadersTypedDict,
+        Notifier3Metadata,
+        Notifier3MetadataTypedDict,
+        NotifierHeaders,
+        NotifierHeadersTypedDict,
+        NotifierMetadata,
+        NotifierMetadataTypedDict,
+        NotifierTypedDict,
+        SlackWebhookNotifier,
+        SlackWebhookNotifierTypedDict,
+    )
+    from .notifierdeleteop import NotifierDeleteRequest, NotifierDeleteRequestTypedDict
+    from .notifiergetop import NotifierGetRequest, NotifierGetRequestTypedDict
+    from .notifierlistop import NotifierListRequest, NotifierListRequestTypedDict
+    from .notifiertype import NotifierType
+    from .notifierupdateop import NotifierUpdateRequest, NotifierUpdateRequestTypedDict
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
     from .ownertype import OwnerType
     from .parseop import (
@@ -5484,6 +5575,8 @@ if TYPE_CHECKING:
         QueryReportResponseObject,
         QueryReportResponseTypedDict,
     )
+    from .querytracesrequest import QueryTracesRequest, QueryTracesRequestTypedDict
+    from .querytracesresponse import QueryTracesResponse, QueryTracesResponseTypedDict
     from .ratelimit import RateLimit, RateLimitTypedDict
     from .reasoning import (
         Reasoning,
@@ -6258,10 +6351,8 @@ if TYPE_CHECKING:
         HTTPToolRun,
         HTTPToolRunTypedDict,
         HTTPTypedDict,
-        Headers,
         Headers2,
         Headers2TypedDict,
-        HeadersTypedDict,
         JSONSchemaToolRun,
         JSONSchemaToolRunTypedDict,
         MCPToolRun,
@@ -6290,6 +6381,8 @@ if TYPE_CHECKING:
         RunAgentAgentToolInputRunAgentsRequestRequestBodyType,
         RunAgentAgentToolInputRunAgentsRequestType,
         RunAgentAgentToolInputRunAgentsType,
+        RunAgentAgentToolInputRunHeaders,
+        RunAgentAgentToolInputRunHeadersTypedDict,
         RunAgentAgentToolInputRunParameters,
         RunAgentAgentToolInputRunParametersTypedDict,
         RunAgentAgentToolInputRunTools,
@@ -6569,6 +6662,12 @@ if TYPE_CHECKING:
         SearchOptionsTypedDict,
         SearchType,
     )
+    from .searchtracesrequest import SearchTracesRequest, SearchTracesRequestTypedDict
+    from .searchtracesresponse import (
+        SearchTracesResponse,
+        SearchTracesResponseObject,
+        SearchTracesResponseTypedDict,
+    )
     from .security import Security, SecurityTypedDict
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
     from .singleproject import SingleProject, SingleProjectTypedDict
@@ -6577,6 +6676,13 @@ if TYPE_CHECKING:
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
     from .skilllistop import SkillListRequest, SkillListRequestTypedDict
     from .skillupdateop import SkillUpdateRequest, SkillUpdateRequestTypedDict
+    from .spandetail import (
+        SpanDetail,
+        SpanDetailAttributes,
+        SpanDetailAttributesTypedDict,
+        SpanDetailTypedDict,
+    )
+    from .spansummary import SpanSummary, SpanSummaryTypedDict
     from .streamagentop import (
         StreamAgentA2AInvokeRequest,
         StreamAgentA2AInvokeRequestTypedDict,
@@ -6975,6 +7081,35 @@ if TYPE_CHECKING:
         ToolStartedEventTypedDict,
     )
     from .totals import Totals, TotalsTypedDict
+    from .traceagent import TraceAgent, TraceAgentTypedDict
+    from .traceaggregaterow import TraceAggregateRow, TraceAggregateRowTypedDict
+    from .tracecompute import TraceCompute, TraceComputeTypedDict
+    from .tracecontext import TraceContext, TraceContextTypedDict
+    from .tracecost import TraceCost, TraceCostTypedDict
+    from .tracefacet import TraceFacet, TraceFacetTypedDict
+    from .tracefacetvalue import TraceFacetValue, TraceFacetValueTypedDict
+    from .tracefield import TraceField, TraceFieldTypedDict
+    from .tracefilter import TraceFilter, TraceFilterTypedDict
+    from .tracesearchmeta import TraceSearchMeta, TraceSearchMetaTypedDict
+    from .tracesgetop import TracesGetRequest, TracesGetRequestTypedDict
+    from .tracesgetspanop import TracesGetSpanRequest, TracesGetSpanRequestTypedDict
+    from .traceslistfacetvaluesop import (
+        TracesListFacetValuesRequest,
+        TracesListFacetValuesRequestTypedDict,
+    )
+    from .traceslistspansop import (
+        TracesListSpansRequest,
+        TracesListSpansRequestTypedDict,
+    )
+    from .tracesort import TraceSort, TraceSortTypedDict
+    from .tracesummary import (
+        Attributes,
+        AttributesTypedDict,
+        TraceSummary,
+        TraceSummaryObject,
+        TraceSummaryTypedDict,
+    )
+    from .traceusage import TraceUsage, TraceUsageTypedDict
     from .trigger_agent_scheduleop import (
         TriggerAgentScheduleRequest,
         TriggerAgentScheduleRequestTypedDict,
@@ -7659,6 +7794,18 @@ if TYPE_CHECKING:
         UpdateModelParameter,
         UpdateModelParameterTypedDict,
     )
+    from .updatenotifierrequest import (
+        Headers,
+        HeadersTypedDict,
+        UpdateNotifierRequest,
+        UpdateNotifierRequestMetadata,
+        UpdateNotifierRequestMetadataTypedDict,
+        UpdateNotifierRequestTypedDict,
+    )
+    from .updatenotifierresponse import (
+        UpdateNotifierResponse,
+        UpdateNotifierResponseTypedDict,
+    )
     from .updateprojectrequest import (
         UpdateProjectRequest,
         UpdateProjectRequestTypedDict,
@@ -8341,6 +8488,10 @@ __all__ = [
     "AgenticChunkerStrategyTypedDict",
     "AgenticRagConfig",
     "AgenticRagConfigTypedDict",
+    "AggregateTracesRequest",
+    "AggregateTracesRequestTypedDict",
+    "AggregateTracesResponse",
+    "AggregateTracesResponseTypedDict",
     "AllProjects",
     "AllProjectsTypedDict",
     "AllowedTools",
@@ -8377,6 +8528,8 @@ __all__ = [
     "ArgumentsTypedDict",
     "AssistantMessage",
     "AssistantMessageTypedDict",
+    "Attributes",
+    "AttributesTypedDict",
     "AudioContentPartSchema",
     "AudioContentPartSchemaType",
     "AudioContentPartSchemaTypedDict",
@@ -9579,6 +9732,22 @@ __all__ = [
     "CreateModerationResponseBodyTypedDict",
     "CreateModerationRouterModerationsResponseBody",
     "CreateModerationRouterModerationsResponseBodyData",
+    "CreateNotifierRequest",
+    "CreateNotifierRequest2Headers",
+    "CreateNotifierRequest2HeadersTypedDict",
+    "CreateNotifierRequest2Metadata",
+    "CreateNotifierRequest2MetadataTypedDict",
+    "CreateNotifierRequest3Headers",
+    "CreateNotifierRequest3HeadersTypedDict",
+    "CreateNotifierRequest3Metadata",
+    "CreateNotifierRequest3MetadataTypedDict",
+    "CreateNotifierRequestHeaders",
+    "CreateNotifierRequestHeadersTypedDict",
+    "CreateNotifierRequestMetadata",
+    "CreateNotifierRequestMetadataTypedDict",
+    "CreateNotifierRequestTypedDict",
+    "CreateNotifierResponse",
+    "CreateNotifierResponseTypedDict",
     "CreateProjectRequest",
     "CreateProjectRequestTypedDict",
     "CreateProjectResponse",
@@ -10252,6 +10421,8 @@ __all__ = [
     "DeleteMemoryRequestTypedDict",
     "DeleteMemoryStoreRequest",
     "DeleteMemoryStoreRequestTypedDict",
+    "DeleteNotifierResponse",
+    "DeleteNotifierResponseTypedDict",
     "DeleteProjectResponse",
     "DeleteProjectResponseTypedDict",
     "DeletePromptRequest",
@@ -10860,6 +11031,10 @@ __all__ = [
     "EighteenTypedDict",
     "Eleven",
     "ElevenTypedDict",
+    "EmailNotifier",
+    "EmailNotifierCreateRequest",
+    "EmailNotifierCreateRequestTypedDict",
+    "EmailNotifierTypedDict",
     "EmbeddingCacheConfig",
     "EmbeddingCacheConfigType",
     "EmbeddingCacheConfigTypedDict",
@@ -11109,6 +11284,10 @@ __all__ = [
     "FunctionToolRunTypedDict",
     "FunctionToolTypedDict",
     "FunctionTypedDict",
+    "GenericWebhookNotifier",
+    "GenericWebhookNotifierCreateRequest",
+    "GenericWebhookNotifierCreateRequestTypedDict",
+    "GenericWebhookNotifierTypedDict",
     "GetAPIKeyResponse",
     "GetAPIKeyResponseTypedDict",
     "GetAgentResponse",
@@ -11381,6 +11560,8 @@ __all__ = [
     "GetFileResponseTypedDict",
     "GetManagementKeyResponse",
     "GetManagementKeyResponseTypedDict",
+    "GetNotifierResponse",
+    "GetNotifierResponseTypedDict",
     "GetOneChunkMetadata",
     "GetOneChunkMetadataTypedDict",
     "GetOneChunkRequest",
@@ -11768,6 +11949,10 @@ __all__ = [
     "GetPromptVersionVoice",
     "GetSkillResponse",
     "GetSkillResponseTypedDict",
+    "GetTraceResponse",
+    "GetTraceResponseTypedDict",
+    "GetTraceSpanResponse",
+    "GetTraceSpanResponseTypedDict",
     "GetV2EvaluatorsIDVersionsData",
     "GetV2EvaluatorsIDVersionsDataTypedDict",
     "GetV2EvaluatorsIDVersionsEvalsResponseBody",
@@ -12413,6 +12598,8 @@ __all__ = [
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
+    "ListNotifiersResponse",
+    "ListNotifiersResponseTypedDict",
     "ListProjectsResponse",
     "ListProjectsResponseTypedDict",
     "ListPromptVersions21",
@@ -12594,6 +12781,14 @@ __all__ = [
     "ListPromptVersionsVoice",
     "ListSkillsResponse",
     "ListSkillsResponseTypedDict",
+    "ListTraceFacetValuesResponse",
+    "ListTraceFacetValuesResponseTypedDict",
+    "ListTraceFacetsResponse",
+    "ListTraceFacetsResponseTypedDict",
+    "ListTraceFieldsResponse",
+    "ListTraceFieldsResponseTypedDict",
+    "ListTraceSpansResponse",
+    "ListTraceSpansResponseTypedDict",
     "Llm",
     "Llm1",
     "Llm1TypedDict",
@@ -12809,6 +13004,29 @@ __all__ = [
     "Nineteen",
     "NineteenTypedDict",
     "NoResponseError",
+    "Notifier",
+    "Notifier1Headers",
+    "Notifier1HeadersTypedDict",
+    "Notifier2Metadata",
+    "Notifier2MetadataTypedDict",
+    "Notifier3Headers",
+    "Notifier3HeadersTypedDict",
+    "Notifier3Metadata",
+    "Notifier3MetadataTypedDict",
+    "NotifierDeleteRequest",
+    "NotifierDeleteRequestTypedDict",
+    "NotifierGetRequest",
+    "NotifierGetRequestTypedDict",
+    "NotifierHeaders",
+    "NotifierHeadersTypedDict",
+    "NotifierListRequest",
+    "NotifierListRequestTypedDict",
+    "NotifierMetadata",
+    "NotifierMetadataTypedDict",
+    "NotifierType",
+    "NotifierTypedDict",
+    "NotifierUpdateRequest",
+    "NotifierUpdateRequestTypedDict",
     "Number",
     "NumberTypedDict",
     "Object",
@@ -13141,6 +13359,10 @@ __all__ = [
     "QueryReportResponse",
     "QueryReportResponseObject",
     "QueryReportResponseTypedDict",
+    "QueryTracesRequest",
+    "QueryTracesRequestTypedDict",
+    "QueryTracesResponse",
+    "QueryTracesResponseTypedDict",
     "RagasMetric",
     "RateLimit",
     "RateLimitTypedDict",
@@ -13932,6 +14154,8 @@ __all__ = [
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType",
     "RunAgentAgentToolInputRunAgentsRequestType",
     "RunAgentAgentToolInputRunAgentsType",
+    "RunAgentAgentToolInputRunHeaders",
+    "RunAgentAgentToolInputRunHeadersTypedDict",
     "RunAgentAgentToolInputRunParameters",
     "RunAgentAgentToolInputRunParametersTypedDict",
     "RunAgentAgentToolInputRunTools",
@@ -14193,6 +14417,11 @@ __all__ = [
     "SearchKnowledgeResponseBodyTypedDict",
     "SearchOptions",
     "SearchOptionsTypedDict",
+    "SearchTracesRequest",
+    "SearchTracesRequestTypedDict",
+    "SearchTracesResponse",
+    "SearchTracesResponseObject",
+    "SearchTracesResponseTypedDict",
     "SearchType",
     "Security",
     "SecurityTypedDict",
@@ -14231,9 +14460,19 @@ __all__ = [
     "SkillTypedDict",
     "SkillUpdateRequest",
     "SkillUpdateRequestTypedDict",
+    "SlackWebhookNotifier",
+    "SlackWebhookNotifierCreateRequest",
+    "SlackWebhookNotifierCreateRequestTypedDict",
+    "SlackWebhookNotifierTypedDict",
     "Sort",
     "SortBy",
     "Source",
+    "SpanDetail",
+    "SpanDetailAttributes",
+    "SpanDetailAttributesTypedDict",
+    "SpanDetailTypedDict",
+    "SpanSummary",
+    "SpanSummaryTypedDict",
     "SpecificFunction",
     "SpecificFunctionTypedDict",
     "Stats",
@@ -14659,6 +14898,41 @@ __all__ = [
     "TopLogprobsTypedDict",
     "Totals",
     "TotalsTypedDict",
+    "TraceAgent",
+    "TraceAgentTypedDict",
+    "TraceAggregateRow",
+    "TraceAggregateRowTypedDict",
+    "TraceCompute",
+    "TraceComputeTypedDict",
+    "TraceContext",
+    "TraceContextTypedDict",
+    "TraceCost",
+    "TraceCostTypedDict",
+    "TraceFacet",
+    "TraceFacetTypedDict",
+    "TraceFacetValue",
+    "TraceFacetValueTypedDict",
+    "TraceField",
+    "TraceFieldTypedDict",
+    "TraceFilter",
+    "TraceFilterTypedDict",
+    "TraceSearchMeta",
+    "TraceSearchMetaTypedDict",
+    "TraceSort",
+    "TraceSortTypedDict",
+    "TraceSummary",
+    "TraceSummaryObject",
+    "TraceSummaryTypedDict",
+    "TraceUsage",
+    "TraceUsageTypedDict",
+    "TracesGetRequest",
+    "TracesGetRequestTypedDict",
+    "TracesGetSpanRequest",
+    "TracesGetSpanRequestTypedDict",
+    "TracesListFacetValuesRequest",
+    "TracesListFacetValuesRequestTypedDict",
+    "TracesListSpansRequest",
+    "TracesListSpansRequestTypedDict",
     "TriggerAgentScheduleRequest",
     "TriggerAgentScheduleRequestTypedDict",
     "TriggerAgentScheduleResponseBody",
@@ -15293,6 +15567,12 @@ __all__ = [
     "UpdateMemoryStoreResponseBodyTypedDict",
     "UpdateModelParameter",
     "UpdateModelParameterTypedDict",
+    "UpdateNotifierRequest",
+    "UpdateNotifierRequestMetadata",
+    "UpdateNotifierRequestMetadataTypedDict",
+    "UpdateNotifierRequestTypedDict",
+    "UpdateNotifierResponse",
+    "UpdateNotifierResponseTypedDict",
     "UpdateProjectRequest",
     "UpdateProjectRequestTypedDict",
     "UpdateProjectResponse",
@@ -15909,6 +16189,10 @@ _dynamic_imports: dict[str, str] = {
     "RefusalTypedDict": ".agentthoughtstreamingevent",
     "TopLogprobs": ".agentthoughtstreamingevent",
     "TopLogprobsTypedDict": ".agentthoughtstreamingevent",
+    "AggregateTracesRequest": ".aggregatetracesrequest",
+    "AggregateTracesRequestTypedDict": ".aggregatetracesrequest",
+    "AggregateTracesResponse": ".aggregatetracesresponse",
+    "AggregateTracesResponseTypedDict": ".aggregatetracesresponse",
     "AllProjects": ".allprojects",
     "AllProjectsTypedDict": ".allprojects",
     "APIError": ".apierror",
@@ -17436,6 +17720,28 @@ _dynamic_imports: dict[str, str] = {
     "ResultsCategoryScores": ".createmoderationop",
     "ResultsCategoryScoresTypedDict": ".createmoderationop",
     "ResultsTypedDict": ".createmoderationop",
+    "CreateNotifierRequest": ".createnotifierrequest",
+    "CreateNotifierRequest2Headers": ".createnotifierrequest",
+    "CreateNotifierRequest2HeadersTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequest2Metadata": ".createnotifierrequest",
+    "CreateNotifierRequest2MetadataTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequest3Headers": ".createnotifierrequest",
+    "CreateNotifierRequest3HeadersTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequest3Metadata": ".createnotifierrequest",
+    "CreateNotifierRequest3MetadataTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequestHeaders": ".createnotifierrequest",
+    "CreateNotifierRequestHeadersTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequestMetadata": ".createnotifierrequest",
+    "CreateNotifierRequestMetadataTypedDict": ".createnotifierrequest",
+    "CreateNotifierRequestTypedDict": ".createnotifierrequest",
+    "EmailNotifierCreateRequest": ".createnotifierrequest",
+    "EmailNotifierCreateRequestTypedDict": ".createnotifierrequest",
+    "GenericWebhookNotifierCreateRequest": ".createnotifierrequest",
+    "GenericWebhookNotifierCreateRequestTypedDict": ".createnotifierrequest",
+    "SlackWebhookNotifierCreateRequest": ".createnotifierrequest",
+    "SlackWebhookNotifierCreateRequestTypedDict": ".createnotifierrequest",
+    "CreateNotifierResponse": ".createnotifierresponse",
+    "CreateNotifierResponseTypedDict": ".createnotifierresponse",
     "CreateProjectRequest": ".createprojectrequest",
     "CreateProjectRequestTypedDict": ".createprojectrequest",
     "CreateProjectResponse": ".createprojectresponse",
@@ -18090,6 +18396,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryRequestTypedDict": ".deletememoryop",
     "DeleteMemoryStoreRequest": ".deletememorystoreop",
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
+    "DeleteNotifierResponse": ".deletenotifierresponse",
+    "DeleteNotifierResponseTypedDict": ".deletenotifierresponse",
     "DeleteProjectResponse": ".deleteprojectresponse",
     "DeleteProjectResponseTypedDict": ".deleteprojectresponse",
     "DeletePromptRequest": ".deletepromptop",
@@ -19299,6 +19607,8 @@ _dynamic_imports: dict[str, str] = {
     "GetFileResponseTypedDict": ".getfileresponse",
     "GetManagementKeyResponse": ".getmanagementkeyresponse",
     "GetManagementKeyResponseTypedDict": ".getmanagementkeyresponse",
+    "GetNotifierResponse": ".getnotifierresponse",
+    "GetNotifierResponseTypedDict": ".getnotifierresponse",
     "GetOneChunkMetadata": ".getonechunkop",
     "GetOneChunkMetadataTypedDict": ".getonechunkop",
     "GetOneChunkRequest": ".getonechunkop",
@@ -19686,6 +19996,10 @@ _dynamic_imports: dict[str, str] = {
     "GetPromptVersionVoice": ".getpromptversionop",
     "GetSkillResponse": ".getskillresponse",
     "GetSkillResponseTypedDict": ".getskillresponse",
+    "GetTraceResponse": ".gettraceresponse",
+    "GetTraceResponseTypedDict": ".gettraceresponse",
+    "GetTraceSpanResponse": ".gettracespanresponse",
+    "GetTraceSpanResponseTypedDict": ".gettracespanresponse",
     "ExecuteOn": ".guardrailref",
     "GuardrailRef": ".guardrailref",
     "GuardrailRefTypedDict": ".guardrailref",
@@ -20419,6 +20733,8 @@ _dynamic_imports: dict[str, str] = {
     "ListManagementCapabilitiesResponseTypedDict": ".listmanagementcapabilitiesresponse",
     "ListManagementKeysResponse": ".listmanagementkeysresponse",
     "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
+    "ListNotifiersResponse": ".listnotifiersresponse",
+    "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
     "ListProjectsResponse": ".listprojectsresponse",
     "ListProjectsResponseTypedDict": ".listprojectsresponse",
     "ListPromptVersions21": ".listpromptversionsop",
@@ -20600,6 +20916,14 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsVoice": ".listpromptversionsop",
     "ListSkillsResponse": ".listskillsresponse",
     "ListSkillsResponseTypedDict": ".listskillsresponse",
+    "ListTraceFacetsResponse": ".listtracefacetsresponse",
+    "ListTraceFacetsResponseTypedDict": ".listtracefacetsresponse",
+    "ListTraceFacetValuesResponse": ".listtracefacetvaluesresponse",
+    "ListTraceFacetValuesResponseTypedDict": ".listtracefacetvaluesresponse",
+    "ListTraceFieldsResponse": ".listtracefieldsresponse",
+    "ListTraceFieldsResponseTypedDict": ".listtracefieldsresponse",
+    "ListTraceSpansResponse": ".listtracespansresponse",
+    "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
     "ManagementKey": ".managementkey",
     "ManagementKeyTypedDict": ".managementkey",
     "ManagementKeyDeleteRequest": ".managementkeydeleteop",
@@ -20686,6 +21010,35 @@ _dynamic_imports: dict[str, str] = {
     "ModelValidateRequestBody": ".modelvalidateop",
     "ModelValidateRequestBodyTypedDict": ".modelvalidateop",
     "NoResponseError": ".no_response_error",
+    "EmailNotifier": ".notifier",
+    "EmailNotifierTypedDict": ".notifier",
+    "GenericWebhookNotifier": ".notifier",
+    "GenericWebhookNotifierTypedDict": ".notifier",
+    "Notifier": ".notifier",
+    "Notifier1Headers": ".notifier",
+    "Notifier1HeadersTypedDict": ".notifier",
+    "Notifier2Metadata": ".notifier",
+    "Notifier2MetadataTypedDict": ".notifier",
+    "Notifier3Headers": ".notifier",
+    "Notifier3HeadersTypedDict": ".notifier",
+    "Notifier3Metadata": ".notifier",
+    "Notifier3MetadataTypedDict": ".notifier",
+    "NotifierHeaders": ".notifier",
+    "NotifierHeadersTypedDict": ".notifier",
+    "NotifierMetadata": ".notifier",
+    "NotifierMetadataTypedDict": ".notifier",
+    "NotifierTypedDict": ".notifier",
+    "SlackWebhookNotifier": ".notifier",
+    "SlackWebhookNotifierTypedDict": ".notifier",
+    "NotifierDeleteRequest": ".notifierdeleteop",
+    "NotifierDeleteRequestTypedDict": ".notifierdeleteop",
+    "NotifierGetRequest": ".notifiergetop",
+    "NotifierGetRequestTypedDict": ".notifiergetop",
+    "NotifierListRequest": ".notifierlistop",
+    "NotifierListRequestTypedDict": ".notifierlistop",
+    "NotifierType": ".notifiertype",
+    "NotifierUpdateRequest": ".notifierupdateop",
+    "NotifierUpdateRequestTypedDict": ".notifierupdateop",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
     "OwnerType": ".ownertype",
@@ -20961,6 +21314,10 @@ _dynamic_imports: dict[str, str] = {
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
+    "QueryTracesRequest": ".querytracesrequest",
+    "QueryTracesRequestTypedDict": ".querytracesrequest",
+    "QueryTracesResponse": ".querytracesresponse",
+    "QueryTracesResponseTypedDict": ".querytracesresponse",
     "RateLimit": ".ratelimit",
     "RateLimitTypedDict": ".ratelimit",
     "Reasoning": ".reasoning",
@@ -21600,10 +21957,8 @@ _dynamic_imports: dict[str, str] = {
     "HTTPToolRun": ".runagentop",
     "HTTPToolRunTypedDict": ".runagentop",
     "HTTPTypedDict": ".runagentop",
-    "Headers": ".runagentop",
     "Headers2": ".runagentop",
     "Headers2TypedDict": ".runagentop",
-    "HeadersTypedDict": ".runagentop",
     "JSONSchemaToolRun": ".runagentop",
     "JSONSchemaToolRunTypedDict": ".runagentop",
     "MCPToolRun": ".runagentop",
@@ -21632,6 +21987,8 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsRequestType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsType": ".runagentop",
+    "RunAgentAgentToolInputRunHeaders": ".runagentop",
+    "RunAgentAgentToolInputRunHeadersTypedDict": ".runagentop",
     "RunAgentAgentToolInputRunParameters": ".runagentop",
     "RunAgentAgentToolInputRunParametersTypedDict": ".runagentop",
     "RunAgentAgentToolInputRunTools": ".runagentop",
@@ -21908,6 +22265,11 @@ _dynamic_imports: dict[str, str] = {
     "SearchOptions": ".searchknowledgeop",
     "SearchOptionsTypedDict": ".searchknowledgeop",
     "SearchType": ".searchknowledgeop",
+    "SearchTracesRequest": ".searchtracesrequest",
+    "SearchTracesRequestTypedDict": ".searchtracesrequest",
+    "SearchTracesResponse": ".searchtracesresponse",
+    "SearchTracesResponseObject": ".searchtracesresponse",
+    "SearchTracesResponseTypedDict": ".searchtracesresponse",
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "ServiceAccountOwner": ".serviceaccountowner",
@@ -21924,6 +22286,12 @@ _dynamic_imports: dict[str, str] = {
     "SkillListRequestTypedDict": ".skilllistop",
     "SkillUpdateRequest": ".skillupdateop",
     "SkillUpdateRequestTypedDict": ".skillupdateop",
+    "SpanDetail": ".spandetail",
+    "SpanDetailAttributes": ".spandetail",
+    "SpanDetailAttributesTypedDict": ".spandetail",
+    "SpanDetailTypedDict": ".spandetail",
+    "SpanSummary": ".spansummary",
+    "SpanSummaryTypedDict": ".spansummary",
     "StreamAgentA2AInvokeRequest": ".streamagentop",
     "StreamAgentA2AInvokeRequestTypedDict": ".streamagentop",
     "StreamAgentA2AMessage": ".streamagentop",
@@ -22299,6 +22667,43 @@ _dynamic_imports: dict[str, str] = {
     "ToolStartedEventTypedDict": ".toolstartedevent",
     "Totals": ".totals",
     "TotalsTypedDict": ".totals",
+    "TraceAgent": ".traceagent",
+    "TraceAgentTypedDict": ".traceagent",
+    "TraceAggregateRow": ".traceaggregaterow",
+    "TraceAggregateRowTypedDict": ".traceaggregaterow",
+    "TraceCompute": ".tracecompute",
+    "TraceComputeTypedDict": ".tracecompute",
+    "TraceContext": ".tracecontext",
+    "TraceContextTypedDict": ".tracecontext",
+    "TraceCost": ".tracecost",
+    "TraceCostTypedDict": ".tracecost",
+    "TraceFacet": ".tracefacet",
+    "TraceFacetTypedDict": ".tracefacet",
+    "TraceFacetValue": ".tracefacetvalue",
+    "TraceFacetValueTypedDict": ".tracefacetvalue",
+    "TraceField": ".tracefield",
+    "TraceFieldTypedDict": ".tracefield",
+    "TraceFilter": ".tracefilter",
+    "TraceFilterTypedDict": ".tracefilter",
+    "TraceSearchMeta": ".tracesearchmeta",
+    "TraceSearchMetaTypedDict": ".tracesearchmeta",
+    "TracesGetRequest": ".tracesgetop",
+    "TracesGetRequestTypedDict": ".tracesgetop",
+    "TracesGetSpanRequest": ".tracesgetspanop",
+    "TracesGetSpanRequestTypedDict": ".tracesgetspanop",
+    "TracesListFacetValuesRequest": ".traceslistfacetvaluesop",
+    "TracesListFacetValuesRequestTypedDict": ".traceslistfacetvaluesop",
+    "TracesListSpansRequest": ".traceslistspansop",
+    "TracesListSpansRequestTypedDict": ".traceslistspansop",
+    "TraceSort": ".tracesort",
+    "TraceSortTypedDict": ".tracesort",
+    "Attributes": ".tracesummary",
+    "AttributesTypedDict": ".tracesummary",
+    "TraceSummary": ".tracesummary",
+    "TraceSummaryObject": ".tracesummary",
+    "TraceSummaryTypedDict": ".tracesummary",
+    "TraceUsage": ".traceusage",
+    "TraceUsageTypedDict": ".traceusage",
     "TriggerAgentScheduleRequest": ".trigger_agent_scheduleop",
     "TriggerAgentScheduleRequestTypedDict": ".trigger_agent_scheduleop",
     "TriggerAgentScheduleResponseBody": ".trigger_agent_scheduleop",
@@ -22945,6 +23350,14 @@ _dynamic_imports: dict[str, str] = {
     "UpdateMemoryStoreResponseBodyTypedDict": ".updatememorystoreop",
     "UpdateModelParameter": ".updatemodelparameter",
     "UpdateModelParameterTypedDict": ".updatemodelparameter",
+    "Headers": ".updatenotifierrequest",
+    "HeadersTypedDict": ".updatenotifierrequest",
+    "UpdateNotifierRequest": ".updatenotifierrequest",
+    "UpdateNotifierRequestMetadata": ".updatenotifierrequest",
+    "UpdateNotifierRequestMetadataTypedDict": ".updatenotifierrequest",
+    "UpdateNotifierRequestTypedDict": ".updatenotifierrequest",
+    "UpdateNotifierResponse": ".updatenotifierresponse",
+    "UpdateNotifierResponseTypedDict": ".updatenotifierresponse",
     "UpdateProjectRequest": ".updateprojectrequest",
     "UpdateProjectRequestTypedDict": ".updateprojectrequest",
     "UpdateProjectResponse": ".updateprojectresponse",

@@ -1,17 +1,9 @@
 # Headers
 
+Optional replacement generic webhook headers. Secret header values returned by GET or LIST are masked as an empty string; omit those entries or replace them with the real value when updating.
 
-## Supported Types
 
-### `str`
+## Fields
 
-```python
-value: str = /* values here */
-```
-
-### `models.Headers2`
-
-```python
-value: models.Headers2 = /* values here */
-```
-
+| Field       | Type        | Required    | Description |
+| ----------- | ----------- | ----------- | ----------- |

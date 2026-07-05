@@ -42,6 +42,8 @@ class ToolTypedDict(TypedDict):
     display_name: NotRequired[str]
     description: NotRequired[str]
     r"""Optional tool description"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
@@ -64,6 +66,9 @@ class Tool(BaseModel):
     description: Optional[str] = None
     r"""Optional tool description"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     requires_approval: Optional[bool] = False
 
     tool_id: Optional[str] = None
@@ -81,6 +86,7 @@ class Tool(BaseModel):
                 "key",
                 "display_name",
                 "description",
+                "configuration",
                 "requires_approval",
                 "tool_id",
                 "conditions",

@@ -2010,7 +2010,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KWMEK3JTNMCAP3MX6Z63Y2N7"
+    id: Optional[str] = "01KWRS1EXTPF70C0Z67Y3XKA1D"
 
     description: Optional[str] = None
 
@@ -2573,10 +2573,14 @@ class Headers2(BaseModel):
         return m
 
 
-HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
+RunAgentAgentToolInputRunHeadersTypedDict = TypeAliasType(
+    "RunAgentAgentToolInputRunHeadersTypedDict", Union[Headers2TypedDict, str]
+)
 
 
-Headers = TypeAliasType("Headers", Union[Headers2, str])
+RunAgentAgentToolInputRunHeaders = TypeAliasType(
+    "RunAgentAgentToolInputRunHeaders", Union[Headers2, str]
+)
 
 
 class BlueprintTypedDict(TypedDict):
@@ -2586,7 +2590,7 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, HeadersTypedDict]]
+    headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -2601,7 +2605,7 @@ class Blueprint(BaseModel):
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, Headers]] = None
+    headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -2773,6 +2777,8 @@ class AgentToolInputRunCurrentDateToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunCurrentDateTool(BaseModel):
@@ -2783,9 +2789,12 @@ class AgentToolInputRunCurrentDateTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2811,6 +2820,8 @@ class AgentToolInputRunQueryKnowledgeBaseToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
@@ -2821,9 +2832,12 @@ class AgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2849,6 +2863,8 @@ class AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
@@ -2859,9 +2875,12 @@ class AgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2887,6 +2906,8 @@ class AgentToolInputRunDeleteMemoryDocumentToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
@@ -2897,9 +2918,12 @@ class AgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2925,6 +2949,8 @@ class AgentToolInputRunRetrieveMemoryStoresToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
@@ -2935,9 +2961,12 @@ class AgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2963,6 +2992,8 @@ class AgentToolInputRunWriteMemoryStoreToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunWriteMemoryStoreTool(BaseModel):
@@ -2973,9 +3004,12 @@ class AgentToolInputRunWriteMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2999,6 +3033,8 @@ class AgentToolInputRunQueryMemoryStoreToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodyType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunQueryMemoryStoreTool(BaseModel):
@@ -3009,9 +3045,12 @@ class AgentToolInputRunQueryMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3035,6 +3074,8 @@ class AgentToolInputRunRetrieveAgentsToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveAgentsTool(BaseModel):
@@ -3045,9 +3086,12 @@ class AgentToolInputRunRetrieveAgentsTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3071,6 +3115,8 @@ class AgentToolInputRunCallSubAgentToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunCallSubAgentTool(BaseModel):
@@ -3081,9 +3127,12 @@ class AgentToolInputRunCallSubAgentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3107,6 +3156,8 @@ class AgentToolInputRunWebScraperToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunWebScraperTool(BaseModel):
@@ -3117,9 +3168,12 @@ class AgentToolInputRunWebScraperTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3143,6 +3197,8 @@ class AgentToolInputRunGoogleSearchToolTypedDict(TypedDict):
     type: AgentToolInputRunType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunGoogleSearchTool(BaseModel):
@@ -3153,9 +3209,12 @@ class AgentToolInputRunGoogleSearchTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 

@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
@@ -43,6 +44,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.schedules import Schedules
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.tools import Tools
+    from orq_ai_sdk.traces import Traces
 
 
 class Orq(BaseSDK):
@@ -73,11 +75,13 @@ class Orq(BaseSDK):
     files: "Files"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    notifiers: "Notifiers"
     projects: "Projects"
     skills: "Skills"
     schedules: "Schedules"
     responses: "Responses"
     reporting: "Reporting"
+    traces: "Traces"
     _sub_sdk_map = {
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
@@ -102,11 +106,13 @@ class Orq(BaseSDK):
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
+        "traces": ("orq_ai_sdk.traces", "Traces"),
     }
 
     def __init__(

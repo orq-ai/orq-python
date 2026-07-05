@@ -1,0 +1,12 @@
+# SearchTracesResponse
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `object`                                                                               | [Optional[models.SearchTracesResponseObject]](../models/searchtracesresponseobject.md) | :heavy_minus_sign:                                                                     | Object discriminator; always `list`.                                                   |
+| `data`                                                                                 | List[[models.TraceSummary](../models/tracesummary.md)]                                 | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `has_more`                                                                             | *Optional[bool]*                                                                       | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `next_page_token`                                                                      | *Optional[str]*                                                                        | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `meta`                                                                                 | [Optional[models.TraceSearchMeta]](../models/tracesearchmeta.md)                       | :heavy_minus_sign:                                                                     | N/A                                                                                    |

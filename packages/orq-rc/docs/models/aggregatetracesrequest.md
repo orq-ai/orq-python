@@ -1,0 +1,14 @@
+# AggregateTracesRequest
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `from_`                                                              | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `to`                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filters`                                                            | List[[models.TraceFilter](../models/tracefilter.md)]                 | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `group_by`                                                           | List[*str*]                                                          | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `compute`                                                            | List[[models.TraceCompute](../models/tracecompute.md)]               | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `limit`                                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filter_operator`                                                    | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
