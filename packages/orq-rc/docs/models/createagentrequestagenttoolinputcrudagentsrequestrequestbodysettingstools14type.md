@@ -1,15 +1,15 @@
 # CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
 
-Function tool type
+Code execution tool type
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
-value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = "function"
+value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = "code"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"code"`

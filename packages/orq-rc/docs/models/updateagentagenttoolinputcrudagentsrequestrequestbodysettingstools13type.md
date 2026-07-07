@@ -1,15 +1,15 @@
 # UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
 
-Code execution tool type
+HTTP tool type
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
-value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = "code"
+value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = "http"
 ```
 
 
 ## Values
 
-- `"code"`
+- `"http"`

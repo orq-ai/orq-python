@@ -1,15 +1,13 @@
 # CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
 
-HTTP tool type
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
-value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = "http"
+value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = "code_interpreter"
 ```
 
 
 ## Values
 
-- `"http"`
+- `"code_interpreter"`

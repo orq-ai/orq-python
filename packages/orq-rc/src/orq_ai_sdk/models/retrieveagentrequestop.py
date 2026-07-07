@@ -362,6 +362,8 @@ class RetrieveAgentRequestSettingsTypedDict(TypedDict):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[RetrieveAgentRequestToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[RetrieveAgentRequestToolsTypedDict]]
     evaluators: NotRequired[List[RetrieveAgentRequestEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
@@ -384,6 +386,9 @@ class RetrieveAgentRequestSettings(BaseModel):
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     tools: Optional[List[RetrieveAgentRequestTools]] = None
 
     evaluators: Optional[List[RetrieveAgentRequestEvaluators]] = None
@@ -400,6 +405,7 @@ class RetrieveAgentRequestSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",

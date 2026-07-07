@@ -1695,7 +1695,7 @@ class AgentToolInputCRUDProviderBuiltInTool(BaseModel):
         return m
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type = Literal[
     "mcp",
 ]
 r"""MCP tool type"""
@@ -1707,7 +1707,7 @@ class AgentToolInputCRUDMCPToolTypedDict(TypedDict):
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type
     ]
     r"""MCP tool type"""
     key: NotRequired[str]
@@ -1725,7 +1725,7 @@ class AgentToolInputCRUDMCPTool(BaseModel):
     r"""The ID of the specific nested tool within the MCP server"""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type
     ] = "mcp"
     r"""MCP tool type"""
 
@@ -1755,7 +1755,7 @@ class AgentToolInputCRUDMCPTool(BaseModel):
         return m
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = Literal[
     "json_schema",
 ]
 r"""JSON Schema tool type"""
@@ -1765,7 +1765,7 @@ class AgentToolInputCRUDJSONSchemaToolTypedDict(TypedDict):
     r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
 
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ]
     r"""JSON Schema tool type"""
     key: NotRequired[str]
@@ -1780,7 +1780,7 @@ class AgentToolInputCRUDJSONSchemaTool(BaseModel):
     r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ] = "json_schema"
     r"""JSON Schema tool type"""
 
@@ -1810,7 +1810,7 @@ class AgentToolInputCRUDJSONSchemaTool(BaseModel):
         return m
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
     "function",
 ]
 r"""Function tool type"""
@@ -1820,7 +1820,7 @@ class AgentToolInputCRUDFunctionToolTypedDict(TypedDict):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     ]
     r"""Function tool type"""
     key: NotRequired[str]
@@ -1835,7 +1835,7 @@ class AgentToolInputCRUDFunctionTool(BaseModel):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     ] = "function"
     r"""Function tool type"""
 
@@ -1865,7 +1865,7 @@ class AgentToolInputCRUDFunctionTool(BaseModel):
         return m
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = Literal[
     "code",
 ]
 r"""Code execution tool type"""
@@ -1875,7 +1875,7 @@ class AgentToolInputCRUDCodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
     ]
     r"""Code execution tool type"""
     key: NotRequired[str]
@@ -1890,7 +1890,7 @@ class AgentToolInputCRUDCodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
     ] = "code"
     r"""Code execution tool type"""
 
@@ -1920,7 +1920,7 @@ class AgentToolInputCRUDCodeExecutionTool(BaseModel):
         return m
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = Literal[
     "http",
 ]
 r"""HTTP tool type"""
@@ -1930,7 +1930,7 @@ class AgentToolInputCRUDHTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
     ]
     r"""HTTP tool type"""
     key: NotRequired[str]
@@ -1945,7 +1945,7 @@ class AgentToolInputCRUDHTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
     ] = "http"
     r"""HTTP tool type"""
 
@@ -1961,6 +1961,49 @@ class AgentToolInputCRUDHTTPTool(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = Literal[
+    "code_interpreter",
+]
+
+
+class AgentToolInputCRUDCodeInterpreterToolTypedDict(TypedDict):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class AgentToolInputCRUDCodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2444,7 +2487,7 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
     "UpdateAgentAgentToolInputCRUDTypedDict",
     Union[
         AgentToolInputCRUDRetrieveKnowledgeBasesToolTypedDict,
-        AgentToolInputCRUDQueryKnowledgeBaseToolTypedDict,
+        AgentToolInputCRUDCurrentDateToolTypedDict,
         AgentToolInputCRUDCallSubAgentToolTypedDict,
         AgentToolInputCRUDRetrieveAgentsToolTypedDict,
         AgentToolInputCRUDQueryMemoryStoreToolTypedDict,
@@ -2452,8 +2495,9 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDRetrieveMemoryStoresToolTypedDict,
         AgentToolInputCRUDDeleteMemoryDocumentToolTypedDict,
         AgentToolInputCRUDWebScraperToolTypedDict,
-        AgentToolInputCRUDCurrentDateToolTypedDict,
         AgentToolInputCRUDGoogleSearchToolTypedDict,
+        AgentToolInputCRUDQueryKnowledgeBaseToolTypedDict,
+        AgentToolInputCRUDCodeInterpreterToolTypedDict,
         AgentToolInputCRUDProviderBuiltInToolTypedDict,
         AgentToolInputCRUDCodeExecutionToolTypedDict,
         AgentToolInputCRUDFunctionToolTypedDict,
@@ -2469,7 +2513,7 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
     "UpdateAgentAgentToolInputCRUD",
     Union[
         AgentToolInputCRUDRetrieveKnowledgeBasesTool,
-        AgentToolInputCRUDQueryKnowledgeBaseTool,
+        AgentToolInputCRUDCurrentDateTool,
         AgentToolInputCRUDCallSubAgentTool,
         AgentToolInputCRUDRetrieveAgentsTool,
         AgentToolInputCRUDQueryMemoryStoreTool,
@@ -2477,8 +2521,9 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDRetrieveMemoryStoresTool,
         AgentToolInputCRUDDeleteMemoryDocumentTool,
         AgentToolInputCRUDWebScraperTool,
-        AgentToolInputCRUDCurrentDateTool,
         AgentToolInputCRUDGoogleSearchTool,
+        AgentToolInputCRUDQueryKnowledgeBaseTool,
+        AgentToolInputCRUDCodeInterpreterTool,
         AgentToolInputCRUDProviderBuiltInTool,
         AgentToolInputCRUDCodeExecutionTool,
         AgentToolInputCRUDFunctionTool,
@@ -2581,6 +2626,8 @@ class UpdateAgentSettingsTypedDict(TypedDict):
     max_execution_time: NotRequired[int]
     max_cost: NotRequired[float]
     tool_approval_required: NotRequired[UpdateAgentToolApprovalRequired]
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[UpdateAgentAgentToolInputCRUDTypedDict]]
     evaluators: NotRequired[List[UpdateAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
@@ -2596,6 +2643,9 @@ class UpdateAgentSettings(BaseModel):
     max_cost: Optional[float] = None
 
     tool_approval_required: Optional[UpdateAgentToolApprovalRequired] = None
+
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
 
     tools: Optional[List[UpdateAgentAgentToolInputCRUD]] = None
 
@@ -2613,6 +2663,7 @@ class UpdateAgentSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",
@@ -3165,6 +3216,8 @@ class UpdateAgentAgentsSettingsTypedDict(TypedDict):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[UpdateAgentAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[UpdateAgentToolsTypedDict]]
     evaluators: NotRequired[List[UpdateAgentAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
@@ -3187,6 +3240,9 @@ class UpdateAgentAgentsSettings(BaseModel):
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     tools: Optional[List[UpdateAgentTools]] = None
 
     evaluators: Optional[List[UpdateAgentAgentsEvaluators]] = None
@@ -3203,6 +3259,7 @@ class UpdateAgentAgentsSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",
@@ -3406,45 +3463,6 @@ UpdateAgentThinking = Annotated[
 
 UpdateAgentToolChoiceAgentsResponseType = Literal["function",]
 r"""The type of the tool. Currently, only function is supported."""
-
-
-class UpdateAgentToolChoiceAgentsResponseFunctionTypedDict(TypedDict):
-    name: str
-    r"""The name of the function to call."""
-
-
-class UpdateAgentToolChoiceAgentsResponseFunction(BaseModel):
-    name: str
-    r"""The name of the function to call."""
-
-
-class UpdateAgentToolChoiceAgentsResponse2TypedDict(TypedDict):
-    function: UpdateAgentToolChoiceAgentsResponseFunctionTypedDict
-    type: NotRequired[UpdateAgentToolChoiceAgentsResponseType]
-    r"""The type of the tool. Currently, only function is supported."""
-
-
-class UpdateAgentToolChoiceAgentsResponse2(BaseModel):
-    function: UpdateAgentToolChoiceAgentsResponseFunction
-
-    type: Optional[UpdateAgentToolChoiceAgentsResponseType] = None
-    r"""The type of the tool. Currently, only function is supported."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["type"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 try:

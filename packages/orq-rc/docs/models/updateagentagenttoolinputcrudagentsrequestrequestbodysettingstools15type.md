@@ -1,15 +1,15 @@
 # UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
 
-JSON Schema tool type
+Function tool type
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
-value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = "json_schema"
+value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = "function"
 ```
 
 
 ## Values
 
-- `"json_schema"`
+- `"function"`

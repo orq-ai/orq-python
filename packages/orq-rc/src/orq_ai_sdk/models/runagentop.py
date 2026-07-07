@@ -1933,7 +1933,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -1963,19 +1963,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType = Literal[
     "object",
 ]
 
 
 class AgentToolInputRunSchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class AgentToolInputRunSchema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2010,7 +2010,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KWV652D81DT9073XPDK0P9B3"
+    id: Optional[str] = "01KWYNGD3BY7SPDBQFG818X1DT"
 
     description: Optional[str] = None
 
@@ -2082,7 +2082,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2096,7 +2096,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2129,7 +2129,7 @@ class MCPToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
     "json_schema",
 ]
 
@@ -2215,7 +2215,7 @@ class AgentToolInputRunJSONSchema(BaseModel):
 class JSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2229,7 +2229,7 @@ class JSONSchemaToolRunTypedDict(TypedDict):
 class JSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2262,12 +2262,12 @@ class JSONSchemaToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
     "function",
 ]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2276,7 +2276,7 @@ r"""The type must be \"object\" """
 class RunAgentAgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2292,7 +2292,7 @@ class RunAgentAgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2354,7 +2354,7 @@ class AgentToolInputRunFunction(BaseModel):
 class FunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     function: AgentToolInputRunFunctionTypedDict
@@ -2367,7 +2367,7 @@ class FunctionToolRunTypedDict(TypedDict):
 class FunctionToolRun(BaseModel):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2401,10 +2401,10 @@ class FunctionToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["code",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal["code",]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2413,7 +2413,7 @@ r"""The type must be \"object\" """
 class AgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2429,7 +2429,7 @@ class AgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2487,7 +2487,7 @@ class CodeTool(BaseModel):
 class CodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2501,7 +2501,7 @@ class CodeToolRunTypedDict(TypedDict):
 class CodeToolRun(BaseModel):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2534,7 +2534,7 @@ class CodeToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal["http",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["http",]
 
 
 AgentToolInputRunMethod = Literal[
@@ -2628,7 +2628,7 @@ class Blueprint(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType = Literal[
     "string",
     "number",
     "boolean",
@@ -2645,7 +2645,7 @@ r"""The default value of the argument."""
 
 
 class ArgumentsTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -2656,7 +2656,7 @@ class ArgumentsTypedDict(TypedDict):
 
 
 class Arguments(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -2719,7 +2719,7 @@ class HTTP(BaseModel):
 class HTTPToolRunTypedDict(TypedDict):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2733,7 +2733,7 @@ class HTTPToolRunTypedDict(TypedDict):
 class HTTPToolRun(BaseModel):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2752,6 +2752,49 @@ class HTTPToolRun(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+    "code_interpreter",
+]
+
+
+class AgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class AgentToolInputRunCodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3243,6 +3286,7 @@ AgentToolInputRunTypedDict = TypeAliasType(
         AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
         AgentToolInputRunQueryKnowledgeBaseToolTypedDict,
         AgentToolInputRunCurrentDateToolTypedDict,
+        AgentToolInputRunCodeInterpreterToolTypedDict,
         HTTPToolRunTypedDict,
         CodeToolRunTypedDict,
         FunctionToolRunTypedDict,
@@ -3272,6 +3316,7 @@ AgentToolInputRun = Annotated[
         ],
         Annotated[AgentToolInputRunQueryKnowledgeBaseTool, Tag("query_knowledge_base")],
         Annotated[AgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[AgentToolInputRunCodeInterpreterTool, Tag("code_interpreter")],
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],
@@ -3388,6 +3433,8 @@ class RunAgentSettingsTypedDict(TypedDict):
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     evaluators: NotRequired[List[RunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[RunAgentGuardrailsTypedDict]]
@@ -3410,6 +3457,9 @@ class RunAgentSettings(BaseModel):
     max_cost: Optional[float] = 0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     evaluators: Optional[List[RunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3425,6 +3475,7 @@ class RunAgentSettings(BaseModel):
                 "max_iterations",
                 "max_execution_time",
                 "max_cost",
+                "chat_exposed",
                 "evaluators",
                 "guardrails",
             ]

@@ -1,15 +1,15 @@
 # UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
 
-MCP tool type
+JSON Schema tool type
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
-value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = "mcp"
+value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = "json_schema"
 ```
 
 
 ## Values
 
-- `"mcp"`
+- `"json_schema"`

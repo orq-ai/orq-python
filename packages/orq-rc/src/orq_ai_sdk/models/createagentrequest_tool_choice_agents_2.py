@@ -1657,7 +1657,7 @@ class ProviderBuiltInTool(BaseModel):
         return m
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type = (
     Literal["mcp",]
 )
 r"""MCP tool type"""
@@ -1669,7 +1669,7 @@ class MCPToolTypedDict(TypedDict):
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type
     ]
     r"""MCP tool type"""
     key: NotRequired[str]
@@ -1687,7 +1687,7 @@ class MCPTool(BaseModel):
     r"""The ID of the specific nested tool within the MCP server"""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools17Type
     ] = "mcp"
     r"""MCP tool type"""
 
@@ -1717,7 +1717,7 @@ class MCPTool(BaseModel):
         return m
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = (
     Literal["json_schema",]
 )
 r"""JSON Schema tool type"""
@@ -1727,7 +1727,7 @@ class JSONSchemaToolTypedDict(TypedDict):
     r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
 
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ]
     r"""JSON Schema tool type"""
     key: NotRequired[str]
@@ -1742,7 +1742,7 @@ class JSONSchemaTool(BaseModel):
     r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ] = "json_schema"
     r"""JSON Schema tool type"""
 
@@ -1772,7 +1772,7 @@ class JSONSchemaTool(BaseModel):
         return m
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = (
     Literal["function",]
 )
 r"""Function tool type"""
@@ -1782,7 +1782,7 @@ class FunctionToolTypedDict(TypedDict):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     ]
     r"""Function tool type"""
     key: NotRequired[str]
@@ -1797,7 +1797,7 @@ class FunctionTool(BaseModel):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     ] = "function"
     r"""Function tool type"""
 
@@ -1827,7 +1827,7 @@ class FunctionTool(BaseModel):
         return m
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = (
     Literal["code",]
 )
 r"""Code execution tool type"""
@@ -1837,7 +1837,7 @@ class CodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
     ]
     r"""Code execution tool type"""
     key: NotRequired[str]
@@ -1852,7 +1852,7 @@ class CodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
     ] = "code"
     r"""Code execution tool type"""
 
@@ -1882,7 +1882,7 @@ class CodeExecutionTool(BaseModel):
         return m
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = (
     Literal["http",]
 )
 r"""HTTP tool type"""
@@ -1892,7 +1892,7 @@ class HTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
     ]
     r"""HTTP tool type"""
     key: NotRequired[str]
@@ -1907,7 +1907,7 @@ class HTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
     ] = "http"
     r"""HTTP tool type"""
 
@@ -1923,6 +1923,53 @@ class HTTPTool(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = (
+    Literal["code_interpreter",]
+)
+
+
+class CodeInterpreterToolTypedDict(TypedDict):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: (
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    )
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class CodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: (
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    )
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2414,7 +2461,7 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
     "AgentToolInputCRUDTypedDict",
     Union[
         RetrieveKnowledgeBasesToolTypedDict,
-        QueryKnowledgeBaseToolTypedDict,
+        CurrentDateToolTypedDict,
         CallSubAgentToolTypedDict,
         RetrieveAgentsToolTypedDict,
         QueryMemoryStoreToolTypedDict,
@@ -2422,8 +2469,9 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
         RetrieveMemoryStoresToolTypedDict,
         DeleteMemoryDocumentToolTypedDict,
         WebScraperToolTypedDict,
-        CurrentDateToolTypedDict,
         GoogleSearchToolTypedDict,
+        QueryKnowledgeBaseToolTypedDict,
+        CodeInterpreterToolTypedDict,
         ProviderBuiltInToolTypedDict,
         CodeExecutionToolTypedDict,
         FunctionToolTypedDict,
@@ -2439,7 +2487,7 @@ AgentToolInputCRUD = TypeAliasType(
     "AgentToolInputCRUD",
     Union[
         RetrieveKnowledgeBasesTool,
-        QueryKnowledgeBaseTool,
+        CurrentDateTool,
         CallSubAgentTool,
         RetrieveAgentsTool,
         QueryMemoryStoreTool,
@@ -2447,8 +2495,9 @@ AgentToolInputCRUD = TypeAliasType(
         RetrieveMemoryStoresTool,
         DeleteMemoryDocumentTool,
         WebScraperTool,
-        CurrentDateTool,
         GoogleSearchTool,
+        QueryKnowledgeBaseTool,
+        CodeInterpreterTool,
         ProviderBuiltInTool,
         CodeExecutionTool,
         FunctionTool,
@@ -2557,6 +2606,8 @@ class CreateAgentRequestSettingsTypedDict(TypedDict):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[CreateAgentRequestToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[AgentToolInputCRUDTypedDict]]
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
     evaluators: NotRequired[List[CreateAgentRequestEvaluatorsTypedDict]]
@@ -2582,6 +2633,9 @@ class CreateAgentRequestSettings(BaseModel):
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     tools: Optional[List[AgentToolInputCRUD]] = None
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
@@ -2599,6 +2653,7 @@ class CreateAgentRequestSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",
@@ -3093,6 +3148,8 @@ class CreateAgentRequestAgentsSettingsTypedDict(TypedDict):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[CreateAgentRequestAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[CreateAgentRequestToolsTypedDict]]
     evaluators: NotRequired[List[CreateAgentRequestAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
@@ -3115,6 +3172,9 @@ class CreateAgentRequestAgentsSettings(BaseModel):
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     tools: Optional[List[CreateAgentRequestTools]] = None
 
     evaluators: Optional[List[CreateAgentRequestAgentsEvaluators]] = None
@@ -3131,6 +3191,7 @@ class CreateAgentRequestAgentsSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",
@@ -3374,30 +3435,6 @@ class CreateAgentRequestToolChoiceAgents2(BaseModel):
                     m[k] = val
 
         return m
-
-
-CreateAgentRequestToolChoiceAgents1 = Literal[
-    "none",
-    "auto",
-    "required",
-]
-
-
-CreateAgentRequestToolChoiceTypedDict = TypeAliasType(
-    "CreateAgentRequestToolChoiceTypedDict",
-    Union[
-        CreateAgentRequestToolChoiceAgents2TypedDict,
-        CreateAgentRequestToolChoiceAgents1,
-    ],
-)
-r"""Controls which (if any) tool is called by the model."""
-
-
-CreateAgentRequestToolChoice = TypeAliasType(
-    "CreateAgentRequestToolChoice",
-    Union[CreateAgentRequestToolChoiceAgents2, CreateAgentRequestToolChoiceAgents1],
-)
-r"""Controls which (if any) tool is called by the model."""
 
 
 try:

@@ -71,6 +71,12 @@ value: models.AgentToolInputCRUDQueryKnowledgeBaseTool = /* values here */
 value: models.AgentToolInputCRUDCurrentDateTool = /* values here */
 ```
 
+### `models.AgentToolInputCRUDCodeInterpreterTool`
+
+```python
+value: models.AgentToolInputCRUDCodeInterpreterTool = /* values here */
+```
+
 ### `models.AgentToolInputCRUDHTTPTool`
 
 ```python

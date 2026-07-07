@@ -71,6 +71,12 @@ value: models.AgentToolInputRunQueryKnowledgeBaseTool = /* values here */
 value: models.AgentToolInputRunCurrentDateTool = /* values here */
 ```
 
+### `models.AgentToolInputRunCodeInterpreterTool`
+
+```python
+value: models.AgentToolInputRunCodeInterpreterTool = /* values here */
+```
+
 ### `models.HTTPToolRun`
 
 ```python

@@ -826,10 +826,68 @@ class ToolsMCPTool(BaseModel):
         return m
 
 
+class ToolsFilesTypedDict(TypedDict):
+    file_id: str
+    r"""The workspace file ID."""
+    name: str
+    r"""The file name exposed under /workspace."""
+
+
+class ToolsFiles(BaseModel):
+    file_id: str
+    r"""The workspace file ID."""
+
+    name: str
+    r"""The file name exposed under /workspace."""
+
+
+ToolsMode = Literal[
+    "disabled",
+    "allowlist",
+]
+r"""Network mode. Defaults to disabled."""
+
+
+class NetworkTypedDict(TypedDict):
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
+    allowlist: NotRequired[List[str]]
+    r"""Allowed network hostnames or IPv4 addresses when mode is allowlist. Maximum 50 entries."""
+    mode: NotRequired[ToolsMode]
+    r"""Network mode. Defaults to disabled."""
+
+
+class Network(BaseModel):
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
+    allowlist: Optional[List[str]] = None
+    r"""Allowed network hostnames or IPv4 addresses when mode is allowlist. Maximum 50 entries."""
+
+    mode: Optional[ToolsMode] = "disabled"
+    r"""Network mode. Defaults to disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["allowlist", "mode"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRouterResponseToolsResponsesType = Literal[
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
+    "orq:code_interpreter",
     "orq:mcp",
     "orq:http",
     "orq:function",
@@ -842,6 +900,10 @@ class OrqAiToolTypedDict(TypedDict):
 
     type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
+    files: NotRequired[List[ToolsFilesTypedDict]]
+    r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
+    network: NotRequired[NetworkTypedDict]
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
@@ -852,12 +914,18 @@ class OrqAiTool(BaseModel):
     type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
 
+    files: Optional[List[ToolsFiles]] = None
+    r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
+
+    network: Optional[Network] = None
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
     tool_id: Optional[str] = None
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["tool_id"])
+        optional_fields = set(["files", "network", "tool_id"])
         serialized = handler(self)
         m = {}
 
@@ -999,6 +1067,7 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:current_date")],
         Annotated[OrqAiTool, Tag("orq:google_search")],
         Annotated[OrqAiTool, Tag("orq:web_scraper")],
+        Annotated[OrqAiTool, Tag("orq:code_interpreter")],
         Annotated[OrqAiTool, Tag("orq:mcp")],
         Annotated[OrqAiTool, Tag("orq:http")],
         Annotated[OrqAiTool, Tag("orq:function")],

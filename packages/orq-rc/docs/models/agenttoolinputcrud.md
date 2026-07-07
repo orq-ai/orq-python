@@ -71,6 +71,12 @@ value: models.QueryKnowledgeBaseTool = /* values here */
 value: models.CurrentDateTool = /* values here */
 ```
 
+### `models.CodeInterpreterTool`
+
+```python
+value: models.CodeInterpreterTool = /* values here */
+```
+
 ### `models.HTTPTool`
 
 ```python
