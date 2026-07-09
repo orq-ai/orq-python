@@ -256,6 +256,7 @@ if TYPE_CHECKING:
         CheckBudgetsResponseTypedDict,
     )
     from .cleardatasetop import ClearDatasetRequest, ClearDatasetRequestTypedDict
+    from .config import Config, ConfigTypedDict
     from .conversationparam import ConversationParam, ConversationParamTypedDict
     from .create_agent_scheduleop import (
         CreateAgentScheduleRequest,
@@ -8661,6 +8662,8 @@ __all__ = [
     "CompletionTokensDetailsTypedDict",
     "Conditions",
     "ConditionsTypedDict",
+    "Config",
+    "ConfigTypedDict",
     "Configuration",
     "ConfigurationTypedDict",
     "ConnectionType",
@@ -16314,6 +16317,8 @@ _dynamic_imports: dict[str, str] = {
     "CheckBudgetsResponseTypedDict": ".checkbudgetsresponse",
     "ClearDatasetRequest": ".cleardatasetop",
     "ClearDatasetRequestTypedDict": ".cleardatasetop",
+    "Config": ".config",
+    "ConfigTypedDict": ".config",
     "ConversationParam": ".conversationparam",
     "ConversationParamTypedDict": ".conversationparam",
     "CreateAgentScheduleRequest": ".create_agent_scheduleop",
