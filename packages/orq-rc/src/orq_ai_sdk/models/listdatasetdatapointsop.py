@@ -42,7 +42,7 @@ class ListDatasetDatapointsRequestTypedDict(TypedDict):
     dataset_id: str
     r"""The unique identifier of the dataset"""
     limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
@@ -59,7 +59,7 @@ class ListDatasetDatapointsRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 10
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
 
     starting_after: Annotated[
         Optional[str],
@@ -843,7 +843,7 @@ class ListDatasetDatapointsEvaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-09T12:21:39.677Z")
+    ] = parse_datetime("2026-07-10T05:18:22.592Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -998,7 +998,7 @@ class ListDatasetDatapointsEvaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-09T12:21:39.676Z")
+    ] = parse_datetime("2026-07-10T05:18:22.591Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1143,7 +1143,7 @@ class ListDatasetDatapointsEvaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-09T12:21:39.675Z")
+    ] = parse_datetime("2026-07-10T05:18:22.590Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1252,7 +1252,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-07-09T12:21:06.371Z")
+    updated: Optional[datetime] = parse_datetime("2026-07-10T05:18:08.396Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

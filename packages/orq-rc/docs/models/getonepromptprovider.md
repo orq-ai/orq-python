@@ -44,5 +44,6 @@ value: GetOnePromptProvider = "openai"
 - `"wafer"`
 - `"poolside"`
 - `"tencent"`
+- `"reson8"`
 - `"slack"`
 - `"orq"`

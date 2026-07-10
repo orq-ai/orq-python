@@ -102,7 +102,7 @@ class Python(BaseModel):
         return m
 
 
-LLMOutputType = Literal[
+OneOutputType = Literal[
     "boolean",
     "categorical",
     "number",
@@ -111,15 +111,15 @@ LLMOutputType = Literal[
 r"""The type of output expected from the evaluator"""
 
 
-CreateEvalLLMType = Literal["llm_eval",]
+CreateEval1Type = Literal["llm_eval",]
 
 
-class CreateEvalLLMCategoricalLabelsTypedDict(TypedDict):
+class CreateEval1CategoricalLabelsTypedDict(TypedDict):
     value: str
     description: NotRequired[str]
 
 
-class CreateEvalLLMCategoricalLabels(BaseModel):
+class CreateEval1CategoricalLabels(BaseModel):
     value: str
 
     description: Optional[str] = None
@@ -141,15 +141,15 @@ class CreateEvalLLMCategoricalLabels(BaseModel):
         return m
 
 
-CreateEvalLLMMode = Literal["jury",]
+CreateEval1Mode = Literal["jury",]
 
 
-class LLMRetryTypedDict(TypedDict):
+class OneRetryTypedDict(TypedDict):
     count: NotRequired[int]
     on_codes: NotRequired[List[int]]
 
 
-class LLMRetry(BaseModel):
+class OneRetry(BaseModel):
     count: Optional[int] = 2
 
     on_codes: Optional[List[int]] = None
@@ -171,26 +171,26 @@ class LLMRetry(BaseModel):
         return m
 
 
-class LLMFallbacksTypedDict(TypedDict):
+class OneFallbacksTypedDict(TypedDict):
     model: str
 
 
-class LLMFallbacks(BaseModel):
+class OneFallbacks(BaseModel):
     model: str
 
 
-class LLMJudgesTypedDict(TypedDict):
+class OneJudgesTypedDict(TypedDict):
     model: str
-    retry: NotRequired[LLMRetryTypedDict]
-    fallbacks: NotRequired[List[LLMFallbacksTypedDict]]
+    retry: NotRequired[OneRetryTypedDict]
+    fallbacks: NotRequired[List[OneFallbacksTypedDict]]
 
 
-class LLMJudges(BaseModel):
+class OneJudges(BaseModel):
     model: str
 
-    retry: Optional[LLMRetry] = None
+    retry: Optional[OneRetry] = None
 
-    fallbacks: Optional[List[LLMFallbacks]] = None
+    fallbacks: Optional[List[OneFallbacks]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -209,12 +209,12 @@ class LLMJudges(BaseModel):
         return m
 
 
-class CreateEvalLLMRetryTypedDict(TypedDict):
+class CreateEval1RetryTypedDict(TypedDict):
     count: NotRequired[int]
     on_codes: NotRequired[List[int]]
 
 
-class CreateEvalLLMRetry(BaseModel):
+class CreateEval1Retry(BaseModel):
     count: Optional[int] = 2
 
     on_codes: Optional[List[int]] = None
@@ -236,26 +236,26 @@ class CreateEvalLLMRetry(BaseModel):
         return m
 
 
-class CreateEvalLLMFallbacksTypedDict(TypedDict):
+class CreateEval1FallbacksTypedDict(TypedDict):
     model: str
 
 
-class CreateEvalLLMFallbacks(BaseModel):
+class CreateEval1Fallbacks(BaseModel):
     model: str
 
 
-class LLMReplacementJudgesTypedDict(TypedDict):
+class OneReplacementJudgesTypedDict(TypedDict):
     model: str
-    retry: NotRequired[CreateEvalLLMRetryTypedDict]
-    fallbacks: NotRequired[List[CreateEvalLLMFallbacksTypedDict]]
+    retry: NotRequired[CreateEval1RetryTypedDict]
+    fallbacks: NotRequired[List[CreateEval1FallbacksTypedDict]]
 
 
-class LLMReplacementJudges(BaseModel):
+class OneReplacementJudges(BaseModel):
     model: str
 
-    retry: Optional[CreateEvalLLMRetry] = None
+    retry: Optional[CreateEval1Retry] = None
 
-    fallbacks: Optional[List[CreateEvalLLMFallbacks]] = None
+    fallbacks: Optional[List[CreateEval1Fallbacks]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -274,24 +274,24 @@ class LLMReplacementJudges(BaseModel):
         return m
 
 
-LLMTieValue = Literal["Tie",]
+OneTieValue = Literal["Tie",]
 
 
-class LLMJuryTypedDict(TypedDict):
-    judges: List[LLMJudgesTypedDict]
-    replacement_judges: NotRequired[List[LLMReplacementJudgesTypedDict]]
+class OneJuryTypedDict(TypedDict):
+    judges: List[OneJudgesTypedDict]
+    replacement_judges: NotRequired[List[OneReplacementJudgesTypedDict]]
     min_successful_judges: NotRequired[int]
-    tie_value: NotRequired[LLMTieValue]
+    tie_value: NotRequired[OneTieValue]
 
 
-class LLMJury(BaseModel):
-    judges: List[LLMJudges]
+class OneJury(BaseModel):
+    judges: List[OneJudges]
 
-    replacement_judges: Optional[List[LLMReplacementJudges]] = None
+    replacement_judges: Optional[List[OneReplacementJudges]] = None
 
     min_successful_judges: Optional[int] = 2
 
-    tie_value: Optional[LLMTieValue] = "Tie"
+    tie_value: Optional[OneTieValue] = "Tie"
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -312,8 +312,8 @@ class LLMJury(BaseModel):
         return m
 
 
-class Llm2TypedDict(TypedDict):
-    type: CreateEvalLLMType
+class LLMJuryTypedDict(TypedDict):
+    type: CreateEval1Type
     prompt: str
     path: str
     r"""Entity storage path.
@@ -323,22 +323,22 @@ class Llm2TypedDict(TypedDict):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     key: str
-    mode: CreateEvalLLMMode
-    jury: LLMJuryTypedDict
+    mode: CreateEval1Mode
+    jury: OneJuryTypedDict
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[LLMOutputType]
+    output_type: NotRequired[OneOutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[
-        Nullable[List[CreateEvalLLMCategoricalLabelsTypedDict]]
+        Nullable[List[CreateEval1CategoricalLabelsTypedDict]]
     ]
     dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
-class Llm2(BaseModel):
-    type: CreateEvalLLMType
+class LLMJury(BaseModel):
+    type: CreateEval1Type
 
     prompt: str
 
@@ -352,20 +352,20 @@ class Llm2(BaseModel):
 
     key: str
 
-    mode: CreateEvalLLMMode
+    mode: CreateEval1Mode
 
-    jury: LLMJury
+    jury: OneJury
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[LLMOutputType] = None
+    output_type: Optional[OneOutputType] = None
     r"""The type of output expected from the evaluator"""
 
     repetitions: OptionalNullable[int] = UNSET
 
     categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: OptionalNullable[List[CreateEvalLLMCategoricalLabels]] = UNSET
+    categorical_labels: OptionalNullable[List[CreateEval1CategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -407,7 +407,7 @@ class Llm2(BaseModel):
         return m
 
 
-CreateEvalLLMOutputType = Literal[
+CreateEval1OutputType = Literal[
     "boolean",
     "categorical",
     "number",
@@ -416,15 +416,15 @@ CreateEvalLLMOutputType = Literal[
 r"""The type of output expected from the evaluator"""
 
 
-LLMType = Literal["llm_eval",]
+OneType = Literal["llm_eval",]
 
 
-class LLMCategoricalLabelsTypedDict(TypedDict):
+class OneCategoricalLabelsTypedDict(TypedDict):
     value: str
     description: NotRequired[str]
 
 
-class LLMCategoricalLabels(BaseModel):
+class OneCategoricalLabels(BaseModel):
     value: str
 
     description: Optional[str] = None
@@ -446,11 +446,11 @@ class LLMCategoricalLabels(BaseModel):
         return m
 
 
-LLMMode = Literal["single",]
+OneMode = Literal["single",]
 
 
-class Llm1TypedDict(TypedDict):
-    type: LLMType
+class LlmTypedDict(TypedDict):
+    type: OneType
     prompt: str
     path: str
     r"""Entity storage path.
@@ -460,20 +460,20 @@ class Llm1TypedDict(TypedDict):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     key: str
-    mode: LLMMode
+    mode: OneMode
     model: str
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[CreateEvalLLMOutputType]
+    output_type: NotRequired[CreateEval1OutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
-    categorical_labels: NotRequired[Nullable[List[LLMCategoricalLabelsTypedDict]]]
+    categorical_labels: NotRequired[Nullable[List[OneCategoricalLabelsTypedDict]]]
     dataset_id: NotRequired[str]
     description: NotRequired[str]
 
 
-class Llm1(BaseModel):
-    type: LLMType
+class Llm(BaseModel):
+    type: OneType
 
     prompt: str
 
@@ -487,20 +487,20 @@ class Llm1(BaseModel):
 
     key: str
 
-    mode: LLMMode
+    mode: OneMode
 
     model: str
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[CreateEvalLLMOutputType] = None
+    output_type: Optional[CreateEval1OutputType] = None
     r"""The type of output expected from the evaluator"""
 
     repetitions: OptionalNullable[int] = UNSET
 
     categories: OptionalNullable[List[str]] = UNSET
 
-    categorical_labels: OptionalNullable[List[LLMCategoricalLabels]] = UNSET
+    categorical_labels: OptionalNullable[List[OneCategoricalLabels]] = UNSET
 
     dataset_id: Optional[str] = None
 
@@ -542,21 +542,25 @@ class Llm1(BaseModel):
         return m
 
 
-LlmTypedDict = TypeAliasType("LlmTypedDict", Union[Llm1TypedDict, Llm2TypedDict])
+RequestBody1TypedDict = TypeAliasType(
+    "RequestBody1TypedDict", Union[LlmTypedDict, LLMJuryTypedDict]
+)
 
 
-Llm = Annotated[
-    Union[Annotated[Llm1, Tag("single")], Annotated[Llm2, Tag("jury")]],
+RequestBody1 = Annotated[
+    Union[Annotated[Llm, Tag("single")], Annotated[LLMJury, Tag("jury")]],
     Discriminator(lambda m: get_discriminator(m, "mode", "mode")),
 ]
 
 
 CreateEvalRequestBodyTypedDict = TypeAliasType(
-    "CreateEvalRequestBodyTypedDict", Union[PythonTypedDict, LlmTypedDict]
+    "CreateEvalRequestBodyTypedDict", Union[PythonTypedDict, RequestBody1TypedDict]
 )
 
 
-CreateEvalRequestBody = TypeAliasType("CreateEvalRequestBody", Union[Python, Llm])
+CreateEvalRequestBody = TypeAliasType(
+    "CreateEvalRequestBody", Union[Python, RequestBody1]
+)
 
 
 class CreateEvalEvalsResponseBodyData(BaseModel):

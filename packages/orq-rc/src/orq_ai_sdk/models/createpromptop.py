@@ -2160,6 +2160,7 @@ CreatePromptProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "reson8",
     "slack",
     "orq",
 ]

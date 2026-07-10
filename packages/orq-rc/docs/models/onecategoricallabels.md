@@ -1,4 +1,4 @@
-# LLMCategoricalLabels
+# OneCategoricalLabels
 
 
 ## Fields

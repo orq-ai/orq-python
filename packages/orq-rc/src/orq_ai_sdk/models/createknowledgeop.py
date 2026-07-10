@@ -223,7 +223,7 @@ class RetrievalSettings(BaseModel):
         return m
 
 
-class RequestBody1TypedDict(TypedDict):
+class CreateKnowledgeRequestBody1TypedDict(TypedDict):
     key: str
     embedding_model: str
     r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
@@ -240,7 +240,7 @@ class RequestBody1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class RequestBody1(BaseModel):
+class CreateKnowledgeRequestBody1(BaseModel):
     key: str
 
     embedding_model: str
@@ -280,12 +280,12 @@ class RequestBody1(BaseModel):
 
 CreateKnowledgeRequestBodyTypedDict = TypeAliasType(
     "CreateKnowledgeRequestBodyTypedDict",
-    Union[RequestBody2TypedDict, RequestBody1TypedDict],
+    Union[RequestBody2TypedDict, CreateKnowledgeRequestBody1TypedDict],
 )
 
 
 CreateKnowledgeRequestBody = TypeAliasType(
-    "CreateKnowledgeRequestBody", Union[RequestBody2, RequestBody1]
+    "CreateKnowledgeRequestBody", Union[RequestBody2, CreateKnowledgeRequestBody1]
 )
 
 

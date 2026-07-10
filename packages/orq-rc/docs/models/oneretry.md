@@ -1,8 +1,9 @@
-# CreateEvalLLMFallbacks
+# OneRetry
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `model`            | *str*              | :heavy_check_mark: | N/A                |
+| `count`            | *Optional[int]*    | :heavy_minus_sign: | N/A                |
+| `on_codes`         | List[*int*]        | :heavy_minus_sign: | N/A                |
