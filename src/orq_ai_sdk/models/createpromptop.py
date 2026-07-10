@@ -2142,6 +2142,7 @@ CreatePromptProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -2157,6 +2158,8 @@ CreatePromptProvider = Literal[
     "hcompany",
     "inceptron",
     "wafer",
+    "poolside",
+    "tencent",
     "slack",
     "orq",
 ]

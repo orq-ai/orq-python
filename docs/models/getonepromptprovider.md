@@ -26,6 +26,7 @@ value: GetOnePromptProvider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
+- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`
@@ -41,5 +42,7 @@ value: GetOnePromptProvider = "openai"
 - `"hcompany"`
 - `"inceptron"`
 - `"wafer"`
+- `"poolside"`
+- `"tencent"`
 - `"slack"`
 - `"orq"`

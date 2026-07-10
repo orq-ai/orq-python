@@ -52,6 +52,7 @@ python:
   constFieldCasing: upper
   defaultErrorName: APIError
   description: Python Client SDK for the Orq API.
+  durationFormat: false
   enableCustomCodeRegions: false
   enumFormat: union
   envVarPrefix: ORQ
@@ -100,3 +101,4 @@ python:
   sseFlatResponse: false
   templateVersion: v2
   useAsyncHooks: false
+  uuidFormat: false

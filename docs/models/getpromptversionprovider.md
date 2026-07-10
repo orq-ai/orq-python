@@ -26,6 +26,7 @@ value: GetPromptVersionProvider = "openai"
 - `"nvidia"`
 - `"jina"`
 - `"elevenlabs"`
+- `"litellm"`
 - `"cerebras"`
 - `"openailike"`
 - `"bytedance"`
@@ -41,5 +42,7 @@ value: GetPromptVersionProvider = "openai"
 - `"hcompany"`
 - `"inceptron"`
 - `"wafer"`
+- `"poolside"`
+- `"tencent"`
 - `"slack"`
 - `"orq"`

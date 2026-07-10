@@ -2167,6 +2167,7 @@ DeploymentStreamProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -2182,6 +2183,8 @@ DeploymentStreamProvider = Literal[
     "hcompany",
     "inceptron",
     "wafer",
+    "poolside",
+    "tencent",
     "slack",
     "orq",
 ]

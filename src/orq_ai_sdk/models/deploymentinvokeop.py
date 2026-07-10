@@ -40,6 +40,7 @@ Provider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -55,6 +56,8 @@ Provider = Literal[
     "hcompany",
     "inceptron",
     "wafer",
+    "poolside",
+    "tencent",
     "slack",
     "orq",
 ]

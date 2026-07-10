@@ -2240,6 +2240,7 @@ UpdatePromptProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -2255,6 +2256,8 @@ UpdatePromptProvider = Literal[
     "hcompany",
     "inceptron",
     "wafer",
+    "poolside",
+    "tencent",
     "slack",
     "orq",
 ]

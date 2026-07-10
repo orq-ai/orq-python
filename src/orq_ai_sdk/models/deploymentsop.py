@@ -702,6 +702,7 @@ DeploymentsProvider = Literal[
     "nvidia",
     "jina",
     "elevenlabs",
+    "litellm",
     "cerebras",
     "openailike",
     "bytedance",
@@ -717,6 +718,8 @@ DeploymentsProvider = Literal[
     "hcompany",
     "inceptron",
     "wafer",
+    "poolside",
+    "tencent",
     "slack",
     "orq",
 ]
