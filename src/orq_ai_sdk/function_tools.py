@@ -370,7 +370,7 @@ def _is_model_like(annotation: Any) -> bool:
     if dataclasses.is_dataclass(annotation):
         return True
     try:
-        from pydantic import BaseModel
+        from pydantic import BaseModel  # pylint: disable=import-outside-toplevel
     except ImportError:
         return False
     return inspect.isclass(annotation) and issubclass(annotation, BaseModel)
