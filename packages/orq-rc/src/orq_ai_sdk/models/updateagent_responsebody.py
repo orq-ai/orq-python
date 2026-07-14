@@ -126,6 +126,7 @@ UpdateAgentModalities = Literal[
 
 UpdateAgentIDAgentsResponse1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -884,6 +885,7 @@ UpdateAgentFallbackModelConfigurationAgentsModalities = Literal[
 
 UpdateAgentIDAgentsResponse2001 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

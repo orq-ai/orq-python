@@ -360,6 +360,7 @@ StreamRunAgentModelConfigurationModalities = Literal[
 
 StreamRunAgentID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1169,6 +1170,7 @@ StreamRunAgentFallbackModelConfigurationModalities = Literal[
 
 StreamRunAgentIDAgents1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -2107,7 +2109,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KXGR4KANC6GN1ZC9QCJ25VM8"
+    id: Optional[str] = "01KXH5Z3C6FHMYDCQDFYDHDCZ9"
 
     description: Optional[str] = None
 

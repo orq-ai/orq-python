@@ -954,6 +954,7 @@ UpdatePromptModalities = Literal[
 
 UpdatePromptID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -2952,6 +2953,7 @@ UpdatePromptPromptsModalities = Literal[
 
 UpdatePromptIDPrompts1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

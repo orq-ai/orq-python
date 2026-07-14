@@ -298,6 +298,7 @@ RunAgentModelConfigurationModalities = Literal[
 
 RunAgentID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1097,6 +1098,7 @@ RunAgentFallbackModelConfigurationModalities = Literal[
 
 RunAgentIDAgents1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -2010,7 +2012,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KXGR4K8X0V1EW1B62AH6RASC"
+    id: Optional[str] = "01KXH5Z3AEC555Q62BMJTAGVZ0"
 
     description: Optional[str] = None
 
