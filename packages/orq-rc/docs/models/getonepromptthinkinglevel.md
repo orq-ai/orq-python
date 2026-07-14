@@ -6,12 +6,13 @@ The level of thinking to use for the model. Only supported by `Google AI`
 
 ```python
 from orq_ai_sdk.models import GetOnePromptThinkingLevel
-value: GetOnePromptThinkingLevel = "low"
+value: GetOnePromptThinkingLevel = "minimal"
 ```
 
 
 ## Values
 
+- `"minimal"`
 - `"low"`
 - `"medium"`
 - `"high"`

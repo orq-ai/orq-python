@@ -264,6 +264,9 @@ class Budgets(BaseSDK):
         rate_limit: Optional[Union[models.RateLimit, models.RateLimitTypedDict]] = None,
         is_active: Optional[bool] = None,
         expires_at: Optional[datetime] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -287,6 +290,8 @@ class Budgets(BaseSDK):
             when omitted (handler enforces).
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
+        :param alerts: Optional threshold notifications. Ids are assigned by the server, so
+            `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -312,6 +317,7 @@ class Budgets(BaseSDK):
             rate_limit=utils.get_pydantic_model(rate_limit, Optional[models.RateLimit]),
             is_active=is_active,
             expires_at=expires_at,
+            alerts=utils.get_pydantic_model(alerts, Optional[List[models.BudgetAlert]]),
         )
 
         req = self._build_request(
@@ -389,6 +395,9 @@ class Budgets(BaseSDK):
         rate_limit: Optional[Union[models.RateLimit, models.RateLimitTypedDict]] = None,
         is_active: Optional[bool] = None,
         expires_at: Optional[datetime] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -412,6 +421,8 @@ class Budgets(BaseSDK):
             when omitted (handler enforces).
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
+        :param alerts: Optional threshold notifications. Ids are assigned by the server, so
+            `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -437,6 +448,7 @@ class Budgets(BaseSDK):
             rate_limit=utils.get_pydantic_model(rate_limit, Optional[models.RateLimit]),
             is_active=is_active,
             expires_at=expires_at,
+            alerts=utils.get_pydantic_model(alerts, Optional[List[models.BudgetAlert]]),
         )
 
         req = self._build_request_async(
@@ -1099,6 +1111,10 @@ class Budgets(BaseSDK):
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         match: Optional[Union[models.BudgetMatch, models.BudgetMatchTypedDict]] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
+        clear_alerts: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1118,6 +1134,9 @@ class Budgets(BaseSDK):
         :param match: New matching expression. Only valid for dynamic budgets (no
             structured scope) — the scope of a scoped budget is immutable, so
             its derived expression is too. Validated via CEL parse.
+        :param alerts: Replaces the alert list wholesale. Omit to keep the current alerts.
+            An entry with a known `id` is edited in place; one with no id is minted.
+        :param clear_alerts: Force-clear every alert. Mutually exclusive with a non-empty `alerts`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1147,6 +1166,10 @@ class Budgets(BaseSDK):
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
                 match=utils.get_pydantic_model(match, Optional[models.BudgetMatch]),
+                alerts=utils.get_pydantic_model(
+                    alerts, Optional[List[models.BudgetAlert]]
+                ),
+                clear_alerts=clear_alerts,
             ),
         )
 
@@ -1222,6 +1245,10 @@ class Budgets(BaseSDK):
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         match: Optional[Union[models.BudgetMatch, models.BudgetMatchTypedDict]] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
+        clear_alerts: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1241,6 +1268,9 @@ class Budgets(BaseSDK):
         :param match: New matching expression. Only valid for dynamic budgets (no
             structured scope) — the scope of a scoped budget is immutable, so
             its derived expression is too. Validated via CEL parse.
+        :param alerts: Replaces the alert list wholesale. Omit to keep the current alerts.
+            An entry with a known `id` is edited in place; one with no id is minted.
+        :param clear_alerts: Force-clear every alert. Mutually exclusive with a non-empty `alerts`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1270,6 +1300,10 @@ class Budgets(BaseSDK):
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
                 match=utils.get_pydantic_model(match, Optional[models.BudgetMatch]),
+                alerts=utils.get_pydantic_model(
+                    alerts, Optional[List[models.BudgetAlert]]
+                ),
+                clear_alerts=clear_alerts,
             ),
         )
 

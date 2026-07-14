@@ -1,5 +1,7 @@
 # CreateRouterResponseFormatType
 
+The type of response format being defined. Always `json_schema`.
+
 ## Example Usage
 
 ```python

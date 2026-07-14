@@ -224,6 +224,8 @@ if TYPE_CHECKING:
         AzureFoundryDeploymentMasterDataTypedDict,
     )
     from .budget import Budget, BudgetTypedDict
+    from .budgetalert import BudgetAlert, BudgetAlertTypedDict
+    from .budgetalertdimension import BudgetAlertDimension
     from .budgetdeleteop import BudgetDeleteRequest, BudgetDeleteRequestTypedDict
     from .budgetgetconsumptionop import (
         BudgetGetConsumptionRequest,
@@ -328,8 +330,6 @@ if TYPE_CHECKING:
         CreateRouterResponseType,
         FormatJSONSchema,
         FormatJSONSchemaTypedDict,
-        FormatSchema,
-        FormatSchemaTypedDict,
         FormatType,
         Image,
         ImageTypedDict,
@@ -5588,6 +5588,15 @@ if TYPE_CHECKING:
         QueryReportResponseObject,
         QueryReportResponseTypedDict,
     )
+    from .querytelemetrymeta import QueryTelemetryMeta, QueryTelemetryMetaTypedDict
+    from .querytelemetryrequest import (
+        QueryTelemetryRequest,
+        QueryTelemetryRequestTypedDict,
+    )
+    from .querytelemetryresponse import (
+        QueryTelemetryResponse,
+        QueryTelemetryResponseTypedDict,
+    )
     from .querytracesrequest import QueryTracesRequest, QueryTracesRequestTypedDict
     from .querytracesresponse import QueryTracesResponse, QueryTracesResponseTypedDict
     from .ratelimit import RateLimit, RateLimitTypedDict
@@ -6986,6 +6995,7 @@ if TYPE_CHECKING:
         StreamRunAgentToolChoiceType,
     )
     from .telemetry import Telemetry, TelemetryTypedDict
+    from .telemetryrow import TelemetryRow, TelemetryRowTypedDict
     from .textcontentpartschema import (
         CacheControl,
         CacheControlTypedDict,
@@ -8583,6 +8593,9 @@ __all__ = [
     "Boolean",
     "BooleanTypedDict",
     "Budget",
+    "BudgetAlert",
+    "BudgetAlertDimension",
+    "BudgetAlertTypedDict",
     "BudgetDeleteRequest",
     "BudgetDeleteRequestTypedDict",
     "BudgetGetConsumptionRequest",
@@ -11301,8 +11314,6 @@ __all__ = [
     "FormatOptionsCurrency",
     "FormatOptionsStyle",
     "FormatOptionsTypedDict",
-    "FormatSchema",
-    "FormatSchemaTypedDict",
     "FormatType",
     "Four",
     "FourTypedDict",
@@ -13400,6 +13411,12 @@ __all__ = [
     "QueryReportResponse",
     "QueryReportResponseObject",
     "QueryReportResponseTypedDict",
+    "QueryTelemetryMeta",
+    "QueryTelemetryMetaTypedDict",
+    "QueryTelemetryRequest",
+    "QueryTelemetryRequestTypedDict",
+    "QueryTelemetryResponse",
+    "QueryTelemetryResponseTypedDict",
     "QueryTracesRequest",
     "QueryTracesRequestTypedDict",
     "QueryTracesResponse",
@@ -14799,6 +14816,8 @@ __all__ = [
     "TeamOfAgents",
     "TeamOfAgentsTypedDict",
     "Telemetry",
+    "TelemetryRow",
+    "TelemetryRowTypedDict",
     "TelemetryTypedDict",
     "TemplateEngine",
     "Ten",
@@ -16280,6 +16299,9 @@ _dynamic_imports: dict[str, str] = {
     "AzureFoundryDeploymentMasterDataTypedDict": ".azurefoundrydeploymentmasterdata",
     "Budget": ".budget",
     "BudgetTypedDict": ".budget",
+    "BudgetAlert": ".budgetalert",
+    "BudgetAlertTypedDict": ".budgetalert",
+    "BudgetAlertDimension": ".budgetalertdimension",
     "BudgetDeleteRequest": ".budgetdeleteop",
     "BudgetDeleteRequestTypedDict": ".budgetdeleteop",
     "BudgetGetConsumptionRequest": ".budgetgetconsumptionop",
@@ -16388,8 +16410,6 @@ _dynamic_imports: dict[str, str] = {
     "CreateRouterResponseType": ".create_router_responseop",
     "FormatJSONSchema": ".create_router_responseop",
     "FormatJSONSchemaTypedDict": ".create_router_responseop",
-    "FormatSchema": ".create_router_responseop",
-    "FormatSchemaTypedDict": ".create_router_responseop",
     "FormatType": ".create_router_responseop",
     "Image": ".create_router_responseop",
     "ImageTypedDict": ".create_router_responseop",
@@ -21381,6 +21401,12 @@ _dynamic_imports: dict[str, str] = {
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
+    "QueryTelemetryMeta": ".querytelemetrymeta",
+    "QueryTelemetryMetaTypedDict": ".querytelemetrymeta",
+    "QueryTelemetryRequest": ".querytelemetryrequest",
+    "QueryTelemetryRequestTypedDict": ".querytelemetryrequest",
+    "QueryTelemetryResponse": ".querytelemetryresponse",
+    "QueryTelemetryResponseTypedDict": ".querytelemetryresponse",
     "QueryTracesRequest": ".querytracesrequest",
     "QueryTracesRequestTypedDict": ".querytracesrequest",
     "QueryTracesResponse": ".querytracesresponse",
@@ -22647,6 +22673,8 @@ _dynamic_imports: dict[str, str] = {
     "StreamRunAgentToolChoiceType": ".streamrunagentop",
     "Telemetry": ".telemetry",
     "TelemetryTypedDict": ".telemetry",
+    "TelemetryRow": ".telemetryrow",
+    "TelemetryRowTypedDict": ".telemetryrow",
     "CacheControl": ".textcontentpartschema",
     "CacheControlTypedDict": ".textcontentpartschema",
     "TTL": ".textcontentpartschema",

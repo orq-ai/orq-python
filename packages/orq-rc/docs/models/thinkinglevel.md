@@ -6,12 +6,13 @@ The level of reasoning the model should use. This setting is supported only by `
 
 ```python
 from orq_ai_sdk.models import ThinkingLevel
-value: ThinkingLevel = "low"
+value: ThinkingLevel = "minimal"
 ```
 
 
 ## Values
 
+- `"minimal"`
 - `"low"`
 - `"medium"`
 - `"high"`

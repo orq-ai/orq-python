@@ -17,6 +17,8 @@ class Notifiers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        search: Optional[str] = None,
+        type_: Optional[Iterable[models.NotifierType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,6 +32,8 @@ class Notifiers(BaseSDK):
         :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
         :param project_id: Restrict results to one project. Must be a project the caller is authorized for.
+        :param search: Optional. Case-insensitive substring match on the notifier name.
+        :param type: Optional. Restrict results to these notifier types.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -53,6 +57,8 @@ class Notifiers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            search=search,
+            type=utils.unmarshal(type_, Optional[List[models.NotifierType]]),
         )
 
         req = self._build_request(
@@ -133,6 +139,8 @@ class Notifiers(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        search: Optional[str] = None,
+        type_: Optional[Iterable[models.NotifierType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -146,6 +154,8 @@ class Notifiers(BaseSDK):
         :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
         :param project_id: Restrict results to one project. Must be a project the caller is authorized for.
+        :param search: Optional. Case-insensitive substring match on the notifier name.
+        :param type: Optional. Restrict results to these notifier types.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -169,6 +179,8 @@ class Notifiers(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            search=search,
+            type=utils.unmarshal(type_, Optional[List[models.NotifierType]]),
         )
 
         req = self._build_request_async(

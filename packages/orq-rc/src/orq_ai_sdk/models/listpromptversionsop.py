@@ -403,6 +403,7 @@ r"""Controls the verbosity of the model output."""
 
 
 ListPromptVersionsThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -640,6 +641,7 @@ ListPromptVersionsProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
     "reson8",
     "slack",
     "orq",

@@ -10,6 +10,7 @@ from typing_extensions import TypedDict
 
 ModelsConfigMode = Literal[
     "fallback",
+    "latency_based",
     "weighted",
     "round_robin",
 ]

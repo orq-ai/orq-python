@@ -46,6 +46,7 @@ value: DeploymentStreamProvider = "openai"
 - `"wafer"`
 - `"poolside"`
 - `"tencent"`
+- `"nebius"`
 - `"reson8"`
 - `"slack"`
 - `"orq"`

@@ -2708,6 +2708,7 @@ r"""Controls the verbosity of the model output."""
 
 
 DeploymentGetConfigThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",

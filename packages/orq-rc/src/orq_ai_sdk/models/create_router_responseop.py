@@ -570,41 +570,42 @@ TemplateEngine = Literal[
 r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
 
 
-class FormatSchemaTypedDict(TypedDict):
-    r"""The JSON Schema the output must conform to."""
-
-
-class FormatSchema(BaseModel):
-    r"""The JSON Schema the output must conform to."""
-
-
 CreateRouterResponseFormatType = Literal["json_schema",]
+r"""The type of response format being defined. Always `json_schema`."""
 
 
 class FormatJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    schema_: Dict[str, Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
     type: CreateRouterResponseFormatType
+    r"""The type of response format being defined. Always `json_schema`."""
     description: NotRequired[str]
-    name: NotRequired[str]
-    schema_: NotRequired[FormatSchemaTypedDict]
-    r"""The JSON Schema the output must conform to."""
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field."""
 
 
 class FormatJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object."""
+
     type: CreateRouterResponseFormatType
+    r"""The type of response format being defined. Always `json_schema`."""
 
     description: Optional[str] = None
-
-    name: Optional[str] = None
-
-    schema_: Annotated[Optional[FormatSchema], pydantic.Field(alias="schema")] = None
-    r"""The JSON Schema the output must conform to."""
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
 
     strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "name", "schema", "strict"])
+        optional_fields = set(["description", "strict"])
         serialized = handler(self)
         m = {}
 

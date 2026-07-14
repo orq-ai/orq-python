@@ -396,6 +396,7 @@ r"""Controls the verbosity of the model output."""
 
 
 GetAllPromptsThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -631,6 +632,7 @@ GetAllPromptsProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
     "reson8",
     "slack",
     "orq",

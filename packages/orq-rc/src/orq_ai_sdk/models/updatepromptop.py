@@ -2020,6 +2020,7 @@ r"""Controls the verbosity of the model output."""
 
 
 UpdatePromptThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -2258,6 +2259,7 @@ UpdatePromptProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
     "reson8",
     "slack",
     "orq",

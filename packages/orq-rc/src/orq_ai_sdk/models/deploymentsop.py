@@ -488,6 +488,7 @@ r"""Controls the verbosity of the model output."""
 
 
 DeploymentsThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -720,6 +721,7 @@ DeploymentsProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
     "reson8",
     "slack",
     "orq",
