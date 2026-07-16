@@ -1326,7 +1326,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     top_logprobs: int
     top_p: float
     truncation: CreateRouterResponseTruncation
-    usage: PublicUsageTypedDict
+    usage: Nullable[PublicUsageTypedDict]
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
@@ -1407,7 +1407,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     truncation: CreateRouterResponseTruncation
 
-    usage: PublicUsage
+    usage: Nullable[PublicUsage]
 
     user: Nullable[str]
 
@@ -1436,6 +1436,7 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "reasoning",
                 "safety_identifier",
                 "tools",
+                "usage",
                 "user",
             ]
         )

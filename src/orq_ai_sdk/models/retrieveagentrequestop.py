@@ -2080,8 +2080,6 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
-    skills: List[str]
-    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -2097,6 +2095,8 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: NotRequired[List[RetrieveAgentRequestTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    skills: NotRequired[List[str]]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     metrics: NotRequired[RetrieveAgentRequestMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -2131,9 +2131,6 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
-    skills: List[str]
-    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
-
     role: str
 
     description: str
@@ -2160,6 +2157,9 @@ class RetrieveAgentRequestResponseBody(BaseModel):
 
     team_of_agents: Optional[List[RetrieveAgentRequestTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    skills: Optional[List[str]] = None
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     metrics: Optional[RetrieveAgentRequestMetrics] = None
 
@@ -2192,6 +2192,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "version",
                 "memory_stores",
                 "team_of_agents",
+                "skills",
                 "metrics",
                 "variables",
                 "knowledge_bases",

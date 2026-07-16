@@ -56,10 +56,10 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     background: bool
     completed_at: Nullable[int]
     created_at: int
-    error: ResponseErrorTypedDict
+    error: Nullable[ResponseErrorTypedDict]
     frequency_penalty: float
     id: str
-    incomplete_details: IncompleteDetailsTypedDict
+    incomplete_details: Nullable[IncompleteDetailsTypedDict]
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
     instructions: Nullable[str]
@@ -77,7 +77,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     previous_response_id: Nullable[str]
     prompt_cache_key: Nullable[str]
     prompt_cache_retention: Nullable[str]
-    reasoning: ReasoningTypedDict
+    reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
     service_tier: RetrieveResponseServiceTier
     status: RetrieveResponseStatus
@@ -92,7 +92,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     top_logprobs: int
     top_p: float
     truncation: RetrieveResponseTruncation
-    usage: PublicUsageTypedDict
+    usage: Nullable[PublicUsageTypedDict]
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
@@ -108,13 +108,13 @@ class RetrieveResponseResponseBody(BaseModel):
 
     created_at: int
 
-    error: ResponseError
+    error: Nullable[ResponseError]
 
     frequency_penalty: float
 
     id: str
 
-    incomplete_details: IncompleteDetails
+    incomplete_details: Nullable[IncompleteDetails]
 
     input: Nullable[List[Any]]
     r"""Array of input items (messages, function call outputs, etc.)"""
@@ -146,7 +146,7 @@ class RetrieveResponseResponseBody(BaseModel):
 
     prompt_cache_retention: Nullable[str]
 
-    reasoning: Reasoning
+    reasoning: Nullable[Reasoning]
 
     safety_identifier: Nullable[str]
 
@@ -173,7 +173,7 @@ class RetrieveResponseResponseBody(BaseModel):
 
     truncation: RetrieveResponseTruncation
 
-    usage: PublicUsage
+    usage: Nullable[PublicUsage]
 
     user: Nullable[str]
 
@@ -189,6 +189,8 @@ class RetrieveResponseResponseBody(BaseModel):
         nullable_fields = set(
             [
                 "completed_at",
+                "error",
+                "incomplete_details",
                 "input",
                 "instructions",
                 "max_output_tokens",
@@ -197,8 +199,10 @@ class RetrieveResponseResponseBody(BaseModel):
                 "previous_response_id",
                 "prompt_cache_key",
                 "prompt_cache_retention",
+                "reasoning",
                 "safety_identifier",
                 "tools",
+                "usage",
                 "user",
             ]
         )
