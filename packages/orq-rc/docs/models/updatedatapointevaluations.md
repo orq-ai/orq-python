@@ -21,3 +21,9 @@ value: models.UpdateDatapointEvaluations2 = /* values here */
 value: models.UpdateDatapointEvaluations3 = /* values here */
 ```
 
+### `models.UpdateDatapointEvaluations4`
+
+```python
+value: models.UpdateDatapointEvaluations4 = /* values here */
+```
+

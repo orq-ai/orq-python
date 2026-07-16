@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import ListDatasetDatapointsEvaluationsDatasetsType
-value: ListDatasetDatapointsEvaluationsDatasetsType = "string_array"
+value: ListDatasetDatapointsEvaluationsDatasetsType = "boolean"
 ```
 
 
 ## Values
 
-- `"string_array"`
+- `"boolean"`
