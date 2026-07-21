@@ -49,7 +49,7 @@ class ToolTypedDict(TypedDict):
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[ConditionsTypedDict]]
     timeout: NotRequired[float]
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class Tool(BaseModel):
@@ -76,8 +76,8 @@ class Tool(BaseModel):
 
     conditions: Optional[List[Conditions]] = None
 
-    timeout: Optional[float] = 120
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

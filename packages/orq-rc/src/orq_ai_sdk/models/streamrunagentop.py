@@ -2109,7 +2109,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KXN9FFYEBPAE11VQR76E5MMW"
+    id: Optional[str] = "01KY13Z35302WCNZEWE8V61EQ1"
 
     description: Optional[str] = None
 
@@ -2601,6 +2601,8 @@ class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
 
 
 class AgentToolInputRunCodeToolRun(BaseModel):
@@ -2622,9 +2624,12 @@ class AgentToolInputRunCodeToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2702,6 +2707,8 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class AgentToolInputRunBlueprint(BaseModel):
@@ -2719,9 +2726,12 @@ class AgentToolInputRunBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2842,6 +2852,8 @@ class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class AgentToolInputRunHTTPToolRun(BaseModel):
@@ -2863,9 +2875,12 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -3393,23 +3408,23 @@ class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
 StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
     "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
-        StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
-        StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
+        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
         StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict,
         StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict,
         StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict,
         StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict,
-        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
-        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
         StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict,
+        StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
         StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict,
-        AgentToolInputRunHTTPToolRunTypedDict,
-        AgentToolInputRunCodeToolRunTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
         AgentToolInputRunJSONSchemaToolRunTypedDict,
         AgentToolInputRunMCPToolRunTypedDict,
+        AgentToolInputRunHTTPToolRunTypedDict,
+        AgentToolInputRunCodeToolRunTypedDict,
     ],
 )
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""

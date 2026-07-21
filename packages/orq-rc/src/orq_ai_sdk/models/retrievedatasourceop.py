@@ -10,8 +10,8 @@ from orq_ai_sdk.types import (
 )
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
-from pydantic import model_serializer
-from typing import Literal, Optional
+from pydantic import ConfigDict, model_serializer
+from typing import Any, Dict, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -43,6 +43,82 @@ RetrieveDatasourceStatus = Literal[
 ]
 
 
+class RetrieveDatasourceMetadataTypedDict(TypedDict):
+    words_count: NotRequired[float]
+    r"""Number of words in the text"""
+    sentences_count: NotRequired[float]
+    r"""Number of sentences in the text"""
+    paragraphs_count: NotRequired[float]
+    r"""Number of paragraphs in the text"""
+    tokens_count: NotRequired[float]
+    r"""Number of tokens in the text"""
+    characters_count: NotRequired[float]
+    r"""Number of characters in the text"""
+    chunks_count: NotRequired[float]
+    r"""Number of total chunks"""
+
+
+class RetrieveDatasourceMetadata(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    words_count: Optional[float] = None
+    r"""Number of words in the text"""
+
+    sentences_count: Optional[float] = None
+    r"""Number of sentences in the text"""
+
+    paragraphs_count: Optional[float] = None
+    r"""Number of paragraphs in the text"""
+
+    tokens_count: Optional[float] = None
+    r"""Number of tokens in the text"""
+
+    characters_count: Optional[float] = None
+    r"""Number of characters in the text"""
+
+    chunks_count: Optional[float] = None
+    r"""Number of total chunks"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "words_count",
+                "sentences_count",
+                "paragraphs_count",
+                "tokens_count",
+                "characters_count",
+                "chunks_count",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            serialized.pop(k, serialized.pop(n, None))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+        for k, v in serialized.items():
+            m[k] = v
+
+        return m
+
+
 class RetrieveDatasourceResponseBodyTypedDict(TypedDict):
     r"""Datasource successfully retrieved"""
 
@@ -57,6 +133,7 @@ class RetrieveDatasourceResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the knowledge base"""
     chunks_count: float
     r"""The number of chunks in the datasource"""
+    metadata: RetrieveDatasourceMetadataTypedDict
     id: NotRequired[str]
     r"""The unique identifier of the data source"""
     description: NotRequired[Nullable[str]]
@@ -89,8 +166,10 @@ class RetrieveDatasourceResponseBody(BaseModel):
     chunks_count: float
     r"""The number of chunks in the datasource"""
 
+    metadata: RetrieveDatasourceMetadata
+
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KXN9FG87SMB7CV2FAWQEA0XZ"
+        "01KY13Z3K0DDYY9ZD9SY7NM5QA"
     )
     r"""The unique identifier of the data source"""
 

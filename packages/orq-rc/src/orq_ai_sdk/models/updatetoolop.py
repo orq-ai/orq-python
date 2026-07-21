@@ -292,7 +292,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KXN9FG4FPZR9459SR60ASREV"
+    id: Optional[str] = "01KY13Z3DJ05NF7NTAVDW4B46Q"
 
     description: Optional[str] = None
 
@@ -530,6 +530,8 @@ class UpdateToolRequestBodyBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class UpdateToolRequestBodyBlueprint(BaseModel):
@@ -547,9 +549,12 @@ class UpdateToolRequestBodyBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -1357,7 +1362,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG4899A61A23BAPRDQ17"
+        "tool_01KY13Z3D7DEXVEYS1QMSCV53K"
     )
 
     display_name: Optional[str] = None
@@ -1488,7 +1493,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KXN9FG47KKMFNY2QG665JKWC"
+    id: Optional[str] = "01KY13Z3D5MGBAATQ2B0KSPAT3"
 
     description: Optional[str] = None
 
@@ -1632,7 +1637,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG45DSCGMRBX43VK9BMM"
+        "tool_01KY13Z3D3YZ5EJH0VYX4XW8KW"
     )
 
     display_name: Optional[str] = None
@@ -1745,6 +1750,8 @@ class UpdateToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class UpdateToolResponseBodyBlueprint(BaseModel):
@@ -1762,9 +1769,12 @@ class UpdateToolResponseBodyBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -1932,7 +1942,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG43WJNTMCRDRGPB7K5A"
+        "tool_01KY13Z3CZQ37A8BCWTRH40KQV"
     )
 
     display_name: Optional[str] = None
@@ -2126,7 +2136,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG41HNGW8NFFEVYTQKC7"
+        "tool_01KY13Z3CXXZXVB1GACPGPMWFW"
     )
 
     display_name: Optional[str] = None
@@ -2324,7 +2334,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG40HXY17GFPMSQMP42Z"
+        "tool_01KY13Z3CTTRGRQ4892HMYS4Z5"
     )
 
     display_name: Optional[str] = None

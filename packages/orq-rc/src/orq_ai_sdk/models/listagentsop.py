@@ -232,7 +232,7 @@ class ListAgentsToolsTypedDict(TypedDict):
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[ListAgentsConditionsTypedDict]]
     timeout: NotRequired[float]
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class ListAgentsTools(BaseModel):
@@ -259,8 +259,8 @@ class ListAgentsTools(BaseModel):
 
     conditions: Optional[List[ListAgentsConditions]] = None
 
-    timeout: Optional[float] = 120
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2063,8 +2063,6 @@ class ListAgentsDataTypedDict(TypedDict):
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
-    skills: List[str]
-    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     role: str
     description: str
     instructions: str
@@ -2080,6 +2078,8 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: NotRequired[List[ListAgentsTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    skills: NotRequired[List[str]]
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
     metrics: NotRequired[ListAgentsMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -2110,9 +2110,6 @@ class ListAgentsData(BaseModel):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
-    skills: List[str]
-    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
-
     role: str
 
     description: str
@@ -2139,6 +2136,9 @@ class ListAgentsData(BaseModel):
 
     team_of_agents: Optional[List[ListAgentsTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    skills: Optional[List[str]] = None
+    r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
     metrics: Optional[ListAgentsMetrics] = None
 
@@ -2171,6 +2171,7 @@ class ListAgentsData(BaseModel):
                 "version",
                 "memory_stores",
                 "team_of_agents",
+                "skills",
                 "metrics",
                 "variables",
                 "knowledge_bases",

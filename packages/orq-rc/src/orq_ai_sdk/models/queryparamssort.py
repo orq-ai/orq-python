@@ -7,34 +7,19 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class BudgetRejectionTypedDict(TypedDict):
-    r"""BudgetRejection identifies the budget that caused a 429."""
-
-    scope_kind: NotRequired[str]
-    scope_target_id: NotRequired[str]
-    dimension: NotRequired[str]
-    code: NotRequired[str]
-    message: NotRequired[str]
+class QueryParamsSortTypedDict(TypedDict):
+    key: NotRequired[str]
+    direction: NotRequired[str]
 
 
-class BudgetRejection(BaseModel):
-    r"""BudgetRejection identifies the budget that caused a 429."""
+class QueryParamsSort(BaseModel):
+    key: Optional[str] = None
 
-    scope_kind: Optional[str] = None
-
-    scope_target_id: Optional[str] = None
-
-    dimension: Optional[str] = None
-
-    code: Optional[str] = None
-
-    message: Optional[str] = None
+    direction: Optional[str] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["scope_kind", "scope_target_id", "dimension", "code", "message"]
-        )
+        optional_fields = set(["key", "direction"])
         serialized = handler(self)
         m = {}
 

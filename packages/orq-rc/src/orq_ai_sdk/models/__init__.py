@@ -237,7 +237,6 @@ if TYPE_CHECKING:
     from .budgetlistop import BudgetListRequest, BudgetListRequestTypedDict
     from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
     from .budgetperiod import BudgetPeriod
-    from .budgetrejection import BudgetRejection, BudgetRejectionTypedDict
     from .budgetresetconsumptionop import (
         BudgetResetConsumptionRequest,
         BudgetResetConsumptionRequestTypedDict,
@@ -247,19 +246,13 @@ if TYPE_CHECKING:
     from .budgetsortfield import BudgetSortField
     from .budgetupdateop import BudgetUpdateRequest, BudgetUpdateRequestTypedDict
     from .budgetusage import BudgetUsage, BudgetUsageTypedDict
-    from .checkbudgetsrequest import (
-        CheckBudgetsRequest,
-        CheckBudgetsRequestTypedDict,
-        Metadata,
-        MetadataTypedDict,
-    )
-    from .checkbudgetsresponse import (
-        CheckBudgetsResponse,
-        CheckBudgetsResponseTypedDict,
-    )
     from .cleardatasetop import ClearDatasetRequest, ClearDatasetRequestTypedDict
     from .config import Config, ConfigTypedDict
     from .conversationparam import ConversationParam, ConversationParamTypedDict
+    from .countwebhooksresponse import (
+        CountWebhooksResponse,
+        CountWebhooksResponseTypedDict,
+    )
     from .create_agent_scheduleop import (
         CreateAgentScheduleRequest,
         CreateAgentScheduleRequestBody,
@@ -336,6 +329,7 @@ if TYPE_CHECKING:
         InputContent,
         InputContentTypedDict,
         InputRole,
+        InputStatus,
         InputType,
         Network,
         NetworkTypedDict,
@@ -1442,6 +1436,8 @@ if TYPE_CHECKING:
         ChunkingOptions,
         ChunkingOptionsTypedDict,
         CreateDatasourceChunkingConfigurationType,
+        CreateDatasourceMetadata,
+        CreateDatasourceMetadataTypedDict,
         CreateDatasourceRequest,
         CreateDatasourceRequestBody,
         CreateDatasourceRequestBodyTypedDict,
@@ -2419,6 +2415,11 @@ if TYPE_CHECKING:
         ResponseBodyWords,
         ResponseBodyWordsTypedDict,
     )
+    from .createwebhookrequest import (
+        CreateWebhookRequest,
+        CreateWebhookRequestContentType,
+        CreateWebhookRequestTypedDict,
+    )
     from .datapart import DataPart, DataPartKind, DataPartTypedDict
     from .datapoint import DataPoint, DataPointTypedDict
     from .delete_agent_scheduleop import (
@@ -2516,6 +2517,10 @@ if TYPE_CHECKING:
     )
     from .deleteskillresponse import DeleteSkillResponse, DeleteSkillResponseTypedDict
     from .deletetoolop import DeleteToolRequest, DeleteToolRequestTypedDict
+    from .deletewebhookresponse import (
+        DeleteWebhookResponse,
+        DeleteWebhookResponseTypedDict,
+    )
     from .deploymentgetconfigop import (
         DeploymentGetConfig1DeploymentsEq,
         DeploymentGetConfig1DeploymentsEqTypedDict,
@@ -3139,7 +3144,6 @@ if TYPE_CHECKING:
     )
     from .detectrequest import DetectRequest, DetectRequestTypedDict
     from .detectresponse import DetectResponse, DetectResponseTypedDict
-    from .dimensioninfo import DimensionInfo, DimensionInfoTypedDict
     from .domain import Domain, DomainTypedDict
     from .embeddingcacheconfig import (
         EmbeddingCacheConfig,
@@ -3385,6 +3389,10 @@ if TYPE_CHECKING:
     from .filepurpose import FilePurpose
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
     from .filter_ import FieldT, Filter, FilterTypedDict, Op
+    from .generatewebhooksecretresponse import (
+        GenerateWebhookSecretResponse,
+        GenerateWebhookSecretResponseTypedDict,
+    )
     from .get_v2_evaluators_id_versionsop import (
         GetV2EvaluatorsIDVersionsData,
         GetV2EvaluatorsIDVersionsDataTypedDict,
@@ -4214,9 +4222,9 @@ if TYPE_CHECKING:
         Identity,
         IdentityBudget,
         IdentityBudgetTypedDict,
-        IdentityMetadata,
-        IdentityMetadataTypedDict,
         IdentityTypedDict,
+        Metadata,
+        MetadataTypedDict,
     )
     from .identitybudgetscope import IdentityBudgetScope, IdentityBudgetScopeTypedDict
     from .identitymetrics import IdentityMetrics, IdentityMetricsTypedDict
@@ -4893,8 +4901,12 @@ if TYPE_CHECKING:
         ListDatasetsResponseBodyTypedDict,
     )
     from .listdatasourcesop import (
+        DatasourceMetadataValue,
+        DatasourceMetadataValueTypedDict,
         ListDatasourcesData,
         ListDatasourcesDataTypedDict,
+        ListDatasourcesMetadata,
+        ListDatasourcesMetadataTypedDict,
         ListDatasourcesObject,
         ListDatasourcesRequest,
         ListDatasourcesRequestTypedDict,
@@ -5152,6 +5164,10 @@ if TYPE_CHECKING:
     from .listtracespansresponse import (
         ListTraceSpansResponse,
         ListTraceSpansResponseTypedDict,
+    )
+    from .listwebhooksresponse import (
+        ListWebhooksResponse,
+        ListWebhooksResponseTypedDict,
     )
     from .litellmmodel import LiteLLMModel, LiteLLMModelTypedDict
     from .litellmmodelinfo import LiteLLMModelInfo, LiteLLMModelInfoTypedDict
@@ -5599,6 +5615,11 @@ if TYPE_CHECKING:
         PublicSchedulePayloadTypedDict,
     )
     from .publicusage import PublicUsage, PublicUsageTypedDict
+    from .queryparamspagination import (
+        QueryParamsPagination,
+        QueryParamsPaginationTypedDict,
+    )
+    from .queryparamssort import QueryParamsSort, QueryParamsSortTypedDict
     from .queryreportrequest import (
         Grain,
         GroupBy,
@@ -5622,6 +5643,18 @@ if TYPE_CHECKING:
     )
     from .querytracesrequest import QueryTracesRequest, QueryTracesRequestTypedDict
     from .querytracesresponse import QueryTracesResponse, QueryTracesResponseTypedDict
+    from .querywebhooksrequest import (
+        Filters,
+        FiltersTypedDict,
+        Query,
+        QueryTypedDict,
+        QueryWebhooksRequest,
+        QueryWebhooksRequestTypedDict,
+    )
+    from .querywebhooksresponse import (
+        QueryWebhooksResponse,
+        QueryWebhooksResponseTypedDict,
+    )
     from .ratelimit import RateLimit, RateLimitTypedDict
     from .reasoning import (
         Reasoning,
@@ -6215,6 +6248,8 @@ if TYPE_CHECKING:
         RetrieveDatasetResponseBodyTypedDict,
     )
     from .retrievedatasourceop import (
+        RetrieveDatasourceMetadata,
+        RetrieveDatasourceMetadataTypedDict,
         RetrieveDatasourceRequest,
         RetrieveDatasourceRequestTypedDict,
         RetrieveDatasourceResponseBody,
@@ -7726,6 +7761,8 @@ if TYPE_CHECKING:
         UpdateDatasetResponseBodyTypedDict,
     )
     from .updatedatasourceop import (
+        UpdateDatasourceMetadata,
+        UpdateDatasourceMetadataTypedDict,
         UpdateDatasourceRequest,
         UpdateDatasourceRequestBody,
         UpdateDatasourceRequestBodyTypedDict,
@@ -8326,6 +8363,18 @@ if TYPE_CHECKING:
     from .vertexparameters import VertexParameters, VertexParametersTypedDict
     from .vertexparamrange import VertexParamRange, VertexParamRangeTypedDict
     from .vertexparamrangeint import VertexParamRangeInt, VertexParamRangeIntTypedDict
+    from .webhook import ContentType, Webhook, WebhookTypedDict
+    from .webhookdeleteop import WebhookDeleteRequest, WebhookDeleteRequestTypedDict
+    from .webhookgetop import WebhookGetRequest, WebhookGetRequestTypedDict
+    from .webhooklistop import WebhookListRequest, WebhookListRequestTypedDict
+    from .webhookupdateop import (
+        WebhookUpdateRequest,
+        WebhookUpdateRequestBody,
+        WebhookUpdateRequestBodyTypedDict,
+        WebhookUpdateRequestTypedDict,
+        WebhookUpdateResponseBody,
+        WebhookUpdateResponseBodyTypedDict,
+    )
     from .workspacebudgetscope import (
         WorkspaceBudgetScope,
         WorkspaceBudgetScopeTypedDict,
@@ -8652,8 +8701,6 @@ __all__ = [
     "BudgetMatch",
     "BudgetMatchTypedDict",
     "BudgetPeriod",
-    "BudgetRejection",
-    "BudgetRejectionTypedDict",
     "BudgetResetConsumptionRequest",
     "BudgetResetConsumptionRequestTypedDict",
     "BudgetScope",
@@ -8679,10 +8726,6 @@ __all__ = [
     "CategoryAppliedInputTypesTypedDict",
     "CategoryScores",
     "CategoryScoresTypedDict",
-    "CheckBudgetsRequest",
-    "CheckBudgetsRequestTypedDict",
-    "CheckBudgetsResponse",
-    "CheckBudgetsResponseTypedDict",
     "Choice",
     "ChoiceTypedDict",
     "Choices",
@@ -8726,11 +8769,14 @@ __all__ = [
     "Content",
     "Content2",
     "Content2TypedDict",
+    "ContentType",
     "ContentTypedDict",
     "Conversation",
     "ConversationParam",
     "ConversationParamTypedDict",
     "ConversationTypedDict",
+    "CountWebhooksResponse",
+    "CountWebhooksResponseTypedDict",
     "CreateAPIKeyRequest",
     "CreateAPIKeyRequestTypedDict",
     "CreateAPIKeyResponse",
@@ -9591,6 +9637,8 @@ __all__ = [
     "CreateDatasetResponseBody",
     "CreateDatasetResponseBodyTypedDict",
     "CreateDatasourceChunkingConfigurationType",
+    "CreateDatasourceMetadata",
+    "CreateDatasourceMetadataTypedDict",
     "CreateDatasourceRequest",
     "CreateDatasourceRequestBody",
     "CreateDatasourceRequestBodyTypedDict",
@@ -10395,6 +10443,9 @@ __all__ = [
     "CreateTranslationTimeout",
     "CreateTranslationTimeoutTypedDict",
     "CreateTranslationTimestampsGranularity",
+    "CreateWebhookRequest",
+    "CreateWebhookRequestContentType",
+    "CreateWebhookRequestTypedDict",
     "Created",
     "CreatedTypedDict",
     "Currency",
@@ -10459,6 +10510,8 @@ __all__ = [
     "DataToolsTypedDict",
     "DataType",
     "DataTypedDict",
+    "DatasourceMetadataValue",
+    "DatasourceMetadataValueTypedDict",
     "DefaultValue",
     "DefaultValueTypedDict",
     "DeleteAPIKeyResponse",
@@ -10529,6 +10582,8 @@ __all__ = [
     "DeleteToolRequestTypedDict",
     "DeleteV2HumanEvalSetsIDRequest",
     "DeleteV2HumanEvalSetsIDRequestTypedDict",
+    "DeleteWebhookResponse",
+    "DeleteWebhookResponseTypedDict",
     "Delta",
     "DeltaTypedDict",
     "DeploymentGetConfig1DeploymentsEq",
@@ -11100,8 +11155,6 @@ __all__ = [
     "DetectResponseTypedDict",
     "DeveloperMessage",
     "DeveloperMessageTypedDict",
-    "DimensionInfo",
-    "DimensionInfoTypedDict",
     "Dimensions",
     "DimensionsTypedDict",
     "Document",
@@ -11350,6 +11403,8 @@ __all__ = [
     "FilterByTypedDict",
     "FilterType",
     "FilterTypedDict",
+    "Filters",
+    "FiltersTypedDict",
     "FinishReason",
     "Five",
     "FiveTypedDict",
@@ -11378,6 +11433,8 @@ __all__ = [
     "FunctionToolRunTypedDict",
     "FunctionToolTypedDict",
     "FunctionTypedDict",
+    "GenerateWebhookSecretResponse",
+    "GenerateWebhookSecretResponseTypedDict",
     "GenericWebhookNotifier",
     "GenericWebhookNotifierCreateRequest",
     "GenericWebhookNotifierCreateRequestTypedDict",
@@ -12145,8 +12202,6 @@ __all__ = [
     "IdentityBudgetScope",
     "IdentityBudgetScopeTypedDict",
     "IdentityBudgetTypedDict",
-    "IdentityMetadata",
-    "IdentityMetadataTypedDict",
     "IdentityMetrics",
     "IdentityMetricsTypedDict",
     "IdentitySortField",
@@ -12178,6 +12233,7 @@ __all__ = [
     "InputMessage",
     "InputMessageTypedDict",
     "InputRole",
+    "InputStatus",
     "InputTokensDetails",
     "InputTokensDetailsTypedDict",
     "InputType",
@@ -12652,6 +12708,8 @@ __all__ = [
     "ListDatasetsResponseBodyTypedDict",
     "ListDatasourcesData",
     "ListDatasourcesDataTypedDict",
+    "ListDatasourcesMetadata",
+    "ListDatasourcesMetadataTypedDict",
     "ListDatasourcesObject",
     "ListDatasourcesRequest",
     "ListDatasourcesRequestTypedDict",
@@ -12878,6 +12936,8 @@ __all__ = [
     "ListTraceFieldsResponseTypedDict",
     "ListTraceSpansResponse",
     "ListTraceSpansResponseTypedDict",
+    "ListWebhooksResponse",
+    "ListWebhooksResponseTypedDict",
     "LiteLLMModel",
     "LiteLLMModelInfo",
     "LiteLLMModelInfoTypedDict",
@@ -13459,6 +13519,7 @@ __all__ = [
     "Python",
     "PythonTypedDict",
     "Quality",
+    "Query",
     "QueryKnowledgeBaseTool",
     "QueryKnowledgeBaseToolTypedDict",
     "QueryMemoryStoreTool",
@@ -13468,6 +13529,10 @@ __all__ = [
     "QueryParamStatus",
     "QueryParamStatusTypedDict",
     "QueryParamType",
+    "QueryParamsPagination",
+    "QueryParamsPaginationTypedDict",
+    "QueryParamsSort",
+    "QueryParamsSortTypedDict",
     "QueryReportRequest",
     "QueryReportRequestTypedDict",
     "QueryReportResponse",
@@ -13483,6 +13548,11 @@ __all__ = [
     "QueryTracesRequestTypedDict",
     "QueryTracesResponse",
     "QueryTracesResponseTypedDict",
+    "QueryTypedDict",
+    "QueryWebhooksRequest",
+    "QueryWebhooksRequestTypedDict",
+    "QueryWebhooksResponse",
+    "QueryWebhooksResponseTypedDict",
     "RagasMetric",
     "RateLimit",
     "RateLimitTypedDict",
@@ -14126,6 +14196,8 @@ __all__ = [
     "RetrieveDatasetRequestTypedDict",
     "RetrieveDatasetResponseBody",
     "RetrieveDatasetResponseBodyTypedDict",
+    "RetrieveDatasourceMetadata",
+    "RetrieveDatasourceMetadataTypedDict",
     "RetrieveDatasourceRequest",
     "RetrieveDatasourceRequestTypedDict",
     "RetrieveDatasourceResponseBody",
@@ -15599,6 +15671,8 @@ __all__ = [
     "UpdateDatasetRequestTypedDict",
     "UpdateDatasetResponseBody",
     "UpdateDatasetResponseBodyTypedDict",
+    "UpdateDatasourceMetadata",
+    "UpdateDatasourceMetadataTypedDict",
     "UpdateDatasourceRequest",
     "UpdateDatasourceRequestBody",
     "UpdateDatasourceRequestBodyTypedDict",
@@ -16175,6 +16249,20 @@ __all__ = [
     "VotesTypedDict",
     "WebScraperTool",
     "WebScraperToolTypedDict",
+    "Webhook",
+    "WebhookDeleteRequest",
+    "WebhookDeleteRequestTypedDict",
+    "WebhookGetRequest",
+    "WebhookGetRequestTypedDict",
+    "WebhookListRequest",
+    "WebhookListRequestTypedDict",
+    "WebhookTypedDict",
+    "WebhookUpdateRequest",
+    "WebhookUpdateRequestBody",
+    "WebhookUpdateRequestBodyTypedDict",
+    "WebhookUpdateRequestTypedDict",
+    "WebhookUpdateResponseBody",
+    "WebhookUpdateResponseBodyTypedDict",
     "Words",
     "WordsTypedDict",
     "WorkspaceBudgetScope",
@@ -16401,8 +16489,6 @@ _dynamic_imports: dict[str, str] = {
     "BudgetMatch": ".budgetmatch",
     "BudgetMatchTypedDict": ".budgetmatch",
     "BudgetPeriod": ".budgetperiod",
-    "BudgetRejection": ".budgetrejection",
-    "BudgetRejectionTypedDict": ".budgetrejection",
     "BudgetResetConsumptionRequest": ".budgetresetconsumptionop",
     "BudgetResetConsumptionRequestTypedDict": ".budgetresetconsumptionop",
     "BudgetScope": ".budgetscope",
@@ -16413,18 +16499,14 @@ _dynamic_imports: dict[str, str] = {
     "BudgetUpdateRequestTypedDict": ".budgetupdateop",
     "BudgetUsage": ".budgetusage",
     "BudgetUsageTypedDict": ".budgetusage",
-    "CheckBudgetsRequest": ".checkbudgetsrequest",
-    "CheckBudgetsRequestTypedDict": ".checkbudgetsrequest",
-    "Metadata": ".checkbudgetsrequest",
-    "MetadataTypedDict": ".checkbudgetsrequest",
-    "CheckBudgetsResponse": ".checkbudgetsresponse",
-    "CheckBudgetsResponseTypedDict": ".checkbudgetsresponse",
     "ClearDatasetRequest": ".cleardatasetop",
     "ClearDatasetRequestTypedDict": ".cleardatasetop",
     "Config": ".config",
     "ConfigTypedDict": ".config",
     "ConversationParam": ".conversationparam",
     "ConversationParamTypedDict": ".conversationparam",
+    "CountWebhooksResponse": ".countwebhooksresponse",
+    "CountWebhooksResponseTypedDict": ".countwebhooksresponse",
     "CreateAgentScheduleRequest": ".create_agent_scheduleop",
     "CreateAgentScheduleRequestBody": ".create_agent_scheduleop",
     "CreateAgentScheduleRequestBodyTypedDict": ".create_agent_scheduleop",
@@ -16498,6 +16580,7 @@ _dynamic_imports: dict[str, str] = {
     "InputContent": ".create_router_responseop",
     "InputContentTypedDict": ".create_router_responseop",
     "InputRole": ".create_router_responseop",
+    "InputStatus": ".create_router_responseop",
     "InputType": ".create_router_responseop",
     "Network": ".create_router_responseop",
     "NetworkTypedDict": ".create_router_responseop",
@@ -17580,6 +17663,8 @@ _dynamic_imports: dict[str, str] = {
     "ChunkingOptions": ".createdatasourceop",
     "ChunkingOptionsTypedDict": ".createdatasourceop",
     "CreateDatasourceChunkingConfigurationType": ".createdatasourceop",
+    "CreateDatasourceMetadata": ".createdatasourceop",
+    "CreateDatasourceMetadataTypedDict": ".createdatasourceop",
     "CreateDatasourceRequest": ".createdatasourceop",
     "CreateDatasourceRequestBody": ".createdatasourceop",
     "CreateDatasourceRequestBodyTypedDict": ".createdatasourceop",
@@ -18507,6 +18592,9 @@ _dynamic_imports: dict[str, str] = {
     "ResponseBodySegmentsTypedDict": ".createtranslationop",
     "ResponseBodyWords": ".createtranslationop",
     "ResponseBodyWordsTypedDict": ".createtranslationop",
+    "CreateWebhookRequest": ".createwebhookrequest",
+    "CreateWebhookRequestContentType": ".createwebhookrequest",
+    "CreateWebhookRequestTypedDict": ".createwebhookrequest",
     "DataPart": ".datapart",
     "DataPartKind": ".datapart",
     "DataPartTypedDict": ".datapart",
@@ -18578,6 +18666,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteSkillResponseTypedDict": ".deleteskillresponse",
     "DeleteToolRequest": ".deletetoolop",
     "DeleteToolRequestTypedDict": ".deletetoolop",
+    "DeleteWebhookResponse": ".deletewebhookresponse",
+    "DeleteWebhookResponseTypedDict": ".deletewebhookresponse",
     "DeploymentGetConfig1DeploymentsEq": ".deploymentgetconfigop",
     "DeploymentGetConfig1DeploymentsEqTypedDict": ".deploymentgetconfigop",
     "DeploymentGetConfig1DeploymentsIn": ".deploymentgetconfigop",
@@ -19195,8 +19285,6 @@ _dynamic_imports: dict[str, str] = {
     "DetectRequestTypedDict": ".detectrequest",
     "DetectResponse": ".detectresponse",
     "DetectResponseTypedDict": ".detectresponse",
-    "DimensionInfo": ".dimensioninfo",
-    "DimensionInfoTypedDict": ".dimensioninfo",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
     "EmbeddingCacheConfig": ".embeddingcacheconfig",
@@ -19420,6 +19508,8 @@ _dynamic_imports: dict[str, str] = {
     "Filter": ".filter_",
     "FilterTypedDict": ".filter_",
     "Op": ".filter_",
+    "GenerateWebhookSecretResponse": ".generatewebhooksecretresponse",
+    "GenerateWebhookSecretResponseTypedDict": ".generatewebhooksecretresponse",
     "GetV2EvaluatorsIDVersionsData": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsDataTypedDict": ".get_v2_evaluators_id_versionsop",
     "GetV2EvaluatorsIDVersionsEvalsResponseBody": ".get_v2_evaluators_id_versionsop",
@@ -20203,9 +20293,9 @@ _dynamic_imports: dict[str, str] = {
     "Identity": ".identity",
     "IdentityBudget": ".identity",
     "IdentityBudgetTypedDict": ".identity",
-    "IdentityMetadata": ".identity",
-    "IdentityMetadataTypedDict": ".identity",
     "IdentityTypedDict": ".identity",
+    "Metadata": ".identity",
+    "MetadataTypedDict": ".identity",
     "IdentityBudgetScope": ".identitybudgetscope",
     "IdentityBudgetScopeTypedDict": ".identitybudgetscope",
     "IdentityMetrics": ".identitymetrics",
@@ -20863,8 +20953,12 @@ _dynamic_imports: dict[str, str] = {
     "ListDatasetsRequestTypedDict": ".listdatasetsop",
     "ListDatasetsResponseBody": ".listdatasetsop",
     "ListDatasetsResponseBodyTypedDict": ".listdatasetsop",
+    "DatasourceMetadataValue": ".listdatasourcesop",
+    "DatasourceMetadataValueTypedDict": ".listdatasourcesop",
     "ListDatasourcesData": ".listdatasourcesop",
     "ListDatasourcesDataTypedDict": ".listdatasourcesop",
+    "ListDatasourcesMetadata": ".listdatasourcesop",
+    "ListDatasourcesMetadataTypedDict": ".listdatasourcesop",
     "ListDatasourcesObject": ".listdatasourcesop",
     "ListDatasourcesRequest": ".listdatasourcesop",
     "ListDatasourcesRequestTypedDict": ".listdatasourcesop",
@@ -21103,6 +21197,8 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceFieldsResponseTypedDict": ".listtracefieldsresponse",
     "ListTraceSpansResponse": ".listtracespansresponse",
     "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
+    "ListWebhooksResponse": ".listwebhooksresponse",
+    "ListWebhooksResponseTypedDict": ".listwebhooksresponse",
     "LiteLLMModel": ".litellmmodel",
     "LiteLLMModelTypedDict": ".litellmmodel",
     "LiteLLMModelInfo": ".litellmmodelinfo",
@@ -21498,6 +21594,10 @@ _dynamic_imports: dict[str, str] = {
     "PublicSchedulePayloadTypedDict": ".publicschedulepayload",
     "PublicUsage": ".publicusage",
     "PublicUsageTypedDict": ".publicusage",
+    "QueryParamsPagination": ".queryparamspagination",
+    "QueryParamsPaginationTypedDict": ".queryparamspagination",
+    "QueryParamsSort": ".queryparamssort",
+    "QueryParamsSortTypedDict": ".queryparamssort",
     "Grain": ".queryreportrequest",
     "GroupBy": ".queryreportrequest",
     "Metric": ".queryreportrequest",
@@ -21516,6 +21616,14 @@ _dynamic_imports: dict[str, str] = {
     "QueryTracesRequestTypedDict": ".querytracesrequest",
     "QueryTracesResponse": ".querytracesresponse",
     "QueryTracesResponseTypedDict": ".querytracesresponse",
+    "Filters": ".querywebhooksrequest",
+    "FiltersTypedDict": ".querywebhooksrequest",
+    "Query": ".querywebhooksrequest",
+    "QueryTypedDict": ".querywebhooksrequest",
+    "QueryWebhooksRequest": ".querywebhooksrequest",
+    "QueryWebhooksRequestTypedDict": ".querywebhooksrequest",
+    "QueryWebhooksResponse": ".querywebhooksresponse",
+    "QueryWebhooksResponseTypedDict": ".querywebhooksresponse",
     "RateLimit": ".ratelimit",
     "RateLimitTypedDict": ".ratelimit",
     "Reasoning": ".reasoning",
@@ -21999,6 +22107,8 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveDatasetRequestTypedDict": ".retrievedatasetop",
     "RetrieveDatasetResponseBody": ".retrievedatasetop",
     "RetrieveDatasetResponseBodyTypedDict": ".retrievedatasetop",
+    "RetrieveDatasourceMetadata": ".retrievedatasourceop",
+    "RetrieveDatasourceMetadataTypedDict": ".retrievedatasourceop",
     "RetrieveDatasourceRequest": ".retrievedatasourceop",
     "RetrieveDatasourceRequestTypedDict": ".retrievedatasourceop",
     "RetrieveDatasourceResponseBody": ".retrievedatasourceop",
@@ -23457,6 +23567,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateDatasetRequestTypedDict": ".updatedatasetop",
     "UpdateDatasetResponseBody": ".updatedatasetop",
     "UpdateDatasetResponseBodyTypedDict": ".updatedatasetop",
+    "UpdateDatasourceMetadata": ".updatedatasourceop",
+    "UpdateDatasourceMetadataTypedDict": ".updatedatasourceop",
     "UpdateDatasourceRequest": ".updatedatasourceop",
     "UpdateDatasourceRequestBody": ".updatedatasourceop",
     "UpdateDatasourceRequestBodyTypedDict": ".updatedatasourceop",
@@ -24030,6 +24142,21 @@ _dynamic_imports: dict[str, str] = {
     "VertexParamRangeTypedDict": ".vertexparamrange",
     "VertexParamRangeInt": ".vertexparamrangeint",
     "VertexParamRangeIntTypedDict": ".vertexparamrangeint",
+    "ContentType": ".webhook",
+    "Webhook": ".webhook",
+    "WebhookTypedDict": ".webhook",
+    "WebhookDeleteRequest": ".webhookdeleteop",
+    "WebhookDeleteRequestTypedDict": ".webhookdeleteop",
+    "WebhookGetRequest": ".webhookgetop",
+    "WebhookGetRequestTypedDict": ".webhookgetop",
+    "WebhookListRequest": ".webhooklistop",
+    "WebhookListRequestTypedDict": ".webhooklistop",
+    "WebhookUpdateRequest": ".webhookupdateop",
+    "WebhookUpdateRequestBody": ".webhookupdateop",
+    "WebhookUpdateRequestBodyTypedDict": ".webhookupdateop",
+    "WebhookUpdateRequestTypedDict": ".webhookupdateop",
+    "WebhookUpdateResponseBody": ".webhookupdateop",
+    "WebhookUpdateResponseBodyTypedDict": ".webhookupdateop",
     "WorkspaceBudgetScope": ".workspacebudgetscope",
     "WorkspaceBudgetScopeTypedDict": ".workspacebudgetscope",
 }

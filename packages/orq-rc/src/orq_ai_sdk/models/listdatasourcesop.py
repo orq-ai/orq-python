@@ -10,8 +10,8 @@ from orq_ai_sdk.types import (
 )
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
-from pydantic import model_serializer
-from typing import List, Literal, Optional, Union
+from pydantic import ConfigDict, model_serializer
+from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -23,6 +23,16 @@ r"""Filter datasources by status."""
 
 QueryParamStatus = TypeAliasType("QueryParamStatus", Union[List[str], str])
 r"""Filter datasources by status."""
+
+
+DatasourceMetadataValueTypedDict = TypeAliasType(
+    "DatasourceMetadataValueTypedDict", Union[str, float, bool]
+)
+
+
+DatasourceMetadataValue = TypeAliasType(
+    "DatasourceMetadataValue", Union[str, float, bool]
+)
 
 
 class ListDatasourcesRequestTypedDict(TypedDict):
@@ -38,6 +48,8 @@ class ListDatasourcesRequestTypedDict(TypedDict):
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     status: NotRequired[QueryParamStatusTypedDict]
     r"""Filter datasources by status."""
+    metadata: NotRequired[Dict[str, Nullable[DatasourceMetadataValueTypedDict]]]
+    r"""Filter datasources by exact metadata key/value pairs. Provide a JSON-encoded object when calling this endpoint over HTTP."""
 
 
 class ListDatasourcesRequest(BaseModel):
@@ -76,10 +88,16 @@ class ListDatasourcesRequest(BaseModel):
     ] = None
     r"""Filter datasources by status."""
 
+    metadata: Annotated[
+        Optional[Dict[str, Nullable[DatasourceMetadataValue]]],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter datasources by exact metadata key/value pairs. Provide a JSON-encoded object when calling this endpoint over HTTP."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["starting_after", "ending_before", "q", "limit", "status"]
+            ["starting_after", "ending_before", "q", "limit", "status", "metadata"]
         )
         serialized = handler(self)
         m = {}
@@ -107,6 +125,82 @@ ListDatasourcesStatus = Literal[
 ]
 
 
+class ListDatasourcesMetadataTypedDict(TypedDict):
+    words_count: NotRequired[float]
+    r"""Number of words in the text"""
+    sentences_count: NotRequired[float]
+    r"""Number of sentences in the text"""
+    paragraphs_count: NotRequired[float]
+    r"""Number of paragraphs in the text"""
+    tokens_count: NotRequired[float]
+    r"""Number of tokens in the text"""
+    characters_count: NotRequired[float]
+    r"""Number of characters in the text"""
+    chunks_count: NotRequired[float]
+    r"""Number of total chunks"""
+
+
+class ListDatasourcesMetadata(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    words_count: Optional[float] = None
+    r"""Number of words in the text"""
+
+    sentences_count: Optional[float] = None
+    r"""Number of sentences in the text"""
+
+    paragraphs_count: Optional[float] = None
+    r"""Number of paragraphs in the text"""
+
+    tokens_count: Optional[float] = None
+    r"""Number of tokens in the text"""
+
+    characters_count: Optional[float] = None
+    r"""Number of characters in the text"""
+
+    chunks_count: Optional[float] = None
+    r"""Number of total chunks"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "words_count",
+                "sentences_count",
+                "paragraphs_count",
+                "tokens_count",
+                "characters_count",
+                "chunks_count",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            serialized.pop(k, serialized.pop(n, None))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+        for k, v in serialized.items():
+            m[k] = v
+
+        return m
+
+
 class ListDatasourcesDataTypedDict(TypedDict):
     display_name: str
     r"""The display name of the datasource. Normally the name of the uploaded file"""
@@ -119,6 +213,7 @@ class ListDatasourcesDataTypedDict(TypedDict):
     r"""The unique identifier of the knowledge base"""
     chunks_count: float
     r"""The number of chunks in the datasource"""
+    metadata: ListDatasourcesMetadataTypedDict
     id: NotRequired[str]
     r"""The unique identifier of the data source"""
     description: NotRequired[Nullable[str]]
@@ -149,8 +244,10 @@ class ListDatasourcesData(BaseModel):
     chunks_count: float
     r"""The number of chunks in the datasource"""
 
+    metadata: ListDatasourcesMetadata
+
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KXN9FG8660100RJ56B9RXFCQ"
+        "01KY13Z3JWD0P25DE4WKXT4S1X"
     )
     r"""The unique identifier of the data source"""
 

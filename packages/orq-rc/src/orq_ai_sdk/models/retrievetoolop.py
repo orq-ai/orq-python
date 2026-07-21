@@ -176,7 +176,7 @@ class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG55SCS6CC1F3W6KGVTZ"
+        "tool_01KY13Z3EH72Q5C9YP3DQYFMS3"
     )
 
     display_name: Optional[str] = None
@@ -307,7 +307,7 @@ class RetrieveToolResponseBodyTools(BaseModel):
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KXN9FG54DJMHNGAERD1S7MH2"
+    id: Optional[str] = "01KY13Z3EFBB332G826ZHNWP70"
 
     description: Optional[str] = None
 
@@ -451,7 +451,7 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG53TJQZKZMJQ8QYT3H7"
+        "tool_01KY13Z3ED4Y38VN8H1AM81443"
     )
 
     display_name: Optional[str] = None
@@ -564,6 +564,8 @@ class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class RetrieveToolResponseBodyBlueprint(BaseModel):
@@ -581,9 +583,12 @@ class RetrieveToolResponseBodyBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -751,7 +756,7 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG51W0YKZ37QDQ566YDP"
+        "tool_01KY13Z3EAHCV1TY8E7G7RXTNT"
     )
 
     display_name: Optional[str] = None
@@ -945,7 +950,7 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG4ZH49T5FVRV0J8HZG5"
+        "tool_01KY13Z3E7S9793FZNBN6ASCPE"
     )
 
     display_name: Optional[str] = None
@@ -1143,7 +1148,7 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG4XFMVV5R7DSE5R1F1W"
+        "tool_01KY13Z3E5CJF3AMT6G3KPTJ54"
     )
 
     display_name: Optional[str] = None

@@ -46,6 +46,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
+    from orq_ai_sdk.webhooks import Webhooks
 
 
 class Orq(BaseSDK):
@@ -79,6 +80,7 @@ class Orq(BaseSDK):
     notifiers: "Notifiers"
     projects: "Projects"
     skills: "Skills"
+    webhooks: "Webhooks"
     schedules: "Schedules"
     responses: "Responses"
     reporting: "Reporting"
@@ -111,6 +113,7 @@ class Orq(BaseSDK):
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
+        "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),

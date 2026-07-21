@@ -1,6 +1,4 @@
-# IdentityMetadata
-
-Custom JSON metadata stored with the identity.
+# Filters
 
 
 ## Fields

@@ -214,7 +214,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG33DES1ZQ6Q9VCFWW93"
+        "tool_01KY13Z3BCSD8TP4JYB8PN2F2G"
     )
 
     display_name: Optional[str] = None
@@ -341,7 +341,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KXN9FG32BV909A0ZZ23K4W9N"
+    id: Optional[str] = "01KY13Z3BAZQQQJTRCNKTHRXZX"
 
     description: Optional[str] = None
 
@@ -485,7 +485,7 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG309CAWABZHT8MG17MC"
+        "tool_01KY13Z3B8FQ4YR3CVN7DGKX7W"
     )
 
     display_name: Optional[str] = None
@@ -597,6 +597,8 @@ class DataBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class DataBlueprint(BaseModel):
@@ -614,9 +616,12 @@ class DataBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -782,7 +787,7 @@ class DataHTTPTool(BaseModel):
     http: DataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG2YZF1ZYZFZQTYT47Q8"
+        "tool_01KY13Z3B5X23VKK4X3ZRXWY2H"
     )
 
     display_name: Optional[str] = None
@@ -976,7 +981,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG2WDCJM7PE2RYNTMSB0"
+        "tool_01KY13Z3B2G6EXG3BW805MWZSN"
     )
 
     display_name: Optional[str] = None
@@ -1174,7 +1179,7 @@ class DataFunctionTool(BaseModel):
     function: DataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXN9FG2VE7QNSTT57ZKHE4ZD"
+        "tool_01KY13Z3B0ZK8REYD62JTR1HZK"
     )
 
     display_name: Optional[str] = None

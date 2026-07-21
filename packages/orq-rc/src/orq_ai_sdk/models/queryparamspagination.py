@@ -2,31 +2,31 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+import pydantic
 from pydantic import model_serializer
 from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class DimensionInfoTypedDict(TypedDict):
-    r"""DimensionInfo carries limit/remaining/reset for a single dimension."""
+class QueryParamsPaginationTypedDict(TypedDict):
+    page: NotRequired[int]
+    limit: NotRequired[int]
+    last_id: NotRequired[str]
+    first_id: NotRequired[str]
 
-    limit: NotRequired[float]
-    remaining: NotRequired[float]
-    reset_seconds: NotRequired[int]
 
+class QueryParamsPagination(BaseModel):
+    page: Optional[int] = None
 
-class DimensionInfo(BaseModel):
-    r"""DimensionInfo carries limit/remaining/reset for a single dimension."""
+    limit: Optional[int] = None
 
-    limit: Optional[float] = None
+    last_id: Annotated[Optional[str], pydantic.Field(alias="lastId")] = None
 
-    remaining: Optional[float] = None
-
-    reset_seconds: Optional[int] = None
+    first_id: Annotated[Optional[str], pydantic.Field(alias="firstId")] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["limit", "remaining", "reset_seconds"])
+        optional_fields = set(["page", "limit", "lastId", "firstId"])
         serialized = handler(self)
         m = {}
 
@@ -39,3 +39,9 @@ class DimensionInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    QueryParamsPagination.model_rebuild()
+except NameError:
+    pass

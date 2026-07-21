@@ -1848,6 +1848,8 @@ class CodeExecutionToolTypedDict(TypedDict):
     r"""The ID of the pre-created code tool"""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
 
 
 class CodeExecutionTool(BaseModel):
@@ -1867,9 +1869,12 @@ class CodeExecutionTool(BaseModel):
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["type", "key", "id", "requires_approval"])
+        optional_fields = set(["type", "key", "id", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -1903,6 +1908,8 @@ class HTTPToolTypedDict(TypedDict):
     r"""The ID of the pre-created HTTP tool"""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class HTTPTool(BaseModel):
@@ -1922,9 +1929,12 @@ class HTTPTool(BaseModel):
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["type", "key", "id", "requires_approval"])
+        optional_fields = set(["type", "key", "id", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2475,11 +2485,11 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
         QueryKnowledgeBaseToolTypedDict,
         CodeInterpreterToolTypedDict,
         ProviderBuiltInToolTypedDict,
-        CodeExecutionToolTypedDict,
         FunctionToolTypedDict,
         JSONSchemaToolTypedDict,
-        HTTPToolTypedDict,
+        CodeExecutionToolTypedDict,
         MCPToolTypedDict,
+        HTTPToolTypedDict,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
@@ -2501,11 +2511,11 @@ AgentToolInputCRUD = TypeAliasType(
         QueryKnowledgeBaseTool,
         CodeInterpreterTool,
         ProviderBuiltInTool,
-        CodeExecutionTool,
         FunctionTool,
         JSONSchemaTool,
-        HTTPTool,
+        CodeExecutionTool,
         MCPTool,
+        HTTPTool,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
@@ -2997,7 +3007,7 @@ class CreateAgentRequestToolsTypedDict(TypedDict):
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[CreateAgentRequestConditionsTypedDict]]
     timeout: NotRequired[float]
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class CreateAgentRequestTools(BaseModel):
@@ -3024,8 +3034,8 @@ class CreateAgentRequestTools(BaseModel):
 
     conditions: Optional[List[CreateAgentRequestConditions]] = None
 
-    timeout: Optional[float] = 120
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

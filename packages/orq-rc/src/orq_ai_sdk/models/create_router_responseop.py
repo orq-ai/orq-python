@@ -486,8 +486,17 @@ InputRole = Literal[
 r"""The role of the message sender (for message items)."""
 
 
+InputStatus = Literal[
+    "in_progress",
+    "completed",
+    "incomplete",
+]
+r"""The status of a model-generated input item."""
+
+
 InputType = Literal[
     "message",
+    "function_call",
     "function_call_output",
     "item_reference",
 ]
@@ -495,33 +504,45 @@ r"""The type of item."""
 
 
 class CreateRouterResponseInput2TypedDict(TypedDict):
-    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
+    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call\", \"function_call_output\", \"item_reference\", etc."""
 
+    arguments: NotRequired[str]
+    r"""The function arguments as a JSON string (for function_call items)."""
     call_id: NotRequired[str]
-    r"""The ID of the function call being responded to (for function_call_output type)."""
+    r"""The function call identifier (for function_call and function_call_output items)."""
     content: NotRequired[InputContentTypedDict]
     r"""The content of the item: a string or an array of content parts."""
     id: NotRequired[str]
-    r"""The ID of the item (for item_reference type)."""
+    r"""The ID of the item. For item_reference items, this identifies the referenced item."""
+    name: NotRequired[str]
+    r"""The name of the function that was called (for function_call items)."""
     output: NotRequired[str]
     r"""The output of the function call (for function_call_output type)."""
     role: NotRequired[InputRole]
     r"""The role of the message sender (for message items)."""
+    status: NotRequired[InputStatus]
+    r"""The status of a model-generated input item."""
     type: NotRequired[InputType]
     r"""The type of item."""
 
 
 class CreateRouterResponseInput2(BaseModel):
-    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
+    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call\", \"function_call_output\", \"item_reference\", etc."""
+
+    arguments: Optional[str] = None
+    r"""The function arguments as a JSON string (for function_call items)."""
 
     call_id: Optional[str] = None
-    r"""The ID of the function call being responded to (for function_call_output type)."""
+    r"""The function call identifier (for function_call and function_call_output items)."""
 
     content: Optional[InputContent] = None
     r"""The content of the item: a string or an array of content parts."""
 
     id: Optional[str] = None
-    r"""The ID of the item (for item_reference type)."""
+    r"""The ID of the item. For item_reference items, this identifies the referenced item."""
+
+    name: Optional[str] = None
+    r"""The name of the function that was called (for function_call items)."""
 
     output: Optional[str] = None
     r"""The output of the function call (for function_call_output type)."""
@@ -529,12 +550,27 @@ class CreateRouterResponseInput2(BaseModel):
     role: Optional[InputRole] = None
     r"""The role of the message sender (for message items)."""
 
+    status: Optional[InputStatus] = None
+    r"""The status of a model-generated input item."""
+
     type: Optional[InputType] = None
     r"""The type of item."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["call_id", "content", "id", "output", "role", "type"])
+        optional_fields = set(
+            [
+                "arguments",
+                "call_id",
+                "content",
+                "id",
+                "name",
+                "output",
+                "role",
+                "status",
+                "type",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -1396,7 +1432,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     top_logprobs: int
     top_p: float
     truncation: CreateRouterResponseTruncation
-    usage: PublicUsageTypedDict
+    usage: Nullable[PublicUsageTypedDict]
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
@@ -1477,7 +1513,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     truncation: CreateRouterResponseTruncation
 
-    usage: PublicUsage
+    usage: Nullable[PublicUsage]
 
     user: Nullable[str]
 
@@ -1506,6 +1542,7 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "reasoning",
                 "safety_identifier",
                 "tools",
+                "usage",
                 "user",
             ]
         )

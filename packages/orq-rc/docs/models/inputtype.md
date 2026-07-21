@@ -13,5 +13,6 @@ value: InputType = "message"
 ## Values
 
 - `"message"`
+- `"function_call"`
 - `"function_call_output"`
 - `"item_reference"`

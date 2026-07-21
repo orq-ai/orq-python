@@ -1,0 +1,12 @@
+# QueryWebhooksRequest
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `pagination`                                                                 | [Optional[models.QueryParamsPagination]](../models/queryparamspagination.md) | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `sorting_props`                                                              | List[[models.QueryParamsSort](../models/queryparamssort.md)]                 | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `query`                                                                      | [Optional[models.Query]](../models/query.md)                                 | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `filters`                                                                    | List[[models.Filters](../models/filters.md)]                                 | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `included_fields`                                                            | Dict[str, *str*]                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |

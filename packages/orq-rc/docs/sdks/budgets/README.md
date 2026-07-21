@@ -6,7 +6,6 @@
 
 * [list](#list) - List budgets
 * [create](#create) - Create a new budget
-* [check](#check) - Check budget enforcement
 * [get](#get) - Retrieve a budget
 * [delete](#delete) - Delete a budget
 * [update](#update) - Update a budget
@@ -100,52 +99,6 @@ with Orq(
 ### Response
 
 **[models.CreateBudgetResponse](../../models/createbudgetresponse.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## check
-
-Internal endpoint used by the gateway to resolve applicable budgets and check enforcement gates for a request. Returns allowed/rejected status with dimension info for rate-limit headers.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="BudgetCheck" method="post" path="/v2/budgets/check" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.budgets.check()
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                           | Type                                                                                                                                                | Required                                                                                                                                            | Description                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `api_key_id`                                                                                                                                        | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | API key that issued the request (if any).                                                                                                           |
-| `project_id`                                                                                                                                        | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | Project the request targets (if any).                                                                                                               |
-| `identity_external_id`                                                                                                                              | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | Identity external id for contact-scoped budgets (if any).                                                                                           |
-| `provider`                                                                                                                                          | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | Provider enum value for provider-scoped budgets (if any).                                                                                           |
-| `model_id`                                                                                                                                          | *Optional[str]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                  | Full model reference for model-scoped budgets (if any), exactly as<br/> the caller sent it: "provider/model" or "workspaceKey@provider/model".      |
-| `metadata`                                                                                                                                          | [Optional[models.Metadata]](../../models/metadata.md)                                                                                               | :heavy_minus_sign:                                                                                                                                  | Request metadata forwarded for dynamic-budget matching<br/> (`metadata.team == "ml"`). Free-form JSON object from the request<br/> body's `metadata` field. |
-| `headers`                                                                                                                                           | Dict[str, *str*]                                                                                                                                    | :heavy_minus_sign:                                                                                                                                  | Request headers (lowercase keys) forwarded for dynamic-budget<br/> matching (`headers["x-env"] == "prod"`).                                         |
-| `retries`                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                    | :heavy_minus_sign:                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                 |
-
-### Response
-
-**[models.CheckBudgetsResponse](../../models/checkbudgetsresponse.md)**
 
 ### Errors
 
