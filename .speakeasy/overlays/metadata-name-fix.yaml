@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: Avoid QueryParamMetadata type-name collision
+  version: 0.0.1
+# The listDatasources `metadata` query parameter is an inline object schema.
+# Without a title, Speakeasy names its generated type `QueryParamMetadata`,
+# which collides with the `QueryParamMetadata` class imported from
+# `orq_ai_sdk.utils` in the same module (listdatasourcesop.py), shadowing it
+# and breaking every `QueryParamMetadata(...)` call. Giving the schema an
+# explicit title makes Speakeasy generate `DatasourceMetadataFilter` instead.
+actions:
+  - target: $.paths["/v2/knowledge/{knowledge_id}/datasources"].get.parameters[?(@.name=="metadata")].schema
+    update:
+      title: DatasourceMetadataFilter
+  - target: $.paths["/v2/knowledge/{knowledge_id}/datasources"].get.parameters[?(@.name=="metadata")].schema.additionalProperties
+    update:
+      title: DatasourceMetadataValue

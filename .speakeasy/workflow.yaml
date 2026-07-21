@@ -4,11 +4,15 @@ sources:
     orq-ai-sdk-prerelease-python:
         inputs:
             - location: ./openapi-prerelease.yaml
+        overlays:
+            - location: ./.speakeasy/overlays/metadata-name-fix.yaml
         registry:
             location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python
     orq-ai-sdk-python:
         inputs:
             - location: ./openapi.yaml
+        overlays:
+            - location: ./.speakeasy/overlays/metadata-name-fix.yaml
         registry:
             location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python
 targets:
