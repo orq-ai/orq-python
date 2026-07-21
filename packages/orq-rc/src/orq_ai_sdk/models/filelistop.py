@@ -20,6 +20,12 @@ class FileListRequestTypedDict(TypedDict):
     from the previous page.
     """
     project_id: NotRequired[str]
+    purpose: NotRequired[str]
+    r"""Restrict results to files declared with this purpose. Accepts a purpose
+    alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
+    or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
+    of every purpose.
+    """
 
 
 class FileListRequest(BaseModel):
@@ -50,10 +56,20 @@ class FileListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
+    purpose: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Restrict results to files declared with this purpose. Accepts a purpose
+    alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
+    or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
+    of every purpose.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "project_id"]
+            ["limit", "starting_after", "ending_before", "project_id", "purpose"]
         )
         serialized = handler(self)
         m = {}
