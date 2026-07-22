@@ -105,7 +105,7 @@ class RequestBodyCodeTool(BaseModel):
         return m
 
 
-class RequestBodyCodeExecutionToolTypedDict(TypedDict):
+class CodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
@@ -127,7 +127,7 @@ class RequestBodyCodeExecutionToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyCodeExecutionTool(BaseModel):
+class CodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
@@ -522,7 +522,7 @@ class RequestBodyHTTP(BaseModel):
         return m
 
 
-class RequestBodyHTTPToolTypedDict(TypedDict):
+class HTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
@@ -544,7 +544,7 @@ class RequestBodyHTTPToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyHTTPTool(BaseModel):
+class HTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
@@ -678,7 +678,7 @@ class RequestBodyJSONSchema(BaseModel):
         return m
 
 
-class RequestBodyJSONSchemaToolTypedDict(TypedDict):
+class JSONSchemaToolTypedDict(TypedDict):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -700,7 +700,7 @@ class RequestBodyJSONSchemaToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyJSONSchemaTool(BaseModel):
+class JSONSchemaTool(BaseModel):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -838,7 +838,7 @@ class RequestBodyFunction(BaseModel):
         return m
 
 
-class RequestBodyFunctionToolTypedDict(TypedDict):
+class FunctionToolTypedDict(TypedDict):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
@@ -860,7 +860,7 @@ class RequestBodyFunctionToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyFunctionTool(BaseModel):
+class FunctionTool(BaseModel):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
@@ -907,10 +907,10 @@ class RequestBodyFunctionTool(BaseModel):
 CreateToolRequestBodyTypedDict = TypeAliasType(
     "CreateToolRequestBodyTypedDict",
     Union[
-        RequestBodyFunctionToolTypedDict,
-        RequestBodyJSONSchemaToolTypedDict,
-        RequestBodyHTTPToolTypedDict,
-        RequestBodyCodeExecutionToolTypedDict,
+        FunctionToolTypedDict,
+        JSONSchemaToolTypedDict,
+        HTTPToolTypedDict,
+        CodeExecutionToolTypedDict,
         RequestBodyMCPToolTypedDict,
     ],
 )
@@ -919,11 +919,11 @@ r"""The tool to create"""
 
 CreateToolRequestBody = Annotated[
     Union[
-        Annotated[RequestBodyFunctionTool, Tag("function")],
-        Annotated[RequestBodyJSONSchemaTool, Tag("json_schema")],
-        Annotated[RequestBodyHTTPTool, Tag("http")],
+        Annotated[FunctionTool, Tag("function")],
+        Annotated[JSONSchemaTool, Tag("json_schema")],
+        Annotated[HTTPTool, Tag("http")],
         Annotated[RequestBodyMCPTool, Tag("mcp")],
-        Annotated[RequestBodyCodeExecutionTool, Tag("code")],
+        Annotated[CodeExecutionTool, Tag("code")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1081,7 +1081,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KY3S9PAAK62CPDDZ8MDK0QYC"
+        "tool_01KY4GW46J7ST8NMSVY588DYGS"
     )
 
     display_name: Optional[str] = None
@@ -1208,7 +1208,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KY3S9PA9X3X00HCBPQARCWQC"
+    id: Optional[str] = "01KY4GW46GBRDKHWYTY066AEES"
 
     description: Optional[str] = None
 
@@ -1352,7 +1352,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KY3S9PA7N26PR02GFY7JD72M"
+        "tool_01KY4GW46DQSKCJESEH54678EM"
     )
 
     display_name: Optional[str] = None
@@ -1657,7 +1657,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KY3S9PA3Z5Q764YBCH7AEYBF"
+        "tool_01KY4GW45MEEZ3AR7E1CMDGTVG"
     )
 
     display_name: Optional[str] = None
@@ -1851,7 +1851,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KY3S9PA1Z4EVEE78MWWYJPKP"
+        "tool_01KY4GW45GXPT6R2B45HABRGBR"
     )
 
     display_name: Optional[str] = None
@@ -2049,7 +2049,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: ResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KY3S9P9YV4VY0DW5F893Y5EP"
+        "tool_01KY4GW459ZPW04FVQTA9S842W"
     )
 
     display_name: Optional[str] = None
