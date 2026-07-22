@@ -251,6 +251,10 @@ if TYPE_CHECKING:
     )
     from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
     from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
+    from .autorouterv2creatorconfig import (
+        AutoRouterV2CreatorConfig,
+        AutoRouterV2CreatorConfigTypedDict,
+    )
     from .autorouterv2effortconfig import (
         AutoRouterV2EffortConfig,
         AutoRouterV2EffortConfigTypedDict,
@@ -2144,6 +2148,14 @@ if TYPE_CHECKING:
         CreateSkillRequestTypedDict,
     )
     from .createskillresponse import CreateSkillResponse, CreateSkillResponseTypedDict
+    from .createsmartrouterrequest import (
+        CreateSmartRouterRequest,
+        CreateSmartRouterRequestTypedDict,
+    )
+    from .createsmartrouterresponse import (
+        CreateSmartRouterResponse,
+        CreateSmartRouterResponseTypedDict,
+    )
     from .createspeechop import (
         CreateSpeechFallbacks,
         CreateSpeechFallbacksTypedDict,
@@ -2500,6 +2512,10 @@ if TYPE_CHECKING:
         DeletePromptResponseBodyData,
     )
     from .deleteskillresponse import DeleteSkillResponse, DeleteSkillResponseTypedDict
+    from .deletesmartrouterresponse import (
+        DeleteSmartRouterResponse,
+        DeleteSmartRouterResponseTypedDict,
+    )
     from .deletetoolop import DeleteToolRequest, DeleteToolRequestTypedDict
     from .deletewebhookresponse import (
         DeleteWebhookResponse,
@@ -4164,6 +4180,10 @@ if TYPE_CHECKING:
         GetPromptVersionVoice,
     )
     from .getskillresponse import GetSkillResponse, GetSkillResponseTypedDict
+    from .getsmartrouterresponse import (
+        GetSmartRouterResponse,
+        GetSmartRouterResponseTypedDict,
+    )
     from .gettraceresponse import GetTraceResponse, GetTraceResponseTypedDict
     from .gettracespanresponse import (
         GetTraceSpanResponse,
@@ -5144,6 +5164,10 @@ if TYPE_CHECKING:
         ListPromptVersionsVoice,
     )
     from .listskillsresponse import ListSkillsResponse, ListSkillsResponseTypedDict
+    from .listsmartroutersresponse import (
+        ListSmartRoutersResponse,
+        ListSmartRoutersResponseTypedDict,
+    )
     from .listtracefacetsresponse import (
         ListTraceFacetsResponse,
         ListTraceFacetsResponseTypedDict,
@@ -5199,12 +5223,6 @@ if TYPE_CHECKING:
         ModelConfigurationResponse,
         ModelConfigurationResponseTypedDict,
     )
-    from .modelcreateautorouterop import (
-        ModelCreateAutorouterRequestBody,
-        ModelCreateAutorouterRequestBodyTypedDict,
-        ModelCreateAutorouterResponseBody,
-        ModelCreateAutorouterResponseBodyTypedDict,
-    )
     from .modelcreateawsbedrockop import (
         ModelCreateAwsBedrockRequestBody,
         ModelCreateAwsBedrockRequestBodyTypedDict,
@@ -5240,14 +5258,6 @@ if TYPE_CHECKING:
     )
     from .modelref import ModelRef, ModelRefTypedDict
     from .modelsconfig import ModelsConfig, ModelsConfigMode, ModelsConfigTypedDict
-    from .modelupdateautorouterop import (
-        ModelUpdateAutorouterRequest,
-        ModelUpdateAutorouterRequestBody,
-        ModelUpdateAutorouterRequestBodyTypedDict,
-        ModelUpdateAutorouterRequestTypedDict,
-        ModelUpdateAutorouterResponseBody,
-        ModelUpdateAutorouterResponseBodyTypedDict,
-    )
     from .modelupdateawsbedrockop import (
         ModelUpdateAwsBedrockRequest,
         ModelUpdateAwsBedrockRequestBody,
@@ -6759,12 +6769,39 @@ if TYPE_CHECKING:
     )
     from .security import Security, SecurityTypedDict
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
+    from .setsmartrouterenabledrequest import (
+        SetSmartRouterEnabledRequest,
+        SetSmartRouterEnabledRequestTypedDict,
+    )
+    from .setsmartrouterenabledresponse import (
+        SetSmartRouterEnabledResponse,
+        SetSmartRouterEnabledResponseTypedDict,
+    )
     from .singleproject import SingleProject, SingleProjectTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
     from .skilllistop import SkillListRequest, SkillListRequestTypedDict
     from .skillupdateop import SkillUpdateRequest, SkillUpdateRequestTypedDict
+    from .smartrouter import SmartRouter, SmartRouterTypedDict
+    from .smartrouterdeleteop import (
+        SmartRouterDeleteRequest,
+        SmartRouterDeleteRequestTypedDict,
+    )
+    from .smartroutergetop import SmartRouterGetRequest, SmartRouterGetRequestTypedDict
+    from .smartrouterlistop import (
+        SmartRouterListRequest,
+        SmartRouterListRequestTypedDict,
+    )
+    from .smartrouterprofile import SmartRouterProfile
+    from .smartroutersetenabledop import (
+        SmartRouterSetEnabledRequest,
+        SmartRouterSetEnabledRequestTypedDict,
+    )
+    from .smartrouterupdateop import (
+        SmartRouterUpdateRequest,
+        SmartRouterUpdateRequestTypedDict,
+    )
     from .spandetail import (
         SpanDetail,
         SpanDetailAttributes,
@@ -8160,6 +8197,14 @@ if TYPE_CHECKING:
     )
     from .updateskillrequest import UpdateSkillRequest, UpdateSkillRequestTypedDict
     from .updateskillresponse import UpdateSkillResponse, UpdateSkillResponseTypedDict
+    from .updatesmartrouterrequest import (
+        UpdateSmartRouterRequest,
+        UpdateSmartRouterRequestTypedDict,
+    )
+    from .updatesmartrouterresponse import (
+        UpdateSmartRouterResponse,
+        UpdateSmartRouterResponseTypedDict,
+    )
     from .updatetoolop import (
         RequestBodyTools,
         RequestBodyToolsTypedDict,
@@ -8580,6 +8625,8 @@ __all__ = [
     "AutoRouterConfigTypedDict",
     "AutoRouterV2Config",
     "AutoRouterV2ConfigTypedDict",
+    "AutoRouterV2CreatorConfig",
+    "AutoRouterV2CreatorConfigTypedDict",
     "AutoRouterV2EffortConfig",
     "AutoRouterV2EffortConfigTypedDict",
     "AzureFoundryDeployment",
@@ -10180,6 +10227,10 @@ __all__ = [
     "CreateSkillRequestTypedDict",
     "CreateSkillResponse",
     "CreateSkillResponseTypedDict",
+    "CreateSmartRouterRequest",
+    "CreateSmartRouterRequestTypedDict",
+    "CreateSmartRouterResponse",
+    "CreateSmartRouterResponseTypedDict",
     "CreateSpeechFallbacks",
     "CreateSpeechFallbacksTypedDict",
     "CreateSpeechLoadBalancer",
@@ -10480,6 +10531,8 @@ __all__ = [
     "DeletePromptResponseBodyData",
     "DeleteSkillResponse",
     "DeleteSkillResponseTypedDict",
+    "DeleteSmartRouterResponse",
+    "DeleteSmartRouterResponseTypedDict",
     "DeleteToolRequest",
     "DeleteToolRequestTypedDict",
     "DeleteV2HumanEvalSetsIDRequest",
@@ -12005,6 +12058,8 @@ __all__ = [
     "GetPromptVersionVoice",
     "GetSkillResponse",
     "GetSkillResponseTypedDict",
+    "GetSmartRouterResponse",
+    "GetSmartRouterResponseTypedDict",
     "GetTraceResponse",
     "GetTraceResponseTypedDict",
     "GetTraceSpanResponse",
@@ -12839,6 +12894,8 @@ __all__ = [
     "ListPromptVersionsVoice",
     "ListSkillsResponse",
     "ListSkillsResponseTypedDict",
+    "ListSmartRoutersResponse",
+    "ListSmartRoutersResponseTypedDict",
     "ListTraceFacetValuesResponse",
     "ListTraceFacetValuesResponseTypedDict",
     "ListTraceFacetsResponse",
@@ -12992,10 +13049,6 @@ __all__ = [
     "ModelConfigurationToolChoiceTypedDict",
     "ModelConfigurationType",
     "ModelConfigurationTypedDict",
-    "ModelCreateAutorouterRequestBody",
-    "ModelCreateAutorouterRequestBodyTypedDict",
-    "ModelCreateAutorouterResponseBody",
-    "ModelCreateAutorouterResponseBodyTypedDict",
     "ModelCreateAwsBedrockRequestBody",
     "ModelCreateAwsBedrockRequestBodyTypedDict",
     "ModelCreateAwsBedrockResponseBody",
@@ -13030,12 +13083,6 @@ __all__ = [
     "ModelRefTypedDict",
     "ModelType",
     "ModelTypedDict",
-    "ModelUpdateAutorouterRequest",
-    "ModelUpdateAutorouterRequestBody",
-    "ModelUpdateAutorouterRequestBodyTypedDict",
-    "ModelUpdateAutorouterRequestTypedDict",
-    "ModelUpdateAutorouterResponseBody",
-    "ModelUpdateAutorouterResponseBodyTypedDict",
     "ModelUpdateAwsBedrockRequest",
     "ModelUpdateAwsBedrockRequestBody",
     "ModelUpdateAwsBedrockRequestBodyTypedDict",
@@ -14546,6 +14593,10 @@ __all__ = [
     "ServiceAccountOwner",
     "ServiceAccountOwnerTypedDict",
     "ServiceTier",
+    "SetSmartRouterEnabledRequest",
+    "SetSmartRouterEnabledRequestTypedDict",
+    "SetSmartRouterEnabledResponse",
+    "SetSmartRouterEnabledResponseTypedDict",
     "Settings",
     "SettingsTypedDict",
     "Seven",
@@ -14574,6 +14625,19 @@ __all__ = [
     "SlackWebhookNotifierCreateRequest",
     "SlackWebhookNotifierCreateRequestTypedDict",
     "SlackWebhookNotifierTypedDict",
+    "SmartRouter",
+    "SmartRouterDeleteRequest",
+    "SmartRouterDeleteRequestTypedDict",
+    "SmartRouterGetRequest",
+    "SmartRouterGetRequestTypedDict",
+    "SmartRouterListRequest",
+    "SmartRouterListRequestTypedDict",
+    "SmartRouterProfile",
+    "SmartRouterSetEnabledRequest",
+    "SmartRouterSetEnabledRequestTypedDict",
+    "SmartRouterTypedDict",
+    "SmartRouterUpdateRequest",
+    "SmartRouterUpdateRequestTypedDict",
     "Sort",
     "SortBy",
     "Source",
@@ -15982,6 +16046,10 @@ __all__ = [
     "UpdateSkillRequestTypedDict",
     "UpdateSkillResponse",
     "UpdateSkillResponseTypedDict",
+    "UpdateSmartRouterRequest",
+    "UpdateSmartRouterRequestTypedDict",
+    "UpdateSmartRouterResponse",
+    "UpdateSmartRouterResponseTypedDict",
     "UpdateToolHeaders2",
     "UpdateToolHeaders2TypedDict",
     "UpdateToolHeadersTools2",
@@ -16384,6 +16452,8 @@ _dynamic_imports: dict[str, str] = {
     "AutoRouterConfigTypedDict": ".autorouterconfig",
     "AutoRouterV2Config": ".autorouterv2config",
     "AutoRouterV2ConfigTypedDict": ".autorouterv2config",
+    "AutoRouterV2CreatorConfig": ".autorouterv2creatorconfig",
+    "AutoRouterV2CreatorConfigTypedDict": ".autorouterv2creatorconfig",
     "AutoRouterV2EffortConfig": ".autorouterv2effortconfig",
     "AutoRouterV2EffortConfigTypedDict": ".autorouterv2effortconfig",
     "AzureFoundryDeployment": ".azurefoundrydeployment",
@@ -18216,6 +18286,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateSkillRequestTypedDict": ".createskillrequest",
     "CreateSkillResponse": ".createskillresponse",
     "CreateSkillResponseTypedDict": ".createskillresponse",
+    "CreateSmartRouterRequest": ".createsmartrouterrequest",
+    "CreateSmartRouterRequestTypedDict": ".createsmartrouterrequest",
+    "CreateSmartRouterResponse": ".createsmartrouterresponse",
+    "CreateSmartRouterResponseTypedDict": ".createsmartrouterresponse",
     "CreateSpeechFallbacks": ".createspeechop",
     "CreateSpeechFallbacksTypedDict": ".createspeechop",
     "CreateSpeechLoadBalancer": ".createspeechop",
@@ -18535,6 +18609,8 @@ _dynamic_imports: dict[str, str] = {
     "DeletePromptResponseBodyData": ".deletepromptop",
     "DeleteSkillResponse": ".deleteskillresponse",
     "DeleteSkillResponseTypedDict": ".deleteskillresponse",
+    "DeleteSmartRouterResponse": ".deletesmartrouterresponse",
+    "DeleteSmartRouterResponseTypedDict": ".deletesmartrouterresponse",
     "DeleteToolRequest": ".deletetoolop",
     "DeleteToolRequestTypedDict": ".deletetoolop",
     "DeleteWebhookResponse": ".deletewebhookresponse",
@@ -20130,6 +20206,8 @@ _dynamic_imports: dict[str, str] = {
     "GetPromptVersionVoice": ".getpromptversionop",
     "GetSkillResponse": ".getskillresponse",
     "GetSkillResponseTypedDict": ".getskillresponse",
+    "GetSmartRouterResponse": ".getsmartrouterresponse",
+    "GetSmartRouterResponseTypedDict": ".getsmartrouterresponse",
     "GetTraceResponse": ".gettraceresponse",
     "GetTraceResponseTypedDict": ".gettraceresponse",
     "GetTraceSpanResponse": ".gettracespanresponse",
@@ -21069,6 +21147,8 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsVoice": ".listpromptversionsop",
     "ListSkillsResponse": ".listskillsresponse",
     "ListSkillsResponseTypedDict": ".listskillsresponse",
+    "ListSmartRoutersResponse": ".listsmartroutersresponse",
+    "ListSmartRoutersResponseTypedDict": ".listsmartroutersresponse",
     "ListTraceFacetsResponse": ".listtracefacetsresponse",
     "ListTraceFacetsResponseTypedDict": ".listtracefacetsresponse",
     "ListTraceFacetValuesResponse": ".listtracefacetvaluesresponse",
@@ -21110,10 +21190,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelBudgetScopeTypedDict": ".modelbudgetscope",
     "ModelConfigurationResponse": ".modelconfigurationresponse",
     "ModelConfigurationResponseTypedDict": ".modelconfigurationresponse",
-    "ModelCreateAutorouterRequestBody": ".modelcreateautorouterop",
-    "ModelCreateAutorouterRequestBodyTypedDict": ".modelcreateautorouterop",
-    "ModelCreateAutorouterResponseBody": ".modelcreateautorouterop",
-    "ModelCreateAutorouterResponseBodyTypedDict": ".modelcreateautorouterop",
     "ModelCreateAwsBedrockRequestBody": ".modelcreateawsbedrockop",
     "ModelCreateAwsBedrockRequestBodyTypedDict": ".modelcreateawsbedrockop",
     "ModelCreateAwsBedrockResponseBody": ".modelcreateawsbedrockop",
@@ -21147,12 +21223,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelsConfig": ".modelsconfig",
     "ModelsConfigMode": ".modelsconfig",
     "ModelsConfigTypedDict": ".modelsconfig",
-    "ModelUpdateAutorouterRequest": ".modelupdateautorouterop",
-    "ModelUpdateAutorouterRequestBody": ".modelupdateautorouterop",
-    "ModelUpdateAutorouterRequestBodyTypedDict": ".modelupdateautorouterop",
-    "ModelUpdateAutorouterRequestTypedDict": ".modelupdateautorouterop",
-    "ModelUpdateAutorouterResponseBody": ".modelupdateautorouterop",
-    "ModelUpdateAutorouterResponseBodyTypedDict": ".modelupdateautorouterop",
     "ModelUpdateAwsBedrockRequest": ".modelupdateawsbedrockop",
     "ModelUpdateAwsBedrockRequestBody": ".modelupdateawsbedrockop",
     "ModelUpdateAwsBedrockRequestBodyTypedDict": ".modelupdateawsbedrockop",
@@ -22479,6 +22549,10 @@ _dynamic_imports: dict[str, str] = {
     "SecurityTypedDict": ".security",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
+    "SetSmartRouterEnabledRequest": ".setsmartrouterenabledrequest",
+    "SetSmartRouterEnabledRequestTypedDict": ".setsmartrouterenabledrequest",
+    "SetSmartRouterEnabledResponse": ".setsmartrouterenabledresponse",
+    "SetSmartRouterEnabledResponseTypedDict": ".setsmartrouterenabledresponse",
     "SingleProject": ".singleproject",
     "SingleProjectTypedDict": ".singleproject",
     "Skill": ".skill",
@@ -22491,6 +22565,19 @@ _dynamic_imports: dict[str, str] = {
     "SkillListRequestTypedDict": ".skilllistop",
     "SkillUpdateRequest": ".skillupdateop",
     "SkillUpdateRequestTypedDict": ".skillupdateop",
+    "SmartRouter": ".smartrouter",
+    "SmartRouterTypedDict": ".smartrouter",
+    "SmartRouterDeleteRequest": ".smartrouterdeleteop",
+    "SmartRouterDeleteRequestTypedDict": ".smartrouterdeleteop",
+    "SmartRouterGetRequest": ".smartroutergetop",
+    "SmartRouterGetRequestTypedDict": ".smartroutergetop",
+    "SmartRouterListRequest": ".smartrouterlistop",
+    "SmartRouterListRequestTypedDict": ".smartrouterlistop",
+    "SmartRouterProfile": ".smartrouterprofile",
+    "SmartRouterSetEnabledRequest": ".smartroutersetenabledop",
+    "SmartRouterSetEnabledRequestTypedDict": ".smartroutersetenabledop",
+    "SmartRouterUpdateRequest": ".smartrouterupdateop",
+    "SmartRouterUpdateRequestTypedDict": ".smartrouterupdateop",
     "SpanDetail": ".spandetail",
     "SpanDetailAttributes": ".spandetail",
     "SpanDetailAttributesTypedDict": ".spandetail",
@@ -23827,6 +23914,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateSkillRequestTypedDict": ".updateskillrequest",
     "UpdateSkillResponse": ".updateskillresponse",
     "UpdateSkillResponseTypedDict": ".updateskillresponse",
+    "UpdateSmartRouterRequest": ".updatesmartrouterrequest",
+    "UpdateSmartRouterRequestTypedDict": ".updatesmartrouterrequest",
+    "UpdateSmartRouterResponse": ".updatesmartrouterresponse",
+    "UpdateSmartRouterResponseTypedDict": ".updatesmartrouterresponse",
     "RequestBodyTools": ".updatetoolop",
     "RequestBodyToolsTypedDict": ".updatetoolop",
     "RequestBodyVersionIncrement": ".updatetoolop",

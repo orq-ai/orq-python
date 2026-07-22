@@ -43,6 +43,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.routingrules import RoutingRules
     from orq_ai_sdk.schedules import Schedules
     from orq_ai_sdk.skills import Skills
+    from orq_ai_sdk.smartrouters import SmartRouters
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
@@ -80,6 +81,7 @@ class Orq(BaseSDK):
     notifiers: "Notifiers"
     projects: "Projects"
     skills: "Skills"
+    smart_routers: "SmartRouters"
     webhooks: "Webhooks"
     schedules: "Schedules"
     responses: "Responses"
@@ -113,6 +115,7 @@ class Orq(BaseSDK):
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
+        "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),

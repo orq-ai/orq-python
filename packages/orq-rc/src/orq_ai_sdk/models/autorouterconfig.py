@@ -2,15 +2,22 @@
 
 from __future__ import annotations
 from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class AutoRouterConfigTypedDict(TypedDict):
     economical_model: NotRequired[str]
     id: NotRequired[str]
+    models: NotRequired[Nullable[List[str]]]
     profile: NotRequired[str]
     strong_model: NotRequired[str]
     v2: NotRequired[AutoRouterV2ConfigTypedDict]
@@ -21,6 +28,8 @@ class AutoRouterConfig(BaseModel):
     economical_model: Optional[str] = None
 
     id: Optional[str] = None
+
+    models: OptionalNullable[List[str]] = UNSET
 
     profile: Optional[str] = None
 
@@ -33,17 +42,34 @@ class AutoRouterConfig(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["economical_model", "id", "profile", "strong_model", "v2", "version"]
+            [
+                "economical_model",
+                "id",
+                "models",
+                "profile",
+                "strong_model",
+                "v2",
+                "version",
+            ]
         )
+        nullable_fields = set(["models"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
