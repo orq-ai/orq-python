@@ -1624,6 +1624,10 @@ class ProviderBuiltInToolTypedDict(TypedDict):
 
     type: str
     r"""Provider-prefixed tool type"""
+    key: NotRequired[str]
+    r"""The key of a pre-created tool"""
+    id: NotRequired[str]
+    r"""The ID of a pre-created tool"""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
     configuration: NotRequired[Dict[str, Any]]
@@ -1636,6 +1640,12 @@ class ProviderBuiltInTool(BaseModel):
     type: str
     r"""Provider-prefixed tool type"""
 
+    key: Optional[str] = None
+    r"""The key of a pre-created tool"""
+
+    id: Optional[str] = None
+    r"""The ID of a pre-created tool"""
+
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
@@ -1644,7 +1654,7 @@ class ProviderBuiltInTool(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval", "configuration"])
+        optional_fields = set(["key", "id", "requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2484,12 +2494,12 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
         GoogleSearchToolTypedDict,
         QueryKnowledgeBaseToolTypedDict,
         CodeInterpreterToolTypedDict,
-        ProviderBuiltInToolTypedDict,
         FunctionToolTypedDict,
         JSONSchemaToolTypedDict,
+        HTTPToolTypedDict,
         CodeExecutionToolTypedDict,
         MCPToolTypedDict,
-        HTTPToolTypedDict,
+        ProviderBuiltInToolTypedDict,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
@@ -2510,12 +2520,12 @@ AgentToolInputCRUD = TypeAliasType(
         GoogleSearchTool,
         QueryKnowledgeBaseTool,
         CodeInterpreterTool,
-        ProviderBuiltInTool,
         FunctionTool,
         JSONSchemaTool,
+        HTTPTool,
         CodeExecutionTool,
         MCPTool,
-        HTTPTool,
+        ProviderBuiltInTool,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""

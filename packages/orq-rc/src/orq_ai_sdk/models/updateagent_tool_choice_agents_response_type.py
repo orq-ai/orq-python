@@ -1662,6 +1662,10 @@ class AgentToolInputCRUDProviderBuiltInToolTypedDict(TypedDict):
 
     type: str
     r"""Provider-prefixed tool type"""
+    key: NotRequired[str]
+    r"""The key of a pre-created tool"""
+    id: NotRequired[str]
+    r"""The ID of a pre-created tool"""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
     configuration: NotRequired[Dict[str, Any]]
@@ -1674,6 +1678,12 @@ class AgentToolInputCRUDProviderBuiltInTool(BaseModel):
     type: str
     r"""Provider-prefixed tool type"""
 
+    key: Optional[str] = None
+    r"""The key of a pre-created tool"""
+
+    id: Optional[str] = None
+    r"""The ID of a pre-created tool"""
+
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
@@ -1682,7 +1692,7 @@ class AgentToolInputCRUDProviderBuiltInTool(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval", "configuration"])
+        optional_fields = set(["key", "id", "requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2510,12 +2520,12 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDGoogleSearchToolTypedDict,
         AgentToolInputCRUDQueryKnowledgeBaseToolTypedDict,
         AgentToolInputCRUDCodeInterpreterToolTypedDict,
-        AgentToolInputCRUDProviderBuiltInToolTypedDict,
         AgentToolInputCRUDFunctionToolTypedDict,
         AgentToolInputCRUDJSONSchemaToolTypedDict,
+        AgentToolInputCRUDHTTPToolTypedDict,
         AgentToolInputCRUDCodeExecutionToolTypedDict,
         AgentToolInputCRUDMCPToolTypedDict,
-        AgentToolInputCRUDHTTPToolTypedDict,
+        AgentToolInputCRUDProviderBuiltInToolTypedDict,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
@@ -2536,12 +2546,12 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDGoogleSearchTool,
         AgentToolInputCRUDQueryKnowledgeBaseTool,
         AgentToolInputCRUDCodeInterpreterTool,
-        AgentToolInputCRUDProviderBuiltInTool,
         AgentToolInputCRUDFunctionTool,
         AgentToolInputCRUDJSONSchemaTool,
+        AgentToolInputCRUDHTTPTool,
         AgentToolInputCRUDCodeExecutionTool,
         AgentToolInputCRUDMCPTool,
-        AgentToolInputCRUDHTTPTool,
+        AgentToolInputCRUDProviderBuiltInTool,
     ],
 )
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
