@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Budgets(BaseSDK):
@@ -264,6 +264,9 @@ class Budgets(BaseSDK):
         rate_limit: Optional[Union[models.RateLimit, models.RateLimitTypedDict]] = None,
         is_active: Optional[bool] = None,
         expires_at: Optional[datetime] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -287,6 +290,8 @@ class Budgets(BaseSDK):
             when omitted (handler enforces).
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
+        :param alerts: Optional threshold notifications. Ids are assigned by the server, so
+            `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -312,6 +317,7 @@ class Budgets(BaseSDK):
             rate_limit=utils.get_pydantic_model(rate_limit, Optional[models.RateLimit]),
             is_active=is_active,
             expires_at=expires_at,
+            alerts=utils.get_pydantic_model(alerts, Optional[List[models.BudgetAlert]]),
         )
 
         req = self._build_request(
@@ -389,6 +395,9 @@ class Budgets(BaseSDK):
         rate_limit: Optional[Union[models.RateLimit, models.RateLimitTypedDict]] = None,
         is_active: Optional[bool] = None,
         expires_at: Optional[datetime] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -412,6 +421,8 @@ class Budgets(BaseSDK):
             when omitted (handler enforces).
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
+        :param alerts: Optional threshold notifications. Ids are assigned by the server, so
+            `alerts[].id` must be omitted here; supplying one is rejected.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -437,6 +448,7 @@ class Budgets(BaseSDK):
             rate_limit=utils.get_pydantic_model(rate_limit, Optional[models.RateLimit]),
             is_active=is_active,
             expires_at=expires_at,
+            alerts=utils.get_pydantic_model(alerts, Optional[List[models.BudgetAlert]]),
         )
 
         req = self._build_request_async(
@@ -494,234 +506,6 @@ class Budgets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateBudgetResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def check(
-        self,
-        *,
-        api_key_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        identity_external_id: Optional[str] = None,
-        provider: Optional[str] = None,
-        model_id: Optional[str] = None,
-        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
-        headers: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CheckBudgetsResponse:
-        r"""Check budget enforcement
-
-        Internal endpoint used by the gateway to resolve applicable budgets and check enforcement gates for a request. Returns allowed/rejected status with dimension info for rate-limit headers.
-
-        :param api_key_id: API key that issued the request (if any).
-        :param project_id: Project the request targets (if any).
-        :param identity_external_id: Identity external id for contact-scoped budgets (if any).
-        :param provider: Provider enum value for provider-scoped budgets (if any).
-        :param model_id: Full model reference for model-scoped budgets (if any), exactly as
-            the caller sent it: \"provider/model\" or \"workspaceKey@provider/model\".
-        :param metadata: Request metadata forwarded for dynamic-budget matching
-            (`metadata.team == \"ml\"`). Free-form JSON object from the request
-            body's `metadata` field.
-        :param headers: Request headers (lowercase keys) forwarded for dynamic-budget
-            matching (`headers[\"x-env\"] == \"prod\"`).
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.CheckBudgetsRequest(
-            api_key_id=api_key_id,
-            project_id=project_id,
-            identity_external_id=identity_external_id,
-            provider=provider,
-            model_id=model_id,
-            metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
-            headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/budgets/check",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CheckBudgetsRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="BudgetCheck",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Budgets"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CheckBudgetsResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def check_async(
-        self,
-        *,
-        api_key_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        identity_external_id: Optional[str] = None,
-        provider: Optional[str] = None,
-        model_id: Optional[str] = None,
-        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
-        headers: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CheckBudgetsResponse:
-        r"""Check budget enforcement
-
-        Internal endpoint used by the gateway to resolve applicable budgets and check enforcement gates for a request. Returns allowed/rejected status with dimension info for rate-limit headers.
-
-        :param api_key_id: API key that issued the request (if any).
-        :param project_id: Project the request targets (if any).
-        :param identity_external_id: Identity external id for contact-scoped budgets (if any).
-        :param provider: Provider enum value for provider-scoped budgets (if any).
-        :param model_id: Full model reference for model-scoped budgets (if any), exactly as
-            the caller sent it: \"provider/model\" or \"workspaceKey@provider/model\".
-        :param metadata: Request metadata forwarded for dynamic-budget matching
-            (`metadata.team == \"ml\"`). Free-form JSON object from the request
-            body's `metadata` field.
-        :param headers: Request headers (lowercase keys) forwarded for dynamic-budget
-            matching (`headers[\"x-env\"] == \"prod\"`).
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.CheckBudgetsRequest(
-            api_key_id=api_key_id,
-            project_id=project_id,
-            identity_external_id=identity_external_id,
-            provider=provider,
-            model_id=model_id,
-            metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
-            headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/budgets/check",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CheckBudgetsRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="BudgetCheck",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Budgets"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CheckBudgetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1099,6 +883,10 @@ class Budgets(BaseSDK):
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         match: Optional[Union[models.BudgetMatch, models.BudgetMatchTypedDict]] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
+        clear_alerts: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1118,6 +906,9 @@ class Budgets(BaseSDK):
         :param match: New matching expression. Only valid for dynamic budgets (no
             structured scope) — the scope of a scoped budget is immutable, so
             its derived expression is too. Validated via CEL parse.
+        :param alerts: Replaces the alert list wholesale. Omit to keep the current alerts.
+            An entry with a known `id` is edited in place; one with no id is minted.
+        :param clear_alerts: Force-clear every alert. Mutually exclusive with a non-empty `alerts`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1147,6 +938,10 @@ class Budgets(BaseSDK):
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
                 match=utils.get_pydantic_model(match, Optional[models.BudgetMatch]),
+                alerts=utils.get_pydantic_model(
+                    alerts, Optional[List[models.BudgetAlert]]
+                ),
+                clear_alerts=clear_alerts,
             ),
         )
 
@@ -1222,6 +1017,10 @@ class Budgets(BaseSDK):
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         match: Optional[Union[models.BudgetMatch, models.BudgetMatchTypedDict]] = None,
+        alerts: Optional[
+            Union[Iterable[models.BudgetAlert], Iterable[models.BudgetAlertTypedDict]]
+        ] = None,
+        clear_alerts: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1241,6 +1040,9 @@ class Budgets(BaseSDK):
         :param match: New matching expression. Only valid for dynamic budgets (no
             structured scope) — the scope of a scoped budget is immutable, so
             its derived expression is too. Validated via CEL parse.
+        :param alerts: Replaces the alert list wholesale. Omit to keep the current alerts.
+            An entry with a known `id` is edited in place; one with no id is minted.
+        :param clear_alerts: Force-clear every alert. Mutually exclusive with a non-empty `alerts`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1270,6 +1072,10 @@ class Budgets(BaseSDK):
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
                 match=utils.get_pydantic_model(match, Optional[models.BudgetMatch]),
+                alerts=utils.get_pydantic_model(
+                    alerts, Optional[List[models.BudgetAlert]]
+                ),
+                clear_alerts=clear_alerts,
             ),
         )
 

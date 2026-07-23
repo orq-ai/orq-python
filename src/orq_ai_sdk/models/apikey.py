@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
 from .apikeystatus import APIKeyStatus
+from .budgetalert import BudgetAlert, BudgetAlertTypedDict
 from .budgetlimits import BudgetLimits, BudgetLimitsTypedDict
 from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
 from .budgetscope import BudgetScope, BudgetScopeTypedDict
@@ -14,7 +15,7 @@ from .ratelimit import RateLimit, RateLimitTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -61,6 +62,8 @@ class APIKeyBudgetTypedDict(TypedDict):
     where it carries no signal. Absent or all-zero for a budget that
     has not been spent against in the current period.
     """
+    alerts: NotRequired[List[BudgetAlertTypedDict]]
+    r"""Threshold notifications. Absent when the budget has none."""
 
 
 class APIKeyBudget(BaseModel):
@@ -116,6 +119,9 @@ class APIKeyBudget(BaseModel):
     has not been spent against in the current period.
     """
 
+    alerts: Optional[List[BudgetAlert]] = None
+    r"""Threshold notifications. Absent when the budget has none."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -130,6 +136,7 @@ class APIKeyBudget(BaseModel):
                 "created_at",
                 "updated_at",
                 "usage",
+                "alerts",
             ]
         )
         serialized = handler(self)

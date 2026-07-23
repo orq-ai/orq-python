@@ -1,0 +1,13 @@
+# FunctionToolInput
+
+Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id.
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`                                                                       | [Optional[models.FunctionToolInputType]](../models/functiontoolinputtype.md) | :heavy_minus_sign:                                                           | Function tool type                                                           |
+| `key`                                                                        | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | The key of the pre-created function tool                                     |
+| `id`                                                                         | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | The ID of the pre-created function tool                                      |
+| `requires_approval`                                                          | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | Whether this tool requires approval before execution                         |

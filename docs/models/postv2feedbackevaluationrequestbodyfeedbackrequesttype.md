@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
-value: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType = "string_array"
+value: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType = "boolean"
 ```
 
 
 ## Values
 
-- `"string_array"`
+- `"boolean"`

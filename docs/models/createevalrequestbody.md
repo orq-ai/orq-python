@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.Llm`
+### `models.RequestBody1`
 
 ```python
-value: models.Llm = /* values here */
+value: models.RequestBody1 = /* values here */
 ```
 
 ### `models.Python`

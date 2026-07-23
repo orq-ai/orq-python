@@ -5,105 +5,33 @@ Tool configuration for agent create/update operations. Built-in tools only requi
 
 ## Supported Types
 
-### `models.GoogleSearchTool`
+### `models.HTTPToolInput`
 
 ```python
-value: models.GoogleSearchTool = /* values here */
+value: models.HTTPToolInput = /* values here */
 ```
 
-### `models.WebScraperTool`
+### `models.CodeToolInput`
 
 ```python
-value: models.WebScraperTool = /* values here */
+value: models.CodeToolInput = /* values here */
 ```
 
-### `models.CallSubAgentTool`
+### `models.FunctionToolInput`
 
 ```python
-value: models.CallSubAgentTool = /* values here */
+value: models.FunctionToolInput = /* values here */
 ```
 
-### `models.RetrieveAgentsTool`
+### `models.JSONSchemaToolInput`
 
 ```python
-value: models.RetrieveAgentsTool = /* values here */
+value: models.JSONSchemaToolInput = /* values here */
 ```
 
-### `models.QueryMemoryStoreTool`
+### `models.McpToolInput`
 
 ```python
-value: models.QueryMemoryStoreTool = /* values here */
-```
-
-### `models.WriteMemoryStoreTool`
-
-```python
-value: models.WriteMemoryStoreTool = /* values here */
-```
-
-### `models.RetrieveMemoryStoresTool`
-
-```python
-value: models.RetrieveMemoryStoresTool = /* values here */
-```
-
-### `models.DeleteMemoryDocumentTool`
-
-```python
-value: models.DeleteMemoryDocumentTool = /* values here */
-```
-
-### `models.RetrieveKnowledgeBasesTool`
-
-```python
-value: models.RetrieveKnowledgeBasesTool = /* values here */
-```
-
-### `models.QueryKnowledgeBaseTool`
-
-```python
-value: models.QueryKnowledgeBaseTool = /* values here */
-```
-
-### `models.CurrentDateTool`
-
-```python
-value: models.CurrentDateTool = /* values here */
-```
-
-### `models.HTTPTool`
-
-```python
-value: models.HTTPTool = /* values here */
-```
-
-### `models.CodeExecutionTool`
-
-```python
-value: models.CodeExecutionTool = /* values here */
-```
-
-### `models.FunctionTool`
-
-```python
-value: models.FunctionTool = /* values here */
-```
-
-### `models.JSONSchemaTool`
-
-```python
-value: models.JSONSchemaTool = /* values here */
-```
-
-### `models.MCPTool`
-
-```python
-value: models.MCPTool = /* values here */
-```
-
-### `models.ProviderBuiltInTool`
-
-```python
-value: models.ProviderBuiltInTool = /* values here */
+value: models.McpToolInput = /* values here */
 ```
 

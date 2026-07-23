@@ -65,6 +65,18 @@ value: models.ResponseContentPartDoneStreamEvent = /* values here */
 value: models.ResponseCreatedStreamEvent = /* values here */
 ```
 
+### `models.ResponseCustomToolCallInputDeltaStreamEvent`
+
+```python
+value: models.ResponseCustomToolCallInputDeltaStreamEvent = /* values here */
+```
+
+### `models.ResponseCustomToolCallInputDoneStreamEvent`
+
+```python
+value: models.ResponseCustomToolCallInputDoneStreamEvent = /* values here */
+```
+
 ### `models.ResponseFailedStreamEvent`
 
 ```python
@@ -165,6 +177,24 @@ value: models.ResponseMCPCallArgumentsDeltaStreamEvent = /* values here */
 
 ```python
 value: models.ResponseMCPCallArgumentsDoneStreamEvent = /* values here */
+```
+
+### `models.ResponseMCPListToolsCompletedStreamEvent`
+
+```python
+value: models.ResponseMCPListToolsCompletedStreamEvent = /* values here */
+```
+
+### `models.ResponseMCPListToolsFailedStreamEvent`
+
+```python
+value: models.ResponseMCPListToolsFailedStreamEvent = /* values here */
+```
+
+### `models.ResponseMCPListToolsInProgressStreamEvent`
+
+```python
+value: models.ResponseMCPListToolsInProgressStreamEvent = /* values here */
 ```
 
 ### `models.ResponseOutputItemAddedStreamEvent`

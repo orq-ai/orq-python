@@ -360,6 +360,7 @@ r"""Controls the verbosity of the model output."""
 
 
 GetOnePromptThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -594,6 +595,8 @@ GetOnePromptProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
+    "reson8",
     "slack",
     "orq",
 ]
@@ -1273,6 +1276,7 @@ GetOnePromptModalities = Literal[
 
 GetOnePromptID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

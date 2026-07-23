@@ -954,6 +954,7 @@ UpdatePromptModalities = Literal[
 
 UpdatePromptID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -2020,6 +2021,7 @@ r"""Controls the verbosity of the model output."""
 
 
 UpdatePromptThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -2258,6 +2260,8 @@ UpdatePromptProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
+    "reson8",
     "slack",
     "orq",
 ]
@@ -2949,6 +2953,7 @@ UpdatePromptPromptsModalities = Literal[
 
 UpdatePromptIDPrompts1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

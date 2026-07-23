@@ -15,8 +15,8 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag, model_serializer
-from typing import Literal, Optional, Union
+from pydantic import ConfigDict, Discriminator, Tag, model_serializer
+from typing import Any, Dict, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -211,6 +211,8 @@ class CreateDatasourceRequestBodyTypedDict(TypedDict):
     r"""The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized."""
     description: NotRequired[Nullable[str]]
     r"""The description of the knowledge base"""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Client-defined metadata associated with the datasource."""
     file_id: NotRequired[str]
     r"""The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking."""
     chunking_options: NotRequired[ChunkingOptionsTypedDict]
@@ -226,6 +228,9 @@ class CreateDatasourceRequestBody(BaseModel):
     description: OptionalNullable[str] = UNSET
     r"""The description of the knowledge base"""
 
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Client-defined metadata associated with the datasource."""
+
     file_id: Optional[str] = None
     r"""The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking."""
 
@@ -235,7 +240,7 @@ class CreateDatasourceRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["display_name", "description", "file_id", "chunking_options"]
+            ["display_name", "description", "metadata", "file_id", "chunking_options"]
         )
         nullable_fields = set(["description"])
         serialized = handler(self)
@@ -287,6 +292,82 @@ CreateDatasourceStatus = Literal[
 ]
 
 
+class CreateDatasourceMetadataTypedDict(TypedDict):
+    words_count: NotRequired[float]
+    r"""Number of words in the text"""
+    sentences_count: NotRequired[float]
+    r"""Number of sentences in the text"""
+    paragraphs_count: NotRequired[float]
+    r"""Number of paragraphs in the text"""
+    tokens_count: NotRequired[float]
+    r"""Number of tokens in the text"""
+    characters_count: NotRequired[float]
+    r"""Number of characters in the text"""
+    chunks_count: NotRequired[float]
+    r"""Number of total chunks"""
+
+
+class CreateDatasourceMetadata(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    words_count: Optional[float] = None
+    r"""Number of words in the text"""
+
+    sentences_count: Optional[float] = None
+    r"""Number of sentences in the text"""
+
+    paragraphs_count: Optional[float] = None
+    r"""Number of paragraphs in the text"""
+
+    tokens_count: Optional[float] = None
+    r"""Number of tokens in the text"""
+
+    characters_count: Optional[float] = None
+    r"""Number of characters in the text"""
+
+    chunks_count: Optional[float] = None
+    r"""Number of total chunks"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "words_count",
+                "sentences_count",
+                "paragraphs_count",
+                "tokens_count",
+                "characters_count",
+                "chunks_count",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            serialized.pop(k, serialized.pop(n, None))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+        for k, v in serialized.items():
+            m[k] = v
+
+        return m
+
+
 class CreateDatasourceResponseBodyTypedDict(TypedDict):
     r"""Datasource successfully created"""
 
@@ -301,6 +382,7 @@ class CreateDatasourceResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the knowledge base"""
     chunks_count: float
     r"""The number of chunks in the datasource"""
+    metadata: CreateDatasourceMetadataTypedDict
     id: NotRequired[str]
     r"""The unique identifier of the data source"""
     description: NotRequired[Nullable[str]]
@@ -333,8 +415,10 @@ class CreateDatasourceResponseBody(BaseModel):
     chunks_count: float
     r"""The number of chunks in the datasource"""
 
+    metadata: CreateDatasourceMetadata
+
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KXPCS83MSCB5BE1VPWHXJTS3"
+        "01KY7CX66HB816W7GEXN23M36A"
     )
     r"""The unique identifier of the data source"""
 

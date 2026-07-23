@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, Iterable, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Knowledge(BaseSDK):
@@ -1257,6 +1257,12 @@ class Knowledge(BaseSDK):
         status: Optional[
             Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
+        metadata: Optional[
+            Union[
+                Mapping[str, Nullable[models.DatasourceMetadataValue]],
+                Mapping[str, Nullable[models.DatasourceMetadataValueTypedDict]],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1270,6 +1276,7 @@ class Knowledge(BaseSDK):
         :param q: Search query to find datasources by name.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param status: Filter datasources by status.
+        :param metadata: Filter datasources by exact metadata key/value pairs. Provide a JSON-encoded object when calling this endpoint over HTTP.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1295,6 +1302,9 @@ class Knowledge(BaseSDK):
             q=q,
             limit=limit,
             status=utils.unmarshal(status, Optional[models.QueryParamStatus]),
+            metadata=utils.unmarshal(
+                metadata, Optional[Dict[str, Nullable[models.DatasourceMetadataValue]]]
+            ),
         )
 
         req = self._build_request(
@@ -1364,6 +1374,12 @@ class Knowledge(BaseSDK):
         status: Optional[
             Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
+        metadata: Optional[
+            Union[
+                Mapping[str, Nullable[models.DatasourceMetadataValue]],
+                Mapping[str, Nullable[models.DatasourceMetadataValueTypedDict]],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1377,6 +1393,7 @@ class Knowledge(BaseSDK):
         :param q: Search query to find datasources by name.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param status: Filter datasources by status.
+        :param metadata: Filter datasources by exact metadata key/value pairs. Provide a JSON-encoded object when calling this endpoint over HTTP.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1402,6 +1419,9 @@ class Knowledge(BaseSDK):
             q=q,
             limit=limit,
             status=utils.unmarshal(status, Optional[models.QueryParamStatus]),
+            metadata=utils.unmarshal(
+                metadata, Optional[Dict[str, Nullable[models.DatasourceMetadataValue]]]
+            ),
         )
 
         req = self._build_request_async(
@@ -1466,6 +1486,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
+        metadata: Optional[Mapping[str, Any]] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
@@ -1480,6 +1501,7 @@ class Knowledge(BaseSDK):
         :param knowledge_id: The unique identifier of the knowledge base
         :param display_name: The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized.
         :param description: The description of the knowledge base
+        :param metadata: Client-defined metadata associated with the datasource.
         :param file_id: The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking.
         :param chunking_options: Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted.
         :param retries: Override the default retry configuration for this method
@@ -1505,6 +1527,7 @@ class Knowledge(BaseSDK):
             request_body=models.CreateDatasourceRequestBody(
                 display_name=display_name,
                 description=description,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 file_id=file_id,
                 chunking_options=utils.get_pydantic_model(
                     chunking_options, Optional[models.ChunkingOptions]
@@ -1583,6 +1606,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
+        metadata: Optional[Mapping[str, Any]] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
             Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
@@ -1597,6 +1621,7 @@ class Knowledge(BaseSDK):
         :param knowledge_id: The unique identifier of the knowledge base
         :param display_name: The display name for the datasource visible in the UI. If omitted, the display name is derived from the uploaded file. When both `display_name` and `file_id` are provided, the provided `display_name` is prioritized.
         :param description: The description of the knowledge base
+        :param metadata: Client-defined metadata associated with the datasource.
         :param file_id: The unique identifier of the file used for datasource creation. If provided, the file is immediately queued for chunking.
         :param chunking_options: Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted.
         :param retries: Override the default retry configuration for this method
@@ -1622,6 +1647,7 @@ class Knowledge(BaseSDK):
             request_body=models.CreateDatasourceRequestBody(
                 display_name=display_name,
                 description=description,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 file_id=file_id,
                 chunking_options=utils.get_pydantic_model(
                     chunking_options, Optional[models.ChunkingOptions]
@@ -2526,7 +2552,7 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
@@ -2639,7 +2665,7 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.

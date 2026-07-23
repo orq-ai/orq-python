@@ -27,7 +27,7 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter datasets by display name (case-insensitive match).
@@ -128,7 +128,7 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter datasets by display name (case-insensitive match).
@@ -1021,7 +1021,7 @@ class Datasets(BaseSDK):
         Retrieves a paginated list of datapoints from a specific dataset.
 
         :param dataset_id: The unique identifier of the dataset
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
@@ -1125,7 +1125,7 @@ class Datasets(BaseSDK):
         Retrieves a paginated list of datapoints from a specific dataset.
 
         :param dataset_id: The unique identifier of the dataset
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
@@ -2120,7 +2120,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -2152,8 +2152,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
+            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2209,7 +2213,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -2241,8 +2245,12 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
+            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

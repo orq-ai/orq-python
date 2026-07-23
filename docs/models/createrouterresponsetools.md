@@ -47,9 +47,15 @@ value: models.OrqAiTool = /* values here */
 value: models.OrqAiTool = /* values here */
 ```
 
-### `models.ToolsMCPTool`
+### `models.OrqAiTool`
 
 ```python
-value: models.ToolsMCPTool = /* values here */
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.MCPTool`
+
+```python
+value: models.MCPTool = /* values here */
 ```
 

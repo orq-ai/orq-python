@@ -360,6 +360,7 @@ StreamRunAgentModelConfigurationModalities = Literal[
 
 StreamRunAgentID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1169,6 +1170,7 @@ StreamRunAgentFallbackModelConfigurationModalities = Literal[
 
 StreamRunAgentIDAgents1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -2026,7 +2028,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal[
     "mcp",
 ]
 
@@ -2058,19 +2060,19 @@ class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType = Literal[
     "object",
 ]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchemaTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchema(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2107,7 +2109,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KXPCS7Q0N80EKF4PTPSYTG5K"
+    id: Optional[str] = "01KY7CX5T88ERQ1XT0XC0CWCTS"
 
     description: Optional[str] = None
 
@@ -2181,7 +2183,7 @@ class AgentToolInputRunMcp(BaseModel):
 class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2195,7 +2197,7 @@ class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
 class AgentToolInputRunMCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2228,7 +2230,7 @@ class AgentToolInputRunMCPToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
     "json_schema",
 ]
 
@@ -2316,7 +2318,7 @@ class StreamRunAgentAgentToolInputRunJSONSchema(BaseModel):
 class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2330,7 +2332,7 @@ class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
 class AgentToolInputRunJSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2363,12 +2365,12 @@ class AgentToolInputRunJSONSchemaToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
     "function",
 ]
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType = (
     Literal["object",]
 )
 r"""The type must be \"object\" """
@@ -2377,7 +2379,7 @@ r"""The type must be \"object\" """
 class StreamRunAgentAgentToolInputRunAgentsParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2393,7 +2395,7 @@ class StreamRunAgentAgentToolInputRunAgentsParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2455,7 +2457,7 @@ class StreamRunAgentAgentToolInputRunFunction(BaseModel):
 class AgentToolInputRunFunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     function: StreamRunAgentAgentToolInputRunFunctionTypedDict
@@ -2468,7 +2470,7 @@ class AgentToolInputRunFunctionToolRunTypedDict(TypedDict):
 class AgentToolInputRunFunctionToolRun(BaseModel):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2502,12 +2504,12 @@ class AgentToolInputRunFunctionToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "code",
 ]
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType = (
     Literal["object",]
 )
 r"""The type must be \"object\" """
@@ -2516,7 +2518,7 @@ r"""The type must be \"object\" """
 class StreamRunAgentAgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2532,7 +2534,7 @@ class StreamRunAgentAgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2590,7 +2592,7 @@ class AgentToolInputRunCodeTool(BaseModel):
 class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2599,12 +2601,14 @@ class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
 
 
 class AgentToolInputRunCodeToolRun(BaseModel):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2620,9 +2624,12 @@ class AgentToolInputRunCodeToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2637,7 +2644,7 @@ class AgentToolInputRunCodeToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
     "http",
 ]
 
@@ -2700,6 +2707,8 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class AgentToolInputRunBlueprint(BaseModel):
@@ -2717,9 +2726,12 @@ class AgentToolInputRunBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2734,7 +2746,7 @@ class AgentToolInputRunBlueprint(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType = (
     Literal[
         "string",
         "number",
@@ -2757,7 +2769,7 @@ r"""The default value of the argument."""
 
 
 class AgentToolInputRunArgumentsTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -2768,7 +2780,7 @@ class AgentToolInputRunArgumentsTypedDict(TypedDict):
 
 
 class AgentToolInputRunArguments(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -2831,7 +2843,7 @@ class AgentToolInputRunHTTP(BaseModel):
 class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2840,12 +2852,14 @@ class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class AgentToolInputRunHTTPToolRun(BaseModel):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2861,9 +2875,55 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+    "code_interpreter",
+]
+
+
+class StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class StreamRunAgentAgentToolInputRunCodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2889,6 +2949,8 @@ class StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunCurrentDateTool(BaseModel):
@@ -2899,9 +2961,12 @@ class StreamRunAgentAgentToolInputRunCurrentDateTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2927,6 +2992,8 @@ class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
@@ -2937,9 +3004,12 @@ class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2965,6 +3035,8 @@ class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict(TypedDi
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
@@ -2975,9 +3047,12 @@ class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3003,6 +3078,8 @@ class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict(TypedDict
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
@@ -3013,9 +3090,12 @@ class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3041,6 +3121,8 @@ class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict(TypedDict
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools7Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
@@ -3051,9 +3133,12 @@ class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3079,6 +3164,8 @@ class StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunWriteMemoryStoreTool(BaseModel):
@@ -3089,9 +3176,12 @@ class StreamRunAgentAgentToolInputRunWriteMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3117,6 +3207,8 @@ class StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunQueryMemoryStoreTool(BaseModel):
@@ -3127,9 +3219,12 @@ class StreamRunAgentAgentToolInputRunQueryMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3155,6 +3250,8 @@ class StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunRetrieveAgentsTool(BaseModel):
@@ -3165,9 +3262,12 @@ class StreamRunAgentAgentToolInputRunRetrieveAgentsTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3191,6 +3291,8 @@ class StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsRequestType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunCallSubAgentTool(BaseModel):
@@ -3201,9 +3303,12 @@ class StreamRunAgentAgentToolInputRunCallSubAgentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3227,6 +3332,8 @@ class StreamRunAgentAgentToolInputRunWebScraperToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunAgentsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunWebScraperTool(BaseModel):
@@ -3237,9 +3344,12 @@ class StreamRunAgentAgentToolInputRunWebScraperTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3263,6 +3373,8 @@ class StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict(TypedDict):
     type: StreamRunAgentAgentToolInputRunType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
@@ -3273,9 +3385,12 @@ class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3293,22 +3408,23 @@ class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
 StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
     "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
-        StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
-        StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
+        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
         StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict,
         StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict,
         StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict,
         StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict,
-        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
-        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
         StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict,
-        AgentToolInputRunHTTPToolRunTypedDict,
-        AgentToolInputRunCodeToolRunTypedDict,
+        StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
+        StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
         AgentToolInputRunJSONSchemaToolRunTypedDict,
         AgentToolInputRunMCPToolRunTypedDict,
+        AgentToolInputRunHTTPToolRunTypedDict,
+        AgentToolInputRunCodeToolRunTypedDict,
     ],
 )
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
@@ -3351,6 +3467,9 @@ StreamRunAgentAgentToolInputRun = Annotated[
             Tag("query_knowledge_base"),
         ],
         Annotated[StreamRunAgentAgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[
+            StreamRunAgentAgentToolInputRunCodeInterpreterTool, Tag("code_interpreter")
+        ],
         Annotated[AgentToolInputRunHTTPToolRun, Tag("http")],
         Annotated[AgentToolInputRunCodeToolRun, Tag("code")],
         Annotated[AgentToolInputRunFunctionToolRun, Tag("function")],
@@ -3467,6 +3586,8 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     evaluators: NotRequired[List[StreamRunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[StreamRunAgentGuardrailsTypedDict]]
@@ -3489,6 +3610,9 @@ class StreamRunAgentSettings(BaseModel):
     max_cost: Optional[float] = 0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     evaluators: Optional[List[StreamRunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3504,6 +3628,7 @@ class StreamRunAgentSettings(BaseModel):
                 "max_iterations",
                 "max_execution_time",
                 "max_cost",
+                "chat_exposed",
                 "evaluators",
                 "guardrails",
             ]

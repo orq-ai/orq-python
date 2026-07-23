@@ -15,6 +15,7 @@ value: CreateRouterResponseToolsResponsesType = "orq:current_date"
 - `"orq:current_date"`
 - `"orq:google_search"`
 - `"orq:web_scraper"`
+- `"orq:code_interpreter"`
 - `"orq:mcp"`
 - `"orq:http"`
 - `"orq:function"`

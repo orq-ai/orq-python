@@ -105,7 +105,7 @@ class RequestBodyCodeTool(BaseModel):
         return m
 
 
-class RequestBodyCodeExecutionToolTypedDict(TypedDict):
+class CodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
@@ -127,7 +127,7 @@ class RequestBodyCodeExecutionToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyCodeExecutionTool(BaseModel):
+class CodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
@@ -391,6 +391,8 @@ class RequestBodyBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class RequestBodyBlueprint(BaseModel):
@@ -408,9 +410,12 @@ class RequestBodyBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -517,7 +522,7 @@ class RequestBodyHTTP(BaseModel):
         return m
 
 
-class RequestBodyHTTPToolTypedDict(TypedDict):
+class HTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
@@ -539,7 +544,7 @@ class RequestBodyHTTPToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyHTTPTool(BaseModel):
+class HTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
 
     path: str
@@ -673,7 +678,7 @@ class RequestBodyJSONSchema(BaseModel):
         return m
 
 
-class RequestBodyJSONSchemaToolTypedDict(TypedDict):
+class JSONSchemaToolTypedDict(TypedDict):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -695,7 +700,7 @@ class RequestBodyJSONSchemaToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyJSONSchemaTool(BaseModel):
+class JSONSchemaTool(BaseModel):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -833,7 +838,7 @@ class RequestBodyFunction(BaseModel):
         return m
 
 
-class RequestBodyFunctionToolTypedDict(TypedDict):
+class FunctionToolTypedDict(TypedDict):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
@@ -855,7 +860,7 @@ class RequestBodyFunctionToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBodyFunctionTool(BaseModel):
+class FunctionTool(BaseModel):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
 
     path: str
@@ -902,10 +907,10 @@ class RequestBodyFunctionTool(BaseModel):
 CreateToolRequestBodyTypedDict = TypeAliasType(
     "CreateToolRequestBodyTypedDict",
     Union[
-        RequestBodyFunctionToolTypedDict,
-        RequestBodyJSONSchemaToolTypedDict,
-        RequestBodyHTTPToolTypedDict,
-        RequestBodyCodeExecutionToolTypedDict,
+        FunctionToolTypedDict,
+        JSONSchemaToolTypedDict,
+        HTTPToolTypedDict,
+        CodeExecutionToolTypedDict,
         RequestBodyMCPToolTypedDict,
     ],
 )
@@ -914,11 +919,11 @@ r"""The tool to create"""
 
 CreateToolRequestBody = Annotated[
     Union[
-        Annotated[RequestBodyFunctionTool, Tag("function")],
-        Annotated[RequestBodyJSONSchemaTool, Tag("json_schema")],
-        Annotated[RequestBodyHTTPTool, Tag("http")],
+        Annotated[FunctionTool, Tag("function")],
+        Annotated[JSONSchemaTool, Tag("json_schema")],
+        Annotated[HTTPTool, Tag("http")],
         Annotated[RequestBodyMCPTool, Tag("mcp")],
-        Annotated[RequestBodyCodeExecutionTool, Tag("code")],
+        Annotated[CodeExecutionTool, Tag("code")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1076,7 +1081,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXPCS7XJZYW9NMBZCH6B0VS8"
+        "tool_01KY7CX613W82E1A0QEKAV8Y7Z"
     )
 
     display_name: Optional[str] = None
@@ -1203,7 +1208,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KXPCS7XHGE7VM8MGZSWTPC60"
+    id: Optional[str] = "01KY7CX612NX7DA0FN86BE5FR5"
 
     description: Optional[str] = None
 
@@ -1347,7 +1352,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXPCS7XF4G043RNA24MGAQNP"
+        "tool_01KY7CX610TK741Z95R4AXD85Y"
     )
 
     display_name: Optional[str] = None
@@ -1460,6 +1465,8 @@ class ResponseBodyBlueprintTypedDict(TypedDict):
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class ResponseBodyBlueprint(BaseModel):
@@ -1477,9 +1484,12 @@ class ResponseBodyBlueprint(BaseModel):
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -1647,7 +1657,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXPCS7XD4GMB3QD958B88DW0"
+        "tool_01KY7CX60YTFTQS6WW1DB0XEWB"
     )
 
     display_name: Optional[str] = None
@@ -1841,7 +1851,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXPCS7XAWTHWRZPD9DZQT2MV"
+        "tool_01KY7CX60WPR4BKY5BKZ28Y428"
     )
 
     display_name: Optional[str] = None
@@ -2039,7 +2049,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: ResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KXPCS7X86ER86R0APWWSKC5A"
+        "tool_01KY7CX60TKYAFGQ8W22P4T98Y"
     )
 
     display_name: Optional[str] = None

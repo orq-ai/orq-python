@@ -17,6 +17,7 @@ class Files(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        purpose: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,6 +33,10 @@ class Files(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
             from the previous page.
         :param project_id:
+        :param purpose: Restrict results to files declared with this purpose. Accepts a purpose
+            alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
+            or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
+            of every purpose.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -55,6 +60,7 @@ class Files(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            purpose=purpose,
         )
 
         req = self._build_request(
@@ -135,6 +141,7 @@ class Files(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        purpose: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -150,6 +157,10 @@ class Files(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
             from the previous page.
         :param project_id:
+        :param purpose: Restrict results to files declared with this purpose. Accepts a purpose
+            alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
+            or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
+            of every purpose.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -173,6 +184,7 @@ class Files(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            purpose=purpose,
         )
 
         req = self._build_request_async(

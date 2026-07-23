@@ -486,42 +486,84 @@ InputRole = Literal[
 r"""The role of the message sender (for message items)."""
 
 
+InputStatus = Literal[
+    "in_progress",
+    "completed",
+    "incomplete",
+]
+r"""The status of a model-generated input item."""
+
+
 InputType = Literal[
     "message",
+    "function_call",
     "function_call_output",
     "item_reference",
+    "reasoning",
+    "custom_tool_call",
+    "custom_tool_call_output",
+    "computer_call",
+    "computer_call_output",
+    "local_shell_call",
+    "local_shell_call_output",
+    "shell_call",
+    "shell_call_output",
+    "apply_patch_call",
+    "apply_patch_call_output",
+    "tool_search_call",
+    "tool_search_output",
+    "additional_tools",
+    "compaction",
+    "program",
+    "program_output",
+    "mcp_call",
+    "mcp_list_tools",
+    "mcp_approval_request",
+    "mcp_approval_response",
 ]
 r"""The type of item."""
 
 
 class CreateRouterResponseInput2TypedDict(TypedDict):
-    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
+    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call\", \"function_call_output\", \"item_reference\", etc."""
 
+    arguments: NotRequired[str]
+    r"""The function arguments as a JSON string (for function_call items)."""
     call_id: NotRequired[str]
-    r"""The ID of the function call being responded to (for function_call_output type)."""
+    r"""The function call identifier (for function_call and function_call_output items)."""
     content: NotRequired[InputContentTypedDict]
     r"""The content of the item: a string or an array of content parts."""
     id: NotRequired[str]
-    r"""The ID of the item (for item_reference type)."""
+    r"""The ID of the item. For item_reference items, this identifies the referenced item."""
+    name: NotRequired[str]
+    r"""The name of the function that was called (for function_call items)."""
     output: NotRequired[str]
     r"""The output of the function call (for function_call_output type)."""
     role: NotRequired[InputRole]
     r"""The role of the message sender (for message items)."""
+    status: NotRequired[InputStatus]
+    r"""The status of a model-generated input item."""
     type: NotRequired[InputType]
     r"""The type of item."""
 
 
 class CreateRouterResponseInput2(BaseModel):
-    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call_output\", \"item_reference\", etc."""
+    r"""An input item. The \"type\" field determines the item kind: \"message\", \"function_call\", \"function_call_output\", \"item_reference\", etc."""
+
+    arguments: Optional[str] = None
+    r"""The function arguments as a JSON string (for function_call items)."""
 
     call_id: Optional[str] = None
-    r"""The ID of the function call being responded to (for function_call_output type)."""
+    r"""The function call identifier (for function_call and function_call_output items)."""
 
     content: Optional[InputContent] = None
     r"""The content of the item: a string or an array of content parts."""
 
     id: Optional[str] = None
-    r"""The ID of the item (for item_reference type)."""
+    r"""The ID of the item. For item_reference items, this identifies the referenced item."""
+
+    name: Optional[str] = None
+    r"""The name of the function that was called (for function_call items)."""
 
     output: Optional[str] = None
     r"""The output of the function call (for function_call_output type)."""
@@ -529,12 +571,27 @@ class CreateRouterResponseInput2(BaseModel):
     role: Optional[InputRole] = None
     r"""The role of the message sender (for message items)."""
 
+    status: Optional[InputStatus] = None
+    r"""The status of a model-generated input item."""
+
     type: Optional[InputType] = None
     r"""The type of item."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["call_id", "content", "id", "output", "role", "type"])
+        optional_fields = set(
+            [
+                "arguments",
+                "call_id",
+                "content",
+                "id",
+                "name",
+                "output",
+                "role",
+                "status",
+                "type",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -570,41 +627,42 @@ TemplateEngine = Literal[
 r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
 
 
-class FormatSchemaTypedDict(TypedDict):
-    r"""The JSON Schema the output must conform to."""
-
-
-class FormatSchema(BaseModel):
-    r"""The JSON Schema the output must conform to."""
-
-
 CreateRouterResponseFormatType = Literal["json_schema",]
+r"""The type of response format being defined. Always `json_schema`."""
 
 
 class FormatJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    schema_: Dict[str, Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
     type: CreateRouterResponseFormatType
+    r"""The type of response format being defined. Always `json_schema`."""
     description: NotRequired[str]
-    name: NotRequired[str]
-    schema_: NotRequired[FormatSchemaTypedDict]
-    r"""The JSON Schema the output must conform to."""
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field."""
 
 
 class FormatJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object."""
+
     type: CreateRouterResponseFormatType
+    r"""The type of response format being defined. Always `json_schema`."""
 
     description: Optional[str] = None
-
-    name: Optional[str] = None
-
-    schema_: Annotated[Optional[FormatSchema], pydantic.Field(alias="schema")] = None
-    r"""The JSON Schema the output must conform to."""
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
 
     strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "name", "schema", "strict"])
+        optional_fields = set(["description", "strict"])
         serialized = handler(self)
         m = {}
 
@@ -771,7 +829,7 @@ class AllowedTools(BaseModel):
 CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
-class ToolsMCPToolTypedDict(TypedDict):
+class MCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -787,7 +845,7 @@ class ToolsMCPToolTypedDict(TypedDict):
     r"""The MCP server endpoint URL (inline mode)."""
 
 
-class ToolsMCPTool(BaseModel):
+class MCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -826,10 +884,68 @@ class ToolsMCPTool(BaseModel):
         return m
 
 
+class ToolsFilesTypedDict(TypedDict):
+    file_id: str
+    r"""The workspace file ID."""
+    name: str
+    r"""The file name exposed under /workspace."""
+
+
+class ToolsFiles(BaseModel):
+    file_id: str
+    r"""The workspace file ID."""
+
+    name: str
+    r"""The file name exposed under /workspace."""
+
+
+ToolsMode = Literal[
+    "disabled",
+    "allowlist",
+]
+r"""Network mode. Defaults to disabled."""
+
+
+class NetworkTypedDict(TypedDict):
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
+    allowlist: NotRequired[List[str]]
+    r"""Allowed network hostnames or IPv4 addresses when mode is allowlist. Maximum 50 entries."""
+    mode: NotRequired[ToolsMode]
+    r"""Network mode. Defaults to disabled."""
+
+
+class Network(BaseModel):
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
+    allowlist: Optional[List[str]] = None
+    r"""Allowed network hostnames or IPv4 addresses when mode is allowlist. Maximum 50 entries."""
+
+    mode: Optional[ToolsMode] = "disabled"
+    r"""Network mode. Defaults to disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["allowlist", "mode"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRouterResponseToolsResponsesType = Literal[
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
+    "orq:code_interpreter",
     "orq:mcp",
     "orq:http",
     "orq:function",
@@ -842,6 +958,10 @@ class OrqAiToolTypedDict(TypedDict):
 
     type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
+    files: NotRequired[List[ToolsFilesTypedDict]]
+    r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
+    network: NotRequired[NetworkTypedDict]
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
@@ -852,12 +972,18 @@ class OrqAiTool(BaseModel):
     type: CreateRouterResponseToolsResponsesType
     r"""The orq.ai tool type."""
 
+    files: Optional[List[ToolsFiles]] = None
+    r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
+
+    network: Optional[Network] = None
+    r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+
     tool_id: Optional[str] = None
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["tool_id"])
+        optional_fields = set(["files", "network", "tool_id"])
         serialized = handler(self)
         m = {}
 
@@ -988,7 +1114,7 @@ class ToolsFunction(BaseModel):
 
 CreateRouterResponseToolsTypedDict = TypeAliasType(
     "CreateRouterResponseToolsTypedDict",
-    Union[OrqAiToolTypedDict, ToolsFunctionTypedDict, ToolsMCPToolTypedDict],
+    Union[OrqAiToolTypedDict, ToolsFunctionTypedDict, MCPToolTypedDict],
 )
 r"""A tool definition. The \"type\" field determines the tool kind."""
 
@@ -999,10 +1125,11 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:current_date")],
         Annotated[OrqAiTool, Tag("orq:google_search")],
         Annotated[OrqAiTool, Tag("orq:web_scraper")],
+        Annotated[OrqAiTool, Tag("orq:code_interpreter")],
         Annotated[OrqAiTool, Tag("orq:mcp")],
         Annotated[OrqAiTool, Tag("orq:http")],
         Annotated[OrqAiTool, Tag("orq:function")],
-        Annotated[ToolsMCPTool, Tag("mcp")],
+        Annotated[MCPTool, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

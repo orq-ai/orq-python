@@ -13,5 +13,6 @@ value: UpdateAgentIDAgentsResponse2001 = "orq_pii_detection"
 ## Values
 
 - `"orq_pii_detection"`
+- `"orq_secret_detection"`
 - `"orq_sexual_moderation"`
 - `"orq_harmful_moderation"`

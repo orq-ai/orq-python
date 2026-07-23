@@ -21,3 +21,9 @@ value: models.PostV2FeedbackEvaluationRequestBody2 = /* values here */
 value: models.RequestBody3 = /* values here */
 ```
 
+### `models.RequestBody4`
+
+```python
+value: models.RequestBody4 = /* values here */
+```
+

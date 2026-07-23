@@ -225,12 +225,14 @@ class ListAgentsToolsTypedDict(TypedDict):
     display_name: NotRequired[str]
     description: NotRequired[str]
     r"""Optional tool description"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[ListAgentsConditionsTypedDict]]
     timeout: NotRequired[float]
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class ListAgentsTools(BaseModel):
@@ -247,6 +249,9 @@ class ListAgentsTools(BaseModel):
     description: Optional[str] = None
     r"""Optional tool description"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     requires_approval: Optional[bool] = False
 
     tool_id: Optional[str] = None
@@ -254,8 +259,8 @@ class ListAgentsTools(BaseModel):
 
     conditions: Optional[List[ListAgentsConditions]] = None
 
-    timeout: Optional[float] = 120
-    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -264,6 +269,7 @@ class ListAgentsTools(BaseModel):
                 "key",
                 "display_name",
                 "description",
+                "configuration",
                 "requires_approval",
                 "tool_id",
                 "conditions",
@@ -379,6 +385,8 @@ class ListAgentsSettingsTypedDict(TypedDict):
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     tools: NotRequired[List[ListAgentsToolsTypedDict]]
     evaluators: NotRequired[List[ListAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
@@ -399,6 +407,9 @@ class ListAgentsSettings(BaseModel):
     tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     tools: Optional[List[ListAgentsTools]] = None
 
     evaluators: Optional[List[ListAgentsEvaluators]] = None
@@ -415,6 +426,7 @@ class ListAgentsSettings(BaseModel):
                 "max_execution_time",
                 "max_cost",
                 "tool_approval_required",
+                "chat_exposed",
                 "tools",
                 "evaluators",
                 "guardrails",
@@ -683,6 +695,7 @@ ListAgentsModalities = Literal[
 
 ListAgentsID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1421,6 +1434,7 @@ ListAgentsFallbackModelConfigurationModalities = Literal[
 
 ListAgentsIDAgents1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

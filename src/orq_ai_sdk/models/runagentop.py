@@ -298,6 +298,7 @@ RunAgentModelConfigurationModalities = Literal[
 
 RunAgentID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1097,6 +1098,7 @@ RunAgentFallbackModelConfigurationModalities = Literal[
 
 RunAgentIDAgents1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1933,7 +1935,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -1963,19 +1965,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType = Literal[
     "object",
 ]
 
 
 class AgentToolInputRunSchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class AgentToolInputRunSchema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2010,7 +2012,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KXPCS7N2H4CGP0GCZGG9VS6Q"
+    id: Optional[str] = "01KY7CX5RFZS7YYM1KHF6Q95FS"
 
     description: Optional[str] = None
 
@@ -2082,7 +2084,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2096,7 +2098,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2129,7 +2131,7 @@ class MCPToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
     "json_schema",
 ]
 
@@ -2215,7 +2217,7 @@ class AgentToolInputRunJSONSchema(BaseModel):
 class JSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2229,7 +2231,7 @@ class JSONSchemaToolRunTypedDict(TypedDict):
 class JSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2262,12 +2264,12 @@ class JSONSchemaToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
     "function",
 ]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2276,7 +2278,7 @@ r"""The type must be \"object\" """
 class RunAgentAgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2292,7 +2294,7 @@ class RunAgentAgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2354,7 +2356,7 @@ class AgentToolInputRunFunction(BaseModel):
 class FunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     function: AgentToolInputRunFunctionTypedDict
@@ -2367,7 +2369,7 @@ class FunctionToolRunTypedDict(TypedDict):
 class FunctionToolRun(BaseModel):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2401,10 +2403,10 @@ class FunctionToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["code",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal["code",]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2413,7 +2415,7 @@ r"""The type must be \"object\" """
 class AgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2429,7 +2431,7 @@ class AgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2487,7 +2489,7 @@ class CodeTool(BaseModel):
 class CodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2496,12 +2498,14 @@ class CodeToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
 
 
 class CodeToolRun(BaseModel):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2517,9 +2521,12 @@ class CodeToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 2 minutes, the code sandbox cap). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2534,7 +2541,7 @@ class CodeToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal["http",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["http",]
 
 
 AgentToolInputRunMethod = Literal[
@@ -2573,10 +2580,14 @@ class Headers2(BaseModel):
         return m
 
 
-HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
+RunAgentAgentToolInputRunHeadersTypedDict = TypeAliasType(
+    "RunAgentAgentToolInputRunHeadersTypedDict", Union[Headers2TypedDict, str]
+)
 
 
-Headers = TypeAliasType("Headers", Union[Headers2, str])
+RunAgentAgentToolInputRunHeaders = TypeAliasType(
+    "RunAgentAgentToolInputRunHeaders", Union[Headers2, str]
+)
 
 
 class BlueprintTypedDict(TypedDict):
@@ -2586,10 +2597,12 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, HeadersTypedDict]]
+    headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
+    timeout: NotRequired[float]
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
 
 
 class Blueprint(BaseModel):
@@ -2601,15 +2614,18 @@ class Blueprint(BaseModel):
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, Headers]] = None
+    headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
 
+    timeout: Optional[float] = None
+    r"""The request timeout in seconds. Defaults to 60 seconds when not set. When used in an agent, tool executions are also bound by the agent run `limits.tool_timeout` (default 5 minutes), so raise that limit for longer-running tools."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["headers", "body"])
+        optional_fields = set(["headers", "body", "timeout"])
         serialized = handler(self)
         m = {}
 
@@ -2624,7 +2640,7 @@ class Blueprint(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType = Literal[
     "string",
     "number",
     "boolean",
@@ -2641,7 +2657,7 @@ r"""The default value of the argument."""
 
 
 class ArgumentsTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -2652,7 +2668,7 @@ class ArgumentsTypedDict(TypedDict):
 
 
 class Arguments(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -2715,7 +2731,7 @@ class HTTP(BaseModel):
 class HTTPToolRunTypedDict(TypedDict):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2724,12 +2740,14 @@ class HTTPToolRunTypedDict(TypedDict):
     id: NotRequired[str]
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
 class HTTPToolRun(BaseModel):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2745,9 +2763,55 @@ class HTTPToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    timeout: Optional[float] = None
+    r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["_id", "display_name", "requires_approval"])
+        optional_fields = set(["_id", "display_name", "requires_approval", "timeout"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+    "code_interpreter",
+]
+
+
+class AgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class AgentToolInputRunCodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2773,6 +2837,8 @@ class AgentToolInputRunCurrentDateToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunCurrentDateTool(BaseModel):
@@ -2783,9 +2849,12 @@ class AgentToolInputRunCurrentDateTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2811,6 +2880,8 @@ class AgentToolInputRunQueryKnowledgeBaseToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
@@ -2821,9 +2892,12 @@ class AgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2849,6 +2923,8 @@ class AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
@@ -2859,9 +2935,12 @@ class AgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2887,6 +2966,8 @@ class AgentToolInputRunDeleteMemoryDocumentToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
@@ -2897,9 +2978,12 @@ class AgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2925,6 +3009,8 @@ class AgentToolInputRunRetrieveMemoryStoresToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
@@ -2935,9 +3021,12 @@ class AgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2963,6 +3052,8 @@ class AgentToolInputRunWriteMemoryStoreToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunWriteMemoryStoreTool(BaseModel):
@@ -2973,9 +3064,12 @@ class AgentToolInputRunWriteMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -2999,6 +3093,8 @@ class AgentToolInputRunQueryMemoryStoreToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodyType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunQueryMemoryStoreTool(BaseModel):
@@ -3009,9 +3105,12 @@ class AgentToolInputRunQueryMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3035,6 +3134,8 @@ class AgentToolInputRunRetrieveAgentsToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunRetrieveAgentsTool(BaseModel):
@@ -3045,9 +3146,12 @@ class AgentToolInputRunRetrieveAgentsTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3071,6 +3175,8 @@ class AgentToolInputRunCallSubAgentToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunCallSubAgentTool(BaseModel):
@@ -3081,9 +3187,12 @@ class AgentToolInputRunCallSubAgentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3107,6 +3216,8 @@ class AgentToolInputRunWebScraperToolTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunWebScraperTool(BaseModel):
@@ -3117,9 +3228,12 @@ class AgentToolInputRunWebScraperTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3143,6 +3257,8 @@ class AgentToolInputRunGoogleSearchToolTypedDict(TypedDict):
     type: AgentToolInputRunType
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class AgentToolInputRunGoogleSearchTool(BaseModel):
@@ -3153,9 +3269,12 @@ class AgentToolInputRunGoogleSearchTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval"])
+        optional_fields = set(["requires_approval", "configuration"])
         serialized = handler(self)
         m = {}
 
@@ -3173,22 +3292,23 @@ class AgentToolInputRunGoogleSearchTool(BaseModel):
 AgentToolInputRunTypedDict = TypeAliasType(
     "AgentToolInputRunTypedDict",
     Union[
-        AgentToolInputRunGoogleSearchToolTypedDict,
-        AgentToolInputRunWebScraperToolTypedDict,
+        AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
+        AgentToolInputRunQueryKnowledgeBaseToolTypedDict,
         AgentToolInputRunCallSubAgentToolTypedDict,
         AgentToolInputRunRetrieveAgentsToolTypedDict,
         AgentToolInputRunQueryMemoryStoreToolTypedDict,
         AgentToolInputRunWriteMemoryStoreToolTypedDict,
         AgentToolInputRunRetrieveMemoryStoresToolTypedDict,
         AgentToolInputRunDeleteMemoryDocumentToolTypedDict,
-        AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
-        AgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        AgentToolInputRunWebScraperToolTypedDict,
         AgentToolInputRunCurrentDateToolTypedDict,
-        HTTPToolRunTypedDict,
-        CodeToolRunTypedDict,
+        AgentToolInputRunGoogleSearchToolTypedDict,
+        AgentToolInputRunCodeInterpreterToolTypedDict,
         FunctionToolRunTypedDict,
         JSONSchemaToolRunTypedDict,
         MCPToolRunTypedDict,
+        HTTPToolRunTypedDict,
+        CodeToolRunTypedDict,
     ],
 )
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
@@ -3213,6 +3333,7 @@ AgentToolInputRun = Annotated[
         ],
         Annotated[AgentToolInputRunQueryKnowledgeBaseTool, Tag("query_knowledge_base")],
         Annotated[AgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[AgentToolInputRunCodeInterpreterTool, Tag("code_interpreter")],
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],
@@ -3329,6 +3450,8 @@ class RunAgentSettingsTypedDict(TypedDict):
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+    chat_exposed: NotRequired[bool]
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
     evaluators: NotRequired[List[RunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[RunAgentGuardrailsTypedDict]]
@@ -3351,6 +3474,9 @@ class RunAgentSettings(BaseModel):
     max_cost: Optional[float] = 0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
+    chat_exposed: Optional[bool] = None
+    r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
+
     evaluators: Optional[List[RunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3366,6 +3492,7 @@ class RunAgentSettings(BaseModel):
                 "max_iterations",
                 "max_execution_time",
                 "max_cost",
+                "chat_exposed",
                 "evaluators",
                 "guardrails",
             ]

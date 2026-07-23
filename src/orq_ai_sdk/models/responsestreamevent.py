@@ -37,6 +37,14 @@ from .responsecreatedstreamevent import (
     ResponseCreatedStreamEvent,
     ResponseCreatedStreamEventTypedDict,
 )
+from .responsecustomtoolcallinputdeltastreamevent import (
+    ResponseCustomToolCallInputDeltaStreamEvent,
+    ResponseCustomToolCallInputDeltaStreamEventTypedDict,
+)
+from .responsecustomtoolcallinputdonestreamevent import (
+    ResponseCustomToolCallInputDoneStreamEvent,
+    ResponseCustomToolCallInputDoneStreamEventTypedDict,
+)
 from .responseerrorstreamevent import (
     ResponseErrorStreamEvent,
     ResponseErrorStreamEventTypedDict,
@@ -108,6 +116,18 @@ from .responsemcpcallfailedstreamevent import (
 from .responsemcpcallinprogressstreamevent import (
     ResponseMCPCallInProgressStreamEvent,
     ResponseMCPCallInProgressStreamEventTypedDict,
+)
+from .responsemcplisttoolscompletedstreamevent import (
+    ResponseMCPListToolsCompletedStreamEvent,
+    ResponseMCPListToolsCompletedStreamEventTypedDict,
+)
+from .responsemcplisttoolsfailedstreamevent import (
+    ResponseMCPListToolsFailedStreamEvent,
+    ResponseMCPListToolsFailedStreamEventTypedDict,
+)
+from .responsemcplisttoolsinprogressstreamevent import (
+    ResponseMCPListToolsInProgressStreamEvent,
+    ResponseMCPListToolsInProgressStreamEventTypedDict,
 )
 from .responseoutputitemaddedstreamevent import (
     ResponseOutputItemAddedStreamEvent,
@@ -201,31 +221,36 @@ ResponseStreamEventTypedDict = TypeAliasType(
         ResponseFailedStreamEventTypedDict,
         ResponseIncompleteStreamEventTypedDict,
         ResponseCreatedStreamEventTypedDict,
-        ResponseMCPCallCompletedStreamEventTypedDict,
         ResponseImageGenerationCallGeneratingStreamEventTypedDict,
-        ResponseFileSearchCallInProgressStreamEventTypedDict,
-        ResponseWebSearchCallCompletedStreamEventTypedDict,
         ResponseWebSearchCallSearchingStreamEventTypedDict,
-        ResponseWebSearchCallInProgressStreamEventTypedDict,
-        ResponseMCPCallFailedStreamEventTypedDict,
-        ResponseFileSearchCallSearchingStreamEventTypedDict,
-        ResponseMCPCallInProgressStreamEventTypedDict,
-        ResponseFileSearchCallCompletedStreamEventTypedDict,
-        ResponseImageGenerationCallCompletedStreamEventTypedDict,
-        ResponseOutputItemDoneStreamEventTypedDict,
-        ResponseImageGenerationCallInProgressStreamEventTypedDict,
         ResponseCodeInterpreterCallCompletedStreamEventTypedDict,
         ResponseCodeInterpreterCallInterpretingStreamEventTypedDict,
-        ResponseOutputItemAddedStreamEventTypedDict,
         ResponseCodeInterpreterCallInProgressStreamEventTypedDict,
+        ResponseFileSearchCallCompletedStreamEventTypedDict,
+        ResponseFileSearchCallSearchingStreamEventTypedDict,
+        ResponseFileSearchCallInProgressStreamEventTypedDict,
+        ResponseMCPListToolsFailedStreamEventTypedDict,
+        ResponseWebSearchCallCompletedStreamEventTypedDict,
+        ResponseMCPListToolsCompletedStreamEventTypedDict,
+        ResponseMCPListToolsInProgressStreamEventTypedDict,
+        ResponseMCPCallFailedStreamEventTypedDict,
+        ResponseMCPCallCompletedStreamEventTypedDict,
+        ResponseMCPCallInProgressStreamEventTypedDict,
+        ResponseImageGenerationCallCompletedStreamEventTypedDict,
+        ResponseOutputItemAddedStreamEventTypedDict,
+        ResponseImageGenerationCallInProgressStreamEventTypedDict,
+        ResponseWebSearchCallInProgressStreamEventTypedDict,
+        ResponseOutputItemDoneStreamEventTypedDict,
         ResponseFunctionCallArgumentsDoneStreamEventTypedDict,
         ResponseCodeInterpreterCallCodeDeltaStreamEventTypedDict,
         ResponseCodeInterpreterCallCodeDoneStreamEventTypedDict,
         ResponseMCPCallArgumentsDeltaStreamEventTypedDict,
         ResponseMCPCallArgumentsDoneStreamEventTypedDict,
-        ResponseReasoningSummaryTextDoneStreamEventTypedDict,
-        ResponseRefusalDoneStreamEventTypedDict,
+        ResponseCustomToolCallInputDeltaStreamEventTypedDict,
+        ResponseCustomToolCallInputDoneStreamEventTypedDict,
         ResponseReasoningSummaryPartAddedStreamEventTypedDict,
+        ResponseRefusalDoneStreamEventTypedDict,
+        ResponseReasoningSummaryTextDoneStreamEventTypedDict,
         ResponseContentPartAddedStreamEventTypedDict,
         ResponseReasoningTextDoneStreamEventTypedDict,
         ResponseReasoningDoneStreamEventTypedDict,
@@ -276,6 +301,14 @@ ResponseStreamEvent = Annotated[
             ResponseContentPartDoneStreamEvent, Tag("response.content_part.done")
         ],
         Annotated[ResponseCreatedStreamEvent, Tag("response.created")],
+        Annotated[
+            ResponseCustomToolCallInputDeltaStreamEvent,
+            Tag("response.custom_tool_call_input.delta"),
+        ],
+        Annotated[
+            ResponseCustomToolCallInputDoneStreamEvent,
+            Tag("response.custom_tool_call_input.done"),
+        ],
         Annotated[ResponseFailedStreamEvent, Tag("response.failed")],
         Annotated[
             ResponseFileSearchCallCompletedStreamEvent,
@@ -329,6 +362,17 @@ ResponseStreamEvent = Annotated[
         Annotated[
             ResponseMCPCallArgumentsDoneStreamEvent,
             Tag("response.mcp_call_arguments.done"),
+        ],
+        Annotated[
+            ResponseMCPListToolsCompletedStreamEvent,
+            Tag("response.mcp_list_tools.completed"),
+        ],
+        Annotated[
+            ResponseMCPListToolsFailedStreamEvent, Tag("response.mcp_list_tools.failed")
+        ],
+        Annotated[
+            ResponseMCPListToolsInProgressStreamEvent,
+            Tag("response.mcp_list_tools.in_progress"),
         ],
         Annotated[
             ResponseOutputItemAddedStreamEvent, Tag("response.output_item.added")

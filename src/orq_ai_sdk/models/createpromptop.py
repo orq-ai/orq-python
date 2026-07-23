@@ -1022,6 +1022,7 @@ CreatePromptModalities = Literal[
 
 CreatePromptID1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]
@@ -1922,6 +1923,7 @@ r"""Controls the verbosity of the model output."""
 
 
 CreatePromptThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",
@@ -2160,6 +2162,8 @@ CreatePromptProvider = Literal[
     "wafer",
     "poolside",
     "tencent",
+    "nebius",
+    "reson8",
     "slack",
     "orq",
 ]
@@ -2851,6 +2855,7 @@ CreatePromptPromptsModalities = Literal[
 
 CreatePromptIDPrompts1 = Literal[
     "orq_pii_detection",
+    "orq_secret_detection",
     "orq_sexual_moderation",
     "orq_harmful_moderation",
 ]

@@ -12,6 +12,7 @@ r"""Enables or disables the thinking mode capability"""
 
 
 ThinkingLevel = Literal[
+    "minimal",
     "low",
     "medium",
     "high",

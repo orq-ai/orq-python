@@ -8,6 +8,7 @@ from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, Mapping, Optional, Union
+from typing_extensions import deprecated
 
 
 class CreateAcceptEnum(str, Enum):
@@ -16,6 +17,9 @@ class CreateAcceptEnum(str, Enum):
 
 
 class OrqResponses(BaseSDK):
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def create(
         self,
         *,
@@ -214,6 +218,9 @@ class OrqResponses(BaseSDK):
         http_res_text = utils.stream_to_text(http_res)
         raise models.APIError("Unexpected response received", http_res, http_res_text)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def create_async(
         self,
         *,
@@ -412,6 +419,9 @@ class OrqResponses(BaseSDK):
         http_res_text = await utils.stream_to_text_async(http_res)
         raise models.APIError("Unexpected response received", http_res, http_res_text)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def get(
         self,
         *,
@@ -508,6 +518,9 @@ class OrqResponses(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def get_async(
         self,
         *,

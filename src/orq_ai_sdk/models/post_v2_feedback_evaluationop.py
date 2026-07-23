@@ -10,6 +10,84 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+PostV2FeedbackEvaluationRequestBodyFeedbackEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+PostV2FeedbackEvaluationRequestBodyFeedbackRequestSource = Literal[
+    "orq",
+    "external",
+]
+
+
+PostV2FeedbackEvaluationRequestBodyFeedbackRequest4Type = Literal["string_array",]
+
+
+class RequestBody4TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: PostV2FeedbackEvaluationRequestBodyFeedbackEvaluationType
+    r"""The type of evaluation"""
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackRequest4Type
+    values: List[str]
+    trace_id: str
+    human_review_id: NotRequired[str]
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
+    source: NotRequired[PostV2FeedbackEvaluationRequestBodyFeedbackRequestSource]
+    explanation: NotRequired[str]
+    r"""Optional free-text explanation of the value"""
+    reviewed_at: NotRequired[datetime]
+    r"""Deprecated. The date and time the item was reviewed"""
+
+
+class RequestBody4(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: PostV2FeedbackEvaluationRequestBodyFeedbackEvaluationType
+    r"""The type of evaluation"""
+
+    type: PostV2FeedbackEvaluationRequestBodyFeedbackRequest4Type
+
+    values: List[str]
+
+    trace_id: str
+
+    human_review_id: Optional[str] = None
+    r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
+
+    source: Optional[PostV2FeedbackEvaluationRequestBodyFeedbackRequestSource] = "orq"
+
+    explanation: Optional[str] = None
+    r"""Optional free-text explanation of the value"""
+
+    reviewed_at: Annotated[
+        Optional[datetime],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = parse_datetime("2026-07-23T11:48:52.324Z")
+    r"""Deprecated. The date and time the item was reviewed"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["human_review_id", "source", "explanation", "reviewed_at"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 PostV2FeedbackEvaluationRequestBodyEvaluationType = Literal["human_review",]
 r"""The type of evaluation"""
 
@@ -20,7 +98,7 @@ PostV2FeedbackEvaluationRequestBodyFeedbackSource = Literal[
 ]
 
 
-PostV2FeedbackEvaluationRequestBodyFeedbackRequestType = Literal["string_array",]
+PostV2FeedbackEvaluationRequestBodyFeedbackRequestType = Literal["boolean",]
 
 
 class RequestBody3TypedDict(TypedDict):
@@ -29,7 +107,7 @@ class RequestBody3TypedDict(TypedDict):
     evaluation_type: PostV2FeedbackEvaluationRequestBodyEvaluationType
     r"""The type of evaluation"""
     type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
-    values: List[str]
+    value: bool
     trace_id: str
     human_review_id: NotRequired[str]
     r"""The unique identifier of the human review. Omitted on corrections, which inherit the parent evaluator output schema."""
@@ -49,7 +127,7 @@ class RequestBody3(BaseModel):
 
     type: PostV2FeedbackEvaluationRequestBodyFeedbackRequestType
 
-    values: List[str]
+    value: bool
 
     trace_id: str
 
@@ -66,7 +144,7 @@ class RequestBody3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-16T21:19:37.867Z")
+    ] = parse_datetime("2026-07-23T11:48:52.323Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -144,7 +222,7 @@ class PostV2FeedbackEvaluationRequestBody2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-16T21:19:37.866Z")
+    ] = parse_datetime("2026-07-23T11:48:52.323Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -222,7 +300,7 @@ class PostV2FeedbackEvaluationRequestBody1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-07-16T21:19:37.865Z")
+    ] = parse_datetime("2026-07-23T11:48:52.322Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -250,6 +328,7 @@ PostV2FeedbackEvaluationRequestBodyTypedDict = TypeAliasType(
         PostV2FeedbackEvaluationRequestBody1TypedDict,
         PostV2FeedbackEvaluationRequestBody2TypedDict,
         RequestBody3TypedDict,
+        RequestBody4TypedDict,
     ],
 )
 
@@ -258,7 +337,8 @@ PostV2FeedbackEvaluationRequestBody = Annotated[
     Union[
         Annotated[PostV2FeedbackEvaluationRequestBody1, Tag("string")],
         Annotated[PostV2FeedbackEvaluationRequestBody2, Tag("number")],
-        Annotated[RequestBody3, Tag("string_array")],
+        Annotated[RequestBody3, Tag("boolean")],
+        Annotated[RequestBody4, Tag("string_array")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

@@ -6,12 +6,13 @@ The level of thinking to use for the model. Only supported by `Google AI`
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigThinkingLevel
-value: DeploymentGetConfigThinkingLevel = "low"
+value: DeploymentGetConfigThinkingLevel = "minimal"
 ```
 
 
 ## Values
 
+- `"minimal"`
 - `"low"`
 - `"medium"`
 - `"high"`
