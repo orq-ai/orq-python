@@ -5742,6 +5742,16 @@ if TYPE_CHECKING:
         ResponseCreatedStreamEventType,
         ResponseCreatedStreamEventTypedDict,
     )
+    from .responsecustomtoolcallinputdeltastreamevent import (
+        ResponseCustomToolCallInputDeltaStreamEvent,
+        ResponseCustomToolCallInputDeltaStreamEventType,
+        ResponseCustomToolCallInputDeltaStreamEventTypedDict,
+    )
+    from .responsecustomtoolcallinputdonestreamevent import (
+        ResponseCustomToolCallInputDoneStreamEvent,
+        ResponseCustomToolCallInputDoneStreamEventType,
+        ResponseCustomToolCallInputDoneStreamEventTypedDict,
+    )
     from .responsedoneevent import (
         ResponseDoneEvent,
         ResponseDoneEventCompletionTokensDetails,
@@ -5863,6 +5873,21 @@ if TYPE_CHECKING:
         ResponseMCPCallInProgressStreamEvent,
         ResponseMCPCallInProgressStreamEventType,
         ResponseMCPCallInProgressStreamEventTypedDict,
+    )
+    from .responsemcplisttoolscompletedstreamevent import (
+        ResponseMCPListToolsCompletedStreamEvent,
+        ResponseMCPListToolsCompletedStreamEventType,
+        ResponseMCPListToolsCompletedStreamEventTypedDict,
+    )
+    from .responsemcplisttoolsfailedstreamevent import (
+        ResponseMCPListToolsFailedStreamEvent,
+        ResponseMCPListToolsFailedStreamEventType,
+        ResponseMCPListToolsFailedStreamEventTypedDict,
+    )
+    from .responsemcplisttoolsinprogressstreamevent import (
+        ResponseMCPListToolsInProgressStreamEvent,
+        ResponseMCPListToolsInProgressStreamEventType,
+        ResponseMCPListToolsInProgressStreamEventTypedDict,
     )
     from .responsemeta import (
         EffectiveGrain,
@@ -13701,6 +13726,12 @@ __all__ = [
     "ResponseCreatedStreamEvent",
     "ResponseCreatedStreamEventType",
     "ResponseCreatedStreamEventTypedDict",
+    "ResponseCustomToolCallInputDeltaStreamEvent",
+    "ResponseCustomToolCallInputDeltaStreamEventType",
+    "ResponseCustomToolCallInputDeltaStreamEventTypedDict",
+    "ResponseCustomToolCallInputDoneStreamEvent",
+    "ResponseCustomToolCallInputDoneStreamEventType",
+    "ResponseCustomToolCallInputDoneStreamEventTypedDict",
     "ResponseDoneEvent",
     "ResponseDoneEventCompletionTokensDetails",
     "ResponseDoneEventCompletionTokensDetailsTypedDict",
@@ -13801,6 +13832,15 @@ __all__ = [
     "ResponseMCPCallInProgressStreamEvent",
     "ResponseMCPCallInProgressStreamEventType",
     "ResponseMCPCallInProgressStreamEventTypedDict",
+    "ResponseMCPListToolsCompletedStreamEvent",
+    "ResponseMCPListToolsCompletedStreamEventType",
+    "ResponseMCPListToolsCompletedStreamEventTypedDict",
+    "ResponseMCPListToolsFailedStreamEvent",
+    "ResponseMCPListToolsFailedStreamEventType",
+    "ResponseMCPListToolsFailedStreamEventTypedDict",
+    "ResponseMCPListToolsInProgressStreamEvent",
+    "ResponseMCPListToolsInProgressStreamEventType",
+    "ResponseMCPListToolsInProgressStreamEventTypedDict",
     "ResponseMeta",
     "ResponseMetaCurrency",
     "ResponseMetaTypedDict",
@@ -21639,6 +21679,12 @@ _dynamic_imports: dict[str, str] = {
     "ResponseCreatedStreamEvent": ".responsecreatedstreamevent",
     "ResponseCreatedStreamEventType": ".responsecreatedstreamevent",
     "ResponseCreatedStreamEventTypedDict": ".responsecreatedstreamevent",
+    "ResponseCustomToolCallInputDeltaStreamEvent": ".responsecustomtoolcallinputdeltastreamevent",
+    "ResponseCustomToolCallInputDeltaStreamEventType": ".responsecustomtoolcallinputdeltastreamevent",
+    "ResponseCustomToolCallInputDeltaStreamEventTypedDict": ".responsecustomtoolcallinputdeltastreamevent",
+    "ResponseCustomToolCallInputDoneStreamEvent": ".responsecustomtoolcallinputdonestreamevent",
+    "ResponseCustomToolCallInputDoneStreamEventType": ".responsecustomtoolcallinputdonestreamevent",
+    "ResponseCustomToolCallInputDoneStreamEventTypedDict": ".responsecustomtoolcallinputdonestreamevent",
     "ResponseDoneEvent": ".responsedoneevent",
     "ResponseDoneEventCompletionTokensDetails": ".responsedoneevent",
     "ResponseDoneEventCompletionTokensDetailsTypedDict": ".responsedoneevent",
@@ -21721,6 +21767,15 @@ _dynamic_imports: dict[str, str] = {
     "ResponseMCPCallInProgressStreamEvent": ".responsemcpcallinprogressstreamevent",
     "ResponseMCPCallInProgressStreamEventType": ".responsemcpcallinprogressstreamevent",
     "ResponseMCPCallInProgressStreamEventTypedDict": ".responsemcpcallinprogressstreamevent",
+    "ResponseMCPListToolsCompletedStreamEvent": ".responsemcplisttoolscompletedstreamevent",
+    "ResponseMCPListToolsCompletedStreamEventType": ".responsemcplisttoolscompletedstreamevent",
+    "ResponseMCPListToolsCompletedStreamEventTypedDict": ".responsemcplisttoolscompletedstreamevent",
+    "ResponseMCPListToolsFailedStreamEvent": ".responsemcplisttoolsfailedstreamevent",
+    "ResponseMCPListToolsFailedStreamEventType": ".responsemcplisttoolsfailedstreamevent",
+    "ResponseMCPListToolsFailedStreamEventTypedDict": ".responsemcplisttoolsfailedstreamevent",
+    "ResponseMCPListToolsInProgressStreamEvent": ".responsemcplisttoolsinprogressstreamevent",
+    "ResponseMCPListToolsInProgressStreamEventType": ".responsemcplisttoolsinprogressstreamevent",
+    "ResponseMCPListToolsInProgressStreamEventTypedDict": ".responsemcplisttoolsinprogressstreamevent",
     "EffectiveGrain": ".responsemeta",
     "ResponseMeta": ".responsemeta",
     "ResponseMetaCurrency": ".responsemeta",
