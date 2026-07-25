@@ -47,7 +47,7 @@ FieldT = Literal[
 r"""Public reporting dimension to filter on. Valid fields depend on the selected metric."""
 
 
-Op = Literal[
+FilterOp = Literal[
     "eq",
     "neq",
     "in",
@@ -59,7 +59,7 @@ r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_i
 class FilterTypedDict(TypedDict):
     field: NotRequired[FieldT]
     r"""Public reporting dimension to filter on. Valid fields depend on the selected metric."""
-    op: NotRequired[Op]
+    op: NotRequired[FilterOp]
     r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
     values: NotRequired[List[str]]
     r"""Values compared against the selected field. Values are interpreted
@@ -71,7 +71,7 @@ class Filter(BaseModel):
     field: Optional[FieldT] = None
     r"""Public reporting dimension to filter on. Valid fields depend on the selected metric."""
 
-    op: Optional[Op] = None
+    op: Optional[FilterOp] = None
     r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
 
     values: Optional[List[str]] = None

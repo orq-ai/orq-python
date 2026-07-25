@@ -1,14 +1,16 @@
 # Sort
 
+Value ordering for toplist widgets.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Sort
-value: Sort = "asc"
+value: Sort = "desc"
 ```
 
 
 ## Values
 
-- `"asc"`
 - `"desc"`
+- `"asc"`

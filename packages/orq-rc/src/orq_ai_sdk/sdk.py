@@ -16,6 +16,7 @@ import weakref
 
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
+    from orq_ai_sdk.alerts import Alerts
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.budgets import Budgets
@@ -32,7 +33,9 @@ if TYPE_CHECKING:
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.monitors import Monitors
     from orq_ai_sdk.notifiers import Notifiers
+    from orq_ai_sdk.people import People
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
@@ -73,12 +76,15 @@ class Orq(BaseSDK):
     models: "Models"
     policies: "Policies"
     routing_rules: "RoutingRules"
+    alerts: "Alerts"
     api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    monitors: "Monitors"
     notifiers: "Notifiers"
+    people: "People"
     projects: "Projects"
     skills: "Skills"
     smart_routers: "SmartRouters"
@@ -107,12 +113,15 @@ class Orq(BaseSDK):
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "monitors": ("orq_ai_sdk.monitors", "Monitors"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
+        "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
