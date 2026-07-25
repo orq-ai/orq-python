@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
-value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = "http"
+value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = "sidekick"
 ```
 
 
 ## Values
 
-- `"http"`
+- `"sidekick"`

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
-value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = "function"
+value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = "http"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"http"`

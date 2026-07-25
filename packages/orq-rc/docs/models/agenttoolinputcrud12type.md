@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import AgentToolInputCRUD12Type
-value: AgentToolInputCRUD12Type = "code_interpreter"
+value: AgentToolInputCRUD12Type = "advisor"
 ```
 
 
 ## Values
 
-- `"code_interpreter"`
+- `"advisor"`
