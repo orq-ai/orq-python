@@ -633,6 +633,8 @@ GetAllPromptsProvider = Literal[
     "poolside",
     "tencent",
     "nebius",
+    "fireworks",
+    "baseten",
     "reson8",
     "slack",
     "orq",
