@@ -11,7 +11,6 @@ from .modelparameterdocument import (
     ModelParameterDocument,
     ModelParameterDocumentTypedDict,
 )
-from datetime import datetime
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -109,7 +108,7 @@ class ModelCreateOpenAILikeResponseBodyTypedDict(TypedDict):
     r"""OpenAI-like model created successfully"""
 
     configuration: ModelConfigurationResponseTypedDict
-    created: datetime
+    created: str
     description: Nullable[str]
     display_name: str
     docs_url: Nullable[str]
@@ -132,7 +131,7 @@ class ModelCreateOpenAILikeResponseBodyTypedDict(TypedDict):
     pricing_url: Nullable[str]
     provider: str
     ref_id: str
-    updated: datetime
+    updated: str
     model_developer: NotRequired[str]
     model_family: NotRequired[str]
     sharing: NotRequired[ConfigTypedDict]
@@ -143,7 +142,7 @@ class ModelCreateOpenAILikeResponseBody(BaseModel):
 
     configuration: ModelConfigurationResponse
 
-    created: datetime
+    created: str
 
     description: Nullable[str]
 
@@ -189,7 +188,7 @@ class ModelCreateOpenAILikeResponseBody(BaseModel):
 
     ref_id: Annotated[str, pydantic.Field(alias="refId")]
 
-    updated: datetime
+    updated: str
 
     model_developer: Optional[str] = None
 
