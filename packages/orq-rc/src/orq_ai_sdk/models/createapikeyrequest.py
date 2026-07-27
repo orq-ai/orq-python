@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
+from .mcpaccess import McpAccess, McpAccessTypedDict
 from .permissionmode import PermissionMode
 from .projectscope import ProjectScope, ProjectScopeTypedDict
 from datetime import datetime
@@ -30,6 +31,10 @@ class CreateAPIKeyRequestTypedDict(TypedDict):
     the key once `expires_at` is in the past. Unset means the key
     never expires.
     """
+    mcp_access: NotRequired[McpAccessTypedDict]
+    r"""Optional MCP-gateway access restriction. Unset means no
+    restriction. See McpAccess for the deny_all / allow-list semantics.
+    """
 
 
 class CreateAPIKeyRequest(BaseModel):
@@ -57,10 +62,22 @@ class CreateAPIKeyRequest(BaseModel):
     never expires.
     """
 
+    mcp_access: Optional[McpAccess] = None
+    r"""Optional MCP-gateway access restriction. Unset means no
+    restriction. See McpAccess for the deny_all / allow-list semantics.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["owner", "project_scope", "permission_mode", "access", "expires_at"]
+            [
+                "owner",
+                "project_scope",
+                "permission_mode",
+                "access",
+                "expires_at",
+                "mcp_access",
+            ]
         )
         serialized = handler(self)
         m = {}

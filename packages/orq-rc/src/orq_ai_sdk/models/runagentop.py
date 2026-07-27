@@ -2012,7 +2012,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KYDMWCQJKCPX2G9FRS7JR8FW"
+    id: Optional[str] = "01KYHAQPJ98XEAMRA8PE24KKX3"
 
     description: Optional[str] = None
 
@@ -2656,7 +2656,7 @@ DefaultValue = TypeAliasType("DefaultValue", Union[str, float, bool])
 r"""The default value of the argument."""
 
 
-class ArgumentsTypedDict(TypedDict):
+class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
     description: str
@@ -2667,7 +2667,7 @@ class ArgumentsTypedDict(TypedDict):
     r"""The default value of the argument."""
 
 
-class Arguments(BaseModel):
+class RunAgentAgentToolInputRunArguments(BaseModel):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
 
@@ -2700,7 +2700,7 @@ class Arguments(BaseModel):
 class HTTPTypedDict(TypedDict):
     blueprint: BlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
-    arguments: NotRequired[Dict[str, ArgumentsTypedDict]]
+    arguments: NotRequired[Dict[str, RunAgentAgentToolInputRunArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
@@ -2708,7 +2708,7 @@ class HTTP(BaseModel):
     blueprint: Blueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
-    arguments: Optional[Dict[str, Arguments]] = None
+    arguments: Optional[Dict[str, RunAgentAgentToolInputRunArguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
     @model_serializer(mode="wrap")

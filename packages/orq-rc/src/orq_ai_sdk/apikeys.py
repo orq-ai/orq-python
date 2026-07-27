@@ -310,6 +310,7 @@ class APIKeys(BaseSDK):
         permission_mode: Optional[models.PermissionMode] = None,
         access: Optional[Mapping[str, int]] = None,
         expires_at: Optional[datetime] = None,
+        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -330,6 +331,8 @@ class APIKeys(BaseSDK):
         :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
             the key once `expires_at` is in the past. Unset means the key
             never expires.
+        :param mcp_access: Optional MCP-gateway access restriction. Unset means no
+            restriction. See McpAccess for the deny_all / allow-list semantics.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -357,6 +360,7 @@ class APIKeys(BaseSDK):
             permission_mode=permission_mode,
             access=utils.unmarshal(access, Optional[Dict[str, int]]),
             expires_at=expires_at,
+            mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
         )
 
         req = self._build_request(
@@ -459,6 +463,7 @@ class APIKeys(BaseSDK):
         permission_mode: Optional[models.PermissionMode] = None,
         access: Optional[Mapping[str, int]] = None,
         expires_at: Optional[datetime] = None,
+        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -479,6 +484,8 @@ class APIKeys(BaseSDK):
         :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
             the key once `expires_at` is in the past. Unset means the key
             never expires.
+        :param mcp_access: Optional MCP-gateway access restriction. Unset means no
+            restriction. See McpAccess for the deny_all / allow-list semantics.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -506,6 +513,7 @@ class APIKeys(BaseSDK):
             permission_mode=permission_mode,
             access=utils.unmarshal(access, Optional[Dict[str, int]]),
             expires_at=expires_at,
+            mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
         )
 
         req = self._build_request_async(
@@ -1246,6 +1254,7 @@ class APIKeys(BaseSDK):
         ] = None,
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
+        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1269,6 +1278,10 @@ class APIKeys(BaseSDK):
             to remove an existing expiration (a zero Timestamp here would still
             mean \"no change\" because of optional semantics).
         :param clear_expires_at: Force-clear the expiration. Mutually exclusive with `expires_at`.
+        :param mcp_access: Replacement MCP-gateway access restriction. Absent leaves the
+            current value intact; an explicitly-set McpAccess replaces it —
+            including an empty one (deny_all=false + empty list), which clears
+            any existing restriction. See McpAccess.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1299,6 +1312,9 @@ class APIKeys(BaseSDK):
                 ),
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
+                mcp_access=utils.get_pydantic_model(
+                    mcp_access, Optional[models.McpAccess]
+                ),
             ),
         )
 
@@ -1393,6 +1409,7 @@ class APIKeys(BaseSDK):
         ] = None,
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
+        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1416,6 +1433,10 @@ class APIKeys(BaseSDK):
             to remove an existing expiration (a zero Timestamp here would still
             mean \"no change\" because of optional semantics).
         :param clear_expires_at: Force-clear the expiration. Mutually exclusive with `expires_at`.
+        :param mcp_access: Replacement MCP-gateway access restriction. Absent leaves the
+            current value intact; an explicitly-set McpAccess replaces it —
+            including an empty one (deny_all=false + empty list), which clears
+            any existing restriction. See McpAccess.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1446,6 +1467,9 @@ class APIKeys(BaseSDK):
                 ),
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
+                mcp_access=utils.get_pydantic_model(
+                    mcp_access, Optional[models.McpAccess]
+                ),
             ),
         )
 
