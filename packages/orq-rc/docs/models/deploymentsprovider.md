@@ -45,6 +45,8 @@ value: DeploymentsProvider = "openai"
 - `"poolside"`
 - `"tencent"`
 - `"nebius"`
+- `"fireworks"`
+- `"baseten"`
 - `"reson8"`
 - `"slack"`
 - `"orq"`

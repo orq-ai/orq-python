@@ -18,3 +18,4 @@ value: ReasoningEffort = "none"
 - `"medium"`
 - `"high"`
 - `"xhigh"`
+- `"max"`

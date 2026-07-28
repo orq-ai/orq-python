@@ -18,3 +18,4 @@ value: Effort = "none"
 - `"medium"`
 - `"high"`
 - `"xhigh"`
+- `"max"`

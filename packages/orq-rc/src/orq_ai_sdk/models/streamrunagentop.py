@@ -58,6 +58,7 @@ from .piiredactionpluginauto import (
 )
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -400,6 +401,7 @@ class StreamRunAgentModelConfigurationGuardrails(BaseModel):
 StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -409,7 +411,12 @@ StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
 
 StreamRunAgentModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -644,7 +651,7 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[StreamRunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[StreamRunAgentModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[StreamRunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
@@ -729,7 +736,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[StreamRunAgentModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[StreamRunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1211,6 +1218,7 @@ class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
 StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1220,7 +1228,12 @@ StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 StreamRunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -1463,7 +1476,7 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     ]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[StreamRunAgentFallbackModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[
         List[StreamRunAgentFallbackModelConfigurationFallbacksTypedDict]
     ]
@@ -1560,7 +1573,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[StreamRunAgentFallbackModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[StreamRunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -2109,7 +2122,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KYHFSEBJXEPEC9T3XKD5X8A8"
+    id: Optional[str] = "01KYKESHCJAFHYHA7KJXMTWA0D"
 
     description: Optional[str] = None
 

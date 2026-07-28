@@ -18,3 +18,5 @@ value: GetOnePromptPromptsReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

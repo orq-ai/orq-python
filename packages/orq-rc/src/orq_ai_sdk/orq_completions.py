@@ -187,7 +187,7 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -544,7 +544,7 @@ class OrqCompletions(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
