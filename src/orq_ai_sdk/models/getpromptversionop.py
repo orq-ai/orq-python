@@ -22,6 +22,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -380,6 +381,8 @@ GetPromptVersionPromptsReasoningEffort = Literal[
     "low",
     "medium",
     "high",
+    "xhigh",
+    "max",
 ]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -922,7 +925,6 @@ class GetPromptVersionPromptConfigTypedDict(TypedDict):
     stream: NotRequired[bool]
     model: NotRequired[Nullable[str]]
     model_db_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
     model_type: NotRequired[Nullable[GetPromptVersionModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[GetPromptVersionModelParametersTypedDict]
@@ -946,7 +948,6 @@ class GetPromptVersionPromptConfig(BaseModel):
     model: OptionalNullable[str] = UNSET
 
     model_db_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
 
     model_type: OptionalNullable[GetPromptVersionModelType] = UNSET
     r"""The modality of the model"""
@@ -1360,6 +1361,7 @@ class GetPromptVersionGuardrails(BaseModel):
 GetPromptVersionPluginsTypedDict = TypeAliasType(
     "GetPromptVersionPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1369,7 +1371,12 @@ GetPromptVersionPluginsTypedDict = TypeAliasType(
 
 GetPromptVersionPlugins = TypeAliasType(
     "GetPromptVersionPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -2220,7 +2227,7 @@ class GetPromptVersionPromptFieldTypedDict(TypedDict):
     guardrails: NotRequired[List[GetPromptVersionGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[GetPromptVersionPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[GetPromptVersionFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[GetPromptVersionRetryTypedDict]
@@ -2325,7 +2332,7 @@ class GetPromptVersionPromptField(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[GetPromptVersionPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[GetPromptVersionFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""

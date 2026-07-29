@@ -1,0 +1,15 @@
+# CreateMcpGatewayRequest
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `key`                                                                  | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `display_name`                                                         | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `description`                                                          | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `project_id`                                                           | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `server_links`                                                         | List[[models.McpGatewayServerLink](../models/mcpgatewayserverlink.md)] | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `tool_naming`                                                          | [Optional[models.McpToolNaming]](../models/mcptoolnaming.md)           | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `runtime_limits`                                                       | [Optional[models.McpRuntimeLimits]](../models/mcpruntimelimits.md)     | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `egress_policy`                                                        | [Optional[models.McpEgressPolicy]](../models/mcpegresspolicy.md)       | :heavy_minus_sign:                                                     | N/A                                                                    |

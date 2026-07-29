@@ -5,8 +5,6 @@
 ### Available Operations
 
 * [create](#create) - Create custom model
-* [create_autorouter](#create_autorouter) - Create autorouter custom model
-* [update_autorouter](#update_autorouter) - Update autorouter custom model
 * [create_aws_bedrock](#create_aws_bedrock) - Create AWS Bedrock custom model
 * [validate_aws_bedrock](#validate_aws_bedrock) - Validate AWS Bedrock inference profile
 * [update_aws_bedrock](#update_aws_bedrock) - Update AWS Bedrock custom model
@@ -82,93 +80,6 @@ with Orq(
 ### Response
 
 **[models.ModelCreateResponseBody](../../models/modelcreateresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## create_autorouter
-
-Creates an autorouter model that routes between a strong and economical source model based on the requested profile. Both source models must already exist for the workspace and be marked autorouter-eligible in master data.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ModelCreateAutorouter" method="post" path="/v2/models/autorouter" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.models.create_autorouter(economical_model="<value>", key="<key>", strong_model="<value>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `economical_model`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `strong_model`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `profile`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ModelCreateAutorouterResponseBody](../../models/modelcreateautorouterresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## update_autorouter
-
-Re-configures an autorouter model. Each of key/strong_model/economical_model/profile falls back to the existing value when omitted. Changing the key enforces uniqueness and rewrites PRICING_KV.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ModelUpdateAutorouter" method="patch" path="/v2/models/autorouter/{id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.models.update_autorouter(id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | The ID of the model                                                 |
-| `economical_model`                                                  | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `key`                                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `profile`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `strong_model`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ModelUpdateAutorouterResponseBody](../../models/modelupdateautorouterresponsebody.md)**
 
 ### Errors
 

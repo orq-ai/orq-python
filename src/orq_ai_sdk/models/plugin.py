@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from orq_ai_sdk.types import BaseModel
 import pydantic
 from typing_extensions import Annotated, TypedDict
@@ -9,11 +10,16 @@ from typing_extensions import Annotated, TypedDict
 
 class PluginTypedDict(TypedDict):
     of_pii_redaction: PIIRedactionPluginTypedDict
+    of_response_healing: ResponseHealingPluginTypedDict
 
 
 class Plugin(BaseModel):
     of_pii_redaction: Annotated[
         PIIRedactionPlugin, pydantic.Field(alias="OfPIIRedaction")
+    ]
+
+    of_response_healing: Annotated[
+        ResponseHealingPlugin, pydantic.Field(alias="OfResponseHealing")
     ]
 
 

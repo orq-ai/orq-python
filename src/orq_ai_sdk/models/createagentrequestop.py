@@ -8,6 +8,7 @@ from .piiredactionpluginauto import (
 )
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
     ThinkingConfigAdaptiveSchemaTypedDict,
@@ -312,6 +313,7 @@ class CreateAgentRequestModelConfigurationGuardrails(BaseModel):
 PluginsTypedDict = TypeAliasType(
     "PluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -320,7 +322,13 @@ PluginsTypedDict = TypeAliasType(
 
 
 Plugins = TypeAliasType(
-    "Plugins", Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl]
+    "Plugins",
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -553,7 +561,7 @@ class ParametersTypedDict(TypedDict):
     ]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[PluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[CacheTypedDict]
@@ -638,7 +646,7 @@ class Parameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[Plugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1112,6 +1120,7 @@ class FallbackModelConfigurationGuardrails(BaseModel):
 FallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "FallbackModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1121,7 +1130,12 @@ FallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 FallbackModelConfigurationPlugins = TypeAliasType(
     "FallbackModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -1354,7 +1368,7 @@ class FallbackModelConfigurationParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[FallbackModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[FallbackModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[FallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[FallbackModelConfigurationCacheTypedDict]
@@ -1437,7 +1451,7 @@ class FallbackModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[FallbackModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[FallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -2620,6 +2634,7 @@ class CreateAgentRequestAgentsResponseGuardrails(BaseModel):
 CreateAgentRequestPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -2629,7 +2644,12 @@ CreateAgentRequestPluginsTypedDict = TypeAliasType(
 
 CreateAgentRequestPlugins = TypeAliasType(
     "CreateAgentRequestPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -2860,7 +2880,7 @@ class CreateAgentRequestParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[CreateAgentRequestAgentsResponseGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[CreateAgentRequestPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[CreateAgentRequestFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[CreateAgentRequestCacheTypedDict]
@@ -2943,7 +2963,7 @@ class CreateAgentRequestParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[CreateAgentRequestPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[CreateAgentRequestFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -3388,6 +3408,7 @@ class CreateAgentRequestFallbackModelConfigurationGuardrails(BaseModel):
 CreateAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -3397,7 +3418,12 @@ CreateAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 CreateAgentRequestFallbackModelConfigurationPlugins = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -3646,7 +3672,7 @@ class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict)
     plugins: NotRequired[
         List[CreateAgentRequestFallbackModelConfigurationPluginsTypedDict]
     ]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[
         List[CreateAgentRequestFallbackModelConfigurationFallbacksTypedDict]
     ]
@@ -3743,7 +3769,7 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[CreateAgentRequestFallbackModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[CreateAgentRequestFallbackModelConfigurationFallbacks]] = (
         None

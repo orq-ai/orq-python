@@ -18,3 +18,5 @@ value: DeploymentGetConfigReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

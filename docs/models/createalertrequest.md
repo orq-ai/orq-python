@@ -1,0 +1,15 @@
+# CreateAlertRequest
+
+
+## Fields
+
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `display_name`                                                          | *str*                                                                   | :heavy_check_mark:                                                      | Workspace-unique display name.                                          |
+| `description`                                                           | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Short human-readable summary of what the alert watches.                 |
+| `project_id`                                                            | *str*                                                                   | :heavy_check_mark:                                                      | Project that owns the alert. Required.                                  |
+| `signal`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | UI signal preset the alert is created from. Defaults to `custom`.       |
+| `query`                                                                 | [models.AlertQuery](../models/alertquery.md)                            | :heavy_check_mark:                                                      | Metric query evaluated on each tick.                                    |
+| `condition`                                                             | [models.AlertCondition](../models/alertcondition.md)                    | :heavy_check_mark:                                                      | Threshold condition applied to the query result.                        |
+| `notifier_ids`                                                          | List[*str*]                                                             | :heavy_minus_sign:                                                      | Notifiers that receive trigger-open and trigger-resolve<br/> notifications. |
+| `enabled`                                                               | *Optional[bool]*                                                        | :heavy_minus_sign:                                                      | Whether the alert starts evaluating immediately. Defaults to true.      |

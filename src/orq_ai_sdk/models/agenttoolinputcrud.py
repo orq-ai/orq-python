@@ -14,13 +14,13 @@ from typing import Any, Dict, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-AgentToolInputCRUD12Type = Literal["code_interpreter",]
+AgentToolInputCRUD14Type = Literal["code_interpreter",]
 
 
 class CodeInterpreterToolTypedDict(TypedDict):
     r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
 
-    type: AgentToolInputCRUD12Type
+    type: AgentToolInputCRUD14Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
     configuration: NotRequired[Dict[str, Any]]
@@ -29,6 +29,88 @@ class CodeInterpreterToolTypedDict(TypedDict):
 
 class CodeInterpreterTool(BaseModel):
     r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: AgentToolInputCRUD14Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+AgentToolInputCRUD13Type = Literal["sidekick",]
+
+
+class SidekickToolTypedDict(TypedDict):
+    r"""Delegate a subtask to a secondary model for execution"""
+
+    type: AgentToolInputCRUD13Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class SidekickTool(BaseModel):
+    r"""Delegate a subtask to a secondary model for execution"""
+
+    type: AgentToolInputCRUD13Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+AgentToolInputCRUD12Type = Literal["advisor",]
+
+
+class AdvisorToolTypedDict(TypedDict):
+    r"""Consult a secondary model for advice on the current task"""
+
+    type: AgentToolInputCRUD12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class AdvisorTool(BaseModel):
+    r"""Consult a secondary model for advice on the current task"""
 
     type: AgentToolInputCRUD12Type
 
@@ -509,17 +591,19 @@ class GoogleSearchTool(BaseModel):
 AgentToolInputCRUDTypedDict = TypeAliasType(
     "AgentToolInputCRUDTypedDict",
     Union[
-        RetrieveKnowledgeBasesToolTypedDict,
         CurrentDateToolTypedDict,
+        WebScraperToolTypedDict,
         CallSubAgentToolTypedDict,
         RetrieveAgentsToolTypedDict,
         QueryMemoryStoreToolTypedDict,
         WriteMemoryStoreToolTypedDict,
         RetrieveMemoryStoresToolTypedDict,
         DeleteMemoryDocumentToolTypedDict,
-        WebScraperToolTypedDict,
-        GoogleSearchToolTypedDict,
         QueryKnowledgeBaseToolTypedDict,
+        RetrieveKnowledgeBasesToolTypedDict,
+        SidekickToolTypedDict,
+        AdvisorToolTypedDict,
+        GoogleSearchToolTypedDict,
         CodeInterpreterToolTypedDict,
         FunctionToolInputTypedDict,
         JSONSchemaToolInputTypedDict,

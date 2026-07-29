@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
-value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = "code_interpreter"
+value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = "advisor"
 ```
 
 
 ## Values
 
-- `"code_interpreter"`
+- `"advisor"`

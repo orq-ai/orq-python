@@ -1,0 +1,15 @@
+# GetLogContextRequest
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `from_`                                                              | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `to`                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `query`                                                              | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filter_operator`                                                    | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filters`                                                            | List[[models.TraceFilter](../models/tracefilter.md)]                 | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `before`                                                             | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Number of matching records earlier than the anchor. Defaults to 10.  |
+| `after`                                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Number of matching records later than the anchor. Defaults to 10.    |
+| `oql`                                                                | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Optional OQL pipeline. It cannot be combined with query or filters.  |

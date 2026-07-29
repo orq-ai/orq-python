@@ -6,10 +6,7 @@ from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
-from .publicpiiredactionplugin import (
-    PublicPIIRedactionPlugin,
-    PublicPIIRedactionPluginTypedDict,
-)
+from .publicplugin import PublicPlugin, PublicPluginTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .reasoningparam import ReasoningParam, ReasoningParamTypedDict
@@ -829,7 +826,7 @@ class AllowedTools(BaseModel):
 CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
-class MCPToolTypedDict(TypedDict):
+class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -845,7 +842,7 @@ class MCPToolTypedDict(TypedDict):
     r"""The MCP server endpoint URL (inline mode)."""
 
 
-class MCPTool(BaseModel):
+class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -1114,7 +1111,7 @@ class ToolsFunction(BaseModel):
 
 CreateRouterResponseToolsTypedDict = TypeAliasType(
     "CreateRouterResponseToolsTypedDict",
-    Union[OrqAiToolTypedDict, ToolsFunctionTypedDict, MCPToolTypedDict],
+    Union[OrqAiToolTypedDict, ToolsFunctionTypedDict, ToolsMCPToolTypedDict],
 )
 r"""A tool definition. The \"type\" field determines the tool kind."""
 
@@ -1129,7 +1126,7 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:mcp")],
         Annotated[OrqAiTool, Tag("orq:http")],
         Annotated[OrqAiTool, Tag("orq:function")],
-        Annotated[MCPTool, Tag("mcp")],
+        Annotated[ToolsMCPTool, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1163,8 +1160,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
-    plugins: NotRequired[Nullable[List[PublicPIIRedactionPluginTypedDict]]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
     presence_penalty: NotRequired[float]
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
     previous_response_id: NotRequired[str]
@@ -1241,8 +1238,8 @@ class CreateRouterResponseRequestBody(BaseModel):
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
 
-    plugins: OptionalNullable[List[PublicPIIRedactionPlugin]] = UNSET
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    plugins: OptionalNullable[List[PublicPlugin]] = UNSET
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
 
     presence_penalty: Optional[float] = None
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""

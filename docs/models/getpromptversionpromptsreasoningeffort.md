@@ -18,3 +18,5 @@ value: GetPromptVersionPromptsReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`
