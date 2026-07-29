@@ -60,7 +60,10 @@ class Responses(BaseSDK):
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         plugins: OptionalNullable[
-            Union[Iterable[models.PublicPlugin], Iterable[models.PublicPluginTypedDict]]
+            Union[
+                Iterable[models.PublicPIIRedactionPlugin],
+                Iterable[models.PublicPIIRedactionPluginTypedDict],
+            ]
         ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
@@ -128,7 +131,7 @@ class Responses(BaseSDK):
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
@@ -197,7 +200,7 @@ class Responses(BaseSDK):
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             plugins=utils.get_pydantic_model(
-                plugins, OptionalNullable[List[models.PublicPlugin]]
+                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
             ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
@@ -350,7 +353,10 @@ class Responses(BaseSDK):
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         plugins: OptionalNullable[
-            Union[Iterable[models.PublicPlugin], Iterable[models.PublicPluginTypedDict]]
+            Union[
+                Iterable[models.PublicPIIRedactionPlugin],
+                Iterable[models.PublicPIIRedactionPluginTypedDict],
+            ]
         ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
@@ -418,7 +424,7 @@ class Responses(BaseSDK):
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
@@ -487,7 +493,7 @@ class Responses(BaseSDK):
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             plugins=utils.get_pydantic_model(
-                plugins, OptionalNullable[List[models.PublicPlugin]]
+                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
             ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,

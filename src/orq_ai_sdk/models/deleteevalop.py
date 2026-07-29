@@ -20,28 +20,6 @@ class DeleteEvalRequest(BaseModel):
     ]
 
 
-class DeleteEvalEvalsResponseBodyData(BaseModel):
-    message: str
-
-
-@dataclass(unsafe_hash=True)
-class DeleteEvalEvalsResponseBody(OrqError):
-    r"""The evaluator is still referenced as an evaluator or guardrail by one or more deployments"""
-
-    data: DeleteEvalEvalsResponseBodyData = field(hash=False)
-
-    def __init__(
-        self,
-        data: DeleteEvalEvalsResponseBodyData,
-        raw_response: httpx.Response,
-        body: Optional[str] = None,
-    ):
-        fallback = body or raw_response.text
-        message = str(data.message) or fallback
-        super().__init__(message, raw_response, body)
-        object.__setattr__(self, "data", data)
-
-
 class DeleteEvalResponseBodyData(BaseModel):
     message: str
 

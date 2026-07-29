@@ -71,18 +71,6 @@ value: models.StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool = /* values 
 value: models.StreamRunAgentAgentToolInputRunCurrentDateTool = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunAdvisorTool`
-
-```python
-value: models.StreamRunAgentAgentToolInputRunAdvisorTool = /* values here */
-```
-
-### `models.StreamRunAgentAgentToolInputRunSidekickTool`
-
-```python
-value: models.StreamRunAgentAgentToolInputRunSidekickTool = /* values here */
-```
-
 ### `models.StreamRunAgentAgentToolInputRunCodeInterpreterTool`
 
 ```python

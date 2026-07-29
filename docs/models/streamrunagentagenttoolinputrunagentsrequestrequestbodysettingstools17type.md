@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
-value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = "function"
+value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = "mcp"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"mcp"`

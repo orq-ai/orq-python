@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .apikeystatus import APIKeyStatus
-from .mcpaccess import McpAccess, McpAccessTypedDict
 from .permissionmode import PermissionMode
 from .projectscope import ProjectScope, ProjectScopeTypedDict
 from datetime import datetime
@@ -33,12 +32,6 @@ class UpdateAPIKeyRequestTypedDict(TypedDict):
     """
     clear_expires_at: NotRequired[bool]
     r"""Force-clear the expiration. Mutually exclusive with `expires_at`."""
-    mcp_access: NotRequired[McpAccessTypedDict]
-    r"""Replacement MCP-gateway access restriction. Absent leaves the
-    current value intact; an explicitly-set McpAccess replaces it —
-    including an empty one (deny_all=false + empty list), which clears
-    any existing restriction. See McpAccess.
-    """
 
 
 class UpdateAPIKeyRequest(BaseModel):
@@ -69,13 +62,6 @@ class UpdateAPIKeyRequest(BaseModel):
     clear_expires_at: Optional[bool] = None
     r"""Force-clear the expiration. Mutually exclusive with `expires_at`."""
 
-    mcp_access: Optional[McpAccess] = None
-    r"""Replacement MCP-gateway access restriction. Absent leaves the
-    current value intact; an explicitly-set McpAccess replaces it —
-    including an empty one (deny_all=false + empty list), which clears
-    any existing restriction. See McpAccess.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -87,7 +73,6 @@ class UpdateAPIKeyRequest(BaseModel):
                 "project_scope",
                 "expires_at",
                 "clear_expires_at",
-                "mcp_access",
             ]
         )
         serialized = handler(self)

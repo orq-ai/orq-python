@@ -21,7 +21,7 @@ class Reporting(BaseSDK):
         metric: models.Metric,
         from_: datetime,
         to: datetime,
-        grain: Optional[models.QueryReportRequestGrain] = None,
+        grain: Optional[models.Grain] = None,
         group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
             Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
@@ -29,8 +29,6 @@ class Reporting(BaseSDK):
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
-        mode: Optional[models.QueryReportRequestMode] = None,
-        sort: Optional[models.QueryReportRequestSort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -52,8 +50,6 @@ class Reporting(BaseSDK):
             `America/New_York`. Response timestamps remain UTC. Empty means UTC.
         :param include_totals: When true, include a `totals` block aggregated across the full
             report window.
-        :param mode: Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty.
-        :param sort: Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -82,8 +78,6 @@ class Reporting(BaseSDK):
             limit=limit,
             time_zone=time_zone,
             include_totals=include_totals,
-            mode=mode,
-            sort=sort,
         )
 
         req = self._build_request(
@@ -151,7 +145,7 @@ class Reporting(BaseSDK):
         metric: models.Metric,
         from_: datetime,
         to: datetime,
-        grain: Optional[models.QueryReportRequestGrain] = None,
+        grain: Optional[models.Grain] = None,
         group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
             Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
@@ -159,8 +153,6 @@ class Reporting(BaseSDK):
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
-        mode: Optional[models.QueryReportRequestMode] = None,
-        sort: Optional[models.QueryReportRequestSort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -182,8 +174,6 @@ class Reporting(BaseSDK):
             `America/New_York`. Response timestamps remain UTC. Empty means UTC.
         :param include_totals: When true, include a `totals` block aggregated across the full
             report window.
-        :param mode: Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty.
-        :param sort: Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -212,8 +202,6 @@ class Reporting(BaseSDK):
             limit=limit,
             time_zone=time_zone,
             include_totals=include_totals,
-            mode=mode,
-            sort=sort,
         )
 
         req = self._build_request_async(

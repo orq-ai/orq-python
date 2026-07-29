@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
-value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = "code"
+value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = "json_schema"
 ```
 
 
 ## Values
 
-- `"code"`
+- `"json_schema"`

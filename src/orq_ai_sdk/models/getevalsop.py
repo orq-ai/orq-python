@@ -33,7 +33,7 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-QueryParamSort = Literal[
+Sort = Literal[
     "asc",
     "desc",
 ]
@@ -47,7 +47,7 @@ class GetEvalsRequestTypedDict(TypedDict):
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     search: NotRequired[str]
-    sort: NotRequired[QueryParamSort]
+    sort: NotRequired[Sort]
     project_id: NotRequired[str]
 
 
@@ -76,7 +76,7 @@ class GetEvalsRequest(BaseModel):
     ] = None
 
     sort: Annotated[
-        Optional[QueryParamSort],
+        Optional[Sort],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 

@@ -12,6 +12,7 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .updatemodelparameter import UpdateModelParameter, UpdateModelParameterTypedDict
+from datetime import datetime
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
@@ -94,7 +95,7 @@ class ModelUpdateResponseBodyTypedDict(TypedDict):
     r"""Model updated successfully"""
 
     configuration: ModelConfigurationResponseTypedDict
-    created: str
+    created: datetime
     description: Nullable[str]
     display_name: str
     docs_url: Nullable[str]
@@ -117,7 +118,7 @@ class ModelUpdateResponseBodyTypedDict(TypedDict):
     pricing_url: Nullable[str]
     provider: str
     ref_id: str
-    updated: str
+    updated: datetime
     model_developer: NotRequired[str]
     model_family: NotRequired[str]
     sharing: NotRequired[ConfigTypedDict]
@@ -128,7 +129,7 @@ class ModelUpdateResponseBody(BaseModel):
 
     configuration: ModelConfigurationResponse
 
-    created: str
+    created: datetime
 
     description: Nullable[str]
 
@@ -174,7 +175,7 @@ class ModelUpdateResponseBody(BaseModel):
 
     ref_id: Annotated[str, pydantic.Field(alias="refId")]
 
-    updated: str
+    updated: datetime
 
     model_developer: Optional[str] = None
 

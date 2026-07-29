@@ -1,9 +1,0 @@
-# TestMcpServerToolRequest
-
-
-## Fields
-
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `tool_name`                                                                                          | *Optional[str]*                                                                                      | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
-| `arguments`                                                                                          | [Optional[models.TestMcpServerToolRequestArguments]](../models/testmcpservertoolrequestarguments.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |

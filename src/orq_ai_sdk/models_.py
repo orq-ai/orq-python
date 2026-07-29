@@ -300,6 +300,476 @@ class Models(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    def create_autorouter(
+        self,
+        *,
+        economical_model: str,
+        key: str,
+        strong_model: str,
+        profile: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAutorouterResponseBody:
+        r"""Create autorouter custom model
+
+        Creates an autorouter model that routes between a strong and economical source model based on the requested profile. Both source models must already exist for the workspace and be marked autorouter-eligible in master data.
+
+        :param economical_model:
+        :param key:
+        :param strong_model:
+        :param profile:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAutorouterRequestBody(
+            economical_model=economical_model,
+            key=key,
+            profile=profile,
+            strong_model=strong_model,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/models/autorouter",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAutorouterRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAutorouter({\n  key: "my-router",\n  strong_model: "openai/gpt-4o",\n  economical_model: "openai/gpt-4o-mini",\n  profile: "balanced",\n});',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_autorouter_async(
+        self,
+        *,
+        economical_model: str,
+        key: str,
+        strong_model: str,
+        profile: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelCreateAutorouterResponseBody:
+        r"""Create autorouter custom model
+
+        Creates an autorouter model that routes between a strong and economical source model based on the requested profile. Both source models must already exist for the workspace and be marked autorouter-eligible in master data.
+
+        :param economical_model:
+        :param key:
+        :param strong_model:
+        :param profile:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelCreateAutorouterRequestBody(
+            economical_model=economical_model,
+            key=key,
+            profile=profile,
+            strong_model=strong_model,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/models/autorouter",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.ModelCreateAutorouterRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelCreateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "createAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.createAutorouter({\n  key: "my-router",\n  strong_model: "openai/gpt-4o",\n  economical_model: "openai/gpt-4o-mini",\n  profile: "balanced",\n});',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelCreateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def update_autorouter(
+        self,
+        *,
+        id: str,
+        economical_model: Optional[str] = None,
+        key: Optional[str] = None,
+        profile: Optional[str] = None,
+        strong_model: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAutorouterResponseBody:
+        r"""Update autorouter custom model
+
+        Re-configures an autorouter model. Each of key/strong_model/economical_model/profile falls back to the existing value when omitted. Changing the key enforces uniqueness and rewrites PRICING_KV.
+
+        :param id: The ID of the model
+        :param economical_model:
+        :param key:
+        :param profile:
+        :param strong_model:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAutorouterRequest(
+            id=id,
+            request_body=models.ModelUpdateAutorouterRequestBody(
+                economical_model=economical_model,
+                key=key,
+                profile=profile,
+                strong_model=strong_model,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/models/autorouter/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAutorouterRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAutorouter({\n  id: "019d...",\n  profile: "cost",\n});',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_autorouter_async(
+        self,
+        *,
+        id: str,
+        economical_model: Optional[str] = None,
+        key: Optional[str] = None,
+        profile: Optional[str] = None,
+        strong_model: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ModelUpdateAutorouterResponseBody:
+        r"""Update autorouter custom model
+
+        Re-configures an autorouter model. Each of key/strong_model/economical_model/profile falls back to the existing value when omitted. Changing the key enforces uniqueness and rewrites PRICING_KV.
+
+        :param id: The ID of the model
+        :param economical_model:
+        :param key:
+        :param profile:
+        :param strong_model:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ModelUpdateAutorouterRequest(
+            id=id,
+            request_body=models.ModelUpdateAutorouterRequestBody(
+                economical_model=economical_model,
+                key=key,
+                profile=profile,
+                strong_model=strong_model,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/models/autorouter/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.ModelUpdateAutorouterRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ModelUpdateAutorouter",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Models"],
+                extensions={
+                    "x-cli-group": "models",
+                    "x-cli-name": "updateAutorouter",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.models.updateAutorouter({\n  id: "019d...",\n  profile: "cost",\n});',
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ModelUpdateAutorouterResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def create_aws_bedrock(
         self,
         *,

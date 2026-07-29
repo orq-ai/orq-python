@@ -18,5 +18,3 @@ value: GetAllPromptsPromptsReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
-- `"xhigh"`
-- `"max"`

@@ -18,5 +18,3 @@ value: CreatePromptPromptsResponseReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
-- `"xhigh"`
-- `"max"`

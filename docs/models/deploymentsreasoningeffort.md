@@ -18,5 +18,3 @@ value: DeploymentsReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
-- `"xhigh"`
-- `"max"`

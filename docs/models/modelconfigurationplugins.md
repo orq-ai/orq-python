@@ -21,9 +21,3 @@ value: models.PIIRedactionPluginEn = /* values here */
 value: models.PIIRedactionPluginNl = /* values here */
 ```
 
-### `models.ResponseHealingPlugin`
-
-```python
-value: models.ResponseHealingPlugin = /* values here */
-```
-

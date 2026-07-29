@@ -17,7 +17,7 @@ class Evals(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[models.QueryParamSort] = None,
+        sort: Optional[models.Sort] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -125,7 +125,7 @@ class Evals(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[models.QueryParamSort] = None,
+        sort: Optional[models.Sort] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -856,11 +856,6 @@ class Evals(BaseSDK):
                 models.DeleteEvalResponseBodyData, http_res
             )
             raise models.DeleteEvalResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalEvalsResponseBodyData, http_res
-            )
-            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -954,11 +949,6 @@ class Evals(BaseSDK):
                 models.DeleteEvalResponseBodyData, http_res
             )
             raise models.DeleteEvalResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalEvalsResponseBodyData, http_res
-            )
-            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

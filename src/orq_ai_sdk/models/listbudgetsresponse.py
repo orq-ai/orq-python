@@ -2,30 +2,47 @@
 
 from __future__ import annotations
 from .budget import Budget, BudgetTypedDict
-from orq_ai_sdk.types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
+from typing import List, Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class ListBudgetsResponseTypedDict(TypedDict):
-    object: str
+    object: NotRequired[str]
     r"""Object discriminator for list responses; always `list`."""
-    data: List[BudgetTypedDict]
+    data: NotRequired[List[BudgetTypedDict]]
     r"""Page of budgets, ordered newest first."""
-    has_more: bool
+    has_more: NotRequired[bool]
     r"""Whether more budgets are available in the selected pagination
     direction.
     """
 
 
 class ListBudgetsResponse(BaseModel):
-    object: str
+    object: Optional[str] = None
     r"""Object discriminator for list responses; always `list`."""
 
-    data: List[Budget]
+    data: Optional[List[Budget]] = None
     r"""Page of budgets, ordered newest first."""
 
-    has_more: bool
+    has_more: Optional[bool] = None
     r"""Whether more budgets are available in the selected pagination
     direction.
     """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["object", "data", "has_more"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -11,7 +11,6 @@ from .piiredactionpluginauto import (
 )
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
-from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -339,7 +338,6 @@ class RunAgentModelConfigurationGuardrails(BaseModel):
 RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentModelConfigurationPluginsTypedDict",
     Union[
-        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -349,12 +347,7 @@ RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
 
 RunAgentModelConfigurationPlugins = TypeAliasType(
     "RunAgentModelConfigurationPlugins",
-    Union[
-        ResponseHealingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
-    ],
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
 )
 
 
@@ -585,7 +578,7 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[RunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[RunAgentModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentModelConfigurationCacheTypedDict]
@@ -668,7 +661,7 @@ class RunAgentModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[RunAgentModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
 
     fallbacks: Optional[List[RunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1145,7 +1138,6 @@ class RunAgentFallbackModelConfigurationGuardrails(BaseModel):
 RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
-        ResponseHealingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1155,12 +1147,7 @@ RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "RunAgentFallbackModelConfigurationPlugins",
-    Union[
-        ResponseHealingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
-    ],
+    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
 )
 
 
@@ -1397,7 +1384,7 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[RunAgentFallbackModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[RunAgentFallbackModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
     fallbacks: NotRequired[List[RunAgentFallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RunAgentFallbackModelConfigurationCacheTypedDict]
@@ -1482,7 +1469,7 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[RunAgentFallbackModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
 
     fallbacks: Optional[List[RunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1948,7 +1935,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -1978,19 +1965,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType = Literal[
     "object",
 ]
 
 
 class AgentToolInputRunSchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class AgentToolInputRunSchema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2025,7 +2012,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KYPT8FHKCMKWZW3AGVYTX9EY"
+    id: Optional[str] = "01KYPZXVC3APGNXB9WJAG73694"
 
     description: Optional[str] = None
 
@@ -2097,7 +2084,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2111,7 +2098,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2144,7 +2131,7 @@ class MCPToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
     "json_schema",
 ]
 
@@ -2230,7 +2217,7 @@ class AgentToolInputRunJSONSchema(BaseModel):
 class JSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2244,7 +2231,7 @@ class JSONSchemaToolRunTypedDict(TypedDict):
 class JSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2277,12 +2264,12 @@ class JSONSchemaToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
     "function",
 ]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2291,7 +2278,7 @@ r"""The type must be \"object\" """
 class RunAgentAgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2307,7 +2294,7 @@ class RunAgentAgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2369,7 +2356,7 @@ class AgentToolInputRunFunction(BaseModel):
 class FunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     function: AgentToolInputRunFunctionTypedDict
@@ -2382,7 +2369,7 @@ class FunctionToolRunTypedDict(TypedDict):
 class FunctionToolRun(BaseModel):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2416,10 +2403,10 @@ class FunctionToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["code",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal["code",]
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType = Literal[
     "object",
 ]
 r"""The type must be \"object\" """
@@ -2428,7 +2415,7 @@ r"""The type must be \"object\" """
 class AgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2444,7 +2431,7 @@ class AgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2502,7 +2489,7 @@ class CodeTool(BaseModel):
 class CodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2518,7 +2505,7 @@ class CodeToolRunTypedDict(TypedDict):
 class CodeToolRun(BaseModel):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2554,7 +2541,7 @@ class CodeToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal["http",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["http",]
 
 
 AgentToolInputRunMethod = Literal[
@@ -2653,7 +2640,7 @@ class Blueprint(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType = Literal[
     "string",
     "number",
     "boolean",
@@ -2669,8 +2656,8 @@ DefaultValue = TypeAliasType("DefaultValue", Union[str, float, bool])
 r"""The default value of the argument."""
 
 
-class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
+class ArgumentsTypedDict(TypedDict):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -2680,8 +2667,8 @@ class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
     r"""The default value of the argument."""
 
 
-class RunAgentAgentToolInputRunArguments(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
+class Arguments(BaseModel):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -2713,7 +2700,7 @@ class RunAgentAgentToolInputRunArguments(BaseModel):
 class HTTPTypedDict(TypedDict):
     blueprint: BlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
-    arguments: NotRequired[Dict[str, RunAgentAgentToolInputRunArgumentsTypedDict]]
+    arguments: NotRequired[Dict[str, ArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
@@ -2721,7 +2708,7 @@ class HTTP(BaseModel):
     blueprint: Blueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
-    arguments: Optional[Dict[str, RunAgentAgentToolInputRunArguments]] = None
+    arguments: Optional[Dict[str, Arguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
     @model_serializer(mode="wrap")
@@ -2744,7 +2731,7 @@ class HTTP(BaseModel):
 class HTTPToolRunTypedDict(TypedDict):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2760,7 +2747,7 @@ class HTTPToolRunTypedDict(TypedDict):
 class HTTPToolRun(BaseModel):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2796,99 +2783,13 @@ class HTTPToolRun(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
     "code_interpreter",
 ]
 
 
 class AgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
     r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
-
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
-    requires_approval: NotRequired[bool]
-    r"""Whether this tool requires approval before execution"""
-    configuration: NotRequired[Dict[str, Any]]
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
-
-
-class AgentToolInputRunCodeInterpreterTool(BaseModel):
-    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
-
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
-
-    requires_approval: Optional[bool] = None
-    r"""Whether this tool requires approval before execution"""
-
-    configuration: Optional[Dict[str, Any]] = None
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["requires_approval", "configuration"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
-    "sidekick",
-]
-
-
-class AgentToolInputRunSidekickToolTypedDict(TypedDict):
-    r"""Delegate a subtask to a secondary model for execution"""
-
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
-    requires_approval: NotRequired[bool]
-    r"""Whether this tool requires approval before execution"""
-    configuration: NotRequired[Dict[str, Any]]
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
-
-
-class AgentToolInputRunSidekickTool(BaseModel):
-    r"""Delegate a subtask to a secondary model for execution"""
-
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
-
-    requires_approval: Optional[bool] = None
-    r"""Whether this tool requires approval before execution"""
-
-    configuration: Optional[Dict[str, Any]] = None
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["requires_approval", "configuration"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
-    "advisor",
-]
-
-
-class AgentToolInputRunAdvisorToolTypedDict(TypedDict):
-    r"""Consult a secondary model for advice on the current task"""
 
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
     requires_approval: NotRequired[bool]
@@ -2897,8 +2798,8 @@ class AgentToolInputRunAdvisorToolTypedDict(TypedDict):
     r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
-class AgentToolInputRunAdvisorTool(BaseModel):
-    r"""Consult a secondary model for advice on the current task"""
+class AgentToolInputRunCodeInterpreterTool(BaseModel):
+    r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
 
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
 
@@ -3392,18 +3293,16 @@ AgentToolInputRunTypedDict = TypeAliasType(
     "AgentToolInputRunTypedDict",
     Union[
         AgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
-        AgentToolInputRunCurrentDateToolTypedDict,
-        AgentToolInputRunCallSubAgentToolTypedDict,
         AgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        AgentToolInputRunCallSubAgentToolTypedDict,
+        AgentToolInputRunRetrieveAgentsToolTypedDict,
         AgentToolInputRunQueryMemoryStoreToolTypedDict,
         AgentToolInputRunWriteMemoryStoreToolTypedDict,
         AgentToolInputRunRetrieveMemoryStoresToolTypedDict,
         AgentToolInputRunDeleteMemoryDocumentToolTypedDict,
         AgentToolInputRunWebScraperToolTypedDict,
+        AgentToolInputRunCurrentDateToolTypedDict,
         AgentToolInputRunGoogleSearchToolTypedDict,
-        AgentToolInputRunRetrieveAgentsToolTypedDict,
-        AgentToolInputRunAdvisorToolTypedDict,
-        AgentToolInputRunSidekickToolTypedDict,
         AgentToolInputRunCodeInterpreterToolTypedDict,
         FunctionToolRunTypedDict,
         JSONSchemaToolRunTypedDict,
@@ -3434,8 +3333,6 @@ AgentToolInputRun = Annotated[
         ],
         Annotated[AgentToolInputRunQueryKnowledgeBaseTool, Tag("query_knowledge_base")],
         Annotated[AgentToolInputRunCurrentDateTool, Tag("current_date")],
-        Annotated[AgentToolInputRunAdvisorTool, Tag("advisor")],
-        Annotated[AgentToolInputRunSidekickTool, Tag("sidekick")],
         Annotated[AgentToolInputRunCodeInterpreterTool, Tag("code_interpreter")],
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],

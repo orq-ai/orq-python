@@ -18,5 +18,3 @@ value: ListPromptVersionsPromptsReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
-- `"xhigh"`
-- `"max"`

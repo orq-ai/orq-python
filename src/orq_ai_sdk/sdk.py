@@ -16,7 +16,6 @@ import weakref
 
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
-    from orq_ai_sdk.alerts import Alerts
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.budgets import Budgets
@@ -30,18 +29,10 @@ if TYPE_CHECKING:
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge import Knowledge
-    from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
-    from orq_ai_sdk.mcpgatewaycalls import McpGatewayCalls
-    from orq_ai_sdk.mcpgateways import McpGateways
-    from orq_ai_sdk.mcpservers import McpServers
-    from orq_ai_sdk.mcpsessions import McpSessions
-    from orq_ai_sdk.mcptoolsets import McpToolsets
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
-    from orq_ai_sdk.monitors import Monitors
     from orq_ai_sdk.notifiers import Notifiers
-    from orq_ai_sdk.people import People
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
@@ -52,7 +43,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.routingrules import RoutingRules
     from orq_ai_sdk.schedules import Schedules
     from orq_ai_sdk.skills import Skills
-    from orq_ai_sdk.smartrouters import SmartRouters
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
@@ -82,27 +72,17 @@ class Orq(BaseSDK):
     models: "Models"
     policies: "Policies"
     routing_rules: "RoutingRules"
-    alerts: "Alerts"
     api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
     identities: "Identities"
     management_keys: "ManagementKeys"
-    mcp_gateway_calls: "McpGatewayCalls"
-    mcp_gateways: "McpGateways"
-    mcp_servers: "McpServers"
-    mcp_sessions: "McpSessions"
-    mcp_toolsets: "McpToolsets"
-    monitors: "Monitors"
     notifiers: "Notifiers"
-    people: "People"
     projects: "Projects"
     skills: "Skills"
-    smart_routers: "SmartRouters"
     webhooks: "Webhooks"
     schedules: "Schedules"
     responses: "Responses"
-    logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
     traces: "Traces"
@@ -125,27 +105,17 @@ class Orq(BaseSDK):
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
-        "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
-        "mcp_gateway_calls": ("orq_ai_sdk.mcpgatewaycalls", "McpGatewayCalls"),
-        "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
-        "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
-        "mcp_sessions": ("orq_ai_sdk.mcpsessions", "McpSessions"),
-        "mcp_toolsets": ("orq_ai_sdk.mcptoolsets", "McpToolsets"),
-        "monitors": ("orq_ai_sdk.monitors", "Monitors"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
-        "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
-        "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
-        "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),

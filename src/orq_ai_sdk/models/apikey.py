@@ -9,7 +9,6 @@ from .budgetmatch import BudgetMatch, BudgetMatchTypedDict
 from .budgetscope import BudgetScope, BudgetScopeTypedDict
 from .budgetusage import BudgetUsage, BudgetUsageTypedDict
 from .legacytokenfamily import LegacyTokenFamily
-from .mcpaccess import McpAccess, McpAccessTypedDict
 from .permissionmode import PermissionMode
 from .projectscope import ProjectScope, ProjectScopeTypedDict
 from .ratelimit import RateLimit, RateLimitTypedDict
@@ -220,11 +219,6 @@ class APIKeyTypedDict(TypedDict):
     `include_budget`. Live consumption (`usage`) is not attached on this
     path — call the Budgets API for current spend.
     """
-    mcp_access: NotRequired[McpAccessTypedDict]
-    r"""Optional MCP-gateway access restriction. Unset means the key can
-    reach every MCP gateway allowed by its project scope. See
-    McpAccess for the deny_all / allow-list semantics.
-    """
 
 
 class APIKey(BaseModel):
@@ -310,12 +304,6 @@ class APIKey(BaseModel):
     path — call the Budgets API for current spend.
     """
 
-    mcp_access: Optional[McpAccess] = None
-    r"""Optional MCP-gateway access restriction. Unset means the key can
-    reach every MCP gateway allowed by its project scope. See
-    McpAccess for the deny_all / allow-list semantics.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -328,7 +316,6 @@ class APIKey(BaseModel):
                 "legacy_token_family",
                 "legacy_key_id",
                 "budget",
-                "mcp_access",
             ]
         )
         serialized = handler(self)
