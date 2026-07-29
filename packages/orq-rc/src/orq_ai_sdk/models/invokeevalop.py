@@ -443,12 +443,34 @@ InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type = Literal["structured
 class StructuredTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
     value: Dict[str, Any]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class Structured(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
 
     value: Dict[str, Any]
+
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["trace_id", "span_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval",]
@@ -479,6 +501,8 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
 class ResponseBodyHTTPTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type
     value: NotRequired[Nullable[InvokeEvalResponseBodyEvalsResponseValueTypedDict]]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class ResponseBodyHTTP(BaseModel):
@@ -486,9 +510,13 @@ class ResponseBodyHTTP(BaseModel):
 
     value: OptionalNullable[InvokeEvalResponseBodyEvalsResponseValue] = UNSET
 
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["value"])
+        optional_fields = set(["value", "trace_id", "span_id"])
         nullable_fields = set(["value"])
         serialized = handler(self)
         m = {}
@@ -758,12 +786,34 @@ class InvokeEvalResponseBodyValue(BaseModel):
 class BERTScoreTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
     value: InvokeEvalResponseBodyValueTypedDict
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class BERTScore(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
 
     value: InvokeEvalResponseBodyValue
+
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["trace_id", "span_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 InvokeEvalResponseBodyEvalsResponse200Type = Literal["rouge_n",]
@@ -828,12 +878,34 @@ class ResponseBodyValue(BaseModel):
 class RougeNTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200Type
     value: ResponseBodyValueTypedDict
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class RougeN(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200Type
 
     value: ResponseBodyValue
+
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["trace_id", "span_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 InvokeEvalResponseBodyEvalsResponseType = Literal["string_array",]
@@ -842,12 +914,34 @@ InvokeEvalResponseBodyEvalsResponseType = Literal["string_array",]
 class StringArrayTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponseType
     values: List[Nullable[str]]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class StringArray(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponseType
 
     values: List[Nullable[str]]
+
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["trace_id", "span_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 InvokeEvalResponseBodyEvalsType = Literal["boolean",]
@@ -866,6 +960,8 @@ InvokeEvalResponseBodyEvalsResponse200Value = TypeAliasType(
 class BooleanTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsType
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200ValueTypedDict]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class Boolean(BaseModel):
@@ -873,17 +969,32 @@ class Boolean(BaseModel):
 
     value: Nullable[InvokeEvalResponseBodyEvalsResponse200Value]
 
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
+        optional_fields = set(["trace_id", "span_id"])
+        nullable_fields = set(["value"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -929,6 +1040,8 @@ class NumberTypedDict(TypedDict):
     value: Nullable[float]
     original_value: NotRequired[Nullable[float]]
     format_options: NotRequired[FormatOptionsTypedDict]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class Number(BaseModel):
@@ -940,9 +1053,15 @@ class Number(BaseModel):
 
     format_options: Optional[FormatOptions] = None
 
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["original_value", "format_options"])
+        optional_fields = set(
+            ["original_value", "format_options", "trace_id", "span_id"]
+        )
         nullable_fields = set(["original_value", "value"])
         serialized = handler(self)
         m = {}
@@ -973,6 +1092,8 @@ class StringTypedDict(TypedDict):
     type: ResponseBodyType
     original_value: NotRequired[Nullable[str]]
     value: NotRequired[Nullable[str]]
+    trace_id: NotRequired[str]
+    span_id: NotRequired[str]
 
 
 class String(BaseModel):
@@ -982,9 +1103,13 @@ class String(BaseModel):
 
     value: OptionalNullable[str] = UNSET
 
+    trace_id: Optional[str] = None
+
+    span_id: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["original_value", "value"])
+        optional_fields = set(["original_value", "value", "trace_id", "span_id"])
         nullable_fields = set(["original_value", "value"])
         serialized = handler(self)
         m = {}
@@ -1011,11 +1136,11 @@ class String(BaseModel):
 InvokeEvalResponseBodyTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyTypedDict",
     Union[
+        ResponseBodyLLMTypedDict,
         BooleanTypedDict,
         StringArrayTypedDict,
         RougeNTypedDict,
         BERTScoreTypedDict,
-        ResponseBodyLLMTypedDict,
         ResponseBodyHTTPTypedDict,
         StructuredTypedDict,
         StringTypedDict,
