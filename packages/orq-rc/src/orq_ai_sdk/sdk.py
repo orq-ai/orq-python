@@ -32,11 +32,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
-    from orq_ai_sdk.mcpgatewaycalls import McpGatewayCalls
-    from orq_ai_sdk.mcpgateways import McpGateways
-    from orq_ai_sdk.mcpservers import McpServers
-    from orq_ai_sdk.mcpsessions import McpSessions
-    from orq_ai_sdk.mcptoolsets import McpToolsets
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.monitors import Monitors
@@ -88,11 +83,6 @@ class Orq(BaseSDK):
     files: "Files"
     identities: "Identities"
     management_keys: "ManagementKeys"
-    mcp_gateway_calls: "McpGatewayCalls"
-    mcp_gateways: "McpGateways"
-    mcp_servers: "McpServers"
-    mcp_sessions: "McpSessions"
-    mcp_toolsets: "McpToolsets"
     monitors: "Monitors"
     notifiers: "Notifiers"
     people: "People"
@@ -131,11 +121,6 @@ class Orq(BaseSDK):
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
-        "mcp_gateway_calls": ("orq_ai_sdk.mcpgatewaycalls", "McpGatewayCalls"),
-        "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
-        "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
-        "mcp_sessions": ("orq_ai_sdk.mcpsessions", "McpSessions"),
-        "mcp_toolsets": ("orq_ai_sdk.mcptoolsets", "McpToolsets"),
         "monitors": ("orq_ai_sdk.monitors", "Monitors"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "people": ("orq_ai_sdk.people", "People"),

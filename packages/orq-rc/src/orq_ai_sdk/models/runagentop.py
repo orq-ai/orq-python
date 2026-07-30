@@ -2025,7 +2025,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KYSA4RVBP14SM5HRXPXAH66Y"
+    id: Optional[str] = "01KYSCD1JKYJ94CG8593YPNPRH"
 
     description: Optional[str] = None
 
@@ -2669,7 +2669,7 @@ DefaultValue = TypeAliasType("DefaultValue", Union[str, float, bool])
 r"""The default value of the argument."""
 
 
-class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
+class ArgumentsTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
     description: str
@@ -2680,7 +2680,7 @@ class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
     r"""The default value of the argument."""
 
 
-class RunAgentAgentToolInputRunArguments(BaseModel):
+class Arguments(BaseModel):
     type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
 
@@ -2713,7 +2713,7 @@ class RunAgentAgentToolInputRunArguments(BaseModel):
 class HTTPTypedDict(TypedDict):
     blueprint: BlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
-    arguments: NotRequired[Dict[str, RunAgentAgentToolInputRunArgumentsTypedDict]]
+    arguments: NotRequired[Dict[str, ArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
@@ -2721,7 +2721,7 @@ class HTTP(BaseModel):
     blueprint: Blueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
-    arguments: Optional[Dict[str, RunAgentAgentToolInputRunArguments]] = None
+    arguments: Optional[Dict[str, Arguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
     @model_serializer(mode="wrap")
