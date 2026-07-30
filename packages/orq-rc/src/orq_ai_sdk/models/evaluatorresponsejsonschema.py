@@ -40,9 +40,9 @@ class EvaluatorResponseJSONSchema(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-07-30T08:19:59.802Z"
+    created: Optional[str] = "2026-07-30T10:46:42.051Z"
 
-    updated: Optional[str] = "2026-07-30T08:19:59.802Z"
+    updated: Optional[str] = "2026-07-30T10:46:42.051Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
