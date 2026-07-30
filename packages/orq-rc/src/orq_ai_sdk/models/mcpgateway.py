@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .mcpegresspolicy import McpEgressPolicy, McpEgressPolicyTypedDict
+from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
 from .mcpgatewaystatus import McpGatewayStatus
 from .mcpruntimelimits import McpRuntimeLimits, McpRuntimeLimitsTypedDict
@@ -27,6 +28,7 @@ class McpGatewayTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     exposed_tools_count: NotRequired[int]
+    mode: NotRequired[McpGatewayMode]
 
 
 class McpGateway(BaseModel):
@@ -58,6 +60,8 @@ class McpGateway(BaseModel):
 
     exposed_tools_count: Optional[int] = None
 
+    mode: Optional[McpGatewayMode] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -76,6 +80,7 @@ class McpGateway(BaseModel):
                 "created",
                 "updated",
                 "exposed_tools_count",
+                "mode",
             ]
         )
         serialized = handler(self)

@@ -1099,12 +1099,7 @@ class McpServers(BaseSDK):
         *,
         id: str,
         tool_name: Optional[str] = None,
-        arguments: Optional[
-            Union[
-                models.TestMcpServerToolRequestArguments,
-                models.TestMcpServerToolRequestArgumentsTypedDict,
-            ]
-        ] = None,
+        arguments: Optional[Union[models.Arguments, models.ArgumentsTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1140,7 +1135,7 @@ class McpServers(BaseSDK):
             test_mcp_server_tool_request=models.TestMcpServerToolRequest(
                 tool_name=tool_name,
                 arguments=utils.get_pydantic_model(
-                    arguments, Optional[models.TestMcpServerToolRequestArguments]
+                    arguments, Optional[models.Arguments]
                 ),
             ),
         )
@@ -1210,12 +1205,7 @@ class McpServers(BaseSDK):
         *,
         id: str,
         tool_name: Optional[str] = None,
-        arguments: Optional[
-            Union[
-                models.TestMcpServerToolRequestArguments,
-                models.TestMcpServerToolRequestArgumentsTypedDict,
-            ]
-        ] = None,
+        arguments: Optional[Union[models.Arguments, models.ArgumentsTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1251,7 +1241,7 @@ class McpServers(BaseSDK):
             test_mcp_server_tool_request=models.TestMcpServerToolRequest(
                 tool_name=tool_name,
                 arguments=utils.get_pydantic_model(
-                    arguments, Optional[models.TestMcpServerToolRequestArguments]
+                    arguments, Optional[models.Arguments]
                 ),
             ),
         )

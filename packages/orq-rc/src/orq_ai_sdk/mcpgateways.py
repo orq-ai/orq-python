@@ -232,6 +232,7 @@ class McpGateways(BaseSDK):
         egress_policy: Optional[
             Union[models.McpEgressPolicy, models.McpEgressPolicyTypedDict]
         ] = None,
+        mode: Optional[models.McpGatewayMode] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -249,6 +250,7 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param runtime_limits:
         :param egress_policy:
+        :param mode:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -282,6 +284,7 @@ class McpGateways(BaseSDK):
             egress_policy=utils.get_pydantic_model(
                 egress_policy, Optional[models.McpEgressPolicy]
             ),
+            mode=mode,
         )
 
         req = self._build_request(
@@ -360,6 +363,7 @@ class McpGateways(BaseSDK):
         egress_policy: Optional[
             Union[models.McpEgressPolicy, models.McpEgressPolicyTypedDict]
         ] = None,
+        mode: Optional[models.McpGatewayMode] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -377,6 +381,7 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param runtime_limits:
         :param egress_policy:
+        :param mode:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -410,6 +415,7 @@ class McpGateways(BaseSDK):
             egress_policy=utils.get_pydantic_model(
                 egress_policy, Optional[models.McpEgressPolicy]
             ),
+            mode=mode,
         )
 
         req = self._build_request_async(
@@ -483,7 +489,7 @@ class McpGateways(BaseSDK):
     ) -> models.ListMcpGatewayToolsResponse:
         r"""List exposed tools for a gateway
 
-        Returns the namespaced, policy-filtered tool view for a gateway.
+        Returns the namespaced tool view for a gateway.
 
         :param gateway_id:
         :param limit:
@@ -584,7 +590,7 @@ class McpGateways(BaseSDK):
     ) -> models.ListMcpGatewayToolsResponse:
         r"""List exposed tools for a gateway
 
-        Returns the namespaced, policy-filtered tool view for a gateway.
+        Returns the namespaced tool view for a gateway.
 
         :param gateway_id:
         :param limit:
@@ -661,218 +667,6 @@ class McpGateways(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListMcpGatewayToolsResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    def test_tool(
-        self,
-        *,
-        gateway_id: str,
-        tool_name: Optional[str] = None,
-        arguments: Optional[Union[models.Arguments, models.ArgumentsTypedDict]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TestMcpGatewayToolResponse:
-        r"""Test an MCP gateway tool
-
-        Executes a single exposed tool through a gateway for testing.
-
-        :param gateway_id:
-        :param tool_name:
-        :param arguments:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.McpGatewayTestToolRequest(
-            gateway_id=gateway_id,
-            test_mcp_gateway_tool_request=models.TestMcpGatewayToolRequest(
-                tool_name=tool_name,
-                arguments=utils.get_pydantic_model(
-                    arguments, Optional[models.Arguments]
-                ),
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/mcp-gateways/{gateway_id}/tools:test",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.test_mcp_gateway_tool_request,
-                False,
-                False,
-                "json",
-                models.TestMcpGatewayToolRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="McpGatewayTestTool",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["MCP Gateway"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TestMcpGatewayToolResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    async def test_tool_async(
-        self,
-        *,
-        gateway_id: str,
-        tool_name: Optional[str] = None,
-        arguments: Optional[Union[models.Arguments, models.ArgumentsTypedDict]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.TestMcpGatewayToolResponse:
-        r"""Test an MCP gateway tool
-
-        Executes a single exposed tool through a gateway for testing.
-
-        :param gateway_id:
-        :param tool_name:
-        :param arguments:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.McpGatewayTestToolRequest(
-            gateway_id=gateway_id,
-            test_mcp_gateway_tool_request=models.TestMcpGatewayToolRequest(
-                tool_name=tool_name,
-                arguments=utils.get_pydantic_model(
-                    arguments, Optional[models.Arguments]
-                ),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/mcp-gateways/{gateway_id}/tools:test",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.test_mcp_gateway_tool_request,
-                False,
-                False,
-                "json",
-                models.TestMcpGatewayToolRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="McpGatewayTestTool",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["MCP Gateway"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.TestMcpGatewayToolResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1259,6 +1053,7 @@ class McpGateways(BaseSDK):
             Union[models.McpEgressPolicy, models.McpEgressPolicyTypedDict]
         ] = None,
         status: Optional[models.McpGatewayStatus] = None,
+        mode: Optional[models.McpGatewayMode] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1277,6 +1072,7 @@ class McpGateways(BaseSDK):
         :param runtime_limits:
         :param egress_policy:
         :param status:
+        :param mode:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1312,6 +1108,7 @@ class McpGateways(BaseSDK):
                     egress_policy, Optional[models.McpEgressPolicy]
                 ),
                 status=status,
+                mode=mode,
             ),
         )
 
@@ -1396,6 +1193,7 @@ class McpGateways(BaseSDK):
             Union[models.McpEgressPolicy, models.McpEgressPolicyTypedDict]
         ] = None,
         status: Optional[models.McpGatewayStatus] = None,
+        mode: Optional[models.McpGatewayMode] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1414,6 +1212,7 @@ class McpGateways(BaseSDK):
         :param runtime_limits:
         :param egress_policy:
         :param status:
+        :param mode:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1449,6 +1248,7 @@ class McpGateways(BaseSDK):
                     egress_policy, Optional[models.McpEgressPolicy]
                 ),
                 status=status,
+                mode=mode,
             ),
         )
 

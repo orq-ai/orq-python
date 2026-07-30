@@ -7,19 +7,19 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class TestMcpServerToolRequestArgumentsTypedDict(TypedDict):
-    __test__ = False  # pyright: ignore[reportGeneralTypeIssues]
+class ArgumentsTypedDict(TypedDict):
+    pass
 
 
-class TestMcpServerToolRequestArguments(BaseModel):
-    __test__ = False
+class Arguments(BaseModel):
+    pass
 
 
 class TestMcpServerToolRequestTypedDict(TypedDict):
     __test__ = False  # pyright: ignore[reportGeneralTypeIssues]
 
     tool_name: NotRequired[str]
-    arguments: NotRequired[TestMcpServerToolRequestArgumentsTypedDict]
+    arguments: NotRequired[ArgumentsTypedDict]
 
 
 class TestMcpServerToolRequest(BaseModel):
@@ -27,7 +27,7 @@ class TestMcpServerToolRequest(BaseModel):
 
     tool_name: Optional[str] = None
 
-    arguments: Optional[TestMcpServerToolRequestArguments] = None
+    arguments: Optional[Arguments] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

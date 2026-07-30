@@ -5456,15 +5456,12 @@ if TYPE_CHECKING:
         McpGatewayListToolsRequest,
         McpGatewayListToolsRequestTypedDict,
     )
+    from .mcpgatewaymode import McpGatewayMode
     from .mcpgatewayserverlink import (
         McpGatewayServerLink,
         McpGatewayServerLinkTypedDict,
     )
     from .mcpgatewaystatus import McpGatewayStatus
-    from .mcpgatewaytesttoolop import (
-        McpGatewayTestToolRequest,
-        McpGatewayTestToolRequestTypedDict,
-    )
     from .mcpgatewaytool import (
         InputSchema,
         InputSchemaTypedDict,
@@ -7520,16 +7517,6 @@ if TYPE_CHECKING:
     from .syncstatus import SyncStatus
     from .telemetry import Telemetry, TelemetryTypedDict
     from .telemetryrow import TelemetryRow, TelemetryRowTypedDict
-    from .testmcpgatewaytoolrequest import (
-        Arguments,
-        ArgumentsTypedDict,
-        TestMcpGatewayToolRequest,
-        TestMcpGatewayToolRequestTypedDict,
-    )
-    from .testmcpgatewaytoolresponse import (
-        TestMcpGatewayToolResponse,
-        TestMcpGatewayToolResponseTypedDict,
-    )
     from .testmcpserverrequest import (
         TestMcpServerRequest,
         TestMcpServerRequestTypedDict,
@@ -7539,9 +7526,9 @@ if TYPE_CHECKING:
         TestMcpServerResponseTypedDict,
     )
     from .testmcpservertoolrequest import (
+        Arguments,
+        ArgumentsTypedDict,
         TestMcpServerToolRequest,
-        TestMcpServerToolRequestArguments,
-        TestMcpServerToolRequestArgumentsTypedDict,
         TestMcpServerToolRequestTypedDict,
     )
     from .testmcpservertoolresponse import (
@@ -13630,11 +13617,10 @@ __all__ = [
     "McpGatewayListRequestTypedDict",
     "McpGatewayListToolsRequest",
     "McpGatewayListToolsRequestTypedDict",
+    "McpGatewayMode",
     "McpGatewayServerLink",
     "McpGatewayServerLinkTypedDict",
     "McpGatewayStatus",
-    "McpGatewayTestToolRequest",
-    "McpGatewayTestToolRequestTypedDict",
     "McpGatewayTool",
     "McpGatewayToolTestResult",
     "McpGatewayToolTestResultTypedDict",
@@ -15783,17 +15769,11 @@ __all__ = [
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
-    "TestMcpGatewayToolRequest",
-    "TestMcpGatewayToolRequestTypedDict",
-    "TestMcpGatewayToolResponse",
-    "TestMcpGatewayToolResponseTypedDict",
     "TestMcpServerRequest",
     "TestMcpServerRequestTypedDict",
     "TestMcpServerResponse",
     "TestMcpServerResponseTypedDict",
     "TestMcpServerToolRequest",
-    "TestMcpServerToolRequestArguments",
-    "TestMcpServerToolRequestArgumentsTypedDict",
     "TestMcpServerToolRequestTypedDict",
     "TestMcpServerToolResponse",
     "TestMcpServerToolResponseTypedDict",
@@ -22261,11 +22241,10 @@ _dynamic_imports: dict[str, str] = {
     "McpGatewayListRequestTypedDict": ".mcpgatewaylistop",
     "McpGatewayListToolsRequest": ".mcpgatewaylisttoolsop",
     "McpGatewayListToolsRequestTypedDict": ".mcpgatewaylisttoolsop",
+    "McpGatewayMode": ".mcpgatewaymode",
     "McpGatewayServerLink": ".mcpgatewayserverlink",
     "McpGatewayServerLinkTypedDict": ".mcpgatewayserverlink",
     "McpGatewayStatus": ".mcpgatewaystatus",
-    "McpGatewayTestToolRequest": ".mcpgatewaytesttoolop",
-    "McpGatewayTestToolRequestTypedDict": ".mcpgatewaytesttoolop",
     "InputSchema": ".mcpgatewaytool",
     "InputSchemaTypedDict": ".mcpgatewaytool",
     "McpGatewayTool": ".mcpgatewaytool",
@@ -24119,19 +24098,13 @@ _dynamic_imports: dict[str, str] = {
     "TelemetryTypedDict": ".telemetry",
     "TelemetryRow": ".telemetryrow",
     "TelemetryRowTypedDict": ".telemetryrow",
-    "Arguments": ".testmcpgatewaytoolrequest",
-    "ArgumentsTypedDict": ".testmcpgatewaytoolrequest",
-    "TestMcpGatewayToolRequest": ".testmcpgatewaytoolrequest",
-    "TestMcpGatewayToolRequestTypedDict": ".testmcpgatewaytoolrequest",
-    "TestMcpGatewayToolResponse": ".testmcpgatewaytoolresponse",
-    "TestMcpGatewayToolResponseTypedDict": ".testmcpgatewaytoolresponse",
     "TestMcpServerRequest": ".testmcpserverrequest",
     "TestMcpServerRequestTypedDict": ".testmcpserverrequest",
     "TestMcpServerResponse": ".testmcpserverresponse",
     "TestMcpServerResponseTypedDict": ".testmcpserverresponse",
+    "Arguments": ".testmcpservertoolrequest",
+    "ArgumentsTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolRequest": ".testmcpservertoolrequest",
-    "TestMcpServerToolRequestArguments": ".testmcpservertoolrequest",
-    "TestMcpServerToolRequestArgumentsTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolRequestTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolResponse": ".testmcpservertoolresponse",
     "TestMcpServerToolResponseTypedDict": ".testmcpservertoolresponse",

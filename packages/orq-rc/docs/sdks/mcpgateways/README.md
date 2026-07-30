@@ -7,7 +7,6 @@
 * [list](#list) - List MCP gateways
 * [create](#create) - Create an MCP gateway
 * [list_tools](#list_tools) - List exposed tools for a gateway
-* [test_tool](#test_tool) - Test an MCP gateway tool
 * [get](#get) - Retrieve an MCP gateway
 * [delete](#delete) - Delete an MCP gateway
 * [update](#update) - Update an MCP gateway
@@ -91,6 +90,7 @@ with Orq(
 | `tool_naming`                                                             | [Optional[models.McpToolNaming]](../../models/mcptoolnaming.md)           | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `runtime_limits`                                                          | [Optional[models.McpRuntimeLimits]](../../models/mcpruntimelimits.md)     | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `egress_policy`                                                           | [Optional[models.McpEgressPolicy]](../../models/mcpegresspolicy.md)       | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `mode`                                                                    | [Optional[models.McpGatewayMode]](../../models/mcpgatewaymode.md)         | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
 ### Response
@@ -105,7 +105,7 @@ with Orq(
 
 ## list_tools
 
-Returns the namespaced, policy-filtered tool view for a gateway.
+Returns the namespaced tool view for a gateway.
 
 ### Example Usage
 
@@ -140,48 +140,6 @@ with Orq(
 ### Response
 
 **[models.ListMcpGatewayToolsResponse](../../models/listmcpgatewaytoolsresponse.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## test_tool
-
-Executes a single exposed tool through a gateway for testing.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="McpGatewayTestTool" method="post" path="/v2/mcp-gateways/{gateway_id}/tools:test" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.mcp_gateways.test_tool(gateway_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `gateway_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `tool_name`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `arguments`                                                         | [Optional[models.Arguments]](../../models/arguments.md)             | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.TestMcpGatewayToolResponse](../../models/testmcpgatewaytoolresponse.md)**
 
 ### Errors
 
@@ -305,6 +263,7 @@ with Orq(
 | `runtime_limits`                                                          | [Optional[models.McpRuntimeLimits]](../../models/mcpruntimelimits.md)     | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `egress_policy`                                                           | [Optional[models.McpEgressPolicy]](../../models/mcpegresspolicy.md)       | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `status`                                                                  | [Optional[models.McpGatewayStatus]](../../models/mcpgatewaystatus.md)     | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `mode`                                                                    | [Optional[models.McpGatewayMode]](../../models/mcpgatewaymode.md)         | :heavy_minus_sign:                                                        | N/A                                                                       |
 | `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
 
 ### Response

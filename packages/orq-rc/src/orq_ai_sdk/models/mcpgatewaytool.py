@@ -22,6 +22,8 @@ class McpGatewayToolTypedDict(TypedDict):
     description: NotRequired[str]
     input_schema: NotRequired[InputSchemaTypedDict]
     read_only: NotRequired[bool]
+    mcp_server_id: NotRequired[str]
+    upstream_tool_name: NotRequired[str]
 
 
 class McpGatewayTool(BaseModel):
@@ -37,6 +39,10 @@ class McpGatewayTool(BaseModel):
 
     read_only: Optional[bool] = None
 
+    mcp_server_id: Optional[str] = None
+
+    upstream_tool_name: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -47,6 +53,8 @@ class McpGatewayTool(BaseModel):
                 "description",
                 "input_schema",
                 "read_only",
+                "mcp_server_id",
+                "upstream_tool_name",
             ]
         )
         serialized = handler(self)

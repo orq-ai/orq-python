@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .mcpegresspolicy import McpEgressPolicy, McpEgressPolicyTypedDict
+from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
 from .mcpruntimelimits import McpRuntimeLimits, McpRuntimeLimitsTypedDict
 from .mcptoolnaming import McpToolNaming
@@ -20,6 +21,7 @@ class CreateMcpGatewayRequestTypedDict(TypedDict):
     tool_naming: NotRequired[McpToolNaming]
     runtime_limits: NotRequired[McpRuntimeLimitsTypedDict]
     egress_policy: NotRequired[McpEgressPolicyTypedDict]
+    mode: NotRequired[McpGatewayMode]
 
 
 class CreateMcpGatewayRequest(BaseModel):
@@ -39,6 +41,8 @@ class CreateMcpGatewayRequest(BaseModel):
 
     egress_policy: Optional[McpEgressPolicy] = None
 
+    mode: Optional[McpGatewayMode] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -51,6 +55,7 @@ class CreateMcpGatewayRequest(BaseModel):
                 "tool_naming",
                 "runtime_limits",
                 "egress_policy",
+                "mode",
             ]
         )
         serialized = handler(self)
