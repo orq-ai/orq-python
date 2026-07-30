@@ -22,7 +22,7 @@ Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES,
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesAggregate" method="post" path="/v2/traces/aggregate" -->
+<!-- UsageSnippet language="python" operationID="TracesAggregate" method="post" path="/v3/traces/aggregate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -68,7 +68,7 @@ List trace fields that support facet value discovery.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFacets" method="get" path="/v2/traces/facets" -->
+<!-- UsageSnippet language="python" operationID="TracesListFacets" method="get" path="/v3/traces/facets" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -107,7 +107,7 @@ List values and counts for one trace facet field.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFacetValues" method="get" path="/v2/traces/facets/{field}" -->
+<!-- UsageSnippet language="python" operationID="TracesListFacetValues" method="get" path="/v3/traces/facets/{field}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -151,7 +151,7 @@ List currently supported static trace fields.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFields" method="get" path="/v2/traces/fields" -->
+<!-- UsageSnippet language="python" operationID="TracesListFields" method="get" path="/v3/traces/fields" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -190,7 +190,7 @@ Run an OQL trace query. OQL is validated against the trace field registry and co
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesQueryOql" method="post" path="/v2/traces/query" -->
+<!-- UsageSnippet language="python" operationID="TracesQueryOql" method="post" path="/v3/traces/query" -->
 ```python
 from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import parse_datetime
@@ -235,7 +235,7 @@ Search trace summaries using the structured trace filter contract.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesSearch" method="post" path="/v2/traces/search" -->
+<!-- UsageSnippet language="python" operationID="TracesSearch" method="post" path="/v3/traces/search" -->
 ```python
 from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import parse_datetime
@@ -283,7 +283,7 @@ Retrieve one trace summary by trace id.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesGet" method="get" path="/v2/traces/{trace_id}" -->
+<!-- UsageSnippet language="python" operationID="TracesGet" method="get" path="/v3/traces/{trace_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -323,7 +323,7 @@ List canonical span summaries for a trace.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListSpans" method="get" path="/v2/traces/{trace_id}/spans" -->
+<!-- UsageSnippet language="python" operationID="TracesListSpans" method="get" path="/v3/traces/{trace_id}/spans" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -365,7 +365,7 @@ Retrieve one hydrated span.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesGetSpan" method="get" path="/v2/traces/{trace_id}/spans/{span_id}" -->
+<!-- UsageSnippet language="python" operationID="TracesGetSpan" method="get" path="/v3/traces/{trace_id}/spans/{span_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os

@@ -4,7 +4,6 @@
 
 ### Available Operations
 
-* [list_trace_logs](#list_trace_logs) - List logs for a trace
 * [aggregate](#aggregate) - Aggregate logs
 * [list_facets](#list_facets) - List log facets
 * [list_facet_values](#list_facet_values) - List facet values
@@ -14,48 +13,7 @@
 * [search](#search) - Search logs
 * [get](#get) - Get a single log
 * [context](#context) - Get surrounding log context
-
-## list_trace_logs
-
-Return all log records correlated with a given trace_id. Results are scoped to the authenticated workspace.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ListTraceLogs" method="get" path="/v2/traces/{trace_id}/logs" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.logs.list_trace_logs(trace_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trace_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `page_token`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ListTraceLogsResponse](../../models/listtracelogsresponse.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+* [list_trace_logs](#list_trace_logs) - List logs for a trace
 
 ## aggregate
 
@@ -446,6 +404,48 @@ with Orq(
 ### Response
 
 **[models.GetLogContextResponse](../../models/getlogcontextresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## list_trace_logs
+
+Return all log records correlated with a given trace_id. Results are scoped to the authenticated workspace.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListTraceLogs" method="get" path="/v3/traces/{trace_id}/logs" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.logs.list_trace_logs(trace_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `trace_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `page_token`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListTraceLogsResponse](../../models/listtracelogsresponse.md)**
 
 ### Errors
 

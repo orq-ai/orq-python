@@ -79,7 +79,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/aggregate",
+            path="/v3/traces/aggregate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -200,7 +200,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/aggregate",
+            path="/v3/traces/aggregate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -285,7 +285,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
-            path="/v2/traces/facets",
+            path="/v3/traces/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -367,7 +367,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/facets",
+            path="/v3/traces/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -468,7 +468,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/facets/{field}",
+            path="/v3/traces/facets/{field}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -571,7 +571,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/facets/{field}",
+            path="/v3/traces/facets/{field}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -655,7 +655,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
-            path="/v2/traces/fields",
+            path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -737,7 +737,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/fields",
+            path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -838,7 +838,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/query",
+            path="/v3/traces/query",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -942,7 +942,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/query",
+            path="/v3/traces/query",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1061,7 +1061,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/search",
+            path="/v3/traces/search",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1180,7 +1180,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/search",
+            path="/v3/traces/search",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1272,7 +1272,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}",
+            path="/v3/traces/{trace_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1361,7 +1361,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}",
+            path="/v3/traces/{trace_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1456,7 +1456,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}/spans",
+            path="/v3/traces/{trace_id}/spans",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1551,7 +1551,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}/spans",
+            path="/v3/traces/{trace_id}/spans",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1643,7 +1643,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}/spans/{span_id}",
+            path="/v3/traces/{trace_id}/spans/{span_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1735,7 +1735,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}/spans/{span_id}",
+            path="/v3/traces/{trace_id}/spans/{span_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

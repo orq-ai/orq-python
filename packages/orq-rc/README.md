@@ -349,7 +349,6 @@ with Orq(
 
 ### [Logs](docs/sdks/logs/README.md)
 
-* [list_trace_logs](docs/sdks/logs/README.md#list_trace_logs) - List logs for a trace
 * [aggregate](docs/sdks/logs/README.md#aggregate) - Aggregate logs
 * [list_facets](docs/sdks/logs/README.md#list_facets) - List log facets
 * [list_facet_values](docs/sdks/logs/README.md#list_facet_values) - List facet values
@@ -359,6 +358,7 @@ with Orq(
 * [search](docs/sdks/logs/README.md#search) - Search logs
 * [get](docs/sdks/logs/README.md#get) - Get a single log
 * [context](docs/sdks/logs/README.md#context) - Get surrounding log context
+* [list_trace_logs](docs/sdks/logs/README.md#list_trace_logs) - List logs for a trace
 
 ### [ManagementKeys](docs/sdks/managementkeys/README.md)
 
