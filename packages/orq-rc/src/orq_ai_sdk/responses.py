@@ -72,6 +72,7 @@ class Responses(BaseSDK):
             Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
         ] = None,
         safety_identifier: Optional[str] = None,
+        service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
@@ -135,6 +136,7 @@ class Responses(BaseSDK):
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
+        :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
@@ -207,6 +209,7 @@ class Responses(BaseSDK):
             ),
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
+            service_tier=service_tier,
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(
@@ -362,6 +365,7 @@ class Responses(BaseSDK):
             Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
         ] = None,
         safety_identifier: Optional[str] = None,
+        service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
@@ -425,6 +429,7 @@ class Responses(BaseSDK):
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
+        :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
@@ -497,6 +502,7 @@ class Responses(BaseSDK):
             ),
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
+            service_tier=service_tier,
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(

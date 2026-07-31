@@ -1,5 +1,7 @@
 # CreateRouterResponseServiceTier
 
+Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+
 ## Example Usage
 
 ```python
@@ -13,4 +15,6 @@ value: CreateRouterResponseServiceTier = "auto"
 - `"auto"`
 - `"default"`
 - `"flex"`
+- `"fast"`
+- `"scale"`
 - `"priority"`

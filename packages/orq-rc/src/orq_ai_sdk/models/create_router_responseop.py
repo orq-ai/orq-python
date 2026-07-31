@@ -616,6 +616,17 @@ CreateRouterResponseInput = TypeAliasType(
 r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
 
 
+CreateRouterResponseServiceTier = Literal[
+    "auto",
+    "default",
+    "flex",
+    "fast",
+    "scale",
+    "priority",
+]
+r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+
+
 TemplateEngine = Literal[
     "text",
     "jinja",
@@ -1172,6 +1183,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     retry: NotRequired[ResponseRetryConfigTypedDict]
     safety_identifier: NotRequired[str]
     r"""Safety identifier for content filtering."""
+    service_tier: NotRequired[CreateRouterResponseServiceTier]
+    r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
     store: NotRequired[bool]
     r"""Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests."""
     stream: NotRequired[bool]
@@ -1257,6 +1270,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     safety_identifier: Optional[str] = None
     r"""Safety identifier for content filtering."""
 
+    service_tier: Optional[CreateRouterResponseServiceTier] = None
+    r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+
     store: Optional[bool] = None
     r"""Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests."""
 
@@ -1317,6 +1333,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "reasoning",
                 "retry",
                 "safety_identifier",
+                "service_tier",
                 "store",
                 "stream",
                 "stream_options",
@@ -1384,10 +1401,11 @@ class CreateRouterResponseResponsesResponseBody(BaseModel):
         return m
 
 
-CreateRouterResponseServiceTier = Literal[
+CreateRouterResponseResponsesServiceTier = Literal[
     "auto",
     "default",
     "flex",
+    "fast",
     "priority",
 ]
 
@@ -1437,7 +1455,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     prompt_cache_retention: Nullable[str]
     reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
-    service_tier: CreateRouterResponseServiceTier
+    service_tier: CreateRouterResponseResponsesServiceTier
     status: CreateRouterResponseStatus
     store: bool
     temperature: float
@@ -1508,7 +1526,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     safety_identifier: Nullable[str]
 
-    service_tier: CreateRouterResponseServiceTier
+    service_tier: CreateRouterResponseResponsesServiceTier
 
     status: CreateRouterResponseStatus
 
