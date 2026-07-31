@@ -111,6 +111,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning_effort_xhigh: NotRequired[bool]
     supports_responses_api: NotRequired[bool]
     supports_sampling_params: NotRequired[bool]
+    supports_service_tier: NotRequired[bool]
     supports_streaming: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
     supports_structured_outputs: NotRequired[bool]
@@ -322,6 +323,8 @@ class ModelMetadata(BaseModel):
 
     supports_sampling_params: Optional[bool] = None
 
+    supports_service_tier: Optional[bool] = None
+
     supports_streaming: Optional[bool] = None
 
     supports_strict_tool: Optional[bool] = None
@@ -456,6 +459,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning_effort_xhigh",
                 "supports_responses_api",
                 "supports_sampling_params",
+                "supports_service_tier",
                 "supports_streaming",
                 "supports_strict_tool",
                 "supports_structured_outputs",
