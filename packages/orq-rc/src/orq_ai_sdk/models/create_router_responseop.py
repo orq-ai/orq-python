@@ -20,6 +20,7 @@ from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDi
 from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
+from .telemetry import Telemetry, TelemetryTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1472,6 +1473,8 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
+    telemetry: NotRequired[TelemetryTypedDict]
+    r"""Telemetry information for correlating the response with traces"""
     variables: NotRequired[Dict[str, Any]]
 
 
@@ -1557,11 +1560,14 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     memory: Optional[MemoryParam] = None
 
+    telemetry: Optional[Telemetry] = None
+    r"""Telemetry information for correlating the response with traces"""
+
     variables: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["conversation", "memory", "variables"])
+        optional_fields = set(["conversation", "memory", "telemetry", "variables"])
         nullable_fields = set(
             [
                 "completed_at",
