@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody6AttributesOpenresponsesOutput1Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody6AttributesOpenresponsesOutput1Type
+value: RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody6AttributesOpenresponsesOutput1Type = "text"
+```
+
+
+## Values
+
+- `"text"`

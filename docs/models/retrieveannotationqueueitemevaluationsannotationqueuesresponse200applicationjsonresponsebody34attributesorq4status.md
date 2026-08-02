@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody34AttributesOrq4Status
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody34AttributesOrq4Status
+value: RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody34AttributesOrq4Status = "completed"
+```
+
+
+## Values
+
+- `"completed"`

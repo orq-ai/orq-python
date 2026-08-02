@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody31AttributesOrq13Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody31AttributesOrq13Type
+value: RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody31AttributesOrq13Type = "rouge_n"
+```
+
+
+## Values
+
+- `"rouge_n"`

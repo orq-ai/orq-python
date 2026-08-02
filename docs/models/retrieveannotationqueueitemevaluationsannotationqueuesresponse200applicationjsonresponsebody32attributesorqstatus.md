@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody32AttributesOrqStatus
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody32AttributesOrqStatus
+value: RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody32AttributesOrqStatus = "failed"
+```
+
+
+## Values
+
+- `"failed"`

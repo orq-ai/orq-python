@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemInputAnnotationQueuesResponse200ApplicationJSONResponseBody19Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemInputAnnotationQueuesResponse200ApplicationJSONResponseBody19Type
+value: RetrieveAnnotationQueueItemInputAnnotationQueuesResponse200ApplicationJSONResponseBody19Type = "item_reference"
+```
+
+
+## Values
+
+- `"item_reference"`

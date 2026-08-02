@@ -1,0 +1,8 @@
+# RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesProvider
+
+
+## Fields
+
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `name`                                                                                                                   | [Optional[models.RetrieveAnnotationQueueItemResponseBodyName]](../models/retrieveannotationqueueitemresponsebodyname.md) | :heavy_minus_sign:                                                                                                       | Standardized provider names                                                                                              |

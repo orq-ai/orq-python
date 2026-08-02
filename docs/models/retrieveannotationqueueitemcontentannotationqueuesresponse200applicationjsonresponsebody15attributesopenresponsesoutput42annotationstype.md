@@ -1,0 +1,15 @@
+# RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody15AttributesOpenresponsesOutput42AnnotationsType
+
+The type of the URL citation. Always `url_citation`.
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody15AttributesOpenresponsesOutput42AnnotationsType
+value: RetrieveAnnotationQueueItemContentAnnotationQueuesResponse200ApplicationJSONResponseBody15AttributesOpenresponsesOutput42AnnotationsType = "url_citation"
+```
+
+
+## Values
+
+- `"url_citation"`

@@ -1,0 +1,15 @@
+# RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody23AttributesOrq19EvaluationType
+
+The type of evaluation
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody23AttributesOrq19EvaluationType
+value: RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200ApplicationJSONResponseBody23AttributesOrq19EvaluationType = "human_review"
+```
+
+
+## Values
+
+- `"human_review"`

@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType
+value: RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType = "json_schema"
+```
+
+
+## Values
+
+- `"json_schema"`

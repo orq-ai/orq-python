@@ -1,0 +1,8 @@
+# RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON23Output
+
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `documents`                                                                                                                    | List[[models.RetrieveAnnotationQueueItemResponseBodyDocuments](../models/retrieveannotationqueueitemresponsebodydocuments.md)] | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |

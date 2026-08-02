@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams12Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams12Type
+value: RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams12Type = "deployment_variant"
+```
+
+
+## Values
+
+- `"deployment_variant"`

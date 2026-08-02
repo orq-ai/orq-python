@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams16Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams16Type
+value: RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams16Type = "contact"
+```
+
+
+## Values
+
+- `"contact"`
