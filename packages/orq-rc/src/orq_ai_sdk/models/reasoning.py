@@ -13,7 +13,7 @@ from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-ReasoningEffort = Literal[
+ReasoningEffort1 = Literal[
     "none",
     "minimal",
     "low",
@@ -34,14 +34,14 @@ r"""The format of the reasoning summary returned by the model."""
 
 
 class ReasoningTypedDict(TypedDict):
-    effort: NotRequired[ReasoningEffort]
+    effort: NotRequired[ReasoningEffort1]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     summary: NotRequired[Nullable[ReasoningSummary]]
     r"""The format of the reasoning summary returned by the model."""
 
 
 class Reasoning(BaseModel):
-    effort: Optional[ReasoningEffort] = None
+    effort: Optional[ReasoningEffort1] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
     summary: OptionalNullable[ReasoningSummary] = UNSET

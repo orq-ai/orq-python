@@ -266,6 +266,7 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     categorical_labels: NotRequired[
         Nullable[List[UpdateEvalCategoricalLabelsTypedDict]]
     ]
+    dataset_id: NotRequired[Nullable[str]]
     repetitions: NotRequired[float]
     mode: NotRequired[UpdateEvalMode]
     model: NotRequired[str]
@@ -299,6 +300,8 @@ class UpdateEvalRequestBody(BaseModel):
     categories: OptionalNullable[List[str]] = UNSET
 
     categorical_labels: OptionalNullable[List[UpdateEvalCategoricalLabels]] = UNSET
+
+    dataset_id: OptionalNullable[str] = UNSET
 
     repetitions: Optional[float] = None
 
@@ -342,6 +345,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "output_type",
                 "categories",
                 "categorical_labels",
+                "dataset_id",
                 "repetitions",
                 "mode",
                 "model",
@@ -357,7 +361,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["categories", "categorical_labels"])
+        nullable_fields = set(["categories", "categorical_labels", "dataset_id"])
         serialized = handler(self)
         m = {}
 

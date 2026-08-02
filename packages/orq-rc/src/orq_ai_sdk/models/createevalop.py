@@ -333,7 +333,7 @@ class LLMJuryTypedDict(TypedDict):
     categorical_labels: NotRequired[
         Nullable[List[CreateEval1CategoricalLabelsTypedDict]]
     ]
-    dataset_id: NotRequired[str]
+    dataset_id: NotRequired[Nullable[str]]
     description: NotRequired[str]
 
 
@@ -367,7 +367,7 @@ class LLMJury(BaseModel):
 
     categorical_labels: OptionalNullable[List[CreateEval1CategoricalLabels]] = UNSET
 
-    dataset_id: Optional[str] = None
+    dataset_id: OptionalNullable[str] = UNSET
 
     description: Optional[str] = ""
 
@@ -384,7 +384,9 @@ class LLMJury(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
+        nullable_fields = set(
+            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -468,7 +470,7 @@ class LlmTypedDict(TypedDict):
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[Nullable[List[OneCategoricalLabelsTypedDict]]]
-    dataset_id: NotRequired[str]
+    dataset_id: NotRequired[Nullable[str]]
     description: NotRequired[str]
 
 
@@ -502,7 +504,7 @@ class Llm(BaseModel):
 
     categorical_labels: OptionalNullable[List[OneCategoricalLabels]] = UNSET
 
-    dataset_id: Optional[str] = None
+    dataset_id: OptionalNullable[str] = UNSET
 
     description: Optional[str] = ""
 
@@ -519,7 +521,9 @@ class Llm(BaseModel):
                 "description",
             ]
         )
-        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
+        nullable_fields = set(
+            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+        )
         serialized = handler(self)
         m = {}
 

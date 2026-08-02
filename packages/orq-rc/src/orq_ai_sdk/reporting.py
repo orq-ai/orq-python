@@ -8,13 +8,9 @@ from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Iterable, List, Mapping, Optional, Union
-from typing_extensions import deprecated
 
 
 class Reporting(BaseSDK):
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def query(
         self,
         *,
@@ -38,7 +34,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query) instead. Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
+        Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).
@@ -142,9 +138,6 @@ class Reporting(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def query_async(
         self,
         *,
@@ -168,7 +161,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query) instead. Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
+        Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).

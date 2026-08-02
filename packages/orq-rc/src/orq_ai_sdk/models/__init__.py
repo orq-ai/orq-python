@@ -5492,6 +5492,18 @@ if TYPE_CHECKING:
     from .notifierlistop import NotifierListRequest, NotifierListRequestTypedDict
     from .notifiertype import NotifierType
     from .notifierupdateop import NotifierUpdateRequest, NotifierUpdateRequestTypedDict
+    from .orqadvisortool import (
+        OrqAdvisorTool,
+        OrqAdvisorToolType,
+        OrqAdvisorToolTypedDict,
+        ReasoningEffort,
+    )
+    from .orqsidekicktool import (
+        OrqSidekickTool,
+        OrqSidekickToolReasoningEffort,
+        OrqSidekickToolType,
+        OrqSidekickToolTypedDict,
+    )
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
     from .ownertype import OwnerType
     from .parseop import (
@@ -5827,15 +5839,6 @@ if TYPE_CHECKING:
         QueryReportResponseObject,
         QueryReportResponseTypedDict,
     )
-    from .querytelemetrymeta import QueryTelemetryMeta, QueryTelemetryMetaTypedDict
-    from .querytelemetryrequest import (
-        QueryTelemetryRequest,
-        QueryTelemetryRequestTypedDict,
-    )
-    from .querytelemetryresponse import (
-        QueryTelemetryResponse,
-        QueryTelemetryResponseTypedDict,
-    )
     from .querytracesrequest import QueryTracesRequest, QueryTracesRequestTypedDict
     from .querytracesresponse import QueryTracesResponse, QueryTracesResponseTypedDict
     from .querywebhooksrequest import (
@@ -5853,7 +5856,7 @@ if TYPE_CHECKING:
     from .ratelimit import RateLimit, RateLimitTypedDict
     from .reasoning import (
         Reasoning,
-        ReasoningEffort,
+        ReasoningEffort1,
         ReasoningSummary,
         ReasoningTypedDict,
     )
@@ -7336,7 +7339,6 @@ if TYPE_CHECKING:
         StreamRunAgentToolChoiceType,
     )
     from .telemetry import Telemetry, TelemetryTypedDict
-    from .telemetryrow import TelemetryRow, TelemetryRowTypedDict
     from .textcontentpartschema import (
         CacheControl,
         CacheControlTypedDict,
@@ -13624,9 +13626,16 @@ __all__ = [
     "OrTypedDict",
     "OriginalValue",
     "OriginalValueTypedDict",
+    "OrqAdvisorTool",
+    "OrqAdvisorToolType",
+    "OrqAdvisorToolTypedDict",
     "OrqAiTool",
     "OrqAiToolTypedDict",
     "OrqError",
+    "OrqSidekickTool",
+    "OrqSidekickToolReasoningEffort",
+    "OrqSidekickToolType",
+    "OrqSidekickToolTypedDict",
     "OutputFormat",
     "OutputSchema",
     "OutputTokensDetails",
@@ -13937,12 +13946,6 @@ __all__ = [
     "QueryReportResponse",
     "QueryReportResponseObject",
     "QueryReportResponseTypedDict",
-    "QueryTelemetryMeta",
-    "QueryTelemetryMetaTypedDict",
-    "QueryTelemetryRequest",
-    "QueryTelemetryRequestTypedDict",
-    "QueryTelemetryResponse",
-    "QueryTelemetryResponseTypedDict",
     "QueryTracesRequest",
     "QueryTracesRequestTypedDict",
     "QueryTracesResponse",
@@ -13957,6 +13960,7 @@ __all__ = [
     "RateLimitTypedDict",
     "Reasoning",
     "ReasoningEffort",
+    "ReasoningEffort1",
     "ReasoningParam",
     "ReasoningParamTypedDict",
     "ReasoningPart",
@@ -15407,8 +15411,6 @@ __all__ = [
     "TeamOfAgents",
     "TeamOfAgentsTypedDict",
     "Telemetry",
-    "TelemetryRow",
-    "TelemetryRowTypedDict",
     "TelemetryTypedDict",
     "TemplateEngine",
     "Ten",
@@ -21933,6 +21935,14 @@ _dynamic_imports: dict[str, str] = {
     "NotifierType": ".notifiertype",
     "NotifierUpdateRequest": ".notifierupdateop",
     "NotifierUpdateRequestTypedDict": ".notifierupdateop",
+    "OrqAdvisorTool": ".orqadvisortool",
+    "OrqAdvisorToolType": ".orqadvisortool",
+    "OrqAdvisorToolTypedDict": ".orqadvisortool",
+    "ReasoningEffort": ".orqadvisortool",
+    "OrqSidekickTool": ".orqsidekicktool",
+    "OrqSidekickToolReasoningEffort": ".orqsidekicktool",
+    "OrqSidekickToolType": ".orqsidekicktool",
+    "OrqSidekickToolTypedDict": ".orqsidekicktool",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
     "OwnerType": ".ownertype",
@@ -22238,12 +22248,6 @@ _dynamic_imports: dict[str, str] = {
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
-    "QueryTelemetryMeta": ".querytelemetrymeta",
-    "QueryTelemetryMetaTypedDict": ".querytelemetrymeta",
-    "QueryTelemetryRequest": ".querytelemetryrequest",
-    "QueryTelemetryRequestTypedDict": ".querytelemetryrequest",
-    "QueryTelemetryResponse": ".querytelemetryresponse",
-    "QueryTelemetryResponseTypedDict": ".querytelemetryresponse",
     "QueryTracesRequest": ".querytracesrequest",
     "QueryTracesRequestTypedDict": ".querytracesrequest",
     "QueryTracesResponse": ".querytracesresponse",
@@ -22259,7 +22263,7 @@ _dynamic_imports: dict[str, str] = {
     "RateLimit": ".ratelimit",
     "RateLimitTypedDict": ".ratelimit",
     "Reasoning": ".reasoning",
-    "ReasoningEffort": ".reasoning",
+    "ReasoningEffort1": ".reasoning",
     "ReasoningSummary": ".reasoning",
     "ReasoningTypedDict": ".reasoning",
     "Effort": ".reasoningparam",
@@ -23584,8 +23588,6 @@ _dynamic_imports: dict[str, str] = {
     "StreamRunAgentToolChoiceType": ".streamrunagentop",
     "Telemetry": ".telemetry",
     "TelemetryTypedDict": ".telemetry",
-    "TelemetryRow": ".telemetryrow",
-    "TelemetryRowTypedDict": ".telemetryrow",
     "CacheControl": ".textcontentpartschema",
     "CacheControlTypedDict": ".textcontentpartschema",
     "TTL": ".textcontentpartschema",

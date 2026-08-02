@@ -439,6 +439,7 @@ class Evals(BaseSDK):
                 Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
+        dataset_id: OptionalNullable[str] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -470,6 +471,7 @@ class Evals(BaseSDK):
         :param output_type:
         :param categories:
         :param categorical_labels:
+        :param dataset_id:
         :param repetitions:
         :param mode:
         :param model:
@@ -515,6 +517,7 @@ class Evals(BaseSDK):
                     categorical_labels,
                     OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
+                dataset_id=dataset_id,
                 repetitions=repetitions,
                 mode=mode,
                 model=model,
@@ -614,6 +617,7 @@ class Evals(BaseSDK):
                 Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
             ]
         ] = UNSET,
+        dataset_id: OptionalNullable[str] = UNSET,
         repetitions: Optional[float] = None,
         mode: Optional[models.UpdateEvalMode] = None,
         model: Optional[str] = None,
@@ -645,6 +649,7 @@ class Evals(BaseSDK):
         :param output_type:
         :param categories:
         :param categorical_labels:
+        :param dataset_id:
         :param repetitions:
         :param mode:
         :param model:
@@ -690,6 +695,7 @@ class Evals(BaseSDK):
                     categorical_labels,
                     OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
                 ),
+                dataset_id=dataset_id,
                 repetitions=repetitions,
                 mode=mode,
                 model=model,

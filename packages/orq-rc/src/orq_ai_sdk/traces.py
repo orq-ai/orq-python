@@ -8,13 +8,9 @@ from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Iterable, List, Mapping, Optional, Union
-from typing_extensions import deprecated
 
 
 class Traces(BaseSDK):
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def aggregate(
         self,
         *,
@@ -36,7 +32,7 @@ class Traces(BaseSDK):
     ) -> models.AggregateTracesResponse:
         r"""Aggregate traces
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES, grain=none) instead. Aggregate trace metrics using the structured trace filter contract.
+        Aggregate trace metrics using the structured trace filter contract.
 
         :param from_:
         :param to:
@@ -133,9 +129,6 @@ class Traces(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def aggregate_async(
         self,
         *,
@@ -157,7 +150,7 @@ class Traces(BaseSDK):
     ) -> models.AggregateTracesResponse:
         r"""Aggregate traces
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES, grain=none) instead. Aggregate trace metrics using the structured trace filter contract.
+        Aggregate trace metrics using the structured trace filter contract.
 
         :param from_:
         :param to:

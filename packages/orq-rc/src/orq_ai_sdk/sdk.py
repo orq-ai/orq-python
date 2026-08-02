@@ -48,7 +48,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.schedules import Schedules
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.smartrouters import SmartRouters
-    from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.webhooks import Webhooks
@@ -94,7 +93,6 @@ class Orq(BaseSDK):
     responses: "Responses"
     logs: "Logs"
     reporting: "Reporting"
-    telemetry: "TelemetrySDK"
     traces: "Traces"
     _sub_sdk_map = {
         "evals": ("orq_ai_sdk.evals", "Evals"),
@@ -132,7 +130,6 @@ class Orq(BaseSDK):
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
-        "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),
     }
 

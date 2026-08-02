@@ -3958,7 +3958,7 @@ class ModelTypedDict(TypedDict):
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    parameters: NotRequired[CreateAgentRequestParametersTypedDict]
+    parameters: NotRequired[Nullable[CreateAgentRequestParametersTypedDict]]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[CreateAgentRequestRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
@@ -3975,7 +3975,7 @@ class Model(BaseModel):
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    parameters: Optional[CreateAgentRequestParameters] = None
+    parameters: OptionalNullable[CreateAgentRequestParameters] = UNSET
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[CreateAgentRequestRetry] = None
@@ -3991,7 +3991,7 @@ class Model(BaseModel):
         optional_fields = set(
             ["integration_id", "parameters", "retry", "fallback_models"]
         )
-        nullable_fields = set(["integration_id", "fallback_models"])
+        nullable_fields = set(["integration_id", "parameters", "fallback_models"])
         serialized = handler(self)
         m = {}
 

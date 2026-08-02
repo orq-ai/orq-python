@@ -6,6 +6,8 @@ from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .orqadvisortool import OrqAdvisorTool, OrqAdvisorToolTypedDict
+from .orqsidekicktool import OrqSidekickTool, OrqSidekickToolTypedDict
 from .publicplugin import PublicPlugin, PublicPluginTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
@@ -1123,7 +1125,13 @@ class ToolsFunction(BaseModel):
 
 CreateRouterResponseToolsTypedDict = TypeAliasType(
     "CreateRouterResponseToolsTypedDict",
-    Union[OrqAiToolTypedDict, ToolsFunctionTypedDict, MCPToolTypedDict],
+    Union[
+        OrqAiToolTypedDict,
+        ToolsFunctionTypedDict,
+        MCPToolTypedDict,
+        OrqAdvisorToolTypedDict,
+        OrqSidekickToolTypedDict,
+    ],
 )
 r"""A tool definition. The \"type\" field determines the tool kind."""
 
@@ -1131,6 +1139,8 @@ r"""A tool definition. The \"type\" field determines the tool kind."""
 CreateRouterResponseTools = Annotated[
     Union[
         Annotated[ToolsFunction, Tag("function")],
+        Annotated[OrqAdvisorTool, Tag("orq:advisor")],
+        Annotated[OrqSidekickTool, Tag("orq:sidekick")],
         Annotated[OrqAiTool, Tag("orq:current_date")],
         Annotated[OrqAiTool, Tag("orq:google_search")],
         Annotated[OrqAiTool, Tag("orq:web_scraper")],
