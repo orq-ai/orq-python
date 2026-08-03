@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType
+value: RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsType = "deployment_key"
+```
+
+
+## Values
+
+- `"deployment_key"`

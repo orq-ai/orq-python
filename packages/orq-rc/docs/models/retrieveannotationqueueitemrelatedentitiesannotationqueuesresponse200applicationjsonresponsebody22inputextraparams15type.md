@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams15Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams15Type
+value: RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams15Type = "api_key"
+```
+
+
+## Values
+
+- `"api_key"`

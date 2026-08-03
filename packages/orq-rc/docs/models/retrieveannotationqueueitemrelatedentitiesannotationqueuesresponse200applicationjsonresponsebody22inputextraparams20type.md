@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams20Type
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams20Type
+value: RetrieveAnnotationQueueItemRelatedEntitiesAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParams20Type = "spreadsheet_sheet_row"
+```
+
+
+## Values
+
+- `"spreadsheet_sheet_row"`

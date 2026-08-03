@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputPromptConfigType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputPromptConfigType
+value: RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputPromptConfigType = "text"
+```
+
+
+## Values
+
+- `"text"`

@@ -16,6 +16,7 @@ class SmartRouterListRequestTypedDict(TypedDict):
     search: NotRequired[str]
     profile: NotRequired[List[SmartRouterProfile]]
     enabled: NotRequired[bool]
+    include_metrics: NotRequired[bool]
 
 
 class SmartRouterListRequest(BaseModel):
@@ -49,10 +50,23 @@ class SmartRouterListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
+    include_metrics: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "search", "profile", "enabled"]
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "search",
+                "profile",
+                "enabled",
+                "include_metrics",
+            ]
         )
         serialized = handler(self)
         m = {}

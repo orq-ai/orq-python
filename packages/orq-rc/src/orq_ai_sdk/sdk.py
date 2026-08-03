@@ -17,6 +17,7 @@ import weakref
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.alerts import Alerts
+    from orq_ai_sdk.annotationqueues import AnnotationQueues
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
     from orq_ai_sdk.budgets import Budgets
@@ -71,6 +72,7 @@ class Orq(BaseSDK):
     annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
+    annotation_queues: "AnnotationQueues"
     pii: "Pii"
     guardrail_rules: "GuardrailRules"
     models: "Models"
@@ -108,6 +110,7 @@ class Orq(BaseSDK):
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
+        "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "models": ("orq_ai_sdk.models_", "Models"),

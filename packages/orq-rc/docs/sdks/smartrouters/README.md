@@ -44,6 +44,7 @@ with Orq(
 | `search`                                                              | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | N/A                                                                   |
 | `profile`                                                             | List[[models.SmartRouterProfile](../../models/smartrouterprofile.md)] | :heavy_minus_sign:                                                    | N/A                                                                   |
 | `enabled`                                                             | *Optional[bool]*                                                      | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `include_metrics`                                                     | *Optional[bool]*                                                      | :heavy_minus_sign:                                                    | N/A                                                                   |
 | `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
 
 ### Response

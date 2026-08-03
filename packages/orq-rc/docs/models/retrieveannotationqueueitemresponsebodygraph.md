@@ -1,0 +1,11 @@
+# RetrieveAnnotationQueueItemResponseBodyGraph
+
+Agent state-machine graph ({ nodes, edges }) attached to the root trace span. Present for LangGraph traces.
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `nodes`                                                                                                                | List[[models.RetrieveAnnotationQueueItemResponseBodyNodes](../models/retrieveannotationqueueitemresponsebodynodes.md)] | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `edges`                                                                                                                | List[[models.RetrieveAnnotationQueueItemResponseBodyEdges](../models/retrieveannotationqueueitemresponsebodyedges.md)] | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |

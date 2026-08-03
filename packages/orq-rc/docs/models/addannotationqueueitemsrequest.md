@@ -1,0 +1,9 @@
+# AddAnnotationQueueItemsRequest
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `annotation_queue_id`                                                                                  | *str*                                                                                                  | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `request_body`                                                                                         | [Optional[models.AddAnnotationQueueItemsRequestBody]](../models/addannotationqueueitemsrequestbody.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |

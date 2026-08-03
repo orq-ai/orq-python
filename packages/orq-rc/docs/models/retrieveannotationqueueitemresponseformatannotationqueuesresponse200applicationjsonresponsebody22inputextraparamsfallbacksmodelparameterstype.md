@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksModelParametersType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksModelParametersType
+value: RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksModelParametersType = "text"
+```
+
+
+## Values
+
+- `"text"`

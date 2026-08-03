@@ -1,0 +1,17 @@
+# ModelConfig
+
+Configuration for the embedding model used to compute semantic similarity.
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `model`                                                                      | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `model_db_id`                                                                | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `model_type`                                                                 | [models.CacheConfigModelType](../models/cacheconfigmodeltype.md)             | :heavy_check_mark:                                                           | The modality of the model                                                    |
+| `model_parameters`                                                           | [models.CacheConfigModelParameters](../models/cacheconfigmodelparameters.md) | :heavy_check_mark:                                                           | Model Parameters: Not all parameters apply to every model                    |
+| `provider`                                                                   | [models.CacheConfigProvider](../models/cacheconfigprovider.md)               | :heavy_check_mark:                                                           | N/A                                                                          |
+| `integration_id`                                                             | *OptionalNullable[str]*                                                      | :heavy_minus_sign:                                                           | The ID of the integration to use                                             |
+| `version`                                                                    | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `is_private`                                                                 | *OptionalNullable[bool]*                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |

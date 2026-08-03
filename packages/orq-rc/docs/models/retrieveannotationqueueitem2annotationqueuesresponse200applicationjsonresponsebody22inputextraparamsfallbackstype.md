@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItem2AnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItem2AnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksType
+value: RetrieveAnnotationQueueItem2AnnotationQueuesResponse200ApplicationJSONResponseBody22InputExtraParamsFallbacksType = "image_url"
+```
+
+
+## Values
+
+- `"image_url"`

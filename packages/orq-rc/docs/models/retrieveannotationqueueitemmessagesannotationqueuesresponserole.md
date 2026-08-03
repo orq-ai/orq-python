@@ -1,0 +1,15 @@
+# RetrieveAnnotationQueueItemMessagesAnnotationQueuesResponseRole
+
+The role of the messages author, in this case `user`.
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemMessagesAnnotationQueuesResponseRole
+value: RetrieveAnnotationQueueItemMessagesAnnotationQueuesResponseRole = "user"
+```
+
+
+## Values
+
+- `"user"`

@@ -1,0 +1,13 @@
+# RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody17AttributesType
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody17AttributesType
+value: RetrieveAnnotationQueueItemResponseFormatAnnotationQueuesResponse200ApplicationJSONResponseBody17AttributesType = "json_object"
+```
+
+
+## Values
+
+- `"json_object"`

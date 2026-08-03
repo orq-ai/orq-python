@@ -13,7 +13,6 @@
 * [~~run~~](#run) - Run an agent with configuration :warning: **Deprecated**
 * [~~stream_run~~](#stream_run) - Run agent with streaming response :warning: **Deprecated**
 * [~~stream~~](#stream) - Stream agent execution in real-time :warning: **Deprecated**
-* [refresh_key_card](#refresh_key_card) - Refresh A2A agent card
 
 ## create
 
@@ -662,46 +661,3 @@ with Orq(
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | models.StreamAgentAgentsResponseBody | 404                                  | application/json                     |
 | models.APIError                      | 4XX, 5XX                             | \*/\*                                |
-
-## refresh_key_card
-
-Fetches the latest agent card from the external A2A agent and updates the cached card in the database. Similar to MCP server refresh functionality.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="post_/v2/agents/{key}/card/refresh" method="post" path="/v2/agents/{key}/card/refresh" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.refresh_key_card(key="<key>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `key`                                                                                                           | *str*                                                                                                           | :heavy_check_mark:                                                                                              | The unique key identifier of the agent                                                                          |
-| `request_body`                                                                                                  | [Optional[models.PostV2AgentsKeyCardRefreshRequestBody]](../../models/postv2agentskeycardrefreshrequestbody.md) | :heavy_minus_sign:                                                                                              | N/A                                                                                                             |
-| `retries`                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                | :heavy_minus_sign:                                                                                              | Configuration to override the default retry behavior of the client.                                             |
-
-### Response
-
-**[models.PostV2AgentsKeyCardRefreshResponseBody](../../models/postv2agentskeycardrefreshresponsebody.md)**
-
-### Errors
-
-| Error Type                                                  | Status Code                                                 | Content Type                                                |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| models.PostV2AgentsKeyCardRefreshAgentsResponseBody         | 400                                                         | application/json                                            |
-| models.PostV2AgentsKeyCardRefreshAgentsResponseResponseBody | 404                                                         | application/json                                            |
-| models.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |

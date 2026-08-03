@@ -19,6 +19,7 @@ class SmartRouters(BaseSDK):
         search: Optional[str] = None,
         profile: Optional[Iterable[models_.SmartRouterProfile]] = None,
         enabled: Optional[bool] = None,
+        include_metrics: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -34,6 +35,7 @@ class SmartRouters(BaseSDK):
         :param search:
         :param profile:
         :param enabled:
+        :param include_metrics:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -61,6 +63,7 @@ class SmartRouters(BaseSDK):
                 profile, Optional[List[models_.SmartRouterProfile]]
             ),
             enabled=enabled,
+            include_metrics=include_metrics,
         )
 
         req = self._build_request(
@@ -138,6 +141,7 @@ class SmartRouters(BaseSDK):
         search: Optional[str] = None,
         profile: Optional[Iterable[models_.SmartRouterProfile]] = None,
         enabled: Optional[bool] = None,
+        include_metrics: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -153,6 +157,7 @@ class SmartRouters(BaseSDK):
         :param search:
         :param profile:
         :param enabled:
+        :param include_metrics:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -180,6 +185,7 @@ class SmartRouters(BaseSDK):
                 profile, Optional[List[models_.SmartRouterProfile]]
             ),
             enabled=enabled,
+            include_metrics=include_metrics,
         )
 
         req = self._build_request_async(
