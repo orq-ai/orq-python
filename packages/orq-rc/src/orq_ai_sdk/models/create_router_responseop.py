@@ -1196,6 +1196,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Safety identifier for content filtering."""
     service_tier: NotRequired[CreateRouterResponseServiceTier]
     r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+    stop_sequences: NotRequired[List[str]]
+    r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
     store: NotRequired[bool]
     r"""Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests."""
     stream: NotRequired[bool]
@@ -1212,6 +1214,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""How the model should use the provided tools. Can be a string shorthand or a specific function selector."""
     tools: NotRequired[List[CreateRouterResponseToolsTypedDict]]
     r"""Tools available to the model."""
+    top_k: NotRequired[int]
+    r"""Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
     top_logprobs: NotRequired[int]
     r"""Number of most likely tokens to return at each position."""
     top_p: NotRequired[float]
@@ -1284,6 +1288,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     service_tier: Optional[CreateRouterResponseServiceTier] = None
     r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
 
+    stop_sequences: Optional[List[str]] = None
+    r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
+
     store: Optional[bool] = None
     r"""Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests."""
 
@@ -1308,6 +1315,9 @@ class CreateRouterResponseRequestBody(BaseModel):
 
     tools: Optional[List[CreateRouterResponseTools]] = None
     r"""Tools available to the model."""
+
+    top_k: Optional[int] = None
+    r"""Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
 
     top_logprobs: Optional[int] = None
     r"""Number of most likely tokens to return at each position."""
@@ -1345,6 +1355,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "retry",
                 "safety_identifier",
                 "service_tier",
+                "stop_sequences",
                 "store",
                 "stream",
                 "stream_options",
@@ -1354,6 +1365,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "thread",
                 "tool_choice",
                 "tools",
+                "top_k",
                 "top_logprobs",
                 "top_p",
                 "variables",
@@ -1485,6 +1497,8 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     memory: NotRequired[MemoryParamTypedDict]
     telemetry: NotRequired[TelemetryTypedDict]
     r"""Telemetry information for correlating the response with traces"""
+    top_k: NotRequired[int]
+    r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
     variables: NotRequired[Dict[str, Any]]
 
 
@@ -1573,11 +1587,16 @@ class CreateRouterResponseResponseBody(BaseModel):
     telemetry: Optional[Telemetry] = None
     r"""Telemetry information for correlating the response with traces"""
 
+    top_k: Optional[int] = None
+    r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
+
     variables: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["conversation", "memory", "telemetry", "variables"])
+        optional_fields = set(
+            ["conversation", "memory", "telemetry", "top_k", "variables"]
+        )
         nullable_fields = set(
             [
                 "completed_at",

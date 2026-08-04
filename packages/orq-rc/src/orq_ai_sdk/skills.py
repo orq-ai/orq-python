@@ -912,10 +912,7 @@ class Skills(BaseSDK):
         Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
         :param skill_id: Skill ID to update.
-        :param display_name: New workspace-unique display name. Omit to keep the current name.
-            Must start with a letter and may contain letters, numbers, and
-            underscores. Dashes and dots are not allowed because skill names
-            are referenced as template variables.
+        :param display_name: New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
         :param description: New description. Omit to keep the current description.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param path: New project path. Omit to keep the current path.
@@ -1049,10 +1046,7 @@ class Skills(BaseSDK):
         Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
 
         :param skill_id: Skill ID to update.
-        :param display_name: New workspace-unique display name. Omit to keep the current name.
-            Must start with a letter and may contain letters, numbers, and
-            underscores. Dashes and dots are not allowed because skill names
-            are referenced as template variables.
+        :param display_name: New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
         :param description: New description. Omit to keep the current description.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param path: New project path. Omit to keep the current path.

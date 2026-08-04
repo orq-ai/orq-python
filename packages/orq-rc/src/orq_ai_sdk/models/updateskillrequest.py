@@ -9,11 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateSkillRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
-    r"""New workspace-unique display name. Omit to keep the current name.
-    Must start with a letter and may contain letters, numbers, and
-    underscores. Dashes and dots are not allowed because skill names
-    are referenced as template variables.
-    """
+    r"""New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
     description: NotRequired[str]
     r"""New description. Omit to keep the current description."""
     tags: NotRequired[List[str]]
@@ -28,11 +24,7 @@ class UpdateSkillRequestTypedDict(TypedDict):
 
 class UpdateSkillRequest(BaseModel):
     display_name: Optional[str] = None
-    r"""New workspace-unique display name. Omit to keep the current name.
-    Must start with a letter and may contain letters, numbers, and
-    underscores. Dashes and dots are not allowed because skill names
-    are referenced as template variables.
-    """
+    r"""New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
 
     description: Optional[str] = None
     r"""New description. Omit to keep the current description."""

@@ -3553,7 +3553,7 @@ class ThirtyFour(BaseModel):
     output: RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON34Output
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ40B0AMW4SY8XHXBHJ68ZPH"
+        "01KZ5DA1BXPCYE8Z8TAZRPQKFF"
     )
 
     name: Optional[str] = None

@@ -73,6 +73,7 @@ class Responses(BaseSDK):
         ] = None,
         safety_identifier: Optional[str] = None,
         service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
+        stop_sequences: Optional[Iterable[str]] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
@@ -101,6 +102,7 @@ class Responses(BaseSDK):
                 Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
+        top_k: Optional[int] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
         variables: Optional[Mapping[str, Any]] = None,
@@ -137,6 +139,7 @@ class Responses(BaseSDK):
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
         :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
@@ -146,6 +149,7 @@ class Responses(BaseSDK):
         :param thread:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
         :param tools: Tools available to the model.
+        :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
         :param top_p: Nucleus sampling parameter.
         :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
@@ -210,6 +214,7 @@ class Responses(BaseSDK):
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
             service_tier=service_tier,
+            stop_sequences=utils.unmarshal(stop_sequences, Optional[List[str]]),
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(
@@ -227,6 +232,7 @@ class Responses(BaseSDK):
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateRouterResponseTools]]
             ),
+            top_k=top_k,
             top_logprobs=top_logprobs,
             top_p=top_p,
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -366,6 +372,7 @@ class Responses(BaseSDK):
         ] = None,
         safety_identifier: Optional[str] = None,
         service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
+        stop_sequences: Optional[Iterable[str]] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
@@ -394,6 +401,7 @@ class Responses(BaseSDK):
                 Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
+        top_k: Optional[int] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
         variables: Optional[Mapping[str, Any]] = None,
@@ -430,6 +438,7 @@ class Responses(BaseSDK):
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
         :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
@@ -439,6 +448,7 @@ class Responses(BaseSDK):
         :param thread:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
         :param tools: Tools available to the model.
+        :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
         :param top_p: Nucleus sampling parameter.
         :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
@@ -503,6 +513,7 @@ class Responses(BaseSDK):
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
             service_tier=service_tier,
+            stop_sequences=utils.unmarshal(stop_sequences, Optional[List[str]]),
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(
@@ -520,6 +531,7 @@ class Responses(BaseSDK):
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateRouterResponseTools]]
             ),
+            top_k=top_k,
             top_logprobs=top_logprobs,
             top_p=top_p,
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),

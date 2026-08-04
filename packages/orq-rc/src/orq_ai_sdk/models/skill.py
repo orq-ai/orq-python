@@ -14,7 +14,7 @@ class SkillTypedDict(TypedDict):
     requests.
     """
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
     description: str
     r"""Short human-readable summary of what the skill is for."""
     tags: List[str]
@@ -48,7 +48,7 @@ class Skill(BaseModel):
     """
 
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
 
     description: str
     r"""Short human-readable summary of what the skill is for."""

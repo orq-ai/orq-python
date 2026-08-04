@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 class CreateSkillRequest2TypedDict(TypedDict):
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
     project_id: str
     r"""Project that should contain the skill."""
     description: NotRequired[str]
@@ -24,7 +24,7 @@ class CreateSkillRequest2TypedDict(TypedDict):
 
 class CreateSkillRequest2(BaseModel):
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
 
     project_id: str
     r"""Project that should contain the skill."""
@@ -60,7 +60,7 @@ class CreateSkillRequest2(BaseModel):
 
 class CreateSkillRequest1TypedDict(TypedDict):
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
     path: str
     r"""Project path where the skill should be stored."""
     description: NotRequired[str]
@@ -75,7 +75,7 @@ class CreateSkillRequest1TypedDict(TypedDict):
 
 class CreateSkillRequest1(BaseModel):
     display_name: str
-    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, and underscores. Dashes and dots are not allowed."""
+    r"""Workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed."""
 
     path: str
     r"""Project path where the skill should be stored."""

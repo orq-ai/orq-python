@@ -85,6 +85,8 @@ class PublicResponseResourceTypedDict(TypedDict):
     memory: NotRequired[MemoryParamTypedDict]
     telemetry: NotRequired[TelemetryTypedDict]
     r"""Telemetry information for correlating the response with traces"""
+    top_k: NotRequired[int]
+    r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
     variables: NotRequired[Dict[str, Any]]
 
 
@@ -171,11 +173,16 @@ class PublicResponseResource(BaseModel):
     telemetry: Optional[Telemetry] = None
     r"""Telemetry information for correlating the response with traces"""
 
+    top_k: Optional[int] = None
+    r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
+
     variables: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["conversation", "memory", "telemetry", "variables"])
+        optional_fields = set(
+            ["conversation", "memory", "telemetry", "top_k", "variables"]
+        )
         nullable_fields = set(
             [
                 "completed_at",
