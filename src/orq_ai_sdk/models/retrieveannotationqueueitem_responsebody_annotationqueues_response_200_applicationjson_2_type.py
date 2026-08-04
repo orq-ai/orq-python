@@ -68,7 +68,7 @@ from orq_ai_sdk.types import (
 )
 from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import ConfigDict, Discriminator, Tag, model_serializer
+from pydantic import ConfigDict, Discriminator, SerializeAsAny, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import (
     Annotated,
@@ -3366,7 +3366,7 @@ class RetrieveAnnotationQueueItemResponseBodyInput(BaseModel):
     timeout: Optional[ResponseBodyTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
-    thinking: OptionalNullable[ResponseBodyThinking] = UNSET
+    thinking: SerializeAsAny[OptionalNullable[ResponseBodyThinking]] = UNSET
     r"""Configuration for the thinking mode capability. Set type to `adaptive` for models that support adaptive thinking (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
 
     plugins: Optional[List[ResponseBodyPlugins]] = None
@@ -3767,7 +3767,7 @@ class ResponseBody3(BaseModel):
     output: ResponseBodyOutput
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ1Q3P00N905EPF4HGJ2K8YA"
+        "01KZ6098PF0R2Q2JSGW30M2XB3"
     )
 
     name: Optional[str] = None

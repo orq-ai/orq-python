@@ -51,7 +51,7 @@ from orq_ai_sdk.types import (
 )
 from orq_ai_sdk.utils import get_discriminator, validate_const
 import pydantic
-from pydantic import ConfigDict, Discriminator, Tag, model_serializer
+from pydantic import ConfigDict, Discriminator, SerializeAsAny, Tag, model_serializer
 from pydantic.functional_validators import AfterValidator
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
@@ -1617,7 +1617,9 @@ class RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200Applicat
     )
     r"""Configuration for reasoning models"""
 
-    thinking: OptionalNullable[RetrieveAnnotationQueueItemResponseBodyThinking] = UNSET
+    thinking: SerializeAsAny[
+        OptionalNullable[RetrieveAnnotationQueueItemResponseBodyThinking]
+    ] = UNSET
     r"""Configuration for thinking mode. Use `adaptive` for models that support it (e.g. Claude Opus 4.6, Sonnet 4.6), or `enabled` with `budget_tokens` for manual control."""
 
     max_output_tokens: OptionalNullable[int] = UNSET
@@ -3578,7 +3580,7 @@ class ResponseBody31(BaseModel):
     r"""Represents the completed model response returned when `stream` is false"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ1Q3QZWF7CS9CPFFPKJQFCN"
+        "01KZ609BPMBHPVHYF333G2K8K1"
     )
 
     name: Optional[str] = None

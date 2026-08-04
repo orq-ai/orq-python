@@ -743,7 +743,7 @@ wheels = [
 
 [[package]]
 name = "orq-ai-sdk"
-version = "4.12.16"
+version = "4.12.17"
 source = { editable = "." }
 dependencies = [
     { name = "httpcore" },
@@ -768,7 +768,7 @@ dev = [
 requires-dist = [
     { name = "httpcore", specifier = ">=1.0.9" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "pydantic", specifier = ">=2.11.2,<2.13" },
+    { name = "pydantic", specifier = ">=2.11.2" },
     { name = "requests", specifier = ">=2.33.0,<3.0.0" },
 ]
 
