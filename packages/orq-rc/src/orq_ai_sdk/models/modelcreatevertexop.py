@@ -58,6 +58,7 @@ class ModelCreateVertexResponseBodyTypedDict(TypedDict):
     provider: str
     ref_id: str
     updated: str
+    legacy_uuid: NotRequired[str]
     model_developer: NotRequired[str]
     model_family: NotRequired[str]
     sharing: NotRequired[ModelSharingConfigTypedDict]
@@ -116,6 +117,8 @@ class ModelCreateVertexResponseBody(BaseModel):
 
     updated: str
 
+    legacy_uuid: Optional[str] = None
+
     model_developer: Optional[str] = None
 
     model_family: Optional[str] = None
@@ -124,7 +127,9 @@ class ModelCreateVertexResponseBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["model_developer", "model_family", "sharing"])
+        optional_fields = set(
+            ["legacy_uuid", "model_developer", "model_family", "sharing"]
+        )
         nullable_fields = set(
             [
                 "description",

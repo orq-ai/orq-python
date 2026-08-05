@@ -17,7 +17,7 @@ class Reporting(BaseSDK):
         metric: models.Metric,
         from_: datetime,
         to: datetime,
-        grain: Optional[models.QueryReportRequestGrain] = None,
+        grain: Optional[models.Grain] = None,
         group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
             Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
@@ -26,7 +26,7 @@ class Reporting(BaseSDK):
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
         mode: Optional[models.QueryReportRequestMode] = None,
-        sort: Optional[models.QueryReportRequestSort] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -144,7 +144,7 @@ class Reporting(BaseSDK):
         metric: models.Metric,
         from_: datetime,
         to: datetime,
-        grain: Optional[models.QueryReportRequestGrain] = None,
+        grain: Optional[models.Grain] = None,
         group_by: Optional[Iterable[models.GroupBy]] = None,
         filters: Optional[
             Union[Iterable[models.Filter], Iterable[models.FilterTypedDict]]
@@ -153,7 +153,7 @@ class Reporting(BaseSDK):
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
         mode: Optional[models.QueryReportRequestMode] = None,
-        sort: Optional[models.QueryReportRequestSort] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,

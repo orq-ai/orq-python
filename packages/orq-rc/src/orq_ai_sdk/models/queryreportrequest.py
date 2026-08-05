@@ -33,7 +33,7 @@ Metric = Literal[
 r"""Catalogue metric to query."""
 
 
-QueryReportRequestGrain = Literal[
+Grain = Literal[
     "auto",
     "minute",
     "hour",
@@ -87,7 +87,7 @@ QueryReportRequestMode = Literal[
 r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
 
 
-QueryReportRequestSort = Literal[
+Sort = Literal[
     "desc",
     "asc",
 ]
@@ -101,7 +101,7 @@ class QueryReportRequestTypedDict(TypedDict):
     r"""Inclusive lower bound for the report window (RFC 3339, UTC)."""
     to: datetime
     r"""Exclusive upper bound for the report window (RFC 3339, UTC)."""
-    grain: NotRequired[QueryReportRequestGrain]
+    grain: NotRequired[Grain]
     r"""Requested bucket grain. Use `auto` or omit the field to let the server choose based on the requested range."""
     group_by: NotRequired[List[GroupBy]]
     r"""Reporting dimensions to break down by. Valid dimensions depend on the selected metric."""
@@ -121,7 +121,7 @@ class QueryReportRequestTypedDict(TypedDict):
     """
     mode: NotRequired[QueryReportRequestMode]
     r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
-    sort: NotRequired[QueryReportRequestSort]
+    sort: NotRequired[Sort]
     r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
 
 
@@ -135,7 +135,7 @@ class QueryReportRequest(BaseModel):
     to: datetime
     r"""Exclusive upper bound for the report window (RFC 3339, UTC)."""
 
-    grain: Optional[QueryReportRequestGrain] = None
+    grain: Optional[Grain] = None
     r"""Requested bucket grain. Use `auto` or omit the field to let the server choose based on the requested range."""
 
     group_by: Optional[List[GroupBy]] = None
@@ -162,7 +162,7 @@ class QueryReportRequest(BaseModel):
     mode: Optional[QueryReportRequestMode] = None
     r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
 
-    sort: Optional[QueryReportRequestSort] = None
+    sort: Optional[Sort] = None
     r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
 
     @model_serializer(mode="wrap")

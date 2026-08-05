@@ -9,7 +9,6 @@
 * [get](#get) - Retrieve an alert
 * [delete](#delete) - Delete an alert
 * [update](#update) - Update an alert
-* [check_now](#check_now) - Run an alert check now
 * [list_triggers](#list_triggers) - List alert triggers
 * [list_trigger_events](#list_trigger_events) - List alert trigger events
 
@@ -230,47 +229,6 @@ with Orq(
 ### Response
 
 **[models.UpdateAlertResponse](../../models/updatealertresponse.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## check_now
-
-Schedules one immediate evaluation of the alert (delivered within ~10 seconds), independent of its regular interval. The check runs through the normal evaluation pipeline: it records a run, can open or resolve triggers, and fires notifications. The alert must be enabled.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="AlertCheckNow" method="post" path="/v2/alerts/{alert_id}/check" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.alerts.check_now(alert_id="<id>", check_alert_now_request={})
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `alert_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Alert to evaluate now.                                              |
-| `check_alert_now_request`                                           | [models.CheckAlertNowRequest](../../models/checkalertnowrequest.md) | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.CheckAlertNowResponse](../../models/checkalertnowresponse.md)**
 
 ### Errors
 

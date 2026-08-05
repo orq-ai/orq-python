@@ -258,7 +258,6 @@ if TYPE_CHECKING:
         AggregateTracesResponseTypedDict,
     )
     from .alert import Alert, AlertStatus, AlertTypedDict, Signal
-    from .alertchecknowop import AlertCheckNowRequest, AlertCheckNowRequestTypedDict
     from .alertcondition import (
         AlertCondition,
         AlertConditionTypedDict,
@@ -330,10 +329,6 @@ if TYPE_CHECKING:
     from .budgetalert import BudgetAlert, BudgetAlertTypedDict
     from .budgetalertdimension import BudgetAlertDimension
     from .budgetdeleteop import BudgetDeleteRequest, BudgetDeleteRequestTypedDict
-    from .budgetgetconsumptionop import (
-        BudgetGetConsumptionRequest,
-        BudgetGetConsumptionRequestTypedDict,
-    )
     from .budgetgetop import BudgetGetRequest, BudgetGetRequestTypedDict
     from .budgetlimit import BudgetLimit, BudgetLimitTypedDict, Currency, Period
     from .budgetlimits import BudgetLimits, BudgetLimitsTypedDict
@@ -349,14 +344,6 @@ if TYPE_CHECKING:
     from .budgetsortfield import BudgetSortField
     from .budgetupdateop import BudgetUpdateRequest, BudgetUpdateRequestTypedDict
     from .budgetusage import BudgetUsage, BudgetUsageTypedDict
-    from .checkalertnowrequest import (
-        CheckAlertNowRequest,
-        CheckAlertNowRequestTypedDict,
-    )
-    from .checkalertnowresponse import (
-        CheckAlertNowResponse,
-        CheckAlertNowResponseTypedDict,
-    )
     from .clearannotationqueueop import (
         ClearAnnotationQueueRequest,
         ClearAnnotationQueueRequestTypedDict,
@@ -1844,14 +1831,6 @@ if TYPE_CHECKING:
         ResultsCategoryScoresTypedDict,
         ResultsTypedDict,
     )
-    from .createmonitorrequest import (
-        CreateMonitorRequest,
-        CreateMonitorRequestTypedDict,
-    )
-    from .createmonitorresponse import (
-        CreateMonitorResponse,
-        CreateMonitorResponseTypedDict,
-    )
     from .createnotifierrequest import (
         CreateNotifierRequest,
         CreateNotifierRequest2Headers,
@@ -2595,10 +2574,6 @@ if TYPE_CHECKING:
     from .deletememorystoreop import (
         DeleteMemoryStoreRequest,
         DeleteMemoryStoreRequestTypedDict,
-    )
-    from .deletemonitorresponse import (
-        DeleteMonitorResponse,
-        DeleteMonitorResponseTypedDict,
     )
     from .deletenotifierresponse import (
         DeleteNotifierResponse,
@@ -3876,10 +3851,6 @@ if TYPE_CHECKING:
         GetAllToolsResponseBodyTypedDict,
     )
     from .getapikeyresponse import GetAPIKeyResponse, GetAPIKeyResponseTypedDict
-    from .getbudgetconsumptionresponse import (
-        GetBudgetConsumptionResponse,
-        GetBudgetConsumptionResponseTypedDict,
-    )
     from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import (
         GetChunksCountRequest,
@@ -4118,7 +4089,6 @@ if TYPE_CHECKING:
         GetManagementKeyResponse,
         GetManagementKeyResponseTypedDict,
     )
-    from .getmonitorresponse import GetMonitorResponse, GetMonitorResponseTypedDict
     from .getnotifierresponse import GetNotifierResponse, GetNotifierResponseTypedDict
     from .getonechunkop import (
         GetOneChunkMetadata,
@@ -5364,14 +5334,6 @@ if TYPE_CHECKING:
         ListManagementKeysResponse,
         ListManagementKeysResponseTypedDict,
     )
-    from .listmonitorpresetsresponse import (
-        ListMonitorPresetsResponse,
-        ListMonitorPresetsResponseTypedDict,
-    )
-    from .listmonitorsresponse import (
-        ListMonitorsResponse,
-        ListMonitorsResponseTypedDict,
-    )
     from .listnotifiersresponse import (
         ListNotifiersResponse,
         ListNotifiersResponseTypedDict,
@@ -5696,27 +5658,7 @@ if TYPE_CHECKING:
         ModelValidateRequestBody,
         ModelValidateRequestBodyTypedDict,
     )
-    from .monitor import DefaultRange, Monitor, MonitorTypedDict
-    from .monitordeleteop import MonitorDeleteRequest, MonitorDeleteRequestTypedDict
     from .monitorfilter import MonitorFilter, MonitorFilterTypedDict, Op
-    from .monitorgetop import MonitorGetRequest, MonitorGetRequestTypedDict
-    from .monitorlistop import MonitorListRequest, MonitorListRequestTypedDict
-    from .monitorpreset import MonitorPreset, MonitorPresetKind, MonitorPresetTypedDict
-    from .monitorupdateop import MonitorUpdateRequest, MonitorUpdateRequestTypedDict
-    from .monitorwidget import MonitorWidget, MonitorWidgetType, MonitorWidgetTypedDict
-    from .monitorwidgetdisplay import (
-        MonitorWidgetDisplay,
-        MonitorWidgetDisplayTypedDict,
-        Sort,
-        Unit,
-        Visualization,
-    )
-    from .monitorwidgetlayout import MonitorWidgetLayout, MonitorWidgetLayoutTypedDict
-    from .monitorwidgetquery import (
-        Grain,
-        MonitorWidgetQuery,
-        MonitorWidgetQueryTypedDict,
-    )
     from .no_response_error import NoResponseError
     from .notifier import (
         EmailNotifier,
@@ -6069,13 +6011,13 @@ if TYPE_CHECKING:
     )
     from .queryparamssort import QueryParamsSort, QueryParamsSortTypedDict
     from .queryreportrequest import (
+        Grain,
         GroupBy,
         Metric,
         QueryReportRequest,
-        QueryReportRequestGrain,
         QueryReportRequestMode,
-        QueryReportRequestSort,
         QueryReportRequestTypedDict,
+        Sort,
     )
     from .queryreportresponse import (
         QueryReportResponse,
@@ -28771,14 +28713,6 @@ if TYPE_CHECKING:
         UpdateModelParameter,
         UpdateModelParameterTypedDict,
     )
-    from .updatemonitorrequest import (
-        UpdateMonitorRequest,
-        UpdateMonitorRequestTypedDict,
-    )
-    from .updatemonitorresponse import (
-        UpdateMonitorResponse,
-        UpdateMonitorResponseTypedDict,
-    )
     from .updatenotifierrequest import (
         Headers,
         HeadersTypedDict,
@@ -29516,8 +29450,6 @@ __all__ = [
     "AggregateTracesResponse",
     "AggregateTracesResponseTypedDict",
     "Alert",
-    "AlertCheckNowRequest",
-    "AlertCheckNowRequestTypedDict",
     "AlertCondition",
     "AlertConditionTypedDict",
     "AlertDeleteRequest",
@@ -29621,8 +29553,6 @@ __all__ = [
     "BudgetAlertTypedDict",
     "BudgetDeleteRequest",
     "BudgetDeleteRequestTypedDict",
-    "BudgetGetConsumptionRequest",
-    "BudgetGetConsumptionRequestTypedDict",
     "BudgetGetRequest",
     "BudgetGetRequestTypedDict",
     "BudgetLimit",
@@ -29683,10 +29613,6 @@ __all__ = [
     "CategoryAppliedInputTypesTypedDict",
     "CategoryScores",
     "CategoryScoresTypedDict",
-    "CheckAlertNowRequest",
-    "CheckAlertNowRequestTypedDict",
-    "CheckAlertNowResponse",
-    "CheckAlertNowResponseTypedDict",
     "Choice",
     "ChoiceTypedDict",
     "Choices",
@@ -30865,10 +30791,6 @@ __all__ = [
     "CreateModerationResponseBodyTypedDict",
     "CreateModerationRouterModerationsResponseBody",
     "CreateModerationRouterModerationsResponseBodyData",
-    "CreateMonitorRequest",
-    "CreateMonitorRequestTypedDict",
-    "CreateMonitorResponse",
-    "CreateMonitorResponseTypedDict",
     "CreateNotifierRequest",
     "CreateNotifierRequest2Headers",
     "CreateNotifierRequest2HeadersTypedDict",
@@ -31521,7 +31443,6 @@ __all__ = [
     "DataTypedDict",
     "DatasourceMetadataValue",
     "DatasourceMetadataValueTypedDict",
-    "DefaultRange",
     "DefaultValue",
     "DefaultValueTypedDict",
     "Delay",
@@ -31585,8 +31506,6 @@ __all__ = [
     "DeleteMemoryRequestTypedDict",
     "DeleteMemoryStoreRequest",
     "DeleteMemoryStoreRequestTypedDict",
-    "DeleteMonitorResponse",
-    "DeleteMonitorResponseTypedDict",
     "DeleteNotifierResponse",
     "DeleteNotifierResponseTypedDict",
     "DeletePersonResponse",
@@ -32857,8 +32776,6 @@ __all__ = [
     "GetAllToolsRequestTypedDict",
     "GetAllToolsResponseBody",
     "GetAllToolsResponseBodyTypedDict",
-    "GetBudgetConsumptionResponse",
-    "GetBudgetConsumptionResponseTypedDict",
     "GetBudgetResponse",
     "GetBudgetResponseTypedDict",
     "GetChunksCountRequest",
@@ -32987,8 +32904,6 @@ __all__ = [
     "GetLogResponseTypedDict",
     "GetManagementKeyResponse",
     "GetManagementKeyResponseTypedDict",
-    "GetMonitorResponse",
-    "GetMonitorResponseTypedDict",
     "GetNotifierResponse",
     "GetNotifierResponseTypedDict",
     "GetOneChunkMetadata",
@@ -34179,10 +34094,6 @@ __all__ = [
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
-    "ListMonitorPresetsResponse",
-    "ListMonitorPresetsResponseTypedDict",
-    "ListMonitorsResponse",
-    "ListMonitorsResponseTypedDict",
     "ListNotifiersResponse",
     "ListNotifiersResponseTypedDict",
     "ListPeopleResponse",
@@ -34599,30 +34510,8 @@ __all__ = [
     "ModelsConfigMode",
     "ModelsConfigTypedDict",
     "Moderation",
-    "Monitor",
-    "MonitorDeleteRequest",
-    "MonitorDeleteRequestTypedDict",
     "MonitorFilter",
     "MonitorFilterTypedDict",
-    "MonitorGetRequest",
-    "MonitorGetRequestTypedDict",
-    "MonitorListRequest",
-    "MonitorListRequestTypedDict",
-    "MonitorPreset",
-    "MonitorPresetKind",
-    "MonitorPresetTypedDict",
-    "MonitorTypedDict",
-    "MonitorUpdateRequest",
-    "MonitorUpdateRequestTypedDict",
-    "MonitorWidget",
-    "MonitorWidgetDisplay",
-    "MonitorWidgetDisplayTypedDict",
-    "MonitorWidgetLayout",
-    "MonitorWidgetLayoutTypedDict",
-    "MonitorWidgetQuery",
-    "MonitorWidgetQueryTypedDict",
-    "MonitorWidgetType",
-    "MonitorWidgetTypedDict",
     "Name",
     "Ne",
     "NeTypedDict",
@@ -35075,9 +34964,7 @@ __all__ = [
     "QueryParamsSort",
     "QueryParamsSortTypedDict",
     "QueryReportRequest",
-    "QueryReportRequestGrain",
     "QueryReportRequestMode",
-    "QueryReportRequestSort",
     "QueryReportRequestTypedDict",
     "QueryReportResponse",
     "QueryReportResponseObject",
@@ -56732,7 +56619,6 @@ __all__ = [
     "Type",
     "Typescript",
     "TypescriptTypedDict",
-    "Unit",
     "UpdateAPIKeyRequest",
     "UpdateAPIKeyRequestTypedDict",
     "UpdateAPIKeyResponse",
@@ -57317,10 +57203,6 @@ __all__ = [
     "UpdateMemoryStoreResponseBodyTypedDict",
     "UpdateModelParameter",
     "UpdateModelParameterTypedDict",
-    "UpdateMonitorRequest",
-    "UpdateMonitorRequestTypedDict",
-    "UpdateMonitorResponse",
-    "UpdateMonitorResponseTypedDict",
     "UpdateNotifierRequest",
     "UpdateNotifierRequestTypedDict",
     "UpdateNotifierResponse",
@@ -57790,7 +57672,6 @@ __all__ = [
     "VertexParamRangeTypedDict",
     "VertexParameters",
     "VertexParametersTypedDict",
-    "Visualization",
     "Voice",
     "Votes",
     "VotesTypedDict",
@@ -58044,8 +57925,6 @@ _dynamic_imports: dict[str, str] = {
     "AlertStatus": ".alert",
     "AlertTypedDict": ".alert",
     "Signal": ".alert",
-    "AlertCheckNowRequest": ".alertchecknowop",
-    "AlertCheckNowRequestTypedDict": ".alertchecknowop",
     "AlertCondition": ".alertcondition",
     "AlertConditionTypedDict": ".alertcondition",
     "Comparator": ".alertcondition",
@@ -58123,8 +58002,6 @@ _dynamic_imports: dict[str, str] = {
     "BudgetAlertDimension": ".budgetalertdimension",
     "BudgetDeleteRequest": ".budgetdeleteop",
     "BudgetDeleteRequestTypedDict": ".budgetdeleteop",
-    "BudgetGetConsumptionRequest": ".budgetgetconsumptionop",
-    "BudgetGetConsumptionRequestTypedDict": ".budgetgetconsumptionop",
     "BudgetGetRequest": ".budgetgetop",
     "BudgetGetRequestTypedDict": ".budgetgetop",
     "BudgetLimit": ".budgetlimit",
@@ -58148,10 +58025,6 @@ _dynamic_imports: dict[str, str] = {
     "BudgetUpdateRequestTypedDict": ".budgetupdateop",
     "BudgetUsage": ".budgetusage",
     "BudgetUsageTypedDict": ".budgetusage",
-    "CheckAlertNowRequest": ".checkalertnowrequest",
-    "CheckAlertNowRequestTypedDict": ".checkalertnowrequest",
-    "CheckAlertNowResponse": ".checkalertnowresponse",
-    "CheckAlertNowResponseTypedDict": ".checkalertnowresponse",
     "ClearAnnotationQueueRequest": ".clearannotationqueueop",
     "ClearAnnotationQueueRequestTypedDict": ".clearannotationqueueop",
     "ClearDatasetRequest": ".cleardatasetop",
@@ -59585,10 +59458,6 @@ _dynamic_imports: dict[str, str] = {
     "ResultsCategoryScores": ".createmoderationop",
     "ResultsCategoryScoresTypedDict": ".createmoderationop",
     "ResultsTypedDict": ".createmoderationop",
-    "CreateMonitorRequest": ".createmonitorrequest",
-    "CreateMonitorRequestTypedDict": ".createmonitorrequest",
-    "CreateMonitorResponse": ".createmonitorresponse",
-    "CreateMonitorResponseTypedDict": ".createmonitorresponse",
     "CreateNotifierRequest": ".createnotifierrequest",
     "CreateNotifierRequest2Headers": ".createnotifierrequest",
     "CreateNotifierRequest2HeadersTypedDict": ".createnotifierrequest",
@@ -60282,8 +60151,6 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryRequestTypedDict": ".deletememoryop",
     "DeleteMemoryStoreRequest": ".deletememorystoreop",
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
-    "DeleteMonitorResponse": ".deletemonitorresponse",
-    "DeleteMonitorResponseTypedDict": ".deletemonitorresponse",
     "DeleteNotifierResponse": ".deletenotifierresponse",
     "DeleteNotifierResponseTypedDict": ".deletenotifierresponse",
     "DeletePersonResponse": ".deletepersonresponse",
@@ -61495,8 +61362,6 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
     "GetAPIKeyResponse": ".getapikeyresponse",
     "GetAPIKeyResponseTypedDict": ".getapikeyresponse",
-    "GetBudgetConsumptionResponse": ".getbudgetconsumptionresponse",
-    "GetBudgetConsumptionResponseTypedDict": ".getbudgetconsumptionresponse",
     "GetBudgetResponse": ".getbudgetresponse",
     "GetBudgetResponseTypedDict": ".getbudgetresponse",
     "GetChunksCountRequest": ".getchunkscountop",
@@ -61726,8 +61591,6 @@ _dynamic_imports: dict[str, str] = {
     "GetLogResponseTypedDict": ".getlogresponse",
     "GetManagementKeyResponse": ".getmanagementkeyresponse",
     "GetManagementKeyResponseTypedDict": ".getmanagementkeyresponse",
-    "GetMonitorResponse": ".getmonitorresponse",
-    "GetMonitorResponseTypedDict": ".getmonitorresponse",
     "GetNotifierResponse": ".getnotifierresponse",
     "GetNotifierResponseTypedDict": ".getnotifierresponse",
     "GetOneChunkMetadata": ".getonechunkop",
@@ -62915,10 +62778,6 @@ _dynamic_imports: dict[str, str] = {
     "ListManagementCapabilitiesResponseTypedDict": ".listmanagementcapabilitiesresponse",
     "ListManagementKeysResponse": ".listmanagementkeysresponse",
     "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
-    "ListMonitorPresetsResponse": ".listmonitorpresetsresponse",
-    "ListMonitorPresetsResponseTypedDict": ".listmonitorpresetsresponse",
-    "ListMonitorsResponse": ".listmonitorsresponse",
-    "ListMonitorsResponseTypedDict": ".listmonitorsresponse",
     "ListNotifiersResponse": ".listnotifiersresponse",
     "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
     "ListPeopleResponse": ".listpeopleresponse",
@@ -63214,36 +63073,9 @@ _dynamic_imports: dict[str, str] = {
     "ModelValidateAwsBedrockRequestBodyTypedDict": ".modelvalidateawsbedrockop",
     "ModelValidateRequestBody": ".modelvalidateop",
     "ModelValidateRequestBodyTypedDict": ".modelvalidateop",
-    "DefaultRange": ".monitor",
-    "Monitor": ".monitor",
-    "MonitorTypedDict": ".monitor",
-    "MonitorDeleteRequest": ".monitordeleteop",
-    "MonitorDeleteRequestTypedDict": ".monitordeleteop",
     "MonitorFilter": ".monitorfilter",
     "MonitorFilterTypedDict": ".monitorfilter",
     "Op": ".monitorfilter",
-    "MonitorGetRequest": ".monitorgetop",
-    "MonitorGetRequestTypedDict": ".monitorgetop",
-    "MonitorListRequest": ".monitorlistop",
-    "MonitorListRequestTypedDict": ".monitorlistop",
-    "MonitorPreset": ".monitorpreset",
-    "MonitorPresetKind": ".monitorpreset",
-    "MonitorPresetTypedDict": ".monitorpreset",
-    "MonitorUpdateRequest": ".monitorupdateop",
-    "MonitorUpdateRequestTypedDict": ".monitorupdateop",
-    "MonitorWidget": ".monitorwidget",
-    "MonitorWidgetType": ".monitorwidget",
-    "MonitorWidgetTypedDict": ".monitorwidget",
-    "MonitorWidgetDisplay": ".monitorwidgetdisplay",
-    "MonitorWidgetDisplayTypedDict": ".monitorwidgetdisplay",
-    "Sort": ".monitorwidgetdisplay",
-    "Unit": ".monitorwidgetdisplay",
-    "Visualization": ".monitorwidgetdisplay",
-    "MonitorWidgetLayout": ".monitorwidgetlayout",
-    "MonitorWidgetLayoutTypedDict": ".monitorwidgetlayout",
-    "Grain": ".monitorwidgetquery",
-    "MonitorWidgetQuery": ".monitorwidgetquery",
-    "MonitorWidgetQueryTypedDict": ".monitorwidgetquery",
     "NoResponseError": ".no_response_error",
     "EmailNotifier": ".notifier",
     "EmailNotifierTypedDict": ".notifier",
@@ -63571,13 +63403,13 @@ _dynamic_imports: dict[str, str] = {
     "QueryParamsPaginationTypedDict": ".queryparamspagination",
     "QueryParamsSort": ".queryparamssort",
     "QueryParamsSortTypedDict": ".queryparamssort",
+    "Grain": ".queryreportrequest",
     "GroupBy": ".queryreportrequest",
     "Metric": ".queryreportrequest",
     "QueryReportRequest": ".queryreportrequest",
-    "QueryReportRequestGrain": ".queryreportrequest",
     "QueryReportRequestMode": ".queryreportrequest",
-    "QueryReportRequestSort": ".queryreportrequest",
     "QueryReportRequestTypedDict": ".queryreportrequest",
+    "Sort": ".queryreportrequest",
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
@@ -85874,10 +85706,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateMemoryStoreResponseBodyTypedDict": ".updatememorystoreop",
     "UpdateModelParameter": ".updatemodelparameter",
     "UpdateModelParameterTypedDict": ".updatemodelparameter",
-    "UpdateMonitorRequest": ".updatemonitorrequest",
-    "UpdateMonitorRequestTypedDict": ".updatemonitorrequest",
-    "UpdateMonitorResponse": ".updatemonitorresponse",
-    "UpdateMonitorResponseTypedDict": ".updatemonitorresponse",
     "Headers": ".updatenotifierrequest",
     "HeadersTypedDict": ".updatenotifierrequest",
     "Metadata": ".updatenotifierrequest",

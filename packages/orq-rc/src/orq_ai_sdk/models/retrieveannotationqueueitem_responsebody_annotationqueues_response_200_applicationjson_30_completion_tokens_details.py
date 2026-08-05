@@ -3691,7 +3691,7 @@ class ResponseBody31(BaseModel):
     r"""Represents the completed model response returned when `stream` is false"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ8YSDJE2KDVKRPJS0MWP2PY"
+        "01KZ935SADV0A6P1ZVTX9VDWMH"
     )
 
     name: Optional[str] = None
