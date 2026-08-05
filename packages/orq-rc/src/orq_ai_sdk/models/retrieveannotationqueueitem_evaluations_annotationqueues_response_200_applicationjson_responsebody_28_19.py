@@ -3258,7 +3258,7 @@ class ResponseBody29(BaseModel):
     type: RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON29Type
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ95YJS0Z8K156839TA3KP29"
+        "01KZ99MKYJ9KQGMWB3H9F3YHB6"
     )
 
     name: Optional[str] = None
@@ -4808,7 +4808,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-05T14:41:28.331Z")
+    ] = parse_datetime("2026-08-05T15:45:56.154Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
