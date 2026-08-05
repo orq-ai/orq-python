@@ -49,6 +49,14 @@ python:
   baseErrorName: OrqError
   bodyVariantOverloads: false
   clientServerStatusCodesAsErrors: true
+  compileCommands:
+    - ["uv", "lock"]
+    - ["uv", "run", "python", "scripts/prepare_readme.py"]
+    - ["uv", "sync", "--dev"]
+    - ["uv", "run", "python", "-m", "compileall", "-q", "."]
+    - ["uv", "run", "python", "-m", "mypy", "src/orq_ai_sdk"]
+    - ["uv", "run", "python", "-m", "pylint", "-j=0", "src/orq_ai_sdk"]
+    - ["env", "NODE_OPTIONS=--max-old-space-size=8192", "uv", "run", "python", "-m", "pyright", "src/orq_ai_sdk"]
   constFieldCasing: upper
   defaultErrorName: APIError
   description: Python Client SDK for the Orq API.
