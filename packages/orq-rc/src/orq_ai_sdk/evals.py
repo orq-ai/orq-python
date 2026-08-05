@@ -3,7 +3,7 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
@@ -414,6 +414,204 @@ class Evals(BaseSDK):
             )
             raise models.CreateEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def get(
+        self,
+        *,
+        id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetEvalResponseBody:
+        r"""Retrieve an Evaluator
+
+        Retrieve a single evaluator by its unique identifier. Returns the evaluator exactly as stored, including its type-specific configuration — prompt and model for LLM evaluators, source code for Python and TypeScript evaluators, the JSON Schema for schema evaluators, and so on.
+
+        Use this when you already know the evaluator id (for example to refresh the state of a resource you manage declaratively). To discover evaluator ids, list them with `GET /v2/evaluators`.
+
+        This endpoint returns the stored record, which carries more detail than the representation `GET /v2/evaluators` returns: `display_name` rather than `key`, `model` as an object rather than a provider-qualified string, plus the `owner`, `domain_id`, `metadata`, `enabled` and `output_type` fields.
+
+        :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetEvalRequest(
+            id=id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/evaluators/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetEval",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "get"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def get_async(
+        self,
+        *,
+        id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetEvalResponseBody:
+        r"""Retrieve an Evaluator
+
+        Retrieve a single evaluator by its unique identifier. Returns the evaluator exactly as stored, including its type-specific configuration — prompt and model for LLM evaluators, source code for Python and TypeScript evaluators, the JSON Schema for schema evaluators, and so on.
+
+        Use this when you already know the evaluator id (for example to refresh the state of a resource you manage declaratively). To discover evaluator ids, list them with `GET /v2/evaluators`.
+
+        This endpoint returns the stored record, which carries more detail than the representation `GET /v2/evaluators` returns: `display_name` rather than `key`, `model` as an object rather than a provider-qualified string, plus the `owner`, `domain_id`, `metadata`, `enabled` and `output_type` fields.
+
+        :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetEvalRequest(
+            id=id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/evaluators/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetEval",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "get"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -989,6 +1187,12 @@ class Evals(BaseSDK):
             ]
         ] = None,
         model: Optional[str] = None,
+        variables: Optional[
+            Union[
+                Mapping[str, Nullable[models.EvaluatorVariableValue]],
+                Mapping[str, Nullable[models.EvaluatorVariableValueTypedDict]],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1003,6 +1207,7 @@ class Evals(BaseSDK):
         :param retrievals: Knowledge base retrievals
         :param messages: The messages used to generate the output, without the last user message
         :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
+        :param variables: Template variables for evaluator prompt substitution. Request values override evaluator defaults, including for nested arrays and objects.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1032,6 +1237,10 @@ class Evals(BaseSDK):
                     messages, Optional[List[models.InvokeEvalMessages]]
                 ),
                 model=model,
+                variables=utils.unmarshal(
+                    variables,
+                    Optional[Dict[str, Nullable[models.EvaluatorVariableValue]]],
+                ),
             ),
         )
 
@@ -1126,6 +1335,12 @@ class Evals(BaseSDK):
             ]
         ] = None,
         model: Optional[str] = None,
+        variables: Optional[
+            Union[
+                Mapping[str, Nullable[models.EvaluatorVariableValue]],
+                Mapping[str, Nullable[models.EvaluatorVariableValueTypedDict]],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1140,6 +1355,7 @@ class Evals(BaseSDK):
         :param retrievals: Knowledge base retrievals
         :param messages: The messages used to generate the output, without the last user message
         :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
+        :param variables: Template variables for evaluator prompt substitution. Request values override evaluator defaults, including for nested arrays and objects.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1169,6 +1385,10 @@ class Evals(BaseSDK):
                     messages, Optional[List[models.InvokeEvalMessages]]
                 ),
                 model=model,
+                variables=utils.unmarshal(
+                    variables,
+                    Optional[Dict[str, Nullable[models.EvaluatorVariableValue]]],
+                ),
             ),
         )
 

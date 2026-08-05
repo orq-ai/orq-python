@@ -14,4 +14,5 @@ value: RetrieveResponseServiceTier = "auto"
 - `"default"`
 - `"flex"`
 - `"fast"`
+- `"scale"`
 - `"priority"`

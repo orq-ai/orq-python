@@ -1,0 +1,10 @@
+# GetEvalResponseBodyEvalsResponseModel
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                   | *str*                                                                                                  | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `integration_id`                                                                                       | *OptionalNullable[str]*                                                                                | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `model_parameters`                                                                                     | [Optional[models.GetEvalResponseBodyModelParameters]](../models/getevalresponsebodymodelparameters.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |

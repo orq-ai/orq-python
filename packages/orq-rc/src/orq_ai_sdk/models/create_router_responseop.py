@@ -1156,6 +1156,8 @@ r"""A tool definition. The \"type\" field determines the tool kind."""
 
 
 class CreateRouterResponseRequestBodyTypedDict(TypedDict):
+    background: NotRequired[bool]
+    r"""If true, the response runs asynchronously in the background."""
     cache_control: NotRequired[CreateRouterResponseCacheControlTypedDict]
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
     conversation: NotRequired[ConversationParamTypedDict]
@@ -1225,6 +1227,9 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
 
 
 class CreateRouterResponseRequestBody(BaseModel):
+    background: Optional[bool] = None
+    r"""If true, the response runs asynchronously in the background."""
+
     cache_control: Optional[CreateRouterResponseCacheControl] = None
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
 
@@ -1332,6 +1337,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "background",
                 "cache_control",
                 "conversation",
                 "fallbacks",
@@ -1429,6 +1435,7 @@ CreateRouterResponseResponsesServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "scale",
     "priority",
 ]
 
@@ -1439,7 +1446,6 @@ CreateRouterResponseStatus = Literal[
     "completed",
     "failed",
     "incomplete",
-    "requires_action",
 ]
 
 

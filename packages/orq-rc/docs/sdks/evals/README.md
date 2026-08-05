@@ -6,6 +6,7 @@
 
 * [all](#all) - Get all Evaluators
 * [create](#create) - Create an Evaluator
+* [get](#get) - Retrieve an Evaluator
 * [update](#update) - Update an Evaluator
 * [delete](#delete) - Delete an Evaluator
 * [invoke](#invoke) - Invoke a Custom Evaluator
@@ -103,6 +104,51 @@ with Orq(
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | models.CreateEvalEvalsResponseBody | 404                                | application/json                   |
 | models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+
+## get
+
+Retrieve a single evaluator by its unique identifier. Returns the evaluator exactly as stored, including its type-specific configuration — prompt and model for LLM evaluators, source code for Python and TypeScript evaluators, the JSON Schema for schema evaluators, and so on.
+
+Use this when you already know the evaluator id (for example to refresh the state of a resource you manage declaratively). To discover evaluator ids, list them with `GET /v2/evaluators`.
+
+This endpoint returns the stored record, which carries more detail than the representation `GET /v2/evaluators` returns: `display_name` rather than `key`, `model` as an object rather than a provider-qualified string, plus the `owner`, `domain_id`, `metadata`, `enabled` and `output_type` fields.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetEval" method="get" path="/v2/evaluators/{id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.get(id="01JMDPA3QW5C1V0NJ1PW34T4E5")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 | Example                                                                                     |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `id`                                                                                        | *str*                                                                                       | :heavy_check_mark:                                                                          | Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`. | 01JMDPA3QW5C1V0NJ1PW34T4E5                                                                  |
+| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |                                                                                             |
+
+### Response
+
+**[models.GetEvalResponseBody](../../models/getevalresponsebody.md)**
+
+### Errors
+
+| Error Type                      | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models.GetEvalEvalsResponseBody | 404                             | application/json                |
+| models.APIError                 | 4XX, 5XX                        | \*/\*                           |
 
 ## update
 
@@ -230,7 +276,17 @@ with Orq(
                 },
             ],
         },
-    ])
+    ], variables={
+        "locale": "en",
+        "tags": [
+            "alpha",
+            "omega",
+        ],
+        "profile": {
+            "tier": "gold",
+            "active": True,
+        },
+    })
 
     # Handle response
     print(res)
@@ -239,16 +295,17 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `id`                                                                    | *str*                                                                   | :heavy_check_mark:                                                      | Evaluator ID                                                            |
-| `query`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Latest user message                                                     |
-| `output`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The generated response from the model                                   |
-| `reference`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The reference used to compare the output                                |
-| `retrievals`                                                            | List[*str*]                                                             | :heavy_minus_sign:                                                      | Knowledge base retrievals                                               |
-| `messages`                                                              | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]   | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
-| `model`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Model to use for LLM-based evaluators (e.g. "openai/gpt-4o")            |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                                                                                  | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                | Example                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                       | *str*                                                                                                                                      | :heavy_check_mark:                                                                                                                         | Evaluator ID                                                                                                                               |                                                                                                                                            |
+| `query`                                                                                                                                    | *Optional[str]*                                                                                                                            | :heavy_minus_sign:                                                                                                                         | Latest user message                                                                                                                        |                                                                                                                                            |
+| `output`                                                                                                                                   | *Optional[str]*                                                                                                                            | :heavy_minus_sign:                                                                                                                         | The generated response from the model                                                                                                      |                                                                                                                                            |
+| `reference`                                                                                                                                | *Optional[str]*                                                                                                                            | :heavy_minus_sign:                                                                                                                         | The reference used to compare the output                                                                                                   |                                                                                                                                            |
+| `retrievals`                                                                                                                               | List[*str*]                                                                                                                                | :heavy_minus_sign:                                                                                                                         | Knowledge base retrievals                                                                                                                  |                                                                                                                                            |
+| `messages`                                                                                                                                 | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]                                                                      | :heavy_minus_sign:                                                                                                                         | The messages used to generate the output, without the last user message                                                                    |                                                                                                                                            |
+| `model`                                                                                                                                    | *Optional[str]*                                                                                                                            | :heavy_minus_sign:                                                                                                                         | Model to use for LLM-based evaluators (e.g. "openai/gpt-4o")                                                                               |                                                                                                                                            |
+| `variables`                                                                                                                                | Dict[str, [Nullable[models.EvaluatorVariableValue]](../../models/evaluatorvariablevalue.md)]                                               | :heavy_minus_sign:                                                                                                                         | Template variables for evaluator prompt substitution. Request values override evaluator defaults, including for nested arrays and objects. | {<br/>"locale": "en",<br/>"tags": [<br/>"alpha",<br/>"omega"<br/>],<br/>"profile": {<br/>"tier": "gold",<br/>"active": true<br/>}<br/>}    |
+| `retries`                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                           | :heavy_minus_sign:                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                        |                                                                                                                                            |
 
 ### Response
 

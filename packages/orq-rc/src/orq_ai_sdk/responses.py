@@ -19,6 +19,7 @@ class Responses(BaseSDK):
     def create(
         self,
         *,
+        background: Optional[bool] = None,
         cache_control: Optional[
             Union[
                 models.CreateRouterResponseCacheControl,
@@ -116,6 +117,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param background: If true, the response runs asynchronously in the background.
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
@@ -173,6 +175,7 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            background=background,
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),
@@ -318,6 +321,7 @@ class Responses(BaseSDK):
     async def create_async(
         self,
         *,
+        background: Optional[bool] = None,
         cache_control: Optional[
             Union[
                 models.CreateRouterResponseCacheControl,
@@ -415,6 +419,7 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param background: If true, the response runs asynchronously in the background.
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
@@ -472,6 +477,7 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            background=background,
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),

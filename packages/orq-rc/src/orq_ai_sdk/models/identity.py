@@ -12,16 +12,8 @@ from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class MetadataTypedDict(TypedDict):
-    r"""Custom JSON metadata stored with the identity."""
-
-
-class Metadata(BaseModel):
-    r"""Custom JSON metadata stored with the identity."""
 
 
 class IdentityBudgetTypedDict(TypedDict):
@@ -181,7 +173,7 @@ class IdentityTypedDict(TypedDict):
     r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
     r"""Free-form labels used to organize and filter identities."""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[Dict[str, Any]]
     r"""Custom JSON metadata stored with the identity."""
     metrics: NotRequired[IdentityMetricsTypedDict]
     r"""Optional usage and cost metrics. Present only when requested with
@@ -228,7 +220,7 @@ class Identity(BaseModel):
     tags: Optional[List[str]] = None
     r"""Free-form labels used to organize and filter identities."""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[Dict[str, Any]] = None
     r"""Custom JSON metadata stored with the identity."""
 
     metrics: Optional[IdentityMetrics] = None

@@ -3,16 +3,8 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class CreateIdentityRequestMetadataTypedDict(TypedDict):
-    r"""Custom JSON metadata stored with the identity."""
-
-
-class CreateIdentityRequestMetadata(BaseModel):
-    r"""Custom JSON metadata stored with the identity."""
 
 
 class CreateIdentityRequestTypedDict(TypedDict):
@@ -28,7 +20,7 @@ class CreateIdentityRequestTypedDict(TypedDict):
     r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
     r"""Free-form labels used to organize and filter identities."""
-    metadata: NotRequired[CreateIdentityRequestMetadataTypedDict]
+    metadata: NotRequired[Dict[str, Any]]
     r"""Custom JSON metadata stored with the identity."""
 
 
@@ -50,7 +42,7 @@ class CreateIdentityRequest(BaseModel):
     tags: Optional[List[str]] = None
     r"""Free-form labels used to organize and filter identities."""
 
-    metadata: Optional[CreateIdentityRequestMetadata] = None
+    metadata: Optional[Dict[str, Any]] = None
     r"""Custom JSON metadata stored with the identity."""
 
     @model_serializer(mode="wrap")

@@ -912,12 +912,7 @@ class Notifiers(BaseSDK):
         notifier_id: str,
         project_id: Optional[str] = None,
         display_name: Optional[str] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateNotifierRequestMetadata,
-                models.UpdateNotifierRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
         type_: Optional[models.NotifierType] = None,
         emails: Optional[Iterable[str]] = None,
         incoming_webhook_url: Optional[str] = None,
@@ -964,9 +959,7 @@ class Notifiers(BaseSDK):
             update_notifier_request=models.UpdateNotifierRequest(
                 project_id=project_id,
                 display_name=display_name,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateNotifierRequestMetadata]
-                ),
+                metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
                 type=type_,
                 emails=utils.unmarshal(emails, Optional[List[str]]),
                 incoming_webhook_url=incoming_webhook_url,
@@ -1059,12 +1052,7 @@ class Notifiers(BaseSDK):
         notifier_id: str,
         project_id: Optional[str] = None,
         display_name: Optional[str] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateNotifierRequestMetadata,
-                models.UpdateNotifierRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
         type_: Optional[models.NotifierType] = None,
         emails: Optional[Iterable[str]] = None,
         incoming_webhook_url: Optional[str] = None,
@@ -1111,9 +1099,7 @@ class Notifiers(BaseSDK):
             update_notifier_request=models.UpdateNotifierRequest(
                 project_id=project_id,
                 display_name=display_name,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateNotifierRequestMetadata]
-                ),
+                metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
                 type=type_,
                 emails=utils.unmarshal(emails, Optional[List[str]]),
                 incoming_webhook_url=incoming_webhook_url,

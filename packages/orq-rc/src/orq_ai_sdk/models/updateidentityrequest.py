@@ -3,16 +3,8 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class UpdateIdentityRequestMetadataTypedDict(TypedDict):
-    r"""Replacement custom JSON metadata."""
-
-
-class UpdateIdentityRequestMetadata(BaseModel):
-    r"""Replacement custom JSON metadata."""
 
 
 class UpdateIdentityRequestTypedDict(TypedDict):
@@ -24,7 +16,7 @@ class UpdateIdentityRequestTypedDict(TypedDict):
     r"""New avatar image URL. Omit to keep the current avatar URL."""
     tags: NotRequired[List[str]]
     r"""Replacement tag list. Leave empty to clear tags."""
-    metadata: NotRequired[UpdateIdentityRequestMetadataTypedDict]
+    metadata: NotRequired[Dict[str, Any]]
     r"""Replacement custom JSON metadata."""
 
 
@@ -41,7 +33,7 @@ class UpdateIdentityRequest(BaseModel):
     tags: Optional[List[str]] = None
     r"""Replacement tag list. Leave empty to clear tags."""
 
-    metadata: Optional[UpdateIdentityRequestMetadata] = None
+    metadata: Optional[Dict[str, Any]] = None
     r"""Replacement custom JSON metadata."""
 
     @model_serializer(mode="wrap")

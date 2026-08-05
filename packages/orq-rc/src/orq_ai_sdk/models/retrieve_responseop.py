@@ -32,6 +32,7 @@ RetrieveResponseServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "scale",
     "priority",
 ]
 
@@ -42,7 +43,6 @@ RetrieveResponseStatus = Literal[
     "completed",
     "failed",
     "incomplete",
-    "requires_action",
 ]
 
 

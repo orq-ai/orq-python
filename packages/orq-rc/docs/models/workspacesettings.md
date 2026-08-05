@@ -1,0 +1,13 @@
+# WorkspaceSettings
+
+WorkspaceSettings is the full settings state returned by Get and Update.
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                      | *str*                                                                                                      | :heavy_check_mark:                                                                                         | Read-only workspace key/slug. Returned for reference; it cannot be changed<br/> through this service.      |
+| `display_name`                                                                                             | *str*                                                                                                      | :heavy_check_mark:                                                                                         | Human-readable workspace display name.                                                                     |
+| `enforce_enabled_models`                                                                                   | *bool*                                                                                                     | :heavy_check_mark:                                                                                         | Whether only workspace-enabled models may be served.                                                       |
+| `pii_redaction`                                                                                            | [Optional[models.PiiRedaction]](../models/piiredaction.md)                                                 | :heavy_minus_sign:                                                                                         | Workspace-default PII redaction plugin configuration. Omitted when the<br/> workspace has never configured it. |

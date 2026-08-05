@@ -52,6 +52,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.webhooks import Webhooks
+    from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
 
 
 class Orq(BaseSDK):
@@ -91,6 +92,7 @@ class Orq(BaseSDK):
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
+    workspace_settings: "WorkspaceSettingsSDK"
     schedules: "Schedules"
     responses: "Responses"
     logs: "Logs"
@@ -129,6 +131,10 @@ class Orq(BaseSDK):
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
+        "workspace_settings": (
+            "orq_ai_sdk.workspacesettings_sdk",
+            "WorkspaceSettingsSDK",
+        ),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "logs": ("orq_ai_sdk.logs", "Logs"),

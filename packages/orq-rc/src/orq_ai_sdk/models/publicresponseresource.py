@@ -19,6 +19,7 @@ ServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "scale",
     "priority",
 ]
 
@@ -29,7 +30,6 @@ PublicResponseResourceStatus = Literal[
     "completed",
     "failed",
     "incomplete",
-    "requires_action",
 ]
 
 

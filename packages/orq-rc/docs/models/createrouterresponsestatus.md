@@ -15,4 +15,3 @@ value: CreateRouterResponseStatus = "queued"
 - `"completed"`
 - `"failed"`
 - `"incomplete"`
-- `"requires_action"`
