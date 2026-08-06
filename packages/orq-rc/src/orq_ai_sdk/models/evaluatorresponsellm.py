@@ -250,9 +250,9 @@ class EvaluatorResponseLlm(BaseModel):
 
     mode: Mode
 
-    created: Optional[str] = "2026-08-05T15:45:41.128Z"
+    created: Optional[str] = "2026-08-06T01:37:58.174Z"
 
-    updated: Optional[str] = "2026-08-05T15:45:41.128Z"
+    updated: Optional[str] = "2026-08-06T01:37:58.174Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
