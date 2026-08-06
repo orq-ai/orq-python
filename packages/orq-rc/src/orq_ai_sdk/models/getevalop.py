@@ -120,6 +120,8 @@ class BedrockGuardrailTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSON8OutputType
@@ -148,13 +150,16 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -177,6 +182,7 @@ class BedrockGuardrail(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
                 "guardrail_version",
@@ -281,6 +287,8 @@ class TypescriptTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
@@ -307,13 +315,16 @@ class Typescript(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -331,6 +342,7 @@ class Typescript(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
             ]
@@ -429,6 +441,8 @@ class ResponseBodyPythonTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
         GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
@@ -454,13 +468,16 @@ class ResponseBodyPython(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -477,6 +494,7 @@ class ResponseBodyPython(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
             ]
@@ -587,6 +605,8 @@ class GetEvalResponseBodyHTTPTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsResponse200OutputType]
     r"""The type of output expected from the evaluator"""
@@ -617,13 +637,16 @@ class GetEvalResponseBodyHTTP(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -639,6 +662,7 @@ class GetEvalResponseBodyHTTP(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
             ]
@@ -734,6 +758,8 @@ class JSONTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsResponseOutputType]
 
@@ -757,13 +783,16 @@ class JSON(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -778,6 +807,7 @@ class JSON(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
             ]
@@ -926,6 +956,8 @@ class RagasTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[GetEvalResponseBodyEvalsOutputType]
 
@@ -951,13 +983,16 @@ class Ragas(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -972,6 +1007,7 @@ class Ragas(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
             ]
@@ -1593,6 +1629,8 @@ class ResponseBodyFunctionTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
 
 
@@ -1617,13 +1655,16 @@ class ResponseBodyFunction(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -1636,6 +1677,7 @@ class ResponseBodyFunction(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
             ]
         )
@@ -2418,6 +2460,8 @@ class ResponseBodyLLMTypedDict(TypedDict):
     updated: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[ResponseBodyOutputType]
     r"""The type of output expected from the evaluator"""
@@ -2451,13 +2495,16 @@ class ResponseBodyLLM(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -2487,6 +2534,7 @@ class ResponseBodyLLM(BaseModel):
                 "updated",
                 "created_by_id",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "output_type",
                 "mode",

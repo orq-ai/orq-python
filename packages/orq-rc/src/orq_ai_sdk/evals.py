@@ -626,6 +626,7 @@ class Evals(BaseSDK):
         id: str,
         type_: Optional[str] = None,
         path: Optional[str] = None,
+        project_id: Optional[str] = None,
         key: Optional[str] = None,
         description: Optional[str] = None,
         prompt: Optional[str] = None,
@@ -662,7 +663,8 @@ class Evals(BaseSDK):
 
         :param id:
         :param type: Evaluator type. Optional on update — inferred from existing evaluator.
-        :param path: Project path. Optional on update — uses existing project if omitted.
+        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
+        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
         :param key:
         :param description:
         :param prompt:
@@ -706,6 +708,7 @@ class Evals(BaseSDK):
             request_body=models.UpdateEvalRequestBody(
                 type=type_,
                 path=path,
+                project_id=project_id,
                 key=key,
                 description=description,
                 prompt=prompt,
@@ -804,6 +807,7 @@ class Evals(BaseSDK):
         id: str,
         type_: Optional[str] = None,
         path: Optional[str] = None,
+        project_id: Optional[str] = None,
         key: Optional[str] = None,
         description: Optional[str] = None,
         prompt: Optional[str] = None,
@@ -840,7 +844,8 @@ class Evals(BaseSDK):
 
         :param id:
         :param type: Evaluator type. Optional on update — inferred from existing evaluator.
-        :param path: Project path. Optional on update — uses existing project if omitted.
+        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
+        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
         :param key:
         :param description:
         :param prompt:
@@ -884,6 +889,7 @@ class Evals(BaseSDK):
             request_body=models.UpdateEvalRequestBody(
                 type=type_,
                 path=path,
+                project_id=project_id,
                 key=key,
                 description=description,
                 prompt=prompt,

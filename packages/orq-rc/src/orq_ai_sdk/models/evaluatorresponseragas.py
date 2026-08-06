@@ -43,6 +43,8 @@ class EvaluatorResponseRagasTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
 
 
@@ -59,18 +61,21 @@ class EvaluatorResponseRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["created", "updated", "updated_by_id", "guardrail_config"]
+            ["created", "updated", "updated_by_id", "project_id", "guardrail_config"]
         )
         nullable_fields = set(["updated_by_id"])
         serialized = handler(self)

@@ -228,6 +228,8 @@ class EvaluatorResponseLlmTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
@@ -250,11 +252,14 @@ class EvaluatorResponseLlm(BaseModel):
 
     mode: Mode
 
-    created: Optional[str] = "2026-08-06T08:50:29.080Z"
+    created: Optional[str] = "2026-08-06T09:55:43.642Z"
 
-    updated: Optional[str] = "2026-08-06T08:50:29.080Z"
+    updated: Optional[str] = "2026-08-06T09:55:43.642Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -277,6 +282,7 @@ class EvaluatorResponseLlm(BaseModel):
                 "created",
                 "updated",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "repetitions",
                 "categories",
