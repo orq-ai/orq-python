@@ -3979,7 +3979,7 @@ class ResponseBody26(BaseModel):
     type: RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON26Type
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZBBCV8BNB7KA5WYSTS2QMAG"
+        "01KZBD1A5WQCCSV6SHVRMVK2YN"
     )
 
     name: Optional[str] = None

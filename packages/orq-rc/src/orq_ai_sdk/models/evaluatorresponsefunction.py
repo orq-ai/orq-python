@@ -509,9 +509,9 @@ class EvaluatorResponseFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-08-06T10:54:51.279Z"
+    created: Optional[str] = "2026-08-06T11:23:31.691Z"
 
-    updated: Optional[str] = "2026-08-06T10:54:51.279Z"
+    updated: Optional[str] = "2026-08-06T11:23:31.691Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 
