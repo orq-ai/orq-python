@@ -105,9 +105,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list
 
@@ -148,9 +148,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -186,7 +186,7 @@ with Orq(
 | Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | models.DeleteAgentResponseBody | 404                            | application/json               |
-| models.APIError                | 4XX, 5XX                       | \*/\*                          |
+| models.APIDefaultError         | 4XX, 5XX                       | \*/\*                          |
 
 ## retrieve
 
@@ -227,7 +227,7 @@ with Orq(
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | models.RetrieveAgentRequestAgentsResponseBody | 404                                           | application/json                              |
-| models.APIError                               | 4XX, 5XX                                      | \*/\*                                         |
+| models.APIDefaultError                        | 4XX, 5XX                                      | \*/\*                                         |
 
 ## update
 
@@ -302,7 +302,7 @@ with Orq(
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | models.UpdateAgentAgentsResponseBody | 404                                  | application/json                     |
-| models.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| models.APIDefaultError               | 4XX, 5XX                             | \*/\*                                |
 
 ## ~~invoke~~
 
@@ -376,9 +376,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## ~~run~~
 
@@ -475,9 +475,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## ~~stream_run~~
 
@@ -580,7 +580,7 @@ with Orq(
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | models.StreamRunAgentAgentsResponseBody | 404                                     | application/json                        |
-| models.APIError                         | 4XX, 5XX                                | \*/\*                                   |
+| models.APIDefaultError                  | 4XX, 5XX                                | \*/\*                                   |
 
 ## ~~stream~~
 
@@ -660,4 +660,4 @@ with Orq(
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | models.StreamAgentAgentsResponseBody | 404                                  | application/json                     |
-| models.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| models.APIDefaultError               | 4XX, 5XX                             | \*/\*                                |

@@ -46,4 +46,4 @@ with Orq(
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | models.CreateModerationRouterModerationsResponseBody | 422                                                  | application/json                                     |
-| models.APIError                                      | 4XX, 5XX                                             | \*/\*                                                |
+| models.APIDefaultError                               | 4XX, 5XX                                             | \*/\*                                                |

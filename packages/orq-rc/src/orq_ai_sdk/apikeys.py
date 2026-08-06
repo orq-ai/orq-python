@@ -27,10 +27,10 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAPIKeysResponse:
+    ) -> List[models.APIKeyRestResponse]:
         r"""List API keys
 
-        Returns API keys visible to the current workspace, ordered by creation time with the newest key first. The `api_key` and `token_hash` fields are never returned by this endpoint; only `token_prefix` is included.
+        Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `api_key_id` of the last
@@ -129,12 +129,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - List active project keys",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in page.data:\n    print(api_key.name, api_key.token_prefix)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
                         },
                         {
                             "label": "Node.js - List active project keys",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of page.data) {\n  console.log(apiKey.name, apiKey.tokenPrefix);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
                     ]
                 },
@@ -145,15 +145,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListAPIKeysResponse, http_res)
+            return unmarshal_json_response(List[models.APIKeyRestResponse], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -171,10 +171,10 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAPIKeysResponse:
+    ) -> List[models.APIKeyRestResponse]:
         r"""List API keys
 
-        Returns API keys visible to the current workspace, ordered by creation time with the newest key first. The `api_key` and `token_hash` fields are never returned by this endpoint; only `token_prefix` is included.
+        Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `api_key_id` of the last
@@ -273,12 +273,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - List active project keys",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in page.data:\n    print(api_key.name, api_key.token_prefix)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
                         },
                         {
                             "label": "Node.js - List active project keys",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of page.data) {\n  console.log(apiKey.name, apiKey.tokenPrefix);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
                     ]
                 },
@@ -289,15 +289,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListAPIKeysResponse, http_res)
+            return unmarshal_json_response(List[models.APIKeyRestResponse], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -315,7 +315,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
         Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
@@ -426,12 +426,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.api_key.api_key_id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.apiKey.apiKeyId);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
@@ -442,15 +442,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -468,7 +468,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
         Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
@@ -579,12 +579,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.api_key.api_key_id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.apiKey.apiKeyId);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
@@ -595,15 +595,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_capabilities(
         self,
@@ -698,12 +698,12 @@ class APIKeys(BaseSDK):
             return unmarshal_json_response(models.ListCapabilitiesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_capabilities_async(
         self,
@@ -798,12 +798,12 @@ class APIKeys(BaseSDK):
             return unmarshal_json_response(models.ListCapabilitiesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get(
         self,
@@ -814,7 +814,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Retrieve an API key
 
         Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
@@ -890,12 +890,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Retrieve key metadata",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.api_key.name)\nprint(result.api_key.token_prefix)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
                         },
                         {
                             "label": "Node.js - Retrieve key metadata",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.apiKey.name);\nconsole.log(result.apiKey.tokenPrefix);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
                         },
                     ]
                 },
@@ -906,15 +906,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -925,7 +925,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Retrieve an API key
 
         Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
@@ -1001,12 +1001,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Retrieve key metadata",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.api_key.name)\nprint(result.api_key.token_prefix)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
                         },
                         {
                             "label": "Node.js - Retrieve key metadata",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.apiKey.name);\nconsole.log(result.apiKey.tokenPrefix);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
                         },
                     ]
                 },
@@ -1017,15 +1017,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -1035,7 +1035,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteAPIKeyResponse:
+    ):
         r"""Delete an API key
 
         Permanently deletes an API key. Cache entries in `API_KEYS_KV` are invalidated immediately so an in-flight token cannot ride out the TTL. The response body is empty on success.
@@ -1073,7 +1073,7 @@ class APIKeys(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1123,16 +1123,16 @@ class APIKeys(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteAPIKeyResponse, http_res)
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -1142,7 +1142,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteAPIKeyResponse:
+    ):
         r"""Delete an API key
 
         Permanently deletes an API key. Cache entries in `API_KEYS_KV` are invalidated immediately so an in-flight token cannot ride out the TTL. The response body is empty on success.
@@ -1180,7 +1180,7 @@ class APIKeys(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1230,16 +1230,16 @@ class APIKeys(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteAPIKeyResponse, http_res)
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -1259,7 +1259,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Update an API key
 
         Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
@@ -1370,12 +1370,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Disable a key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.api_key.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.status)\n',
                         },
                         {
                             "label": "Node.js - Disable a key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.apiKey.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.status);\n",
                         },
                     ]
                 },
@@ -1386,15 +1386,15 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1414,7 +1414,7 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateAPIKeyResponse:
+    ) -> models.APIKeyRestResponse:
         r"""Update an API key
 
         Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
@@ -1525,12 +1525,12 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Python - Disable a key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.api_key.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.status)\n',
                         },
                         {
                             "label": "Node.js - Disable a key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.apiKey.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.status);\n",
                         },
                     ]
                 },
@@ -1541,12 +1541,12 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateAPIKeyResponse, http_res)
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

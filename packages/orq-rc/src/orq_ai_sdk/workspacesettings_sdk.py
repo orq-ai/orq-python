@@ -87,12 +87,12 @@ class WorkspaceSettingsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -171,12 +171,12 @@ class WorkspaceSettingsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -278,12 +278,12 @@ class WorkspaceSettingsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -385,9 +385,9 @@ class WorkspaceSettingsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

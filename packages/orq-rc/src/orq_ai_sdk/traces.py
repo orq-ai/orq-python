@@ -122,12 +122,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def aggregate_async(
         self,
@@ -240,12 +240,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_facets(
         self,
@@ -322,12 +322,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_facets_async(
         self,
@@ -404,12 +404,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_facet_values(
         self,
@@ -507,12 +507,12 @@ class Traces(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_facet_values_async(
         self,
@@ -610,12 +610,12 @@ class Traces(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_fields(
         self,
@@ -692,12 +692,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_fields_async(
         self,
@@ -774,12 +774,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def query(
         self,
@@ -878,12 +878,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def query_async(
         self,
@@ -982,12 +982,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def search(
         self,
@@ -1101,12 +1101,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def search_async(
         self,
@@ -1220,12 +1220,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get(
         self,
@@ -1309,12 +1309,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -1398,12 +1398,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_spans(
         self,
@@ -1493,12 +1493,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_spans_async(
         self,
@@ -1588,12 +1588,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get_span(
         self,
@@ -1680,12 +1680,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_span_async(
         self,
@@ -1772,9 +1772,9 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

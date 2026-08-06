@@ -5,9 +5,12 @@ from orq_ai_sdk.types import BaseModel
 from typing_extensions import TypedDict
 
 
-class DeleteAPIKeyResponseTypedDict(TypedDict):
-    pass
+class LoadBalancerModelConfigTypedDict(TypedDict):
+    model: str
+    weight: float
 
 
-class DeleteAPIKeyResponse(BaseModel):
-    pass
+class LoadBalancerModelConfig(BaseModel):
+    model: str
+
+    weight: float

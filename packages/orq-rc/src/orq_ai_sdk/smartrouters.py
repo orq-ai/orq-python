@@ -19,7 +19,6 @@ class SmartRouters(BaseSDK):
         search: Optional[str] = None,
         profile: Optional[Iterable[models_.SmartRouterProfile]] = None,
         enabled: Optional[bool] = None,
-        include_metrics: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -35,7 +34,6 @@ class SmartRouters(BaseSDK):
         :param search:
         :param profile:
         :param enabled:
-        :param include_metrics:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -63,7 +61,6 @@ class SmartRouters(BaseSDK):
                 profile, Optional[List[models_.SmartRouterProfile]]
             ),
             enabled=enabled,
-            include_metrics=include_metrics,
         )
 
         req = self._build_request(
@@ -125,12 +122,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.ListSmartRoutersResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -141,7 +138,6 @@ class SmartRouters(BaseSDK):
         search: Optional[str] = None,
         profile: Optional[Iterable[models_.SmartRouterProfile]] = None,
         enabled: Optional[bool] = None,
-        include_metrics: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -157,7 +153,6 @@ class SmartRouters(BaseSDK):
         :param search:
         :param profile:
         :param enabled:
-        :param include_metrics:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -185,7 +180,6 @@ class SmartRouters(BaseSDK):
                 profile, Optional[List[models_.SmartRouterProfile]]
             ),
             enabled=enabled,
-            include_metrics=include_metrics,
         )
 
         req = self._build_request_async(
@@ -247,12 +241,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.ListSmartRoutersResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -358,12 +352,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.CreateSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -469,12 +463,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.CreateSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     def get(
         self,
@@ -571,12 +565,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.GetSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -673,12 +667,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.GetSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -775,12 +769,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.DeleteSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -877,12 +871,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.DeleteSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -994,12 +988,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.UpdateSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1111,12 +1105,12 @@ class SmartRouters(BaseSDK):
             return unmarshal_json_response(models_.UpdateSmartRouterResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     def set_enabled(
         self,
@@ -1227,12 +1221,12 @@ class SmartRouters(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)
 
     async def set_enabled_async(
         self,
@@ -1343,9 +1337,9 @@ class SmartRouters(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIError("API error occurred", http_res, http_res_text)
+            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models_.APIError("Unexpected response received", http_res)
+        raise models_.APIDefaultError("Unexpected response received", http_res)

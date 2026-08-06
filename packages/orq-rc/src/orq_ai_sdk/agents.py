@@ -187,12 +187,12 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, ["409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -354,12 +354,12 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, ["409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list(
         self,
@@ -452,12 +452,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -550,12 +550,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -645,12 +645,12 @@ class Agents(BaseSDK):
             raise models.DeleteAgentResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -740,12 +740,12 @@ class Agents(BaseSDK):
             raise models.DeleteAgentResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -837,12 +837,12 @@ class Agents(BaseSDK):
             raise models.RetrieveAgentRequestAgentsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -934,12 +934,12 @@ class Agents(BaseSDK):
             raise models.RetrieveAgentRequestAgentsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -1132,12 +1132,12 @@ class Agents(BaseSDK):
             raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1330,12 +1330,12 @@ class Agents(BaseSDK):
             raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -1486,12 +1486,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -1642,12 +1642,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -1836,12 +1836,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -2030,12 +2030,12 @@ class Agents(BaseSDK):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -2256,13 +2256,15 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -2483,13 +2485,15 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -2660,13 +2664,15 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )
 
     @deprecated(
         "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
@@ -2837,10 +2843,12 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )

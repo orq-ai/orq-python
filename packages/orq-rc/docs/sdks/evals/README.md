@@ -56,7 +56,7 @@ with Orq(
 | Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | models.GetEvalsEvalsResponseBody | 404                              | application/json                 |
-| models.APIError                  | 4XX, 5XX                         | \*/\*                            |
+| models.APIDefaultError           | 4XX, 5XX                         | \*/\*                            |
 
 ## create
 
@@ -103,7 +103,7 @@ with Orq(
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | models.CreateEvalEvalsResponseBody | 404                                | application/json                   |
-| models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
 
 ## get
 
@@ -148,7 +148,7 @@ with Orq(
 | Error Type                      | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | models.GetEvalEvalsResponseBody | 404                             | application/json                |
-| models.APIError                 | 4XX, 5XX                        | \*/\*                           |
+| models.APIDefaultError          | 4XX, 5XX                        | \*/\*                           |
 
 ## update
 
@@ -212,7 +212,7 @@ with Orq(
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | models.UpdateEvalEvalsResponseBody | 404                                | application/json                   |
-| models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
 
 ## delete
 
@@ -249,7 +249,7 @@ with Orq(
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | models.DeleteEvalResponseBody      | 404                                | application/json                   |
 | models.DeleteEvalEvalsResponseBody | 409                                | application/json                   |
-| models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
 
 ## invoke
 
@@ -319,7 +319,7 @@ with Orq(
 | models.InvokeEvalEvalsResponseBody            | 400                                           | application/json                              |
 | models.InvokeEvalEvalsResponseResponseBody    | 404                                           | application/json                              |
 | models.InvokeEvalEvalsResponse500ResponseBody | 500                                           | application/json                              |
-| models.APIError                               | 4XX, 5XX                                      | \*/\*                                         |
+| models.APIDefaultError                        | 4XX, 5XX                                      | \*/\*                                         |
 
 ## list_versions
 
@@ -363,4 +363,4 @@ with Orq(
 | Error Type                                        | Status Code                                       | Content Type                                      |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | models.GetV2EvaluatorsIDVersionsEvalsResponseBody | 404                                               | application/json                                  |
-| models.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
+| models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |

@@ -301,7 +301,7 @@ class BaseSDK:
                 http_res = result
             else:
                 logger.debug("Raising unexpected SDK error")
-                raise models.APIError("Unexpected error occurred", http_res)
+                raise models.APIDefaultError("Unexpected error occurred", http_res)
         else:
             http_res = hooks.after_success(AfterSuccessContext(hook_ctx), http_res)
 
@@ -383,7 +383,7 @@ class BaseSDK:
                 http_res = result
             else:
                 logger.debug("Raising unexpected SDK error")
-                raise models.APIError("Unexpected error occurred", http_res)
+                raise models.APIDefaultError("Unexpected error occurred", http_res)
         else:
             http_res = await run_sync_in_thread(
                 hooks.after_success, AfterSuccessContext(hook_ctx), http_res

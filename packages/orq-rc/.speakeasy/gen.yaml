@@ -88,7 +88,7 @@ python:
       - pyright
       - src/orq_ai_sdk
   constFieldCasing: upper
-  defaultErrorName: APIError
+  defaultErrorName: APIDefaultError
   description: Python Client SDK for the Orq API.
   durationFormat: false
   enableCustomCodeRegions: false

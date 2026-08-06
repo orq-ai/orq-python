@@ -13,7 +13,7 @@
 
 ## list
 
-Returns API keys visible to the current workspace, ordered by creation time with the newest key first. The `api_key` and `token_hash` fields are never returned by this endpoint; only `token_prefix` is included.
+Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
 
 ### Example Usage
 
@@ -51,13 +51,13 @@ with Orq(
 
 ### Response
 
-**[models.ListAPIKeysResponse](../../models/listapikeysresponse.md)**
+**[List[models.APIKeyRestResponse]](../../models/.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -97,13 +97,13 @@ with Orq(
 
 ### Response
 
-**[models.CreateAPIKeyResponse](../../models/createapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_capabilities
 
@@ -140,9 +140,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -177,13 +177,13 @@ with Orq(
 
 ### Response
 
-**[models.GetAPIKeyResponse](../../models/getapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -201,10 +201,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.api_keys.delete(api_key_id="<id>")
+    orq.api_keys.delete(api_key_id="<id>")
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
@@ -215,15 +214,11 @@ with Orq(
 | `api_key_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | API key id to delete.                                               |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
-### Response
-
-**[models.DeleteAPIKeyResponse](../../models/deleteapikeyresponse.md)**
-
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -265,10 +260,10 @@ with Orq(
 
 ### Response
 
-**[models.UpdateAPIKeyResponse](../../models/updateapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

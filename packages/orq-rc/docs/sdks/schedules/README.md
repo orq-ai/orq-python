@@ -47,9 +47,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -145,7 +145,7 @@ with Orq(
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | models.CreateAgentScheduleSchedulesResponseBody         | 400                                                     | application/json                                        |
 | models.CreateAgentScheduleSchedulesResponseResponseBody | 404                                                     | application/json                                        |
-| models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+| models.APIDefaultError                                  | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## delete
 
@@ -182,7 +182,7 @@ with Orq(
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | models.DeleteAgentScheduleResponseBody | 404                                    | application/json                       |
-| models.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+| models.APIDefaultError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## retrieve
 
@@ -224,7 +224,7 @@ with Orq(
 | Error Type                                        | Status Code                                       | Content Type                                      |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | models.RetrieveAgentScheduleSchedulesResponseBody | 404                                               | application/json                                  |
-| models.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
+| models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |
 
 ## update
 
@@ -313,7 +313,7 @@ with Orq(
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | models.UpdateAgentScheduleSchedulesResponseBody         | 400                                                     | application/json                                        |
 | models.UpdateAgentScheduleSchedulesResponseResponseBody | 404                                                     | application/json                                        |
-| models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+| models.APIDefaultError                                  | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## trigger
 
@@ -356,4 +356,4 @@ with Orq(
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | models.TriggerAgentScheduleSchedulesResponseBody         | 400                                                      | application/json                                         |
 | models.TriggerAgentScheduleSchedulesResponseResponseBody | 404                                                      | application/json                                         |
-| models.APIError                                          | 4XX, 5XX                                                 | \*/\*                                                    |
+| models.APIDefaultError                                   | 4XX, 5XX                                                 | \*/\*                                                    |

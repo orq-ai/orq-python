@@ -50,10 +50,10 @@ with Orq(
 
 ### Errors
 
-| Error Type          | Status Code         | Content Type        |
-| ------------------- | ------------------- | ------------------- |
-| models.HonoAPIError | 401                 | application/json    |
-| models.APIError     | 4XX, 5XX            | \*/\*               |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.HonoAPIError    | 401                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -109,9 +109,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -158,7 +158,7 @@ with Orq(
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | models.UpdateToolToolsResponseBody | 404                                | application/json                   |
-| models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
 
 ## delete
 
@@ -191,9 +191,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
 
@@ -231,9 +231,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_versions
 
@@ -277,7 +277,7 @@ with Orq(
 | Error Type                                       | Status Code                                      | Content Type                                     |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | models.GetV2ToolsToolIDVersionsToolsResponseBody | 404                                              | application/json                                 |
-| models.APIError                                  | 4XX, 5XX                                         | \*/\*                                            |
+| models.APIDefaultError                           | 4XX, 5XX                                         | \*/\*                                            |
 
 ## get_version
 
@@ -319,4 +319,4 @@ with Orq(
 | Error Type                                                | Status Code                                               | Content Type                                              |
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
 | models.GetV2ToolsToolIDVersionsVersionIDToolsResponseBody | 404                                                       | application/json                                          |
-| models.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
+| models.APIDefaultError                                    | 4XX, 5XX                                                  | \*/\*                                                     |

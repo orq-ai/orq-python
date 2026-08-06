@@ -290,13 +290,14 @@ if TYPE_CHECKING:
     from .alerttriggerevent import AlertTriggerEvent, AlertTriggerEventTypedDict
     from .alertupdateop import AlertUpdateRequest, AlertUpdateRequestTypedDict
     from .allprojects import AllProjects, AllProjectsTypedDict
-    from .apierror import APIError
-    from .apikey import APIKey, APIKeyBudget, APIKeyBudgetTypedDict, APIKeyTypedDict
+    from .apidefaulterror import APIDefaultError
+    from .apierror import APIError, APIErrorTypedDict
     from .apikeybudgetscope import APIKeyBudgetScope, APIKeyBudgetScopeTypedDict
     from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
     from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
     from .apikeylistop import APIKeyListRequest, APIKeyListRequestTypedDict
     from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
+    from .apikeyrestresponse import APIKeyRestResponse, APIKeyRestResponseTypedDict
     from .apikeystatus import APIKeyStatus
     from .apikeyupdateop import APIKeyUpdateRequest, APIKeyUpdateRequestTypedDict
     from .audiocontentpartschema import (
@@ -344,6 +345,7 @@ if TYPE_CHECKING:
     from .budgetsortfield import BudgetSortField
     from .budgetupdateop import BudgetUpdateRequest, BudgetUpdateRequestTypedDict
     from .budgetusage import BudgetUsage, BudgetUsageTypedDict
+    from .cacheconfig import CacheConfig, CacheConfigTypedDict
     from .clearannotationqueueop import (
         ClearAnnotationQueueRequest,
         ClearAnnotationQueueRequestTypedDict,
@@ -799,10 +801,6 @@ if TYPE_CHECKING:
         CreateAnnotationQueueResponseBodyTypedDict,
     )
     from .createapikeyrequest import CreateAPIKeyRequest, CreateAPIKeyRequestTypedDict
-    from .createapikeyresponse import (
-        CreateAPIKeyResponse,
-        CreateAPIKeyResponseTypedDict,
-    )
     from .createbudgetrequest import CreateBudgetRequest, CreateBudgetRequestTypedDict
     from .createbudgetresponse import (
         CreateBudgetResponse,
@@ -2518,10 +2516,6 @@ if TYPE_CHECKING:
         DeleteAnnotationQueueRequest,
         DeleteAnnotationQueueRequestTypedDict,
     )
-    from .deleteapikeyresponse import (
-        DeleteAPIKeyResponse,
-        DeleteAPIKeyResponseTypedDict,
-    )
     from .deletebudgetresponse import (
         DeleteBudgetResponse,
         DeleteBudgetResponseTypedDict,
@@ -3850,7 +3844,6 @@ if TYPE_CHECKING:
         GetAllToolsResponseBody,
         GetAllToolsResponseBodyTypedDict,
     )
-    from .getapikeyresponse import GetAPIKeyResponse, GetAPIKeyResponseTypedDict
     from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import (
         GetChunksCountRequest,
@@ -4909,7 +4902,6 @@ if TYPE_CHECKING:
         JSONSchemaToolInputType,
         JSONSchemaToolInputTypedDict,
     )
-    from .legacytokenfamily import LegacyTokenFamily
     from .limits import Limits, LimitsTypedDict
     from .list_agent_schedulesop import (
         ListAgentSchedulesRequest,
@@ -5110,7 +5102,6 @@ if TYPE_CHECKING:
         ListAnnotationQueuesResponseBody,
         ListAnnotationQueuesResponseBodyTypedDict,
     )
-    from .listapikeysresponse import ListAPIKeysResponse, ListAPIKeysResponseTypedDict
     from .listbudgetsresponse import ListBudgetsResponse, ListBudgetsResponseTypedDict
     from .listcapabilitiesresponse import (
         ListCapabilitiesResponse,
@@ -5555,6 +5546,11 @@ if TYPE_CHECKING:
     from .litellmmodel import LiteLLMModel, LiteLLMModelTypedDict
     from .litellmmodelinfo import LiteLLMModelInfo, LiteLLMModelInfoTypedDict
     from .litellmparams import LiteLLMParams, LiteLLMParamsTypedDict
+    from .loadbalancerconfig import LoadBalancerConfig, LoadBalancerConfigTypedDict
+    from .loadbalancermodelconfig import (
+        LoadBalancerModelConfig,
+        LoadBalancerModelConfigTypedDict,
+    )
     from .log import Log, LogTypedDict
     from .logpattern import LogPattern, LogPatternTypedDict
     from .managementkey import ManagementKey, ManagementKeyTypedDict
@@ -6416,6 +6412,8 @@ if TYPE_CHECKING:
         RetrieveResponseRequestTypedDict,
         RetrieveResponseResponseBody,
         RetrieveResponseResponseBodyTypedDict,
+        RetrieveResponseResponsesResponseBody,
+        RetrieveResponseResponsesResponseBodyData,
         RetrieveResponseServiceTier,
         RetrieveResponseStatus,
         RetrieveResponseTruncation,
@@ -12640,7 +12638,6 @@ if TYPE_CHECKING:
         RetrieveAnnotationQueueItemResponseBodyToolCallsTypedDict,
     )
     from .retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type import (
-        CacheConfig,
         CacheConfig1,
         CacheConfig1TypedDict,
         CacheConfig2,
@@ -12660,7 +12657,6 @@ if TYPE_CHECKING:
         CacheConfigTTL,
         CacheConfigThinkingLevel,
         CacheConfigType,
-        CacheConfigTypedDict,
         CacheConfigVerbosity,
         ChunkMetadata,
         ChunkMetadataTypedDict,
@@ -12668,6 +12664,8 @@ if TYPE_CHECKING:
         ModelConfigTypedDict,
         ResponseBody18,
         ResponseBody18TypedDict,
+        ResponseBodyCacheConfig,
+        ResponseBodyCacheConfigTypedDict,
         ResponseBodyDocuments,
         ResponseBodyDocumentsTypedDict,
         ResponseType,
@@ -27584,6 +27582,7 @@ if TYPE_CHECKING:
         SearchTracesResponseTypedDict,
     )
     from .security import Security, SecurityTypedDict
+    from .securityconfig import SecurityConfig, SecurityConfigTypedDict
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
     from .setsmartrouterenabledrequest import (
         SetSmartRouterEnabledRequest,
@@ -27609,7 +27608,6 @@ if TYPE_CHECKING:
         SmartRouterListRequest,
         SmartRouterListRequestTypedDict,
     )
-    from .smartroutermetrics import SmartRouterMetrics, SmartRouterMetricsTypedDict
     from .smartrouterprofile import SmartRouterProfile
     from .smartroutersetenabledop import (
         SmartRouterSetEnabledRequest,
@@ -27945,6 +27943,7 @@ if TYPE_CHECKING:
         ThinkingConfigEnabledSchemaTypedDict,
         ThinkingLevel,
     )
+    from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
     from .timeoutstreamingevent import (
         TimeoutStreamingEvent,
         TimeoutStreamingEventData,
@@ -28389,10 +28388,6 @@ if TYPE_CHECKING:
         UpdateAnnotationQueueResponseBodyTypedDict,
     )
     from .updateapikeyrequest import UpdateAPIKeyRequest, UpdateAPIKeyRequestTypedDict
-    from .updateapikeyresponse import (
-        UpdateAPIKeyResponse,
-        UpdateAPIKeyResponseTypedDict,
-    )
     from .updatebudgetrequest import UpdateBudgetRequest, UpdateBudgetRequestTypedDict
     from .updatebudgetresponse import (
         UpdateBudgetResponse,
@@ -29214,12 +29209,11 @@ if TYPE_CHECKING:
 __all__ = [
     "A2AMessage",
     "A2AMessageTypedDict",
+    "APIDefaultError",
     "APIError",
-    "APIKey",
-    "APIKeyBudget",
+    "APIErrorTypedDict",
     "APIKeyBudgetScope",
     "APIKeyBudgetScopeTypedDict",
-    "APIKeyBudgetTypedDict",
     "APIKeyDeleteRequest",
     "APIKeyDeleteRequestTypedDict",
     "APIKeyGetRequest",
@@ -29228,8 +29222,9 @@ __all__ = [
     "APIKeyListRequestTypedDict",
     "APIKeyOwner",
     "APIKeyOwnerTypedDict",
+    "APIKeyRestResponse",
+    "APIKeyRestResponseTypedDict",
     "APIKeyStatus",
-    "APIKeyTypedDict",
     "APIKeyUpdateRequest",
     "APIKeyUpdateRequestTypedDict",
     "Action",
@@ -29704,8 +29699,6 @@ __all__ = [
     "CountWebhooksResponseTypedDict",
     "CreateAPIKeyRequest",
     "CreateAPIKeyRequestTypedDict",
-    "CreateAPIKeyResponse",
-    "CreateAPIKeyResponseTypedDict",
     "CreateAgentRequestAgentsEngine",
     "CreateAgentRequestAgentsEvaluators",
     "CreateAgentRequestAgentsEvaluatorsTypedDict",
@@ -31446,8 +31439,6 @@ __all__ = [
     "DefaultValue",
     "DefaultValueTypedDict",
     "Delay",
-    "DeleteAPIKeyResponse",
-    "DeleteAPIKeyResponseTypedDict",
     "DeleteAgentRequest",
     "DeleteAgentRequestTypedDict",
     "DeleteAgentResponseBody",
@@ -32528,8 +32519,6 @@ __all__ = [
     "GenericWebhookNotifierCreateRequest",
     "GenericWebhookNotifierCreateRequestTypedDict",
     "GenericWebhookNotifierTypedDict",
-    "GetAPIKeyResponse",
-    "GetAPIKeyResponseTypedDict",
     "GetAgentResponse",
     "GetAgentResponseCompletionTokensDetails",
     "GetAgentResponseCompletionTokensDetailsTypedDict",
@@ -33724,11 +33713,8 @@ __all__ = [
     "LastMessageFullTypedDict",
     "LeadingSpan",
     "LeadingSpanTypedDict",
-    "LegacyTokenFamily",
     "Limits",
     "LimitsTypedDict",
-    "ListAPIKeysResponse",
-    "ListAPIKeysResponseTypedDict",
     "ListAgentSchedulesRequest",
     "ListAgentSchedulesRequestTypedDict",
     "ListAgentSchedulesResponseBody",
@@ -34306,6 +34292,10 @@ __all__ = [
     "LoadBalancer",
     "LoadBalancer1",
     "LoadBalancer1TypedDict",
+    "LoadBalancerConfig",
+    "LoadBalancerConfigTypedDict",
+    "LoadBalancerModelConfig",
+    "LoadBalancerModelConfigTypedDict",
     "LoadBalancerModels",
     "LoadBalancerModelsTypedDict",
     "LoadBalancerType",
@@ -35225,6 +35215,8 @@ __all__ = [
     "ResponseBodyBlueprint",
     "ResponseBodyBlueprintTypedDict",
     "ResponseBodyCache",
+    "ResponseBodyCacheConfig",
+    "ResponseBodyCacheConfigTypedDict",
     "ResponseBodyCacheControl",
     "ResponseBodyCacheControlTypedDict",
     "ResponseBodyCacheTypedDict",
@@ -55553,6 +55545,8 @@ __all__ = [
     "RetrieveResponseRequestTypedDict",
     "RetrieveResponseResponseBody",
     "RetrieveResponseResponseBodyTypedDict",
+    "RetrieveResponseResponsesResponseBody",
+    "RetrieveResponseResponsesResponseBodyData",
     "RetrieveResponseServiceTier",
     "RetrieveResponseStatus",
     "RetrieveResponseTruncation",
@@ -55961,6 +55955,8 @@ __all__ = [
     "SearchTracesResponseTypedDict",
     "SearchType",
     "Security",
+    "SecurityConfig",
+    "SecurityConfigTypedDict",
     "SecurityTypedDict",
     "Segments",
     "SegmentsTypedDict",
@@ -56016,8 +56012,6 @@ __all__ = [
     "SmartRouterGetRequestTypedDict",
     "SmartRouterListRequest",
     "SmartRouterListRequestTypedDict",
-    "SmartRouterMetrics",
-    "SmartRouterMetricsTypedDict",
     "SmartRouterProfile",
     "SmartRouterSetEnabledRequest",
     "SmartRouterSetEnabledRequestTypedDict",
@@ -56398,6 +56392,8 @@ __all__ = [
     "ThresholdTypedDict",
     "TieValue",
     "Timeout",
+    "TimeoutConfig",
+    "TimeoutConfigTypedDict",
     "TimeoutStreamingEvent",
     "TimeoutStreamingEventData",
     "TimeoutStreamingEventDataTypedDict",
@@ -56621,8 +56617,6 @@ __all__ = [
     "TypescriptTypedDict",
     "UpdateAPIKeyRequest",
     "UpdateAPIKeyRequestTypedDict",
-    "UpdateAPIKeyResponse",
-    "UpdateAPIKeyResponseTypedDict",
     "UpdateAgentAgentsEngine",
     "UpdateAgentAgentsEvaluators",
     "UpdateAgentAgentsEvaluatorsTypedDict",
@@ -57959,11 +57953,9 @@ _dynamic_imports: dict[str, str] = {
     "AlertUpdateRequestTypedDict": ".alertupdateop",
     "AllProjects": ".allprojects",
     "AllProjectsTypedDict": ".allprojects",
+    "APIDefaultError": ".apidefaulterror",
     "APIError": ".apierror",
-    "APIKey": ".apikey",
-    "APIKeyBudget": ".apikey",
-    "APIKeyBudgetTypedDict": ".apikey",
-    "APIKeyTypedDict": ".apikey",
+    "APIErrorTypedDict": ".apierror",
     "APIKeyBudgetScope": ".apikeybudgetscope",
     "APIKeyBudgetScopeTypedDict": ".apikeybudgetscope",
     "APIKeyDeleteRequest": ".apikeydeleteop",
@@ -57974,6 +57966,8 @@ _dynamic_imports: dict[str, str] = {
     "APIKeyListRequestTypedDict": ".apikeylistop",
     "APIKeyOwner": ".apikeyowner",
     "APIKeyOwnerTypedDict": ".apikeyowner",
+    "APIKeyRestResponse": ".apikeyrestresponse",
+    "APIKeyRestResponseTypedDict": ".apikeyrestresponse",
     "APIKeyStatus": ".apikeystatus",
     "APIKeyUpdateRequest": ".apikeyupdateop",
     "APIKeyUpdateRequestTypedDict": ".apikeyupdateop",
@@ -58025,6 +58019,8 @@ _dynamic_imports: dict[str, str] = {
     "BudgetUpdateRequestTypedDict": ".budgetupdateop",
     "BudgetUsage": ".budgetusage",
     "BudgetUsageTypedDict": ".budgetusage",
+    "CacheConfig": ".cacheconfig",
+    "CacheConfigTypedDict": ".cacheconfig",
     "ClearAnnotationQueueRequest": ".clearannotationqueueop",
     "ClearAnnotationQueueRequestTypedDict": ".clearannotationqueueop",
     "ClearDatasetRequest": ".cleardatasetop",
@@ -58469,8 +58465,6 @@ _dynamic_imports: dict[str, str] = {
     "CreateAnnotationQueueResponseBodyTypedDict": ".createannotationqueueop",
     "CreateAPIKeyRequest": ".createapikeyrequest",
     "CreateAPIKeyRequestTypedDict": ".createapikeyrequest",
-    "CreateAPIKeyResponse": ".createapikeyresponse",
-    "CreateAPIKeyResponseTypedDict": ".createapikeyresponse",
     "CreateBudgetRequest": ".createbudgetrequest",
     "CreateBudgetRequestTypedDict": ".createbudgetrequest",
     "CreateBudgetResponse": ".createbudgetresponse",
@@ -60111,8 +60105,6 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
     "DeleteAnnotationQueueRequest": ".deleteannotationqueueop",
     "DeleteAnnotationQueueRequestTypedDict": ".deleteannotationqueueop",
-    "DeleteAPIKeyResponse": ".deleteapikeyresponse",
-    "DeleteAPIKeyResponseTypedDict": ".deleteapikeyresponse",
     "DeleteBudgetResponse": ".deletebudgetresponse",
     "DeleteBudgetResponseTypedDict": ".deletebudgetresponse",
     "DeleteChunkRequest": ".deletechunkop",
@@ -61360,8 +61352,6 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsRequestTypedDict": ".getalltoolsop",
     "GetAllToolsResponseBody": ".getalltoolsop",
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
-    "GetAPIKeyResponse": ".getapikeyresponse",
-    "GetAPIKeyResponseTypedDict": ".getapikeyresponse",
     "GetBudgetResponse": ".getbudgetresponse",
     "GetBudgetResponseTypedDict": ".getbudgetresponse",
     "GetChunksCountRequest": ".getchunkscountop",
@@ -62388,7 +62378,6 @@ _dynamic_imports: dict[str, str] = {
     "JSONSchemaToolInput": ".jsonschematoolinput",
     "JSONSchemaToolInputType": ".jsonschematoolinput",
     "JSONSchemaToolInputTypedDict": ".jsonschematoolinput",
-    "LegacyTokenFamily": ".legacytokenfamily",
     "Limits": ".limits",
     "LimitsTypedDict": ".limits",
     "ListAgentSchedulesRequest": ".list_agent_schedulesop",
@@ -62577,8 +62566,6 @@ _dynamic_imports: dict[str, str] = {
     "ListAnnotationQueuesRequestTypedDict": ".listannotationqueuesop",
     "ListAnnotationQueuesResponseBody": ".listannotationqueuesop",
     "ListAnnotationQueuesResponseBodyTypedDict": ".listannotationqueuesop",
-    "ListAPIKeysResponse": ".listapikeysresponse",
-    "ListAPIKeysResponseTypedDict": ".listapikeysresponse",
     "ListBudgetsResponse": ".listbudgetsresponse",
     "ListBudgetsResponseTypedDict": ".listbudgetsresponse",
     "ListCapabilitiesResponse": ".listcapabilitiesresponse",
@@ -62985,6 +62972,10 @@ _dynamic_imports: dict[str, str] = {
     "LiteLLMModelInfoTypedDict": ".litellmmodelinfo",
     "LiteLLMParams": ".litellmparams",
     "LiteLLMParamsTypedDict": ".litellmparams",
+    "LoadBalancerConfig": ".loadbalancerconfig",
+    "LoadBalancerConfigTypedDict": ".loadbalancerconfig",
+    "LoadBalancerModelConfig": ".loadbalancermodelconfig",
+    "LoadBalancerModelConfigTypedDict": ".loadbalancermodelconfig",
     "Log": ".log",
     "LogTypedDict": ".log",
     "LogPattern": ".logpattern",
@@ -63683,6 +63674,8 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveResponseRequestTypedDict": ".retrieve_responseop",
     "RetrieveResponseResponseBody": ".retrieve_responseop",
     "RetrieveResponseResponseBodyTypedDict": ".retrieve_responseop",
+    "RetrieveResponseResponsesResponseBody": ".retrieve_responseop",
+    "RetrieveResponseResponsesResponseBodyData": ".retrieve_responseop",
     "RetrieveResponseServiceTier": ".retrieve_responseop",
     "RetrieveResponseStatus": ".retrieve_responseop",
     "RetrieveResponseTruncation": ".retrieve_responseop",
@@ -69849,7 +69842,6 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveAnnotationQueueItemResponseBodyRole": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_16_10",
     "RetrieveAnnotationQueueItemResponseBodyToolCalls": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_16_10",
     "RetrieveAnnotationQueueItemResponseBodyToolCallsTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_16_10",
-    "CacheConfig": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfig1": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfig1TypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfig2": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
@@ -69869,7 +69861,6 @@ _dynamic_imports: dict[str, str] = {
     "CacheConfigTTL": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfigThinkingLevel": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfigType": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
-    "CacheConfigTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "CacheConfigVerbosity": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ChunkMetadata": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ChunkMetadataTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
@@ -69877,6 +69868,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelConfigTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ResponseBody18": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ResponseBody18TypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
+    "ResponseBodyCacheConfig": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
+    "ResponseBodyCacheConfigTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ResponseBodyDocuments": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ResponseBodyDocumentsTypedDict": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
     "ResponseType": ".retrieveannotationqueueitem_evaluations_annotationqueues_response_200_applicationjson_responsebody_17_attributes_orq_18_type",
@@ -84631,6 +84624,8 @@ _dynamic_imports: dict[str, str] = {
     "SearchTracesResponseTypedDict": ".searchtracesresponse",
     "Security": ".security",
     "SecurityTypedDict": ".security",
+    "SecurityConfig": ".securityconfig",
+    "SecurityConfigTypedDict": ".securityconfig",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
     "SetSmartRouterEnabledRequest": ".setsmartrouterenabledrequest",
@@ -84657,8 +84652,6 @@ _dynamic_imports: dict[str, str] = {
     "SmartRouterGetRequestTypedDict": ".smartroutergetop",
     "SmartRouterListRequest": ".smartrouterlistop",
     "SmartRouterListRequestTypedDict": ".smartrouterlistop",
-    "SmartRouterMetrics": ".smartroutermetrics",
-    "SmartRouterMetricsTypedDict": ".smartroutermetrics",
     "SmartRouterProfile": ".smartrouterprofile",
     "SmartRouterSetEnabledRequest": ".smartroutersetenabledop",
     "SmartRouterSetEnabledRequestTypedDict": ".smartroutersetenabledop",
@@ -84981,6 +84974,8 @@ _dynamic_imports: dict[str, str] = {
     "ThinkingConfigEnabledSchemaType": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchemaTypedDict": ".thinkingconfigenabledschema",
     "ThinkingLevel": ".thinkingconfigenabledschema",
+    "TimeoutConfig": ".timeoutconfig",
+    "TimeoutConfigTypedDict": ".timeoutconfig",
     "TimeoutStreamingEvent": ".timeoutstreamingevent",
     "TimeoutStreamingEventData": ".timeoutstreamingevent",
     "TimeoutStreamingEventDataTypedDict": ".timeoutstreamingevent",
@@ -85413,8 +85408,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAnnotationQueueResponseBodyTypedDict": ".updateannotationqueueop",
     "UpdateAPIKeyRequest": ".updateapikeyrequest",
     "UpdateAPIKeyRequestTypedDict": ".updateapikeyrequest",
-    "UpdateAPIKeyResponse": ".updateapikeyresponse",
-    "UpdateAPIKeyResponseTypedDict": ".updateapikeyresponse",
     "UpdateBudgetRequest": ".updatebudgetrequest",
     "UpdateBudgetRequestTypedDict": ".updatebudgetrequest",
     "UpdateBudgetResponse": ".updatebudgetresponse",
