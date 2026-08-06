@@ -2169,7 +2169,7 @@ class ResponseBody27(BaseModel):
     type: RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON27Type
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZ9Z9VACQVTN75ER574CM4R3"
+        "01KZB2BZF9RSTT4X363DEXJZ7C"
     )
 
     name: Optional[str] = None
@@ -3713,7 +3713,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-05T22:04:31.900Z")
+    ] = parse_datetime("2026-08-06T08:17:21.862Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -3882,7 +3882,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-05T22:04:31.898Z")
+    ] = parse_datetime("2026-08-06T08:17:21.861Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4051,7 +4051,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-05T22:04:31.897Z")
+    ] = parse_datetime("2026-08-06T08:17:21.860Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4220,7 +4220,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-05T22:04:31.895Z")
+    ] = parse_datetime("2026-08-06T08:17:21.859Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4389,10 +4389,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-05T22:04:31.893Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-06T08:17:21.857Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-05T22:04:31.893Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-06T08:17:21.857Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -4565,10 +4565,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-05T22:04:31.892Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-06T08:17:21.856Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-05T22:04:31.892Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-06T08:17:21.856Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
