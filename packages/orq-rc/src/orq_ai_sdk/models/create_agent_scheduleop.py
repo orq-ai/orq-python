@@ -24,6 +24,8 @@ r"""Schedule type. cron uses 6-field cron expressions; interval uses @every <dur
 
 
 class CreateAgentScheduleRequestBodyTypedDict(TypedDict):
+    display_name: str
+    r"""Human-readable name of the schedule."""
     expression: str
     r"""Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval."""
     payload: PublicSchedulePayloadTypedDict
@@ -34,6 +36,9 @@ class CreateAgentScheduleRequestBodyTypedDict(TypedDict):
 
 
 class CreateAgentScheduleRequestBody(BaseModel):
+    display_name: str
+    r"""Human-readable name of the schedule."""
+
     expression: str
     r"""Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval."""
 

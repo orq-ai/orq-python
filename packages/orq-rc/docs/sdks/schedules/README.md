@@ -67,7 +67,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="0 0 9 * * mon-fri", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Daily morning briefing", expression="0 0 9 * * mon-fri", payload={
         "input": "Generate the morning briefing for {{region}}",
         "memory_entity_id": "mem_entity_123",
         "metadata": {
@@ -94,7 +94,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="@every 1h", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Hourly ticket summary", expression="@every 1h", payload={
         "input": "Summarize new tickets from the last hour",
     }, type_="interval")
 
@@ -114,7 +114,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="@at 2026-05-01T09:00:00Z", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Ticket status update", expression="@at 2026-05-01T09:00:00Z", payload={
         "input": "Check in on ticket TICKET-123 and post a status update.",
     }, type_="once")
 
@@ -128,6 +128,7 @@ with Orq(
 | Parameter                                                                                                                                                                                  | Type                                                                                                                                                                                       | Required                                                                                                                                                                                   | Description                                                                                                                                                                                |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `agent_key`                                                                                                                                                                                | *str*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | The unique routing key of the agent the schedule belongs to.                                                                                                                               |
+| `display_name`                                                                                                                                                                             | *str*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | Human-readable name of the schedule.                                                                                                                                                       |
 | `expression`                                                                                                                                                                               | *str*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval. |
 | `payload`                                                                                                                                                                                  | [models.PublicSchedulePayload](../../models/publicschedulepayload.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | N/A                                                                                                                                                                                        |
 | `type`                                                                                                                                                                                     | [models.CreateAgentScheduleType](../../models/createagentscheduletype.md)                                                                                                                  | :heavy_check_mark:                                                                                                                                                                         | Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.                                                                           |

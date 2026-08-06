@@ -204,6 +204,7 @@ class Schedules(BaseSDK):
         self,
         *,
         agent_key: str,
+        display_name: str,
         expression: str,
         payload: Union[
             models.PublicSchedulePayload, models.PublicSchedulePayloadTypedDict
@@ -220,6 +221,7 @@ class Schedules(BaseSDK):
         Creates a schedule that runs the agent on a recurring or one-off cadence. The minimum firing interval is 1 hour for `cron` and `interval`; `once` schedules are exempt.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
+        :param display_name: Human-readable name of the schedule.
         :param expression: Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval.
         :param payload:
         :param type: Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.
@@ -246,6 +248,7 @@ class Schedules(BaseSDK):
             agent_key=agent_key,
             request_body=models.CreateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 payload=utils.get_pydantic_model(payload, models.PublicSchedulePayload),
                 type=type_,
@@ -337,6 +340,7 @@ class Schedules(BaseSDK):
         self,
         *,
         agent_key: str,
+        display_name: str,
         expression: str,
         payload: Union[
             models.PublicSchedulePayload, models.PublicSchedulePayloadTypedDict
@@ -353,6 +357,7 @@ class Schedules(BaseSDK):
         Creates a schedule that runs the agent on a recurring or one-off cadence. The minimum firing interval is 1 hour for `cron` and `interval`; `once` schedules are exempt.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
+        :param display_name: Human-readable name of the schedule.
         :param expression: Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval.
         :param payload:
         :param type: Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.
@@ -379,6 +384,7 @@ class Schedules(BaseSDK):
             agent_key=agent_key,
             request_body=models.CreateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 payload=utils.get_pydantic_model(payload, models.PublicSchedulePayload),
                 type=type_,
