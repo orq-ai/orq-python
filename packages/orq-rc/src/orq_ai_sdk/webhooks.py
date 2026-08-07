@@ -307,7 +307,7 @@ class Webhooks(BaseSDK):
         :param content_type: Content type sent with webhook deliveries.
         :param display_name: Human-readable webhook name.
         :param events: One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`.
-        :param secret: Signing secret returned by `GET /v2/webhooks/secret`.
+        :param secret: Signing secret returned by `GET /v2/webhooks/secret`. Deliveries set `X-Orq-Signature` to the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes.
         :param enabled: Whether webhook deliveries are enabled.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -425,7 +425,7 @@ class Webhooks(BaseSDK):
         :param content_type: Content type sent with webhook deliveries.
         :param display_name: Human-readable webhook name.
         :param events: One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`.
-        :param secret: Signing secret returned by `GET /v2/webhooks/secret`.
+        :param secret: Signing secret returned by `GET /v2/webhooks/secret`. Deliveries set `X-Orq-Signature` to the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes.
         :param enabled: Whether webhook deliveries are enabled.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
