@@ -9,17 +9,17 @@ from typing_extensions import TypedDict
 
 class CreateSmartRouterRequestTypedDict(TypedDict):
     key: str
-    r"""Required. Stable lowercase key containing letters, numbers, and hyphens."""
+    r"""Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens."""
     models: List[str]
-    r"""Required. Ordered pool of distinct models in provider/model format."""
+    r"""Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format."""
     profile: SmartRouterProfile
 
 
 class CreateSmartRouterRequest(BaseModel):
     key: str
-    r"""Required. Stable lowercase key containing letters, numbers, and hyphens."""
+    r"""Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens."""
 
     models: List[str]
-    r"""Required. Ordered pool of distinct models in provider/model format."""
+    r"""Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format."""
 
     profile: SmartRouterProfile

@@ -10,38 +10,42 @@ from typing_extensions import TypedDict
 
 class SmartRouterTypedDict(TypedDict):
     smart_router_id: str
-    r"""Unique Smart Router identifier assigned by ORQ."""
+    r"""Unique identifier assigned to the Smart Router."""
     key: str
-    r"""Stable lowercase key used in the gateway model reference."""
+    r"""Immutable lowercase key that identifies the Smart Router within the workspace."""
     model_ref: str
-    r"""Workspace-qualified gateway model reference."""
+    r"""Immutable workspace-qualified model reference to use in AI Gateway requests, in `<workspace-key>@orq/<key>` format."""
     models: List[str]
-    r"""Ordered model pool in provider/model format, from highest to lowest capability."""
+    r"""Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format."""
     profile: SmartRouterProfile
     enabled: bool
-    r"""Whether the router is available to gateway requests."""
+    r"""Whether the Smart Router can be used in AI Gateway requests."""
     created_at: datetime
+    r"""Date and time when the Smart Router was created."""
     updated_at: datetime
+    r"""Date and time when the Smart Router was last updated."""
 
 
 class SmartRouter(BaseModel):
     smart_router_id: str
-    r"""Unique Smart Router identifier assigned by ORQ."""
+    r"""Unique identifier assigned to the Smart Router."""
 
     key: str
-    r"""Stable lowercase key used in the gateway model reference."""
+    r"""Immutable lowercase key that identifies the Smart Router within the workspace."""
 
     model_ref: str
-    r"""Workspace-qualified gateway model reference."""
+    r"""Immutable workspace-qualified model reference to use in AI Gateway requests, in `<workspace-key>@orq/<key>` format."""
 
     models: List[str]
-    r"""Ordered model pool in provider/model format, from highest to lowest capability."""
+    r"""Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format."""
 
     profile: SmartRouterProfile
 
     enabled: bool
-    r"""Whether the router is available to gateway requests."""
+    r"""Whether the Smart Router can be used in AI Gateway requests."""
 
     created_at: datetime
+    r"""Date and time when the Smart Router was created."""
 
     updated_at: datetime
+    r"""Date and time when the Smart Router was last updated."""

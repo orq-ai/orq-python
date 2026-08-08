@@ -26,7 +26,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.ListSmartRoutersResponse:
         r"""List Smart Routers
 
-        Returns Smart Routers in the caller's workspace, ordered newest first. Supports cursor pagination, name search, profile filtering, and enabled-state filtering.
+        Lists Smart Routers in the current workspace, ordered newest first. Use cursor pagination and optional key, profile, or enabled-state filters to narrow the results.
 
         :param limit:
         :param starting_after:
@@ -145,7 +145,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.ListSmartRoutersResponse:
         r"""List Smart Routers
 
-        Returns Smart Routers in the caller's workspace, ordered newest first. Supports cursor pagination, name search, profile filtering, and enabled-state filtering.
+        Lists Smart Routers in the current workspace, ordered newest first. Use cursor pagination and optional key, profile, or enabled-state filters to narrow the results.
 
         :param limit:
         :param starting_after:
@@ -261,10 +261,10 @@ class SmartRouters(BaseSDK):
     ) -> models_.CreateSmartRouterResponse:
         r"""Create a Smart Router
 
-        Creates a workspace Smart Router from an ordered pool of autorouter-eligible models. The router key becomes the stable model identifier used by gateway requests.
+        Creates a Smart Router in the current workspace from 2 to 50 distinct eligible models. The key must be unique in the workspace and becomes part of the model reference used in AI Gateway requests.
 
-        :param key: Required. Stable lowercase key containing letters, numbers, and hyphens.
-        :param models: Required. Ordered pool of distinct models in provider/model format.
+        :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
+        :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -333,12 +333,12 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Create a Smart Router",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-4-1",\n      "anthropic/claude-sonnet-4",\n      "openai/gpt-4o-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
                         },
                         {
                             "label": "Node.js - Create a Smart Router",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: [\n    'anthropic/claude-opus-4-1',\n    'anthropic/claude-sonnet-4',\n    'openai/gpt-4o-mini',\n  ],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
                     ]
                 },
@@ -372,10 +372,10 @@ class SmartRouters(BaseSDK):
     ) -> models_.CreateSmartRouterResponse:
         r"""Create a Smart Router
 
-        Creates a workspace Smart Router from an ordered pool of autorouter-eligible models. The router key becomes the stable model identifier used by gateway requests.
+        Creates a Smart Router in the current workspace from 2 to 50 distinct eligible models. The key must be unique in the workspace and becomes part of the model reference used in AI Gateway requests.
 
-        :param key: Required. Stable lowercase key containing letters, numbers, and hyphens.
-        :param models: Required. Ordered pool of distinct models in provider/model format.
+        :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
+        :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -444,12 +444,12 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Create a Smart Router",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-4-1",\n      "anthropic/claude-sonnet-4",\n      "openai/gpt-4o-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
                         },
                         {
                             "label": "Node.js - Create a Smart Router",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: [\n    'anthropic/claude-opus-4-1',\n    'anthropic/claude-sonnet-4',\n    'openai/gpt-4o-mini',\n  ],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
                     ]
                 },
@@ -481,7 +481,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.GetSmartRouterResponse:
         r"""Retrieve a Smart Router
 
-        Retrieves a Smart Router by ID within the caller's workspace.
+        Retrieves a Smart Router by ID from the current workspace, including its model reference, model pool, routing profile, and enabled state.
 
         :param smart_router_id:
         :param retries: Override the default retry configuration for this method
@@ -583,7 +583,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.GetSmartRouterResponse:
         r"""Retrieve a Smart Router
 
-        Retrieves a Smart Router by ID within the caller's workspace.
+        Retrieves a Smart Router by ID from the current workspace, including its model reference, model pool, routing profile, and enabled state.
 
         :param smart_router_id:
         :param retries: Override the default retry configuration for this method
@@ -685,7 +685,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.DeleteSmartRouterResponse:
         r"""Delete a Smart Router
 
-        Permanently deletes a Smart Router and removes its gateway model configuration.
+        Permanently deletes a Smart Router and removes its AI Gateway model configuration. A Smart Router referenced by an experiment cannot be deleted.
 
         :param smart_router_id:
         :param retries: Override the default retry configuration for this method
@@ -787,7 +787,7 @@ class SmartRouters(BaseSDK):
     ) -> models_.DeleteSmartRouterResponse:
         r"""Delete a Smart Router
 
-        Permanently deletes a Smart Router and removes its gateway model configuration.
+        Permanently deletes a Smart Router and removes its AI Gateway model configuration. A Smart Router referenced by an experiment cannot be deleted.
 
         :param smart_router_id:
         :param retries: Override the default retry configuration for this method
@@ -891,10 +891,10 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Partially updates the routing models or profile. The router key is immutable.
+        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
-        :param models:
+        :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -974,7 +974,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Node.js - Update a Smart Router",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update({\n  smartRouterId: '019d-smart-router-id',\n  profile: 'SMART_ROUTER_PROFILE_COST',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
                     ]
                 },
@@ -1008,10 +1008,10 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Partially updates the routing models or profile. The router key is immutable.
+        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
-        :param models:
+        :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1091,7 +1091,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Node.js - Update a Smart Router",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update({\n  smartRouterId: '019d-smart-router-id',\n  profile: 'SMART_ROUTER_PROFILE_COST',\n});\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
                     ]
                 },
@@ -1103,238 +1103,6 @@ class SmartRouters(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models_.UpdateSmartRouterResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIDefaultError("Unexpected response received", http_res)
-
-    def set_enabled(
-        self,
-        *,
-        smart_router_id: str,
-        enabled: bool,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.SetSmartRouterEnabledResponse:
-        r"""Enable or disable a Smart Router
-
-        Controls whether the Smart Router is available to gateway requests in the workspace.
-
-        :param smart_router_id:
-        :param enabled:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.SmartRouterSetEnabledRequest(
-            smart_router_id=smart_router_id,
-            set_smart_router_enabled_request=models_.SetSmartRouterEnabledRequest(
-                enabled=enabled,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/smart-routers/{smart_router_id}/enabled",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.set_smart_router_enabled_request,
-                False,
-                False,
-                "json",
-                models_.SetSmartRouterEnabledRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="SmartRouterSetEnabled",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-                tags=["Smart Routers"],
-                extensions={
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Disable a Smart Router",
-                            "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
-                        },
-                        {
-                            "label": "Node.js - Disable a Smart Router",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.setEnabled({\n  smartRouterId: '019d-smart-router-id',\n  enabled: false,\n});\n",
-                        },
-                    ]
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.SetSmartRouterEnabledResponse, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models_.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models_.APIDefaultError("Unexpected response received", http_res)
-
-    async def set_enabled_async(
-        self,
-        *,
-        smart_router_id: str,
-        enabled: bool,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models_.SetSmartRouterEnabledResponse:
-        r"""Enable or disable a Smart Router
-
-        Controls whether the Smart Router is available to gateway requests in the workspace.
-
-        :param smart_router_id:
-        :param enabled:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models_.SmartRouterSetEnabledRequest(
-            smart_router_id=smart_router_id,
-            set_smart_router_enabled_request=models_.SetSmartRouterEnabledRequest(
-                enabled=enabled,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/smart-routers/{smart_router_id}/enabled",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.set_smart_router_enabled_request,
-                False,
-                False,
-                "json",
-                models_.SetSmartRouterEnabledRequest,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="SmartRouterSetEnabled",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models_.Security
-                ),
-                tags=["Smart Routers"],
-                extensions={
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Disable a Smart Router",
-                            "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
-                        },
-                        {
-                            "label": "Node.js - Disable a Smart Router",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.setEnabled({\n  smartRouterId: '019d-smart-router-id',\n  enabled: false,\n});\n",
-                        },
-                    ]
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models_.SetSmartRouterEnabledResponse, http_res
-            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models_.APIDefaultError("API error occurred", http_res, http_res_text)

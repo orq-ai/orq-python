@@ -27611,14 +27611,6 @@ if TYPE_CHECKING:
     from .security import Security, SecurityTypedDict
     from .securityconfig import SecurityConfig, SecurityConfigTypedDict
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
-    from .setsmartrouterenabledrequest import (
-        SetSmartRouterEnabledRequest,
-        SetSmartRouterEnabledRequestTypedDict,
-    )
-    from .setsmartrouterenabledresponse import (
-        SetSmartRouterEnabledResponse,
-        SetSmartRouterEnabledResponseTypedDict,
-    )
     from .singleproject import SingleProject, SingleProjectTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
@@ -27636,10 +27628,6 @@ if TYPE_CHECKING:
         SmartRouterListRequestTypedDict,
     )
     from .smartrouterprofile import SmartRouterProfile
-    from .smartroutersetenabledop import (
-        SmartRouterSetEnabledRequest,
-        SmartRouterSetEnabledRequestTypedDict,
-    )
     from .smartrouterupdateop import (
         SmartRouterUpdateRequest,
         SmartRouterUpdateRequestTypedDict,
@@ -56012,10 +56000,6 @@ __all__ = [
     "ServiceAccountOwner",
     "ServiceAccountOwnerTypedDict",
     "ServiceTier",
-    "SetSmartRouterEnabledRequest",
-    "SetSmartRouterEnabledRequestTypedDict",
-    "SetSmartRouterEnabledResponse",
-    "SetSmartRouterEnabledResponseTypedDict",
     "Settings",
     "SettingsTypedDict",
     "Seven",
@@ -56056,8 +56040,6 @@ __all__ = [
     "SmartRouterListRequest",
     "SmartRouterListRequestTypedDict",
     "SmartRouterProfile",
-    "SmartRouterSetEnabledRequest",
-    "SmartRouterSetEnabledRequestTypedDict",
     "SmartRouterTypedDict",
     "SmartRouterUpdateRequest",
     "SmartRouterUpdateRequestTypedDict",
@@ -84687,10 +84669,6 @@ _dynamic_imports: dict[str, str] = {
     "SecurityConfigTypedDict": ".securityconfig",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
-    "SetSmartRouterEnabledRequest": ".setsmartrouterenabledrequest",
-    "SetSmartRouterEnabledRequestTypedDict": ".setsmartrouterenabledrequest",
-    "SetSmartRouterEnabledResponse": ".setsmartrouterenabledresponse",
-    "SetSmartRouterEnabledResponseTypedDict": ".setsmartrouterenabledresponse",
     "SingleProject": ".singleproject",
     "SingleProjectTypedDict": ".singleproject",
     "Skill": ".skill",
@@ -84712,8 +84690,6 @@ _dynamic_imports: dict[str, str] = {
     "SmartRouterListRequest": ".smartrouterlistop",
     "SmartRouterListRequestTypedDict": ".smartrouterlistop",
     "SmartRouterProfile": ".smartrouterprofile",
-    "SmartRouterSetEnabledRequest": ".smartroutersetenabledop",
-    "SmartRouterSetEnabledRequestTypedDict": ".smartroutersetenabledop",
     "SmartRouterUpdateRequest": ".smartrouterupdateop",
     "SmartRouterUpdateRequestTypedDict": ".smartrouterupdateop",
     "SpanDetail": ".spandetail",

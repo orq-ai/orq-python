@@ -10,11 +10,13 @@ from typing_extensions import NotRequired, TypedDict
 
 class UpdateSmartRouterRequestTypedDict(TypedDict):
     models: NotRequired[List[str]]
+    r"""Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool."""
     profile: NotRequired[SmartRouterProfile]
 
 
 class UpdateSmartRouterRequest(BaseModel):
     models: Optional[List[str]] = None
+    r"""Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool."""
 
     profile: Optional[SmartRouterProfile] = None
 

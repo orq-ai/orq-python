@@ -9,13 +9,19 @@ from typing_extensions import TypedDict
 
 class ListSmartRoutersResponseTypedDict(TypedDict):
     object: str
+    r"""Object type for this collection. Always `list`."""
     data: List[SmartRouterTypedDict]
+    r"""Smart Routers in the current page."""
     has_more: bool
+    r"""Whether more Smart Routers are available in the requested pagination direction."""
 
 
 class ListSmartRoutersResponse(BaseModel):
     object: str
+    r"""Object type for this collection. Always `list`."""
 
     data: List[SmartRouter]
+    r"""Smart Routers in the current page."""
 
     has_more: bool
+    r"""Whether more Smart Routers are available in the requested pagination direction."""
