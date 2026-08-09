@@ -90,13 +90,13 @@ class GuardrailRuleCreateResponseBodyTypedDict(TypedDict):
     display_name: str
     enabled: bool
     project_id: str
-    timeout: int
     updated_at: datetime
     updated_by_id: str
     description: NotRequired[str]
     expression: NotRequired[ExpressionTypedDict]
     guardrails: NotRequired[Nullable[List[GuardrailRefTypedDict]]]
     plugins: NotRequired[Nullable[List[PluginTypedDict]]]
+    timeout: NotRequired[int]
 
 
 class GuardrailRuleCreateResponseBody(BaseModel):
@@ -114,8 +114,6 @@ class GuardrailRuleCreateResponseBody(BaseModel):
 
     project_id: str
 
-    timeout: int
-
     updated_at: datetime
 
     updated_by_id: str
@@ -128,9 +126,13 @@ class GuardrailRuleCreateResponseBody(BaseModel):
 
     plugins: OptionalNullable[List[Plugin]] = UNSET
 
+    timeout: Optional[int] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "expression", "guardrails", "plugins"])
+        optional_fields = set(
+            ["description", "expression", "guardrails", "plugins", "timeout"]
+        )
         nullable_fields = set(["guardrails", "plugins"])
         serialized = handler(self)
         m = {}

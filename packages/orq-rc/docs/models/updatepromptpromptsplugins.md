@@ -27,3 +27,9 @@ value: models.PIIRedactionPluginNl = /* values here */
 value: models.ResponseHealingPlugin = /* values here */
 ```
 
+### `models.TraceScrubbingPlugin`
+
+```python
+value: models.TraceScrubbingPlugin = /* values here */
+```
+

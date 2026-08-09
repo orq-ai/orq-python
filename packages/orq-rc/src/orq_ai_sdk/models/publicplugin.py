@@ -16,8 +16,9 @@ from typing_extensions import NotRequired, TypedDict
 PublicPluginID = Literal[
     "pii_redaction",
     "response_healing",
+    "trace_scrubbing",
 ]
-r"""Plugin discriminator. pii_redaction replaces PII with placeholders before the provider sees it and restores the original values in the response. response_healing repairs malformed JSON in non-streaming model output."""
+r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
 
 
 PublicPluginLanguage = Literal[
@@ -25,6 +26,16 @@ PublicPluginLanguage = Literal[
     "nl",
 ]
 r"""pii_redaction only. Detector language. Defaults to en."""
+
+
+PublicPluginMask = Literal[
+    "all",
+    "system",
+    "input",
+    "output",
+    "metadata",
+    "variables",
+]
 
 
 PublicPluginOnFailure = Literal[
@@ -36,11 +47,13 @@ r"""pii_redaction only. Behavior when redaction is unavailable. block (default) 
 
 class PublicPluginTypedDict(TypedDict):
     id: PublicPluginID
-    r"""Plugin discriminator. pii_redaction replaces PII with placeholders before the provider sees it and restores the original values in the response. response_healing repairs malformed JSON in non-streaming model output."""
+    r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
     entities: NotRequired[Nullable[List[str]]]
     r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). Omit to redact every type detected for the language."""
     language: NotRequired[PublicPluginLanguage]
     r"""pii_redaction only. Detector language. Defaults to en."""
+    mask: NotRequired[Nullable[List[PublicPluginMask]]]
+    r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""
     on_failure: NotRequired[PublicPluginOnFailure]
     r"""pii_redaction only. Behavior when redaction is unavailable. block (default) fails the request; passthrough sends the original text."""
     threshold: NotRequired[float]
@@ -49,13 +62,16 @@ class PublicPluginTypedDict(TypedDict):
 
 class PublicPlugin(BaseModel):
     id: PublicPluginID
-    r"""Plugin discriminator. pii_redaction replaces PII with placeholders before the provider sees it and restores the original values in the response. response_healing repairs malformed JSON in non-streaming model output."""
+    r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
 
     entities: OptionalNullable[List[str]] = UNSET
     r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). Omit to redact every type detected for the language."""
 
     language: Optional[PublicPluginLanguage] = None
     r"""pii_redaction only. Detector language. Defaults to en."""
+
+    mask: OptionalNullable[List[PublicPluginMask]] = UNSET
+    r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""
 
     on_failure: Optional[PublicPluginOnFailure] = None
     r"""pii_redaction only. Behavior when redaction is unavailable. block (default) fails the request; passthrough sends the original text."""
@@ -65,8 +81,10 @@ class PublicPlugin(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["entities", "language", "on_failure", "threshold"])
-        nullable_fields = set(["entities"])
+        optional_fields = set(
+            ["entities", "language", "mask", "on_failure", "threshold"]
+        )
+        nullable_fields = set(["entities", "mask"])
         serialized = handler(self)
         m = {}
 
