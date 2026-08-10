@@ -8,13 +8,9 @@ from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Iterable, List, Mapping, Optional, Union
-from typing_extensions import deprecated
 
 
 class Traces(BaseSDK):
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def aggregate(
         self,
         *,
@@ -36,7 +32,7 @@ class Traces(BaseSDK):
     ) -> models.AggregateTracesResponse:
         r"""Aggregate traces
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES, grain=none) instead. Aggregate trace metrics using the structured trace filter contract.
+        Aggregate trace metrics using the structured trace filter contract. This API remains supported; POST /v3/telemetry/query offers the same aggregate shape in a neutral multi-signal envelope.
 
         :param from_:
         :param to:
@@ -79,7 +75,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/aggregate",
+            path="/v3/traces/aggregate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -126,16 +122,13 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def aggregate_async(
         self,
         *,
@@ -157,7 +150,7 @@ class Traces(BaseSDK):
     ) -> models.AggregateTracesResponse:
         r"""Aggregate traces
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES, grain=none) instead. Aggregate trace metrics using the structured trace filter contract.
+        Aggregate trace metrics using the structured trace filter contract. This API remains supported; POST /v3/telemetry/query offers the same aggregate shape in a neutral multi-signal envelope.
 
         :param from_:
         :param to:
@@ -200,7 +193,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/aggregate",
+            path="/v3/traces/aggregate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -247,12 +240,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_facets(
         self,
@@ -285,7 +278,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
-            path="/v2/traces/facets",
+            path="/v3/traces/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -329,12 +322,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_facets_async(
         self,
@@ -367,7 +360,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/facets",
+            path="/v3/traces/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -411,12 +404,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_facet_values(
         self,
@@ -468,7 +461,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/facets/{field}",
+            path="/v3/traces/facets/{field}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -514,12 +507,12 @@ class Traces(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_facet_values_async(
         self,
@@ -571,7 +564,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/facets/{field}",
+            path="/v3/traces/facets/{field}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -617,12 +610,12 @@ class Traces(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_fields(
         self,
@@ -655,7 +648,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
-            path="/v2/traces/fields",
+            path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -699,12 +692,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_fields_async(
         self,
@@ -737,7 +730,7 @@ class Traces(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/fields",
+            path="/v3/traces/fields",
             base_url=base_url,
             url_variables=url_variables,
             request=None,
@@ -781,12 +774,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def query(
         self,
@@ -838,7 +831,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/query",
+            path="/v3/traces/query",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -885,12 +878,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def query_async(
         self,
@@ -942,7 +935,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/query",
+            path="/v3/traces/query",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -989,12 +982,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def search(
         self,
@@ -1061,7 +1054,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/traces/search",
+            path="/v3/traces/search",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1108,12 +1101,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def search_async(
         self,
@@ -1180,7 +1173,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/traces/search",
+            path="/v3/traces/search",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1227,12 +1220,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get(
         self,
@@ -1272,7 +1265,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}",
+            path="/v3/traces/{trace_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1316,12 +1309,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -1361,7 +1354,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}",
+            path="/v3/traces/{trace_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1405,12 +1398,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def list_spans(
         self,
@@ -1456,7 +1449,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}/spans",
+            path="/v3/traces/{trace_id}/spans",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1500,12 +1493,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_spans_async(
         self,
@@ -1551,7 +1544,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}/spans",
+            path="/v3/traces/{trace_id}/spans",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1595,12 +1588,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get_span(
         self,
@@ -1643,7 +1636,7 @@ class Traces(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/traces/{trace_id}/spans/{span_id}",
+            path="/v3/traces/{trace_id}/spans/{span_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1687,12 +1680,12 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_span_async(
         self,
@@ -1735,7 +1728,7 @@ class Traces(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/traces/{trace_id}/spans/{span_id}",
+            path="/v3/traces/{trace_id}/spans/{span_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1779,9 +1772,9 @@ class Traces(BaseSDK):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

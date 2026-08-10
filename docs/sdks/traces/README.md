@@ -4,7 +4,7 @@
 
 ### Available Operations
 
-* [~~aggregate~~](#aggregate) - Aggregate traces :warning: **Deprecated**
+* [aggregate](#aggregate) - Aggregate traces
 * [list_facets](#list_facets) - List trace facets
 * [list_facet_values](#list_facet_values) - List trace facet values
 * [list_fields](#list_fields) - List trace fields
@@ -14,15 +14,13 @@
 * [list_spans](#list_spans) - List trace spans
 * [get_span](#get_span) - Get trace span
 
-## ~~aggregate~~
+## aggregate
 
-Deprecated: use TelemetryService.Query (POST /v2/telemetry/query, source=TRACES, grain=none) instead. Aggregate trace metrics using the structured trace filter contract.
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+Aggregate trace metrics using the structured trace filter contract. This API remains supported; POST /v3/telemetry/query offers the same aggregate shape in a neutral multi-signal envelope.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesAggregate" method="post" path="/v2/traces/aggregate" -->
+<!-- UsageSnippet language="python" operationID="TracesAggregate" method="post" path="/v3/traces/aggregate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -58,9 +56,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_facets
 
@@ -68,7 +66,7 @@ List trace fields that support facet value discovery.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFacets" method="get" path="/v2/traces/facets" -->
+<!-- UsageSnippet language="python" operationID="TracesListFacets" method="get" path="/v3/traces/facets" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -97,9 +95,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_facet_values
 
@@ -107,7 +105,7 @@ List values and counts for one trace facet field.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFacetValues" method="get" path="/v2/traces/facets/{field}" -->
+<!-- UsageSnippet language="python" operationID="TracesListFacetValues" method="get" path="/v3/traces/facets/{field}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -141,9 +139,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_fields
 
@@ -151,7 +149,7 @@ List currently supported static trace fields.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListFields" method="get" path="/v2/traces/fields" -->
+<!-- UsageSnippet language="python" operationID="TracesListFields" method="get" path="/v3/traces/fields" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -180,9 +178,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## query
 
@@ -190,7 +188,7 @@ Run an OQL trace query. OQL is validated against the trace field registry and co
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesQueryOql" method="post" path="/v2/traces/query" -->
+<!-- UsageSnippet language="python" operationID="TracesQueryOql" method="post" path="/v3/traces/query" -->
 ```python
 from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import parse_datetime
@@ -225,9 +223,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## search
 
@@ -235,7 +233,7 @@ Search trace summaries using the structured trace filter contract.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesSearch" method="post" path="/v2/traces/search" -->
+<!-- UsageSnippet language="python" operationID="TracesSearch" method="post" path="/v3/traces/search" -->
 ```python
 from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import parse_datetime
@@ -273,9 +271,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -283,7 +281,7 @@ Retrieve one trace summary by trace id.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesGet" method="get" path="/v2/traces/{trace_id}" -->
+<!-- UsageSnippet language="python" operationID="TracesGet" method="get" path="/v3/traces/{trace_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -313,9 +311,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_spans
 
@@ -323,7 +321,7 @@ List canonical span summaries for a trace.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesListSpans" method="get" path="/v2/traces/{trace_id}/spans" -->
+<!-- UsageSnippet language="python" operationID="TracesListSpans" method="get" path="/v3/traces/{trace_id}/spans" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -355,9 +353,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_span
 
@@ -365,7 +363,7 @@ Retrieve one hydrated span.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="TracesGetSpan" method="get" path="/v2/traces/{trace_id}/spans/{span_id}" -->
+<!-- UsageSnippet language="python" operationID="TracesGetSpan" method="get" path="/v3/traces/{trace_id}/spans/{span_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -396,6 +394,6 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

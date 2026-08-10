@@ -53,9 +53,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -82,15 +82,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `external_id`                                                                                   | *str*                                                                                           | :heavy_check_mark:                                                                              | Customer-provided stable identifier for this identity. Must be unique<br/> within the workspace. |
-| `display_name`                                                                                  | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Human-readable display name for the identity.                                                   |
-| `email`                                                                                         | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | Email address associated with the identity.                                                     |
-| `avatar_url`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | URL of the identity avatar image.                                                               |
-| `tags`                                                                                          | List[*str*]                                                                                     | :heavy_minus_sign:                                                                              | Free-form labels used to organize and filter identities.                                        |
-| `metadata`                                                                                      | [Optional[models.CreateIdentityRequestMetadata]](../../models/createidentityrequestmetadata.md) | :heavy_minus_sign:                                                                              | Custom JSON metadata stored with the identity.                                                  |
-| `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `external_id`                                                                                | *str*                                                                                        | :heavy_check_mark:                                                                           | Customer-provided stable identifier for this identity. Must be unique<br/> within the workspace. |
+| `display_name`                                                                               | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | Human-readable display name for the identity.                                                |
+| `email`                                                                                      | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | Email address associated with the identity.                                                  |
+| `avatar_url`                                                                                 | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | URL of the identity avatar image.                                                            |
+| `tags`                                                                                       | List[*str*]                                                                                  | :heavy_minus_sign:                                                                           | Free-form labels used to organize and filter identities.                                     |
+| `metadata`                                                                                   | Dict[str, *Any*]                                                                             | :heavy_minus_sign:                                                                           | Custom JSON metadata stored with the identity.                                               |
+| `retries`                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                             | :heavy_minus_sign:                                                                           | Configuration to override the default retry behavior of the client.                          |
 
 ### Response
 
@@ -98,9 +98,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
 
@@ -140,9 +140,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -180,9 +180,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -209,15 +209,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `id`                                                                                            | *str*                                                                                           | :heavy_check_mark:                                                                              | Identity ID to update.                                                                          |
-| `display_name`                                                                                  | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | New display name. Omit to keep the current display name.                                        |
-| `email`                                                                                         | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | New email address. Omit to keep the current email.                                              |
-| `avatar_url`                                                                                    | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | New avatar image URL. Omit to keep the current avatar URL.                                      |
-| `tags`                                                                                          | List[*str*]                                                                                     | :heavy_minus_sign:                                                                              | Replacement tag list. Leave empty to clear tags.                                                |
-| `metadata`                                                                                      | [Optional[models.UpdateIdentityRequestMetadata]](../../models/updateidentityrequestmetadata.md) | :heavy_minus_sign:                                                                              | Replacement custom JSON metadata.                                                               |
-| `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Identity ID to update.                                              |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New display name. Omit to keep the current display name.            |
+| `email`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New email address. Omit to keep the current email.                  |
+| `avatar_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New avatar image URL. Omit to keep the current avatar URL.          |
+| `tags`                                                              | List[*str*]                                                         | :heavy_minus_sign:                                                  | Replacement tag list. Leave empty to clear tags.                    |
+| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | Replacement custom JSON metadata.                                   |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -225,6 +225,6 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

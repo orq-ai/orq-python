@@ -15,32 +15,33 @@ from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-CreateAgentScheduleType = Literal[
-    "cron",
-    "once",
-    "interval",
-]
-r"""Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>."""
+CreateAgentScheduleType = Literal["cron",]
+r"""Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour."""
 
 
 class CreateAgentScheduleRequestBodyTypedDict(TypedDict):
+    display_name: str
+    r"""Human-readable name of the schedule."""
     expression: str
-    r"""Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval."""
+    r"""6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour."""
     payload: PublicSchedulePayloadTypedDict
     type: CreateAgentScheduleType
-    r"""Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>."""
+    r"""Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour."""
     agent_tag: NotRequired[str]
     r"""Pin this schedule to a specific agent version. Omit to always use the active version."""
 
 
 class CreateAgentScheduleRequestBody(BaseModel):
+    display_name: str
+    r"""Human-readable name of the schedule."""
+
     expression: str
-    r"""Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval."""
+    r"""6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour."""
 
     payload: PublicSchedulePayload
 
     type: CreateAgentScheduleType
-    r"""Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>."""
+    r"""Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour."""
 
     agent_tag: Optional[str] = None
     r"""Pin this schedule to a specific agent version. Omit to always use the active version."""
@@ -129,7 +130,7 @@ CreateAgentScheduleSchedulesType = Literal[
     "once",
     "interval",
 ]
-r"""Schedule type."""
+r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
 
 
 class CreateAgentScheduleResponseBodyTypedDict(TypedDict):
@@ -142,21 +143,25 @@ class CreateAgentScheduleResponseBodyTypedDict(TypedDict):
     created_by_id: str
     r"""ID of the API key that created the schedule."""
     expression: str
-    r"""Cron expression (6-field, seconds required), @every duration, @at RFC3339 timestamp, or a predefined descriptor like @hourly/@daily."""
+    r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
     generation: int
     r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
     is_active: bool
-    r"""Whether the schedule is currently firing. once schedules flip to false automatically after firing."""
+    r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
     payload: PublicSchedulePayloadTypedDict
     trigger_count: int
     r"""Total firings since creation or last expression/type change."""
     type: CreateAgentScheduleSchedulesType
-    r"""Schedule type."""
+    r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
     updated: datetime
     agent_tag: NotRequired[str]
     r"""Pinned agent version. Omit to always run the agent's current active version."""
+    display_name: NotRequired[str]
+    r"""Human-readable name of the schedule. Omitted for schedules created before display names were required."""
     last_triggered_at: NotRequired[datetime]
     r"""Timestamp of the most recent firing, if any."""
+    updated_by_id: NotRequired[str]
+    r"""ID of the API key that last updated the schedule. Omitted until the schedule is updated."""
 
 
 class CreateAgentScheduleResponseBody(BaseModel):
@@ -173,13 +178,13 @@ class CreateAgentScheduleResponseBody(BaseModel):
     r"""ID of the API key that created the schedule."""
 
     expression: str
-    r"""Cron expression (6-field, seconds required), @every duration, @at RFC3339 timestamp, or a predefined descriptor like @hourly/@daily."""
+    r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
 
     generation: int
     r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
 
     is_active: bool
-    r"""Whether the schedule is currently firing. once schedules flip to false automatically after firing."""
+    r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
 
     payload: PublicSchedulePayload
 
@@ -187,19 +192,27 @@ class CreateAgentScheduleResponseBody(BaseModel):
     r"""Total firings since creation or last expression/type change."""
 
     type: CreateAgentScheduleSchedulesType
-    r"""Schedule type."""
+    r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
 
     updated: datetime
 
     agent_tag: Optional[str] = None
     r"""Pinned agent version. Omit to always run the agent's current active version."""
 
+    display_name: Optional[str] = None
+    r"""Human-readable name of the schedule. Omitted for schedules created before display names were required."""
+
     last_triggered_at: Optional[datetime] = None
     r"""Timestamp of the most recent firing, if any."""
 
+    updated_by_id: Optional[str] = None
+    r"""ID of the API key that last updated the schedule. Omitted until the schedule is updated."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["agent_tag", "last_triggered_at"])
+        optional_fields = set(
+            ["agent_tag", "display_name", "last_triggered_at", "updated_by_id"]
+        )
         serialized = handler(self)
         m = {}
 

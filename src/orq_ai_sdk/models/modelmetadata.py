@@ -40,6 +40,7 @@ class ModelMetadataTypedDict(TypedDict):
     max_images_per_request: NotRequired[int]
     max_input_tokens: NotRequired[int]
     max_output_tokens: NotRequired[int]
+    max_temperature: NotRequired[float]
     million_searches_cost: NotRequired[float]
     million_tokens_above_128k_cache_read_cost: NotRequired[float]
     million_tokens_above_128k_cache_write_cost: NotRequired[float]
@@ -111,6 +112,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning_effort_xhigh: NotRequired[bool]
     supports_responses_api: NotRequired[bool]
     supports_sampling_params: NotRequired[bool]
+    supports_service_tier: NotRequired[bool]
     supports_streaming: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
     supports_structured_outputs: NotRequired[bool]
@@ -179,6 +181,8 @@ class ModelMetadata(BaseModel):
     max_input_tokens: Optional[int] = None
 
     max_output_tokens: Optional[int] = None
+
+    max_temperature: Optional[float] = None
 
     million_searches_cost: Optional[float] = None
 
@@ -322,6 +326,8 @@ class ModelMetadata(BaseModel):
 
     supports_sampling_params: Optional[bool] = None
 
+    supports_service_tier: Optional[bool] = None
+
     supports_streaming: Optional[bool] = None
 
     supports_strict_tool: Optional[bool] = None
@@ -385,6 +391,7 @@ class ModelMetadata(BaseModel):
                 "max_images_per_request",
                 "max_input_tokens",
                 "max_output_tokens",
+                "max_temperature",
                 "million_searches_cost",
                 "million_tokens_above_128k_cache_read_cost",
                 "million_tokens_above_128k_cache_write_cost",
@@ -456,6 +463,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning_effort_xhigh",
                 "supports_responses_api",
                 "supports_sampling_params",
+                "supports_service_tier",
                 "supports_streaming",
                 "supports_strict_tool",
                 "supports_structured_outputs",

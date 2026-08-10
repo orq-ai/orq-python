@@ -13,7 +13,8 @@ class DataPointTypedDict(TypedDict):
     r"""Bucket start in UTC, RFC 3339. Clients that need epoch ms can call
     `Date.parse(timestamp)` or `new Date(timestamp).getTime()` —
     returning the int64 in JSON would force a string (protojson rule)
-    and force callers to coerce anyway, so we ship ISO only.
+    and force callers to coerce anyway, so we ship ISO only. Unset for
+    `mode=scalar` rows, which aggregate the whole window.
     """
     dimensions: NotRequired[Dict[str, str]]
     r"""Public breakdown labels for this bucket, keyed by group-by column.
@@ -34,7 +35,8 @@ class DataPoint(BaseModel):
     r"""Bucket start in UTC, RFC 3339. Clients that need epoch ms can call
     `Date.parse(timestamp)` or `new Date(timestamp).getTime()` —
     returning the int64 in JSON would force a string (protojson rule)
-    and force callers to coerce anyway, so we ship ISO only.
+    and force callers to coerce anyway, so we ship ISO only. Unset for
+    `mode=scalar` rows, which aggregate the whole window.
     """
 
     dimensions: Optional[Dict[str, str]] = None

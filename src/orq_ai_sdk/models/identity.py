@@ -12,19 +12,11 @@ from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class MetadataTypedDict(TypedDict):
-    r"""Custom JSON metadata stored with the identity."""
-
-
-class Metadata(BaseModel):
-    r"""Custom JSON metadata stored with the identity."""
-
-
-class IdentityBudgetTypedDict(TypedDict):
+class BudgetTypedDict(TypedDict):
     r"""The budget scoped to this identity, if one exists. Read-only here:
     budgets are created and managed through the Budgets API
     (scope.identity). Present only when requested with `include_budget`.
@@ -32,7 +24,14 @@ class IdentityBudgetTypedDict(TypedDict):
     Budgets API for current spend.
     """
 
-    budget_id: NotRequired[str]
+    budget_id: str
+    limits: BudgetLimitsTypedDict
+    r"""BudgetLimits is the per-period spend and token ceiling. At least one
+    of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
+    set on a Budget; that invariant is enforced by the handler.
+    """
+    created_at: datetime
+    updated_at: datetime
     scope: NotRequired[BudgetScopeTypedDict]
     r"""Denormalized metadata for UI rendering, list filters, and the
     resolver's prefilter index. Never consulted for matching — the
@@ -47,19 +46,12 @@ class IdentityBudgetTypedDict(TypedDict):
     `provider == \"openai\"`); an empty expression always matches
     (workspace-wide).
     """
-    limits: NotRequired[BudgetLimitsTypedDict]
-    r"""BudgetLimits is the per-period spend and token ceiling. At least one
-    of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
-    """
     rate_limit: NotRequired[RateLimitTypedDict]
     r"""RateLimit is the per-minute request ceiling. Enforced via atomic
     increment-first semantics in the enforcement middleware.
     """
     is_active: NotRequired[bool]
     expires_at: NotRequired[datetime]
-    created_at: NotRequired[datetime]
-    updated_at: NotRequired[datetime]
     usage: NotRequired[BudgetUsageTypedDict]
     r"""Live consumption for the current period, read from the Redis
     counters the enforcement gate maintains. Populated by read paths
@@ -71,7 +63,7 @@ class IdentityBudgetTypedDict(TypedDict):
     r"""Threshold notifications. Absent when the budget has none."""
 
 
-class IdentityBudget(BaseModel):
+class Budget(BaseModel):
     r"""The budget scoped to this identity, if one exists. Read-only here:
     budgets are created and managed through the Budgets API
     (scope.identity). Present only when requested with `include_budget`.
@@ -79,7 +71,17 @@ class IdentityBudget(BaseModel):
     Budgets API for current spend.
     """
 
-    budget_id: Optional[str] = None
+    budget_id: str
+
+    limits: BudgetLimits
+    r"""BudgetLimits is the per-period spend and token ceiling. At least one
+    of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
+    set on a Budget; that invariant is enforced by the handler.
+    """
+
+    created_at: datetime
+
+    updated_at: datetime
 
     scope: Optional[BudgetScope] = None
     r"""Denormalized metadata for UI rendering, list filters, and the
@@ -97,12 +99,6 @@ class IdentityBudget(BaseModel):
     (workspace-wide).
     """
 
-    limits: Optional[BudgetLimits] = None
-    r"""BudgetLimits is the per-period spend and token ceiling. At least one
-    of `amount`, `token_limit`, or RateLimit.requests_per_minute MUST be
-    set on a Budget; that invariant is enforced by the handler.
-    """
-
     rate_limit: Optional[RateLimit] = None
     r"""RateLimit is the per-minute request ceiling. Enforced via atomic
     increment-first semantics in the enforcement middleware.
@@ -111,10 +107,6 @@ class IdentityBudget(BaseModel):
     is_active: Optional[bool] = None
 
     expires_at: Optional[datetime] = None
-
-    created_at: Optional[datetime] = None
-
-    updated_at: Optional[datetime] = None
 
     usage: Optional[BudgetUsage] = None
     r"""Live consumption for the current period, read from the Redis
@@ -131,15 +123,11 @@ class IdentityBudget(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "budget_id",
                 "scope",
                 "match",
-                "limits",
                 "rate_limit",
                 "is_active",
                 "expires_at",
-                "created_at",
-                "updated_at",
                 "usage",
                 "alerts",
             ]
@@ -181,13 +169,13 @@ class IdentityTypedDict(TypedDict):
     r"""URL of the identity avatar image."""
     tags: NotRequired[List[str]]
     r"""Free-form labels used to organize and filter identities."""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[Dict[str, Any]]
     r"""Custom JSON metadata stored with the identity."""
     metrics: NotRequired[IdentityMetricsTypedDict]
     r"""Optional usage and cost metrics. Present only when requested with
     `include_metrics`.
     """
-    budget: NotRequired[IdentityBudgetTypedDict]
+    budget: NotRequired[BudgetTypedDict]
     r"""The budget scoped to this identity, if one exists. Read-only here:
     budgets are created and managed through the Budgets API
     (scope.identity). Present only when requested with `include_budget`.
@@ -228,7 +216,7 @@ class Identity(BaseModel):
     tags: Optional[List[str]] = None
     r"""Free-form labels used to organize and filter identities."""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[Dict[str, Any]] = None
     r"""Custom JSON metadata stored with the identity."""
 
     metrics: Optional[IdentityMetrics] = None
@@ -236,7 +224,7 @@ class Identity(BaseModel):
     `include_metrics`.
     """
 
-    budget: Optional[IdentityBudget] = None
+    budget: Optional[Budget] = None
     r"""The budget scoped to this identity, if one exists. Read-only here:
     budgets are created and managed through the Budgets API
     (scope.identity). Present only when requested with `include_budget`.

@@ -18,3 +18,5 @@ value: UpdatePromptPromptsResponseReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

@@ -7,6 +7,7 @@ from .piiredactionpluginauto import (
 )
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
     ThinkingConfigAdaptiveSchemaTypedDict,
@@ -19,6 +20,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -719,6 +721,8 @@ class RetrieveAgentRequestAgentsGuardrails(BaseModel):
 RetrieveAgentRequestPluginsTypedDict = TypeAliasType(
     "RetrieveAgentRequestPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -728,7 +732,13 @@ RetrieveAgentRequestPluginsTypedDict = TypeAliasType(
 
 RetrieveAgentRequestPlugins = TypeAliasType(
     "RetrieveAgentRequestPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -959,7 +969,7 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[RetrieveAgentRequestAgentsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[RetrieveAgentRequestPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[RetrieveAgentRequestFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[RetrieveAgentRequestCacheTypedDict]
@@ -1042,7 +1052,7 @@ class RetrieveAgentRequestParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[RetrieveAgentRequestPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[RetrieveAgentRequestFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1470,6 +1480,8 @@ class RetrieveAgentRequestFallbackModelConfigurationGuardrails(BaseModel):
 RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1479,7 +1491,13 @@ RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 RetrieveAgentRequestFallbackModelConfigurationPlugins = TypeAliasType(
     "RetrieveAgentRequestFallbackModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -1730,7 +1748,7 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
     plugins: NotRequired[
         List[RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict]
     ]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[
         List[RetrieveAgentRequestFallbackModelConfigurationFallbacksTypedDict]
     ]
@@ -1831,7 +1849,7 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     plugins: Optional[List[RetrieveAgentRequestFallbackModelConfigurationPlugins]] = (
         None
     )
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[
         List[RetrieveAgentRequestFallbackModelConfigurationFallbacks]
@@ -2022,7 +2040,7 @@ class RetrieveAgentRequestModelTypedDict(TypedDict):
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    parameters: NotRequired[RetrieveAgentRequestParametersTypedDict]
+    parameters: NotRequired[Nullable[RetrieveAgentRequestParametersTypedDict]]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[RetrieveAgentRequestRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
@@ -2039,7 +2057,7 @@ class RetrieveAgentRequestModel(BaseModel):
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    parameters: Optional[RetrieveAgentRequestParameters] = None
+    parameters: OptionalNullable[RetrieveAgentRequestParameters] = UNSET
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[RetrieveAgentRequestRetry] = None
@@ -2055,7 +2073,7 @@ class RetrieveAgentRequestModel(BaseModel):
         optional_fields = set(
             ["integration_id", "parameters", "retry", "fallback_models"]
         )
-        nullable_fields = set(["integration_id", "fallback_models"])
+        nullable_fields = set(["integration_id", "parameters", "fallback_models"])
         serialized = handler(self)
         m = {}
 

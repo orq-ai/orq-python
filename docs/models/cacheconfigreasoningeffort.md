@@ -18,3 +18,5 @@ value: CacheConfigReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

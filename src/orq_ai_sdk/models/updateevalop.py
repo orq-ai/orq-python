@@ -257,7 +257,9 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     type: NotRequired[str]
     r"""Evaluator type. Optional on update — inferred from existing evaluator."""
     path: NotRequired[str]
-    r"""Project path. Optional on update — uses existing project if omitted."""
+    r"""Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`."""
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`."""
     key: NotRequired[str]
     description: NotRequired[str]
     prompt: NotRequired[str]
@@ -266,6 +268,7 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     categorical_labels: NotRequired[
         Nullable[List[UpdateEvalCategoricalLabelsTypedDict]]
     ]
+    dataset_id: NotRequired[Nullable[str]]
     repetitions: NotRequired[float]
     mode: NotRequired[UpdateEvalMode]
     model: NotRequired[str]
@@ -286,7 +289,10 @@ class UpdateEvalRequestBody(BaseModel):
     r"""Evaluator type. Optional on update — inferred from existing evaluator."""
 
     path: Optional[str] = None
-    r"""Project path. Optional on update — uses existing project if omitted."""
+    r"""Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`."""
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`."""
 
     key: Optional[str] = None
 
@@ -299,6 +305,8 @@ class UpdateEvalRequestBody(BaseModel):
     categories: OptionalNullable[List[str]] = UNSET
 
     categorical_labels: OptionalNullable[List[UpdateEvalCategoricalLabels]] = UNSET
+
+    dataset_id: OptionalNullable[str] = UNSET
 
     repetitions: Optional[float] = None
 
@@ -336,12 +344,14 @@ class UpdateEvalRequestBody(BaseModel):
             [
                 "type",
                 "path",
+                "project_id",
                 "key",
                 "description",
                 "prompt",
                 "output_type",
                 "categories",
                 "categorical_labels",
+                "dataset_id",
                 "repetitions",
                 "mode",
                 "model",
@@ -357,7 +367,7 @@ class UpdateEvalRequestBody(BaseModel):
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["categories", "categorical_labels"])
+        nullable_fields = set(["categories", "categorical_labels", "dataset_id"])
         serialized = handler(self)
         m = {}
 

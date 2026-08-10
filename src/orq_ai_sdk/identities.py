@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional
 
 
 class Identities(BaseSDK):
@@ -137,12 +137,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.ListIdentitiesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -271,12 +271,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.ListIdentitiesResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -286,12 +286,7 @@ class Identities(BaseSDK):
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
         tags: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.CreateIdentityRequestMetadata,
-                models.CreateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -332,9 +327,7 @@ class Identities(BaseSDK):
             email=email,
             avatar_url=avatar_url,
             tags=utils.unmarshal(tags, Optional[List[str]]),
-            metadata=utils.get_pydantic_model(
-                metadata, Optional[models.CreateIdentityRequestMetadata]
-            ),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request(
@@ -421,12 +414,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.CreateIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -436,12 +429,7 @@ class Identities(BaseSDK):
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
         tags: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.CreateIdentityRequestMetadata,
-                models.CreateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -482,9 +470,7 @@ class Identities(BaseSDK):
             email=email,
             avatar_url=avatar_url,
             tags=utils.unmarshal(tags, Optional[List[str]]),
-            metadata=utils.get_pydantic_model(
-                metadata, Optional[models.CreateIdentityRequestMetadata]
-            ),
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request_async(
@@ -571,12 +557,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.CreateIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -687,12 +673,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.RetrieveIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -803,12 +789,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.RetrieveIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -912,12 +898,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.DeleteIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -1021,12 +1007,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.DeleteIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -1036,12 +1022,7 @@ class Identities(BaseSDK):
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
         tags: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateIdentityRequestMetadata,
-                models.UpdateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1082,9 +1063,7 @@ class Identities(BaseSDK):
                 email=email,
                 avatar_url=avatar_url,
                 tags=utils.unmarshal(tags, Optional[List[str]]),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateIdentityRequestMetadata]
-                ),
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -1161,12 +1140,12 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.UpdateIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1176,12 +1155,7 @@ class Identities(BaseSDK):
         email: Optional[str] = None,
         avatar_url: Optional[str] = None,
         tags: Optional[Iterable[str]] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateIdentityRequestMetadata,
-                models.UpdateIdentityRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1222,9 +1196,7 @@ class Identities(BaseSDK):
                 email=email,
                 avatar_url=avatar_url,
                 tags=utils.unmarshal(tags, Optional[List[str]]),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateIdentityRequestMetadata]
-                ),
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
             ),
         )
 
@@ -1301,9 +1273,9 @@ class Identities(BaseSDK):
             return unmarshal_json_response(models.UpdateIdentityResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

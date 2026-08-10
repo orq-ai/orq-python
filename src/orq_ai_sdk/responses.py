@@ -19,6 +19,8 @@ class Responses(BaseSDK):
     def create(
         self,
         *,
+        background: Optional[bool] = None,
+        cache: Optional[Union[models.CacheConfig, models.CacheConfigTypedDict]] = None,
         cache_control: Optional[
             Union[
                 models.CreateRouterResponseCacheControl,
@@ -48,10 +50,14 @@ class Responses(BaseSDK):
             ]
         ] = None,
         instructions: Optional[str] = None,
+        integration_id: Optional[str] = None,
         limits: Optional[
             Union[
                 models.ResponseExecutionLimits, models.ResponseExecutionLimitsTypedDict
             ]
+        ] = None,
+        load_balancer: Optional[
+            Union[models.LoadBalancerConfig, models.LoadBalancerConfigTypedDict]
         ] = None,
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
@@ -60,10 +66,7 @@ class Responses(BaseSDK):
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         plugins: OptionalNullable[
-            Union[
-                Iterable[models.PublicPIIRedactionPlugin],
-                Iterable[models.PublicPIIRedactionPluginTypedDict],
-            ]
+            Union[Iterable[models.PublicPlugin], Iterable[models.PublicPluginTypedDict]]
         ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
@@ -75,12 +78,17 @@ class Responses(BaseSDK):
             Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
         ] = None,
         safety_identifier: Optional[str] = None,
+        security: Optional[
+            Union[models.SecurityConfig, models.SecurityConfigTypedDict]
+        ] = None,
         service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
+        stop_sequences: Optional[Iterable[str]] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
+        tags: OptionalNullable[Iterable[str]] = UNSET,
         temperature: Optional[float] = None,
         template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
@@ -91,6 +99,9 @@ class Responses(BaseSDK):
         ] = None,
         thread: Optional[
             Union[models.ResponseThread, models.ResponseThreadTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.TimeoutConfig, models.TimeoutConfigTypedDict]
         ] = None,
         tool_choice: Optional[
             Union[
@@ -104,6 +115,7 @@ class Responses(BaseSDK):
                 Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
+        top_k: Optional[int] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
         variables: Optional[Mapping[str, Any]] = None,
@@ -117,6 +129,8 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param background: If true, the response runs asynchronously in the background.
+        :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
@@ -125,30 +139,37 @@ class Responses(BaseSDK):
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
+        :param integration_id: Integration ID used to resolve provider credentials for this request.
         :param limits:
+        :param load_balancer:
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
+        :param security:
         :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
+        :param tags: Tags attached to the request trace.
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
         :param thread:
+        :param timeout:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
         :param tools: Tools available to the model.
+        :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
         :param top_p: Nucleus sampling parameter.
         :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
@@ -172,6 +193,8 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            background=background,
+            cache=utils.get_pydantic_model(cache, Optional[models.CacheConfig]),
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),
@@ -192,8 +215,12 @@ class Responses(BaseSDK):
                 input, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
+            integration_id=integration_id,
             limits=utils.get_pydantic_model(
                 limits, Optional[models.ResponseExecutionLimits]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.LoadBalancerConfig]
             ),
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
@@ -202,7 +229,7 @@ class Responses(BaseSDK):
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             plugins=utils.get_pydantic_model(
-                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
+                plugins, OptionalNullable[List[models.PublicPlugin]]
             ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
@@ -212,24 +239,31 @@ class Responses(BaseSDK):
             ),
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
+            security=utils.get_pydantic_model(
+                security, Optional[models.SecurityConfig]
+            ),
             service_tier=service_tier,
+            stop_sequences=utils.unmarshal(stop_sequences, Optional[List[str]]),
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(
                 stream_options, Optional[models.StreamOptions]
             ),
+            tags=utils.unmarshal(tags, OptionalNullable[List[str]]),
             temperature=temperature,
             template_engine=template_engine,
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
+            timeout=utils.get_pydantic_model(timeout, Optional[models.TimeoutConfig]),
             tool_choice=utils.get_pydantic_model(
                 tool_choice, Optional[models.CreateRouterResponseToolChoice]
             ),
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateRouterResponseTools]]
             ),
+            top_k=top_k,
             top_logprobs=top_logprobs,
             top_p=top_p,
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -304,17 +338,21 @@ class Responses(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )
 
     async def create_async(
         self,
         *,
+        background: Optional[bool] = None,
+        cache: Optional[Union[models.CacheConfig, models.CacheConfigTypedDict]] = None,
         cache_control: Optional[
             Union[
                 models.CreateRouterResponseCacheControl,
@@ -344,10 +382,14 @@ class Responses(BaseSDK):
             ]
         ] = None,
         instructions: Optional[str] = None,
+        integration_id: Optional[str] = None,
         limits: Optional[
             Union[
                 models.ResponseExecutionLimits, models.ResponseExecutionLimitsTypedDict
             ]
+        ] = None,
+        load_balancer: Optional[
+            Union[models.LoadBalancerConfig, models.LoadBalancerConfigTypedDict]
         ] = None,
         max_output_tokens: Optional[int] = None,
         max_tool_calls: Optional[int] = None,
@@ -356,10 +398,7 @@ class Responses(BaseSDK):
         model: Optional[str] = None,
         parallel_tool_calls: Optional[bool] = None,
         plugins: OptionalNullable[
-            Union[
-                Iterable[models.PublicPIIRedactionPlugin],
-                Iterable[models.PublicPIIRedactionPluginTypedDict],
-            ]
+            Union[Iterable[models.PublicPlugin], Iterable[models.PublicPluginTypedDict]]
         ] = UNSET,
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
@@ -371,12 +410,17 @@ class Responses(BaseSDK):
             Union[models.ResponseRetryConfig, models.ResponseRetryConfigTypedDict]
         ] = None,
         safety_identifier: Optional[str] = None,
+        security: Optional[
+            Union[models.SecurityConfig, models.SecurityConfigTypedDict]
+        ] = None,
         service_tier: Optional[models.CreateRouterResponseServiceTier] = None,
+        stop_sequences: Optional[Iterable[str]] = None,
         store: Optional[bool] = None,
         stream: Optional[bool] = None,
         stream_options: Optional[
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
+        tags: OptionalNullable[Iterable[str]] = UNSET,
         temperature: Optional[float] = None,
         template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
@@ -387,6 +431,9 @@ class Responses(BaseSDK):
         ] = None,
         thread: Optional[
             Union[models.ResponseThread, models.ResponseThreadTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.TimeoutConfig, models.TimeoutConfigTypedDict]
         ] = None,
         tool_choice: Optional[
             Union[
@@ -400,6 +447,7 @@ class Responses(BaseSDK):
                 Iterable[models.CreateRouterResponseToolsTypedDict],
             ]
         ] = None,
+        top_k: Optional[int] = None,
         top_logprobs: Optional[int] = None,
         top_p: Optional[float] = None,
         variables: Optional[Mapping[str, Any]] = None,
@@ -413,6 +461,8 @@ class Responses(BaseSDK):
 
         Creates a model response for the given input. Returns a response object or a stream of server-sent events.
 
+        :param background: If true, the response runs asynchronously in the background.
+        :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
@@ -421,30 +471,37 @@ class Responses(BaseSDK):
         :param identity:
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
+        :param integration_id: Integration ID used to resolve provider credentials for this request.
         :param limits:
+        :param load_balancer:
         :param max_output_tokens: Maximum number of tokens in the response output.
         :param max_tool_calls: Maximum number of tool call rounds in the agentic loop.
         :param memory:
         :param metadata: Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400.
         :param model: The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform.
         :param parallel_tool_calls: Whether to allow parallel tool calls.
-        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Currently supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response.
+        :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces.
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
+        :param security:
         :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
+        :param tags: Tags attached to the request trace.
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
         :param thread:
+        :param timeout:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
         :param tools: Tools available to the model.
+        :param top_k: Only sample from the top K options for each subsequent token. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param top_logprobs: Number of most likely tokens to return at each position.
         :param top_p: Nucleus sampling parameter.
         :param variables: Template variables for prompt substitution. Plain values fill {{variable}} placeholders in instructions. For secrets, use {\"secret\": true, \"value\": \"sensitive-data\"} — secrets are automatically passed to platform tools (Python, HTTP, MCP) and redacted from traces.
@@ -468,6 +525,8 @@ class Responses(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateRouterResponseRequestBody(
+            background=background,
+            cache=utils.get_pydantic_model(cache, Optional[models.CacheConfig]),
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),
@@ -488,8 +547,12 @@ class Responses(BaseSDK):
                 input, Optional[models.CreateRouterResponseInput]
             ),
             instructions=instructions,
+            integration_id=integration_id,
             limits=utils.get_pydantic_model(
                 limits, Optional[models.ResponseExecutionLimits]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.LoadBalancerConfig]
             ),
             max_output_tokens=max_output_tokens,
             max_tool_calls=max_tool_calls,
@@ -498,7 +561,7 @@ class Responses(BaseSDK):
             model=model,
             parallel_tool_calls=parallel_tool_calls,
             plugins=utils.get_pydantic_model(
-                plugins, OptionalNullable[List[models.PublicPIIRedactionPlugin]]
+                plugins, OptionalNullable[List[models.PublicPlugin]]
             ),
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
@@ -508,24 +571,31 @@ class Responses(BaseSDK):
             ),
             retry=utils.get_pydantic_model(retry, Optional[models.ResponseRetryConfig]),
             safety_identifier=safety_identifier,
+            security=utils.get_pydantic_model(
+                security, Optional[models.SecurityConfig]
+            ),
             service_tier=service_tier,
+            stop_sequences=utils.unmarshal(stop_sequences, Optional[List[str]]),
             store=store,
             stream=stream,
             stream_options=utils.get_pydantic_model(
                 stream_options, Optional[models.StreamOptions]
             ),
+            tags=utils.unmarshal(tags, OptionalNullable[List[str]]),
             temperature=temperature,
             template_engine=template_engine,
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
+            timeout=utils.get_pydantic_model(timeout, Optional[models.TimeoutConfig]),
             tool_choice=utils.get_pydantic_model(
                 tool_choice, Optional[models.CreateRouterResponseToolChoice]
             ),
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateRouterResponseTools]]
             ),
+            top_k=top_k,
             top_logprobs=top_logprobs,
             top_p=top_p,
             variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
@@ -600,13 +670,15 @@ class Responses(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
         http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError("Unexpected response received", http_res, http_res_text)
+        raise models.APIDefaultError(
+            "Unexpected response received", http_res, http_res_text
+        )
 
     def get(
         self,
@@ -690,18 +762,24 @@ class Responses(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.RetrieveResponseResponseBody, http_res
             )
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveResponseResponsesResponseBodyData, http_res
+            )
+            raise models.RetrieveResponseResponsesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -785,15 +863,21 @@ class Responses(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.RetrieveResponseResponseBody, http_res
             )
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.RetrieveResponseResponsesResponseBodyData, http_res
+            )
+            raise models.RetrieveResponseResponsesResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

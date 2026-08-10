@@ -22,6 +22,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -35,6 +36,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -347,6 +349,8 @@ GetOnePromptPromptsReasoningEffort = Literal[
     "low",
     "medium",
     "high",
+    "xhigh",
+    "max",
 ]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -881,7 +885,6 @@ class GetOnePromptPromptConfigTypedDict(TypedDict):
     stream: NotRequired[bool]
     model: NotRequired[Nullable[str]]
     model_db_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
     model_type: NotRequired[Nullable[GetOnePromptModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[GetOnePromptModelParametersTypedDict]
@@ -905,7 +908,6 @@ class GetOnePromptPromptConfig(BaseModel):
     model: OptionalNullable[str] = UNSET
 
     model_db_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
 
     model_type: OptionalNullable[GetOnePromptModelType] = UNSET
     r"""The modality of the model"""
@@ -1316,6 +1318,8 @@ class GetOnePromptGuardrails(BaseModel):
 GetOnePromptPluginsTypedDict = TypeAliasType(
     "GetOnePromptPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1325,7 +1329,13 @@ GetOnePromptPluginsTypedDict = TypeAliasType(
 
 GetOnePromptPlugins = TypeAliasType(
     "GetOnePromptPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -2173,7 +2183,7 @@ class GetOnePromptPromptFieldTypedDict(TypedDict):
     guardrails: NotRequired[List[GetOnePromptGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[GetOnePromptPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[GetOnePromptFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[GetOnePromptRetryTypedDict]
@@ -2278,7 +2288,7 @@ class GetOnePromptPromptField(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[GetOnePromptPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[GetOnePromptFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""

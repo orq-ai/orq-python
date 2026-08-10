@@ -8,13 +8,9 @@ from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Iterable, List, Mapping, Optional, Union
-from typing_extensions import deprecated
 
 
 class Reporting(BaseSDK):
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def query(
         self,
         *,
@@ -29,6 +25,8 @@ class Reporting(BaseSDK):
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
+        mode: Optional[models.QueryReportRequestMode] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -36,7 +34,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query) instead. Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
+        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. This API remains supported while the neutral telemetry envelope is proven against every reporting request shape.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).
@@ -50,6 +48,8 @@ class Reporting(BaseSDK):
             `America/New_York`. Response timestamps remain UTC. Empty means UTC.
         :param include_totals: When true, include a `totals` block aggregated across the full
             report window.
+        :param mode: Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty.
+        :param sort: Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -78,6 +78,8 @@ class Reporting(BaseSDK):
             limit=limit,
             time_zone=time_zone,
             include_totals=include_totals,
+            mode=mode,
+            sort=sort,
         )
 
         req = self._build_request(
@@ -129,16 +131,13 @@ class Reporting(BaseSDK):
             return unmarshal_json_response(models.QueryReportResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def query_async(
         self,
         *,
@@ -153,6 +152,8 @@ class Reporting(BaseSDK):
         limit: Optional[int] = None,
         time_zone: Optional[str] = None,
         include_totals: Optional[bool] = None,
+        mode: Optional[models.QueryReportRequestMode] = None,
+        sort: Optional[models.Sort] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -160,7 +161,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Deprecated: use TelemetryService.Query (POST /v2/telemetry/query) instead. Returns time-series analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. Select a metric and time range, break results down by supported dimensions, apply filters, and optionally include totals for the full range.
+        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. This API remains supported while the neutral telemetry envelope is proven against every reporting request shape.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).
@@ -174,6 +175,8 @@ class Reporting(BaseSDK):
             `America/New_York`. Response timestamps remain UTC. Empty means UTC.
         :param include_totals: When true, include a `totals` block aggregated across the full
             report window.
+        :param mode: Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty.
+        :param sort: Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -202,6 +205,8 @@ class Reporting(BaseSDK):
             limit=limit,
             time_zone=time_zone,
             include_totals=include_totals,
+            mode=mode,
+            sort=sort,
         )
 
         req = self._build_request_async(
@@ -253,9 +258,9 @@ class Reporting(BaseSDK):
             return unmarshal_json_response(models.QueryReportResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

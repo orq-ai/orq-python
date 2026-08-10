@@ -228,11 +228,13 @@ class EvaluatorResponseLlmTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[Nullable[List[CategoricalLabelsTypedDict]]]
-    dataset_id: NotRequired[str]
+    dataset_id: NotRequired[Nullable[str]]
     model: NotRequired[str]
     jury: NotRequired[JuryTypedDict]
 
@@ -250,11 +252,14 @@ class EvaluatorResponseLlm(BaseModel):
 
     mode: Mode
 
-    created: Optional[str] = "2026-08-06T08:17:03.296Z"
+    created: Optional[str] = "2026-08-09T21:43:31.698Z"
 
-    updated: Optional[str] = "2026-08-06T08:17:03.296Z"
+    updated: Optional[str] = "2026-08-09T21:43:31.698Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
 
     guardrail_config: Optional[Any] = None
 
@@ -264,7 +269,7 @@ class EvaluatorResponseLlm(BaseModel):
 
     categorical_labels: OptionalNullable[List[CategoricalLabels]] = UNSET
 
-    dataset_id: Optional[str] = None
+    dataset_id: OptionalNullable[str] = UNSET
 
     model: Optional[str] = None
 
@@ -277,6 +282,7 @@ class EvaluatorResponseLlm(BaseModel):
                 "created",
                 "updated",
                 "updated_by_id",
+                "project_id",
                 "guardrail_config",
                 "repetitions",
                 "categories",
@@ -287,7 +293,13 @@ class EvaluatorResponseLlm(BaseModel):
             ]
         )
         nullable_fields = set(
-            ["updated_by_id", "repetitions", "categories", "categorical_labels"]
+            [
+                "updated_by_id",
+                "repetitions",
+                "categories",
+                "categorical_labels",
+                "dataset_id",
+            ]
         )
         serialized = handler(self)
         m = {}

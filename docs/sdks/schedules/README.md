@@ -47,13 +47,13 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
-Creates a schedule that runs the agent on a recurring or one-off cadence. The minimum firing interval is 1 hour for `cron` and `interval`; `once` schedules are exempt.
+Creates a schedule that runs the agent on a cron cadence. Only `cron` is accepted, as a 6-field expression firing at most once per hour: hourly `0 0 * * * *`, daily `0 0 9 * * *`, or weekly `0 0 9 * * 1`.
 
 ### Example Usage: daily_cron
 
@@ -67,7 +67,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="0 0 9 * * mon-fri", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Daily morning briefing", expression="0 0 9 * * *", payload={
         "input": "Generate the morning briefing for {{region}}",
         "memory_entity_id": "mem_entity_123",
         "metadata": {
@@ -77,6 +77,26 @@ with Orq(
             "region": "EMEA",
         },
     }, type_="cron", agent_tag="v2")
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: hourly_cron
+
+<!-- UsageSnippet language="python" operationID="create-agent-schedule" method="post" path="/v3/agents/{agent_key}/schedules" example="hourly_cron" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.schedules.create(agent_key="<value>", display_name="Hourly ticket summary", expression="0 0 * * * *", payload={
+        "input": "Summarize new tickets from the last hour",
+    }, type_="cron")
 
     # Handle response
     print(res)
@@ -94,9 +114,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="@every 1h", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Bernie56", expression="@every 1h", payload={
         "input": "Summarize new tickets from the last hour",
-    }, type_="interval")
+    })
 
     # Handle response
     print(res)
@@ -114,9 +134,29 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.create(agent_key="<value>", expression="@at 2026-05-01T09:00:00Z", payload={
+    res = orq.schedules.create(agent_key="<value>", display_name="Earlene.Hayes", expression="@at 2026-05-01T09:00:00Z", payload={
         "input": "Check in on ticket TICKET-123 and post a status update.",
-    }, type_="once")
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: weekly_cron
+
+<!-- UsageSnippet language="python" operationID="create-agent-schedule" method="post" path="/v3/agents/{agent_key}/schedules" example="weekly_cron" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.schedules.create(agent_key="<value>", display_name="Weekly ticket status update", expression="0 0 9 * * 1", payload={
+        "input": "Post the weekly status update for TICKET-123.",
+    }, type_="cron")
 
     # Handle response
     print(res)
@@ -125,14 +165,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                  | Type                                                                                                                                                                                       | Required                                                                                                                                                                                   | Description                                                                                                                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `agent_key`                                                                                                                                                                                | *str*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | The unique routing key of the agent the schedule belongs to.                                                                                                                               |
-| `expression`                                                                                                                                                                               | *str*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval. |
-| `payload`                                                                                                                                                                                  | [models.PublicSchedulePayload](../../models/publicschedulepayload.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                                         | N/A                                                                                                                                                                                        |
-| `type`                                                                                                                                                                                     | [models.CreateAgentScheduleType](../../models/createagentscheduletype.md)                                                                                                                  | :heavy_check_mark:                                                                                                                                                                         | Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.                                                                           |
-| `agent_tag`                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                         | Pin this schedule to a specific agent version. Omit to always use the active version.                                                                                                      |
-| `retries`                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                        |
+| Parameter                                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent_key`                                                                                                                                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | The unique routing key of the agent the schedule belongs to.                                                                                                                                                                                                                                                                                                                     |
+| `display_name`                                                                                                                                                                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | Human-readable name of the schedule.                                                                                                                                                                                                                                                                                                                                             |
+| `expression`                                                                                                                                                                                                                                                                                                                                                                     | *str*                                                                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour. |
+| `payload`                                                                                                                                                                                                                                                                                                                                                                        | [models.PublicSchedulePayload](../../models/publicschedulepayload.md)                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                                                              |
+| `type`                                                                                                                                                                                                                                                                                                                                                                           | [models.CreateAgentScheduleType](../../models/createagentscheduletype.md)                                                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.                                                                                                                                                                                                                                                             |
+| `agent_tag`                                                                                                                                                                                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                               | Pin this schedule to a specific agent version. Omit to always use the active version.                                                                                                                                                                                                                                                                                            |
+| `retries`                                                                                                                                                                                                                                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                              |
 
 ### Response
 
@@ -144,7 +185,7 @@ with Orq(
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | models.CreateAgentScheduleSchedulesResponseBody         | 400                                                     | application/json                                        |
 | models.CreateAgentScheduleSchedulesResponseResponseBody | 404                                                     | application/json                                        |
-| models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+| models.APIDefaultError                                  | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## delete
 
@@ -181,7 +222,7 @@ with Orq(
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | models.DeleteAgentScheduleResponseBody | 404                                    | application/json                       |
-| models.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+| models.APIDefaultError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## retrieve
 
@@ -223,7 +264,7 @@ with Orq(
 | Error Type                                        | Status Code                                       | Content Type                                      |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | models.RetrieveAgentScheduleSchedulesResponseBody | 404                                               | application/json                                  |
-| models.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
+| models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |
 
 ## update
 
@@ -241,7 +282,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", expression="@every 6h")
+    res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", expression="0 0 9 * * *")
 
     # Handle response
     print(res)
@@ -260,6 +301,24 @@ with Orq(
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", is_active=False)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: rename
+
+<!-- UsageSnippet language="python" operationID="update-agent-schedule" method="patch" path="/v3/agents/{agent_key}/schedules/{schedule_id}" example="rename" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", display_name="Nightly report")
 
     # Handle response
     print(res)
@@ -291,16 +350,17 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `agent_key`                                                                                                            | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | The unique routing key of the agent the schedule belongs to.                                                           |
-| `schedule_id`                                                                                                          | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | The schedule's ULID, as returned from create.                                                                          |
-| `agent_tag`                                                                                                            | *Optional[str]*                                                                                                        | :heavy_minus_sign:                                                                                                     | Change the pinned agent version.                                                                                       |
-| `expression`                                                                                                           | *Optional[str]*                                                                                                        | :heavy_minus_sign:                                                                                                     | Update the schedule expression. Minimum firing cadence is 1 hour for cron and interval.                                |
-| `is_active`                                                                                                            | *Optional[bool]*                                                                                                       | :heavy_minus_sign:                                                                                                     | Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values. |
-| `payload`                                                                                                              | [Optional[models.PublicSchedulePayload]](../../models/publicschedulepayload.md)                                        | :heavy_minus_sign:                                                                                                     | N/A                                                                                                                    |
-| `type`                                                                                                                 | [Optional[models.UpdateAgentScheduleType]](../../models/updateagentscheduletype.md)                                    | :heavy_minus_sign:                                                                                                     | Change the schedule type. Changing type or expression resets the NATS schedule and bumps generation.                   |
-| `retries`                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                       | :heavy_minus_sign:                                                                                                     | Configuration to override the default retry behavior of the client.                                                    |
+| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `agent_key`                                                                                                                 | *str*                                                                                                                       | :heavy_check_mark:                                                                                                          | The unique routing key of the agent the schedule belongs to.                                                                |
+| `schedule_id`                                                                                                               | *str*                                                                                                                       | :heavy_check_mark:                                                                                                          | The schedule's ULID, as returned from create.                                                                               |
+| `agent_tag`                                                                                                                 | *Optional[str]*                                                                                                             | :heavy_minus_sign:                                                                                                          | Change the pinned agent version.                                                                                            |
+| `display_name`                                                                                                              | *Optional[str]*                                                                                                             | :heavy_minus_sign:                                                                                                          | Rename the schedule.                                                                                                        |
+| `expression`                                                                                                                | *Optional[str]*                                                                                                             | :heavy_minus_sign:                                                                                                          | Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.                       |
+| `is_active`                                                                                                                 | *Optional[bool]*                                                                                                            | :heavy_minus_sign:                                                                                                          | Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values.      |
+| `payload`                                                                                                                   | [Optional[models.PublicSchedulePayload]](../../models/publicschedulepayload.md)                                             | :heavy_minus_sign:                                                                                                          | N/A                                                                                                                         |
+| `type`                                                                                                                      | [Optional[models.UpdateAgentScheduleType]](../../models/updateagentscheduletype.md)                                         | :heavy_minus_sign:                                                                                                          | Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation. |
+| `retries`                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                            | :heavy_minus_sign:                                                                                                          | Configuration to override the default retry behavior of the client.                                                         |
 
 ### Response
 
@@ -312,7 +372,7 @@ with Orq(
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | models.UpdateAgentScheduleSchedulesResponseBody         | 400                                                     | application/json                                        |
 | models.UpdateAgentScheduleSchedulesResponseResponseBody | 404                                                     | application/json                                        |
-| models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+| models.APIDefaultError                                  | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## trigger
 
@@ -355,4 +415,4 @@ with Orq(
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | models.TriggerAgentScheduleSchedulesResponseBody         | 400                                                      | application/json                                         |
 | models.TriggerAgentScheduleSchedulesResponseResponseBody | 404                                                      | application/json                                         |
-| models.APIError                                          | 4XX, 5XX                                                 | \*/\*                                                    |
+| models.APIDefaultError                                   | 4XX, 5XX                                                 | \*/\*                                                    |

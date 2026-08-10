@@ -13,7 +13,7 @@
 
 ## list
 
-Returns API keys visible to the current workspace, ordered by creation time with the newest key first. The `api_key` and `token_hash` fields are never returned by this endpoint; only `token_prefix` is included.
+Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
 
 ### Example Usage
 
@@ -51,13 +51,13 @@ with Orq(
 
 ### Response
 
-**[models.ListAPIKeysResponse](../../models/listapikeysresponse.md)**
+**[List[models.APIKeyRestResponse]](../../models/.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -92,17 +92,18 @@ with Orq(
 | `permission_mode`                                                                                                                                                                                                                                          | [Optional[models.PermissionMode]](../../models/permissionmode.md)                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                        |
 | `access`                                                                                                                                                                                                                                                   | Dict[str, *int*]                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                         | Per-domain access map. Required when `permission_mode` =<br/> `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full<br/> catalog of valid keys (Domain.id) and AccessLevel string values,<br/> or fetch the live catalog via the capability catalog endpoint. |
 | `expires_at`                                                                                                                                                                                                                                               | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                         | Optional expiration. When set, the authenticate hot-path rejects<br/> the key once `expires_at` is in the past. Unset means the key<br/> never expires.                                                                                                    |
+| `mcp_access`                                                                                                                                                                                                                                               | [Optional[models.McpAccess]](../../models/mcpaccess.md)                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                         | Optional MCP-gateway access restriction. Unset means no<br/> restriction. See McpAccess for the deny_all / allow-list semantics.                                                                                                                           |
 | `retries`                                                                                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                                                                                        |
 
 ### Response
 
-**[models.CreateAPIKeyResponse](../../models/createapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_capabilities
 
@@ -139,9 +140,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -176,13 +177,13 @@ with Orq(
 
 ### Response
 
-**[models.GetAPIKeyResponse](../../models/getapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -200,10 +201,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.api_keys.delete(api_key_id="<id>")
+    orq.api_keys.delete(api_key_id="<id>")
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
@@ -214,15 +214,11 @@ with Orq(
 | `api_key_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | API key id to delete.                                               |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
-### Response
-
-**[models.DeleteAPIKeyResponse](../../models/deleteapikeyresponse.md)**
-
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -259,14 +255,15 @@ with Orq(
 | `project_scope`                                                                                                                                                                                                                                                                                        | [Optional[models.ProjectScope]](../../models/projectscope.md)                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                     | New project scope. Omit to keep current.                                                                                                                                                                                                                                                               |
 | `expires_at`                                                                                                                                                                                                                                                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                     | New expiration. Omit to keep current. Set `clear_expires_at = true`<br/> to remove an existing expiration (a zero Timestamp here would still<br/> mean "no change" because of optional semantics).                                                                                                     |
 | `clear_expires_at`                                                                                                                                                                                                                                                                                     | *Optional[bool]*                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                     | Force-clear the expiration. Mutually exclusive with `expires_at`.                                                                                                                                                                                                                                      |
+| `mcp_access`                                                                                                                                                                                                                                                                                           | [Optional[models.McpAccess]](../../models/mcpaccess.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                     | Replacement MCP-gateway access restriction. Absent leaves the<br/> current value intact; an explicitly-set McpAccess replaces it —<br/> including an empty one (deny_all=false + empty list), which clears<br/> any existing restriction. See McpAccess.                                               |
 | `retries`                                                                                                                                                                                                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                     | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                    |
 
 ### Response
 
-**[models.UpdateAPIKeyResponse](../../models/updateapikeyresponse.md)**
+**[models.APIKeyRestResponse](../../models/apikeyrestresponse.md)**
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

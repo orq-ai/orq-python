@@ -15,9 +15,13 @@ Metric = Literal[
     "genai.tokens",
     "genai.cost",
     "genai.errors",
+    "genai.error_rate",
     "genai.latency.p50",
     "genai.latency.p95",
     "genai.latency.p99",
+    "genai.ttft.avg",
+    "genai.ttft.p50",
+    "genai.ttft.p95",
     "genai.evaluator.runs",
     "genai.evaluator.pass_rate",
     "genai.evaluator.score.avg",
@@ -76,6 +80,20 @@ GroupBy = Literal[
 ]
 
 
+QueryReportRequestMode = Literal[
+    "timeseries",
+    "scalar",
+]
+r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
+
+
+Sort = Literal[
+    "desc",
+    "asc",
+]
+r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
+
+
 class QueryReportRequestTypedDict(TypedDict):
     metric: Metric
     r"""Catalogue metric to query."""
@@ -101,6 +119,10 @@ class QueryReportRequestTypedDict(TypedDict):
     r"""When true, include a `totals` block aggregated across the full
     report window.
     """
+    mode: NotRequired[QueryReportRequestMode]
+    r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
+    sort: NotRequired[Sort]
+    r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
 
 
 class QueryReportRequest(BaseModel):
@@ -137,10 +159,25 @@ class QueryReportRequest(BaseModel):
     report window.
     """
 
+    mode: Optional[QueryReportRequestMode] = None
+    r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
+
+    sort: Optional[Sort] = None
+    r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["grain", "group_by", "filters", "limit", "time_zone", "include_totals"]
+            [
+                "grain",
+                "group_by",
+                "filters",
+                "limit",
+                "time_zone",
+                "include_totals",
+                "mode",
+                "sort",
+            ]
         )
         serialized = handler(self)
         m = {}

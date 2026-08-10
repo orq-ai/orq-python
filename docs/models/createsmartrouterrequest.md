@@ -1,0 +1,10 @@
+# CreateSmartRouterRequest
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `key`                                                                                              | *str*                                                                                              | :heavy_check_mark:                                                                                 | Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens. |
+| `models`                                                                                           | List[*str*]                                                                                        | :heavy_check_mark:                                                                                 | Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.                 |
+| `profile`                                                                                          | [models.SmartRouterProfile](../models/smartrouterprofile.md)                                       | :heavy_check_mark:                                                                                 | N/A                                                                                                |

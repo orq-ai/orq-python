@@ -58,6 +58,7 @@ from .piiredactionpluginauto import (
 )
 from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
 from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -85,6 +86,7 @@ from .toolexecutionstartedstreamingevent import (
     ToolExecutionStartedStreamingEventTypedDict,
 )
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -400,6 +402,8 @@ class StreamRunAgentModelConfigurationGuardrails(BaseModel):
 StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -409,7 +413,13 @@ StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
 
 StreamRunAgentModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -644,7 +654,7 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     guardrails: NotRequired[List[StreamRunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[StreamRunAgentModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[StreamRunAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
@@ -729,7 +739,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[StreamRunAgentModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[StreamRunAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1211,6 +1221,8 @@ class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
 StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1220,7 +1232,13 @@ StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
 
 StreamRunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -1463,7 +1481,7 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     ]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[StreamRunAgentFallbackModelConfigurationPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[
         List[StreamRunAgentFallbackModelConfigurationFallbacksTypedDict]
     ]
@@ -1560,7 +1578,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[StreamRunAgentFallbackModelConfigurationPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[StreamRunAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -2028,7 +2046,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal[
     "mcp",
 ]
 
@@ -2060,19 +2078,19 @@ class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
     "object",
 ]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchemaTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchema(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2109,7 +2127,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KZB2BW8BNHQT5MGHSHMMDF19"
+    id: Optional[str] = "01KZM7PMSKJFM1X1NX88Z6T3YJ"
 
     description: Optional[str] = None
 
@@ -2183,7 +2201,7 @@ class AgentToolInputRunMcp(BaseModel):
 class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2197,7 +2215,7 @@ class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
 class AgentToolInputRunMCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2230,7 +2248,7 @@ class AgentToolInputRunMCPToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type = Literal[
     "json_schema",
 ]
 
@@ -2318,7 +2336,7 @@ class StreamRunAgentAgentToolInputRunJSONSchema(BaseModel):
 class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2332,7 +2350,7 @@ class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
 class AgentToolInputRunJSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2365,12 +2383,12 @@ class AgentToolInputRunJSONSchemaToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type = Literal[
     "function",
 ]
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType = (
     Literal["object",]
 )
 r"""The type must be \"object\" """
@@ -2379,7 +2397,7 @@ r"""The type must be \"object\" """
 class StreamRunAgentAgentToolInputRunAgentsParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2395,7 +2413,7 @@ class StreamRunAgentAgentToolInputRunAgentsParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15FunctionType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17FunctionType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2457,7 +2475,7 @@ class StreamRunAgentAgentToolInputRunFunction(BaseModel):
 class AgentToolInputRunFunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     function: StreamRunAgentAgentToolInputRunFunctionTypedDict
@@ -2470,7 +2488,7 @@ class AgentToolInputRunFunctionToolRunTypedDict(TypedDict):
 class AgentToolInputRunFunctionToolRun(BaseModel):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools17Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2504,12 +2522,12 @@ class AgentToolInputRunFunctionToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal[
     "code",
 ]
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType = (
     Literal["object",]
 )
 r"""The type must be \"object\" """
@@ -2518,7 +2536,7 @@ r"""The type must be \"object\" """
 class StreamRunAgentAgentToolInputRunParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -2534,7 +2552,7 @@ class StreamRunAgentAgentToolInputRunParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14CodeToolType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16CodeToolType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -2592,7 +2610,7 @@ class AgentToolInputRunCodeTool(BaseModel):
 class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2608,7 +2626,7 @@ class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
 class AgentToolInputRunCodeToolRun(BaseModel):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2644,7 +2662,7 @@ class AgentToolInputRunCodeToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
     "http",
 ]
 
@@ -2746,7 +2764,7 @@ class AgentToolInputRunBlueprint(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType = (
     Literal[
         "string",
         "number",
@@ -2769,7 +2787,7 @@ r"""The default value of the argument."""
 
 
 class AgentToolInputRunArgumentsTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -2780,7 +2798,7 @@ class AgentToolInputRunArgumentsTypedDict(TypedDict):
 
 
 class AgentToolInputRunArguments(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13HTTPType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -2843,7 +2861,7 @@ class AgentToolInputRunHTTP(BaseModel):
 class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2859,7 +2877,7 @@ class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
 class AgentToolInputRunHTTPToolRun(BaseModel):
     r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2895,7 +2913,7 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "code_interpreter",
 ]
 
@@ -2903,7 +2921,7 @@ StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Lit
 class StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
     r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
     configuration: NotRequired[Dict[str, Any]]
@@ -2912,6 +2930,92 @@ class StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict(TypedDict):
 
 class StreamRunAgentAgentToolInputRunCodeInterpreterTool(BaseModel):
     r"""Executes model-written Python code. Uses provider-native code execution when the model supports it, otherwise a secure orq-managed sandbox."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
+    "sidekick",
+]
+
+
+class StreamRunAgentAgentToolInputRunSidekickToolTypedDict(TypedDict):
+    r"""Delegate a subtask to a secondary model for execution"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class StreamRunAgentAgentToolInputRunSidekickTool(BaseModel):
+    r"""Delegate a subtask to a secondary model for execution"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    configuration: Optional[Dict[str, Any]] = None
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval", "configuration"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
+    "advisor",
+]
+
+
+class StreamRunAgentAgentToolInputRunAdvisorToolTypedDict(TypedDict):
+    r"""Consult a secondary model for advice on the current task"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+    configuration: NotRequired[Dict[str, Any]]
+    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
+
+
+class StreamRunAgentAgentToolInputRunAdvisorTool(BaseModel):
+    r"""Consult a secondary model for advice on the current task"""
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
 
@@ -3409,16 +3513,18 @@ StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
     "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
         StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
-        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict,
         StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict,
-        StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict,
+        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
         StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict,
         StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict,
         StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict,
         StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
-        StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict,
         StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict,
+        StreamRunAgentAgentToolInputRunAdvisorToolTypedDict,
+        StreamRunAgentAgentToolInputRunSidekickToolTypedDict,
         StreamRunAgentAgentToolInputRunCodeInterpreterToolTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
         AgentToolInputRunJSONSchemaToolRunTypedDict,
@@ -3467,6 +3573,8 @@ StreamRunAgentAgentToolInputRun = Annotated[
             Tag("query_knowledge_base"),
         ],
         Annotated[StreamRunAgentAgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[StreamRunAgentAgentToolInputRunAdvisorTool, Tag("advisor")],
+        Annotated[StreamRunAgentAgentToolInputRunSidekickTool, Tag("sidekick")],
         Annotated[
             StreamRunAgentAgentToolInputRunCodeInterpreterTool, Tag("code_interpreter")
         ],

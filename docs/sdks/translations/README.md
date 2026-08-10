@@ -125,4 +125,4 @@ with Orq(
 | Error Type                                                  | Status Code                                                 | Content Type                                                |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | models.CreateTranslationRouterAudioTranslationsResponseBody | 422                                                         | application/json                                            |
-| models.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
+| models.APIDefaultError                                      | 4XX, 5XX                                                    | \*/\*                                                       |

@@ -38,9 +38,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create_evaluation
 
@@ -71,9 +71,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## remove
 
@@ -112,7 +112,7 @@ with Orq(
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | models.PostV2FeedbackRemoveFeedbackResponseBody | 404                                             | application/json                                |
-| models.APIError                                 | 4XX, 5XX                                        | \*/\*                                           |
+| models.APIDefaultError                          | 4XX, 5XX                                        | \*/\*                                           |
 
 ## create
 
@@ -152,4 +152,4 @@ with Orq(
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | models.PostV2FeedbackFeedbackResponseBody         | 400                                               | application/json                                  |
 | models.PostV2FeedbackFeedbackResponseResponseBody | 404                                               | application/json                                  |
-| models.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
+| models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |

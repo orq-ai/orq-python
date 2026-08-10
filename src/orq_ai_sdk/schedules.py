@@ -98,12 +98,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -193,17 +193,18 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def create(
         self,
         *,
         agent_key: str,
+        display_name: str,
         expression: str,
         payload: Union[
             models.PublicSchedulePayload, models.PublicSchedulePayloadTypedDict
@@ -217,12 +218,13 @@ class Schedules(BaseSDK):
     ) -> models.CreateAgentScheduleResponseBody:
         r"""Create schedule
 
-        Creates a schedule that runs the agent on a recurring or one-off cadence. The minimum firing interval is 1 hour for `cron` and `interval`; `once` schedules are exempt.
+        Creates a schedule that runs the agent on a cron cadence. Only `cron` is accepted, as a 6-field expression firing at most once per hour: hourly `0 0 * * * *`, daily `0 0 9 * * *`, or weekly `0 0 9 * * 1`.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
-        :param expression: Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval.
+        :param display_name: Human-readable name of the schedule.
+        :param expression: 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour.
         :param payload:
-        :param type: Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.
+        :param type: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
         :param agent_tag: Pin this schedule to a specific agent version. Omit to always use the active version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -246,6 +248,7 @@ class Schedules(BaseSDK):
             agent_key=agent_key,
             request_body=models.CreateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 payload=utils.get_pydantic_model(payload, models.PublicSchedulePayload),
                 type=type_,
@@ -326,17 +329,18 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
         *,
         agent_key: str,
+        display_name: str,
         expression: str,
         payload: Union[
             models.PublicSchedulePayload, models.PublicSchedulePayloadTypedDict
@@ -350,12 +354,13 @@ class Schedules(BaseSDK):
     ) -> models.CreateAgentScheduleResponseBody:
         r"""Create schedule
 
-        Creates a schedule that runs the agent on a recurring or one-off cadence. The minimum firing interval is 1 hour for `cron` and `interval`; `once` schedules are exempt.
+        Creates a schedule that runs the agent on a cron cadence. Only `cron` is accepted, as a 6-field expression firing at most once per hour: hourly `0 0 * * * *`, daily `0 0 9 * * *`, or weekly `0 0 9 * * 1`.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
-        :param expression: Schedule expression. Examples: cron '0 0 9 * * mon-fri' (9am UTC weekdays), interval '@every 1h', once '@at 2026-05-01T09:00:00Z'. Minimum firing cadence is 1 hour for cron and interval.
+        :param display_name: Human-readable name of the schedule.
+        :param expression: 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour.
         :param payload:
-        :param type: Schedule type. cron uses 6-field cron expressions; interval uses @every <duration>; once uses @at <RFC3339-UTC>.
+        :param type: Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.
         :param agent_tag: Pin this schedule to a specific agent version. Omit to always use the active version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -379,6 +384,7 @@ class Schedules(BaseSDK):
             agent_key=agent_key,
             request_body=models.CreateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 payload=utils.get_pydantic_model(payload, models.PublicSchedulePayload),
                 type=type_,
@@ -459,12 +465,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -561,12 +567,12 @@ class Schedules(BaseSDK):
             raise models.DeleteAgentScheduleResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -663,12 +669,12 @@ class Schedules(BaseSDK):
             raise models.DeleteAgentScheduleResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -769,12 +775,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -875,12 +881,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -888,6 +894,7 @@ class Schedules(BaseSDK):
         agent_key: str,
         schedule_id: str,
         agent_tag: Optional[str] = None,
+        display_name: Optional[str] = None,
         expression: Optional[str] = None,
         is_active: Optional[bool] = None,
         payload: Optional[
@@ -906,10 +913,11 @@ class Schedules(BaseSDK):
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
         :param agent_tag: Change the pinned agent version.
-        :param expression: Update the schedule expression. Minimum firing cadence is 1 hour for cron and interval.
+        :param display_name: Rename the schedule.
+        :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
         :param is_active: Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values.
         :param payload:
-        :param type: Change the schedule type. Changing type or expression resets the NATS schedule and bumps generation.
+        :param type: Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -933,6 +941,7 @@ class Schedules(BaseSDK):
             schedule_id=schedule_id,
             request_body=models.UpdateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 is_active=is_active,
                 payload=utils.get_pydantic_model(
@@ -1016,12 +1025,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1029,6 +1038,7 @@ class Schedules(BaseSDK):
         agent_key: str,
         schedule_id: str,
         agent_tag: Optional[str] = None,
+        display_name: Optional[str] = None,
         expression: Optional[str] = None,
         is_active: Optional[bool] = None,
         payload: Optional[
@@ -1047,10 +1057,11 @@ class Schedules(BaseSDK):
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
         :param agent_tag: Change the pinned agent version.
-        :param expression: Update the schedule expression. Minimum firing cadence is 1 hour for cron and interval.
+        :param display_name: Rename the schedule.
+        :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
         :param is_active: Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values.
         :param payload:
-        :param type: Change the schedule type. Changing type or expression resets the NATS schedule and bumps generation.
+        :param type: Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1074,6 +1085,7 @@ class Schedules(BaseSDK):
             schedule_id=schedule_id,
             request_body=models.UpdateAgentScheduleRequestBody(
                 agent_tag=agent_tag,
+                display_name=display_name,
                 expression=expression,
                 is_active=is_active,
                 payload=utils.get_pydantic_model(
@@ -1157,12 +1169,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def trigger(
         self,
@@ -1270,12 +1282,12 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def trigger_async(
         self,
@@ -1383,9 +1395,9 @@ class Schedules(BaseSDK):
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

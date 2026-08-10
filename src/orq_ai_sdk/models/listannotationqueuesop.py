@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, parse_datetime
 import pydantic
 from pydantic import model_serializer
@@ -98,12 +104,12 @@ class ListAnnotationQueuesDataTypedDict(TypedDict):
     human_review_ids: List[str]
     r"""Legacy: manually selected human review IDs. Used only when project_id is not set"""
     metadata: ListAnnotationQueuesMetadataTypedDict
-    created_by_id: str
-    r"""The id of the user who created the resource"""
-    updated_by_id: str
-    r"""The id of the user who last updated the resource"""
     project_id: NotRequired[str]
     r"""The project ID. When set, human reviews are resolved from the project automatically"""
+    created_by_id: NotRequired[Nullable[str]]
+    r"""The id of the user who created the resource"""
+    updated_by_id: NotRequired[Nullable[str]]
+    r"""The id of the user who last updated the resource"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
@@ -128,33 +134,44 @@ class ListAnnotationQueuesData(BaseModel):
 
     metadata: ListAnnotationQueuesMetadata
 
-    created_by_id: str
-    r"""The id of the user who created the resource"""
-
-    updated_by_id: str
-    r"""The id of the user who last updated the resource"""
-
     project_id: Optional[str] = None
     r"""The project ID. When set, human reviews are resolved from the project automatically"""
+
+    created_by_id: OptionalNullable[str] = UNSET
+    r"""The id of the user who created the resource"""
+
+    updated_by_id: OptionalNullable[str] = UNSET
+    r"""The id of the user who last updated the resource"""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-06T08:16:58.594Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-09T21:43:29.724Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["project_id", "created", "updated"])
+        optional_fields = set(
+            ["project_id", "created_by_id", "updated_by_id", "created", "updated"]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

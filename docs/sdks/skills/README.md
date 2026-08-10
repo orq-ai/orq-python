@@ -48,9 +48,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -91,9 +91,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -131,9 +131,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -171,9 +171,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -200,16 +200,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `skill_id`                                                                                                                                                                                                                                 | *str*                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                         | Skill ID to update.                                                                                                                                                                                                                        |
-| `display_name`                                                                                                                                                                                                                             | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | New workspace-unique display name. Omit to keep the current name.<br/> Must start with a letter and may contain letters, numbers, and<br/> underscores. Dashes and dots are not allowed because skill names<br/> are referenced as template variables. |
-| `description`                                                                                                                                                                                                                              | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | New description. Omit to keep the current description.                                                                                                                                                                                     |
-| `tags`                                                                                                                                                                                                                                     | List[*str*]                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                         | Replacement tag list. Leave empty to clear tags.                                                                                                                                                                                           |
-| `path`                                                                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | New project path. Omit to keep the current path.                                                                                                                                                                                           |
-| `instructions`                                                                                                                                                                                                                             | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | New instruction body. Omit to keep the current instructions.                                                                                                                                                                               |
-| `project_id`                                                                                                                                                                                                                               | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | New containing project. Omit to keep the current project.                                                                                                                                                                                  |
-| `retries`                                                                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                                                                        |
+| Parameter                                                                                                                                    | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skill_id`                                                                                                                                   | *str*                                                                                                                                        | :heavy_check_mark:                                                                                                                           | Skill ID to update.                                                                                                                          |
+| `display_name`                                                                                                                               | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed. |
+| `description`                                                                                                                                | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | New description. Omit to keep the current description.                                                                                       |
+| `tags`                                                                                                                                       | List[*str*]                                                                                                                                  | :heavy_minus_sign:                                                                                                                           | Replacement tag list. Leave empty to clear tags.                                                                                             |
+| `path`                                                                                                                                       | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | New project path. Omit to keep the current path.                                                                                             |
+| `instructions`                                                                                                                               | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | New instruction body. Omit to keep the current instructions.                                                                                 |
+| `project_id`                                                                                                                                 | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | New containing project. Omit to keep the current project.                                                                                    |
+| `retries`                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                             | :heavy_minus_sign:                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                          |
 
 ### Response
 
@@ -217,6 +217,6 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

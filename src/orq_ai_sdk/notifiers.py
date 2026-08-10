@@ -125,12 +125,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.ListNotifiersResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -247,12 +247,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.ListNotifiersResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -359,12 +359,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.CreateNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -471,12 +471,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.CreateNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def get(
         self,
@@ -578,12 +578,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.GetNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def get_async(
         self,
@@ -685,12 +685,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.GetNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -792,12 +792,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.DeleteNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -899,12 +899,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.DeleteNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -912,12 +912,7 @@ class Notifiers(BaseSDK):
         notifier_id: str,
         project_id: Optional[str] = None,
         display_name: Optional[str] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateNotifierRequestMetadata,
-                models.UpdateNotifierRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
         type_: Optional[models.NotifierType] = None,
         emails: Optional[Iterable[str]] = None,
         incoming_webhook_url: Optional[str] = None,
@@ -964,9 +959,7 @@ class Notifiers(BaseSDK):
             update_notifier_request=models.UpdateNotifierRequest(
                 project_id=project_id,
                 display_name=display_name,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateNotifierRequestMetadata]
-                ),
+                metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
                 type=type_,
                 emails=utils.unmarshal(emails, Optional[List[str]]),
                 incoming_webhook_url=incoming_webhook_url,
@@ -1046,12 +1039,12 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.UpdateNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1059,12 +1052,7 @@ class Notifiers(BaseSDK):
         notifier_id: str,
         project_id: Optional[str] = None,
         display_name: Optional[str] = None,
-        metadata: Optional[
-            Union[
-                models.UpdateNotifierRequestMetadata,
-                models.UpdateNotifierRequestMetadataTypedDict,
-            ]
-        ] = None,
+        metadata: Optional[Union[models.Metadata, models.MetadataTypedDict]] = None,
         type_: Optional[models.NotifierType] = None,
         emails: Optional[Iterable[str]] = None,
         incoming_webhook_url: Optional[str] = None,
@@ -1111,9 +1099,7 @@ class Notifiers(BaseSDK):
             update_notifier_request=models.UpdateNotifierRequest(
                 project_id=project_id,
                 display_name=display_name,
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdateNotifierRequestMetadata]
-                ),
+                metadata=utils.get_pydantic_model(metadata, Optional[models.Metadata]),
                 type=type_,
                 emails=utils.unmarshal(emails, Optional[List[str]]),
                 incoming_webhook_url=incoming_webhook_url,
@@ -1193,9 +1179,9 @@ class Notifiers(BaseSDK):
             return unmarshal_json_response(models.UpdateNotifierResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
-        raise models.APIError("Unexpected response received", http_res)
+        raise models.APIDefaultError("Unexpected response received", http_res)

@@ -56,9 +56,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -88,16 +88,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                           | *str*                                                                                                          | :heavy_check_mark:                                                                                             | Client-generated webhook ID.                                                                                   |
-| `url`                                                                                                          | *str*                                                                                                          | :heavy_check_mark:                                                                                             | HTTPS endpoint that receives webhook deliveries.                                                               |
-| `content_type`                                                                                                 | [models.CreateWebhookRequestContentType](../../models/createwebhookrequestcontenttype.md)                      | :heavy_check_mark:                                                                                             | Content type sent with webhook deliveries.                                                                     |
-| `display_name`                                                                                                 | *str*                                                                                                          | :heavy_check_mark:                                                                                             | Human-readable webhook name.                                                                                   |
-| `events`                                                                                                       | List[*str*]                                                                                                    | :heavy_check_mark:                                                                                             | One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`. |
-| `secret`                                                                                                       | *str*                                                                                                          | :heavy_check_mark:                                                                                             | Signing secret returned by `GET /v2/webhooks/secret`.                                                          |
-| `enabled`                                                                                                      | *Optional[bool]*                                                                                               | :heavy_minus_sign:                                                                                             | Whether webhook deliveries are enabled.                                                                        |
-| `retries`                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                               | :heavy_minus_sign:                                                                                             | Configuration to override the default retry behavior of the client.                                            |
+| Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                             | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | Client-generated webhook ID.                                                                                                                                     |
+| `url`                                                                                                                                                            | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | HTTPS endpoint that receives webhook deliveries.                                                                                                                 |
+| `content_type`                                                                                                                                                   | [models.CreateWebhookRequestContentType](../../models/createwebhookrequestcontenttype.md)                                                                        | :heavy_check_mark:                                                                                                                                               | Content type sent with webhook deliveries.                                                                                                                       |
+| `display_name`                                                                                                                                                   | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | Human-readable webhook name.                                                                                                                                     |
+| `events`                                                                                                                                                         | List[*str*]                                                                                                                                                      | :heavy_check_mark:                                                                                                                                               | One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`.                                                   |
+| `secret`                                                                                                                                                         | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | Signing secret returned by `GET /v2/webhooks/secret`. Deliveries set `X-Orq-Signature` to the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. |
+| `enabled`                                                                                                                                                        | *Optional[bool]*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                               | Whether webhook deliveries are enabled.                                                                                                                          |
+| `retries`                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                              |
 
 ### Response
 
@@ -105,9 +105,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## count
 
@@ -144,9 +144,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## ~~query~~
 
@@ -190,9 +190,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## generate_secret
 
@@ -229,9 +229,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -269,9 +269,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -309,9 +309,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -350,6 +350,6 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

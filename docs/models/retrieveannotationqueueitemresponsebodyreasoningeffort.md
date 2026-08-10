@@ -18,3 +18,5 @@ value: RetrieveAnnotationQueueItemResponseBodyReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

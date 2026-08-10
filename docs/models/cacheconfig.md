@@ -1,17 +1,9 @@
 # CacheConfig
 
 
-## Supported Types
+## Fields
 
-### `models.CacheConfig1`
-
-```python
-value: models.CacheConfig1 = /* values here */
-```
-
-### `models.CacheConfig2`
-
-```python
-value: models.CacheConfig2 = /* values here */
-```
-
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `ttl`              | *Optional[int]*    | :heavy_minus_sign: | N/A                |
+| `type`             | *str*              | :heavy_check_mark: | N/A                |

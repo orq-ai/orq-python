@@ -30,7 +30,7 @@ class WebhookTypedDict(TypedDict):
     events: List[str]
     r"""Workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
     secret: str
-    r"""Signing secret used to verify webhook delivery signatures. Treat this value as sensitive."""
+    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Treat this value as sensitive."""
     created_by_id: str
     r"""Account ID that created the webhook."""
     updated_by_id: str
@@ -64,7 +64,7 @@ class Webhook(BaseModel):
     r"""Workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
 
     secret: str
-    r"""Signing secret used to verify webhook delivery signatures. Treat this value as sensitive."""
+    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Treat this value as sensitive."""
 
     created_by_id: str
     r"""Account ID that created the webhook."""

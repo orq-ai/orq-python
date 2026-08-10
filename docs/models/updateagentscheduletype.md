@@ -1,6 +1,6 @@
 # UpdateAgentScheduleType
 
-Change the schedule type. Changing type or expression resets the NATS schedule and bumps generation.
+Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation.
 
 ## Example Usage
 
@@ -13,5 +13,3 @@ value: UpdateAgentScheduleType = "cron"
 ## Values
 
 - `"cron"`
-- `"once"`
-- `"interval"`

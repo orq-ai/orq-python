@@ -61,7 +61,7 @@ RetrieveAgentScheduleType = Literal[
     "once",
     "interval",
 ]
-r"""Schedule type."""
+r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
 
 
 class RetrieveAgentScheduleResponseBodyTypedDict(TypedDict):
@@ -74,21 +74,25 @@ class RetrieveAgentScheduleResponseBodyTypedDict(TypedDict):
     created_by_id: str
     r"""ID of the API key that created the schedule."""
     expression: str
-    r"""Cron expression (6-field, seconds required), @every duration, @at RFC3339 timestamp, or a predefined descriptor like @hourly/@daily."""
+    r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
     generation: int
     r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
     is_active: bool
-    r"""Whether the schedule is currently firing. once schedules flip to false automatically after firing."""
+    r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
     payload: PublicSchedulePayloadTypedDict
     trigger_count: int
     r"""Total firings since creation or last expression/type change."""
     type: RetrieveAgentScheduleType
-    r"""Schedule type."""
+    r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
     updated: datetime
     agent_tag: NotRequired[str]
     r"""Pinned agent version. Omit to always run the agent's current active version."""
+    display_name: NotRequired[str]
+    r"""Human-readable name of the schedule. Omitted for schedules created before display names were required."""
     last_triggered_at: NotRequired[datetime]
     r"""Timestamp of the most recent firing, if any."""
+    updated_by_id: NotRequired[str]
+    r"""ID of the API key that last updated the schedule. Omitted until the schedule is updated."""
 
 
 class RetrieveAgentScheduleResponseBody(BaseModel):
@@ -105,13 +109,13 @@ class RetrieveAgentScheduleResponseBody(BaseModel):
     r"""ID of the API key that created the schedule."""
 
     expression: str
-    r"""Cron expression (6-field, seconds required), @every duration, @at RFC3339 timestamp, or a predefined descriptor like @hourly/@daily."""
+    r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
 
     generation: int
     r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
 
     is_active: bool
-    r"""Whether the schedule is currently firing. once schedules flip to false automatically after firing."""
+    r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
 
     payload: PublicSchedulePayload
 
@@ -119,19 +123,27 @@ class RetrieveAgentScheduleResponseBody(BaseModel):
     r"""Total firings since creation or last expression/type change."""
 
     type: RetrieveAgentScheduleType
-    r"""Schedule type."""
+    r"""Schedule type. Only cron can be created or updated; once and interval only appear on schedules stored before that restriction."""
 
     updated: datetime
 
     agent_tag: Optional[str] = None
     r"""Pinned agent version. Omit to always run the agent's current active version."""
 
+    display_name: Optional[str] = None
+    r"""Human-readable name of the schedule. Omitted for schedules created before display names were required."""
+
     last_triggered_at: Optional[datetime] = None
     r"""Timestamp of the most recent firing, if any."""
 
+    updated_by_id: Optional[str] = None
+    r"""ID of the API key that last updated the schedule. Omitted until the schedule is updated."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["agent_tag", "last_triggered_at"])
+        optional_fields = set(
+            ["agent_tag", "display_name", "last_triggered_at", "updated_by_id"]
+        )
         serialized = handler(self)
         m = {}
 

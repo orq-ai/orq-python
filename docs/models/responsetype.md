@@ -16,6 +16,7 @@ value: ResponseType = "trace"
 - `"block.evaluator"`
 - `"EvaluatorBlock"`
 - `"span.evaluator"`
+- `"span.guardrail"`
 - `"span.retrieval"`
 - `"span.cache_retrieval"`
 - `"span.embedding"`

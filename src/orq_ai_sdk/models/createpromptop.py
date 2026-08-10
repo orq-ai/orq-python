@@ -22,6 +22,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -35,6 +36,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1060,6 +1062,8 @@ class CreatePromptGuardrails(BaseModel):
 CreatePromptPluginsTypedDict = TypeAliasType(
     "CreatePromptPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1069,7 +1073,13 @@ CreatePromptPluginsTypedDict = TypeAliasType(
 
 CreatePromptPlugins = TypeAliasType(
     "CreatePromptPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -1349,7 +1359,7 @@ class PromptInputTypedDict(TypedDict):
     guardrails: NotRequired[List[CreatePromptGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[CreatePromptPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[CreatePromptFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreatePromptRetryTypedDict]
@@ -1455,7 +1465,7 @@ class PromptInput(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[CreatePromptPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[CreatePromptFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1910,6 +1920,8 @@ CreatePromptPromptsResponseReasoningEffort = Literal[
     "low",
     "medium",
     "high",
+    "xhigh",
+    "max",
 ]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -2451,7 +2463,6 @@ class PromptConfigTypedDict(TypedDict):
     stream: NotRequired[bool]
     model: NotRequired[Nullable[str]]
     model_db_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
     model_type: NotRequired[Nullable[ModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[ModelParametersTypedDict]
@@ -2475,7 +2486,6 @@ class PromptConfig(BaseModel):
     model: OptionalNullable[str] = UNSET
 
     model_db_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
 
     model_type: OptionalNullable[ModelType] = UNSET
     r"""The modality of the model"""
@@ -2897,6 +2907,8 @@ class CreatePromptPromptsGuardrails(BaseModel):
 CreatePromptPromptsPluginsTypedDict = TypeAliasType(
     "CreatePromptPromptsPluginsTypedDict",
     Union[
+        ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -2906,7 +2918,13 @@ CreatePromptPromptsPluginsTypedDict = TypeAliasType(
 
 CreatePromptPromptsPlugins = TypeAliasType(
     "CreatePromptPromptsPlugins",
-    Union[PIIRedactionPluginAuto, PIIRedactionPluginEn, PIIRedactionPluginNl],
+    Union[
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
+    ],
 )
 
 
@@ -3775,7 +3793,7 @@ class PromptFieldTypedDict(TypedDict):
     guardrails: NotRequired[List[CreatePromptPromptsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[CreatePromptPromptsPluginsTypedDict]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[CreatePromptPromptsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreatePromptPromptsRetryTypedDict]
@@ -3880,7 +3898,7 @@ class PromptField(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     plugins: Optional[List[CreatePromptPromptsPlugins]] = None
-    r"""Request-scoped transforms applied to the text exchanged with the model. Currently supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[CreatePromptPromptsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""

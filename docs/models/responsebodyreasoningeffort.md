@@ -18,3 +18,5 @@ value: ResponseBodyReasoningEffort = "none"
 - `"low"`
 - `"medium"`
 - `"high"`
+- `"xhigh"`
+- `"max"`

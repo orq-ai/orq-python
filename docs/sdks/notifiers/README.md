@@ -51,9 +51,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -95,9 +95,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -135,9 +135,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -175,9 +175,9 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -209,7 +209,7 @@ with Orq(
 | `notifier_id`                                                                                                                                                                                   | *str*                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                              | N/A                                                                                                                                                                                             |
 | `project_id`                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. New containing project. Workspace-scoped callers may set an empty value to make the notifier workspace-wide. Project-scoped API keys remain pinned to the API key's project.          |
 | `display_name`                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. New human-readable notifier name.                                                                                                                                                     |
-| `metadata`                                                                                                                                                                                      | [Optional[models.UpdateNotifierRequestMetadata]](../../models/updatenotifierrequestmetadata.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional. Replacement custom JSON metadata.                                                                                                                                                     |
+| `metadata`                                                                                                                                                                                      | [Optional[models.Metadata]](../../models/metadata.md)                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                              | Optional. Replacement custom JSON metadata.                                                                                                                                                     |
 | `type`                                                                                                                                                                                          | [Optional[models.NotifierType]](../../models/notifiertype.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                              | N/A                                                                                                                                                                                             |
 | `emails`                                                                                                                                                                                        | List[*str*]                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                              | Optional replacement email recipients. Required when changing `type` to `NOTIFIER_TYPE_EMAIL`.                                                                                                  |
 | `incoming_webhook_url`                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                              | Optional replacement Slack incoming webhook URL. Required when changing `type` to `NOTIFIER_TYPE_SLACK_WEBHOOK`.                                                                                |
@@ -223,6 +223,6 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

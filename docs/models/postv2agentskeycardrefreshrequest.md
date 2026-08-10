@@ -1,9 +1,0 @@
-# PostV2AgentsKeyCardRefreshRequest
-
-
-## Fields
-
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `key`                                                                                                        | *str*                                                                                                        | :heavy_check_mark:                                                                                           | The unique key identifier of the agent                                                                       |
-| `request_body`                                                                                               | [Optional[models.PostV2AgentsKeyCardRefreshRequestBody]](../models/postv2agentskeycardrefreshrequestbody.md) | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |

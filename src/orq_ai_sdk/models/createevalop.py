@@ -51,16 +51,13 @@ RequestBodyType = Literal["python_eval",]
 class PythonTypedDict(TypedDict):
     code: str
     type: RequestBodyType
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
     key: str
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[OutputType]
+    path: NotRequired[str]
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
     description: NotRequired[str]
 
 
@@ -69,25 +66,25 @@ class Python(BaseModel):
 
     type: RequestBodyType
 
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
-
     key: str
 
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[OutputType] = None
 
+    path: Optional[str] = None
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
+
     description: Optional[str] = ""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["guardrail_config", "output_type", "description"])
+        optional_fields = set(
+            ["guardrail_config", "output_type", "path", "project_id", "description"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -315,13 +312,6 @@ class OneJury(BaseModel):
 class LLMJuryTypedDict(TypedDict):
     type: CreateEval1Type
     prompt: str
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
     key: str
     mode: CreateEval1Mode
     jury: OneJuryTypedDict
@@ -333,7 +323,11 @@ class LLMJuryTypedDict(TypedDict):
     categorical_labels: NotRequired[
         Nullable[List[CreateEval1CategoricalLabelsTypedDict]]
     ]
-    dataset_id: NotRequired[str]
+    dataset_id: NotRequired[Nullable[str]]
+    path: NotRequired[str]
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
     description: NotRequired[str]
 
 
@@ -341,14 +335,6 @@ class LLMJury(BaseModel):
     type: CreateEval1Type
 
     prompt: str
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
 
     key: str
 
@@ -367,7 +353,13 @@ class LLMJury(BaseModel):
 
     categorical_labels: OptionalNullable[List[CreateEval1CategoricalLabels]] = UNSET
 
-    dataset_id: Optional[str] = None
+    dataset_id: OptionalNullable[str] = UNSET
+
+    path: Optional[str] = None
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
 
     description: Optional[str] = ""
 
@@ -381,10 +373,14 @@ class LLMJury(BaseModel):
                 "categories",
                 "categorical_labels",
                 "dataset_id",
+                "path",
+                "project_id",
                 "description",
             ]
         )
-        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
+        nullable_fields = set(
+            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -452,13 +448,6 @@ OneMode = Literal["single",]
 class LlmTypedDict(TypedDict):
     type: OneType
     prompt: str
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
     key: str
     mode: OneMode
     model: str
@@ -468,7 +457,11 @@ class LlmTypedDict(TypedDict):
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[Nullable[List[OneCategoricalLabelsTypedDict]]]
-    dataset_id: NotRequired[str]
+    dataset_id: NotRequired[Nullable[str]]
+    path: NotRequired[str]
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
     description: NotRequired[str]
 
 
@@ -476,14 +469,6 @@ class Llm(BaseModel):
     type: OneType
 
     prompt: str
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
 
     key: str
 
@@ -502,7 +487,13 @@ class Llm(BaseModel):
 
     categorical_labels: OptionalNullable[List[OneCategoricalLabels]] = UNSET
 
-    dataset_id: Optional[str] = None
+    dataset_id: OptionalNullable[str] = UNSET
+
+    path: Optional[str] = None
+    r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Mutually exclusive with `path`."""
 
     description: Optional[str] = ""
 
@@ -516,10 +507,14 @@ class Llm(BaseModel):
                 "categories",
                 "categorical_labels",
                 "dataset_id",
+                "path",
+                "project_id",
                 "description",
             ]
         )
-        nullable_fields = set(["repetitions", "categories", "categorical_labels"])
+        nullable_fields = set(
+            ["repetitions", "categories", "categorical_labels", "dataset_id"]
+        )
         serialized = handler(self)
         m = {}
 

@@ -29,7 +29,7 @@ class CreateWebhookRequestTypedDict(TypedDict):
     events: List[str]
     r"""One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
     secret: str
-    r"""Signing secret returned by `GET /v2/webhooks/secret`."""
+    r"""Signing secret returned by `GET /v2/webhooks/secret`. Deliveries set `X-Orq-Signature` to the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes."""
     enabled: NotRequired[bool]
     r"""Whether webhook deliveries are enabled."""
 
@@ -53,7 +53,7 @@ class CreateWebhookRequest(BaseModel):
     r"""One or more workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
 
     secret: str
-    r"""Signing secret returned by `GET /v2/webhooks/secret`."""
+    r"""Signing secret returned by `GET /v2/webhooks/secret`. Deliveries set `X-Orq-Signature` to the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes."""
 
     enabled: Optional[bool] = None
     r"""Whether webhook deliveries are enabled."""
