@@ -1,0 +1,21 @@
+# RoutingRuleCreateResponseBody
+
+Routing rule created successfully
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_by_id`                                                      | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `description`                                                        | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `display_name`                                                       | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `enabled`                                                            | *bool*                                                               | :heavy_check_mark:                                                   | N/A                                                                  |
+| `expression`                                                         | [Optional[models.Expression]](../models/expression.md)               | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `models_config`                                                      | [Optional[models.ModelsConfig]](../models/modelsconfig.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `priority`                                                           | *int*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `project_id`                                                         | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `updated_by_id`                                                      | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |

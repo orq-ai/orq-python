@@ -21,7 +21,6 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -335,7 +334,6 @@ ModelConfigurationPluginsTypedDict = TypeAliasType(
     "ModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -347,7 +345,6 @@ ModelConfigurationPlugins = TypeAliasType(
     "ModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1143,7 +1140,6 @@ UpdateAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1155,7 +1151,6 @@ UpdateAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -2716,7 +2711,6 @@ UpdateAgentPluginsTypedDict = TypeAliasType(
     "UpdateAgentPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -2728,7 +2722,6 @@ UpdateAgentPlugins = TypeAliasType(
     "UpdateAgentPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -3487,7 +3480,6 @@ UpdateAgentFallbackModelConfigurationAgentsPluginsTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationAgentsPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -3499,7 +3491,6 @@ UpdateAgentFallbackModelConfigurationAgentsPlugins = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationAgentsPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,

@@ -36,7 +36,6 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1356,7 +1355,6 @@ GetAllPromptsPluginsTypedDict = TypeAliasType(
     "GetAllPromptsPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1368,7 +1366,6 @@ GetAllPromptsPlugins = TypeAliasType(
     "GetAllPromptsPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,

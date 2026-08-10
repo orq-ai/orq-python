@@ -526,11 +526,11 @@ with Orq(
 ### [RoutingRules](docs/sdks/routingrules/README.md)
 
 * [list](docs/sdks/routingrules/README.md#list) - List routing rules
-* [create](docs/sdks/routingrules/README.md#create) - Create a routing rule
-* [list_used_models](docs/sdks/routingrules/README.md#list_used_models) - List models used by routing rules
-* [retrieve](docs/sdks/routingrules/README.md#retrieve) - Retrieve a routing rule
-* [delete](docs/sdks/routingrules/README.md#delete) - Delete a routing rule
-* [update](docs/sdks/routingrules/README.md#update) - Update a routing rule
+* [create](docs/sdks/routingrules/README.md#create) - Create routing rule
+* [list_used_models](docs/sdks/routingrules/README.md#list_used_models) - List used models
+* [delete](docs/sdks/routingrules/README.md#delete) - Delete routing rule
+* [retrieve](docs/sdks/routingrules/README.md#retrieve) - Get routing rule
+* [update](docs/sdks/routingrules/README.md#update) - Update routing rule
 
 ### [Schedules](docs/sdks/schedules/README.md)
 

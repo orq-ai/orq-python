@@ -20,7 +20,6 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -722,7 +721,6 @@ RetrieveAgentRequestPluginsTypedDict = TypeAliasType(
     "RetrieveAgentRequestPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -734,7 +732,6 @@ RetrieveAgentRequestPlugins = TypeAliasType(
     "RetrieveAgentRequestPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1481,7 +1478,6 @@ RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RetrieveAgentRequestFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1493,7 +1489,6 @@ RetrieveAgentRequestFallbackModelConfigurationPlugins = TypeAliasType(
     "RetrieveAgentRequestFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,

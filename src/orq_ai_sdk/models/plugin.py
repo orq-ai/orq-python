@@ -3,7 +3,6 @@
 from __future__ import annotations
 from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import BaseModel
 import pydantic
 from typing_extensions import Annotated, TypedDict
@@ -12,7 +11,6 @@ from typing_extensions import Annotated, TypedDict
 class PluginTypedDict(TypedDict):
     of_pii_redaction: PIIRedactionPluginTypedDict
     of_response_healing: ResponseHealingPluginTypedDict
-    of_trace_scrubbing: TraceScrubbingPluginTypedDict
 
 
 class Plugin(BaseModel):
@@ -22,10 +20,6 @@ class Plugin(BaseModel):
 
     of_response_healing: Annotated[
         ResponseHealingPlugin, pydantic.Field(alias="OfResponseHealing")
-    ]
-
-    of_trace_scrubbing: Annotated[
-        TraceScrubbingPlugin, pydantic.Field(alias="OfTraceScrubbing")
     ]
 
 

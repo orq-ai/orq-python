@@ -1193,7 +1193,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
     presence_penalty: NotRequired[float]
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
     previous_response_id: NotRequired[str]
@@ -1291,7 +1291,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Whether to allow parallel tool calls."""
 
     plugins: OptionalNullable[List[PublicPlugin]] = UNSET
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
 
     presence_penalty: Optional[float] = None
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""

@@ -86,7 +86,6 @@ from .toolexecutionstartedstreamingevent import (
     ToolExecutionStartedStreamingEventTypedDict,
 )
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -403,7 +402,6 @@ StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -415,7 +413,6 @@ StreamRunAgentModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1222,7 +1219,6 @@ StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1234,7 +1230,6 @@ StreamRunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -2127,7 +2122,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KZM7PMSKJFM1X1NX88Z6T3YJ"
+    id: Optional[str] = "01KZNKY412B5VWTDQ7Y8WAQ9WT"
 
     description: Optional[str] = None
 

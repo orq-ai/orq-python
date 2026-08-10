@@ -20,7 +20,6 @@ class EvaluatorRefTypedDict(TypedDict):
     is_guardrail: NotRequired[bool]
     options: NotRequired[Dict[str, Any]]
     sample_rate: NotRequired[float]
-    timeout: NotRequired[int]
 
 
 class EvaluatorRef(BaseModel):
@@ -34,11 +33,9 @@ class EvaluatorRef(BaseModel):
 
     sample_rate: Optional[float] = None
 
-    timeout: Optional[int] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["is_guardrail", "options", "sample_rate", "timeout"])
+        optional_fields = set(["is_guardrail", "options", "sample_rate"])
         serialized = handler(self)
         m = {}
 

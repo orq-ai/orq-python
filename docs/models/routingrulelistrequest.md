@@ -3,12 +3,12 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `limit`            | *Optional[int]*    | :heavy_minus_sign: | N/A                |
-| `starting_after`   | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `ending_before`    | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `search`           | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `enabled`          | *Optional[bool]*   | :heavy_minus_sign: | N/A                |
-| `model`            | List[*str*]        | :heavy_minus_sign: | N/A                |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `limit`                                                    | *Optional[int]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `starting_after`                                           | *Optional[str]*                                            | :heavy_minus_sign:                                         | A cursor for use in pagination.                            |
+| `ending_before`                                            | *Optional[str]*                                            | :heavy_minus_sign:                                         | A cursor for use in pagination.                            |
+| `project_id`                                               | *Optional[str]*                                            | :heavy_minus_sign:                                         | Optional filter by project ID.                             |
+| `search`                                                   | *Optional[str]*                                            | :heavy_minus_sign:                                         | Optional search term matched against name and description. |
+| `enabled`                                                  | *OptionalNullable[bool]*                                   | :heavy_minus_sign:                                         | Filter by enabled status.                                  |
+| `model`                                                    | List[*str*]                                                | :heavy_minus_sign:                                         | Filter by referenced model refs (comma-separated).         |

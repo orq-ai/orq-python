@@ -1,0 +1,14 @@
+# RoutingRuleCreateRequestBody
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `description`                                                                | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `display_name`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `enabled`                                                                    | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `expression`                                                                 | [Optional[models.ExpressionInput]](../models/expressioninput.md)             | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `models_config`                                                              | [Optional[models.ModelsConfig]](../models/modelsconfig.md)                   | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `priority`                                                                   | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `project_id`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Optional project ID. If null/omitted, the entity is global (workspace-wide). |

@@ -27,7 +27,6 @@ from .thinkingconfigenabledschema import (
 )
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -341,7 +340,6 @@ RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -353,7 +351,6 @@ RunAgentModelConfigurationPlugins = TypeAliasType(
     "RunAgentModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1149,7 +1146,6 @@ RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1161,7 +1157,6 @@ RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "RunAgentFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -2030,7 +2025,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KZM7PMQT3D1461DN4RQSXE78"
+    id: Optional[str] = "01KZNKY3Z3ZNREN9XN2VY68DR6"
 
     description: Optional[str] = None
 

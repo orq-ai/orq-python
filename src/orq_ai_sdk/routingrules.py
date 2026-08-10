@@ -13,29 +13,29 @@ class RoutingRules(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
         search: Optional[str] = None,
-        enabled: Optional[bool] = None,
-        model: Optional[Iterable[str]] = None,
+        enabled: OptionalNullable[bool] = UNSET,
+        model: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListRoutingRulesResponse:
+    ) -> models.RoutingRuleListResponseBody:
         r"""List routing rules
 
-        Returns routing rules ordered by ascending priority. Supports cursor pagination, search, status, project, and referenced-model filters.
+        Returns a paginated list of routing rules for the current project, ordered by priority ascending.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param project_id:
-        :param search:
-        :param enabled:
-        :param model:
+        :param starting_after: A cursor for use in pagination.
+        :param ending_before: A cursor for use in pagination.
+        :param project_id: Optional filter by project ID.
+        :param search: Optional search term matched against name and description.
+        :param enabled: Filter by enabled status.
+        :param model: Filter by referenced model refs (comma-separated).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -61,7 +61,7 @@ class RoutingRules(BaseSDK):
             project_id=project_id,
             search=search,
             enabled=enabled,
-            model=utils.unmarshal(model, Optional[List[str]]),
+            model=utils.unmarshal(model, OptionalNullable[List[str]]),
         )
 
         req = self._build_request(
@@ -103,23 +103,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - List routing rules",
-                            "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
-                        },
-                        {
-                            "label": "Python - List routing rules",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\npage = client.routing_rules.list(limit=25)\n\nfor rule in page.data:\n    print(rule._id, rule.display_name)\n',
-                        },
-                        {
-                            "label": "Node.js - List routing rules",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule._id, rule.displayName);\n}\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -128,7 +111,7 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListRoutingRulesResponse, http_res)
+            return unmarshal_json_response(models.RoutingRuleListResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -141,29 +124,29 @@ class RoutingRules(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
         search: Optional[str] = None,
-        enabled: Optional[bool] = None,
-        model: Optional[Iterable[str]] = None,
+        enabled: OptionalNullable[bool] = UNSET,
+        model: OptionalNullable[Iterable[str]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListRoutingRulesResponse:
+    ) -> models.RoutingRuleListResponseBody:
         r"""List routing rules
 
-        Returns routing rules ordered by ascending priority. Supports cursor pagination, search, status, project, and referenced-model filters.
+        Returns a paginated list of routing rules for the current project, ordered by priority ascending.
 
         :param limit:
-        :param starting_after:
-        :param ending_before:
-        :param project_id:
-        :param search:
-        :param enabled:
-        :param model:
+        :param starting_after: A cursor for use in pagination.
+        :param ending_before: A cursor for use in pagination.
+        :param project_id: Optional filter by project ID.
+        :param search: Optional search term matched against name and description.
+        :param enabled: Filter by enabled status.
+        :param model: Filter by referenced model refs (comma-separated).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -189,7 +172,7 @@ class RoutingRules(BaseSDK):
             project_id=project_id,
             search=search,
             enabled=enabled,
-            model=utils.unmarshal(model, Optional[List[str]]),
+            model=utils.unmarshal(model, OptionalNullable[List[str]]),
         )
 
         req = self._build_request_async(
@@ -231,23 +214,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "list",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - List routing rules",
-                            "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
-                        },
-                        {
-                            "label": "Python - List routing rules",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\npage = client.routing_rules.list(limit=25)\n\nfor rule in page.data:\n    print(rule._id, rule.display_name)\n',
-                        },
-                        {
-                            "label": "Node.js - List routing rules",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.routingRules.list({ limit: 25 });\n\nfor (const rule of page.data) {\n  console.log(rule._id, rule.displayName);\n}\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -256,7 +222,7 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListRoutingRulesResponse, http_res)
+            return unmarshal_json_response(models.RoutingRuleListResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -271,44 +237,31 @@ class RoutingRules(BaseSDK):
         *,
         display_name: str,
         description: Optional[str] = None,
-        project_id: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.RoutingRuleExpression, models.RoutingRuleExpressionTypedDict]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         models_config: Optional[
-            Union[
-                models.RoutingRuleModelsConfig, models.RoutingRuleModelsConfigTypedDict
-            ]
-        ] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.RoutingRulePlugin],
-                Iterable[models.RoutingRulePluginTypedDict],
-            ]
+            Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
         priority: Optional[int] = None,
-        cache_config: Optional[
-            Union[models.RoutingRuleCacheConfig, models.RoutingRuleCacheConfigTypedDict]
-        ] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Create a routing rule
+    ) -> models.RoutingRuleCreateResponseBody:
+        r"""Create routing rule
 
-        Creates a routing rule with metadata and optional model, plugin, priority, and matching configuration. Rules default to disabled when `enabled` is omitted.
+        Creates a new routing rule with expression, models configuration, and priority settings.
 
         :param display_name:
         :param description:
-        :param project_id: Optional project scope. Omit for a workspace-wide rule.
-        :param enabled: Whether the rule is active. Defaults to false when omitted.
+        :param enabled:
         :param expression:
         :param models_config:
-        :param plugins:
         :param priority:
-        :param cache_config:
+        :param project_id: Optional project ID. If null/omitted, the entity is global (workspace-wide).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -327,24 +280,18 @@ class RoutingRules(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateRoutingRuleRequest(
-            display_name=display_name,
+        request = models.RoutingRuleCreateRequestBody(
             description=description,
-            project_id=project_id,
+            display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.RoutingRuleExpression]
+                expression, Optional[models.ExpressionInput]
             ),
             models_config=utils.get_pydantic_model(
-                models_config, Optional[models.RoutingRuleModelsConfig]
-            ),
-            plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.RoutingRulePlugin]]
+                models_config, Optional[models.ModelsConfig]
             ),
             priority=priority,
-            cache_config=utils.get_pydantic_model(
-                cache_config, Optional[models.RoutingRuleCacheConfig]
-            ),
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -361,7 +308,7 @@ class RoutingRules(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateRoutingRuleRequest
+                request, False, False, "json", models.RoutingRuleCreateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -389,23 +336,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Create routing rule",
-                            "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Private customer traffic\",\n    \"description\": \"Routes private customer requests through the guarded model path.\"\n  }'\n",
-                        },
-                        {
-                            "label": "Python - Create routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrule = client.routing_rules.create(\n    display_name="Private customer traffic",\n    description="Routes private customer requests through the guarded model path.",\n)\n\nprint(rule._id)\n',
-                        },
-                        {
-                            "label": "Node.js - Create routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule._id);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -414,8 +344,10 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RoutingRuleCreateResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -429,44 +361,31 @@ class RoutingRules(BaseSDK):
         *,
         display_name: str,
         description: Optional[str] = None,
-        project_id: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.RoutingRuleExpression, models.RoutingRuleExpressionTypedDict]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         models_config: Optional[
-            Union[
-                models.RoutingRuleModelsConfig, models.RoutingRuleModelsConfigTypedDict
-            ]
-        ] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.RoutingRulePlugin],
-                Iterable[models.RoutingRulePluginTypedDict],
-            ]
+            Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
         priority: Optional[int] = None,
-        cache_config: Optional[
-            Union[models.RoutingRuleCacheConfig, models.RoutingRuleCacheConfigTypedDict]
-        ] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Create a routing rule
+    ) -> models.RoutingRuleCreateResponseBody:
+        r"""Create routing rule
 
-        Creates a routing rule with metadata and optional model, plugin, priority, and matching configuration. Rules default to disabled when `enabled` is omitted.
+        Creates a new routing rule with expression, models configuration, and priority settings.
 
         :param display_name:
         :param description:
-        :param project_id: Optional project scope. Omit for a workspace-wide rule.
-        :param enabled: Whether the rule is active. Defaults to false when omitted.
+        :param enabled:
         :param expression:
         :param models_config:
-        :param plugins:
         :param priority:
-        :param cache_config:
+        :param project_id: Optional project ID. If null/omitted, the entity is global (workspace-wide).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -485,24 +404,18 @@ class RoutingRules(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateRoutingRuleRequest(
-            display_name=display_name,
+        request = models.RoutingRuleCreateRequestBody(
             description=description,
-            project_id=project_id,
+            display_name=display_name,
             enabled=enabled,
             expression=utils.get_pydantic_model(
-                expression, Optional[models.RoutingRuleExpression]
+                expression, Optional[models.ExpressionInput]
             ),
             models_config=utils.get_pydantic_model(
-                models_config, Optional[models.RoutingRuleModelsConfig]
-            ),
-            plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.RoutingRulePlugin]]
+                models_config, Optional[models.ModelsConfig]
             ),
             priority=priority,
-            cache_config=utils.get_pydantic_model(
-                cache_config, Optional[models.RoutingRuleCacheConfig]
-            ),
+            project_id=project_id,
         )
 
         req = self._build_request_async(
@@ -519,7 +432,7 @@ class RoutingRules(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateRoutingRuleRequest
+                request, False, False, "json", models.RoutingRuleCreateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -547,23 +460,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "create",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Create routing rule",
-                            "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Private customer traffic\",\n    \"description\": \"Routes private customer requests through the guarded model path.\"\n  }'\n",
-                        },
-                        {
-                            "label": "Python - Create routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nrule = client.routing_rules.create(\n    display_name="Private customer traffic",\n    description="Routes private customer requests through the guarded model path.",\n)\n\nprint(rule._id)\n',
-                        },
-                        {
-                            "label": "Node.js - Create routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.create({\n  displayName: 'Private customer traffic',\n  description:\n    'Routes private customer requests through the guarded model path.',\n});\n\nconsole.log(rule._id);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -572,8 +468,10 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RoutingRuleCreateResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -585,17 +483,15 @@ class RoutingRules(BaseSDK):
     def list_used_models(
         self,
         *,
-        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListRoutingRuleUsedModelsResponse:
-        r"""List models used by routing rules
+    ) -> models.RoutingRuleListUsedModelsResponseBody:
+        r"""List used models
 
-        Returns the distinct model references used by routing rules in the requested scope.
+        Returns the distinct model refs referenced across all routing rules in scope.
 
-        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -613,17 +509,12 @@ class RoutingRules(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
-
-        request = models.RoutingRuleListUsedModelsRequest(
-            project_id=project_id,
-        )
-
         req = self._build_request(
             method="GET",
             path="/v2/routing-rules/used-models",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -657,23 +548,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedModels",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - List models used by routing rules",
-                            "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - List routing rule models",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nresult = client.routing_rules.list_used_models()\n\nprint(result.models)\n',
-                        },
-                        {
-                            "label": "Node.js - List routing rule models",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.routingRules.listUsedModels();\n\nconsole.log(result.models);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -683,7 +557,7 @@ class RoutingRules(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListRoutingRuleUsedModelsResponse, http_res
+                models.RoutingRuleListUsedModelsResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -697,17 +571,15 @@ class RoutingRules(BaseSDK):
     async def list_used_models_async(
         self,
         *,
-        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListRoutingRuleUsedModelsResponse:
-        r"""List models used by routing rules
+    ) -> models.RoutingRuleListUsedModelsResponseBody:
+        r"""List used models
 
-        Returns the distinct model references used by routing rules in the requested scope.
+        Returns the distinct model refs referenced across all routing rules in scope.
 
-        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -725,17 +597,12 @@ class RoutingRules(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
-
-        request = models.RoutingRuleListUsedModelsRequest(
-            project_id=project_id,
-        )
-
         req = self._build_request_async(
             method="GET",
             path="/v2/routing-rules/used-models",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -769,23 +636,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "listUsedModels",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - List models used by routing rules",
-                            "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - List routing rule models",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nresult = client.routing_rules.list_used_models()\n\nprint(result.models)\n',
-                        },
-                        {
-                            "label": "Node.js - List routing rule models",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.routingRules.listUsedModels();\n\nconsole.log(result.models);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -795,228 +645,8 @@ class RoutingRules(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListRoutingRuleUsedModelsResponse, http_res
+                models.RoutingRuleListUsedModelsResponseBody, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def retrieve(
-        self,
-        *,
-        routing_rule_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Retrieve a routing rule
-
-        Retrieves a routing rule by its unique identifier.
-
-        :param routing_rule_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.RoutingRuleGetRequest(
-            routing_rule_id=routing_rule_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/routing-rules/{routing_rule_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="RoutingRuleGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Routing Rules"],
-                extensions={
-                    "x-cli-group": "routingRules",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "retrieve",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Retrieve routing rule",
-                            "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - Retrieve routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.retrieve(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(rule.display_name)\n',
-                        },
-                        {
-                            "label": "Node.js - Retrieve routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.retrieve({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(rule.displayName);\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def retrieve_async(
-        self,
-        *,
-        routing_rule_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Retrieve a routing rule
-
-        Retrieves a routing rule by its unique identifier.
-
-        :param routing_rule_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.RoutingRuleGetRequest(
-            routing_rule_id=routing_rule_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/routing-rules/{routing_rule_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="RoutingRuleGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Routing Rules"],
-                extensions={
-                    "x-cli-group": "routingRules",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "retrieve",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Retrieve routing rule",
-                            "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - Retrieve routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.retrieve(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(rule.display_name)\n',
-                        },
-                        {
-                            "label": "Node.js - Retrieve routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.retrieve({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(rule.displayName);\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1035,11 +665,11 @@ class RoutingRules(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Delete a routing rule
+        r"""Delete routing rule
 
-        Permanently deletes a routing rule.
+        Deletes an existing routing rule by ID.
 
-        :param routing_rule_id:
+        :param routing_rule_id: The ID of the routing rule
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1101,23 +731,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Delete routing rule",
-                            "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - Delete routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nclient.routing_rules.delete(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
-                        },
-                        {
-                            "label": "Node.js - Delete routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.routingRules.delete({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -1127,7 +740,7 @@ class RoutingRules(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1145,11 +758,11 @@ class RoutingRules(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Delete a routing rule
+        r"""Delete routing rule
 
-        Permanently deletes a routing rule.
+        Deletes an existing routing rule by ID.
 
-        :param routing_rule_id:
+        :param routing_rule_id: The ID of the routing rule
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1211,23 +824,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "delete",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Delete routing rule",
-                            "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
-                        },
-                        {
-                            "label": "Python - Delete routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nclient.routing_rules.delete(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n',
-                        },
-                        {
-                            "label": "Node.js - Delete routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.routingRules.delete({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -1237,7 +833,193 @@ class RoutingRules(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def retrieve(
+        self,
+        *,
+        routing_rule_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RoutingRuleGetResponseBody:
+        r"""Get routing rule
+
+        Retrieves the details of an existing routing rule by ID.
+
+        :param routing_rule_id: The ID of the routing rule
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.RoutingRuleGetRequest(
+            routing_rule_id=routing_rule_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/routing-rules/{routing_rule_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="RoutingRuleGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Routing Rules"],
+                extensions={
+                    "x-cli-group": "routingRules",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "retrieve",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RoutingRuleGetResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def retrieve_async(
+        self,
+        *,
+        routing_rule_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.RoutingRuleGetResponseBody:
+        r"""Get routing rule
+
+        Retrieves the details of an existing routing rule by ID.
+
+        :param routing_rule_id: The ID of the routing rule
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.RoutingRuleGetRequest(
+            routing_rule_id=routing_rule_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/routing-rules/{routing_rule_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="RoutingRuleGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Routing Rules"],
+                extensions={
+                    "x-cli-group": "routingRules",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "retrieve",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.RoutingRuleGetResponseBody, http_res)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1250,45 +1032,32 @@ class RoutingRules(BaseSDK):
         self,
         *,
         routing_rule_id: str,
-        display_name: Optional[str] = None,
         description: Optional[str] = None,
+        display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.RoutingRuleExpression, models.RoutingRuleExpressionTypedDict]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         models_config: Optional[
-            Union[
-                models.RoutingRuleModelsConfig, models.RoutingRuleModelsConfigTypedDict
-            ]
-        ] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.RoutingRulePlugin],
-                Iterable[models.RoutingRulePluginTypedDict],
-            ]
+            Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
         priority: Optional[int] = None,
-        cache_config: Optional[
-            Union[models.RoutingRuleCacheConfig, models.RoutingRuleCacheConfigTypedDict]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Update a routing rule
+    ) -> models.RoutingRuleUpdateResponseBody:
+        r"""Update routing rule
 
-        Partially updates routing-rule metadata or configuration. Project scope is immutable.
+        Partially updates an existing routing rule. Only provided fields are updated.
 
-        :param routing_rule_id:
-        :param display_name:
+        :param routing_rule_id: The ID of the routing rule
         :param description:
+        :param display_name:
         :param enabled:
         :param expression:
         :param models_config:
-        :param plugins:
         :param priority:
-        :param cache_config:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1309,23 +1078,17 @@ class RoutingRules(BaseSDK):
 
         request = models.RoutingRuleUpdateRequest(
             routing_rule_id=routing_rule_id,
-            update_routing_rule_request=models.UpdateRoutingRuleRequest(
-                display_name=display_name,
+            request_body=models.RoutingRuleUpdateRequestBody(
                 description=description,
+                display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.RoutingRuleExpression]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 models_config=utils.get_pydantic_model(
-                    models_config, Optional[models.RoutingRuleModelsConfig]
-                ),
-                plugins=utils.get_pydantic_model(
-                    plugins, Optional[List[models.RoutingRulePlugin]]
+                    models_config, Optional[models.ModelsConfig]
                 ),
                 priority=priority,
-                cache_config=utils.get_pydantic_model(
-                    cache_config, Optional[models.RoutingRuleCacheConfig]
-                ),
             ),
         )
 
@@ -1343,11 +1106,11 @@ class RoutingRules(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_routing_rule_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.UpdateRoutingRuleRequest,
+                models.RoutingRuleUpdateRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1375,23 +1138,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Configure routing rule",
-                            "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
-                        },
-                        {
-                            "label": "Python - Configure routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
-                        },
-                        {
-                            "label": "Node.js - Configure routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -1400,8 +1146,10 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RoutingRuleUpdateResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1414,45 +1162,32 @@ class RoutingRules(BaseSDK):
         self,
         *,
         routing_rule_id: str,
-        display_name: Optional[str] = None,
         description: Optional[str] = None,
+        display_name: Optional[str] = None,
         enabled: Optional[bool] = None,
         expression: Optional[
-            Union[models.RoutingRuleExpression, models.RoutingRuleExpressionTypedDict]
+            Union[models.ExpressionInput, models.ExpressionInputTypedDict]
         ] = None,
         models_config: Optional[
-            Union[
-                models.RoutingRuleModelsConfig, models.RoutingRuleModelsConfigTypedDict
-            ]
-        ] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.RoutingRulePlugin],
-                Iterable[models.RoutingRulePluginTypedDict],
-            ]
+            Union[models.ModelsConfig, models.ModelsConfigTypedDict]
         ] = None,
         priority: Optional[int] = None,
-        cache_config: Optional[
-            Union[models.RoutingRuleCacheConfig, models.RoutingRuleCacheConfigTypedDict]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RoutingRule:
-        r"""Update a routing rule
+    ) -> models.RoutingRuleUpdateResponseBody:
+        r"""Update routing rule
 
-        Partially updates routing-rule metadata or configuration. Project scope is immutable.
+        Partially updates an existing routing rule. Only provided fields are updated.
 
-        :param routing_rule_id:
-        :param display_name:
+        :param routing_rule_id: The ID of the routing rule
         :param description:
+        :param display_name:
         :param enabled:
         :param expression:
         :param models_config:
-        :param plugins:
         :param priority:
-        :param cache_config:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1473,23 +1208,17 @@ class RoutingRules(BaseSDK):
 
         request = models.RoutingRuleUpdateRequest(
             routing_rule_id=routing_rule_id,
-            update_routing_rule_request=models.UpdateRoutingRuleRequest(
-                display_name=display_name,
+            request_body=models.RoutingRuleUpdateRequestBody(
                 description=description,
+                display_name=display_name,
                 enabled=enabled,
                 expression=utils.get_pydantic_model(
-                    expression, Optional[models.RoutingRuleExpression]
+                    expression, Optional[models.ExpressionInput]
                 ),
                 models_config=utils.get_pydantic_model(
-                    models_config, Optional[models.RoutingRuleModelsConfig]
-                ),
-                plugins=utils.get_pydantic_model(
-                    plugins, Optional[List[models.RoutingRulePlugin]]
+                    models_config, Optional[models.ModelsConfig]
                 ),
                 priority=priority,
-                cache_config=utils.get_pydantic_model(
-                    cache_config, Optional[models.RoutingRuleCacheConfig]
-                ),
             ),
         )
 
@@ -1507,11 +1236,11 @@ class RoutingRules(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_routing_rule_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.UpdateRoutingRuleRequest,
+                models.RoutingRuleUpdateRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1539,23 +1268,6 @@ class RoutingRules(BaseSDK):
                     "x-cli-group": "routingRules",
                     "x-cli-hidden": True,
                     "x-cli-name": "update",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Configure routing rule",
-                            "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
-                        },
-                        {
-                            "label": "Python - Configure routing rule",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
-                        },
-                        {
-                            "label": "Node.js - Configure routing rule",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
-                        },
-                    ],
                 },
             ),
             request=req,
@@ -1564,8 +1276,10 @@ class RoutingRules(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RoutingRule, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+            return unmarshal_json_response(
+                models.RoutingRuleUpdateResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "404", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

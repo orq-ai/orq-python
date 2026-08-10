@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class RoutingRuleDeleteRequestTypedDict(TypedDict):
     routing_rule_id: str
+    r"""The ID of the routing rule"""
 
 
 class RoutingRuleDeleteRequest(BaseModel):
     routing_rule_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The ID of the routing rule"""

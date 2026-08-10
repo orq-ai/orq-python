@@ -5,15 +5,15 @@
 ### Available Operations
 
 * [list](#list) - List routing rules
-* [create](#create) - Create a routing rule
-* [list_used_models](#list_used_models) - List models used by routing rules
-* [retrieve](#retrieve) - Retrieve a routing rule
-* [delete](#delete) - Delete a routing rule
-* [update](#update) - Update a routing rule
+* [create](#create) - Create routing rule
+* [list_used_models](#list_used_models) - List used models
+* [delete](#delete) - Delete routing rule
+* [retrieve](#retrieve) - Get routing rule
+* [update](#update) - Update routing rule
 
 ## list
 
-Returns routing rules ordered by ascending priority. Supports cursor pagination, search, status, project, and referenced-model filters.
+Returns a paginated list of routing rules for the current project, ordered by priority ascending.
 
 ### Example Usage
 
@@ -39,17 +39,17 @@ with Orq(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `model`                                                             | List[*str*]                                                         | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional filter by project ID.                                      |
+| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional search term matched against name and description.          |
+| `enabled`                                                           | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | Filter by enabled status.                                           |
+| `model`                                                             | List[*str*]                                                         | :heavy_minus_sign:                                                  | Filter by referenced model refs (comma-separated).                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.ListRoutingRulesResponse](../../models/listroutingrulesresponse.md)**
+**[models.RoutingRuleListResponseBody](../../models/routingrulelistresponsebody.md)**
 
 ### Errors
 
@@ -59,7 +59,7 @@ with Orq(
 
 ## create
 
-Creates a routing rule with metadata and optional model, plugin, priority, and matching configuration. Rules default to disabled when `enabled` is omitted.
+Creates a new routing rule with expression, models configuration, and priority settings.
 
 ### Example Usage
 
@@ -82,22 +82,20 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `display_name`                                                                      | *str*                                                                               | :heavy_check_mark:                                                                  | N/A                                                                                 |
-| `description`                                                                       | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `project_id`                                                                        | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | Optional project scope. Omit for a workspace-wide rule.                             |
-| `enabled`                                                                           | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Whether the rule is active. Defaults to false when omitted.                         |
-| `expression`                                                                        | [Optional[models.RoutingRuleExpression]](../../models/routingruleexpression.md)     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `models_config`                                                                     | [Optional[models.RoutingRuleModelsConfig]](../../models/routingrulemodelsconfig.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `plugins`                                                                           | List[[models.RoutingRulePlugin](../../models/routingruleplugin.md)]                 | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `priority`                                                                          | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `cache_config`                                                                      | [Optional[models.RoutingRuleCacheConfig]](../../models/routingrulecacheconfig.md)   | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `display_name`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `description`                                                                | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `enabled`                                                                    | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `expression`                                                                 | [Optional[models.ExpressionInput]](../../models/expressioninput.md)          | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `models_config`                                                              | [Optional[models.ModelsConfig]](../../models/modelsconfig.md)                | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `priority`                                                                   | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `project_id`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Optional project ID. If null/omitted, the entity is global (workspace-wide). |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
 
 ### Response
 
-**[models.RoutingRule](../../models/routingrule.md)**
+**[models.RoutingRuleCreateResponseBody](../../models/routingrulecreateresponsebody.md)**
 
 ### Errors
 
@@ -107,7 +105,7 @@ with Orq(
 
 ## list_used_models
 
-Returns the distinct model references used by routing rules in the requested scope.
+Returns the distinct model refs referenced across all routing rules in scope.
 
 ### Example Usage
 
@@ -132,12 +130,46 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.ListRoutingRuleUsedModelsResponse](../../models/listroutingruleusedmodelsresponse.md)**
+**[models.RoutingRuleListUsedModelsResponseBody](../../models/routingrulelistusedmodelsresponsebody.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete
+
+Deletes an existing routing rule by ID.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="RoutingRuleDelete" method="delete" path="/v2/routing-rules/{routing_rule_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.routing_rules.delete(routing_rule_id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `routing_rule_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The ID of the routing rule                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
@@ -147,7 +179,7 @@ with Orq(
 
 ## retrieve
 
-Retrieves a routing rule by its unique identifier.
+Retrieves the details of an existing routing rule by ID.
 
 ### Example Usage
 
@@ -172,47 +204,12 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `routing_rule_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `routing_rule_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The ID of the routing rule                                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RoutingRule](../../models/routingrule.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## delete
-
-Permanently deletes a routing rule.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="RoutingRuleDelete" method="delete" path="/v2/routing-rules/{routing_rule_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.routing_rules.delete(routing_rule_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `routing_rule_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+**[models.RoutingRuleGetResponseBody](../../models/routingrulegetresponsebody.md)**
 
 ### Errors
 
@@ -222,7 +219,7 @@ with Orq(
 
 ## update
 
-Partially updates routing-rule metadata or configuration. Project scope is immutable.
+Partially updates an existing routing rule. Only provided fields are updated.
 
 ### Example Usage
 
@@ -245,22 +242,20 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `routing_rule_id`                                                                   | *str*                                                                               | :heavy_check_mark:                                                                  | N/A                                                                                 |
-| `display_name`                                                                      | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `description`                                                                       | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `enabled`                                                                           | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `expression`                                                                        | [Optional[models.RoutingRuleExpression]](../../models/routingruleexpression.md)     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `models_config`                                                                     | [Optional[models.RoutingRuleModelsConfig]](../../models/routingrulemodelsconfig.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `plugins`                                                                           | List[[models.RoutingRulePlugin](../../models/routingruleplugin.md)]                 | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `priority`                                                                          | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `cache_config`                                                                      | [Optional[models.RoutingRuleCacheConfig]](../../models/routingrulecacheconfig.md)   | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `routing_rule_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The ID of the routing rule                                          |
+| `description`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `expression`                                                        | [Optional[models.ExpressionInput]](../../models/expressioninput.md) | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `models_config`                                                     | [Optional[models.ModelsConfig]](../../models/modelsconfig.md)       | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `priority`                                                          | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RoutingRule](../../models/routingrule.md)**
+**[models.RoutingRuleUpdateResponseBody](../../models/routingruleupdateresponsebody.md)**
 
 ### Errors
 

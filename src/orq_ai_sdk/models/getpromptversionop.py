@@ -36,7 +36,6 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
-from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -1363,7 +1362,6 @@ GetPromptVersionPluginsTypedDict = TypeAliasType(
     "GetPromptVersionPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
-        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1375,7 +1373,6 @@ GetPromptVersionPlugins = TypeAliasType(
     "GetPromptVersionPlugins",
     Union[
         ResponseHealingPlugin,
-        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,

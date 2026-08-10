@@ -77,6 +77,7 @@ class Orq(BaseSDK):
     guardrail_rules: "GuardrailRules"
     models: "Models"
     policies: "Policies"
+    routing_rules: "RoutingRules"
     alerts: "Alerts"
     api_keys: "APIKeys"
     budgets: "Budgets"
@@ -86,7 +87,6 @@ class Orq(BaseSDK):
     notifiers: "Notifiers"
     people: "People"
     projects: "Projects"
-    routing_rules: "RoutingRules"
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
@@ -115,6 +115,7 @@ class Orq(BaseSDK):
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
+        "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
@@ -124,7 +125,6 @@ class Orq(BaseSDK):
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
-        "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
