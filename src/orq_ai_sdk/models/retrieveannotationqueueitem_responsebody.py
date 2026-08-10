@@ -205,7 +205,7 @@ class RetrieveAnnotationQueueItemResponseBody1(BaseModel):
     output: Dict[str, Any]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZP5D96RBWTVSQHGYRXBY5Q6"
+        "01KZPA863E7J80908RBDXFCBEQ"
     )
 
     name: Optional[str] = None
