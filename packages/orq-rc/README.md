@@ -314,11 +314,11 @@ with Orq(
 ### [GuardrailRules](docs/sdks/guardrailrules/README.md)
 
 * [list](docs/sdks/guardrailrules/README.md#list) - List guardrail rules
-* [create](docs/sdks/guardrailrules/README.md#create) - Create guardrail rule
-* [list_used_guardrails](docs/sdks/guardrailrules/README.md#list_used_guardrails) - List used guardrails
-* [delete](docs/sdks/guardrailrules/README.md#delete) - Delete guardrail rule
-* [retrieve](docs/sdks/guardrailrules/README.md#retrieve) - Get guardrail rule
-* [update](docs/sdks/guardrailrules/README.md#update) - Update guardrail rule
+* [create](docs/sdks/guardrailrules/README.md#create) - Create a guardrail rule
+* [list_used_guardrails](docs/sdks/guardrailrules/README.md#list_used_guardrails) - List guardrails used by guardrail rules
+* [retrieve](docs/sdks/guardrailrules/README.md#retrieve) - Retrieve a guardrail rule
+* [delete](docs/sdks/guardrailrules/README.md#delete) - Delete a guardrail rule
+* [update](docs/sdks/guardrailrules/README.md#update) - Update a guardrail rule
 
 ### [HumanReviewSets](docs/sdks/humanreviewsets/README.md)
 

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import AgentToolInputRunType
-value: AgentToolInputRunType = "google_search"
+value: AgentToolInputRunType = "http"
 ```
 
 
 ## Values
 
-- `"google_search"`
+- `"http"`

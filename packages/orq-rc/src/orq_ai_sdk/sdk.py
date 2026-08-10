@@ -74,13 +74,13 @@ class Orq(BaseSDK):
     human_review_sets: "HumanReviewSets"
     annotation_queues: "AnnotationQueues"
     pii: "Pii"
-    guardrail_rules: "GuardrailRules"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
     api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
+    guardrail_rules: "GuardrailRules"
     identities: "Identities"
     management_keys: "ManagementKeys"
     notifiers: "Notifiers"
@@ -112,13 +112,13 @@ class Orq(BaseSDK):
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
-        "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),

@@ -5,15 +5,15 @@
 ### Available Operations
 
 * [list](#list) - List guardrail rules
-* [create](#create) - Create guardrail rule
-* [list_used_guardrails](#list_used_guardrails) - List used guardrails
-* [delete](#delete) - Delete guardrail rule
-* [retrieve](#retrieve) - Get guardrail rule
-* [update](#update) - Update guardrail rule
+* [create](#create) - Create a guardrail rule
+* [list_used_guardrails](#list_used_guardrails) - List guardrails used by guardrail rules
+* [retrieve](#retrieve) - Retrieve a guardrail rule
+* [delete](#delete) - Delete a guardrail rule
+* [update](#update) - Update a guardrail rule
 
 ## list
 
-Returns a paginated list of guardrail rules for the current project.
+Returns guardrail rules with cursor pagination, search, status, project, sort, and referenced-guardrail filters.
 
 ### Example Usage
 
@@ -39,18 +39,18 @@ with Orq(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
-| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | A cursor for use in pagination.                                     |
-| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Optional filter by project ID.                                      |
-| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter by display name or description (case-insensitive).           |
-| `sort_by`                                                           | [Optional[models.SortBy]](../../models/sortby.md)                   | :heavy_minus_sign:                                                  | Field to sort by. Defaults to created_at (newest first).            |
-| `enabled`                                                           | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | Filter by enabled status.                                           |
-| `guardrail_id`                                                      | List[*str*]                                                         | :heavy_minus_sign:                                                  | Filter by referenced guardrail ids (comma-separated).               |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `sort_by`                                                           | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `guardrail_id`                                                      | List[*str*]                                                         | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.GuardrailRuleListResponseBody](../../models/guardrailrulelistresponsebody.md)**
+**[models.ListGuardrailRulesResponse](../../models/listguardrailrulesresponse.md)**
 
 ### Errors
 
@@ -60,7 +60,7 @@ with Orq(
 
 ## create
 
-Creates a new guardrail rule with expression, guardrails configuration, and timeout settings.
+Creates a guardrail rule with metadata and optional evaluator, plugin, timeout, and matching configuration. Rules default to disabled when `enabled` is omitted.
 
 ### Example Usage
 
@@ -83,20 +83,21 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `display_name`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
-| `description`                                                                | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
-| `enabled`                                                                    | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |
-| `expression`                                                                 | [Optional[models.ExpressionInput]](../../models/expressioninput.md)          | :heavy_minus_sign:                                                           | N/A                                                                          |
-| `guardrails`                                                                 | List[[models.GuardrailRef](../../models/guardrailref.md)]                    | :heavy_minus_sign:                                                           | N/A                                                                          |
-| `project_id`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Optional project ID. If null/omitted, the entity is global (workspace-wide). |
-| `timeout`                                                                    | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
-| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `display_name`                                                                      | *str*                                                                               | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `description`                                                                       | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `project_id`                                                                        | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | Optional project scope. Omit for a workspace-wide rule.                             |
+| `enabled`                                                                           | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Whether the rule is active. Defaults to false when omitted.                         |
+| `expression`                                                                        | [Optional[models.GuardrailRuleExpression]](../../models/guardrailruleexpression.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `guardrails`                                                                        | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]       | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `plugins`                                                                           | List[[models.GuardrailRulePlugin](../../models/guardrailruleplugin.md)]             | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `timeout`                                                                           | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
 
 ### Response
 
-**[models.GuardrailRuleCreateResponseBody](../../models/guardrailrulecreateresponsebody.md)**
+**[models.CreateGuardrailRuleResponse](../../models/createguardrailruleresponse.md)**
 
 ### Errors
 
@@ -106,7 +107,7 @@ with Orq(
 
 ## list_used_guardrails
 
-Returns the distinct guardrail ids referenced across all guardrail rules in scope.
+Returns the distinct guardrail identifiers used by guardrail rules in the requested scope.
 
 ### Example Usage
 
@@ -131,46 +132,12 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.GuardrailRuleListUsedGuardrailsResponseBody](../../models/guardrailrulelistusedguardrailsresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## delete
-
-Deletes an existing guardrail rule by ID.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="GuardrailRuleDelete" method="delete" path="/v2/guardrail-rules/{guardrail_rule_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.guardrail_rules.delete(guardrail_rule_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `guardrail_rule_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | The ID of the guardrail rule                                        |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+**[models.ListGuardrailRuleUsedGuardrailsResponse](../../models/listguardrailruleusedguardrailsresponse.md)**
 
 ### Errors
 
@@ -180,7 +147,7 @@ with Orq(
 
 ## retrieve
 
-Retrieves the details of an existing guardrail rule by ID.
+Retrieves a guardrail rule by its unique identifier.
 
 ### Example Usage
 
@@ -205,12 +172,52 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `guardrail_rule_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | The ID of the guardrail rule                                        |
+| `guardrail_rule_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.GuardrailRuleGetResponseBody](../../models/guardrailrulegetresponsebody.md)**
+**[models.GetGuardrailRuleResponse](../../models/getguardrailruleresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete
+
+Permanently deletes a guardrail rule.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GuardrailRuleDelete" method="delete" path="/v2/guardrail-rules/{guardrail_rule_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.guardrail_rules.delete(guardrail_rule_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `guardrail_rule_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.DeleteGuardrailRuleResponse](../../models/deleteguardrailruleresponse.md)**
 
 ### Errors
 
@@ -220,7 +227,7 @@ with Orq(
 
 ## update
 
-Partially updates an existing guardrail rule. Only provided fields are updated.
+Partially updates guardrail-rule metadata or configuration. Project scope is immutable.
 
 ### Example Usage
 
@@ -243,20 +250,21 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `guardrail_rule_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | The ID of the guardrail rule                                        |
-| `description`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `expression`                                                        | [Optional[models.ExpressionInput]](../../models/expressioninput.md) | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `guardrails`                                                        | List[[models.GuardrailRef](../../models/guardrailref.md)]           | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `timeout`                                                           | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `guardrail_rule_id`                                                                 | *str*                                                                               | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `display_name`                                                                      | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `description`                                                                       | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `enabled`                                                                           | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `expression`                                                                        | [Optional[models.GuardrailRuleExpression]](../../models/guardrailruleexpression.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `guardrails`                                                                        | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]       | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `plugins`                                                                           | List[[models.GuardrailRulePlugin](../../models/guardrailruleplugin.md)]             | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `timeout`                                                                           | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
 
 ### Response
 
-**[models.GuardrailRuleUpdateResponseBody](../../models/guardrailruleupdateresponsebody.md)**
+**[models.UpdateGuardrailRuleResponse](../../models/updateguardrailruleresponse.md)**
 
 ### Errors
 

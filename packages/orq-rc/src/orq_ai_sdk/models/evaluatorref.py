@@ -7,7 +7,7 @@ from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-EvaluatorRefExecuteOn = Literal[
+ExecuteOn = Literal[
     "input",
     "output",
     "both",
@@ -15,7 +15,7 @@ EvaluatorRefExecuteOn = Literal[
 
 
 class EvaluatorRefTypedDict(TypedDict):
-    execute_on: EvaluatorRefExecuteOn
+    execute_on: ExecuteOn
     id: str
     is_guardrail: NotRequired[bool]
     options: NotRequired[Dict[str, Any]]
@@ -24,7 +24,7 @@ class EvaluatorRefTypedDict(TypedDict):
 
 
 class EvaluatorRef(BaseModel):
-    execute_on: EvaluatorRefExecuteOn
+    execute_on: ExecuteOn
 
     id: str
 

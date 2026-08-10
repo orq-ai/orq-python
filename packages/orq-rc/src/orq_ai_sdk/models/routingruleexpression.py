@@ -7,22 +7,22 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class ConfigTypedDict(TypedDict):
+class RoutingRuleExpressionConfigTypedDict(TypedDict):
     pass
 
 
-class Config(BaseModel):
+class RoutingRuleExpressionConfig(BaseModel):
     pass
 
 
 class RoutingRuleExpressionTypedDict(TypedDict):
-    config: NotRequired[ConfigTypedDict]
+    config: NotRequired[RoutingRuleExpressionConfigTypedDict]
     cel: NotRequired[str]
     r"""CEL expression used to match requests. Empty means the rule always matches."""
 
 
 class RoutingRuleExpression(BaseModel):
-    config: Optional[Config] = None
+    config: Optional[RoutingRuleExpressionConfig] = None
 
     cel: Optional[str] = None
     r"""CEL expression used to match requests. Empty means the rule always matches."""

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
-value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType = "retrieve_memory_stores"
+value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType = "json_schema"
 ```
 
 
 ## Values
 
-- `"retrieve_memory_stores"`
+- `"json_schema"`

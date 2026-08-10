@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsType
-value: RunAgentAgentToolInputRunAgentsType = "call_sub_agent"
+value: RunAgentAgentToolInputRunAgentsType = "code"
 ```
 
 
 ## Values
 
-- `"call_sub_agent"`
+- `"code"`

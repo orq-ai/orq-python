@@ -422,8 +422,10 @@ class CreateRerankRequestBodyTypedDict(TypedDict):
     r"""A list of texts that will be compared to the `query`. For optimal performance we recommend against sending more than 1,000 documents in a single request."""
     model: str
     r"""The identifier of the model to use"""
-    top_n: NotRequired[float]
+    top_n: NotRequired[int]
     r"""The number of most relevant documents or indices to return, defaults to the length of the documents"""
+    return_documents: NotRequired[bool]
+    r"""Whether to return the documents in the response"""
     filename: NotRequired[Nullable[str]]
     r"""The filename of the document to rerank"""
     name: NotRequired[str]
@@ -455,8 +457,11 @@ class CreateRerankRequestBody(BaseModel):
     model: str
     r"""The identifier of the model to use"""
 
-    top_n: Optional[float] = None
+    top_n: Optional[int] = None
     r"""The number of most relevant documents or indices to return, defaults to the length of the documents"""
+
+    return_documents: Optional[bool] = None
+    r"""Whether to return the documents in the response"""
 
     filename: OptionalNullable[str] = UNSET
     r"""The filename of the document to rerank"""
@@ -489,6 +494,7 @@ class CreateRerankRequestBody(BaseModel):
         optional_fields = set(
             [
                 "top_n",
+                "return_documents",
                 "filename",
                 "name",
                 "fallbacks",

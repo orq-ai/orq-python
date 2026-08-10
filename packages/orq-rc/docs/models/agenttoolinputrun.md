@@ -5,88 +5,88 @@ Tool configuration for agent run operations. Built-in tools only require a type 
 
 ## Supported Types
 
-### `models.AgentToolInputRunGoogleSearchTool`
+### `models.GoogleSearchToolInput`
 
 ```python
-value: models.AgentToolInputRunGoogleSearchTool = /* values here */
+value: models.GoogleSearchToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunWebScraperTool`
+### `models.WebScraperToolInput`
 
 ```python
-value: models.AgentToolInputRunWebScraperTool = /* values here */
+value: models.WebScraperToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunCallSubAgentTool`
+### `models.CallSubAgentToolInput`
 
 ```python
-value: models.AgentToolInputRunCallSubAgentTool = /* values here */
+value: models.CallSubAgentToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunRetrieveAgentsTool`
+### `models.RetrieveAgentsToolInput`
 
 ```python
-value: models.AgentToolInputRunRetrieveAgentsTool = /* values here */
+value: models.RetrieveAgentsToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunQueryMemoryStoreTool`
+### `models.QueryMemoryStoreToolInput`
 
 ```python
-value: models.AgentToolInputRunQueryMemoryStoreTool = /* values here */
+value: models.QueryMemoryStoreToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunWriteMemoryStoreTool`
+### `models.WriteMemoryStoreToolInput`
 
 ```python
-value: models.AgentToolInputRunWriteMemoryStoreTool = /* values here */
+value: models.WriteMemoryStoreToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunRetrieveMemoryStoresTool`
+### `models.RetrieveMemoryStoresToolInput`
 
 ```python
-value: models.AgentToolInputRunRetrieveMemoryStoresTool = /* values here */
+value: models.RetrieveMemoryStoresToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunDeleteMemoryDocumentTool`
+### `models.DeleteMemoryDocumentToolInput`
 
 ```python
-value: models.AgentToolInputRunDeleteMemoryDocumentTool = /* values here */
+value: models.DeleteMemoryDocumentToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunRetrieveKnowledgeBasesTool`
+### `models.RetrieveKnowledgeBasesToolInput`
 
 ```python
-value: models.AgentToolInputRunRetrieveKnowledgeBasesTool = /* values here */
+value: models.RetrieveKnowledgeBasesToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunQueryKnowledgeBaseTool`
+### `models.QueryKnowledgeBaseToolInput`
 
 ```python
-value: models.AgentToolInputRunQueryKnowledgeBaseTool = /* values here */
+value: models.QueryKnowledgeBaseToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunCurrentDateTool`
+### `models.CurrentDateToolInput`
 
 ```python
-value: models.AgentToolInputRunCurrentDateTool = /* values here */
+value: models.CurrentDateToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunAdvisorTool`
+### `models.AdvisorToolInput`
 
 ```python
-value: models.AgentToolInputRunAdvisorTool = /* values here */
+value: models.AdvisorToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunSidekickTool`
+### `models.SidekickToolInput`
 
 ```python
-value: models.AgentToolInputRunSidekickTool = /* values here */
+value: models.SidekickToolInput = /* values here */
 ```
 
-### `models.AgentToolInputRunCodeInterpreterTool`
+### `models.CodeInterpreterToolInput`
 
 ```python
-value: models.AgentToolInputRunCodeInterpreterTool = /* values here */
+value: models.CodeInterpreterToolInput = /* values here */
 ```
 
 ### `models.HTTPToolRun`

@@ -1,13 +1,17 @@
 # RunAgentAgentToolInputRunType
 
+The type of the argument.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunType
-value: RunAgentAgentToolInputRunType = "web_scraper"
+value: RunAgentAgentToolInputRunType = "string"
 ```
 
 
 ## Values
 
-- `"web_scraper"`
+- `"string"`
+- `"number"`
+- `"boolean"`

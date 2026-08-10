@@ -5,88 +5,88 @@ Tool configuration for agent run operations. Built-in tools only require a type 
 
 ## Supported Types
 
-### `models.StreamRunAgentAgentToolInputRunGoogleSearchTool`
+### `models.GoogleSearchToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunGoogleSearchTool = /* values here */
+value: models.GoogleSearchToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunWebScraperTool`
+### `models.WebScraperToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunWebScraperTool = /* values here */
+value: models.WebScraperToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunCallSubAgentTool`
+### `models.CallSubAgentToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunCallSubAgentTool = /* values here */
+value: models.CallSubAgentToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunRetrieveAgentsTool`
+### `models.RetrieveAgentsToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunRetrieveAgentsTool = /* values here */
+value: models.RetrieveAgentsToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunQueryMemoryStoreTool`
+### `models.QueryMemoryStoreToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunQueryMemoryStoreTool = /* values here */
+value: models.QueryMemoryStoreToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunWriteMemoryStoreTool`
+### `models.WriteMemoryStoreToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunWriteMemoryStoreTool = /* values here */
+value: models.WriteMemoryStoreToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool`
+### `models.RetrieveMemoryStoresToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool = /* values here */
+value: models.RetrieveMemoryStoresToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool`
+### `models.DeleteMemoryDocumentToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool = /* values here */
+value: models.DeleteMemoryDocumentToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool`
+### `models.RetrieveKnowledgeBasesToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool = /* values here */
+value: models.RetrieveKnowledgeBasesToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool`
+### `models.QueryKnowledgeBaseToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool = /* values here */
+value: models.QueryKnowledgeBaseToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunCurrentDateTool`
+### `models.CurrentDateToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunCurrentDateTool = /* values here */
+value: models.CurrentDateToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunAdvisorTool`
+### `models.AdvisorToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunAdvisorTool = /* values here */
+value: models.AdvisorToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunSidekickTool`
+### `models.SidekickToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunSidekickTool = /* values here */
+value: models.SidekickToolInput = /* values here */
 ```
 
-### `models.StreamRunAgentAgentToolInputRunCodeInterpreterTool`
+### `models.CodeInterpreterToolInput`
 
 ```python
-value: models.StreamRunAgentAgentToolInputRunCodeInterpreterTool = /* values here */
+value: models.CodeInterpreterToolInput = /* values here */
 ```
 
 ### `models.AgentToolInputRunHTTPToolRun`

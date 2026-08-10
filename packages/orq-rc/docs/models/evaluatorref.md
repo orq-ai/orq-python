@@ -3,11 +3,11 @@
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `execute_on`                                                       | [models.EvaluatorRefExecuteOn](../models/evaluatorrefexecuteon.md) | :heavy_check_mark:                                                 | N/A                                                                |
-| `id`                                                               | *str*                                                              | :heavy_check_mark:                                                 | N/A                                                                |
-| `is_guardrail`                                                     | *Optional[bool]*                                                   | :heavy_minus_sign:                                                 | N/A                                                                |
-| `options`                                                          | Dict[str, *Any*]                                                   | :heavy_minus_sign:                                                 | N/A                                                                |
-| `sample_rate`                                                      | *Optional[float]*                                                  | :heavy_minus_sign:                                                 | N/A                                                                |
-| `timeout`                                                          | *Optional[int]*                                                    | :heavy_minus_sign:                                                 | N/A                                                                |
+| Field                                      | Type                                       | Required                                   | Description                                |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| `execute_on`                               | [models.ExecuteOn](../models/executeon.md) | :heavy_check_mark:                         | N/A                                        |
+| `id`                                       | *str*                                      | :heavy_check_mark:                         | N/A                                        |
+| `is_guardrail`                             | *Optional[bool]*                           | :heavy_minus_sign:                         | N/A                                        |
+| `options`                                  | Dict[str, *Any*]                           | :heavy_minus_sign:                         | N/A                                        |
+| `sample_rate`                              | *Optional[float]*                          | :heavy_minus_sign:                         | N/A                                        |
+| `timeout`                                  | *Optional[int]*                            | :heavy_minus_sign:                         | N/A                                        |
