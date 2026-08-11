@@ -306,7 +306,7 @@ r"""The detail level for image understanding."""
 CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
-class ImageTypedDict(TypedDict):
+class TwoImageTypedDict(TypedDict):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
@@ -319,7 +319,7 @@ class ImageTypedDict(TypedDict):
     r"""The URL of the image."""
 
 
-class Image(BaseModel):
+class TwoImage(BaseModel):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
@@ -453,7 +453,7 @@ class TwoText(BaseModel):
 
 CreateRouterResponseContent2TypedDict = TypeAliasType(
     "CreateRouterResponseContent2TypedDict",
-    Union[TwoTextTypedDict, ImageTypedDict, CreateRouterResponse2FileTypedDict],
+    Union[TwoTextTypedDict, TwoImageTypedDict, CreateRouterResponse2FileTypedDict],
 )
 r"""A content part within a message."""
 
@@ -461,7 +461,7 @@ r"""A content part within a message."""
 CreateRouterResponseContent2 = Annotated[
     Union[
         Annotated[TwoText, Tag("input_text")],
-        Annotated[Image, Tag("input_image")],
+        Annotated[TwoImage, Tag("input_image")],
         Annotated[CreateRouterResponse2File, Tag("input_file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),

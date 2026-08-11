@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Variations(BaseSDK):
@@ -14,7 +14,12 @@ class Variations(BaseSDK):
         self,
         *,
         model: str,
-        image: Optional[Any] = None,
+        image: Optional[
+            Union[
+                models.CreateImageVariationImage,
+                models.CreateImageVariationImageTypedDict,
+            ]
+        ] = None,
         n: OptionalNullable[float] = 1,
         response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
         size: Optional[models.Size] = "1024x1024",
@@ -96,7 +101,9 @@ class Variations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateImageVariationRequestBody(
-            image=image,
+            image=utils.get_pydantic_model(
+                image, Optional[models.CreateImageVariationImage]
+            ),
             model=model,
             n=n,
             response_format=response_format,
@@ -191,7 +198,12 @@ class Variations(BaseSDK):
         self,
         *,
         model: str,
-        image: Optional[Any] = None,
+        image: Optional[
+            Union[
+                models.CreateImageVariationImage,
+                models.CreateImageVariationImageTypedDict,
+            ]
+        ] = None,
         n: OptionalNullable[float] = 1,
         response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
         size: Optional[models.Size] = "1024x1024",
@@ -273,7 +285,9 @@ class Variations(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateImageVariationRequestBody(
-            image=image,
+            image=utils.get_pydantic_model(
+                image, Optional[models.CreateImageVariationImage]
+            ),
             model=model,
             n=n,
             response_format=response_format,

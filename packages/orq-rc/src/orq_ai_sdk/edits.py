@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Edits(BaseSDK):
@@ -15,7 +15,7 @@ class Edits(BaseSDK):
         *,
         model: str,
         prompt: str,
-        image: Optional[Any] = None,
+        image: Optional[Union[models.Image, models.ImageTypedDict]] = None,
         n: OptionalNullable[float] = 1,
         size: OptionalNullable[str] = UNSET,
         quality: OptionalNullable[models.CreateImageEditQuality] = UNSET,
@@ -90,7 +90,7 @@ class Edits(BaseSDK):
 
         request = models.CreateImageEditRequestBody(
             model=model,
-            image=image,
+            image=utils.get_pydantic_model(image, Optional[models.Image]),
             prompt=prompt,
             n=n,
             size=size,
@@ -181,7 +181,7 @@ class Edits(BaseSDK):
         *,
         model: str,
         prompt: str,
-        image: Optional[Any] = None,
+        image: Optional[Union[models.Image, models.ImageTypedDict]] = None,
         n: OptionalNullable[float] = 1,
         size: OptionalNullable[str] = UNSET,
         quality: OptionalNullable[models.CreateImageEditQuality] = UNSET,
@@ -256,7 +256,7 @@ class Edits(BaseSDK):
 
         request = models.CreateImageEditRequestBody(
             model=model,
-            image=image,
+            image=utils.get_pydantic_model(image, Optional[models.Image]),
             prompt=prompt,
             n=n,
             size=size,
