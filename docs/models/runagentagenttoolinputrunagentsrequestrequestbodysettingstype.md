@@ -1,13 +1,15 @@
 # RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
 
+The type must be "object"
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
-value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType = "write_memory_store"
+value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType = "object"
 ```
 
 
 ## Values
 
-- `"write_memory_store"`
+- `"object"`

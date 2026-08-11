@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunType
-value: StreamRunAgentAgentToolInputRunType = "google_search"
+value: StreamRunAgentAgentToolInputRunType = "http"
 ```
 
 
 ## Values
 
-- `"google_search"`
+- `"http"`

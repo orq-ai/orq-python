@@ -1,13 +1,15 @@
 # RunAgentAgentToolInputRunAgentsRequestType
 
+The type must be "object"
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import RunAgentAgentToolInputRunAgentsRequestType
-value: RunAgentAgentToolInputRunAgentsRequestType = "retrieve_agents"
+value: RunAgentAgentToolInputRunAgentsRequestType = "object"
 ```
 
 
 ## Values
 
-- `"retrieve_agents"`
+- `"object"`

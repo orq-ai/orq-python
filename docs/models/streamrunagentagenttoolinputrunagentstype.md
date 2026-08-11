@@ -1,13 +1,17 @@
 # StreamRunAgentAgentToolInputRunAgentsType
 
+The type of the argument.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunAgentsType
-value: StreamRunAgentAgentToolInputRunAgentsType = "web_scraper"
+value: StreamRunAgentAgentToolInputRunAgentsType = "string"
 ```
 
 
 ## Values
 
-- `"web_scraper"`
+- `"string"`
+- `"number"`
+- `"boolean"`
