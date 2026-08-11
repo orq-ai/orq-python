@@ -14,6 +14,8 @@ class SpanAttributes(Enum):
     USAGE_OUTPUT_TOKENS = "gen_ai.usage.output_tokens"
     TOOL_NAME = "gen_ai.tool.name"
     TOOL_CALL_ID = "gen_ai.tool.call.id"
+    TOOL_CALL_ARGUMENTS = "gen_ai.tool.call.arguments"
+    TOOL_CALL_RESULT = "gen_ai.tool.call.result"
     GEN_AI_AGENT_NAME = "gen_ai.agent.name"
 
     # Orq custom attributes

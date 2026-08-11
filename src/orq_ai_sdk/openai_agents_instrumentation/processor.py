@@ -341,8 +341,14 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if data_id:
                 otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data_id)
 
+        if data.input is not None:
+            arguments = data.input if isinstance(data.input, str) else str(data.input)
+            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ARGUMENTS.value, arguments)
+
         if data.output is not None:
-            otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
+            result = str(data.output)
+            otel_span.set_attribute(SpanAttributes.TOOL_CALL_RESULT.value, result)
+            otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, result)
 
     def _handle_handoff_span(self, otel_span: OtelSpan, data: HandoffSpanData) -> None:
         """Handle handoff span."""
