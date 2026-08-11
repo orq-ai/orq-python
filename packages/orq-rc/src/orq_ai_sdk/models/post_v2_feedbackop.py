@@ -92,7 +92,7 @@ class PostV2FeedbackFeedbackResponseResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class PostV2FeedbackFeedbackResponseResponseBody(OrqError):
-    r"""Workspace ID is not found on the request"""
+    r"""Workspace, trace, or feedback property was not found"""
 
     data: PostV2FeedbackFeedbackResponseResponseBodyData = field(hash=False)
 
@@ -164,7 +164,7 @@ PostV2FeedbackFeedbackProduct = Literal[
 
 
 class PostV2FeedbackResponseBodyTypedDict(TypedDict):
-    r"""Event has been dispatched to delete the feedback"""
+    r"""Feedback submitted successfully"""
 
     property: str
     r"""A string describing the specific property or aspect rated."""
@@ -178,7 +178,7 @@ class PostV2FeedbackResponseBodyTypedDict(TypedDict):
 
 
 class PostV2FeedbackResponseBody(BaseModel):
-    r"""Event has been dispatched to delete the feedback"""
+    r"""Feedback submitted successfully"""
 
     property: str
     r"""A string describing the specific property or aspect rated."""

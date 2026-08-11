@@ -1526,7 +1526,7 @@ class UpdateDatapointEvaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-10T13:58:10.884Z")
+    ] = parse_datetime("2026-08-11T06:39:44.211Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1673,7 +1673,7 @@ class UpdateDatapointEvaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-10T13:58:10.884Z")
+    ] = parse_datetime("2026-08-11T06:39:44.210Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1818,7 +1818,7 @@ class UpdateDatapointEvaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-10T13:58:10.883Z")
+    ] = parse_datetime("2026-08-11T06:39:44.209Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1963,7 +1963,7 @@ class UpdateDatapointEvaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-10T13:58:10.882Z")
+    ] = parse_datetime("2026-08-11T06:39:44.208Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -2078,7 +2078,7 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-10T13:57:55.635Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-11T06:39:27.936Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

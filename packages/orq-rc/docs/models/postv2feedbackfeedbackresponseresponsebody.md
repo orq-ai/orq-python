@@ -1,6 +1,6 @@
 # PostV2FeedbackFeedbackResponseResponseBody
 
-Workspace ID is not found on the request
+Workspace, trace, or feedback property was not found
 
 
 ## Fields
