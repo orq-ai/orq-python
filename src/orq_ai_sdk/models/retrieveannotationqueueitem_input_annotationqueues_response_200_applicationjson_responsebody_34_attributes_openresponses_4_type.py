@@ -172,10 +172,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.227Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.329Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.227Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.329Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -348,10 +348,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.227Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.329Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.227Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.329Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -531,10 +531,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
 
     explanation: Optional[str] = None
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.226Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.328Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.226Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.328Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -703,10 +703,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.225Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.327Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.225Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.327Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -879,10 +879,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.225Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.326Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.225Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.326Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -1064,10 +1064,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.224Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.320Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.224Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.326Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -1236,10 +1236,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.224Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.319Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.224Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.319Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -1412,10 +1412,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.223Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.319Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.223Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.319Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -1585,10 +1585,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.223Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.318Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.223Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.318Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -1757,10 +1757,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.222Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.317Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.222Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.317Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -1933,10 +1933,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.221Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.316Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.221Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.317Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
@@ -2124,10 +2124,10 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.220Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.315Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-11T13:42:46.220Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-12T15:23:31.315Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")
