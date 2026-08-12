@@ -2670,7 +2670,7 @@ class ResponseBody27(BaseModel):
     type: RetrieveAnnotationQueueItemResponseBodyAnnotationQueuesResponse200ApplicationJSON27Type
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZTE0M1522GA0RZMWGJK06XR"
+        "01KZTY0AS8FM7T2AC7RPNC9EQ2"
     )
 
     name: Optional[str] = None
@@ -4220,7 +4220,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-12T07:29:29.098Z")
+    ] = parse_datetime("2026-08-12T12:08:56.847Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4389,7 +4389,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-12T07:29:29.098Z")
+    ] = parse_datetime("2026-08-12T12:08:56.846Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4558,7 +4558,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-12T07:29:29.097Z")
+    ] = parse_datetime("2026-08-12T12:08:56.846Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4727,7 +4727,7 @@ class RetrieveAnnotationQueueItemEvaluationsAnnotationQueuesResponse200Applicati
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-12T07:29:29.096Z")
+    ] = parse_datetime("2026-08-12T12:08:56.845Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
