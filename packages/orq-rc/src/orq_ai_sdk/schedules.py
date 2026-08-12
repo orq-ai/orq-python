@@ -484,7 +484,7 @@ class Schedules(BaseSDK):
     ):
         r"""Delete schedule
 
-        Permanently removes a schedule from NATS, Mongo, and the Redis cache.
+        Permanently removes the schedule. It will not run again.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
@@ -586,7 +586,7 @@ class Schedules(BaseSDK):
     ):
         r"""Delete schedule
 
-        Permanently removes a schedule from NATS, Mongo, and the Redis cache.
+        Permanently removes the schedule. It will not run again.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
@@ -908,7 +908,7 @@ class Schedules(BaseSDK):
     ) -> models.UpdateAgentScheduleResponseBody:
         r"""Update schedule
 
-        Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) re-publishes the NATS schedule and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
+        Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) reschedules the next run and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
@@ -1052,7 +1052,7 @@ class Schedules(BaseSDK):
     ) -> models.UpdateAgentScheduleResponseBody:
         r"""Update schedule
 
-        Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) re-publishes the NATS schedule and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
+        Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) reschedules the next run and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
@@ -1188,7 +1188,7 @@ class Schedules(BaseSDK):
     ) -> models.TriggerAgentScheduleResponseBody:
         r"""Trigger schedule execution
 
-        Runs the schedule's payload immediately (≈10 seconds after the request, to stay above the NATS scheduler's minimum deliver-at margin). The schedule's regular cadence is unaffected. Inactive schedules return 400.
+        Runs the schedule's payload immediately (approximately 10 seconds after the request). The schedule's regular cadence is unaffected. Inactive schedules return 400.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.
@@ -1301,7 +1301,7 @@ class Schedules(BaseSDK):
     ) -> models.TriggerAgentScheduleResponseBody:
         r"""Trigger schedule execution
 
-        Runs the schedule's payload immediately (≈10 seconds after the request, to stay above the NATS scheduler's minimum deliver-at margin). The schedule's regular cadence is unaffected. Inactive schedules return 400.
+        Runs the schedule's payload immediately (approximately 10 seconds after the request). The schedule's regular cadence is unaffected. Inactive schedules return 400.
 
         :param agent_key: The unique routing key of the agent the schedule belongs to.
         :param schedule_id: The schedule's ULID, as returned from create.

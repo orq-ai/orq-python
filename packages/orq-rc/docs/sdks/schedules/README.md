@@ -189,7 +189,7 @@ with Orq(
 
 ## delete
 
-Permanently removes a schedule from NATS, Mongo, and the Redis cache.
+Permanently removes the schedule. It will not run again.
 
 ### Example Usage
 
@@ -268,7 +268,7 @@ with Orq(
 
 ## update
 
-Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) re-publishes the NATS schedule and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
+Partially updates a schedule. Any omitted field is left unchanged. Changing `expression` or `type` (or reactivating from inactive) reschedules the next run and bumps `generation`; payload-only and `agent_tag`-only changes leave the firing cadence in place.
 
 ### Example Usage: change_cadence
 
@@ -376,7 +376,7 @@ with Orq(
 
 ## trigger
 
-Runs the schedule's payload immediately (≈10 seconds after the request, to stay above the NATS scheduler's minimum deliver-at margin). The schedule's regular cadence is unaffected. Inactive schedules return 400.
+Runs the schedule's payload immediately (approximately 10 seconds after the request). The schedule's regular cadence is unaffected. Inactive schedules return 400.
 
 ### Example Usage
 

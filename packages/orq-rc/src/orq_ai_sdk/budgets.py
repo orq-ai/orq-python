@@ -704,7 +704,7 @@ class Budgets(BaseSDK):
     ) -> models.DeleteBudgetResponse:
         r"""Delete a budget
 
-        Permanently deletes a budget. Consumption counters in Redis for this budget are cleared immediately. The response body is empty on success.
+        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success.
 
         :param budget_id: Budget id to delete.
         :param retries: Override the default retry configuration for this method
@@ -793,7 +793,7 @@ class Budgets(BaseSDK):
     ) -> models.DeleteBudgetResponse:
         r"""Delete a budget
 
-        Permanently deletes a budget. Consumption counters in Redis for this budget are cleared immediately. The response body is empty on success.
+        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success.
 
         :param budget_id: Budget id to delete.
         :param retries: Override the default retry configuration for this method
@@ -1154,7 +1154,7 @@ class Budgets(BaseSDK):
     ) -> models.ResetBudgetConsumptionResponse:
         r"""Reset budget consumption
 
-        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved; only the Redis counters are reset.
+        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved.
 
         :param budget_id: Budget id whose current-period counters should be cleared.
         :param reset_budget_consumption_request:
@@ -1260,7 +1260,7 @@ class Budgets(BaseSDK):
     ) -> models.ResetBudgetConsumptionResponse:
         r"""Reset budget consumption
 
-        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved; only the Redis counters are reset.
+        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved.
 
         :param budget_id: Budget id whose current-period counters should be cleared.
         :param reset_budget_consumption_request:

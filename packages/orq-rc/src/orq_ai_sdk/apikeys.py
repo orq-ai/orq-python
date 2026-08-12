@@ -1038,7 +1038,7 @@ class APIKeys(BaseSDK):
     ):
         r"""Delete an API key
 
-        Permanently deletes an API key. Cache entries in `API_KEYS_KV` are invalidated immediately so an in-flight token cannot ride out the TTL. The response body is empty on success.
+        Permanently deletes an API key. The key is revoked immediately; in-flight requests using it will fail. The response body is empty on success.
 
         :param api_key_id: API key id to delete.
         :param retries: Override the default retry configuration for this method
@@ -1145,7 +1145,7 @@ class APIKeys(BaseSDK):
     ):
         r"""Delete an API key
 
-        Permanently deletes an API key. Cache entries in `API_KEYS_KV` are invalidated immediately so an in-flight token cannot ride out the TTL. The response body is empty on success.
+        Permanently deletes an API key. The key is revoked immediately; in-flight requests using it will fail. The response body is empty on success.
 
         :param api_key_id: API key id to delete.
         :param retries: Override the default retry configuration for this method
