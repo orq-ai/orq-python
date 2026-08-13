@@ -36,6 +36,8 @@ if TYPE_CHECKING:
         Items,
         ItemsTypedDict,
     )
+    from .addiprangerequest import AddIPRangeRequest, AddIPRangeRequestTypedDict
+    from .addiprangeresponse import AddIPRangeResponse, AddIPRangeResponseTypedDict
     from .advisortoolinput import (
         AdvisorToolInput,
         AdvisorToolInputType,
@@ -1485,6 +1487,11 @@ if TYPE_CHECKING:
         CreateDatasourceResponseBody,
         CreateDatasourceResponseBodyTypedDict,
         CreateDatasourceStatus,
+    )
+    from .createdomainrequest import CreateDomainRequest, CreateDomainRequestTypedDict
+    from .createdomainresponse import (
+        CreateDomainResponse,
+        CreateDomainResponseTypedDict,
     )
     from .createembeddingop import (
         CreateEmbeddingInput,
@@ -3515,6 +3522,8 @@ if TYPE_CHECKING:
         TokenTypedDict,
     )
     from .domain import Domain, DomainTypedDict
+    from .domainverification import DomainVerification, DomainVerificationTypedDict
+    from .domainverificationstatus import DomainVerificationStatus
     from .embeddingcacheconfig import (
         EmbeddingCacheConfig,
         EmbeddingCacheConfigType,
@@ -4363,6 +4372,10 @@ if TYPE_CHECKING:
         GetGuardrailRuleResponse,
         GetGuardrailRuleResponseTypedDict,
     )
+    from .getipallowlistresponse import (
+        GetIPAllowlistResponse,
+        GetIPAllowlistResponseTypedDict,
+    )
     from .getlogcontextop import GetLogContextRequest1, GetLogContextRequest1TypedDict
     from .getlogcontextrequest import (
         GetLogContextRequest,
@@ -5194,6 +5207,8 @@ if TYPE_CHECKING:
         Votes,
         VotesTypedDict,
     )
+    from .ipallowlist import IPAllowlist, IPAllowlistTypedDict
+    from .iprange import IPRange, IPRangeTypedDict
     from .jsonschematoolinput import (
         JSONSchemaToolInput,
         JSONSchemaToolInputType,
@@ -5560,6 +5575,7 @@ if TYPE_CHECKING:
         QueryParamStatus,
         QueryParamStatusTypedDict,
     )
+    from .listdomainsresponse import ListDomainsResponse, ListDomainsResponseTypedDict
     from .listfilesresponse import ListFilesResponse, ListFilesResponseTypedDict
     from .listguardrailrulesresponse import (
         ListGuardrailRulesResponse,
@@ -28687,6 +28703,14 @@ if TYPE_CHECKING:
         UpdateIdentityResponse,
         UpdateIdentityResponseTypedDict,
     )
+    from .updateipallowlistrequest import (
+        UpdateIPAllowlistRequest,
+        UpdateIPAllowlistRequestTypedDict,
+    )
+    from .updateipallowlistresponse import (
+        UpdateIPAllowlistResponse,
+        UpdateIPAllowlistResponseTypedDict,
+    )
     from .updateknowledgeop import (
         RequestBodyAgenticRagConfig,
         RequestBodyAgenticRagConfigTypedDict,
@@ -29250,6 +29274,10 @@ if TYPE_CHECKING:
         UpdateWorkspaceSettingsResponseTypedDict,
     )
     from .userowner import UserOwner, UserOwnerTypedDict
+    from .verifydomainresponse import (
+        VerifyDomainResponse,
+        VerifyDomainResponseTypedDict,
+    )
     from .vertexcapabilities import VertexCapabilities, VertexCapabilitiesTypedDict
     from .vertexconfiguration import VertexConfiguration, VertexConfigurationTypedDict
     from .vertexmodelconfiguration import (
@@ -29279,6 +29307,38 @@ if TYPE_CHECKING:
     from .workspacebudgetscope import (
         WorkspaceBudgetScope,
         WorkspaceBudgetScopeTypedDict,
+    )
+    from .workspacesecurityaddiprangeop import (
+        WorkspaceSecurityAddIPRangeRequest,
+        WorkspaceSecurityAddIPRangeRequestTypedDict,
+    )
+    from .workspacesecuritycreatedomainop import (
+        WorkspaceSecurityCreateDomainRequest,
+        WorkspaceSecurityCreateDomainRequestTypedDict,
+    )
+    from .workspacesecuritydeletedomainop import (
+        WorkspaceSecurityDeleteDomainRequest,
+        WorkspaceSecurityDeleteDomainRequestTypedDict,
+    )
+    from .workspacesecuritydeleteiprangeop import (
+        WorkspaceSecurityDeleteIPRangeRequest,
+        WorkspaceSecurityDeleteIPRangeRequestTypedDict,
+    )
+    from .workspacesecuritygetipallowlistop import (
+        WorkspaceSecurityGetIPAllowlistRequest,
+        WorkspaceSecurityGetIPAllowlistRequestTypedDict,
+    )
+    from .workspacesecuritylistdomainsop import (
+        WorkspaceSecurityListDomainsRequest,
+        WorkspaceSecurityListDomainsRequestTypedDict,
+    )
+    from .workspacesecurityupdateipallowlistop import (
+        WorkspaceSecurityUpdateIPAllowlistRequest,
+        WorkspaceSecurityUpdateIPAllowlistRequestTypedDict,
+    )
+    from .workspacesecurityverifydomainop import (
+        WorkspaceSecurityVerifyDomainRequest,
+        WorkspaceSecurityVerifyDomainRequestTypedDict,
     )
     from .workspacesettings import WorkspaceSettings, WorkspaceSettingsTypedDict
     from .writememorystoretoolinput import (
@@ -29329,6 +29389,10 @@ __all__ = [
     "AddAnnotationQueueItemsResponseBody",
     "AddAnnotationQueueItemsResponseBodyTypedDict",
     "AddAnnotationQueueItemsType",
+    "AddIPRangeRequest",
+    "AddIPRangeRequestTypedDict",
+    "AddIPRangeResponse",
+    "AddIPRangeResponseTypedDict",
     "AdvisorToolInput",
     "AdvisorToolInputType",
     "AdvisorToolInputTypedDict",
@@ -30610,6 +30674,10 @@ __all__ = [
     "CreateDatasourceResponseBody",
     "CreateDatasourceResponseBodyTypedDict",
     "CreateDatasourceStatus",
+    "CreateDomainRequest",
+    "CreateDomainRequestTypedDict",
+    "CreateDomainResponse",
+    "CreateDomainResponseTypedDict",
     "CreateEmbeddingInput",
     "CreateEmbeddingInputTypedDict",
     "CreateEmbeddingObject",
@@ -32171,6 +32239,9 @@ __all__ = [
     "DocumentsTypedDict",
     "Domain",
     "DomainTypedDict",
+    "DomainVerification",
+    "DomainVerificationStatus",
+    "DomainVerificationTypedDict",
     "Edges",
     "EdgesTypedDict",
     "EffectiveGrain",
@@ -32944,6 +33015,8 @@ __all__ = [
     "GetFileResponseTypedDict",
     "GetGuardrailRuleResponse",
     "GetGuardrailRuleResponseTypedDict",
+    "GetIPAllowlistResponse",
+    "GetIPAllowlistResponseTypedDict",
     "GetLogContextRequest",
     "GetLogContextRequest1",
     "GetLogContextRequest1TypedDict",
@@ -33448,6 +33521,10 @@ __all__ = [
     "HonoAPIErrorData",
     "ID",
     "ID1",
+    "IPAllowlist",
+    "IPAllowlistTypedDict",
+    "IPRange",
+    "IPRangeTypedDict",
     "Identity",
     "IdentityBudgetScope",
     "IdentityBudgetScopeRestResponse",
@@ -34099,6 +34176,8 @@ __all__ = [
     "ListDatasourcesResponseBody",
     "ListDatasourcesResponseBodyTypedDict",
     "ListDatasourcesStatus",
+    "ListDomainsResponse",
+    "ListDomainsResponseTypedDict",
     "ListFilesResponse",
     "ListFilesResponseTypedDict",
     "ListGuardrailRuleUsedGuardrailsResponse",
@@ -57216,6 +57295,10 @@ __all__ = [
     "UpdateGuardrailRuleResponseTypedDict",
     "UpdateHTTPTool",
     "UpdateHTTPToolTypedDict",
+    "UpdateIPAllowlistRequest",
+    "UpdateIPAllowlistRequestTypedDict",
+    "UpdateIPAllowlistResponse",
+    "UpdateIPAllowlistResponseTypedDict",
     "UpdateIdentityRequest",
     "UpdateIdentityRequest1",
     "UpdateIdentityRequest1TypedDict",
@@ -57748,6 +57831,8 @@ __all__ = [
     "VariantInfo",
     "VariantInfoTypedDict",
     "Verbosity",
+    "VerifyDomainResponse",
+    "VerifyDomainResponseTypedDict",
     "Version",
     "VersionIncrement",
     "VertexCapabilities",
@@ -57787,6 +57872,22 @@ __all__ = [
     "WordsTypedDict",
     "WorkspaceBudgetScope",
     "WorkspaceBudgetScopeTypedDict",
+    "WorkspaceSecurityAddIPRangeRequest",
+    "WorkspaceSecurityAddIPRangeRequestTypedDict",
+    "WorkspaceSecurityCreateDomainRequest",
+    "WorkspaceSecurityCreateDomainRequestTypedDict",
+    "WorkspaceSecurityDeleteDomainRequest",
+    "WorkspaceSecurityDeleteDomainRequestTypedDict",
+    "WorkspaceSecurityDeleteIPRangeRequest",
+    "WorkspaceSecurityDeleteIPRangeRequestTypedDict",
+    "WorkspaceSecurityGetIPAllowlistRequest",
+    "WorkspaceSecurityGetIPAllowlistRequestTypedDict",
+    "WorkspaceSecurityListDomainsRequest",
+    "WorkspaceSecurityListDomainsRequestTypedDict",
+    "WorkspaceSecurityUpdateIPAllowlistRequest",
+    "WorkspaceSecurityUpdateIPAllowlistRequestTypedDict",
+    "WorkspaceSecurityVerifyDomainRequest",
+    "WorkspaceSecurityVerifyDomainRequestTypedDict",
     "WorkspaceSettings",
     "WorkspaceSettingsTypedDict",
     "WriteMemoryStoreToolInput",
@@ -57819,6 +57920,10 @@ _dynamic_imports: dict[str, str] = {
     "AddAnnotationQueueItemsType": ".addannotationqueueitemsop",
     "Items": ".addannotationqueueitemsop",
     "ItemsTypedDict": ".addannotationqueueitemsop",
+    "AddIPRangeRequest": ".addiprangerequest",
+    "AddIPRangeRequestTypedDict": ".addiprangerequest",
+    "AddIPRangeResponse": ".addiprangeresponse",
+    "AddIPRangeResponseTypedDict": ".addiprangeresponse",
     "AdvisorToolInput": ".advisortoolinput",
     "AdvisorToolInputType": ".advisortoolinput",
     "AdvisorToolInputTypedDict": ".advisortoolinput",
@@ -59224,6 +59329,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateDatasourceResponseBody": ".createdatasourceop",
     "CreateDatasourceResponseBodyTypedDict": ".createdatasourceop",
     "CreateDatasourceStatus": ".createdatasourceop",
+    "CreateDomainRequest": ".createdomainrequest",
+    "CreateDomainRequestTypedDict": ".createdomainrequest",
+    "CreateDomainResponse": ".createdomainresponse",
+    "CreateDomainResponseTypedDict": ".createdomainresponse",
     "CreateEmbeddingInput": ".createembeddingop",
     "CreateEmbeddingInputTypedDict": ".createembeddingop",
     "CreateEmbeddingObject": ".createembeddingop",
@@ -61145,6 +61254,9 @@ _dynamic_imports: dict[str, str] = {
     "TokenTypedDict": ".dimension",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
+    "DomainVerification": ".domainverification",
+    "DomainVerificationTypedDict": ".domainverification",
+    "DomainVerificationStatus": ".domainverificationstatus",
     "EmbeddingCacheConfig": ".embeddingcacheconfig",
     "EmbeddingCacheConfigType": ".embeddingcacheconfig",
     "EmbeddingCacheConfigTypedDict": ".embeddingcacheconfig",
@@ -61932,6 +62044,8 @@ _dynamic_imports: dict[str, str] = {
     "GetFileResponseTypedDict": ".getfileresponse",
     "GetGuardrailRuleResponse": ".getguardrailruleresponse",
     "GetGuardrailRuleResponseTypedDict": ".getguardrailruleresponse",
+    "GetIPAllowlistResponse": ".getipallowlistresponse",
+    "GetIPAllowlistResponseTypedDict": ".getipallowlistresponse",
     "GetLogContextRequest1": ".getlogcontextop",
     "GetLogContextRequest1TypedDict": ".getlogcontextop",
     "GetLogContextRequest": ".getlogcontextrequest",
@@ -62737,6 +62851,10 @@ _dynamic_imports: dict[str, str] = {
     "TwoImageURLTypedDict": ".invokeevalop",
     "Votes": ".invokeevalop",
     "VotesTypedDict": ".invokeevalop",
+    "IPAllowlist": ".ipallowlist",
+    "IPAllowlistTypedDict": ".ipallowlist",
+    "IPRange": ".iprange",
+    "IPRangeTypedDict": ".iprange",
     "JSONSchemaToolInput": ".jsonschematoolinput",
     "JSONSchemaToolInputType": ".jsonschematoolinput",
     "JSONSchemaToolInputTypedDict": ".jsonschematoolinput",
@@ -63078,6 +63196,8 @@ _dynamic_imports: dict[str, str] = {
     "ListDatasourcesStatus": ".listdatasourcesop",
     "QueryParamStatus": ".listdatasourcesop",
     "QueryParamStatusTypedDict": ".listdatasourcesop",
+    "ListDomainsResponse": ".listdomainsresponse",
+    "ListDomainsResponseTypedDict": ".listdomainsresponse",
     "ListFilesResponse": ".listfilesresponse",
     "ListFilesResponseTypedDict": ".listfilesresponse",
     "ListGuardrailRulesResponse": ".listguardrailrulesresponse",
@@ -85732,6 +85852,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateIdentityRequestTypedDict": ".updateidentityrequest",
     "UpdateIdentityResponse": ".updateidentityresponse",
     "UpdateIdentityResponseTypedDict": ".updateidentityresponse",
+    "UpdateIPAllowlistRequest": ".updateipallowlistrequest",
+    "UpdateIPAllowlistRequestTypedDict": ".updateipallowlistrequest",
+    "UpdateIPAllowlistResponse": ".updateipallowlistresponse",
+    "UpdateIPAllowlistResponseTypedDict": ".updateipallowlistresponse",
     "RequestBodyAgenticRagConfig": ".updateknowledgeop",
     "RequestBodyAgenticRagConfigTypedDict": ".updateknowledgeop",
     "RequestBodyExternalConfig": ".updateknowledgeop",
@@ -86261,6 +86385,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateWorkspaceSettingsResponseTypedDict": ".updateworkspacesettingsresponse",
     "UserOwner": ".userowner",
     "UserOwnerTypedDict": ".userowner",
+    "VerifyDomainResponse": ".verifydomainresponse",
+    "VerifyDomainResponseTypedDict": ".verifydomainresponse",
     "VertexCapabilities": ".vertexcapabilities",
     "VertexCapabilitiesTypedDict": ".vertexcapabilities",
     "VertexConfiguration": ".vertexconfiguration",
@@ -86293,6 +86419,22 @@ _dynamic_imports: dict[str, str] = {
     "WebScraperToolInputTypedDict": ".webscrapertoolinput",
     "WorkspaceBudgetScope": ".workspacebudgetscope",
     "WorkspaceBudgetScopeTypedDict": ".workspacebudgetscope",
+    "WorkspaceSecurityAddIPRangeRequest": ".workspacesecurityaddiprangeop",
+    "WorkspaceSecurityAddIPRangeRequestTypedDict": ".workspacesecurityaddiprangeop",
+    "WorkspaceSecurityCreateDomainRequest": ".workspacesecuritycreatedomainop",
+    "WorkspaceSecurityCreateDomainRequestTypedDict": ".workspacesecuritycreatedomainop",
+    "WorkspaceSecurityDeleteDomainRequest": ".workspacesecuritydeletedomainop",
+    "WorkspaceSecurityDeleteDomainRequestTypedDict": ".workspacesecuritydeletedomainop",
+    "WorkspaceSecurityDeleteIPRangeRequest": ".workspacesecuritydeleteiprangeop",
+    "WorkspaceSecurityDeleteIPRangeRequestTypedDict": ".workspacesecuritydeleteiprangeop",
+    "WorkspaceSecurityGetIPAllowlistRequest": ".workspacesecuritygetipallowlistop",
+    "WorkspaceSecurityGetIPAllowlistRequestTypedDict": ".workspacesecuritygetipallowlistop",
+    "WorkspaceSecurityListDomainsRequest": ".workspacesecuritylistdomainsop",
+    "WorkspaceSecurityListDomainsRequestTypedDict": ".workspacesecuritylistdomainsop",
+    "WorkspaceSecurityUpdateIPAllowlistRequest": ".workspacesecurityupdateipallowlistop",
+    "WorkspaceSecurityUpdateIPAllowlistRequestTypedDict": ".workspacesecurityupdateipallowlistop",
+    "WorkspaceSecurityVerifyDomainRequest": ".workspacesecurityverifydomainop",
+    "WorkspaceSecurityVerifyDomainRequestTypedDict": ".workspacesecurityverifydomainop",
     "WorkspaceSettings": ".workspacesettings",
     "WorkspaceSettingsTypedDict": ".workspacesettings",
     "WriteMemoryStoreToolInput": ".writememorystoretoolinput",
