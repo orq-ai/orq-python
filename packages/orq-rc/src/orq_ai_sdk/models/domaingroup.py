@@ -4,8 +4,8 @@ from __future__ import annotations
 from typing import Literal
 
 
-PersonStatus = Literal[
-    "PERSON_STATUS_UNSPECIFIED",
-    "PERSON_STATUS_PENDING",
-    "PERSON_STATUS_ACTIVE",
+DomainGroup = Literal[
+    "DOMAIN_GROUP_WORKSPACE_ADMIN",
+    "DOMAIN_GROUP_PLATFORM",
+    "DOMAIN_GROUP_GATEWAY",
 ]

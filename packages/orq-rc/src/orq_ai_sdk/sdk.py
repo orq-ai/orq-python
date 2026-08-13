@@ -36,7 +36,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
-    from orq_ai_sdk.people import People
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
@@ -85,7 +84,6 @@ class Orq(BaseSDK):
     identities: "Identities"
     management_keys: "ManagementKeys"
     notifiers: "Notifiers"
-    people: "People"
     projects: "Projects"
     routing_rules: "RoutingRules"
     skills: "Skills"
@@ -124,7 +122,6 @@ class Orq(BaseSDK):
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
-        "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "skills": ("orq_ai_sdk.skills", "Skills"),

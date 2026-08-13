@@ -6,6 +6,7 @@ from typing import Any, TYPE_CHECKING
 from orq_ai_sdk.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
+    from .accesslevel import AccessLevel
     from .actionreviewedstreamingevent import (
         ActionReviewedStreamingEvent,
         ActionReviewedStreamingEventData,
@@ -1870,11 +1871,6 @@ if TYPE_CHECKING:
         CreateNotifierResponse,
         CreateNotifierResponseTypedDict,
     )
-    from .createpersonrequest import CreatePersonRequest, CreatePersonRequestTypedDict
-    from .createpersonresponse import (
-        CreatePersonResponse,
-        CreatePersonResponseTypedDict,
-    )
     from .createprojectrequest import (
         CreateProjectRequest,
         CreateProjectRequestTypedDict,
@@ -2605,10 +2601,6 @@ if TYPE_CHECKING:
     from .deletenotifierresponse import (
         DeleteNotifierResponse,
         DeleteNotifierResponseTypedDict,
-    )
-    from .deletepersonresponse import (
-        DeletePersonResponse,
-        DeletePersonResponseTypedDict,
     )
     from .deleteprojectresponse import (
         DeleteProjectResponse,
@@ -3528,6 +3520,7 @@ if TYPE_CHECKING:
         TokenTypedDict,
     )
     from .domain import Domain, DomainTypedDict
+    from .domaingroup import DomainGroup
     from .domainverification import DomainVerification, DomainVerificationTypedDict
     from .domainverificationstatus import DomainVerificationStatus
     from .embeddingcacheconfig import (
@@ -4611,7 +4604,6 @@ if TYPE_CHECKING:
         GetOnePromptVerbosity,
         GetOnePromptVoice,
     )
-    from .getpersonresponse import GetPersonResponse, GetPersonResponseTypedDict
     from .getprojectresponse import GetProjectResponse, GetProjectResponseTypedDict
     from .getpromptversionop import (
         GetPromptVersion21,
@@ -5656,7 +5648,6 @@ if TYPE_CHECKING:
         ListNotifiersResponse,
         ListNotifiersResponseTypedDict,
     )
-    from .listpeopleresponse import ListPeopleResponse, ListPeopleResponseTypedDict
     from .listprojectsresponse import (
         ListProjectsResponse,
         ListProjectsResponseTypedDict,
@@ -5888,6 +5879,8 @@ if TYPE_CHECKING:
     )
     from .log import Log, LogTypedDict
     from .logpattern import LogPattern, LogPatternTypedDict
+    from .managementdomain import ManagementDomain, ManagementDomainTypedDict
+    from .managementdomaingroup import ManagementDomainGroup
     from .managementkey import ManagementKey, ManagementKeyTypedDict
     from .managementkeydeleteop import (
         ManagementKeyDeleteRequest,
@@ -6110,16 +6103,6 @@ if TYPE_CHECKING:
         PatchV2HumanEvalSetsIDResponseBodyTypedDict,
     )
     from .permissionmode import PermissionMode
-    from .person import Person, PersonTypedDict
-    from .persondeleteop import PersonDeleteRequest, PersonDeleteRequestTypedDict
-    from .persongetop import PersonGetRequest, PersonGetRequestTypedDict
-    from .personlistop import PersonListRequest, PersonListRequestTypedDict
-    from .personresendinvitationop import (
-        PersonResendInvitationRequest,
-        PersonResendInvitationRequestTypedDict,
-    )
-    from .personstatus import PersonStatus
-    from .personupdateop import PersonUpdateRequest, PersonUpdateRequestTypedDict
     from .piiredaction import PiiRedaction, PiiRedactionTypedDict
     from .piiredactionconfig import PiiRedactionConfig, PiiRedactionConfigTypedDict
     from .piiredactionpluginauto import (
@@ -6423,14 +6406,6 @@ if TYPE_CHECKING:
         RemoveAnnotationQueueItemsRequestTypedDict,
     )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
-    from .resendinvitationrequest import (
-        ResendInvitationRequest,
-        ResendInvitationRequestTypedDict,
-    )
-    from .resendinvitationresponse import (
-        ResendInvitationResponse,
-        ResendInvitationResponseTypedDict,
-    )
     from .resetbudgetconsumptionrequest import (
         ResetBudgetConsumptionRequest,
         ResetBudgetConsumptionRequestTypedDict,
@@ -7202,6 +7177,7 @@ if TYPE_CHECKING:
         ResponseStreamingEvent,
         ResponseStreamingEventTypedDict,
     )
+    from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
     from .responsethread import ResponseThread, ResponseThreadTypedDict
     from .responsevalidationerror import ResponseValidationError
     from .responsewebsearchcallcompletedstreamevent import (
@@ -27588,6 +27564,7 @@ if TYPE_CHECKING:
         Schema,
         SchemaTypedDict,
     )
+    from .scopemode import ScopeMode
     from .searchknowledgeop import (
         AgenticRagConfig,
         AgenticRagConfigTypedDict,
@@ -28817,11 +28794,6 @@ if TYPE_CHECKING:
         UpdateNotifierResponse,
         UpdateNotifierResponseTypedDict,
     )
-    from .updatepersonrequest import UpdatePersonRequest, UpdatePersonRequestTypedDict
-    from .updatepersonresponse import (
-        UpdatePersonResponse,
-        UpdatePersonResponseTypedDict,
-    )
     from .updateprojectrequest import (
         UpdateProjectRequest,
         UpdateProjectRequestTypedDict,
@@ -29376,6 +29348,7 @@ __all__ = [
     "APIKeyStatus",
     "APIKeyUpdateRequest",
     "APIKeyUpdateRequestTypedDict",
+    "AccessLevel",
     "Action",
     "ActionReviewRequestedStreamingEvent",
     "ActionReviewRequestedStreamingEventData",
@@ -30934,10 +30907,6 @@ __all__ = [
     "CreateNotifierRequestTypedDict",
     "CreateNotifierResponse",
     "CreateNotifierResponseTypedDict",
-    "CreatePersonRequest",
-    "CreatePersonRequestTypedDict",
-    "CreatePersonResponse",
-    "CreatePersonResponseTypedDict",
     "CreateProjectRequest",
     "CreateProjectRequestTypedDict",
     "CreateProjectResponse",
@@ -31639,8 +31608,6 @@ __all__ = [
     "DeleteMemoryStoreRequestTypedDict",
     "DeleteNotifierResponse",
     "DeleteNotifierResponseTypedDict",
-    "DeletePersonResponse",
-    "DeletePersonResponseTypedDict",
     "DeleteProjectResponse",
     "DeleteProjectResponseTypedDict",
     "DeletePromptRequest",
@@ -32244,6 +32211,7 @@ __all__ = [
     "Documents",
     "DocumentsTypedDict",
     "Domain",
+    "DomainGroup",
     "DomainTypedDict",
     "DomainVerification",
     "DomainVerificationStatus",
@@ -33244,8 +33212,6 @@ __all__ = [
     "GetOnePromptUseCases",
     "GetOnePromptVerbosity",
     "GetOnePromptVoice",
-    "GetPersonResponse",
-    "GetPersonResponseTypedDict",
     "GetProjectResponse",
     "GetProjectResponseTypedDict",
     "GetPromptVersion21",
@@ -34229,8 +34195,6 @@ __all__ = [
     "ListModelsResponseBodyTypedDict",
     "ListNotifiersResponse",
     "ListNotifiersResponseTypedDict",
-    "ListPeopleResponse",
-    "ListPeopleResponseTypedDict",
     "ListProjectsResponse",
     "ListProjectsResponseTypedDict",
     "ListPromptVersions21",
@@ -34465,6 +34429,9 @@ __all__ = [
     "MCPToolRun",
     "MCPToolRunTypedDict",
     "MCPToolTypedDict",
+    "ManagementDomain",
+    "ManagementDomainGroup",
+    "ManagementDomainTypedDict",
     "ManagementKey",
     "ManagementKeyDeleteRequest",
     "ManagementKeyDeleteRequestTypedDict",
@@ -34883,19 +34850,6 @@ __all__ = [
     "PendingToolCallsTypedDict",
     "Period",
     "PermissionMode",
-    "Person",
-    "PersonDeleteRequest",
-    "PersonDeleteRequestTypedDict",
-    "PersonGetRequest",
-    "PersonGetRequestTypedDict",
-    "PersonListRequest",
-    "PersonListRequestTypedDict",
-    "PersonResendInvitationRequest",
-    "PersonResendInvitationRequestTypedDict",
-    "PersonStatus",
-    "PersonTypedDict",
-    "PersonUpdateRequest",
-    "PersonUpdateRequestTypedDict",
     "PhotoRealVersion",
     "PiiRedaction",
     "PiiRedactionConfig",
@@ -35284,10 +35238,6 @@ __all__ = [
     "RequestTypedDict",
     "RerankConfig",
     "RerankConfigTypedDict",
-    "ResendInvitationRequest",
-    "ResendInvitationRequestTypedDict",
-    "ResendInvitationResponse",
-    "ResendInvitationResponseTypedDict",
     "ResetBudgetConsumptionRequest",
     "ResetBudgetConsumptionRequestTypedDict",
     "ResetBudgetConsumptionResponse",
@@ -35841,6 +35791,8 @@ __all__ = [
     "ResponseStreamEventTypedDict",
     "ResponseStreamingEvent",
     "ResponseStreamingEventTypedDict",
+    "ResponseTelemetry",
+    "ResponseTelemetryTypedDict",
     "ResponseThread",
     "ResponseThreadTypedDict",
     "ResponseType",
@@ -56067,6 +56019,7 @@ __all__ = [
     "RunAgentToolChoiceType",
     "Schema",
     "SchemaTypedDict",
+    "ScopeMode",
     "Score",
     "ScoreTypedDict",
     "Scores",
@@ -57390,10 +57343,6 @@ __all__ = [
     "UpdateNotifierRequestTypedDict",
     "UpdateNotifierResponse",
     "UpdateNotifierResponseTypedDict",
-    "UpdatePersonRequest",
-    "UpdatePersonRequestTypedDict",
-    "UpdatePersonResponse",
-    "UpdatePersonResponseTypedDict",
     "UpdateProjectRequest",
     "UpdateProjectRequestTypedDict",
     "UpdateProjectResponse",
@@ -57908,6 +57857,7 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "AccessLevel": ".accesslevel",
     "ActionReviewedStreamingEvent": ".actionreviewedstreamingevent",
     "ActionReviewedStreamingEventData": ".actionreviewedstreamingevent",
     "ActionReviewedStreamingEventDataTypedDict": ".actionreviewedstreamingevent",
@@ -59684,10 +59634,6 @@ _dynamic_imports: dict[str, str] = {
     "SlackWebhookNotifierCreateRequestTypedDict": ".createnotifierrequest",
     "CreateNotifierResponse": ".createnotifierresponse",
     "CreateNotifierResponseTypedDict": ".createnotifierresponse",
-    "CreatePersonRequest": ".createpersonrequest",
-    "CreatePersonRequestTypedDict": ".createpersonrequest",
-    "CreatePersonResponse": ".createpersonresponse",
-    "CreatePersonResponseTypedDict": ".createpersonresponse",
     "CreateProjectRequest": ".createprojectrequest",
     "CreateProjectRequestTypedDict": ".createprojectrequest",
     "CreateProjectResponse": ".createprojectresponse",
@@ -60365,8 +60311,6 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
     "DeleteNotifierResponse": ".deletenotifierresponse",
     "DeleteNotifierResponseTypedDict": ".deletenotifierresponse",
-    "DeletePersonResponse": ".deletepersonresponse",
-    "DeletePersonResponseTypedDict": ".deletepersonresponse",
     "DeleteProjectResponse": ".deleteprojectresponse",
     "DeleteProjectResponseTypedDict": ".deleteprojectresponse",
     "DeletePromptRequest": ".deletepromptop",
@@ -61272,6 +61216,7 @@ _dynamic_imports: dict[str, str] = {
     "TokenTypedDict": ".dimension",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
+    "DomainGroup": ".domaingroup",
     "DomainVerification": ".domainverification",
     "DomainVerificationTypedDict": ".domainverification",
     "DomainVerificationStatus": ".domainverificationstatus",
@@ -62285,8 +62230,6 @@ _dynamic_imports: dict[str, str] = {
     "GetOnePromptUseCases": ".getonepromptop",
     "GetOnePromptVerbosity": ".getonepromptop",
     "GetOnePromptVoice": ".getonepromptop",
-    "GetPersonResponse": ".getpersonresponse",
-    "GetPersonResponseTypedDict": ".getpersonresponse",
     "GetProjectResponse": ".getprojectresponse",
     "GetProjectResponseTypedDict": ".getprojectresponse",
     "GetPromptVersion21": ".getpromptversionop",
@@ -63271,8 +63214,6 @@ _dynamic_imports: dict[str, str] = {
     "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
     "ListNotifiersResponse": ".listnotifiersresponse",
     "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
-    "ListPeopleResponse": ".listpeopleresponse",
-    "ListPeopleResponseTypedDict": ".listpeopleresponse",
     "ListProjectsResponse": ".listprojectsresponse",
     "ListProjectsResponseTypedDict": ".listprojectsresponse",
     "ListPromptVersions21": ".listpromptversionsop",
@@ -63488,6 +63429,9 @@ _dynamic_imports: dict[str, str] = {
     "LogTypedDict": ".log",
     "LogPattern": ".logpattern",
     "LogPatternTypedDict": ".logpattern",
+    "ManagementDomain": ".managementdomain",
+    "ManagementDomainTypedDict": ".managementdomain",
+    "ManagementDomainGroup": ".managementdomaingroup",
     "ManagementKey": ".managementkey",
     "ManagementKeyTypedDict": ".managementkey",
     "ManagementKeyDeleteRequest": ".managementkeydeleteop",
@@ -63685,19 +63629,6 @@ _dynamic_imports: dict[str, str] = {
     "PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyTypedDict": ".patch_v2_human_eval_sets_id_op",
     "PermissionMode": ".permissionmode",
-    "Person": ".person",
-    "PersonTypedDict": ".person",
-    "PersonDeleteRequest": ".persondeleteop",
-    "PersonDeleteRequestTypedDict": ".persondeleteop",
-    "PersonGetRequest": ".persongetop",
-    "PersonGetRequestTypedDict": ".persongetop",
-    "PersonListRequest": ".personlistop",
-    "PersonListRequestTypedDict": ".personlistop",
-    "PersonResendInvitationRequest": ".personresendinvitationop",
-    "PersonResendInvitationRequestTypedDict": ".personresendinvitationop",
-    "PersonStatus": ".personstatus",
-    "PersonUpdateRequest": ".personupdateop",
-    "PersonUpdateRequestTypedDict": ".personupdateop",
     "PiiRedaction": ".piiredaction",
     "PiiRedactionTypedDict": ".piiredaction",
     "PiiRedactionConfig": ".piiredactionconfig",
@@ -63966,10 +63897,6 @@ _dynamic_imports: dict[str, str] = {
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",
-    "ResendInvitationRequest": ".resendinvitationrequest",
-    "ResendInvitationRequestTypedDict": ".resendinvitationrequest",
-    "ResendInvitationResponse": ".resendinvitationresponse",
-    "ResendInvitationResponseTypedDict": ".resendinvitationresponse",
     "ResetBudgetConsumptionRequest": ".resetbudgetconsumptionrequest",
     "ResetBudgetConsumptionRequestTypedDict": ".resetbudgetconsumptionrequest",
     "ResetBudgetConsumptionResponse": ".resetbudgetconsumptionresponse",
@@ -64627,6 +64554,8 @@ _dynamic_imports: dict[str, str] = {
     "ResponseStreamEventTypedDict": ".responsestreamevent",
     "ResponseStreamingEvent": ".responsestreamingevent",
     "ResponseStreamingEventTypedDict": ".responsestreamingevent",
+    "ResponseTelemetry": ".responsetelemetry",
+    "ResponseTelemetryTypedDict": ".responsetelemetry",
     "ResponseThread": ".responsethread",
     "ResponseThreadTypedDict": ".responsethread",
     "ResponseValidationError": ".responsevalidationerror",
@@ -84788,6 +84717,7 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentToolChoiceType": ".runagentop",
     "Schema": ".runagentop",
     "SchemaTypedDict": ".runagentop",
+    "ScopeMode": ".scopemode",
     "AgenticRagConfig": ".searchknowledgeop",
     "AgenticRagConfigTypedDict": ".searchknowledgeop",
     "FilterBy": ".searchknowledgeop",
@@ -85956,10 +85886,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateNotifierRequestTypedDict": ".updatenotifierrequest",
     "UpdateNotifierResponse": ".updatenotifierresponse",
     "UpdateNotifierResponseTypedDict": ".updatenotifierresponse",
-    "UpdatePersonRequest": ".updatepersonrequest",
-    "UpdatePersonRequestTypedDict": ".updatepersonrequest",
-    "UpdatePersonResponse": ".updatepersonresponse",
-    "UpdatePersonResponseTypedDict": ".updatepersonresponse",
     "UpdateProjectRequest": ".updateprojectrequest",
     "UpdateProjectRequestTypedDict": ".updateprojectrequest",
     "UpdateProjectResponse": ".updateprojectresponse",

@@ -308,7 +308,7 @@ class APIKeys(BaseSDK):
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -358,7 +358,7 @@ class APIKeys(BaseSDK):
                 project_scope, Optional[models.ProjectScope]
             ),
             permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, int]]),
+            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
             mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
         )
@@ -461,7 +461,7 @@ class APIKeys(BaseSDK):
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -511,7 +511,7 @@ class APIKeys(BaseSDK):
                 project_scope, Optional[models.ProjectScope]
             ),
             permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, int]]),
+            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
             mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
         )
@@ -1248,7 +1248,7 @@ class APIKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
@@ -1306,7 +1306,7 @@ class APIKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, int]]),
+                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),
@@ -1403,7 +1403,7 @@ class APIKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.APIKeyStatus] = None,
         permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
@@ -1461,7 +1461,7 @@ class APIKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, int]]),
+                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),

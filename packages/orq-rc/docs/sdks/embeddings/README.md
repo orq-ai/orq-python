@@ -25,24 +25,7 @@ with Orq(
     res = orq.router.embeddings.create(input=[
         "The food was delicious",
         "And the waiter was friendly",
-    ], model="openai/text-embedding-3-small", orq={
-        "identity": {
-            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-            "display_name": "Jane Doe",
-            "email": "jane.doe@example.com",
-            "metadata": [
-                {
-                    "department": "Engineering",
-                    "role": "Senior Developer",
-                },
-            ],
-            "logo_url": "https://example.com/avatars/jane-doe.jpg",
-            "tags": [
-                "hr",
-                "engineering",
-            ],
-        },
-    })
+    ], model="openai/text-embedding-3-small")
 
     # Handle response
     print(res)
@@ -60,24 +43,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.embeddings.create(input="The food was delicious and the waiter...", model="openai/text-embedding-3-small", orq={
-        "identity": {
-            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-            "display_name": "Jane Doe",
-            "email": "jane.doe@example.com",
-            "metadata": [
-                {
-                    "department": "Engineering",
-                    "role": "Senior Developer",
-                },
-            ],
-            "logo_url": "https://example.com/avatars/jane-doe.jpg",
-            "tags": [
-                "hr",
-                "engineering",
-            ],
-        },
-    })
+    res = orq.router.embeddings.create(input="The food was delicious and the waiter...", model="openai/text-embedding-3-small")
 
     # Handle response
     print(res)

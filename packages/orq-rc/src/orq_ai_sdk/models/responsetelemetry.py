@@ -5,9 +5,12 @@ from orq_ai_sdk.types import BaseModel
 from typing_extensions import TypedDict
 
 
-class ResendInvitationRequestTypedDict(TypedDict):
-    pass
+class ResponseTelemetryTypedDict(TypedDict):
+    span_id: str
+    trace_id: str
 
 
-class ResendInvitationRequest(BaseModel):
-    pass
+class ResponseTelemetry(BaseModel):
+    span_id: str
+
+    trace_id: str

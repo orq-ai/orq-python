@@ -2068,7 +2068,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KZX7X3BFRNYVGKC7RYG3FWFC"
+    id: Optional[str] = "01KZXN3SZMCS9PEWE5BJJ7FVJN"
 
     description: Optional[str] = None
 

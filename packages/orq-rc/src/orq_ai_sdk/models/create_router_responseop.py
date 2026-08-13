@@ -22,10 +22,10 @@ from .responseexecutionlimits import (
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
+from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .securityconfig import SecurityConfig, SecurityConfigTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
-from .telemetry import Telemetry, TelemetryTypedDict
 from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -1533,8 +1533,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
-    telemetry: NotRequired[TelemetryTypedDict]
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: NotRequired[ResponseTelemetryTypedDict]
     top_k: NotRequired[int]
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
     variables: NotRequired[Dict[str, Any]]
@@ -1622,8 +1621,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     memory: Optional[MemoryParam] = None
 
-    telemetry: Optional[Telemetry] = None
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: Optional[ResponseTelemetry] = None
 
     top_k: Optional[int] = None
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
