@@ -57,9 +57,9 @@ class EvaluatorResponseHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-08-12T21:41:48.586Z"
+    created: Optional[str] = "2026-08-13T11:30:26.328Z"
 
-    updated: Optional[str] = "2026-08-12T21:41:48.586Z"
+    updated: Optional[str] = "2026-08-13T11:30:26.328Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 

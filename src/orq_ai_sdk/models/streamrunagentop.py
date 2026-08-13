@@ -2160,7 +2160,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KZVYSR3XW3SGT1CJ7EMWVKEV"
+    id: Optional[str] = "01KZXE6YN7G4VFNBFVTPEZ18CE"
 
     description: Optional[str] = None
 
