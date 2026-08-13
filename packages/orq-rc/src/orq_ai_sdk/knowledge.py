@@ -979,9 +979,9 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         query: str,
-        top_k: Optional[int] = None,
-        threshold: Optional[float] = None,
-        search_type: Optional[models.SearchType] = "hybrid_search",
+        top_k: OptionalNullable[int] = UNSET,
+        threshold: OptionalNullable[float] = UNSET,
+        search_type: OptionalNullable[models.SearchType] = UNSET,
         filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
@@ -1003,9 +1003,9 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
-        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
-        :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
-        :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
+        :param top_k: The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`.
+        :param threshold: The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`
+        :param search_type: The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
@@ -1115,9 +1115,9 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         query: str,
-        top_k: Optional[int] = None,
-        threshold: Optional[float] = None,
-        search_type: Optional[models.SearchType] = "hybrid_search",
+        top_k: OptionalNullable[int] = UNSET,
+        threshold: OptionalNullable[float] = UNSET,
+        search_type: OptionalNullable[models.SearchType] = UNSET,
         filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
@@ -1139,9 +1139,9 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
-        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
-        :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
-        :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
+        :param top_k: The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`.
+        :param threshold: The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`
+        :param search_type: The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.

@@ -1611,7 +1611,7 @@ CreateChatCompletionSearchType = Literal[
     "keyword_search",
     "hybrid_search",
 ]
-r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
 class CreateChatCompletionOrExistsTypedDict(TypedDict):
@@ -2260,7 +2260,7 @@ class CreateChatCompletionRerankConfigTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
 
 class CreateChatCompletionRerankConfig(BaseModel):
@@ -2273,7 +2273,7 @@ class CreateChatCompletionRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2309,12 +2309,12 @@ class CreateChatCompletionAgenticRagConfig(BaseModel):
 class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
-    top_k: NotRequired[int]
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
-    threshold: NotRequired[float]
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
-    search_type: NotRequired[CreateChatCompletionSearchType]
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    top_k: NotRequired[Nullable[int]]
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
+    threshold: NotRequired[Nullable[float]]
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
+    search_type: NotRequired[Nullable[CreateChatCompletionSearchType]]
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateChatCompletionFilterByTypedDict]
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[CreateChatCompletionSearchOptionsTypedDict]
@@ -2331,14 +2331,14 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
-    top_k: Optional[int] = None
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
+    top_k: OptionalNullable[int] = UNSET
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
 
-    threshold: Optional[float] = None
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+    threshold: OptionalNullable[float] = UNSET
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
 
-    search_type: Optional[CreateChatCompletionSearchType] = "hybrid_search"
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    search_type: OptionalNullable[CreateChatCompletionSearchType] = UNSET
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateChatCompletionFilterBy] = None
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
@@ -2369,15 +2369,24 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
                 "query",
             ]
         )
+        nullable_fields = set(["top_k", "threshold", "search_type"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

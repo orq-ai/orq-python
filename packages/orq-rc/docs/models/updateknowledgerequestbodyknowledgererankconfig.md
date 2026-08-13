@@ -1,4 +1,4 @@
-# UpdateKnowledgeRequestBodyRerankConfig
+# UpdateKnowledgeRequestBodyKnowledgeRerankConfig
 
 The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking.
 

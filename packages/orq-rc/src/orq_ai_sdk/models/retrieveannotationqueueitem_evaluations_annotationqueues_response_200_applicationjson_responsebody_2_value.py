@@ -708,7 +708,7 @@ class RetrieveAnnotationQueueItemResponseBodyRerankConfigTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
 
 class RetrieveAnnotationQueueItemResponseBodyRerankConfig(BaseModel):
@@ -721,7 +721,7 @@ class RetrieveAnnotationQueueItemResponseBodyRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -757,12 +757,12 @@ class RetrieveAnnotationQueueItemResponseBodyAgenticRagConfig(BaseModel):
 class RetrieveAnnotationQueueItemResponseBodyKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
-    top_k: NotRequired[int]
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
-    threshold: NotRequired[float]
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
-    search_type: NotRequired[ResponseBodySearchType]
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    top_k: NotRequired[Nullable[int]]
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
+    threshold: NotRequired[Nullable[float]]
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
+    search_type: NotRequired[Nullable[ResponseBodySearchType]]
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[ResponseBodyFilterByTypedDict]
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[ResponseBodySearchOptionsTypedDict]
@@ -783,14 +783,14 @@ class RetrieveAnnotationQueueItemResponseBodyKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
-    top_k: Optional[int] = None
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
+    top_k: OptionalNullable[int] = UNSET
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
 
-    threshold: Optional[float] = None
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+    threshold: OptionalNullable[float] = UNSET
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
 
-    search_type: Optional[ResponseBodySearchType] = "hybrid_search"
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    search_type: OptionalNullable[ResponseBodySearchType] = UNSET
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[ResponseBodyFilterBy] = None
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
@@ -823,15 +823,24 @@ class RetrieveAnnotationQueueItemResponseBodyKnowledgeBases(BaseModel):
                 "query",
             ]
         )
+        nullable_fields = set(["top_k", "threshold", "search_type"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1583,7 +1592,7 @@ class ResponseBody3(BaseModel):
     output: ResponseBodyOutput
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KZX55XHE7E6JZZKCX9H41ZVR"
+        "01KZX7X43AMFDW5GNEFA2ZNM6Q"
     )
 
     name: Optional[str] = None
@@ -2979,7 +2988,7 @@ class RetrieveAnnotationQueueItemEvaluations19(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-13T08:52:48.749Z")
+    ] = parse_datetime("2026-08-13T09:40:26.276Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -3144,7 +3153,7 @@ class RetrieveAnnotationQueueItemEvaluations18(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-13T08:52:48.748Z")
+    ] = parse_datetime("2026-08-13T09:40:26.275Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -3309,7 +3318,7 @@ class RetrieveAnnotationQueueItemEvaluations17(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-13T08:52:48.748Z")
+    ] = parse_datetime("2026-08-13T09:40:26.275Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -3474,7 +3483,7 @@ class RetrieveAnnotationQueueItemEvaluations16(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-13T08:52:48.747Z")
+    ] = parse_datetime("2026-08-13T09:40:26.274Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -3639,10 +3648,10 @@ class RetrieveAnnotationQueueItemEvaluations15(BaseModel):
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-13T08:52:48.746Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-13T09:40:26.273Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-13T08:52:48.746Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-13T09:40:26.273Z")
     r"""The date and time the evaluation finished"""
 
     error_code: Optional[float] = 500
@@ -3811,10 +3820,10 @@ class RetrieveAnnotationQueueItemEvaluations14(BaseModel):
     explanation: Optional[str] = None
     r"""Optional free-text explanation of the value"""
 
-    started_at: Optional[datetime] = parse_datetime("2026-08-13T08:52:48.746Z")
+    started_at: Optional[datetime] = parse_datetime("2026-08-13T09:40:26.272Z")
     r"""The date and time the evaluation started"""
 
-    finished_at: Optional[datetime] = parse_datetime("2026-08-13T08:52:48.746Z")
+    finished_at: Optional[datetime] = parse_datetime("2026-08-13T09:40:26.272Z")
     r"""The date and time the evaluation finished"""
 
     @model_serializer(mode="wrap")

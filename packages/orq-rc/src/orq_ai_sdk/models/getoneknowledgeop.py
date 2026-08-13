@@ -334,7 +334,7 @@ class GetOneKnowledgeResponseBodyAgenticRagConfig(BaseModel):
 
 
 class GetOneKnowledgeResponseBodyRetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: NotRequired[GetOneKnowledgeResponseBodyRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -353,7 +353,7 @@ class GetOneKnowledgeResponseBodyRetrievalSettingsTypedDict(TypedDict):
 
 
 class GetOneKnowledgeResponseBodyRetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: Optional[GetOneKnowledgeResponseBodyRetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -434,7 +434,7 @@ class GetOneKnowledgeResponseBody1TypedDict(TypedDict):
     retrieval_settings: NotRequired[
         GetOneKnowledgeResponseBodyRetrievalSettingsTypedDict
     ]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
 class GetOneKnowledgeResponseBody1(BaseModel):
@@ -474,7 +474,7 @@ class GetOneKnowledgeResponseBody1(BaseModel):
     type: Optional[GetOneKnowledgeResponseBodyType] = "internal"
 
     retrieval_settings: Optional[GetOneKnowledgeResponseBodyRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

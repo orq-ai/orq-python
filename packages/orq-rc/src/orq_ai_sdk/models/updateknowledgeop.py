@@ -23,8 +23,8 @@ RequestBodyRetrievalType = Literal[
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
-class UpdateKnowledgeRequestBodyRerankConfigTypedDict(TypedDict):
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+class UpdateKnowledgeRequestBodyKnowledgeRerankConfigTypedDict(TypedDict):
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
 
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
@@ -34,16 +34,16 @@ class UpdateKnowledgeRequestBodyRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class UpdateKnowledgeRequestBodyRerankConfig(BaseModel):
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+class UpdateKnowledgeRequestBodyKnowledgeRerankConfig(BaseModel):
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
 
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
 
-    top_k: Optional[int] = 5
+    top_k: Optional[int] = None
     r"""The number of results to return by the reranking model"""
 
-    rerank_threshold: Optional[float] = 0.5
+    rerank_threshold: Optional[float] = None
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     @model_serializer(mode="wrap")
@@ -63,22 +63,22 @@ class UpdateKnowledgeRequestBodyRerankConfig(BaseModel):
         return m
 
 
-class UpdateKnowledgeRequestBodyAgenticRagConfigTypedDict(TypedDict):
+class UpdateKnowledgeRequestBodyKnowledgeAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeRequestBodyAgenticRagConfig(BaseModel):
+class UpdateKnowledgeRequestBodyKnowledgeAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeRequestBodyRetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+class UpdateKnowledgeRequestBodyKnowledgeRetrievalSettingsTypedDict(TypedDict):
+    r"""The retrieval settings for the knowledge base."""
 
     retrieval_type: NotRequired[RequestBodyRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -87,33 +87,35 @@ class UpdateKnowledgeRequestBodyRetrievalSettingsTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
     rerank_config: NotRequired[
-        Nullable[UpdateKnowledgeRequestBodyRerankConfigTypedDict]
+        Nullable[UpdateKnowledgeRequestBodyKnowledgeRerankConfigTypedDict]
     ]
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
     agentic_rag_config: NotRequired[
-        Nullable[UpdateKnowledgeRequestBodyAgenticRagConfigTypedDict]
+        Nullable[UpdateKnowledgeRequestBodyKnowledgeAgenticRagConfigTypedDict]
     ]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class UpdateKnowledgeRequestBodyRetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+class UpdateKnowledgeRequestBodyKnowledgeRetrievalSettings(BaseModel):
+    r"""The retrieval settings for the knowledge base."""
 
-    retrieval_type: Optional[RequestBodyRetrievalType] = "hybrid_search"
+    retrieval_type: Optional[RequestBodyRetrievalType] = None
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
-    top_k: Optional[int] = 5
+    top_k: Optional[int] = None
     r"""The number of results to return from the search."""
 
-    threshold: Optional[float] = 0
+    threshold: Optional[float] = None
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[UpdateKnowledgeRequestBodyRerankConfig] = UNSET
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-
-    agentic_rag_config: OptionalNullable[UpdateKnowledgeRequestBodyAgenticRagConfig] = (
+    rerank_config: OptionalNullable[UpdateKnowledgeRequestBodyKnowledgeRerankConfig] = (
         UNSET
     )
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
+
+    agentic_rag_config: OptionalNullable[
+        UpdateKnowledgeRequestBodyKnowledgeAgenticRagConfig
+    ] = UNSET
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -166,9 +168,9 @@ class UpdateKnowledgeRequestBody2TypedDict(TypedDict):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
     retrieval_settings: NotRequired[
-        UpdateKnowledgeRequestBodyRetrievalSettingsTypedDict
+        UpdateKnowledgeRequestBodyKnowledgeRetrievalSettingsTypedDict
     ]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base."""
     type: NotRequired[UpdateKnowledgeRequestBodyKnowledgeType]
 
 
@@ -187,8 +189,10 @@ class UpdateKnowledgeRequestBody2(BaseModel):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
-    retrieval_settings: Optional[UpdateKnowledgeRequestBodyRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    retrieval_settings: Optional[
+        UpdateKnowledgeRequestBodyKnowledgeRetrievalSettings
+    ] = None
+    r"""The retrieval settings for the knowledge base."""
 
     type: Optional[UpdateKnowledgeRequestBodyKnowledgeType] = "internal"
 
@@ -220,8 +224,8 @@ class UpdateKnowledgeRequestBody2(BaseModel):
         return m
 
 
-class RequestBodyRerankConfigTypedDict(TypedDict):
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+class UpdateKnowledgeRequestBodyRerankConfigTypedDict(TypedDict):
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
 
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
@@ -231,16 +235,16 @@ class RequestBodyRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class RequestBodyRerankConfig(BaseModel):
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+class UpdateKnowledgeRequestBodyRerankConfig(BaseModel):
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
 
     rerank_model: str
     r"""The rerank model to use for the knowledge base."""
 
-    top_k: Optional[int] = 5
+    top_k: Optional[int] = None
     r"""The number of results to return by the reranking model"""
 
-    rerank_threshold: Optional[float] = 0.5
+    rerank_threshold: Optional[float] = None
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     @model_serializer(mode="wrap")
@@ -260,46 +264,52 @@ class RequestBodyRerankConfig(BaseModel):
         return m
 
 
-class RequestBodyAgenticRagConfigTypedDict(TypedDict):
+class UpdateKnowledgeRequestBodyAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class RequestBodyAgenticRagConfig(BaseModel):
+class UpdateKnowledgeRequestBodyAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class RequestBodyRetrievalSettingsTypedDict(TypedDict):
+class UpdateKnowledgeRequestBodyRetrievalSettingsTypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
     top_k: NotRequired[int]
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[RequestBodyRerankConfigTypedDict]]
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-    agentic_rag_config: NotRequired[Nullable[RequestBodyAgenticRagConfigTypedDict]]
+    rerank_config: NotRequired[
+        Nullable[UpdateKnowledgeRequestBodyRerankConfigTypedDict]
+    ]
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
+    agentic_rag_config: NotRequired[
+        Nullable[UpdateKnowledgeRequestBodyAgenticRagConfigTypedDict]
+    ]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class RequestBodyRetrievalSettings(BaseModel):
+class UpdateKnowledgeRequestBodyRetrievalSettings(BaseModel):
     r"""The retrieval settings for the knowledge base."""
 
-    top_k: Optional[int] = 5
+    top_k: Optional[int] = None
     r"""The number of results to return from the search."""
 
-    threshold: Optional[float] = 0
+    threshold: Optional[float] = None
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[RequestBodyRerankConfig] = UNSET
-    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    rerank_config: OptionalNullable[UpdateKnowledgeRequestBodyRerankConfig] = UNSET
+    r"""The rerank configuration for the knowledge base. Only the fields provided are updated, any field omitted keeps its currently configured value. Send `null` to disable reranking."""
 
-    agentic_rag_config: OptionalNullable[RequestBodyAgenticRagConfig] = UNSET
+    agentic_rag_config: OptionalNullable[UpdateKnowledgeRequestBodyAgenticRagConfig] = (
+        UNSET
+    )
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -383,7 +393,9 @@ class UpdateKnowledgeRequestBody1TypedDict(TypedDict):
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
-    retrieval_settings: NotRequired[RequestBodyRetrievalSettingsTypedDict]
+    retrieval_settings: NotRequired[
+        UpdateKnowledgeRequestBodyRetrievalSettingsTypedDict
+    ]
     r"""The retrieval settings for the knowledge base."""
     external_config: NotRequired[RequestBodyExternalConfigTypedDict]
     r"""Configuration for the external knowledge base."""
@@ -402,7 +414,7 @@ class UpdateKnowledgeRequestBody1(BaseModel):
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
 
-    retrieval_settings: Optional[RequestBodyRetrievalSettings] = None
+    retrieval_settings: Optional[UpdateKnowledgeRequestBodyRetrievalSettings] = None
     r"""The retrieval settings for the knowledge base."""
 
     external_config: Optional[RequestBodyExternalConfig] = None
@@ -775,7 +787,7 @@ class UpdateKnowledgeResponseBodyAgenticRagConfig(BaseModel):
 
 
 class UpdateKnowledgeResponseBodyRetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: NotRequired[UpdateKnowledgeResponseBodyRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -794,7 +806,7 @@ class UpdateKnowledgeResponseBodyRetrievalSettingsTypedDict(TypedDict):
 
 
 class UpdateKnowledgeResponseBodyRetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: Optional[UpdateKnowledgeResponseBodyRetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -875,7 +887,7 @@ class UpdateKnowledgeResponseBody1TypedDict(TypedDict):
     retrieval_settings: NotRequired[
         UpdateKnowledgeResponseBodyRetrievalSettingsTypedDict
     ]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
 class UpdateKnowledgeResponseBody1(BaseModel):
@@ -915,7 +927,7 @@ class UpdateKnowledgeResponseBody1(BaseModel):
     type: Optional[UpdateKnowledgeResponseBodyType] = "internal"
 
     retrieval_settings: Optional[UpdateKnowledgeResponseBodyRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

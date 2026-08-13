@@ -37,6 +37,116 @@ class ExternalConfig(BaseModel):
     r"""The API key to access the external knowledge base."""
 
 
+class RequestBodyRerankConfigTypedDict(TypedDict):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+    top_k: NotRequired[int]
+    r"""The number of results to return by the reranking model"""
+    rerank_threshold: NotRequired[float]
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+
+class RequestBodyRerankConfig(BaseModel):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return by the reranking model"""
+
+    rerank_threshold: Optional[float] = 0.5
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["top_k", "rerank_threshold"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class RequestBodyAgenticRagConfigTypedDict(TypedDict):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class RequestBodyAgenticRagConfig(BaseModel):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class RequestBodyRetrievalSettingsTypedDict(TypedDict):
+    r"""The retrieval settings for the knowledge base."""
+
+    top_k: NotRequired[int]
+    r"""The number of results to return from the search."""
+    threshold: NotRequired[float]
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+    rerank_config: NotRequired[Nullable[RequestBodyRerankConfigTypedDict]]
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    agentic_rag_config: NotRequired[Nullable[RequestBodyAgenticRagConfigTypedDict]]
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+
+class RequestBodyRetrievalSettings(BaseModel):
+    r"""The retrieval settings for the knowledge base."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return from the search."""
+
+    threshold: Optional[float] = 0
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+
+    rerank_config: OptionalNullable[RequestBodyRerankConfig] = UNSET
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    agentic_rag_config: OptionalNullable[RequestBodyAgenticRagConfig] = UNSET
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
+        )
+        nullable_fields = set(["rerank_config", "agentic_rag_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
 class RequestBody2TypedDict(TypedDict):
     key: str
     external_config: ExternalConfigTypedDict
@@ -49,6 +159,8 @@ class RequestBody2TypedDict(TypedDict):
     """
     type: NotRequired[CreateKnowledgeRequestBodyKnowledgeType]
     description: NotRequired[str]
+    retrieval_settings: NotRequired[RequestBodyRetrievalSettingsTypedDict]
+    r"""The retrieval settings for the knowledge base."""
 
 
 class RequestBody2(BaseModel):
@@ -68,9 +180,12 @@ class RequestBody2(BaseModel):
 
     description: Optional[str] = None
 
+    retrieval_settings: Optional[RequestBodyRetrievalSettings] = None
+    r"""The retrieval settings for the knowledge base."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["type", "description"])
+        optional_fields = set(["type", "description", "retrieval_settings"])
         serialized = handler(self)
         m = {}
 
@@ -151,7 +266,7 @@ class CreateKnowledgeRequestBodyAgenticRagConfig(BaseModel):
 
 
 class RetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: NotRequired[RetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -170,7 +285,7 @@ class RetrievalSettingsTypedDict(TypedDict):
 
 
 class RetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: Optional[RetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -237,7 +352,7 @@ class CreateKnowledgeRequestBody1TypedDict(TypedDict):
     type: NotRequired[CreateKnowledgeRequestBodyType]
     description: NotRequired[str]
     retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
 class CreateKnowledgeRequestBody1(BaseModel):
@@ -259,7 +374,7 @@ class CreateKnowledgeRequestBody1(BaseModel):
     description: Optional[str] = None
 
     retrieval_settings: Optional[RetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -280,12 +395,12 @@ class CreateKnowledgeRequestBody1(BaseModel):
 
 CreateKnowledgeRequestBodyTypedDict = TypeAliasType(
     "CreateKnowledgeRequestBodyTypedDict",
-    Union[RequestBody2TypedDict, CreateKnowledgeRequestBody1TypedDict],
+    Union[CreateKnowledgeRequestBody1TypedDict, RequestBody2TypedDict],
 )
 
 
 CreateKnowledgeRequestBody = TypeAliasType(
-    "CreateKnowledgeRequestBody", Union[RequestBody2, CreateKnowledgeRequestBody1]
+    "CreateKnowledgeRequestBody", Union[CreateKnowledgeRequestBody1, RequestBody2]
 )
 
 
@@ -592,7 +707,7 @@ class ResponseBodyAgenticRagConfig(BaseModel):
 
 
 class ResponseBodyRetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: NotRequired[ResponseBodyRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -607,7 +722,7 @@ class ResponseBodyRetrievalSettingsTypedDict(TypedDict):
 
 
 class ResponseBodyRetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     retrieval_type: Optional[ResponseBodyRetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
@@ -684,7 +799,7 @@ class ResponseBody1TypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     type: NotRequired[CreateKnowledgeResponseBodyType]
     retrieval_settings: NotRequired[ResponseBodyRetrievalSettingsTypedDict]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
 class ResponseBody1(BaseModel):
@@ -724,7 +839,7 @@ class ResponseBody1(BaseModel):
     type: Optional[CreateKnowledgeResponseBodyType] = "internal"
 
     retrieval_settings: Optional[ResponseBodyRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""The retrieval settings for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

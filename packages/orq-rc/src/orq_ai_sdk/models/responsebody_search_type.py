@@ -3880,7 +3880,7 @@ ResponseBodySearchType = Literal[
     "keyword_search",
     "hybrid_search",
 ]
-r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
 try:
