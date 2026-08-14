@@ -5,7 +5,7 @@ from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
 from .otel_integration import get_current_otel_context
-from .utils import generate_ulid
+from .utils import generate_span_id, generate_trace_id
 
 if TYPE_CHECKING:
     from .span import Span
@@ -89,12 +89,32 @@ def current_span() -> Optional["Span"]:
     return _active_span_object.get()
 
 
+def _is_w3c_trace_id(value: str) -> bool:
+    return len(value) == 32 and all(c in "0123456789abcdef" for c in value)
+
+
+def _is_w3c_span_id(value: str) -> bool:
+    return len(value) == 16 and all(c in "0123456789abcdef" for c in value)
+
+
+def propagation_headers() -> Dict[str, str]:
+    """W3C headers so an orq router call nests under the active @traced span."""
+    span = get_current_span_context()
+    if span is None:
+        return {}
+    if not _is_w3c_trace_id(span.trace_id) or not _is_w3c_span_id(span.span_id):
+        return {}
+    return {
+        "traceparent": f"00-{span.trace_id}-{span.span_id}-01",
+    }
+
+
 def create_trace_context(trace_id: Optional[str] = None) -> TraceContext:
     """Create a new trace context."""
     if not trace_id:
-        trace_id = generate_ulid()
-    
-    root_span_id = generate_ulid()
+        trace_id = generate_trace_id()
+
+    root_span_id = generate_span_id()
     trace = TraceContext(trace_id=trace_id, root_span_id=root_span_id)
     set_current_trace(trace)
     return trace
@@ -143,7 +163,7 @@ def create_span_context(
     if otel_context:
         span_id = otel_context[1]  # Use OpenTelemetry span_id (hex format)
     else:
-        span_id = generate_ulid()  # Use ULID format when no OpenTelemetry
+        span_id = generate_span_id()
     
     span = SpanContext(
         trace_id=trace.trace_id,
