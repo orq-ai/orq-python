@@ -6,15 +6,15 @@ from typing import Any, Callable
 
 from .context import propagation_headers
 
-_installed = False
+_INSTALLED = False
 
 
 def install_http_propagation() -> None:
     """Patch httpx and requests once so OpenAI/Anthropic pick up traceparent."""
-    global _installed  # pylint: disable=global-statement
-    if _installed:
+    global _INSTALLED  # pylint: disable=global-statement
+    if _INSTALLED:
         return
-    _installed = True
+    _INSTALLED = True
     _patch_httpx()
     _patch_requests()
 
@@ -31,13 +31,13 @@ def _patch_method(cls: type, name: str, wrapper_factory: Callable[..., Any]) -> 
     if getattr(original, "_orq_traced_patched", False):
         return
     wrapped = wrapper_factory(original)
-    wrapped._orq_traced_patched = True  # type: ignore[attr-defined]
+    wrapped._orq_traced_patched = True  # type: ignore[attr-defined]  # pylint: disable=protected-access
     setattr(cls, name, wrapped)
 
 
 def _patch_httpx() -> None:
     try:
-        import httpx
+        import httpx  # pylint: disable=import-outside-toplevel
     except ImportError:
         return
 
@@ -61,7 +61,7 @@ def _patch_httpx() -> None:
 
 def _patch_requests() -> None:
     try:
-        import requests
+        import requests  # pylint: disable=import-outside-toplevel
     except ImportError:
         return
 
