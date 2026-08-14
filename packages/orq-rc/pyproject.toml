@@ -9,7 +9,7 @@ dependencies = [
     "httpcore >=1.0.9",
     "httpx >=0.28.1",
     "pydantic >=2.11.2",
-    "requests ==2.32.4",
+    "requests >=2.33.0,<3.0.0",
 ]
 urls.repository = "https://github.com/orq-ai/orq-python.git"
 
