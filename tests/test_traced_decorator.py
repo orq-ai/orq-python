@@ -382,3 +382,78 @@ class TestAsyncTraced:
         results = await asyncio.gather(task(1), task(2), task(3))
         assert sorted(results) == [2, 4, 6]
         assert len(spans) == 3
+
+
+class TestOtelSkip:
+    def test_skips_orq_submission_when_otel_is_available(self, _configure_tracing):
+        mock_client = _configure_tracing
+        mock_otel_span = MagicMock()
+        mock_tracer = MagicMock()
+        mock_tracer.start_span.return_value = mock_otel_span
+
+        with patch("orq_ai_sdk.traced.decorators.is_otel_available", return_value=True), patch(
+            "opentelemetry.trace.get_tracer", return_value=mock_tracer
+        ), patch(
+            "opentelemetry.trace.set_span_in_context", return_value=object()
+        ), patch(
+            "opentelemetry.context.attach", return_value=object()
+        ), patch(
+            "opentelemetry.context.detach"
+        ):
+            @traced(name="openai_call", type="llm")
+            def fn():
+                return 1
+
+            assert fn() == 1
+
+        mock_client.submit_span.assert_not_called()
+        mock_otel_span.end.assert_called()
+        mock_tracer.start_span.assert_called()
+
+
+class TestPropagationHeaders:
+    def test_emits_w3c_traceparent_for_active_span(self, _configure_tracing):
+        from orq_ai_sdk.traced import propagation_headers
+
+        captured = {}
+
+        @traced(name="openai_call", type="llm")
+        def fn():
+            captured.update(propagation_headers())
+            return 1
+
+        assert fn() == 1
+        assert "x-orq-traced" not in captured
+        version, trace_id, span_id, flags = captured["traceparent"].split("-")
+        assert version == "00"
+        assert flags == "01"
+        assert len(trace_id) == 32
+        assert len(span_id) == 16
+
+    def test_empty_outside_traced_span(self):
+        from orq_ai_sdk.traced import propagation_headers
+
+        assert propagation_headers() == {}
+
+
+class TestHttpPropagation:
+    def test_httpx_injects_traceparent(self, _configure_tracing):
+        httpx = pytest.importorskip("httpx")
+        captured = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["traceparent"] = request.headers.get("traceparent")
+            return httpx.Response(200)
+
+        @traced(name="openai_call", type="llm")
+        def fn():
+            with httpx.Client(transport=httpx.MockTransport(handler)) as client:
+                client.get("https://example.com")
+            return 1
+
+        assert fn() == 1
+        version, trace_id, span_id, flags = captured["traceparent"].split("-")
+        assert version == "00"
+        assert flags == "01"
+        assert len(trace_id) == 32
+        assert len(span_id) == 16

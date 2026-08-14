@@ -11,6 +11,7 @@ from .span import Span
 from .context import create_span_context, SpanContext, SpanContextManager
 from .utils import serialize_value, validate_span_type
 from .otel_integration import is_otel_available
+from .http_propagation import install_http_propagation
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -27,6 +28,7 @@ def _setup_tracing(
 ) -> Tuple[Config, Span, SpanContext, Any, Any, OrqClient]:
     """Set up tracing infrastructure: OTel span, span context, span object, and input capture."""
     config = get_config()
+    install_http_propagation()
 
     # Create OpenTelemetry span if integration is enabled (before traced span context)
     otel_span = None
