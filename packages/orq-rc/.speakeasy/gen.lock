@@ -5,16 +5,16 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.793.2
   generationVersion: 2.928.0
-  releaseVersion: 4.14.0-rc.18
-  configChecksum: f47d2fb02b34435b8765fa880855de23
+  releaseVersion: 4.14.0-rc.19
+  configChecksum: 6b1dd9ad8b1153b16736c172c9247fb7
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
   published: true
 persistentEdits:
-  generation_id: 5977c440-1441-4fb2-8e32-75f20a9c97e5
-  pristine_commit_hash: b522a13ca3c8c4a4a344cad29ef562e73d43f8f8
-  pristine_tree_hash: e8984f60a1831e78a07dea446e3798efedc53308
+  generation_id: 287cf859-7bd1-4a25-8dec-cd5ee9012170
+  pristine_commit_hash: c54bd4cb75ea62ee5d2b31ff6ec77fc507a88388
+  pristine_tree_hash: 11d69ee61eb9e0eac600e0fb32feb80be85c42c5
 features:
   python:
     acceptHeaders: 3.0.0
@@ -74787,8 +74787,8 @@ trackedFiles:
     pristine_git_object: 98e7249d6f031a82e92a570650a27e290e92a2e3
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:ba3e0cd97eb8f58d3ccc4e4edcfcabcc7ab653ca
-    pristine_git_object: cf7f02d87eb37310375453e01bf8fb183e5a53f6
+    last_write_checksum: sha1:ca87a7649f74c01fcc546c9d897db50613abe980
+    pristine_git_object: 855b4bf8f08b8ef055b798fbeb4bfc297f5cf5d0
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:30f41b7d73fd74c428cb4ad396f9aa5c05bc3834
@@ -74815,8 +74815,8 @@ trackedFiles:
     pristine_git_object: 49cd4b6f26e476b46eeaa59590a4a7a90a831143
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:e3430ee99c4a73809615d519e7825811588343a3
-    pristine_git_object: d4c138ffeba772a1b7516e373682a93bf72956af
+    last_write_checksum: sha1:9974ce020e955d5a0518cca928c838b0fcfff2fa
+    pristine_git_object: 0509d648a46e4ff9f22af960ed0bbe4a5913f159
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
     last_write_checksum: sha1:e266b92613d374bc27091b2f3fc7525929860ec6
@@ -81697,10 +81697,6 @@ examples:
           range_id: "<id>"
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Python SDK Changes:
-  * `orq.knowledge.list_chunks_paginated()`:  `request.status` **Changed** (Breaking ⚠️)
-  * `orq.knowledge.get_chunks_count()`:  `request.status` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
