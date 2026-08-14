@@ -2971,7 +2971,12 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[models.ListChunksPaginatedStatus] = None,
+        status: Optional[
+            Union[
+                models.ListChunksPaginatedStatus,
+                models.ListChunksPaginatedStatusTypedDict,
+            ]
+        ] = None,
         limit: Optional[int] = 100,
         page: Optional[int] = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3012,7 +3017,9 @@ class Knowledge(BaseSDK):
             request_body=models.ListChunksPaginatedRequestBody(
                 q=q,
                 enabled=enabled,
-                status=status,
+                status=utils.unmarshal(
+                    status, Optional[models.ListChunksPaginatedStatus]
+                ),
                 limit=limit,
                 page=page,
             ),
@@ -3090,7 +3097,12 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[models.ListChunksPaginatedStatus] = None,
+        status: Optional[
+            Union[
+                models.ListChunksPaginatedStatus,
+                models.ListChunksPaginatedStatusTypedDict,
+            ]
+        ] = None,
         limit: Optional[int] = 100,
         page: Optional[int] = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3131,7 +3143,9 @@ class Knowledge(BaseSDK):
             request_body=models.ListChunksPaginatedRequestBody(
                 q=q,
                 enabled=enabled,
-                status=status,
+                status=utils.unmarshal(
+                    status, Optional[models.ListChunksPaginatedStatus]
+                ),
                 limit=limit,
                 page=page,
             ),
@@ -3209,7 +3223,9 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[models.GetChunksCountStatus] = None,
+        status: Optional[
+            Union[models.GetChunksCountStatus, models.GetChunksCountStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3248,7 +3264,7 @@ class Knowledge(BaseSDK):
             request_body=models.GetChunksCountRequestBody(
                 q=q,
                 enabled=enabled,
-                status=status,
+                status=utils.unmarshal(status, Optional[models.GetChunksCountStatus]),
             ),
         )
 
@@ -3323,7 +3339,9 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         q: Optional[str] = "",
         enabled: Optional[bool] = None,
-        status: Optional[models.GetChunksCountStatus] = None,
+        status: Optional[
+            Union[models.GetChunksCountStatus, models.GetChunksCountStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3362,7 +3380,7 @@ class Knowledge(BaseSDK):
             request_body=models.GetChunksCountRequestBody(
                 q=q,
                 enabled=enabled,
-                status=status,
+                status=utils.unmarshal(status, Optional[models.GetChunksCountStatus]),
             ),
         )
 

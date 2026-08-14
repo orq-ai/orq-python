@@ -2,18 +2,18 @@
 
 Filter chunks by processing status
 
-## Example Usage
+
+## Supported Types
+
+### `List[models.Status1]`
 
 ```python
-from orq_ai_sdk.models import ListChunksPaginatedStatus
-value: ListChunksPaginatedStatus = "pending"
+value: List[models.Status1] = /* values here */
 ```
 
+### `models.Status2`
 
-## Values
+```python
+value: models.Status2 = /* values here */
+```
 
-- `"pending"`
-- `"processing"`
-- `"completed"`
-- `"failed"`
-- `"queued"`

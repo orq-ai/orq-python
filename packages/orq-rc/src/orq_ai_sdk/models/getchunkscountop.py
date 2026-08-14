@@ -4,17 +4,38 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 from pydantic import model_serializer
-from typing import Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-GetChunksCountStatus = Literal[
+GetChunksCountStatus2 = Literal[
     "pending",
     "processing",
     "completed",
     "failed",
     "queued",
 ]
+
+
+GetChunksCountStatus1 = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
+
+
+GetChunksCountStatusTypedDict = TypeAliasType(
+    "GetChunksCountStatusTypedDict",
+    Union[List[GetChunksCountStatus1], GetChunksCountStatus2],
+)
+r"""Filter chunks by processing status"""
+
+
+GetChunksCountStatus = TypeAliasType(
+    "GetChunksCountStatus", Union[List[GetChunksCountStatus1], GetChunksCountStatus2]
+)
 r"""Filter chunks by processing status"""
 
 
@@ -23,7 +44,7 @@ class GetChunksCountRequestBodyTypedDict(TypedDict):
     r"""Search query to find chunks by text content"""
     enabled: NotRequired[bool]
     r"""Filter chunks by enabled status"""
-    status: NotRequired[GetChunksCountStatus]
+    status: NotRequired[GetChunksCountStatusTypedDict]
     r"""Filter chunks by processing status"""
 
 

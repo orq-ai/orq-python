@@ -2,18 +2,18 @@
 
 Filter chunks by processing status
 
-## Example Usage
+
+## Supported Types
+
+### `List[models.GetChunksCountStatus1]`
 
 ```python
-from orq_ai_sdk.models import GetChunksCountStatus
-value: GetChunksCountStatus = "pending"
+value: List[models.GetChunksCountStatus1] = /* values here */
 ```
 
+### `models.GetChunksCountStatus2`
 
-## Values
+```python
+value: models.GetChunksCountStatus2 = /* values here */
+```
 
-- `"pending"`
-- `"processing"`
-- `"completed"`
-- `"failed"`
-- `"queued"`

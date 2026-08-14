@@ -15,13 +15,33 @@ from typing import Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ListChunksPaginatedStatus = Literal[
+Status2 = Literal[
     "pending",
     "processing",
     "completed",
     "failed",
     "queued",
 ]
+
+
+Status1 = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
+
+
+ListChunksPaginatedStatusTypedDict = TypeAliasType(
+    "ListChunksPaginatedStatusTypedDict", Union[List[Status1], Status2]
+)
+r"""Filter chunks by processing status"""
+
+
+ListChunksPaginatedStatus = TypeAliasType(
+    "ListChunksPaginatedStatus", Union[List[Status1], Status2]
+)
 r"""Filter chunks by processing status"""
 
 
@@ -30,7 +50,7 @@ class ListChunksPaginatedRequestBodyTypedDict(TypedDict):
     r"""Search query to find chunks by text content"""
     enabled: NotRequired[bool]
     r"""Filter chunks by enabled status"""
-    status: NotRequired[ListChunksPaginatedStatus]
+    status: NotRequired[ListChunksPaginatedStatusTypedDict]
     r"""Filter chunks by processing status"""
     limit: NotRequired[int]
     page: NotRequired[int]
