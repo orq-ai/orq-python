@@ -23,12 +23,6 @@ value: models.RetrieveToolResponseBodyJSONSchemaTool = /* values here */
 value: models.RetrieveToolResponseBodyHTTPTool = /* values here */
 ```
 
-### `models.RetrieveToolResponseBodyMCPTool`
-
-```python
-value: models.RetrieveToolResponseBodyMCPTool = /* values here */
-```
-
 ### `models.RetrieveToolResponseBodyCodeExecutionTool`
 
 ```python

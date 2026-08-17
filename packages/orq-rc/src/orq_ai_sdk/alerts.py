@@ -221,6 +221,9 @@ class Alerts(BaseSDK):
         signal: Optional[str] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
+        display: Optional[
+            Union[models.AlertDisplay, models.AlertDisplayTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -239,6 +242,7 @@ class Alerts(BaseSDK):
         :param notifier_ids: Notifiers that receive trigger-open and trigger-resolve
             notifications.
         :param enabled: Whether the alert starts evaluating immediately. Defaults to true.
+        :param display: Display options for the alert activity chart.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -266,6 +270,7 @@ class Alerts(BaseSDK):
             condition=utils.get_pydantic_model(condition, models.AlertCondition),
             notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
             enabled=enabled,
+            display=utils.get_pydantic_model(display, Optional[models.AlertDisplay]),
         )
 
         req = self._build_request(
@@ -335,6 +340,9 @@ class Alerts(BaseSDK):
         signal: Optional[str] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
+        display: Optional[
+            Union[models.AlertDisplay, models.AlertDisplayTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -353,6 +361,7 @@ class Alerts(BaseSDK):
         :param notifier_ids: Notifiers that receive trigger-open and trigger-resolve
             notifications.
         :param enabled: Whether the alert starts evaluating immediately. Defaults to true.
+        :param display: Display options for the alert activity chart.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -380,6 +389,7 @@ class Alerts(BaseSDK):
             condition=utils.get_pydantic_model(condition, models.AlertCondition),
             notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
             enabled=enabled,
+            display=utils.get_pydantic_model(display, Optional[models.AlertDisplay]),
         )
 
         req = self._build_request_async(
@@ -807,6 +817,9 @@ class Alerts(BaseSDK):
         ] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
+        display: Optional[
+            Union[models.AlertDisplay, models.AlertDisplayTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -824,6 +837,7 @@ class Alerts(BaseSDK):
         :param condition: Replacement condition. Omit to keep the current condition.
         :param notifier_ids: Replacement notifier set. Omit to keep the current notifiers.
         :param enabled: New enabled state. Omit to keep the current state.
+        :param display: Display options to merge. Omitted fields keep their current values.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -854,6 +868,9 @@ class Alerts(BaseSDK):
                 ),
                 notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
                 enabled=enabled,
+                display=utils.get_pydantic_model(
+                    display, Optional[models.AlertDisplay]
+                ),
             ),
         )
 
@@ -930,6 +947,9 @@ class Alerts(BaseSDK):
         ] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
+        display: Optional[
+            Union[models.AlertDisplay, models.AlertDisplayTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -947,6 +967,7 @@ class Alerts(BaseSDK):
         :param condition: Replacement condition. Omit to keep the current condition.
         :param notifier_ids: Replacement notifier set. Omit to keep the current notifiers.
         :param enabled: New enabled state. Omit to keep the current state.
+        :param display: Display options to merge. Omitted fields keep their current values.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -977,6 +998,9 @@ class Alerts(BaseSDK):
                 ),
                 notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
                 enabled=enabled,
+                display=utils.get_pydantic_model(
+                    display, Optional[models.AlertDisplay]
+                ),
             ),
         )
 

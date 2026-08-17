@@ -414,7 +414,7 @@ with Orq(
 
 ### Response
 
-**[models.RetrieveAnnotationQueueItemResponseBody](../../models/retrieveannotationqueueitemresponsebody.md)**
+**[models.PublicSpan](../../models/publicspan.md)**
 
 ### Errors
 

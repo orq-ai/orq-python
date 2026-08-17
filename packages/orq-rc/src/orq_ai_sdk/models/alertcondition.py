@@ -45,7 +45,7 @@ Delay = Literal[
     "300s",
     "600s",
 ]
-r"""Ingestion delay subtracted from the evaluation window. Defaults to `120s`."""
+r"""Ingestion delay subtracted from the evaluation window. Defaults to `30s`."""
 
 
 class AlertConditionTypedDict(TypedDict):
@@ -72,7 +72,7 @@ class AlertConditionTypedDict(TypedDict):
     recovery side. Not supported with `eq`.
     """
     delay: NotRequired[Delay]
-    r"""Ingestion delay subtracted from the evaluation window. Defaults to `120s`."""
+    r"""Ingestion delay subtracted from the evaluation window. Defaults to `30s`."""
 
 
 class AlertCondition(BaseModel):
@@ -105,7 +105,7 @@ class AlertCondition(BaseModel):
     """
 
     delay: Optional[Delay] = None
-    r"""Ingestion delay subtracted from the evaluation window. Defaults to `120s`."""
+    r"""Ingestion delay subtracted from the evaluation window. Defaults to `30s`."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

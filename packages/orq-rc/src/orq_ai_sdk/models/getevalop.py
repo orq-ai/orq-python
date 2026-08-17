@@ -150,9 +150,9 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -315,9 +315,9 @@ class Typescript(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -468,9 +468,9 @@ class ResponseBodyPython(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -637,9 +637,9 @@ class GetEvalResponseBodyHTTP(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -783,9 +783,9 @@ class JSON(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -983,9 +983,9 @@ class Ragas(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1655,9 +1655,9 @@ class ResponseBodyFunction(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1960,12 +1960,12 @@ class GetEvalResponseBodyEvalsModel(BaseModel):
         return m
 
 
-class GetEvalResponseBodyEvalsRetryTypedDict(TypedDict):
+class ResponseBodyRetryTypedDict(TypedDict):
     count: NotRequired[int]
     on_codes: NotRequired[List[int]]
 
 
-class GetEvalResponseBodyEvalsRetry(BaseModel):
+class ResponseBodyRetry(BaseModel):
     count: Optional[int] = 2
 
     on_codes: Optional[List[int]] = None
@@ -2086,26 +2086,26 @@ class GetEvalResponseBodyEvalsResponse200Model(BaseModel):
         return m
 
 
-class GetEvalResponseBodyEvalsFallbacksTypedDict(TypedDict):
+class ResponseBodyFallbacksTypedDict(TypedDict):
     model: GetEvalResponseBodyEvalsResponse200ModelTypedDict
 
 
-class GetEvalResponseBodyEvalsFallbacks(BaseModel):
+class ResponseBodyFallbacks(BaseModel):
     model: GetEvalResponseBodyEvalsResponse200Model
 
 
 class ResponseBodyJudgesTypedDict(TypedDict):
     model: GetEvalResponseBodyEvalsModelTypedDict
-    retry: NotRequired[GetEvalResponseBodyEvalsRetryTypedDict]
-    fallbacks: NotRequired[List[GetEvalResponseBodyEvalsFallbacksTypedDict]]
+    retry: NotRequired[ResponseBodyRetryTypedDict]
+    fallbacks: NotRequired[List[ResponseBodyFallbacksTypedDict]]
 
 
 class ResponseBodyJudges(BaseModel):
     model: GetEvalResponseBodyEvalsModel
 
-    retry: Optional[GetEvalResponseBodyEvalsRetry] = None
+    retry: Optional[ResponseBodyRetry] = None
 
-    fallbacks: Optional[List[GetEvalResponseBodyEvalsFallbacks]] = None
+    fallbacks: Optional[List[ResponseBodyFallbacks]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2495,9 +2495,9 @@ class ResponseBodyLLM(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-14T03:59:18.686Z"
+    created: Optional[str] = "2026-08-17T04:12:28.242Z"
 
-    updated: Optional[str] = "2026-08-14T03:59:18.686Z"
+    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 

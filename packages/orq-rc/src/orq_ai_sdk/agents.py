@@ -1008,7 +1008,7 @@ class Agents(BaseSDK):
         :param settings:
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
@@ -1206,7 +1206,7 @@ class Agents(BaseSDK):
         :param settings:
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
@@ -1718,7 +1718,7 @@ class Agents(BaseSDK):
         :param message: The A2A format message containing the task for the agent to perform.
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
@@ -1912,7 +1912,7 @@ class Agents(BaseSDK):
         :param message: The A2A format message containing the task for the agent to perform.
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
@@ -2111,7 +2111,7 @@ class Agents(BaseSDK):
         :param message: The A2A format message containing the task for the agent to perform.
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:
@@ -2340,7 +2340,7 @@ class Agents(BaseSDK):
         :param message: The A2A format message containing the task for the agent to perform.
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param settings:

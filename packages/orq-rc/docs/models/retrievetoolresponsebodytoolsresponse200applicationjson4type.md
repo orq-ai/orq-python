@@ -1,5 +1,7 @@
 # RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
 
+The type must be "object"
+
 ## Example Usage
 
 ```python

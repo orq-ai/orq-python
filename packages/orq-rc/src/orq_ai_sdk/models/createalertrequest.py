@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .alertcondition import AlertCondition, AlertConditionTypedDict
+from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
@@ -28,6 +29,8 @@ class CreateAlertRequestTypedDict(TypedDict):
     """
     enabled: NotRequired[bool]
     r"""Whether the alert starts evaluating immediately. Defaults to true."""
+    display: NotRequired[AlertDisplayTypedDict]
+    r"""Display options for the alert activity chart."""
 
 
 class CreateAlertRequest(BaseModel):
@@ -57,9 +60,14 @@ class CreateAlertRequest(BaseModel):
     enabled: Optional[bool] = None
     r"""Whether the alert starts evaluating immediately. Defaults to true."""
 
+    display: Optional[AlertDisplay] = None
+    r"""Display options for the alert activity chart."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "signal", "notifier_ids", "enabled"])
+        optional_fields = set(
+            ["description", "signal", "notifier_ids", "enabled", "display"]
+        )
         serialized = handler(self)
         m = {}
 

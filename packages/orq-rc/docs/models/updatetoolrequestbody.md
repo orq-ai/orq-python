@@ -23,12 +23,6 @@ value: models.UpdateJSONSchemaTool = /* values here */
 value: models.UpdateHTTPTool = /* values here */
 ```
 
-### `models.UpdateMCPTool`
-
-```python
-value: models.UpdateMCPTool = /* values here */
-```
-
 ### `models.UpdateCodeExecutionTool`
 
 ```python

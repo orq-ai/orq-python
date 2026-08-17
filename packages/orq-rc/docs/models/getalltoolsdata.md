@@ -21,12 +21,6 @@ value: models.DataJSONSchemaTool = /* values here */
 value: models.DataHTTPTool = /* values here */
 ```
 
-### `models.DataMCPTool`
-
-```python
-value: models.DataMCPTool = /* values here */
-```
-
 ### `models.DataCodeExecutionTool`
 
 ```python
