@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-from .context import propagation_headers
+from .context import merge_orq_tracestate, propagation_headers
 
 _INSTALLED = False
 
@@ -20,10 +20,20 @@ def install_http_propagation() -> None:
 
 
 def _inject(headers: Any) -> None:
-    if headers is None or "traceparent" in headers:
+    if headers is None:
         return
-    for key, value in propagation_headers().items():
-        headers[key] = value
+    incoming = propagation_headers()
+    if not incoming:
+        return
+    if "traceparent" not in headers:
+        for key, value in incoming.items():
+            headers[key] = value
+        return
+    # Another instrumentor already set traceparent. Only stamp orq=1 when that
+    # parent is the active @traced span — never claim a foreign APM parent.
+    if headers.get("traceparent") != incoming["traceparent"]:
+        return
+    headers["tracestate"] = merge_orq_tracestate(headers.get("tracestate") or "")
 
 
 def _patch_method(cls: type, name: str, wrapper_factory: Callable[..., Any]) -> None:
