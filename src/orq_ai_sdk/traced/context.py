@@ -4,6 +4,7 @@ import contextvars
 from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
+from .constants import ORQ_TRACESTATE_KEY, ORQ_TRACESTATE_MEMBER
 from .otel_integration import get_current_otel_context
 from .utils import generate_span_id, generate_trace_id
 
@@ -97,6 +98,16 @@ def _is_w3c_span_id(value: str) -> bool:
     return len(value) == 16 and all(c in "0123456789abcdef" for c in value)
 
 
+def merge_orq_tracestate(existing: str) -> str:
+    """Prepend orq=1 unless that vendor key is already present."""
+    members = [member.strip() for member in existing.split(",") if member.strip()]
+    if any(member.split("=", 1)[0].strip() == ORQ_TRACESTATE_KEY for member in members):
+        return ",".join(members)
+    if not members:
+        return ORQ_TRACESTATE_MEMBER
+    return f"{ORQ_TRACESTATE_MEMBER},{','.join(members)}"
+
+
 def propagation_headers() -> Dict[str, str]:
     """W3C headers so an orq router call nests under the active @traced span."""
     span = get_current_span_context()
@@ -106,6 +117,7 @@ def propagation_headers() -> Dict[str, str]:
         return {}
     return {
         "traceparent": f"00-{span.trace_id}-{span.span_id}-01",
+        "tracestate": ORQ_TRACESTATE_MEMBER,
     }
 
 
