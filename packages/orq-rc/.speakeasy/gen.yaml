@@ -62,6 +62,10 @@ python:
     - - uv
       - run
       - python
+      - scripts/apply_patches.py
+    - - uv
+      - run
+      - python
       - -m
       - compileall
       - -q
