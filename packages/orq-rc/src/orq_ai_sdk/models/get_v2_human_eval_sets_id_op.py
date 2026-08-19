@@ -83,7 +83,7 @@ class GetV2HumanEvalSetsIDResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-19T10:58:01.279Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-19T12:36:36.185Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -168,7 +168,7 @@ class GetV2HumanEvalSetsIDResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-19T10:58:01.279Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-19T12:36:36.185Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
