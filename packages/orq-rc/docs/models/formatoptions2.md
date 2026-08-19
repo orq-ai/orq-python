@@ -1,9 +1,0 @@
-# FormatOptions2
-
-
-## Fields
-
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `style`                                                            | [models.FormatOptionsStyle](../models/formatoptionsstyle.md)       | :heavy_check_mark:                                                 | N/A                                                                |
-| `currency`                                                         | [models.FormatOptionsCurrency](../models/formatoptionscurrency.md) | :heavy_check_mark:                                                 | N/A                                                                |

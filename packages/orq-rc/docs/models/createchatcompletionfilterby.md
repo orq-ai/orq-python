@@ -11,15 +11,15 @@ The metadata filter to apply to the search. Check the [Searching a Knowledge Bas
 value: Dict[str, models.CreateChatCompletionFilterBy1] = /* values here */
 ```
 
-### `models.CreateChatCompletionFilterByAnd`
+### `models.CreateChatCompletionFilterByRouterChatCompletionsAnd`
 
 ```python
-value: models.CreateChatCompletionFilterByAnd = /* values here */
+value: models.CreateChatCompletionFilterByRouterChatCompletionsAnd = /* values here */
 ```
 
-### `models.CreateChatCompletionFilterByOr`
+### `models.CreateChatCompletionFilterByRouterChatCompletionsOr`
 
 ```python
-value: models.CreateChatCompletionFilterByOr = /* values here */
+value: models.CreateChatCompletionFilterByRouterChatCompletionsOr = /* values here */
 ```
 

@@ -41,3 +41,9 @@ value: models.AgenticChunkerStrategy = /* values here */
 value: models.FastChunkerStrategy = /* values here */
 ```
 
+### `models.LateChunkerStrategy`
+
+```python
+value: models.LateChunkerStrategy = /* values here */
+```
+

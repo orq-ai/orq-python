@@ -61,7 +61,7 @@ with Orq(
 
 ## create
 
-Create an annotation queue
+Create a new annotation queue in the workspace.
 
 ### Example Usage
 
@@ -141,7 +141,7 @@ with Orq(
 
 ## update
 
-Edit an annotation queue
+Update an annotation queue by ID with the provided fields.
 
 ### Example Usage
 
@@ -185,7 +185,7 @@ with Orq(
 
 ## delete
 
-Delete an annotation queue
+Delete an annotation queue and its items by ID.
 
 ### Example Usage
 
@@ -383,7 +383,7 @@ with Orq(
 
 ## retrieve_item
 
-Retrieves an item from the specified annotation queue in its expanded form. An annotation queue item is a pointer to a span; this endpoint returns the fully resolved span the item references.
+Retrieve an annotation queue item. Each item is a pointer to a span with fully resolved span data.
 
 ### Example Usage
 

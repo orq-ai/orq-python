@@ -1,0 +1,10 @@
+# DatasourcesServiceListResponse
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `object`                                                                                         | [models.DatasourcesServiceListResponseObject](../models/datasourcesservicelistresponseobject.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `data`                                                                                           | List[[models.Datasource](../models/datasource.md)]                                               | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `has_more`                                                                                       | *bool*                                                                                           | :heavy_check_mark:                                                                               | N/A                                                                                              |

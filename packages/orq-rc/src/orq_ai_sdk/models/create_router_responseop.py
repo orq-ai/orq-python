@@ -168,7 +168,7 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
 CreateRouterResponse2ResponsesRequestRequestBodyInput2Type = Literal["input_file",]
 
 
-class CreateRouterResponse2FileTypedDict(TypedDict):
+class TwoFileTypedDict(TypedDict):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -187,7 +187,7 @@ class CreateRouterResponse2FileTypedDict(TypedDict):
     r"""The MIME type of the file (e.g., application/pdf)."""
 
 
-class CreateRouterResponse2File(BaseModel):
+class TwoFile(BaseModel):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -453,7 +453,7 @@ class TwoText(BaseModel):
 
 CreateRouterResponseContent2TypedDict = TypeAliasType(
     "CreateRouterResponseContent2TypedDict",
-    Union[TwoTextTypedDict, TwoImageTypedDict, CreateRouterResponse2FileTypedDict],
+    Union[TwoTextTypedDict, TwoImageTypedDict, TwoFileTypedDict],
 )
 r"""A content part within a message."""
 
@@ -462,7 +462,7 @@ CreateRouterResponseContent2 = Annotated[
     Union[
         Annotated[TwoText, Tag("input_text")],
         Annotated[TwoImage, Tag("input_image")],
-        Annotated[CreateRouterResponse2File, Tag("input_file")],
+        Annotated[TwoFile, Tag("input_file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

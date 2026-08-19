@@ -254,14 +254,14 @@ class AgentResponseRequestThread(BaseModel):
         return m
 
 
-class MemoryTypedDict(TypedDict):
+class AgentResponseRequestMemoryTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-class Memory(BaseModel):
+class AgentResponseRequestMemory(BaseModel):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
@@ -335,7 +335,7 @@ class AgentResponseRequestTypedDict(TypedDict):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[AgentResponseRequestThreadTypedDict]
     r"""Thread information to group related requests"""
-    memory: NotRequired[MemoryTypedDict]
+    memory: NotRequired[AgentResponseRequestMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
@@ -377,7 +377,7 @@ class AgentResponseRequest(BaseModel):
     thread: Optional[AgentResponseRequestThread] = None
     r"""Thread information to group related requests"""
 
-    memory: Optional[Memory] = None
+    memory: Optional[AgentResponseRequestMemory] = None
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     metadata: Optional[Dict[str, Any]] = None

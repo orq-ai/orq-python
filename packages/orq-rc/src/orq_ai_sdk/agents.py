@@ -69,7 +69,7 @@ class Agents(BaseSDK):
     ) -> models.CreateAgentRequestResponseBody:
         r"""Create agent
 
-        Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
+        Create a new agent with the specified model, instructions, tools, and knowledge bases. Supports fallback models and configurable execution settings.
 
         :param key: Unique identifier for the agent within the workspace
         :param role: The role or function of the agent
@@ -236,7 +236,7 @@ class Agents(BaseSDK):
     ) -> models.CreateAgentRequestResponseBody:
         r"""Create agent
 
-        Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
+        Create a new agent with the specified model, instructions, tools, and knowledge bases. Supports fallback models and configurable execution settings.
 
         :param key: Unique identifier for the agent within the workspace
         :param role: The role or function of the agent
@@ -375,7 +375,7 @@ class Agents(BaseSDK):
     ) -> models.ListAgentsResponseBody:
         r"""List agents
 
-        Retrieves a comprehensive list of agents configured in your workspace. Supports pagination for large datasets and returns agents sorted by creation date (newest first). Each agent in the response includes its complete configuration: model settings with fallback options, instructions, tools, knowledge bases, memory stores, and execution parameters. Use pagination parameters to efficiently navigate through large collections of agents.
+        List all agents in the workspace with full configuration details. Supports pagination and sorts agents newest first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
@@ -473,7 +473,7 @@ class Agents(BaseSDK):
     ) -> models.ListAgentsResponseBody:
         r"""List agents
 
-        Retrieves a comprehensive list of agents configured in your workspace. Supports pagination for large datasets and returns agents sorted by creation date (newest first). Each agent in the response includes its complete configuration: model settings with fallback options, instructions, tools, knowledge bases, memory stores, and execution parameters. Use pagination parameters to efficiently navigate through large collections of agents.
+        List all agents in the workspace with full configuration details. Supports pagination and sorts agents newest first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
@@ -568,7 +568,7 @@ class Agents(BaseSDK):
     ):
         r"""Delete agent
 
-        Permanently removes an agent from the workspace. This operation is irreversible and will delete all associated configuration including model assignments, tools, knowledge bases, memory stores, and cached data. Active agent sessions will be terminated, and the agent key will become available for reuse.
+        Permanently remove an agent and all associated configuration from the workspace. Terminate active sessions and the key becomes reusable.
 
         :param agent_key: The unique key of the agent to delete
         :param retries: Override the default retry configuration for this method
@@ -663,7 +663,7 @@ class Agents(BaseSDK):
     ):
         r"""Delete agent
 
-        Permanently removes an agent from the workspace. This operation is irreversible and will delete all associated configuration including model assignments, tools, knowledge bases, memory stores, and cached data. Active agent sessions will be terminated, and the agent key will become available for reuse.
+        Permanently remove an agent and all associated configuration from the workspace. Terminate active sessions and the key becomes reusable.
 
         :param agent_key: The unique key of the agent to delete
         :param retries: Override the default retry configuration for this method
@@ -758,7 +758,7 @@ class Agents(BaseSDK):
     ) -> models.RetrieveAgentRequestResponseBody:
         r"""Retrieve agent
 
-        Retrieves detailed information about a specific agent identified by its unique key or identifier. Returns the complete agent manifest including configuration settings, model assignments (primary and fallback), tools, knowledge bases, memory stores, instructions, and execution parameters. Use this endpoint to fetch the current state and configuration of an individual agent.
+        Retrieve the complete agent manifest by key, including model assignments, tools, knowledge bases, memory stores, and execution parameters.
 
         :param agent_key: The unique key of the agent to retrieve
         :param retries: Override the default retry configuration for this method
@@ -855,7 +855,7 @@ class Agents(BaseSDK):
     ) -> models.RetrieveAgentRequestResponseBody:
         r"""Retrieve agent
 
-        Retrieves detailed information about a specific agent identified by its unique key or identifier. Returns the complete agent manifest including configuration settings, model assignments (primary and fallback), tools, knowledge bases, memory stores, instructions, and execution parameters. Use this endpoint to fetch the current state and configuration of an individual agent.
+        Retrieve the complete agent manifest by key, including model assignments, tools, knowledge bases, memory stores, and execution parameters.
 
         :param agent_key: The unique key of the agent to retrieve
         :param retries: Override the default retry configuration for this method
@@ -993,7 +993,7 @@ class Agents(BaseSDK):
     ) -> models.UpdateAgentResponseBody:
         r"""Update agent
 
-        Modifies an existing agent's configuration with partial updates. Supports updating any aspect of the agent including model assignments (primary and fallback), instructions, tools, knowledge bases, memory stores, and execution parameters. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes take effect immediately for new agent invocations.
+        Partially update an existing agent configuration including models, instructions, tools, knowledge bases, and execution parameters.
 
         :param agent_key: The unique key of the agent to update
         :param key:
@@ -1191,7 +1191,7 @@ class Agents(BaseSDK):
     ) -> models.UpdateAgentResponseBody:
         r"""Update agent
 
-        Modifies an existing agent's configuration with partial updates. Supports updating any aspect of the agent including model assignments (primary and fallback), instructions, tools, knowledge bases, memory stores, and execution parameters. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes take effect immediately for new agent invocations.
+        Partially update an existing agent configuration including models, instructions, tools, knowledge bases, and execution parameters.
 
         :param agent_key: The unique key of the agent to update
         :param key:
@@ -1376,7 +1376,7 @@ class Agents(BaseSDK):
     ) -> models.InvokeAgentA2ATaskResponse:
         r"""Execute an agent task
 
-        Invokes an agent to perform a task with the provided input message. The agent will process the request using its configured model and tools, maintaining context through memory stores if configured. Supports automatic model fallback on primary model failure, tool execution, knowledge base retrieval, and continuation of previous conversations. Returns a task response that can be used to track execution status and retrieve results.
+        Invoke an agent to perform a task with input messages. Supports tool execution, knowledge retrieval, memory context, and model fallback.
 
         :param key: The key or ID of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
@@ -1532,7 +1532,7 @@ class Agents(BaseSDK):
     ) -> models.InvokeAgentA2ATaskResponse:
         r"""Execute an agent task
 
-        Invokes an agent to perform a task with the provided input message. The agent will process the request using its configured model and tools, maintaining context through memory stores if configured. Supports automatic model fallback on primary model failure, tool execution, knowledge base retrieval, and continuation of previous conversations. Returns a task response that can be used to track execution status and retrieve results.
+        Invoke an agent to perform a task with input messages. Supports tool execution, knowledge retrieval, memory context, and model fallback.
 
         :param key: The key or ID of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
@@ -1709,7 +1709,7 @@ class Agents(BaseSDK):
     ) -> models.RunAgentA2ATaskResponse:
         r"""Run an agent with configuration
 
-        Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
+        Run an agent with inline configuration or existing agent reference. Supports A2A messages, memory context, tool execution, and model fallback.
 
         :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
         :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
@@ -1903,7 +1903,7 @@ class Agents(BaseSDK):
     ) -> models.RunAgentA2ATaskResponse:
         r"""Run an agent with configuration
 
-        Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
+        Run an agent with inline configuration or existing agent reference. Supports A2A messages, memory context, tool execution, and model fallback.
 
         :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
         :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
@@ -2102,7 +2102,7 @@ class Agents(BaseSDK):
     ) -> eventstreaming.EventStream[models.StreamRunAgentResponseBody]:
         r"""Run agent with streaming response
 
-        Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
+        Run an agent with streaming via SSE, combining inline configuration with real-time updates including messages, tool executions, and status.
 
         :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
         :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
@@ -2331,7 +2331,7 @@ class Agents(BaseSDK):
     ) -> eventstreaming.EventStreamAsync[models.StreamRunAgentResponseBody]:
         r"""Run agent with streaming response
 
-        Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
+        Run an agent with streaming via SSE, combining inline configuration with real-time updates including messages, tool executions, and status.
 
         :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
         :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
@@ -2535,7 +2535,7 @@ class Agents(BaseSDK):
     ) -> eventstreaming.EventStream[models.StreamAgentResponseBody]:
         r"""Stream agent execution in real-time
 
-        Executes an agent and streams the interaction in real-time using Server-Sent Events (SSE). Provides live updates as the agent processes the request, including message chunks, tool calls, and execution status. Perfect for building responsive chat interfaces and monitoring agent progress. The stream continues until the agent completes its task, encounters an error, or reaches the configured timeout (default 30 minutes, configurable 1-3600 seconds).
+        Stream an existing agent execution in real-time via SSE, providing live message chunks, tool calls, and status updates until completion.
 
         :param key: The key or ID of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
@@ -2714,7 +2714,7 @@ class Agents(BaseSDK):
     ) -> eventstreaming.EventStreamAsync[models.StreamAgentResponseBody]:
         r"""Stream agent execution in real-time
 
-        Executes an agent and streams the interaction in real-time using Server-Sent Events (SSE). Provides live updates as the agent processes the request, including message chunks, tool calls, and execution status. Perfect for building responsive chat interfaces and monitoring agent progress. The stream continues until the agent completes its task, encounters an error, or reaches the configured timeout (default 30 minutes, configurable 1-3600 seconds).
+        Stream an existing agent execution in real-time via SSE, providing live message chunks, tool calls, and status updates until completion.
 
         :param key: The key or ID of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)

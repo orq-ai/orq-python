@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
-    from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
@@ -60,19 +60,20 @@ class Orq(BaseSDK):
     """
 
     evals: "Evals"
+    r"""Run an evaluator against a conversation and its result"""
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
     tools: "Tools"
-    knowledge: "Knowledge"
-    chunking: "Chunking"
-    memory_stores: "MemoryStores"
     datasets: "Datasets"
     router: "Router"
     annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     annotation_queues: "AnnotationQueues"
+    chunking: "Chunking"
+    knowledge: "KnowledgeSDK"
+    memory_stores: "MemoryStores"
     pii: "Pii"
     models: "Models"
     policies: "Policies"
@@ -102,15 +103,15 @@ class Orq(BaseSDK):
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
-        "chunking": ("orq_ai_sdk.chunking", "Chunking"),
-        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
+        "chunking": ("orq_ai_sdk.chunking", "Chunking"),
+        "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),
+        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),

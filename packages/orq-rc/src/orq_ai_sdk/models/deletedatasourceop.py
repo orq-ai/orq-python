@@ -8,18 +8,14 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteDatasourceRequestTypedDict(TypedDict):
     knowledge_id: str
-    r"""The unique identifier of the knowledge base"""
     datasource_id: str
-    r"""The unique identifier of the datasource."""
 
 
 class DeleteDatasourceRequest(BaseModel):
     knowledge_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the knowledge base"""
 
     datasource_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the datasource."""

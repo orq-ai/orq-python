@@ -3,57 +3,57 @@
 
 ## Supported Types
 
-### `models.SearchKnowledge1Eq`
+### `models.SearchKnowledgeRequest1Eq`
 
 ```python
-value: models.SearchKnowledge1Eq = /* values here */
+value: models.SearchKnowledgeRequest1Eq = /* values here */
 ```
 
-### `models.SearchKnowledge1Ne`
+### `models.SearchKnowledgeRequest1Ne`
 
 ```python
-value: models.SearchKnowledge1Ne = /* values here */
+value: models.SearchKnowledgeRequest1Ne = /* values here */
 ```
 
-### `models.SearchKnowledge1Gt`
+### `models.OneGt`
 
 ```python
-value: models.SearchKnowledge1Gt = /* values here */
+value: models.OneGt = /* values here */
 ```
 
-### `models.SearchKnowledge1Gte`
+### `models.OneGte`
 
 ```python
-value: models.SearchKnowledge1Gte = /* values here */
+value: models.OneGte = /* values here */
 ```
 
-### `models.SearchKnowledge1Lt`
+### `models.OneLt`
 
 ```python
-value: models.SearchKnowledge1Lt = /* values here */
+value: models.OneLt = /* values here */
 ```
 
-### `models.SearchKnowledge1Lte`
+### `models.OneLte`
 
 ```python
-value: models.SearchKnowledge1Lte = /* values here */
+value: models.OneLte = /* values here */
 ```
 
-### `models.SearchKnowledge1In`
+### `models.SearchKnowledgeRequest1In`
 
 ```python
-value: models.SearchKnowledge1In = /* values here */
+value: models.SearchKnowledgeRequest1In = /* values here */
 ```
 
-### `models.SearchKnowledge1Nin`
+### `models.SearchKnowledgeRequest1Nin`
 
 ```python
-value: models.SearchKnowledge1Nin = /* values here */
+value: models.SearchKnowledgeRequest1Nin = /* values here */
 ```
 
-### `models.SearchKnowledge1Exists`
+### `models.OneExists`
 
 ```python
-value: models.SearchKnowledge1Exists = /* values here */
+value: models.OneExists = /* values here */
 ```
 

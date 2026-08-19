@@ -1,0 +1,10 @@
+# ChunksServiceCountRequest
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `q`                                                                                              | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `enabled`                                                                                        | *Optional[bool]*                                                                                 | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `status`                                                                                         | [Optional[models.ChunksServiceCountRequestStatus]](../models/chunksservicecountrequeststatus.md) | :heavy_minus_sign:                                                                               | Filter chunks by processing status                                                               |

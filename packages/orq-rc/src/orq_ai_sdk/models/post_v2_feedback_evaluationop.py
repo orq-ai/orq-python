@@ -66,7 +66,7 @@ class RequestBody4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-17T04:12:42.333Z")
+    ] = parse_datetime("2026-08-19T10:58:37.212Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -144,7 +144,7 @@ class RequestBody3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-17T04:12:42.332Z")
+    ] = parse_datetime("2026-08-19T10:58:37.212Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -179,7 +179,7 @@ PostV2FeedbackEvaluationRequestBodySource = Literal[
 PostV2FeedbackEvaluationRequestBodyFeedbackType = Literal["number",]
 
 
-class PostV2FeedbackEvaluationRequestBody2TypedDict(TypedDict):
+class RequestBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the human evaluation"""
     evaluation_type: RequestBodyEvaluationType
@@ -196,7 +196,7 @@ class PostV2FeedbackEvaluationRequestBody2TypedDict(TypedDict):
     r"""Deprecated. The date and time the item was reviewed"""
 
 
-class PostV2FeedbackEvaluationRequestBody2(BaseModel):
+class RequestBody2(BaseModel):
     id: str
     r"""The unique identifier of the human evaluation"""
 
@@ -222,7 +222,7 @@ class PostV2FeedbackEvaluationRequestBody2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-17T04:12:42.332Z")
+    ] = parse_datetime("2026-08-19T10:58:37.211Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -300,7 +300,7 @@ class PostV2FeedbackEvaluationRequestBody1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-17T04:12:42.331Z")
+    ] = parse_datetime("2026-08-19T10:58:37.211Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -326,7 +326,7 @@ PostV2FeedbackEvaluationRequestBodyTypedDict = TypeAliasType(
     "PostV2FeedbackEvaluationRequestBodyTypedDict",
     Union[
         PostV2FeedbackEvaluationRequestBody1TypedDict,
-        PostV2FeedbackEvaluationRequestBody2TypedDict,
+        RequestBody2TypedDict,
         RequestBody3TypedDict,
         RequestBody4TypedDict,
     ],
@@ -336,7 +336,7 @@ PostV2FeedbackEvaluationRequestBodyTypedDict = TypeAliasType(
 PostV2FeedbackEvaluationRequestBody = Annotated[
     Union[
         Annotated[PostV2FeedbackEvaluationRequestBody1, Tag("string")],
-        Annotated[PostV2FeedbackEvaluationRequestBody2, Tag("number")],
+        Annotated[RequestBody2, Tag("number")],
         Annotated[RequestBody3, Tag("boolean")],
         Annotated[RequestBody4, Tag("string_array")],
     ],

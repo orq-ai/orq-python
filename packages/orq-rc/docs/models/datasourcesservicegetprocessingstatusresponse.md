@@ -1,0 +1,14 @@
+# DatasourcesServiceGetProcessingStatusResponse
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `total_queued`                                                               | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |
+| `total_completed`                                                            | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |
+| `total_passed`                                                               | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |
+| `total_failed`                                                               | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |
+| `overall_total_processing`                                                   | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |
+| `chunks_processing_attempts`                                                 | List[[models.ChunkProcessingAttempts](../models/chunkprocessingattempts.md)] | :heavy_check_mark:                                                           | N/A                                                                          |
+| `datasource_processing_attempts`                                             | List[[models.ProcessingAttempt](../models/processingattempt.md)]             | :heavy_check_mark:                                                           | N/A                                                                          |

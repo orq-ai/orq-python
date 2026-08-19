@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.OneEq`
+### `models.InvokeDeploymentRequest1Eq`
 
 ```python
-value: models.OneEq = /* values here */
+value: models.InvokeDeploymentRequest1Eq = /* values here */
 ```
 
-### `models.OneNe`
+### `models.InvokeDeploymentRequest1Ne`
 
 ```python
-value: models.OneNe = /* values here */
+value: models.InvokeDeploymentRequest1Ne = /* values here */
 ```
 
 ### `models.Gt`
@@ -39,16 +39,16 @@ value: models.Lt = /* values here */
 value: models.Lte = /* values here */
 ```
 
-### `models.OneIn`
+### `models.InvokeDeploymentRequest1In`
 
 ```python
-value: models.OneIn = /* values here */
+value: models.InvokeDeploymentRequest1In = /* values here */
 ```
 
-### `models.OneNin`
+### `models.InvokeDeploymentRequest1Nin`
 
 ```python
-value: models.OneNin = /* values here */
+value: models.InvokeDeploymentRequest1Nin = /* values here */
 ```
 
 ### `models.Exists`

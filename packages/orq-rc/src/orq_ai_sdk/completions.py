@@ -23,15 +23,15 @@ class Completions(BaseSDK):
         prompt: str,
         echo: OptionalNullable[bool] = False,
         frequency_penalty: OptionalNullable[float] = 0,
-        max_tokens: OptionalNullable[float] = 16,
+        max_tokens: OptionalNullable[int] = 16,
         presence_penalty: OptionalNullable[float] = 0,
-        seed: OptionalNullable[float] = UNSET,
+        seed: OptionalNullable[int] = UNSET,
         stop: OptionalNullable[
             Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
-        n: OptionalNullable[float] = 1,
+        n: OptionalNullable[int] = 1,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[
@@ -249,15 +249,15 @@ class Completions(BaseSDK):
         prompt: str,
         echo: OptionalNullable[bool] = False,
         frequency_penalty: OptionalNullable[float] = 0,
-        max_tokens: OptionalNullable[float] = 16,
+        max_tokens: OptionalNullable[int] = 16,
         presence_penalty: OptionalNullable[float] = 0,
-        seed: OptionalNullable[float] = UNSET,
+        seed: OptionalNullable[int] = UNSET,
         stop: OptionalNullable[
             Union[models.CreateCompletionStop, models.CreateCompletionStopTypedDict]
         ] = UNSET,
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
-        n: OptionalNullable[float] = 1,
+        n: OptionalNullable[int] = 1,
         user: Optional[str] = None,
         name: Optional[str] = None,
         fallbacks: Optional[

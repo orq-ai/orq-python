@@ -59,6 +59,8 @@ class Translations(BaseSDK):
     ) -> models.CreateTranslationResponseBody:
         r"""Create translation
 
+        Translate audio input into English text using the configured translation model and return the result.
+
         :param model: ID of the model to use
         :param prompt: An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio language.
         :param enable_logging: When enable_logging is set to false, zero retention mode is used. This disables history features like request stitching and is only available to enterprise customers.
@@ -239,6 +241,8 @@ class Translations(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateTranslationResponseBody:
         r"""Create translation
+
+        Translate audio input into English text using the configured translation model and return the result.
 
         :param model: ID of the model to use
         :param prompt: An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio language.

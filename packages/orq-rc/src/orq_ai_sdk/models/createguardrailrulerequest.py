@@ -26,7 +26,6 @@ class CreateGuardrailRuleRequestTypedDict(TypedDict):
     expression: NotRequired[GuardrailRuleExpressionTypedDict]
     guardrails: NotRequired[List[GuardrailRuleGuardrailTypedDict]]
     plugins: NotRequired[List[GuardrailRulePluginTypedDict]]
-    timeout: NotRequired[int]
 
 
 class CreateGuardrailRuleRequest(BaseModel):
@@ -46,8 +45,6 @@ class CreateGuardrailRuleRequest(BaseModel):
 
     plugins: Optional[List[GuardrailRulePlugin]] = None
 
-    timeout: Optional[int] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -58,7 +55,6 @@ class CreateGuardrailRuleRequest(BaseModel):
                 "expression",
                 "guardrails",
                 "plugins",
-                "timeout",
             ]
         )
         serialized = handler(self)

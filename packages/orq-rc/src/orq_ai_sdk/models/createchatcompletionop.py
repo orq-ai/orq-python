@@ -1764,8 +1764,8 @@ class CreateChatCompletionOrEq(BaseModel):
     eq: CreateChatCompletionOrRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict",
+CreateChatCompletionFilterByOrTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByOrTypedDict",
     Union[
         CreateChatCompletionOrEqTypedDict,
         CreateChatCompletionOrNeTypedDict,
@@ -1780,8 +1780,8 @@ CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionFilterByRouterChatCompletionsOr = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsOr",
+CreateChatCompletionFilterByOr = TypeAliasType(
+    "CreateChatCompletionFilterByOr",
     Union[
         CreateChatCompletionOrEq,
         CreateChatCompletionOrNe,
@@ -1796,18 +1796,17 @@ CreateChatCompletionFilterByRouterChatCompletionsOr = TypeAliasType(
 )
 
 
-class CreateChatCompletionFilterByOrTypedDict(TypedDict):
+class CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict(TypedDict):
     r"""Or"""
 
-    or_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict]]
+    or_: List[Dict[str, CreateChatCompletionFilterByOrTypedDict]]
 
 
-class CreateChatCompletionFilterByOr(BaseModel):
+class CreateChatCompletionFilterByRouterChatCompletionsOr(BaseModel):
     r"""Or"""
 
     or_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOr]],
-        pydantic.Field(alias="or"),
+        List[Dict[str, CreateChatCompletionFilterByOr]], pydantic.Field(alias="or")
     ]
 
 
@@ -1961,8 +1960,8 @@ class CreateChatCompletionAndEq(BaseModel):
     eq: CreateChatCompletionAndRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict",
+CreateChatCompletionFilterByAndTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByAndTypedDict",
     Union[
         CreateChatCompletionAndEqTypedDict,
         CreateChatCompletionAndNeTypedDict,
@@ -1977,8 +1976,8 @@ CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionFilterByRouterChatCompletionsAnd = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsAnd",
+CreateChatCompletionFilterByAnd = TypeAliasType(
+    "CreateChatCompletionFilterByAnd",
     Union[
         CreateChatCompletionAndEq,
         CreateChatCompletionAndNe,
@@ -1993,18 +1992,17 @@ CreateChatCompletionFilterByRouterChatCompletionsAnd = TypeAliasType(
 )
 
 
-class CreateChatCompletionFilterByAndTypedDict(TypedDict):
+class CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict(TypedDict):
     r"""And"""
 
-    and_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict]]
+    and_: List[Dict[str, CreateChatCompletionFilterByAndTypedDict]]
 
 
-class CreateChatCompletionFilterByAnd(BaseModel):
+class CreateChatCompletionFilterByRouterChatCompletionsAnd(BaseModel):
     r"""And"""
 
     and_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAnd]],
-        pydantic.Field(alias="and"),
+        List[Dict[str, CreateChatCompletionFilterByAnd]], pydantic.Field(alias="and")
     ]
 
 
@@ -2193,8 +2191,8 @@ CreateChatCompletionFilterBy1 = TypeAliasType(
 CreateChatCompletionFilterByTypedDict = TypeAliasType(
     "CreateChatCompletionFilterByTypedDict",
     Union[
-        CreateChatCompletionFilterByAndTypedDict,
-        CreateChatCompletionFilterByOrTypedDict,
+        CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict,
+        CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict,
         Dict[str, CreateChatCompletionFilterBy1TypedDict],
     ],
 )
@@ -2204,8 +2202,8 @@ r"""The metadata filter to apply to the search. Check the [Searching a Knowledge
 CreateChatCompletionFilterBy = TypeAliasType(
     "CreateChatCompletionFilterBy",
     Union[
-        CreateChatCompletionFilterByAnd,
-        CreateChatCompletionFilterByOr,
+        CreateChatCompletionFilterByRouterChatCompletionsAnd,
+        CreateChatCompletionFilterByRouterChatCompletionsOr,
         Dict[str, CreateChatCompletionFilterBy1],
     ],
 )
@@ -4329,7 +4327,7 @@ try:
 except NameError:
     pass
 try:
-    CreateChatCompletionFilterByOr.model_rebuild()
+    CreateChatCompletionFilterByRouterChatCompletionsOr.model_rebuild()
 except NameError:
     pass
 try:
@@ -4337,7 +4335,7 @@ try:
 except NameError:
     pass
 try:
-    CreateChatCompletionFilterByAnd.model_rebuild()
+    CreateChatCompletionFilterByRouterChatCompletionsAnd.model_rebuild()
 except NameError:
     pass
 try:

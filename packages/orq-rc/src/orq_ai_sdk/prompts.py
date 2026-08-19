@@ -216,6 +216,8 @@ class Prompts(BaseSDK):
     ) -> models.CreatePromptPrompt:
         r"""Create a prompt
 
+        Create a new prompt in the workspace.
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -316,6 +318,8 @@ class Prompts(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreatePromptPrompt:
         r"""Create a prompt
+
+        Create a new prompt in the workspace.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -608,6 +612,8 @@ class Prompts(BaseSDK):
     ) -> models.UpdatePromptPrompt:
         r"""Update a prompt
 
+        Update a prompt by ID with the provided fields.
+
         :param id: Unique identifier of the prompt
         :param owner:
         :param domain_id:
@@ -757,6 +763,8 @@ class Prompts(BaseSDK):
     ) -> models.UpdatePromptPrompt:
         r"""Update a prompt
 
+        Update a prompt by ID with the provided fields.
+
         :param id: Unique identifier of the prompt
         :param owner:
         :param domain_id:
@@ -889,6 +897,8 @@ class Prompts(BaseSDK):
     ):
         r"""Delete a prompt
 
+        Delete a prompt and all its versions by ID.
+
         :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -981,6 +991,8 @@ class Prompts(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Delete a prompt
+
+        Delete a prompt and all its versions by ID.
 
         :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method

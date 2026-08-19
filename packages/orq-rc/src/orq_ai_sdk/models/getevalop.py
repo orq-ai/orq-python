@@ -150,9 +150,9 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -315,9 +315,9 @@ class Typescript(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -468,9 +468,9 @@ class ResponseBodyPython(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -588,7 +588,7 @@ ResponseBodyMethod = Literal[
 ]
 
 
-class GetEvalResponseBodyHTTPTypedDict(TypedDict):
+class ResponseBodyHTTPTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsResponseMetadataTypedDict
     id: str
     display_name: str
@@ -612,7 +612,7 @@ class GetEvalResponseBodyHTTPTypedDict(TypedDict):
     r"""The type of output expected from the evaluator"""
 
 
-class GetEvalResponseBodyHTTP(BaseModel):
+class ResponseBodyHTTP(BaseModel):
     metadata: GetEvalResponseBodyEvalsResponseMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -637,9 +637,9 @@ class GetEvalResponseBodyHTTP(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -783,9 +783,9 @@ class JSON(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -983,9 +983,9 @@ class Ragas(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1655,9 +1655,9 @@ class ResponseBodyFunction(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2495,9 +2495,9 @@ class ResponseBodyLLM(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-17T04:12:28.242Z"
+    created: Optional[str] = "2026-08-19T10:58:05.439Z"
 
-    updated: Optional[str] = "2026-08-17T04:12:28.242Z"
+    updated: Optional[str] = "2026-08-19T10:58:05.439Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2588,7 +2588,7 @@ GetEvalResponseBodyTypedDict = TypeAliasType(
         ResponseBodyPythonTypedDict,
         TypescriptTypedDict,
         RagasTypedDict,
-        GetEvalResponseBodyHTTPTypedDict,
+        ResponseBodyHTTPTypedDict,
         BedrockGuardrailTypedDict,
         ResponseBodyLLMTypedDict,
     ],
@@ -2602,7 +2602,7 @@ GetEvalResponseBody = Annotated[
         Annotated[ResponseBodyFunction, Tag("function_eval")],
         Annotated[Ragas, Tag("ragas")],
         Annotated[JSON, Tag("json_schema")],
-        Annotated[GetEvalResponseBodyHTTP, Tag("http_eval")],
+        Annotated[ResponseBodyHTTP, Tag("http_eval")],
         Annotated[ResponseBodyPython, Tag("python_eval")],
         Annotated[Typescript, Tag("typescript_eval")],
         Annotated[BedrockGuardrail, Tag("bedrock_eval")],
@@ -2625,7 +2625,7 @@ try:
 except NameError:
     pass
 try:
-    GetEvalResponseBodyHTTP.model_rebuild()
+    ResponseBodyHTTP.model_rebuild()
 except NameError:
     pass
 try:

@@ -17,9 +17,9 @@ value: models.TwoText = /* values here */
 value: models.TwoImage = /* values here */
 ```
 
-### `models.CreateRouterResponse2File`
+### `models.TwoFile`
 
 ```python
-value: models.CreateRouterResponse2File = /* values here */
+value: models.TwoFile = /* values here */
 ```
 

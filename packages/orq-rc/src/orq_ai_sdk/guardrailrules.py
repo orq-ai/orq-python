@@ -276,7 +276,6 @@ class GuardrailRules(BaseSDK):
                 Iterable[models.GuardrailRulePluginTypedDict],
             ]
         ] = None,
-        timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -284,7 +283,7 @@ class GuardrailRules(BaseSDK):
     ) -> models.CreateGuardrailRuleResponse:
         r"""Create a guardrail rule
 
-        Creates a guardrail rule with metadata and optional evaluator, plugin, timeout, and matching configuration. Rules default to disabled when `enabled` is omitted.
+        Creates a guardrail rule with metadata and optional evaluator, plugin, and matching configuration. Rules default to disabled when `enabled` is omitted.
 
         :param display_name:
         :param description:
@@ -293,7 +292,6 @@ class GuardrailRules(BaseSDK):
         :param expression:
         :param guardrails:
         :param plugins:
-        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -326,7 +324,6 @@ class GuardrailRules(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.GuardrailRulePlugin]]
             ),
-            timeout=timeout,
         )
 
         req = self._build_request(
@@ -375,17 +372,17 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Create guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }],\n    "timeout": 60000\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create guardrail rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.guardrail_rules.create(\n    display_name="Protect customer data",\n    description="Blocks sensitive customer data from model output.",\n    enabled=True,\n    guardrails=[{\n        "id": "orq_pii_detection",\n        "execute_on": "output",\n        "sample_rate": 1,\n        "is_guardrail": True,\n    }],\n    timeout=60000,\n)\n\nprint(rule._id)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.guardrail_rules.create(\n    display_name="Protect customer data",\n    description="Blocks sensitive customer data from model output.",\n    enabled=True,\n    guardrails=[{\n        "id": "orq_pii_detection",\n        "execute_on": "output",\n        "sample_rate": 1,\n        "is_guardrail": True,\n    }],\n)\n\nprint(rule._id)\n',
                         },
                         {
                             "label": "Node.js - Create guardrail rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n  timeout: 60000,\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule._id);\n",
                         },
                     ],
                 },
@@ -430,7 +427,6 @@ class GuardrailRules(BaseSDK):
                 Iterable[models.GuardrailRulePluginTypedDict],
             ]
         ] = None,
-        timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -438,7 +434,7 @@ class GuardrailRules(BaseSDK):
     ) -> models.CreateGuardrailRuleResponse:
         r"""Create a guardrail rule
 
-        Creates a guardrail rule with metadata and optional evaluator, plugin, timeout, and matching configuration. Rules default to disabled when `enabled` is omitted.
+        Creates a guardrail rule with metadata and optional evaluator, plugin, and matching configuration. Rules default to disabled when `enabled` is omitted.
 
         :param display_name:
         :param description:
@@ -447,7 +443,6 @@ class GuardrailRules(BaseSDK):
         :param expression:
         :param guardrails:
         :param plugins:
-        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -480,7 +475,6 @@ class GuardrailRules(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.GuardrailRulePlugin]]
             ),
-            timeout=timeout,
         )
 
         req = self._build_request_async(
@@ -529,17 +523,17 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Create guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }],\n    "timeout": 60000\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create guardrail rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.guardrail_rules.create(\n    display_name="Protect customer data",\n    description="Blocks sensitive customer data from model output.",\n    enabled=True,\n    guardrails=[{\n        "id": "orq_pii_detection",\n        "execute_on": "output",\n        "sample_rate": 1,\n        "is_guardrail": True,\n    }],\n    timeout=60000,\n)\n\nprint(rule._id)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.guardrail_rules.create(\n    display_name="Protect customer data",\n    description="Blocks sensitive customer data from model output.",\n    enabled=True,\n    guardrails=[{\n        "id": "orq_pii_detection",\n        "execute_on": "output",\n        "sample_rate": 1,\n        "is_guardrail": True,\n    }],\n)\n\nprint(rule._id)\n',
                         },
                         {
                             "label": "Node.js - Create guardrail rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n  timeout: 60000,\n});\n\nconsole.log(rule._id);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.guardrailRules.create({\n  displayName: 'Protect customer data',\n  description: 'Blocks sensitive customer data from model output.',\n  enabled: true,\n  guardrails: [{\n    id: 'orq_pii_detection',\n    executeOn: 'output',\n    sampleRate: 1,\n    isGuardrail: true,\n  }],\n});\n\nconsole.log(rule._id);\n",
                         },
                     ],
                 },
@@ -1188,7 +1182,6 @@ class GuardrailRules(BaseSDK):
                 Iterable[models.GuardrailRulePluginTypedDict],
             ]
         ] = None,
-        timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1205,7 +1198,6 @@ class GuardrailRules(BaseSDK):
         :param expression:
         :param guardrails:
         :param plugins:
-        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1239,7 +1231,6 @@ class GuardrailRules(BaseSDK):
                 plugins=utils.get_pydantic_model(
                     plugins, Optional[List[models.GuardrailRulePlugin]]
                 ),
-                timeout=timeout,
             ),
         )
 
@@ -1338,7 +1329,6 @@ class GuardrailRules(BaseSDK):
                 Iterable[models.GuardrailRulePluginTypedDict],
             ]
         ] = None,
-        timeout: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1355,7 +1345,6 @@ class GuardrailRules(BaseSDK):
         :param expression:
         :param guardrails:
         :param plugins:
-        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1389,7 +1378,6 @@ class GuardrailRules(BaseSDK):
                 plugins=utils.get_pydantic_model(
                     plugins, Optional[List[models.GuardrailRulePlugin]]
                 ),
-                timeout=timeout,
             ),
         )
 

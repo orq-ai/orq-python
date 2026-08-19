@@ -1,7 +1,5 @@
 # SearchOptions
 
-Additional search options
-
 
 ## Fields
 

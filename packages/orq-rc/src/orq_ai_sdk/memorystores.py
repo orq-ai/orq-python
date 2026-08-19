@@ -4,10 +4,10 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Mapping, Optional, Union, cast
+from typing import Any, Dict, Mapping, Optional, Union
 
 
 class MemoryStores(BaseSDK):
@@ -24,12 +24,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoryStoresResponseBody:
+    ) -> models.ListMemoryStoresResponse:
         r"""List memory stores
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
@@ -106,9 +106,7 @@ class MemoryStores(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetAllMemoryStoresResponseBody, http_res
-            )
+            return unmarshal_json_response(models.ListMemoryStoresResponse, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -134,12 +132,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoryStoresResponseBody:
+    ) -> models.ListMemoryStoresResponse:
         r"""List memory stores
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
@@ -216,9 +214,7 @@ class MemoryStores(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetAllMemoryStoresResponseBody, http_res
-            )
+            return unmarshal_json_response(models.ListMemoryStoresResponse, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -234,20 +230,26 @@ class MemoryStores(BaseSDK):
     def create(
         self,
         *,
-        request: Optional[
-            Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
-            ]
-        ] = None,
+        key: str,
+        embedding_config: Union[
+            models.MemoryStoreEmbeddingConfig,
+            models.MemoryStoreEmbeddingConfigTypedDict,
+        ],
+        description: str,
+        path: str,
+        ttl: OptionalNullable[float] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryStoreResponseBody:
+    ) -> models.MemoryStore:
         r"""Create memory store
 
-        :param request: The request object to send.
+        :param key: The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.
+        :param embedding_config:
+        :param description:
+        :param path: Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project.
+        :param ttl:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -266,11 +268,15 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateMemoryStoreRequestBody]
-            )
-        request = cast(Optional[models.CreateMemoryStoreRequestBody], request)
+        request = models.CreateMemoryStoreRequest(
+            key=key,
+            embedding_config=utils.get_pydantic_model(
+                embedding_config, models.MemoryStoreEmbeddingConfig
+            ),
+            description=description,
+            ttl=ttl,
+            path=path,
+        )
 
         req = self._build_request(
             method="POST",
@@ -278,7 +284,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -286,11 +292,7 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreateMemoryStoreRequestBody],
+                request, False, False, "json", models.CreateMemoryStoreRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -322,9 +324,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                models.CreateMemoryStoreResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryStore, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -337,20 +337,26 @@ class MemoryStores(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Optional[
-            Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
-            ]
-        ] = None,
+        key: str,
+        embedding_config: Union[
+            models.MemoryStoreEmbeddingConfig,
+            models.MemoryStoreEmbeddingConfigTypedDict,
+        ],
+        description: str,
+        path: str,
+        ttl: OptionalNullable[float] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryStoreResponseBody:
+    ) -> models.MemoryStore:
         r"""Create memory store
 
-        :param request: The request object to send.
+        :param key: The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.
+        :param embedding_config:
+        :param description:
+        :param path: Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project.
+        :param ttl:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -369,11 +375,15 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateMemoryStoreRequestBody]
-            )
-        request = cast(Optional[models.CreateMemoryStoreRequestBody], request)
+        request = models.CreateMemoryStoreRequest(
+            key=key,
+            embedding_config=utils.get_pydantic_model(
+                embedding_config, models.MemoryStoreEmbeddingConfig
+            ),
+            description=description,
+            ttl=ttl,
+            path=path,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -381,7 +391,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -389,11 +399,7 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreateMemoryStoreRequestBody],
+                request, False, False, "json", models.CreateMemoryStoreRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -425,9 +431,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                models.CreateMemoryStoreResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryStore, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -445,12 +449,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryStoreResponseBody:
+    ) -> models.MemoryStore:
         r"""Retrieve memory store
 
         Retrieves detailed information about a specific memory store, including its configuration and metadata.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -517,9 +521,7 @@ class MemoryStores(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveMemoryStoreResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryStore, http_res)
         if utils.match_response(http_res, ["401", "403", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -540,12 +542,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryStoreResponseBody:
+    ) -> models.MemoryStore:
         r"""Retrieve memory store
 
         Retrieves detailed information about a specific memory store, including its configuration and metadata.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -612,231 +614,11 @@ class MemoryStores(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveMemoryStoreResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryStore, http_res)
         if utils.match_response(http_res, ["401", "403", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update(
-        self,
-        *,
-        memory_store_key: str,
-        description: Optional[str] = None,
-        ttl: OptionalNullable[float] = UNSET,
-        path: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryStoreResponseBody:
-        r"""Update memory store
-
-        Update the memory store configuration
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param description: The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store.
-        :param ttl: The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term.
-        :param path:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryStoreRequest(
-            memory_store_key=memory_store_key,
-            request_body=models.UpdateMemoryStoreRequestBody(
-                description=description,
-                ttl=ttl,
-                path=path,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryStoreRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemoryStore",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.UpdateMemoryStoreResponseBody, http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_async(
-        self,
-        *,
-        memory_store_key: str,
-        description: Optional[str] = None,
-        ttl: OptionalNullable[float] = UNSET,
-        path: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryStoreResponseBody:
-        r"""Update memory store
-
-        Update the memory store configuration
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param description: The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store.
-        :param ttl: The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term.
-        :param path:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryStoreRequest(
-            memory_store_key=memory_store_key,
-            request_body=models.UpdateMemoryStoreRequestBody(
-                description=description,
-                ttl=ttl,
-                path=path,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryStoreRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemoryStore",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.UpdateMemoryStoreResponseBody, http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -858,7 +640,7 @@ class MemoryStores(BaseSDK):
 
         Permanently delete a memory store, including memories and documents.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -947,7 +729,7 @@ class MemoryStores(BaseSDK):
 
         Permanently delete a memory store, including memories and documents.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1023,6 +805,220 @@ class MemoryStores(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    def update(
+        self,
+        *,
+        memory_store_key: str,
+        description: Optional[str] = None,
+        ttl: OptionalNullable[float] = UNSET,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.MemoryStore:
+        r"""Update memory store
+
+        Update the memory store configuration
+
+        :param memory_store_key:
+        :param description:
+        :param ttl:
+        :param path:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryStoreRequest1(
+            memory_store_key=memory_store_key,
+            update_memory_store_request=models.UpdateMemoryStoreRequest(
+                description=description,
+                ttl=ttl,
+                path=path,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_store_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryStoreRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemoryStore",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.MemoryStore, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        memory_store_key: str,
+        description: Optional[str] = None,
+        ttl: OptionalNullable[float] = UNSET,
+        path: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.MemoryStore:
+        r"""Update memory store
+
+        Update the memory store configuration
+
+        :param memory_store_key:
+        :param description:
+        :param ttl:
+        :param path:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryStoreRequest1(
+            memory_store_key=memory_store_key,
+            update_memory_store_request=models.UpdateMemoryStoreRequest(
+                description=description,
+                ttl=ttl,
+                path=path,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_store_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryStoreRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemoryStore",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={"x-cli-group": "memory-stores", "x-cli-name": "update"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.MemoryStore, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def list_memories(
         self,
         *,
@@ -1035,13 +1031,13 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoriesResponseBody:
+    ) -> models.ListMemoriesResponse:
         r"""List all memories
 
         Retrieves a paginated list of memories for the memory store
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to filter memories by entity_id
@@ -1117,7 +1113,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAllMemoriesResponseBody, http_res)
+            return unmarshal_json_response(models.ListMemoriesResponse, http_res)
         if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1139,13 +1135,13 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoriesResponseBody:
+    ) -> models.ListMemoriesResponse:
         r"""List all memories
 
         Retrieves a paginated list of memories for the memory store
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to filter memories by entity_id
@@ -1221,7 +1217,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetAllMemoriesResponseBody, http_res)
+            return unmarshal_json_response(models.ListMemoriesResponse, http_res)
         if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1240,12 +1236,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryResponseBody:
+    ) -> models.Memory:
         r"""Create a new memory
 
         Creates a new memory in the specified memory store.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1265,9 +1261,9 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateMemoryRequest(
+        request = models.CreateMemoryRequest1(
             memory_store_key=memory_store_key,
-            request_body=models.CreateMemoryRequestBody(
+            create_memory_request=models.CreateMemoryRequest(
                 entity_id=entity_id,
             ),
         )
@@ -1278,7 +1274,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1286,11 +1282,11 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.create_memory_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.CreateMemoryRequestBody],
+                models.CreateMemoryRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1325,7 +1321,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.CreateMemoryResponseBody, http_res)
+            return unmarshal_json_response(models.Memory, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1344,12 +1340,12 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryResponseBody:
+    ) -> models.Memory:
         r"""Create a new memory
 
         Creates a new memory in the specified memory store.
 
-        :param memory_store_key: The unique key identifier of the memory store
+        :param memory_store_key:
         :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1369,9 +1365,9 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateMemoryRequest(
+        request = models.CreateMemoryRequest1(
             memory_store_key=memory_store_key,
-            request_body=models.CreateMemoryRequestBody(
+            create_memory_request=models.CreateMemoryRequest(
                 entity_id=entity_id,
             ),
         )
@@ -1382,7 +1378,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1390,11 +1386,11 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.create_memory_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.CreateMemoryRequestBody],
+                models.CreateMemoryRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1429,7 +1425,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.CreateMemoryResponseBody, http_res)
+            return unmarshal_json_response(models.Memory, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1448,13 +1444,13 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryResponseBody:
+    ) -> models.Memory:
         r"""Retrieve a specific memory
 
         Retrieves details of a specific memory by its ID
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_store_key:
+        :param memory_entity_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1524,7 +1520,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveMemoryResponseBody, http_res)
+            return unmarshal_json_response(models.Memory, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1543,13 +1539,13 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryResponseBody:
+    ) -> models.Memory:
         r"""Retrieve a specific memory
 
         Retrieves details of a specific memory by its ID
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_store_key:
+        :param memory_entity_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1619,222 +1615,8 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveMemoryResponseBody, http_res)
+            return unmarshal_json_response(models.Memory, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update_memory(
-        self,
-        *,
-        memory_store_key: str,
-        memory_entity_id: str,
-        metadata: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryResponseBody:
-        r"""Update a specific memory
-
-        Updates the details of a specific memory.
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param metadata:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryRequest(
-            memory_store_key=memory_store_key,
-            memory_entity_id=memory_entity_id,
-            request_body=models.UpdateMemoryRequestBody(
-                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemory",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={
-                    "x-cli-group": "memory-stores",
-                    "x-cli-name": "updateMemory",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateMemoryResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_memory_async(
-        self,
-        *,
-        memory_store_key: str,
-        memory_entity_id: str,
-        metadata: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryResponseBody:
-        r"""Update a specific memory
-
-        Updates the details of a specific memory.
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param metadata:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryRequest(
-            memory_store_key=memory_store_key,
-            memory_entity_id=memory_entity_id,
-            request_body=models.UpdateMemoryRequestBody(
-                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemory",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={
-                    "x-cli-group": "memory-stores",
-                    "x-cli-name": "updateMemory",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateMemoryResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1862,8 +1644,8 @@ class MemoryStores(BaseSDK):
         - Clean up unused memories
         - Manage memory storage space
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_store_key:
+        :param memory_entity_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1962,8 +1744,8 @@ class MemoryStores(BaseSDK):
         - Clean up unused memories
         - Manage memory storage space
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
+        :param memory_store_key:
+        :param memory_entity_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2043,6 +1825,220 @@ class MemoryStores(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    def update_memory(
+        self,
+        *,
+        memory_store_key: str,
+        memory_entity_id: str,
+        metadata: Optional[Mapping[str, str]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Memory:
+        r"""Update a specific memory
+
+        Updates the details of a specific memory.
+
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param metadata:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryRequest1(
+            memory_store_key=memory_store_key,
+            memory_entity_id=memory_entity_id,
+            update_memory_request=models.UpdateMemoryRequest(
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemory",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateMemory",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Memory, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_memory_async(
+        self,
+        *,
+        memory_store_key: str,
+        memory_entity_id: str,
+        metadata: Optional[Mapping[str, str]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Memory:
+        r"""Update a specific memory
+
+        Updates the details of a specific memory.
+
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param metadata:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryRequest1(
+            memory_store_key=memory_store_key,
+            memory_entity_id=memory_entity_id,
+            update_memory_request=models.UpdateMemoryRequest(
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemory",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateMemory",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Memory, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def list_documents(
         self,
         *,
@@ -2057,14 +2053,14 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoryDocumentsResponseBody:
+    ) -> models.ListMemoryDocumentsResponse:
         r"""List all documents for a memory
 
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_entity_id: The unique identifier of the memory
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param updated_after: Filter documents updated after this ISO datetime
@@ -2143,9 +2139,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetAllMemoryDocumentsResponseBody, http_res
-            )
+            return unmarshal_json_response(models.ListMemoryDocumentsResponse, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2169,14 +2163,14 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetAllMemoryDocumentsResponseBody:
+    ) -> models.ListMemoryDocumentsResponse:
         r"""List all documents for a memory
 
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_entity_id: The unique identifier of the memory
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param updated_after: Filter documents updated after this ISO datetime
@@ -2255,9 +2249,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetAllMemoryDocumentsResponseBody, http_res
-            )
+            return unmarshal_json_response(models.ListMemoryDocumentsResponse, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2278,15 +2270,15 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryDocumentResponseBody:
+    ) -> models.MemoryDocument:
         r"""Create a new memory document
 
         Creates a new document in the specified memory.
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique entity_id provided during the memory store creation
+        :param memory_store_key:
+        :param memory_entity_id:
         :param text: The content of the memory document (whitespace trimmed).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2305,10 +2297,10 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateMemoryDocumentRequest(
+        request = models.CreateMemoryDocumentRequest1(
             memory_store_key=memory_store_key,
             memory_entity_id=memory_entity_id,
-            request_body=models.CreateMemoryDocumentRequestBody(
+            create_memory_document_request=models.CreateMemoryDocumentRequest(
                 text=text,
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
@@ -2320,7 +2312,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -2328,11 +2320,11 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.create_memory_document_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.CreateMemoryDocumentRequestBody],
+                models.CreateMemoryDocumentRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -2367,9 +2359,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                models.CreateMemoryDocumentResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2390,15 +2380,15 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateMemoryDocumentResponseBody:
+    ) -> models.MemoryDocument:
         r"""Create a new memory document
 
         Creates a new document in the specified memory.
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique entity_id provided during the memory store creation
+        :param memory_store_key:
+        :param memory_entity_id:
         :param text: The content of the memory document (whitespace trimmed).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2417,10 +2407,10 @@ class MemoryStores(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateMemoryDocumentRequest(
+        request = models.CreateMemoryDocumentRequest1(
             memory_store_key=memory_store_key,
             memory_entity_id=memory_entity_id,
-            request_body=models.CreateMemoryDocumentRequestBody(
+            create_memory_document_request=models.CreateMemoryDocumentRequest(
                 text=text,
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             ),
@@ -2432,7 +2422,7 @@ class MemoryStores(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -2440,11 +2430,11 @@ class MemoryStores(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.create_memory_document_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.CreateMemoryDocumentRequestBody],
+                models.CreateMemoryDocumentRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -2479,9 +2469,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                models.CreateMemoryDocumentResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2501,14 +2489,14 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryDocumentResponseBody:
+    ) -> models.MemoryDocument:
         r"""Retrieve a specific memory document
 
         Retrieves details of a specific memory document by its ID.
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2579,9 +2567,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveMemoryDocumentResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryDocument, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2601,14 +2587,14 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveMemoryDocumentResponseBody:
+    ) -> models.MemoryDocument:
         r"""Retrieve a specific memory document
 
         Retrieves details of a specific memory document by its ID.
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2679,240 +2665,8 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveMemoryDocumentResponseBody, http_res
-            )
+            return unmarshal_json_response(models.MemoryDocument, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update_document(
-        self,
-        *,
-        memory_store_key: str,
-        memory_entity_id: str,
-        document_id: str,
-        text: Optional[str] = None,
-        metadata: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryDocumentResponseBody:
-        r"""Update a specific memory document
-
-        Updates the details of a specific memory document.
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
-        :param text: The content of the memory document (whitespace trimmed).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryDocumentRequest(
-            memory_store_key=memory_store_key,
-            memory_entity_id=memory_entity_id,
-            document_id=document_id,
-            request_body=models.UpdateMemoryDocumentRequestBody(
-                text=text,
-                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryDocumentRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemoryDocument",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={
-                    "x-cli-group": "memory-stores",
-                    "x-cli-name": "updateDocument",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.UpdateMemoryDocumentResponseBody, http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_document_async(
-        self,
-        *,
-        memory_store_key: str,
-        memory_entity_id: str,
-        document_id: str,
-        text: Optional[str] = None,
-        metadata: Optional[Mapping[str, str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateMemoryDocumentResponseBody:
-        r"""Update a specific memory document
-
-        Updates the details of a specific memory document.
-
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
-        :param text: The content of the memory document (whitespace trimmed).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateMemoryDocumentRequest(
-            memory_store_key=memory_store_key,
-            memory_entity_id=memory_entity_id,
-            document_id=document_id,
-            request_body=models.UpdateMemoryDocumentRequestBody(
-                text=text,
-                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateMemoryDocumentRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateMemoryDocument",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Memory Stores"],
-                extensions={
-                    "x-cli-group": "memory-stores",
-                    "x-cli-name": "updateDocument",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.UpdateMemoryDocumentResponseBody, http_res
-            )
-        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2941,9 +2695,9 @@ class MemoryStores(BaseSDK):
         - Clean up unused documents
         - Manage document storage space
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3044,9 +2798,9 @@ class MemoryStores(BaseSDK):
         - Clean up unused documents
         - Manage document storage space
 
-        :param memory_store_key: The unique key identifier of the memory store
-        :param memory_entity_id: The unique identifier of the memory
-        :param document_id: The unique identifier of the document
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3119,6 +2873,232 @@ class MemoryStores(BaseSDK):
         if utils.match_response(http_res, "204", "*"):
             return
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def update_document(
+        self,
+        *,
+        memory_store_key: str,
+        memory_entity_id: str,
+        document_id: str,
+        text: Optional[str] = None,
+        metadata: Optional[Mapping[str, str]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.MemoryDocument:
+        r"""Update a specific memory document
+
+        Updates the details of a specific memory document.
+
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryDocumentRequest1(
+            memory_store_key=memory_store_key,
+            memory_entity_id=memory_entity_id,
+            document_id=document_id,
+            update_memory_document_request=models.UpdateMemoryDocumentRequest(
+                text=text,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_document_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryDocumentRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemoryDocument",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateDocument",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.MemoryDocument, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_document_async(
+        self,
+        *,
+        memory_store_key: str,
+        memory_entity_id: str,
+        document_id: str,
+        text: Optional[str] = None,
+        metadata: Optional[Mapping[str, str]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.MemoryDocument:
+        r"""Update a specific memory document
+
+        Updates the details of a specific memory document.
+
+        :param memory_store_key:
+        :param memory_entity_id:
+        :param document_id:
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateMemoryDocumentRequest1(
+            memory_store_key=memory_store_key,
+            memory_entity_id=memory_entity_id,
+            document_id=document_id,
+            update_memory_document_request=models.UpdateMemoryDocumentRequest(
+                text=text,
+                metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_memory_document_request,
+                False,
+                False,
+                "json",
+                models.UpdateMemoryDocumentRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateMemoryDocument",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Memory Stores"],
+                extensions={
+                    "x-cli-group": "memory-stores",
+                    "x-cli-name": "updateDocument",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.MemoryDocument, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

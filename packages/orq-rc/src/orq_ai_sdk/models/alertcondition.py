@@ -29,13 +29,12 @@ r"""Look-back window aggregated on each evaluation tick."""
 
 
 Interval = Literal[
-    "30s",
     "5m",
     "15m",
     "1h",
     "1d",
 ]
-r"""How often the alert is evaluated. `30s` is a testing cadence."""
+r"""How often the alert is evaluated. Plan limits may enforce a minimum."""
 
 
 Delay = Literal[
@@ -58,7 +57,7 @@ class AlertConditionTypedDict(TypedDict):
     window: Window
     r"""Look-back window aggregated on each evaluation tick."""
     interval: Interval
-    r"""How often the alert is evaluated. `30s` is a testing cadence."""
+    r"""How often the alert is evaluated. Plan limits may enforce a minimum."""
     degraded_threshold: NotRequired[float]
     r"""Optional degraded-tier threshold. Values past it but short of
     `threshold` open a trigger at degraded severity. Must sit on the
@@ -88,7 +87,7 @@ class AlertCondition(BaseModel):
     r"""Look-back window aggregated on each evaluation tick."""
 
     interval: Interval
-    r"""How often the alert is evaluated. `30s` is a testing cadence."""
+    r"""How often the alert is evaluated. Plan limits may enforce a minimum."""
 
     degraded_threshold: Optional[float] = None
     r"""Optional degraded-tier threshold. Values past it but short of

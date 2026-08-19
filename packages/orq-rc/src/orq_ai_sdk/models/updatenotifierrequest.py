@@ -8,11 +8,11 @@ from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class MetadataTypedDict(TypedDict):
+class UpdateNotifierRequestMetadataTypedDict(TypedDict):
     r"""Optional. Replacement custom JSON metadata."""
 
 
-class Metadata(BaseModel):
+class UpdateNotifierRequestMetadata(BaseModel):
     r"""Optional. Replacement custom JSON metadata."""
 
 
@@ -31,7 +31,7 @@ class UpdateNotifierRequestTypedDict(TypedDict):
     r"""Optional. New containing project. Workspace-scoped callers may set an empty value to make the notifier workspace-wide. Project-scoped API keys remain pinned to the API key's project."""
     display_name: NotRequired[str]
     r"""Optional. New human-readable notifier name."""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[UpdateNotifierRequestMetadataTypedDict]
     r"""Optional. Replacement custom JSON metadata."""
     type: NotRequired[NotifierType]
     emails: NotRequired[List[str]]
@@ -53,7 +53,7 @@ class UpdateNotifierRequest(BaseModel):
     display_name: Optional[str] = None
     r"""Optional. New human-readable notifier name."""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[UpdateNotifierRequestMetadata] = None
     r"""Optional. Replacement custom JSON metadata."""
 
     type: Optional[NotifierType] = None

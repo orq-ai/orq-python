@@ -8,11 +8,9 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteMemoryStoreRequestTypedDict(TypedDict):
     memory_store_key: str
-    r"""The unique key identifier of the memory store"""
 
 
 class DeleteMemoryStoreRequest(BaseModel):
     memory_store_key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique key identifier of the memory store"""

@@ -1,7 +1,5 @@
 # SearchType
 
-The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`
-
 ## Example Usage
 
 ```python

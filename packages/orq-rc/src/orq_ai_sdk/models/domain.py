@@ -11,7 +11,8 @@ from typing_extensions import NotRequired, TypedDict
 
 class DomainTypedDict(TypedDict):
     r"""Domain describes a permission domain that can be granted to an
-    API key. Verbs are derived from id + group + readable/writable.
+    API key. Standard verbs are derived from id + group +
+    readable/writable; exceptional write verbs are explicit data.
     """
 
     id: NotRequired[str]
@@ -30,11 +31,17 @@ class DomainTypedDict(TypedDict):
     r"""Whether this domain can be granted read access."""
     writable: NotRequired[bool]
     r"""Whether this domain can be granted write access."""
+    extra_write_verbs: NotRequired[List[str]]
+    r"""Additional full verb names granted only with write access. This is
+    additive to the standard group-derived verbs and intentionally does
+    not affect read access (e.g. \"insights.run\").
+    """
 
 
 class Domain(BaseModel):
     r"""Domain describes a permission domain that can be granted to an
-    API key. Verbs are derived from id + group + readable/writable.
+    API key. Standard verbs are derived from id + group +
+    readable/writable; exceptional write verbs are explicit data.
     """
 
     id: Optional[str] = None
@@ -59,10 +66,24 @@ class Domain(BaseModel):
     writable: Optional[bool] = None
     r"""Whether this domain can be granted write access."""
 
+    extra_write_verbs: Optional[List[str]] = None
+    r"""Additional full verb names granted only with write access. This is
+    additive to the standard group-derived verbs and intentionally does
+    not affect read access (e.g. \"insights.run\").
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["id", "display_name", "group", "allowed_scopes", "readable", "writable"]
+            [
+                "id",
+                "display_name",
+                "group",
+                "allowed_scopes",
+                "readable",
+                "writable",
+                "extra_write_verbs",
+            ]
         )
         serialized = handler(self)
         m = {}

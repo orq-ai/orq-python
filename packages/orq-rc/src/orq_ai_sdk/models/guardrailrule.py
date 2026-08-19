@@ -31,8 +31,6 @@ class GuardrailRuleTypedDict(TypedDict):
     enabled: bool
     guardrails: List[GuardrailRuleGuardrailTypedDict]
     plugins: List[GuardrailRulePluginTypedDict]
-    timeout: int
-    r"""Evaluation timeout in milliseconds."""
     expression: NotRequired[GuardrailRuleExpressionTypedDict]
 
 
@@ -60,9 +58,6 @@ class GuardrailRule(BaseModel):
     guardrails: List[GuardrailRuleGuardrail]
 
     plugins: List[GuardrailRulePlugin]
-
-    timeout: int
-    r"""Evaluation timeout in milliseconds."""
 
     expression: Optional[GuardrailRuleExpression] = None
 

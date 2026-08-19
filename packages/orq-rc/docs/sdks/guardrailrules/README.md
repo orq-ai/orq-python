@@ -60,7 +60,7 @@ with Orq(
 
 ## create
 
-Creates a guardrail rule with metadata and optional evaluator, plugin, timeout, and matching configuration. Rules default to disabled when `enabled` is omitted.
+Creates a guardrail rule with metadata and optional evaluator, plugin, and matching configuration. Rules default to disabled when `enabled` is omitted.
 
 ### Example Usage
 
@@ -92,7 +92,6 @@ with Orq(
 | `expression`                                                                        | [Optional[models.GuardrailRuleExpression]](../../models/guardrailruleexpression.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `guardrails`                                                                        | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]       | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `plugins`                                                                           | List[[models.GuardrailRulePlugin](../../models/guardrailruleplugin.md)]             | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `timeout`                                                                           | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
 
 ### Response
@@ -259,7 +258,6 @@ with Orq(
 | `expression`                                                                        | [Optional[models.GuardrailRuleExpression]](../../models/guardrailruleexpression.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `guardrails`                                                                        | List[[models.GuardrailRuleGuardrail](../../models/guardrailruleguardrail.md)]       | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `plugins`                                                                           | List[[models.GuardrailRulePlugin](../../models/guardrailruleplugin.md)]             | :heavy_minus_sign:                                                                  | N/A                                                                                 |
-| `timeout`                                                                           | *Optional[int]*                                                                     | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
 
 ### Response
