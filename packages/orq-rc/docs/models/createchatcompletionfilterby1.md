@@ -51,9 +51,3 @@ value: models.CreateChatCompletion1In = /* values here */
 value: models.CreateChatCompletion1Nin = /* values here */
 ```
 
-### `models.CreateChatCompletion1Exists`
-
-```python
-value: models.CreateChatCompletion1Exists = /* values here */
-```
-

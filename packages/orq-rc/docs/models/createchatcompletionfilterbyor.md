@@ -51,9 +51,3 @@ value: models.CreateChatCompletionOrIn = /* values here */
 value: models.CreateChatCompletionOrNin = /* values here */
 ```
 
-### `models.CreateChatCompletionOrExists`
-
-```python
-value: models.CreateChatCompletionOrExists = /* values here */
-```
-

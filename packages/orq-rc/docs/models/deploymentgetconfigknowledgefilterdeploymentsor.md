@@ -51,9 +51,3 @@ value: models.DeploymentGetConfigOrIn = /* values here */
 value: models.DeploymentGetConfigOrNin = /* values here */
 ```
 
-### `models.DeploymentGetConfigOrExists`
-
-```python
-value: models.DeploymentGetConfigOrExists = /* values here */
-```
-

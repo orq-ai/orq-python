@@ -1422,18 +1422,6 @@ class Thread(BaseModel):
         return m
 
 
-class OrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class OrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 OrNinTypedDict = TypeAliasType("OrNinTypedDict", Union[str, float, bool])
 
 
@@ -1565,7 +1553,6 @@ OrTypedDict = TypeAliasType(
         OrLteTypedDict,
         InvokeDeploymentRequestOrInTypedDict,
         InvokeDeploymentRequestOrNinTypedDict,
-        OrExistsTypedDict,
     ],
 )
 
@@ -1581,7 +1568,6 @@ Or = TypeAliasType(
         OrLte,
         InvokeDeploymentRequestOrIn,
         InvokeDeploymentRequestOrNin,
-        OrExists,
     ],
 )
 
@@ -1596,18 +1582,6 @@ class KnowledgeFilterOr(BaseModel):
     r"""Or"""
 
     or_: Annotated[List[Dict[str, Or]], pydantic.Field(alias="or")]
-
-
-class AndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class AndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 AndNinTypedDict = TypeAliasType("AndNinTypedDict", Union[str, float, bool])
@@ -1741,7 +1715,6 @@ AndTypedDict = TypeAliasType(
         AndLteTypedDict,
         InvokeDeploymentRequestAndInTypedDict,
         InvokeDeploymentRequestAndNinTypedDict,
-        AndExistsTypedDict,
     ],
 )
 
@@ -1757,7 +1730,6 @@ And = TypeAliasType(
         AndLte,
         InvokeDeploymentRequestAndIn,
         InvokeDeploymentRequestAndNin,
-        AndExists,
     ],
 )
 
@@ -1772,18 +1744,6 @@ class KnowledgeFilterAnd(BaseModel):
     r"""And"""
 
     and_: Annotated[List[Dict[str, And]], pydantic.Field(alias="and")]
-
-
-class ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 NinTypedDict = TypeAliasType("NinTypedDict", Union[str, float, bool])
@@ -1917,7 +1877,6 @@ KnowledgeFilter1TypedDict = TypeAliasType(
         LteTypedDict,
         InvokeDeploymentRequest1InTypedDict,
         InvokeDeploymentRequest1NinTypedDict,
-        ExistsTypedDict,
     ],
 )
 
@@ -1933,7 +1892,6 @@ KnowledgeFilter1 = TypeAliasType(
         Lte,
         InvokeDeploymentRequest1In,
         InvokeDeploymentRequest1Nin,
-        Exists,
     ],
 )
 

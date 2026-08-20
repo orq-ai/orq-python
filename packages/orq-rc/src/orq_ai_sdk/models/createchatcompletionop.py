@@ -1614,18 +1614,6 @@ CreateChatCompletionSearchType = Literal[
 r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
-class CreateChatCompletionOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletionOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 CreateChatCompletionOrRouterChatCompletionsNinTypedDict = TypeAliasType(
     "CreateChatCompletionOrRouterChatCompletionsNinTypedDict", Union[str, float, bool]
 )
@@ -1775,7 +1763,6 @@ CreateChatCompletionFilterByOrTypedDict = TypeAliasType(
         CreateChatCompletionOrLteTypedDict,
         CreateChatCompletionOrInTypedDict,
         CreateChatCompletionOrNinTypedDict,
-        CreateChatCompletionOrExistsTypedDict,
     ],
 )
 
@@ -1791,7 +1778,6 @@ CreateChatCompletionFilterByOr = TypeAliasType(
         CreateChatCompletionOrLte,
         CreateChatCompletionOrIn,
         CreateChatCompletionOrNin,
-        CreateChatCompletionOrExists,
     ],
 )
 
@@ -1808,18 +1794,6 @@ class CreateChatCompletionFilterByRouterChatCompletionsOr(BaseModel):
     or_: Annotated[
         List[Dict[str, CreateChatCompletionFilterByOr]], pydantic.Field(alias="or")
     ]
-
-
-class CreateChatCompletionAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletionAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateChatCompletionAndRouterChatCompletionsNinTypedDict = TypeAliasType(
@@ -1971,7 +1945,6 @@ CreateChatCompletionFilterByAndTypedDict = TypeAliasType(
         CreateChatCompletionAndLteTypedDict,
         CreateChatCompletionAndInTypedDict,
         CreateChatCompletionAndNinTypedDict,
-        CreateChatCompletionAndExistsTypedDict,
     ],
 )
 
@@ -1987,7 +1960,6 @@ CreateChatCompletionFilterByAnd = TypeAliasType(
         CreateChatCompletionAndLte,
         CreateChatCompletionAndIn,
         CreateChatCompletionAndNin,
-        CreateChatCompletionAndExists,
     ],
 )
 
@@ -2004,18 +1976,6 @@ class CreateChatCompletionFilterByRouterChatCompletionsAnd(BaseModel):
     and_: Annotated[
         List[Dict[str, CreateChatCompletionFilterByAnd]], pydantic.Field(alias="and")
     ]
-
-
-class CreateChatCompletion1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletion1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateChatCompletion1RouterChatCompletionsNinTypedDict = TypeAliasType(
@@ -2167,7 +2127,6 @@ CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
         CreateChatCompletion1LteTypedDict,
         CreateChatCompletion1InTypedDict,
         CreateChatCompletion1NinTypedDict,
-        CreateChatCompletion1ExistsTypedDict,
     ],
 )
 
@@ -2183,7 +2142,6 @@ CreateChatCompletionFilterBy1 = TypeAliasType(
         CreateChatCompletion1Lte,
         CreateChatCompletion1In,
         CreateChatCompletion1Nin,
-        CreateChatCompletion1Exists,
     ],
 )
 

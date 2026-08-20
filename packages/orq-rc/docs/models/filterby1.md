@@ -51,9 +51,9 @@ value: models.SearchKnowledgeRequest1In = /* values here */
 value: models.SearchKnowledgeRequest1Nin = /* values here */
 ```
 
-### `models.OneExists`
+### `models.Exists`
 
 ```python
-value: models.OneExists = /* values here */
+value: models.Exists = /* values here */
 ```
 

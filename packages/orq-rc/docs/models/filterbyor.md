@@ -51,9 +51,9 @@ value: models.SearchKnowledgeRequestOrFilterByIn = /* values here */
 value: models.SearchKnowledgeRequestOrFilterByNin = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestOrExists`
+### `models.OrExists`
 
 ```python
-value: models.SearchKnowledgeRequestOrExists = /* values here */
+value: models.OrExists = /* values here */
 ```
 

@@ -427,18 +427,6 @@ CreateCompletionSearchType = Literal[
 r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
-class CreateCompletionOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletionOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 CreateCompletionOrRouterCompletionsNinTypedDict = TypeAliasType(
     "CreateCompletionOrRouterCompletionsNinTypedDict", Union[str, float, bool]
 )
@@ -588,7 +576,6 @@ CreateCompletionFilterByRouterCompletionsOrTypedDict = TypeAliasType(
         CreateCompletionOrLteTypedDict,
         CreateCompletionOrInTypedDict,
         CreateCompletionOrNinTypedDict,
-        CreateCompletionOrExistsTypedDict,
     ],
 )
 
@@ -604,7 +591,6 @@ CreateCompletionFilterByRouterCompletionsOr = TypeAliasType(
         CreateCompletionOrLte,
         CreateCompletionOrIn,
         CreateCompletionOrNin,
-        CreateCompletionOrExists,
     ],
 )
 
@@ -622,18 +608,6 @@ class CreateCompletionFilterByOr(BaseModel):
         List[Dict[str, CreateCompletionFilterByRouterCompletionsOr]],
         pydantic.Field(alias="or"),
     ]
-
-
-class CreateCompletionAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletionAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateCompletionAndRouterCompletionsNinTypedDict = TypeAliasType(
@@ -785,7 +759,6 @@ CreateCompletionFilterByRouterCompletionsAndTypedDict = TypeAliasType(
         CreateCompletionAndLteTypedDict,
         CreateCompletionAndInTypedDict,
         CreateCompletionAndNinTypedDict,
-        CreateCompletionAndExistsTypedDict,
     ],
 )
 
@@ -801,7 +774,6 @@ CreateCompletionFilterByRouterCompletionsAnd = TypeAliasType(
         CreateCompletionAndLte,
         CreateCompletionAndIn,
         CreateCompletionAndNin,
-        CreateCompletionAndExists,
     ],
 )
 
@@ -819,18 +791,6 @@ class CreateCompletionFilterByAnd(BaseModel):
         List[Dict[str, CreateCompletionFilterByRouterCompletionsAnd]],
         pydantic.Field(alias="and"),
     ]
-
-
-class CreateCompletion1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletion1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateCompletion1RouterCompletionsNinTypedDict = TypeAliasType(
@@ -982,7 +942,6 @@ CreateCompletionFilterBy1TypedDict = TypeAliasType(
         CreateCompletion1LteTypedDict,
         CreateCompletion1InTypedDict,
         CreateCompletion1NinTypedDict,
-        CreateCompletion1ExistsTypedDict,
     ],
 )
 
@@ -998,7 +957,6 @@ CreateCompletionFilterBy1 = TypeAliasType(
         CreateCompletion1Lte,
         CreateCompletion1In,
         CreateCompletion1Nin,
-        CreateCompletion1Exists,
     ],
 )
 

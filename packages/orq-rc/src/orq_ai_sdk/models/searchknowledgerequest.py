@@ -18,13 +18,13 @@ from typing import Dict, List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class SearchKnowledgeRequestOrExistsTypedDict(TypedDict):
+class OrExistsTypedDict(TypedDict):
     r"""Exists"""
 
     exists: bool
 
 
-class SearchKnowledgeRequestOrExists(BaseModel):
+class OrExists(BaseModel):
     r"""Exists"""
 
     exists: bool
@@ -177,7 +177,7 @@ FilterByOrTypedDict = TypeAliasType(
         SearchKnowledgeRequestOrLteTypedDict,
         SearchKnowledgeRequestOrFilterByInTypedDict,
         SearchKnowledgeRequestOrFilterByNinTypedDict,
-        SearchKnowledgeRequestOrExistsTypedDict,
+        OrExistsTypedDict,
     ],
 )
 
@@ -193,7 +193,7 @@ FilterByOr = TypeAliasType(
         SearchKnowledgeRequestOrLte,
         SearchKnowledgeRequestOrFilterByIn,
         SearchKnowledgeRequestOrFilterByNin,
-        SearchKnowledgeRequestOrExists,
+        OrExists,
     ],
 )
 
@@ -210,13 +210,13 @@ class SearchKnowledgeRequestFilterByOr(BaseModel):
     or_: Annotated[List[Dict[str, FilterByOr]], pydantic.Field(alias="or")]
 
 
-class SearchKnowledgeRequestAndExistsTypedDict(TypedDict):
+class AndExistsTypedDict(TypedDict):
     r"""Exists"""
 
     exists: bool
 
 
-class SearchKnowledgeRequestAndExists(BaseModel):
+class AndExists(BaseModel):
     r"""Exists"""
 
     exists: bool
@@ -369,7 +369,7 @@ FilterByAndTypedDict = TypeAliasType(
         SearchKnowledgeRequestAndLteTypedDict,
         SearchKnowledgeRequestAndFilterByInTypedDict,
         SearchKnowledgeRequestAndFilterByNinTypedDict,
-        SearchKnowledgeRequestAndExistsTypedDict,
+        AndExistsTypedDict,
     ],
 )
 
@@ -385,7 +385,7 @@ FilterByAnd = TypeAliasType(
         SearchKnowledgeRequestAndLte,
         SearchKnowledgeRequestAndFilterByIn,
         SearchKnowledgeRequestAndFilterByNin,
-        SearchKnowledgeRequestAndExists,
+        AndExists,
     ],
 )
 
@@ -402,13 +402,13 @@ class SearchKnowledgeRequestFilterByAnd(BaseModel):
     and_: Annotated[List[Dict[str, FilterByAnd]], pydantic.Field(alias="and")]
 
 
-class OneExistsTypedDict(TypedDict):
+class ExistsTypedDict(TypedDict):
     r"""Exists"""
 
     exists: bool
 
 
-class OneExists(BaseModel):
+class Exists(BaseModel):
     r"""Exists"""
 
     exists: bool
@@ -545,7 +545,7 @@ FilterBy1TypedDict = TypeAliasType(
         OneLteTypedDict,
         SearchKnowledgeRequest1InTypedDict,
         SearchKnowledgeRequest1NinTypedDict,
-        OneExistsTypedDict,
+        ExistsTypedDict,
     ],
 )
 
@@ -561,7 +561,7 @@ FilterBy1 = TypeAliasType(
         OneLte,
         SearchKnowledgeRequest1In,
         SearchKnowledgeRequest1Nin,
-        OneExists,
+        Exists,
     ],
 )
 

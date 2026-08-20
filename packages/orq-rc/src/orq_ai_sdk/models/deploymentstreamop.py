@@ -1453,18 +1453,6 @@ class DeploymentStreamThread(BaseModel):
         return m
 
 
-class DeploymentStreamOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentStreamOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 DeploymentStreamOrDeploymentsNinTypedDict = TypeAliasType(
     "DeploymentStreamOrDeploymentsNinTypedDict", Union[str, float, bool]
 )
@@ -1612,7 +1600,6 @@ DeploymentStreamKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
         DeploymentStreamOrLteTypedDict,
         DeploymentStreamOrInTypedDict,
         DeploymentStreamOrNinTypedDict,
-        DeploymentStreamOrExistsTypedDict,
     ],
 )
 
@@ -1628,7 +1615,6 @@ DeploymentStreamKnowledgeFilterDeploymentsOr = TypeAliasType(
         DeploymentStreamOrLte,
         DeploymentStreamOrIn,
         DeploymentStreamOrNin,
-        DeploymentStreamOrExists,
     ],
 )
 
@@ -1646,18 +1632,6 @@ class DeploymentStreamKnowledgeFilterOr(BaseModel):
         List[Dict[str, DeploymentStreamKnowledgeFilterDeploymentsOr]],
         pydantic.Field(alias="or"),
     ]
-
-
-class DeploymentStreamAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentStreamAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentStreamAndDeploymentsNinTypedDict = TypeAliasType(
@@ -1807,7 +1781,6 @@ DeploymentStreamKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
         DeploymentStreamAndLteTypedDict,
         DeploymentStreamAndInTypedDict,
         DeploymentStreamAndNinTypedDict,
-        DeploymentStreamAndExistsTypedDict,
     ],
 )
 
@@ -1823,7 +1796,6 @@ DeploymentStreamKnowledgeFilterDeploymentsAnd = TypeAliasType(
         DeploymentStreamAndLte,
         DeploymentStreamAndIn,
         DeploymentStreamAndNin,
-        DeploymentStreamAndExists,
     ],
 )
 
@@ -1841,18 +1813,6 @@ class DeploymentStreamKnowledgeFilterAnd(BaseModel):
         List[Dict[str, DeploymentStreamKnowledgeFilterDeploymentsAnd]],
         pydantic.Field(alias="and"),
     ]
-
-
-class DeploymentStream1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentStream1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentStream1DeploymentsNinTypedDict = TypeAliasType(
@@ -2002,7 +1962,6 @@ DeploymentStreamKnowledgeFilter1TypedDict = TypeAliasType(
         DeploymentStream1LteTypedDict,
         DeploymentStream1InTypedDict,
         DeploymentStream1NinTypedDict,
-        DeploymentStream1ExistsTypedDict,
     ],
 )
 
@@ -2018,7 +1977,6 @@ DeploymentStreamKnowledgeFilter1 = TypeAliasType(
         DeploymentStream1Lte,
         DeploymentStream1In,
         DeploymentStream1Nin,
-        DeploymentStream1Exists,
     ],
 )
 

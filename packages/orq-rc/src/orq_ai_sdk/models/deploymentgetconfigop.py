@@ -1458,18 +1458,6 @@ class DeploymentGetConfigThread(BaseModel):
         return m
 
 
-class DeploymentGetConfigOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentGetConfigOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 DeploymentGetConfigOrDeploymentsNinTypedDict = TypeAliasType(
     "DeploymentGetConfigOrDeploymentsNinTypedDict", Union[str, float, bool]
 )
@@ -1617,7 +1605,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
         DeploymentGetConfigOrLteTypedDict,
         DeploymentGetConfigOrInTypedDict,
         DeploymentGetConfigOrNinTypedDict,
-        DeploymentGetConfigOrExistsTypedDict,
     ],
 )
 
@@ -1633,7 +1620,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
         DeploymentGetConfigOrLte,
         DeploymentGetConfigOrIn,
         DeploymentGetConfigOrNin,
-        DeploymentGetConfigOrExists,
     ],
 )
 
@@ -1651,18 +1637,6 @@ class DeploymentGetConfigKnowledgeFilterOr(BaseModel):
         List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsOr]],
         pydantic.Field(alias="or"),
     ]
-
-
-class DeploymentGetConfigAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentGetConfigAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentGetConfigAndDeploymentsNinTypedDict = TypeAliasType(
@@ -1814,7 +1788,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
         DeploymentGetConfigAndLteTypedDict,
         DeploymentGetConfigAndInTypedDict,
         DeploymentGetConfigAndNinTypedDict,
-        DeploymentGetConfigAndExistsTypedDict,
     ],
 )
 
@@ -1830,7 +1803,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsAnd = TypeAliasType(
         DeploymentGetConfigAndLte,
         DeploymentGetConfigAndIn,
         DeploymentGetConfigAndNin,
-        DeploymentGetConfigAndExists,
     ],
 )
 
@@ -1848,18 +1820,6 @@ class DeploymentGetConfigKnowledgeFilterAnd(BaseModel):
         List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsAnd]],
         pydantic.Field(alias="and"),
     ]
-
-
-class DeploymentGetConfig1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentGetConfig1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentGetConfig1DeploymentsNinTypedDict = TypeAliasType(
@@ -2009,7 +1969,6 @@ DeploymentGetConfigKnowledgeFilter1TypedDict = TypeAliasType(
         DeploymentGetConfig1LteTypedDict,
         DeploymentGetConfig1InTypedDict,
         DeploymentGetConfig1NinTypedDict,
-        DeploymentGetConfig1ExistsTypedDict,
     ],
 )
 
@@ -2025,7 +1984,6 @@ DeploymentGetConfigKnowledgeFilter1 = TypeAliasType(
         DeploymentGetConfig1Lte,
         DeploymentGetConfig1In,
         DeploymentGetConfig1Nin,
-        DeploymentGetConfig1Exists,
     ],
 )
 
