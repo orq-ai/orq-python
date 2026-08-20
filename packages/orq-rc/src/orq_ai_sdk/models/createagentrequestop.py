@@ -3962,7 +3962,7 @@ CreateAgentRequestFallbackModelConfiguration = TypeAliasType(
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-class ModelTypedDict(TypedDict):
+class CreateAgentRequestModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
@@ -3977,7 +3977,7 @@ class ModelTypedDict(TypedDict):
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
-class Model(BaseModel):
+class CreateAgentRequestModel(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
@@ -4042,7 +4042,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     role: str
     description: str
     instructions: str
-    model: ModelTypedDict
+    model: CreateAgentRequestModelTypedDict
     display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -4096,7 +4096,7 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     instructions: str
 
-    model: Model
+    model: CreateAgentRequestModel
 
     display_name: Optional[str] = None
 

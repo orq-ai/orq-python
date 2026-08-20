@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
+    from orq_ai_sdk.modelcatalog import ModelCatalog
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
@@ -84,6 +85,7 @@ class Orq(BaseSDK):
     guardrail_rules: "GuardrailRules"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    model_catalog: "ModelCatalog"
     notifiers: "Notifiers"
     projects: "Projects"
     routing_rules: "RoutingRules"
@@ -122,6 +124,7 @@ class Orq(BaseSDK):
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),

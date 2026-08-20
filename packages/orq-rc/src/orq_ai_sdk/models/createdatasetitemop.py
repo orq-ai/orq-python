@@ -1507,7 +1507,7 @@ class Evaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-20T15:21:05.435Z")
+    ] = parse_datetime("2026-08-20T18:41:55.564Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1652,7 +1652,7 @@ class Evaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-20T15:21:05.434Z")
+    ] = parse_datetime("2026-08-20T18:41:55.563Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1797,7 +1797,7 @@ class Evaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-20T15:21:05.433Z")
+    ] = parse_datetime("2026-08-20T18:41:55.562Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1942,7 +1942,7 @@ class Evaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-20T15:21:05.433Z")
+    ] = parse_datetime("2026-08-20T18:41:55.562Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1972,8 +1972,8 @@ class Evaluations1(BaseModel):
         return m
 
 
-EvaluationsTypedDict = TypeAliasType(
-    "EvaluationsTypedDict",
+CreateDatasetItemEvaluationsTypedDict = TypeAliasType(
+    "CreateDatasetItemEvaluationsTypedDict",
     Union[
         Evaluations1TypedDict,
         Evaluations2TypedDict,
@@ -1983,7 +1983,7 @@ EvaluationsTypedDict = TypeAliasType(
 )
 
 
-Evaluations = Annotated[
+CreateDatasetItemEvaluations = Annotated[
     Union[
         Annotated[Evaluations1, Tag("string")],
         Annotated[Evaluations2, Tag("number")],
@@ -2006,7 +2006,7 @@ class ResponseBodyTypedDict(TypedDict):
     messages: NotRequired[List[CreateDatasetItemDatasetsMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
-    evaluations: NotRequired[List[EvaluationsTypedDict]]
+    evaluations: NotRequired[List[CreateDatasetItemEvaluationsTypedDict]]
     r"""Evaluations associated with the datapoint"""
     snapshot_version: NotRequired[str]
     r"""The version of the dataset snapshot"""
@@ -2038,7 +2038,7 @@ class ResponseBody(BaseModel):
 
     expected_output: Optional[str] = None
 
-    evaluations: Optional[List[Evaluations]] = None
+    evaluations: Optional[List[CreateDatasetItemEvaluations]] = None
     r"""Evaluations associated with the datapoint"""
 
     snapshot_version: Optional[str] = None
@@ -2053,7 +2053,7 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-20T15:20:50.574Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-20T18:41:40.524Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
