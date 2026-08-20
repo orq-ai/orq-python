@@ -545,11 +545,13 @@ if TYPE_CHECKING:
         CreateAgentRequestLoadBalancerType,
         CreateAgentRequestLoadBalancerTypedDict,
         CreateAgentRequestModalities,
+        CreateAgentRequestModel,
         CreateAgentRequestModelConfigurationExecuteOn,
         CreateAgentRequestModelConfigurationGuardrails,
         CreateAgentRequestModelConfigurationGuardrailsTypedDict,
         CreateAgentRequestModelConfigurationReasoningEffort,
         CreateAgentRequestModelConfigurationType,
+        CreateAgentRequestModelTypedDict,
         CreateAgentRequestParameters,
         CreateAgentRequestParametersTypedDict,
         CreateAgentRequestPlugins,
@@ -685,7 +687,6 @@ if TYPE_CHECKING:
         Metrics,
         MetricsTypedDict,
         Modalities,
-        Model,
         ModelConfiguration,
         ModelConfiguration2,
         ModelConfiguration2TypedDict,
@@ -700,7 +701,6 @@ if TYPE_CHECKING:
         ModelConfigurationTTL,
         ModelConfigurationType,
         ModelConfigurationTypedDict,
-        ModelTypedDict,
         Parameters,
         ParametersTypedDict,
         Plugins,
@@ -4078,6 +4078,10 @@ if TYPE_CHECKING:
         GetManagementKeyResponse,
         GetManagementKeyResponseTypedDict,
     )
+    from .getmodelcatalogmodelresponse import (
+        GetModelCatalogModelResponse,
+        GetModelCatalogModelResponseTypedDict,
+    )
     from .getnotifierresponse import GetNotifierResponse, GetNotifierResponseTypedDict
     from .getonechunkop import (
         GetOneChunkMetadata,
@@ -5325,6 +5329,14 @@ if TYPE_CHECKING:
         ListManagementKeysResponse,
         ListManagementKeysResponseTypedDict,
     )
+    from .listmodelcatalogofferingsresponse import (
+        ListModelCatalogOfferingsResponse,
+        ListModelCatalogOfferingsResponseTypedDict,
+    )
+    from .listmodelcatalogresponse import (
+        ListModelCatalogResponse,
+        ListModelCatalogResponseTypedDict,
+    )
     from .listnotifiersresponse import (
         ListNotifiersResponse,
         ListNotifiersResponseTypedDict,
@@ -5575,6 +5587,14 @@ if TYPE_CHECKING:
     from .mcpaccess import McpAccess, McpAccessTypedDict
     from .mcptoolinput import McpToolInput, McpToolInputType, McpToolInputTypedDict
     from .memoryparam import MemoryParam, MemoryParamTypedDict
+    from .model import (
+        ArtificialIntelligence,
+        ArtificialIntelligenceTypedDict,
+        Model,
+        ModelPricing,
+        ModelPricingTypedDict,
+        ModelTypedDict,
+    )
     from .modelazurefoundrydeploymentsop import (
         ModelAzureFoundryDeploymentsRequestBody,
         ModelAzureFoundryDeploymentsRequestBodyTypedDict,
@@ -5585,6 +5605,18 @@ if TYPE_CHECKING:
     from .modelbudgetscoperestresponse import (
         ModelBudgetScopeRestResponse,
         ModelBudgetScopeRestResponseTypedDict,
+    )
+    from .modelcataloggetop import (
+        ModelCatalogGetRequest,
+        ModelCatalogGetRequestTypedDict,
+    )
+    from .modelcataloglistofferingsop import (
+        ModelCatalogListOfferingsRequest,
+        ModelCatalogListOfferingsRequestTypedDict,
+    )
+    from .modelcataloglistop import (
+        ModelCatalogListRequest,
+        ModelCatalogListRequestTypedDict,
     )
     from .modelconfigurationresponse import (
         ModelConfigurationResponse,
@@ -5619,10 +5651,12 @@ if TYPE_CHECKING:
     from .modeldocument import ModelDocument, ModelDocumentTypedDict
     from .modelenableop import ModelEnableRequestBody, ModelEnableRequestBodyTypedDict
     from .modelmetadata import ModelMetadata, ModelMetadataTypedDict
+    from .modelmodalities import ModelModalities, ModelModalitiesTypedDict
     from .modelparameterdocument import (
         ModelParameterDocument,
         ModelParameterDocumentTypedDict,
     )
+    from .modelprovider import ModelProvider, ModelProviderTypedDict
     from .modelref import ModelRef, ModelRefTypedDict
     from .modelsconfig import ModelsConfig, ModelsConfigMode, ModelsConfigTypedDict
     from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
@@ -29425,6 +29459,8 @@ __all__ = [
     "AnnotatorTypedDict",
     "Arguments",
     "ArgumentsTypedDict",
+    "ArtificialIntelligence",
+    "ArtificialIntelligenceTypedDict",
     "AssistantMessage",
     "AssistantMessageTypedDict",
     "Attributes",
@@ -29720,11 +29756,13 @@ __all__ = [
     "CreateAgentRequestLoadBalancerType",
     "CreateAgentRequestLoadBalancerTypedDict",
     "CreateAgentRequestModalities",
+    "CreateAgentRequestModel",
     "CreateAgentRequestModelConfigurationExecuteOn",
     "CreateAgentRequestModelConfigurationGuardrails",
     "CreateAgentRequestModelConfigurationGuardrailsTypedDict",
     "CreateAgentRequestModelConfigurationReasoningEffort",
     "CreateAgentRequestModelConfigurationType",
+    "CreateAgentRequestModelTypedDict",
     "CreateAgentRequestParameters",
     "CreateAgentRequestParametersTypedDict",
     "CreateAgentRequestPlugins",
@@ -32822,6 +32860,8 @@ __all__ = [
     "GetLogResponseTypedDict",
     "GetManagementKeyResponse",
     "GetManagementKeyResponseTypedDict",
+    "GetModelCatalogModelResponse",
+    "GetModelCatalogModelResponseTypedDict",
     "GetNotifierResponse",
     "GetNotifierResponseTypedDict",
     "GetOneChunkMetadata",
@@ -34007,6 +34047,10 @@ __all__ = [
     "ListManagementCapabilitiesResponseTypedDict",
     "ListManagementKeysResponse",
     "ListManagementKeysResponseTypedDict",
+    "ListModelCatalogOfferingsResponse",
+    "ListModelCatalogOfferingsResponseTypedDict",
+    "ListModelCatalogResponse",
+    "ListModelCatalogResponseTypedDict",
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
@@ -34329,6 +34373,12 @@ __all__ = [
     "ModelBudgetScopeRestResponse",
     "ModelBudgetScopeRestResponseTypedDict",
     "ModelBudgetScopeTypedDict",
+    "ModelCatalogGetRequest",
+    "ModelCatalogGetRequestTypedDict",
+    "ModelCatalogListOfferingsRequest",
+    "ModelCatalogListOfferingsRequestTypedDict",
+    "ModelCatalogListRequest",
+    "ModelCatalogListRequestTypedDict",
     "ModelConfig",
     "ModelConfigTypedDict",
     "ModelConfiguration",
@@ -34396,10 +34446,16 @@ __all__ = [
     "ModelEnableRequestBodyTypedDict",
     "ModelMetadata",
     "ModelMetadataTypedDict",
+    "ModelModalities",
+    "ModelModalitiesTypedDict",
     "ModelParameterDocument",
     "ModelParameterDocumentTypedDict",
     "ModelParameters",
     "ModelParametersTypedDict",
+    "ModelPricing",
+    "ModelPricingTypedDict",
+    "ModelProvider",
+    "ModelProviderTypedDict",
     "ModelRef",
     "ModelRefTypedDict",
     "ModelSharingConfig",
@@ -58086,11 +58142,13 @@ _dynamic_imports: dict[str, str] = {
     "CreateAgentRequestLoadBalancerType": ".createagentrequestop",
     "CreateAgentRequestLoadBalancerTypedDict": ".createagentrequestop",
     "CreateAgentRequestModalities": ".createagentrequestop",
+    "CreateAgentRequestModel": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationExecuteOn": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationGuardrails": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationGuardrailsTypedDict": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationReasoningEffort": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationType": ".createagentrequestop",
+    "CreateAgentRequestModelTypedDict": ".createagentrequestop",
     "CreateAgentRequestParameters": ".createagentrequestop",
     "CreateAgentRequestParametersTypedDict": ".createagentrequestop",
     "CreateAgentRequestPlugins": ".createagentrequestop",
@@ -58226,7 +58284,6 @@ _dynamic_imports: dict[str, str] = {
     "Metrics": ".createagentrequestop",
     "MetricsTypedDict": ".createagentrequestop",
     "Modalities": ".createagentrequestop",
-    "Model": ".createagentrequestop",
     "ModelConfiguration": ".createagentrequestop",
     "ModelConfiguration2": ".createagentrequestop",
     "ModelConfiguration2TypedDict": ".createagentrequestop",
@@ -58241,7 +58298,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelConfigurationTTL": ".createagentrequestop",
     "ModelConfigurationType": ".createagentrequestop",
     "ModelConfigurationTypedDict": ".createagentrequestop",
-    "ModelTypedDict": ".createagentrequestop",
     "Parameters": ".createagentrequestop",
     "ParametersTypedDict": ".createagentrequestop",
     "Plugins": ".createagentrequestop",
@@ -61444,6 +61500,8 @@ _dynamic_imports: dict[str, str] = {
     "GetLogResponseTypedDict": ".getlogresponse",
     "GetManagementKeyResponse": ".getmanagementkeyresponse",
     "GetManagementKeyResponseTypedDict": ".getmanagementkeyresponse",
+    "GetModelCatalogModelResponse": ".getmodelcatalogmodelresponse",
+    "GetModelCatalogModelResponseTypedDict": ".getmodelcatalogmodelresponse",
     "GetNotifierResponse": ".getnotifierresponse",
     "GetNotifierResponseTypedDict": ".getnotifierresponse",
     "GetOneChunkMetadata": ".getonechunkop",
@@ -62633,6 +62691,10 @@ _dynamic_imports: dict[str, str] = {
     "ListManagementCapabilitiesResponseTypedDict": ".listmanagementcapabilitiesresponse",
     "ListManagementKeysResponse": ".listmanagementkeysresponse",
     "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
+    "ListModelCatalogOfferingsResponse": ".listmodelcatalogofferingsresponse",
+    "ListModelCatalogOfferingsResponseTypedDict": ".listmodelcatalogofferingsresponse",
+    "ListModelCatalogResponse": ".listmodelcatalogresponse",
+    "ListModelCatalogResponseTypedDict": ".listmodelcatalogresponse",
     "ListNotifiersResponse": ".listnotifiersresponse",
     "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
     "ListPeopleResponse": ".listpeopleresponse",
@@ -62867,6 +62929,12 @@ _dynamic_imports: dict[str, str] = {
     "McpToolInputTypedDict": ".mcptoolinput",
     "MemoryParam": ".memoryparam",
     "MemoryParamTypedDict": ".memoryparam",
+    "ArtificialIntelligence": ".model",
+    "ArtificialIntelligenceTypedDict": ".model",
+    "Model": ".model",
+    "ModelPricing": ".model",
+    "ModelPricingTypedDict": ".model",
+    "ModelTypedDict": ".model",
     "ModelAzureFoundryDeploymentsRequestBody": ".modelazurefoundrydeploymentsop",
     "ModelAzureFoundryDeploymentsRequestBodyTypedDict": ".modelazurefoundrydeploymentsop",
     "ModelAzureFoundryDeploymentsResponseBody": ".modelazurefoundrydeploymentsop",
@@ -62875,6 +62943,12 @@ _dynamic_imports: dict[str, str] = {
     "ModelBudgetScopeTypedDict": ".modelbudgetscope",
     "ModelBudgetScopeRestResponse": ".modelbudgetscoperestresponse",
     "ModelBudgetScopeRestResponseTypedDict": ".modelbudgetscoperestresponse",
+    "ModelCatalogGetRequest": ".modelcataloggetop",
+    "ModelCatalogGetRequestTypedDict": ".modelcataloggetop",
+    "ModelCatalogListOfferingsRequest": ".modelcataloglistofferingsop",
+    "ModelCatalogListOfferingsRequestTypedDict": ".modelcataloglistofferingsop",
+    "ModelCatalogListRequest": ".modelcataloglistop",
+    "ModelCatalogListRequestTypedDict": ".modelcataloglistop",
     "ModelConfigurationResponse": ".modelconfigurationresponse",
     "ModelConfigurationResponseTypedDict": ".modelconfigurationresponse",
     "ModelCreateAwsBedrockRequestBody": ".modelcreateawsbedrockop",
@@ -62903,8 +62977,12 @@ _dynamic_imports: dict[str, str] = {
     "ModelEnableRequestBodyTypedDict": ".modelenableop",
     "ModelMetadata": ".modelmetadata",
     "ModelMetadataTypedDict": ".modelmetadata",
+    "ModelModalities": ".modelmodalities",
+    "ModelModalitiesTypedDict": ".modelmodalities",
     "ModelParameterDocument": ".modelparameterdocument",
     "ModelParameterDocumentTypedDict": ".modelparameterdocument",
+    "ModelProvider": ".modelprovider",
+    "ModelProviderTypedDict": ".modelprovider",
     "ModelRef": ".modelref",
     "ModelRefTypedDict": ".modelref",
     "ModelsConfig": ".modelsconfig",

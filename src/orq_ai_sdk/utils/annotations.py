@@ -3,8 +3,10 @@
 from enum import Enum
 from typing import Any, Optional
 
+from orq_ai_sdk.types.basemodel import UNSET_SENTINEL, Unset
 
-def get_discriminator(model: Any, fieldname: str, key: str) -> str:
+
+def get_discriminator(model: Any, fieldname: str, key: str) -> Optional[str]:
     """
     Recursively search for the discriminator attribute in a model.
 
@@ -14,11 +16,18 @@ def get_discriminator(model: Any, fieldname: str, key: str) -> str:
         key (str): The key to search for in dictionaries.
 
     Returns:
-        str: The name of the discriminator attribute.
+        Optional[str]: The name of the discriminator attribute, or None when the
+        value is absent or null and therefore carries no discriminator.
 
     Raises:
         ValueError: If the discriminator attribute is not found.
     """
+    # An absent or null value carries no discriminator. Returning None makes
+    # pydantic report union_tag_not_found, which lets an optional or nullable
+    # union fall through to its Unset / None member instead of raising.
+    if model is None or isinstance(model, Unset) or model == UNSET_SENTINEL:
+        return None
+
     upper_fieldname = fieldname.upper()
 
     def get_field_discriminator(field: Any) -> Optional[str]:

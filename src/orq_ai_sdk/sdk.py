@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
     from orq_ai_sdk.memorystores import MemoryStores
+    from orq_ai_sdk.modelcatalog import ModelCatalog
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.people import People
@@ -84,6 +85,7 @@ class Orq(BaseSDK):
     files: "Files"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    model_catalog: "ModelCatalog"
     notifiers: "Notifiers"
     people: "People"
     projects: "Projects"
@@ -122,6 +124,7 @@ class Orq(BaseSDK):
         "files": ("orq_ai_sdk.files", "Files"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
