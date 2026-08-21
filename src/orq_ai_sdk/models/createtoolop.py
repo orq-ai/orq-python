@@ -1081,7 +1081,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0HFR54Y77MFMJFES86EAMNE"
+        "tool_01M0JC91CW30APYZ9V5ADKG9PR"
     )
 
     display_name: Optional[str] = None
@@ -1208,7 +1208,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M0HFR54YKKK3342K67Z8XMT6"
+    id: Optional[str] = "01M0JC91CV99S0GR01EVP3ZVGZ"
 
     description: Optional[str] = None
 
@@ -1352,7 +1352,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0HFR54XS84AF47PMARTEWAZ"
+        "tool_01M0JC91CTQQ2SQX73VSJ08K9V"
     )
 
     display_name: Optional[str] = None
@@ -1657,7 +1657,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0HFR54W3S64JMBZ0THJS0FR"
+        "tool_01M0JC91CS90GKFBJEZMM8YM5J"
     )
 
     display_name: Optional[str] = None
@@ -1851,7 +1851,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0HFR54VNF97PF74GNRZPYE9"
+        "tool_01M0JC91CRCW551QW7HFBXR9T8"
     )
 
     display_name: Optional[str] = None
@@ -2049,7 +2049,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0HFR54TZWJQVQQK1XNB2CGT"
+        "tool_01M0JC91CP676ZH48ME9JP3Q02"
     )
 
     display_name: Optional[str] = None
