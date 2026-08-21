@@ -1,10 +1,29 @@
 # Evaluations
 
-Benchmark scores by evaluation key. A `null` value means the
- evaluation exists but is unmeasured for this model.
 
+## Supported Types
 
-## Fields
+### `models.Evaluations1`
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+```python
+value: models.Evaluations1 = /* values here */
+```
+
+### `models.Evaluations2`
+
+```python
+value: models.Evaluations2 = /* values here */
+```
+
+### `models.Evaluations3`
+
+```python
+value: models.Evaluations3 = /* values here */
+```
+
+### `models.Evaluations4`
+
+```python
+value: models.Evaluations4 = /* values here */
+```
+

@@ -8,28 +8,13 @@ from typing_extensions import TypedDict
 class ModelProviderTypedDict(TypedDict):
     id: str
     r"""Catalog provider key (openai, anthropic, aws, ...)."""
-    name: str
-    r"""Provider display name."""
     logo: str
     r"""Absolute URL of the provider logo. Empty when no logo is known."""
-    docs_url: str
-    r"""Provider documentation URL."""
-    pricing_url: str
-    r"""Provider pricing page URL."""
 
 
 class ModelProvider(BaseModel):
     id: str
     r"""Catalog provider key (openai, anthropic, aws, ...)."""
 
-    name: str
-    r"""Provider display name."""
-
     logo: str
     r"""Absolute URL of the provider logo. Empty when no logo is known."""
-
-    docs_url: str
-    r"""Provider documentation URL."""
-
-    pricing_url: str
-    r"""Provider pricing page URL."""

@@ -10,7 +10,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ModelCatalogListRequestTypedDict(TypedDict):
     limit: NotRequired[int]
-    r"""Page size, 1–200. Unset uses the server default (50)."""
+    r"""Page size, 1–1000. Unset returns every non-deprecated model in one response."""
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `id` of the last item from
     the previous page.
@@ -31,11 +31,9 @@ class ModelCatalogListRequestTypedDict(TypedDict):
     r"""Filter by output modality. Repeat to match any of several modalities."""
     location: NotRequired[List[str]]
     r"""Filter by region. Repeat to match any of several regions."""
-    type: NotRequired[List[str]]
-    r"""Filter by task type. Repeat to match any of several types."""
-    status: NotRequired[List[str]]
-    r"""Filter by catalog lifecycle status. Repeat to match any of several
-    statuses.
+    feature: NotRequired[List[str]]
+    r"""Filter by normalized feature name. Repeat to match any of several
+    features.
     """
     supported_parameter: NotRequired[List[str]]
     r"""Filter by supported parameter key. Repeat to match any of several
@@ -47,11 +45,6 @@ class ModelCatalogListRequestTypedDict(TypedDict):
     """
     offering_of: NotRequired[str]
     r"""Filter to offerings of one base model reference, `<developer>/<stem>`."""
-    deprecated: NotRequired[bool]
-    r"""Filter by deprecation: true returns only offerings with an announced
-    sunset date, false returns only offerings without one. Unset returns
-    both.
-    """
     search: NotRequired[str]
     r"""Case-insensitive substring search over `id`, `name` and `description`."""
     sort_by: NotRequired[str]
@@ -65,7 +58,7 @@ class ModelCatalogListRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Page size, 1–200. Unset uses the server default (50)."""
+    r"""Page size, 1–1000. Unset returns every non-deprecated model in one response."""
 
     starting_after: Annotated[
         Optional[str],
@@ -115,18 +108,12 @@ class ModelCatalogListRequest(BaseModel):
     ] = None
     r"""Filter by region. Repeat to match any of several regions."""
 
-    type: Annotated[
+    feature: Annotated[
         Optional[List[str]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by task type. Repeat to match any of several types."""
-
-    status: Annotated[
-        Optional[List[str]],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by catalog lifecycle status. Repeat to match any of several
-    statuses.
+    r"""Filter by normalized feature name. Repeat to match any of several
+    features.
     """
 
     supported_parameter: Annotated[
@@ -150,15 +137,6 @@ class ModelCatalogListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter to offerings of one base model reference, `<developer>/<stem>`."""
-
-    deprecated: Annotated[
-        Optional[bool],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by deprecation: true returns only offerings with an announced
-    sunset date, false returns only offerings without one. Unset returns
-    both.
-    """
 
     search: Annotated[
         Optional[str],
@@ -190,12 +168,10 @@ class ModelCatalogListRequest(BaseModel):
                 "input_modality",
                 "output_modality",
                 "location",
-                "type",
-                "status",
+                "feature",
                 "supported_parameter",
                 "tier",
                 "offering_of",
-                "deprecated",
                 "search",
                 "sort_by",
                 "order",

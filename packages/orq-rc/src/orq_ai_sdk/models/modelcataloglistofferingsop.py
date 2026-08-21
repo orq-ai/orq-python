@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ModelCatalogListOfferingsRequestTypedDict(TypedDict):
+    model: str
+    r"""Base model reference, `<developer>/<stem>` (for example
+    `anthropic/claude-opus-4-7`).
+    """
     limit: NotRequired[int]
-    r"""Page size, 1–200. Unset uses the server default (50)."""
+    r"""Page size, 1–1000. Unset returns every non-deprecated model in one response."""
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `id` of the last item from
     the previous page.
@@ -31,11 +35,9 @@ class ModelCatalogListOfferingsRequestTypedDict(TypedDict):
     r"""Filter by output modality. Repeat to match any of several modalities."""
     location: NotRequired[List[str]]
     r"""Filter by region. Repeat to match any of several regions."""
-    type: NotRequired[List[str]]
-    r"""Filter by task type. Repeat to match any of several types."""
-    status: NotRequired[List[str]]
-    r"""Filter by catalog lifecycle status. Repeat to match any of several
-    statuses.
+    feature: NotRequired[List[str]]
+    r"""Filter by normalized feature name. Repeat to match any of several
+    features.
     """
     supported_parameter: NotRequired[List[str]]
     r"""Filter by supported parameter key. Repeat to match any of several
@@ -45,32 +47,27 @@ class ModelCatalogListOfferingsRequestTypedDict(TypedDict):
     r"""Filter by supported service tier. Repeat to match any of several
     tiers.
     """
-    offering_of: NotRequired[str]
-    r"""Filter to offerings of one base model reference, `<developer>/<stem>`."""
-    deprecated: NotRequired[bool]
-    r"""Filter by deprecation: true returns only offerings with an announced
-    sunset date, false returns only offerings without one. Unset returns
-    both.
-    """
     search: NotRequired[str]
     r"""Case-insensitive substring search over `id`, `name` and `description`."""
     sort_by: NotRequired[str]
     r"""Field to sort by."""
     order: NotRequired[str]
     r"""Sort order. Defaults to ascending."""
-    model: NotRequired[str]
-    r"""Base model reference, `<developer>/<stem>` (for example
-    `anthropic/claude-opus`). Narrows the result to every provider
-    offering of that base model. Omit to return every offering.
-    """
 
 
 class ModelCatalogListOfferingsRequest(BaseModel):
+    model: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    ]
+    r"""Base model reference, `<developer>/<stem>` (for example
+    `anthropic/claude-opus-4-7`).
+    """
+
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Page size, 1–200. Unset uses the server default (50)."""
+    r"""Page size, 1–1000. Unset returns every non-deprecated model in one response."""
 
     starting_after: Annotated[
         Optional[str],
@@ -120,18 +117,12 @@ class ModelCatalogListOfferingsRequest(BaseModel):
     ] = None
     r"""Filter by region. Repeat to match any of several regions."""
 
-    type: Annotated[
+    feature: Annotated[
         Optional[List[str]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by task type. Repeat to match any of several types."""
-
-    status: Annotated[
-        Optional[List[str]],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by catalog lifecycle status. Repeat to match any of several
-    statuses.
+    r"""Filter by normalized feature name. Repeat to match any of several
+    features.
     """
 
     supported_parameter: Annotated[
@@ -148,21 +139,6 @@ class ModelCatalogListOfferingsRequest(BaseModel):
     ] = None
     r"""Filter by supported service tier. Repeat to match any of several
     tiers.
-    """
-
-    offering_of: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter to offerings of one base model reference, `<developer>/<stem>`."""
-
-    deprecated: Annotated[
-        Optional[bool],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Filter by deprecation: true returns only offerings with an announced
-    sunset date, false returns only offerings without one. Unset returns
-    both.
     """
 
     search: Annotated[
@@ -183,15 +159,6 @@ class ModelCatalogListOfferingsRequest(BaseModel):
     ] = None
     r"""Sort order. Defaults to ascending."""
 
-    model: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Base model reference, `<developer>/<stem>` (for example
-    `anthropic/claude-opus`). Narrows the result to every provider
-    offering of that base model. Omit to return every offering.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -204,16 +171,12 @@ class ModelCatalogListOfferingsRequest(BaseModel):
                 "input_modality",
                 "output_modality",
                 "location",
-                "type",
-                "status",
+                "feature",
                 "supported_parameter",
                 "tier",
-                "offering_of",
-                "deprecated",
                 "search",
                 "sort_by",
                 "order",
-                "model",
             ]
         )
         serialized = handler(self)

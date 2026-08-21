@@ -3,19 +3,31 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union, cast
+from typing import Iterable, List, Mapping, Optional
 
 
 class ModelCatalog(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.ModelCatalogListRequest, models.ModelCatalogListRequestTypedDict
-        ] = models.ModelCatalogListRequest(),
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        provider: Optional[Iterable[str]] = None,
+        endpoint: Optional[Iterable[str]] = None,
+        input_modality: Optional[Iterable[str]] = None,
+        output_modality: Optional[Iterable[str]] = None,
+        location: Optional[Iterable[str]] = None,
+        feature: Optional[Iterable[str]] = None,
+        supported_parameter: Optional[Iterable[str]] = None,
+        tier: Optional[Iterable[str]] = None,
+        offering_of: Optional[str] = None,
+        search: Optional[str] = None,
+        sort_by: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -23,9 +35,29 @@ class ModelCatalog(BaseSDK):
     ) -> models.ListModelCatalogResponse:
         r"""List the model catalog
 
-        Returns every model orq offers, optionally filtered, searched and sorted. Use `starting_after` or `ending_before` to page through the collection.
+        Returns every model orq offers, optionally filtered, searched and sorted. Deprecated models are never listed; fetch one directly by id to inspect it. Unset `limit` returns the whole catalog. Use `starting_after` or `ending_before` to page through the collection.
 
-        :param request: The request object to send.
+        :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
+        :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
+            from the previous page.
+        :param provider: Filter by catalog provider key. Repeat to match any of several
+            providers.
+        :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
+        :param input_modality: Filter by input modality. Repeat to match any of several modalities.
+        :param output_modality: Filter by output modality. Repeat to match any of several modalities.
+        :param location: Filter by region. Repeat to match any of several regions.
+        :param feature: Filter by normalized feature name. Repeat to match any of several
+            features.
+        :param supported_parameter: Filter by supported parameter key. Repeat to match any of several
+            parameters.
+        :param tier: Filter by supported service tier. Repeat to match any of several
+            tiers.
+        :param offering_of: Filter to offerings of one base model reference, `<developer>/<stem>`.
+        :param search: Case-insensitive substring search over `id`, `name` and `description`.
+        :param sort_by: Field to sort by.
+        :param order: Sort order. Defaults to ascending.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -44,9 +76,25 @@ class ModelCatalog(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ModelCatalogListRequest)
-        request = cast(models.ModelCatalogListRequest, request)
+        request = models.ModelCatalogListRequest(
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            provider=utils.unmarshal(provider, Optional[List[str]]),
+            endpoint=utils.unmarshal(endpoint, Optional[List[str]]),
+            input_modality=utils.unmarshal(input_modality, Optional[List[str]]),
+            output_modality=utils.unmarshal(output_modality, Optional[List[str]]),
+            location=utils.unmarshal(location, Optional[List[str]]),
+            feature=utils.unmarshal(feature, Optional[List[str]]),
+            supported_parameter=utils.unmarshal(
+                supported_parameter, Optional[List[str]]
+            ),
+            tier=utils.unmarshal(tier, Optional[List[str]]),
+            offering_of=offering_of,
+            search=search,
+            sort_by=sort_by,
+            order=order,
+        )
 
         req = self._build_request(
             method="GET",
@@ -88,14 +136,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List the model catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog?provider=openai&limit=10'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
+                        },
+                        {
+                            "label": "Python - List the model catalog",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.model_catalog.list(\n    provider="openai",\n    limit=10,\n)\n\nfor model in page.data:\n    print(model.id, model.name)\n',
                         },
                         {
                             "label": "Node.js - List the model catalog",
                             "lang": "typescript",
-                            "source": "const response = await fetch('https://api.orq.ai/v2/model-catalog?provider=openai&limit=10');\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst { data } = await response.json();\nfor (const model of data) {\n  console.log(model.id, model.name);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.modelCatalog.list({\n  provider: 'openai',\n  limit: 10,\n});\n\nfor (const model of page.data) {\n  console.log(model.id, model.name);\n}\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "List catalog models"}},
                 },
             ),
             request=req,
@@ -117,9 +171,21 @@ class ModelCatalog(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.ModelCatalogListRequest, models.ModelCatalogListRequestTypedDict
-        ] = models.ModelCatalogListRequest(),
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        provider: Optional[Iterable[str]] = None,
+        endpoint: Optional[Iterable[str]] = None,
+        input_modality: Optional[Iterable[str]] = None,
+        output_modality: Optional[Iterable[str]] = None,
+        location: Optional[Iterable[str]] = None,
+        feature: Optional[Iterable[str]] = None,
+        supported_parameter: Optional[Iterable[str]] = None,
+        tier: Optional[Iterable[str]] = None,
+        offering_of: Optional[str] = None,
+        search: Optional[str] = None,
+        sort_by: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -127,9 +193,29 @@ class ModelCatalog(BaseSDK):
     ) -> models.ListModelCatalogResponse:
         r"""List the model catalog
 
-        Returns every model orq offers, optionally filtered, searched and sorted. Use `starting_after` or `ending_before` to page through the collection.
+        Returns every model orq offers, optionally filtered, searched and sorted. Deprecated models are never listed; fetch one directly by id to inspect it. Unset `limit` returns the whole catalog. Use `starting_after` or `ending_before` to page through the collection.
 
-        :param request: The request object to send.
+        :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
+        :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
+            from the previous page.
+        :param provider: Filter by catalog provider key. Repeat to match any of several
+            providers.
+        :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
+        :param input_modality: Filter by input modality. Repeat to match any of several modalities.
+        :param output_modality: Filter by output modality. Repeat to match any of several modalities.
+        :param location: Filter by region. Repeat to match any of several regions.
+        :param feature: Filter by normalized feature name. Repeat to match any of several
+            features.
+        :param supported_parameter: Filter by supported parameter key. Repeat to match any of several
+            parameters.
+        :param tier: Filter by supported service tier. Repeat to match any of several
+            tiers.
+        :param offering_of: Filter to offerings of one base model reference, `<developer>/<stem>`.
+        :param search: Case-insensitive substring search over `id`, `name` and `description`.
+        :param sort_by: Field to sort by.
+        :param order: Sort order. Defaults to ascending.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -148,9 +234,25 @@ class ModelCatalog(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ModelCatalogListRequest)
-        request = cast(models.ModelCatalogListRequest, request)
+        request = models.ModelCatalogListRequest(
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            provider=utils.unmarshal(provider, Optional[List[str]]),
+            endpoint=utils.unmarshal(endpoint, Optional[List[str]]),
+            input_modality=utils.unmarshal(input_modality, Optional[List[str]]),
+            output_modality=utils.unmarshal(output_modality, Optional[List[str]]),
+            location=utils.unmarshal(location, Optional[List[str]]),
+            feature=utils.unmarshal(feature, Optional[List[str]]),
+            supported_parameter=utils.unmarshal(
+                supported_parameter, Optional[List[str]]
+            ),
+            tier=utils.unmarshal(tier, Optional[List[str]]),
+            offering_of=offering_of,
+            search=search,
+            sort_by=sort_by,
+            order=order,
+        )
 
         req = self._build_request_async(
             method="GET",
@@ -192,14 +294,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List the model catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog?provider=openai&limit=10'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
+                        },
+                        {
+                            "label": "Python - List the model catalog",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.model_catalog.list(\n    provider="openai",\n    limit=10,\n)\n\nfor model in page.data:\n    print(model.id, model.name)\n',
                         },
                         {
                             "label": "Node.js - List the model catalog",
                             "lang": "typescript",
-                            "source": "const response = await fetch('https://api.orq.ai/v2/model-catalog?provider=openai&limit=10');\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst { data } = await response.json();\nfor (const model of data) {\n  console.log(model.id, model.name);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.modelCatalog.list({\n  provider: 'openai',\n  limit: 10,\n});\n\nfor (const model of page.data) {\n  console.log(model.id, model.name);\n}\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "List catalog models"}},
                 },
             ),
             request=req,
@@ -221,10 +329,21 @@ class ModelCatalog(BaseSDK):
     def list_offerings(
         self,
         *,
-        request: Union[
-            models.ModelCatalogListOfferingsRequest,
-            models.ModelCatalogListOfferingsRequestTypedDict,
-        ] = models.ModelCatalogListOfferingsRequest(),
+        model: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        provider: Optional[Iterable[str]] = None,
+        endpoint: Optional[Iterable[str]] = None,
+        input_modality: Optional[Iterable[str]] = None,
+        output_modality: Optional[Iterable[str]] = None,
+        location: Optional[Iterable[str]] = None,
+        feature: Optional[Iterable[str]] = None,
+        supported_parameter: Optional[Iterable[str]] = None,
+        tier: Optional[Iterable[str]] = None,
+        search: Optional[str] = None,
+        sort_by: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -232,9 +351,30 @@ class ModelCatalog(BaseSDK):
     ) -> models.ListModelCatalogOfferingsResponse:
         r"""List model catalog offerings
 
-        Returns catalog entries as a flat list of offerings. Pass `model` to narrow the list to every provider offering of one base model reference (for example `anthropic/claude-opus`).
+        Returns every provider offering of one base model, identified by `<developer>/<stem>` (for example `anthropic/claude-opus-4-7`). Deprecated models are never listed.
 
-        :param request: The request object to send.
+        :param model: Base model reference, `<developer>/<stem>` (for example
+            `anthropic/claude-opus-4-7`).
+        :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
+        :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
+            from the previous page.
+        :param provider: Filter by catalog provider key. Repeat to match any of several
+            providers.
+        :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
+        :param input_modality: Filter by input modality. Repeat to match any of several modalities.
+        :param output_modality: Filter by output modality. Repeat to match any of several modalities.
+        :param location: Filter by region. Repeat to match any of several regions.
+        :param feature: Filter by normalized feature name. Repeat to match any of several
+            features.
+        :param supported_parameter: Filter by supported parameter key. Repeat to match any of several
+            parameters.
+        :param tier: Filter by supported service tier. Repeat to match any of several
+            tiers.
+        :param search: Case-insensitive substring search over `id`, `name` and `description`.
+        :param sort_by: Field to sort by.
+        :param order: Sort order. Defaults to ascending.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -253,18 +393,34 @@ class ModelCatalog(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ModelCatalogListOfferingsRequest)
-        request = cast(models.ModelCatalogListOfferingsRequest, request)
+        request = models.ModelCatalogListOfferingsRequest(
+            model=model,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            provider=utils.unmarshal(provider, Optional[List[str]]),
+            endpoint=utils.unmarshal(endpoint, Optional[List[str]]),
+            input_modality=utils.unmarshal(input_modality, Optional[List[str]]),
+            output_modality=utils.unmarshal(output_modality, Optional[List[str]]),
+            location=utils.unmarshal(location, Optional[List[str]]),
+            feature=utils.unmarshal(feature, Optional[List[str]]),
+            supported_parameter=utils.unmarshal(
+                supported_parameter, Optional[List[str]]
+            ),
+            tier=utils.unmarshal(tier, Optional[List[str]]),
+            search=search,
+            sort_by=sort_by,
+            order=order,
+        )
 
         req = self._build_request(
             method="GET",
-            path="/v2/model-catalog/offerings",
+            path="/v2/model-catalog/{model}/offerings",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -297,14 +453,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List model catalog offerings",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog/offerings?model=anthropic/claude-opus'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
+                        },
+                        {
+                            "label": "Python - List model catalog offerings",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.model_catalog.list_offerings(\n    model="anthropic/claude-opus-4-7",\n)\n\nfor offering in page.data:\n    print(offering.provider.id, offering.id)\n',
                         },
                         {
                             "label": "Node.js - List model catalog offerings",
                             "lang": "typescript",
-                            "source": "const response = await fetch(\n  'https://api.orq.ai/v2/model-catalog/offerings?model=anthropic/claude-opus',\n);\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst { data } = await response.json();\nfor (const offering of data) {\n  console.log(offering.provider.name, offering.id);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.modelCatalog.listOfferings({\n  model: 'anthropic/claude-opus-4-7',\n});\n\nfor (const offering of page.data) {\n  console.log(offering.provider.id, offering.id);\n}\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "List model offerings"}},
                 },
             ),
             request=req,
@@ -328,10 +490,21 @@ class ModelCatalog(BaseSDK):
     async def list_offerings_async(
         self,
         *,
-        request: Union[
-            models.ModelCatalogListOfferingsRequest,
-            models.ModelCatalogListOfferingsRequestTypedDict,
-        ] = models.ModelCatalogListOfferingsRequest(),
+        model: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        provider: Optional[Iterable[str]] = None,
+        endpoint: Optional[Iterable[str]] = None,
+        input_modality: Optional[Iterable[str]] = None,
+        output_modality: Optional[Iterable[str]] = None,
+        location: Optional[Iterable[str]] = None,
+        feature: Optional[Iterable[str]] = None,
+        supported_parameter: Optional[Iterable[str]] = None,
+        tier: Optional[Iterable[str]] = None,
+        search: Optional[str] = None,
+        sort_by: Optional[str] = None,
+        order: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -339,9 +512,30 @@ class ModelCatalog(BaseSDK):
     ) -> models.ListModelCatalogOfferingsResponse:
         r"""List model catalog offerings
 
-        Returns catalog entries as a flat list of offerings. Pass `model` to narrow the list to every provider offering of one base model reference (for example `anthropic/claude-opus`).
+        Returns every provider offering of one base model, identified by `<developer>/<stem>` (for example `anthropic/claude-opus-4-7`). Deprecated models are never listed.
 
-        :param request: The request object to send.
+        :param model: Base model reference, `<developer>/<stem>` (for example
+            `anthropic/claude-opus-4-7`).
+        :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
+        :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
+            the previous page.
+        :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
+            from the previous page.
+        :param provider: Filter by catalog provider key. Repeat to match any of several
+            providers.
+        :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
+        :param input_modality: Filter by input modality. Repeat to match any of several modalities.
+        :param output_modality: Filter by output modality. Repeat to match any of several modalities.
+        :param location: Filter by region. Repeat to match any of several regions.
+        :param feature: Filter by normalized feature name. Repeat to match any of several
+            features.
+        :param supported_parameter: Filter by supported parameter key. Repeat to match any of several
+            parameters.
+        :param tier: Filter by supported service tier. Repeat to match any of several
+            tiers.
+        :param search: Case-insensitive substring search over `id`, `name` and `description`.
+        :param sort_by: Field to sort by.
+        :param order: Sort order. Defaults to ascending.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -360,18 +554,34 @@ class ModelCatalog(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ModelCatalogListOfferingsRequest)
-        request = cast(models.ModelCatalogListOfferingsRequest, request)
+        request = models.ModelCatalogListOfferingsRequest(
+            model=model,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            provider=utils.unmarshal(provider, Optional[List[str]]),
+            endpoint=utils.unmarshal(endpoint, Optional[List[str]]),
+            input_modality=utils.unmarshal(input_modality, Optional[List[str]]),
+            output_modality=utils.unmarshal(output_modality, Optional[List[str]]),
+            location=utils.unmarshal(location, Optional[List[str]]),
+            feature=utils.unmarshal(feature, Optional[List[str]]),
+            supported_parameter=utils.unmarshal(
+                supported_parameter, Optional[List[str]]
+            ),
+            tier=utils.unmarshal(tier, Optional[List[str]]),
+            search=search,
+            sort_by=sort_by,
+            order=order,
+        )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/model-catalog/offerings",
+            path="/v2/model-catalog/{model}/offerings",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -404,14 +614,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List model catalog offerings",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog/offerings?model=anthropic/claude-opus'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
+                        },
+                        {
+                            "label": "Python - List model catalog offerings",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.model_catalog.list_offerings(\n    model="anthropic/claude-opus-4-7",\n)\n\nfor offering in page.data:\n    print(offering.provider.id, offering.id)\n',
                         },
                         {
                             "label": "Node.js - List model catalog offerings",
                             "lang": "typescript",
-                            "source": "const response = await fetch(\n  'https://api.orq.ai/v2/model-catalog/offerings?model=anthropic/claude-opus',\n);\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst { data } = await response.json();\nfor (const offering of data) {\n  console.log(offering.provider.name, offering.id);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.modelCatalog.listOfferings({\n  model: 'anthropic/claude-opus-4-7',\n});\n\nfor (const offering of page.data) {\n  console.log(offering.provider.id, offering.id);\n}\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "List model offerings"}},
                 },
             ),
             request=req,
@@ -443,7 +659,7 @@ class ModelCatalog(BaseSDK):
     ) -> models.GetModelCatalogModelResponse:
         r"""Retrieve a model catalog entry
 
-        Retrieves a single catalog entry by its id, `<provider>/<model>` (for example `openai/gpt-4o`).
+        Retrieves a single catalog entry by its id, `<provider>/<model>` (for example `openai/gpt-4o`). Unlike the list endpoints this also resolves deprecated models; check `deprecated` and `deprecation` on the response.
 
         :param id: Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`).
         :param retries: Override the default retry configuration for this method
@@ -508,14 +724,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - Retrieve a model catalog entry",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve a model catalog entry",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.model_catalog.get(\n    id="openai/gpt-4o",\n)\n\nprint(result.model.name, result.model.pricing)\n',
                         },
                         {
                             "label": "Node.js - Retrieve a model catalog entry",
                             "lang": "typescript",
-                            "source": "const response = await fetch('https://api.orq.ai/v2/model-catalog/openai/gpt-4o');\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst model = await response.json();\nconsole.log(model.name, model.pricing);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.modelCatalog.get({\n  id: 'openai/gpt-4o',\n});\n\nconsole.log(result.model.name, result.model.pricing);\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "Get catalog entry"}},
                 },
             ),
             request=req,
@@ -547,7 +769,7 @@ class ModelCatalog(BaseSDK):
     ) -> models.GetModelCatalogModelResponse:
         r"""Retrieve a model catalog entry
 
-        Retrieves a single catalog entry by its id, `<provider>/<model>` (for example `openai/gpt-4o`).
+        Retrieves a single catalog entry by its id, `<provider>/<model>` (for example `openai/gpt-4o`). Unlike the list endpoints this also resolves deprecated models; check `deprecated` and `deprecation` on the response.
 
         :param id: Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`).
         :param retries: Override the default retry configuration for this method
@@ -612,14 +834,20 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - Retrieve a model catalog entry",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve a model catalog entry",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.model_catalog.get(\n    id="openai/gpt-4o",\n)\n\nprint(result.model.name, result.model.pricing)\n',
                         },
                         {
                             "label": "Node.js - Retrieve a model catalog entry",
                             "lang": "typescript",
-                            "source": "const response = await fetch('https://api.orq.ai/v2/model-catalog/openai/gpt-4o');\n\nif (!response.ok) {\n  throw new Error(`Request failed: ${response.status}`);\n}\n\nconst model = await response.json();\nconsole.log(model.name, model.pricing);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.modelCatalog.get({\n  id: 'openai/gpt-4o',\n});\n\nconsole.log(result.model.name, result.model.pricing);\n",
                         },
-                    ]
+                    ],
+                    "x-mint": {"metadata": {"sidebarTitle": "Get catalog entry"}},
                 },
             ),
             request=req,
