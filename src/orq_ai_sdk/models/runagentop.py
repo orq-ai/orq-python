@@ -221,15 +221,16 @@ RunAgentModelConfigurationReasoningEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
-r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
 - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
 - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
 - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
 """
 
 
@@ -592,14 +593,14 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     response_format: NotRequired[RunAgentModelConfigurationResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[RunAgentModelConfigurationReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -663,14 +664,14 @@ class RunAgentModelConfigurationParameters(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[RunAgentModelConfigurationReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None
@@ -1027,15 +1028,16 @@ RunAgentFallbackModelConfigurationReasoningEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
-r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
 - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
 - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
 - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
 """
 
 
@@ -1402,14 +1404,14 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[RunAgentFallbackModelConfigurationReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -1475,14 +1477,14 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[RunAgentFallbackModelConfigurationReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None
@@ -2063,7 +2065,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M0JC916NQKDR5ASKGJGQKZGX"
+    id: Optional[str] = "01M0K7K6GB1RHW6B5GKSBGPSPM"
 
     description: Optional[str] = None
 

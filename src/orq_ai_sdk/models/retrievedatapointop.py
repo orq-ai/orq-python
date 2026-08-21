@@ -321,6 +321,8 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
 class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[RetrieveDatapointMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -338,6 +340,9 @@ class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
 class RetrieveDatapointMessagesAssistantMessage(BaseModel):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[RetrieveDatapointMessagesDatasetsResponse200Content] = (
         UNSET
@@ -358,7 +363,9 @@ class RetrieveDatapointMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -811,7 +818,7 @@ class RetrieveDatapointEvaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.355Z")
+    ] = parse_datetime("2026-08-21T22:38:18.991Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -960,7 +967,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.355Z")
+    ] = parse_datetime("2026-08-21T22:38:18.990Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1105,7 +1112,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.354Z")
+    ] = parse_datetime("2026-08-21T22:38:18.990Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1250,7 +1257,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.353Z")
+    ] = parse_datetime("2026-08-21T22:38:18.989Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1365,7 +1372,7 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-21T14:40:40.451Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-21T22:38:04.091Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

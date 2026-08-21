@@ -18,3 +18,4 @@ value: ResponseBodyEffort = "none"
 - `"medium"`
 - `"high"`
 - `"xhigh"`
+- `"max"`

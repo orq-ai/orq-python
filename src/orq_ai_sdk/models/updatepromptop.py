@@ -327,6 +327,8 @@ class UpdatePromptMessagesToolCalls(BaseModel):
 class UpdatePromptMessagesAssistantMessageTypedDict(TypedDict):
     role: UpdatePromptMessagesPromptsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[Nullable[UpdatePromptMessagesPromptsRequestContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -342,6 +344,9 @@ class UpdatePromptMessagesAssistantMessageTypedDict(TypedDict):
 class UpdatePromptMessagesAssistantMessage(BaseModel):
     role: UpdatePromptMessagesPromptsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[UpdatePromptMessagesPromptsRequestContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -360,7 +365,9 @@ class UpdatePromptMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -812,15 +819,16 @@ UpdatePromptReasoningEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
-r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
 - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
 - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
 - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
 """
 
 
@@ -1255,14 +1263,14 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     response_format: NotRequired[UpdatePromptResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[UpdatePromptReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -1348,14 +1356,14 @@ class UpdatePromptPromptInput(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[UpdatePromptReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None
@@ -2816,15 +2824,16 @@ UpdatePromptPromptsReasoningEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
-r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
 - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
 - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
 - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
 """
 
 
@@ -3509,6 +3518,8 @@ class UpdatePromptMessagesPromptsToolCalls(BaseModel):
 class UpdatePromptMessagesPromptsAssistantMessageTypedDict(TypedDict):
     role: UpdatePromptMessagesPromptsResponse200ApplicationJSONRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[UpdatePromptMessagesPromptsResponse200ApplicationJSONContentTypedDict]
     ]
@@ -3526,6 +3537,9 @@ class UpdatePromptMessagesPromptsAssistantMessageTypedDict(TypedDict):
 class UpdatePromptMessagesPromptsAssistantMessage(BaseModel):
     role: UpdatePromptMessagesPromptsResponse200ApplicationJSONRole
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[
         UpdatePromptMessagesPromptsResponse200ApplicationJSONContent
@@ -3546,7 +3560,9 @@ class UpdatePromptMessagesPromptsAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -3853,14 +3869,14 @@ class UpdatePromptPromptFieldTypedDict(TypedDict):
     response_format: NotRequired[UpdatePromptPromptsResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[UpdatePromptPromptsReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -3945,14 +3961,14 @@ class UpdatePromptPromptField(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[UpdatePromptPromptsReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None

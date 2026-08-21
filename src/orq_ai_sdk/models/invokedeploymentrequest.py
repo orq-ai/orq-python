@@ -295,6 +295,8 @@ class ToolCalls(BaseModel):
 class AssistantMessageTypedDict(TypedDict):
     role: InvokeDeploymentRequestPrefixMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[InvokeDeploymentRequestPrefixMessages4ContentTypedDict]
     ]
@@ -313,6 +315,9 @@ class AssistantMessage(BaseModel):
     role: InvokeDeploymentRequestPrefixMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
 
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
+
     content: OptionalNullable[InvokeDeploymentRequestPrefixMessages4Content] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -330,7 +335,9 @@ class AssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -920,6 +927,8 @@ class MessagesToolCalls(BaseModel):
 class MessagesAssistantMessageTypedDict(TypedDict):
     role: InvokeDeploymentRequestMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[Nullable[InvokeDeploymentRequestMessages4ContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -935,6 +944,9 @@ class MessagesAssistantMessageTypedDict(TypedDict):
 class MessagesAssistantMessage(BaseModel):
     role: InvokeDeploymentRequestMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[InvokeDeploymentRequestMessages4Content] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -953,7 +965,9 @@ class MessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}

@@ -1471,14 +1471,14 @@ class Input1TypedDict(TypedDict):
     response_format: NotRequired[InputResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[InputReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -1574,14 +1574,14 @@ class Input1(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[InputReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None
@@ -2489,7 +2489,7 @@ class RetrieveAnnotationQueueItemResponseBody2(BaseModel):
     output: Output
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01M0JC91T63EC2K3QJ68QHE29X"
+        "01M0K7K72P9GG2EBTA8X9T7YAY"
     )
 
     name: Optional[str] = None
@@ -3899,7 +3899,7 @@ class Evaluations19(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.566Z")
+    ] = parse_datetime("2026-08-21T22:38:19.190Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4064,7 +4064,7 @@ class Evaluations18(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.566Z")
+    ] = parse_datetime("2026-08-21T22:38:19.189Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -4227,7 +4227,7 @@ class Evaluations17(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T14:40:54.565Z")
+    ] = parse_datetime("2026-08-21T22:38:19.189Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")

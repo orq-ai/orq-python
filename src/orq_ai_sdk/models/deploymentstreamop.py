@@ -302,6 +302,8 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
 class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[
             DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict
@@ -322,6 +324,9 @@ class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
+
     content: OptionalNullable[
         DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContent
     ] = UNSET
@@ -341,7 +346,9 @@ class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -945,6 +952,8 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
 class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[DeploymentStreamMessagesDeploymentsRequestRequestBodyContentTypedDict]
     ]
@@ -962,6 +971,9 @@ class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
 class DeploymentStreamMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[
         DeploymentStreamMessagesDeploymentsRequestRequestBodyContent
@@ -982,7 +994,9 @@ class DeploymentStreamMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}

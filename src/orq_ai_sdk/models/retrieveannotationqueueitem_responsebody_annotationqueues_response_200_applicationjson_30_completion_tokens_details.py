@@ -503,6 +503,7 @@ ResponseBodyEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
 r"""The effort level for reasoning"""
 
@@ -3691,7 +3692,7 @@ class ResponseBody31(BaseModel):
     r"""Represents the completed model response returned when `stream` is false"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01M0JC93QF0YQPQEVG4E3VZPK1"
+        "01M0K7K8YFFD5FB0MKZJAWK8ZM"
     )
 
     name: Optional[str] = None

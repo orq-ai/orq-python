@@ -1177,15 +1177,16 @@ GetPromptVersionReasoningEffort = Literal[
     "medium",
     "high",
     "xhigh",
+    "max",
 ]
-r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
 - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
 - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
 - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
 """
 
 
@@ -1855,6 +1856,8 @@ class GetPromptVersionMessagesToolCalls(BaseModel):
 class GetPromptVersionMessagesAssistantMessageTypedDict(TypedDict):
     role: GetPromptVersionMessagesPromptsResponseRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[GetPromptVersionMessagesPromptsResponseContentTypedDict]
     ]
@@ -1873,6 +1876,9 @@ class GetPromptVersionMessagesAssistantMessage(BaseModel):
     role: GetPromptVersionMessagesPromptsResponseRole
     r"""The role of the messages author, in this case `assistant`."""
 
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
+
     content: OptionalNullable[GetPromptVersionMessagesPromptsResponseContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1890,7 +1896,9 @@ class GetPromptVersionMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -2194,14 +2202,14 @@ class GetPromptVersionPromptFieldTypedDict(TypedDict):
     response_format: NotRequired[GetPromptVersionResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[GetPromptVersionReasoningEffort]
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -2286,14 +2294,14 @@ class GetPromptVersionPromptField(BaseModel):
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[GetPromptVersionReasoningEffort] = None
-    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
     - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
     - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
     - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
     """
 
     verbosity: Optional[str] = None

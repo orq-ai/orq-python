@@ -166,14 +166,14 @@ class OrqCompletions(BaseSDK):
         :param n: How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs.
         :param presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
         :param response_format: An object specifying the format that the model must output
-        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
             - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
             - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
             - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
             - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
         :param verbosity: Adjusts response verbosity. Lower levels yield shorter answers.
         :param seed: If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result.
         :param stop: Up to 4 sequences where the API will stop generating further tokens.
@@ -525,14 +525,14 @@ class OrqCompletions(BaseSDK):
         :param n: How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs.
         :param presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
         :param response_format: An object specifying the format that the model must output
-        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
             - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
             - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
             - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
             - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
         :param verbosity: Adjusts response verbosity. Lower levels yield shorter answers.
         :param seed: If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result.
         :param stop: Up to 4 sequences where the API will stop generating further tokens.
