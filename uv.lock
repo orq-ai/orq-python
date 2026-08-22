@@ -738,7 +738,7 @@ wheels = [
 
 [[package]]
 name = "orq-ai-sdk"
-version = "4.13.19"
+version = "4.13.20"
 source = { editable = "." }
 dependencies = [
     { name = "httpcore" },
