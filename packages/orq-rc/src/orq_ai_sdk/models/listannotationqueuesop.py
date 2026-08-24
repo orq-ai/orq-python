@@ -146,7 +146,7 @@ class ListAnnotationQueuesData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-24T09:28:39.484Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-24T14:41:00.800Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
