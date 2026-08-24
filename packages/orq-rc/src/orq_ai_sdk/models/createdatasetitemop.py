@@ -307,6 +307,8 @@ class CreateDatasetItemMessagesToolCalls(BaseModel):
 class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[CreateDatasetItemMessagesDatasetsRequestRequestBodyContentTypedDict]
     ]
@@ -324,6 +326,9 @@ class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
 class CreateDatasetItemMessagesAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
     content: OptionalNullable[
         CreateDatasetItemMessagesDatasetsRequestRequestBodyContent
@@ -344,7 +349,9 @@ class CreateDatasetItemMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -1017,6 +1024,8 @@ class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
 class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
     r"""The role of the messages author, in this case `assistant`."""
+    reasoning_content: NotRequired[str]
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
         Nullable[
             CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContentTypedDict
@@ -1037,6 +1046,9 @@ class CreateDatasetItemMessagesDatasetsAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
+    reasoning_content: Optional[str] = None
+    r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
+
     content: OptionalNullable[
         CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContent
     ] = UNSET
@@ -1056,7 +1068,9 @@ class CreateDatasetItemMessagesDatasetsAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        optional_fields = set(
+            ["reasoning_content", "content", "refusal", "name", "audio", "tool_calls"]
+        )
         nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
         m = {}
@@ -1507,7 +1521,7 @@ class Evaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T08:04:42.641Z")
+    ] = parse_datetime("2026-08-24T01:57:07.856Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1652,7 +1666,7 @@ class Evaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T08:04:42.640Z")
+    ] = parse_datetime("2026-08-24T01:57:07.856Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1797,7 +1811,7 @@ class Evaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T08:04:42.640Z")
+    ] = parse_datetime("2026-08-24T01:57:07.855Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1942,7 +1956,7 @@ class Evaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-21T08:04:42.639Z")
+    ] = parse_datetime("2026-08-24T01:57:07.855Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -2053,7 +2067,7 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-21T08:04:33.837Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-24T01:56:57.966Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

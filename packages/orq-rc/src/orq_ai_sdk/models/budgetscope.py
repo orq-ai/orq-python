@@ -24,12 +24,12 @@ class BudgetScopeTypedDict(TypedDict):
     project: NotRequired[ProjectBudgetScopeTypedDict]
     r"""Per-project cap."""
     identity: NotRequired[IdentityBudgetScopeTypedDict]
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
     api_key: NotRequired[APIKeyBudgetScopeTypedDict]
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
     provider: NotRequired[ProviderBudgetScopeTypedDict]
     r"""Per-provider cap. The value is the provider enum string (e.g.
@@ -38,7 +38,7 @@ class BudgetScopeTypedDict(TypedDict):
     model: NotRequired[ModelBudgetScopeTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
 
@@ -55,13 +55,13 @@ class BudgetScope(BaseModel):
     r"""Per-project cap."""
 
     identity: Optional[IdentityBudgetScope] = None
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
 
     api_key: Optional[APIKeyBudgetScope] = None
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     provider: Optional[ProviderBudgetScope] = None
@@ -72,7 +72,7 @@ class BudgetScope(BaseModel):
     model: Optional[ModelBudgetScope] = None
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
     @model_serializer(mode="wrap")

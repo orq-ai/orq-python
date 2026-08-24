@@ -33,6 +33,8 @@ if TYPE_CHECKING:
     from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
+    from orq_ai_sdk.mcpgateways import McpGateways
+    from orq_ai_sdk.mcpservers import McpServers
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.modelcatalog import ModelCatalog
     from orq_ai_sdk.models_ import Models
@@ -85,6 +87,8 @@ class Orq(BaseSDK):
     guardrail_rules: "GuardrailRules"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    mcp_gateways: "McpGateways"
+    mcp_servers: "McpServers"
     model_catalog: "ModelCatalog"
     notifiers: "Notifiers"
     projects: "Projects"
@@ -124,6 +128,8 @@ class Orq(BaseSDK):
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
+        "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
         "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),

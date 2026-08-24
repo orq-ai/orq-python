@@ -12,9 +12,8 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ManagementKeyTypedDict(TypedDict):
-    r"""ManagementKey is the canonical record stored in MongoDB
-    `auth.managementKeys`. It is the source of truth for permissions,
-    expiration, and revocation. Management keys are always
+    r"""ManagementKey defines permissions, expiration, and revocation for a
+    management key. Management keys are always
     workspace-scoped — there is no project_scope field, and they have no
     per-user owner (every management key is workspace-owned;
     `created_by_id` records who created it).
@@ -56,9 +55,8 @@ class ManagementKeyTypedDict(TypedDict):
 
 
 class ManagementKey(BaseModel):
-    r"""ManagementKey is the canonical record stored in MongoDB
-    `auth.managementKeys`. It is the source of truth for permissions,
-    expiration, and revocation. Management keys are always
+    r"""ManagementKey defines permissions, expiration, and revocation for a
+    management key. Management keys are always
     workspace-scoped — there is no project_scope field, and they have no
     per-user owner (every management key is workspace-owned;
     `created_by_id` records who created it).

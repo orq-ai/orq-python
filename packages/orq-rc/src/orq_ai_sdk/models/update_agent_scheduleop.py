@@ -16,7 +16,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 UpdateAgentScheduleType = Literal["cron",]
-r"""Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation."""
+r"""Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation."""
 
 
 class UpdateAgentScheduleRequestBodyTypedDict(TypedDict):
@@ -27,10 +27,10 @@ class UpdateAgentScheduleRequestBodyTypedDict(TypedDict):
     expression: NotRequired[str]
     r"""Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour."""
     is_active: NotRequired[bool]
-    r"""Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values."""
+    r"""Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values."""
     payload: NotRequired[PublicSchedulePayloadTypedDict]
     type: NotRequired[UpdateAgentScheduleType]
-    r"""Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation."""
+    r"""Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation."""
 
 
 class UpdateAgentScheduleRequestBody(BaseModel):
@@ -44,12 +44,12 @@ class UpdateAgentScheduleRequestBody(BaseModel):
     r"""Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour."""
 
     is_active: Optional[bool] = None
-    r"""Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values."""
+    r"""Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values."""
 
     payload: Optional[PublicSchedulePayload] = None
 
     type: Optional[UpdateAgentScheduleType] = None
-    r"""Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation."""
+    r"""Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -159,7 +159,7 @@ class UpdateAgentScheduleResponseBodyTypedDict(TypedDict):
     expression: str
     r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
     generation: int
-    r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
+    r"""Monotonic counter incremented when the schedule's firing cadence changes, allowing outdated in-flight triggers to be ignored."""
     is_active: bool
     r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
     payload: PublicSchedulePayloadTypedDict
@@ -195,7 +195,7 @@ class UpdateAgentScheduleResponseBody(BaseModel):
     r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
 
     generation: int
-    r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
+    r"""Monotonic counter incremented when the schedule's firing cadence changes, allowing outdated in-flight triggers to be ignored."""
 
     is_active: bool
     r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""

@@ -915,9 +915,9 @@ class Schedules(BaseSDK):
         :param agent_tag: Change the pinned agent version.
         :param display_name: Rename the schedule.
         :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
-        :param is_active: Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values.
+        :param is_active: Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values.
         :param payload:
-        :param type: Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation.
+        :param type: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1059,9 +1059,9 @@ class Schedules(BaseSDK):
         :param agent_tag: Change the pinned agent version.
         :param display_name: Rename the schedule.
         :param expression: Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.
-        :param is_active: Activate or deactivate the schedule. Deactivating removes the NATS entry; activating re-publishes with current values.
+        :param is_active: Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values.
         :param payload:
-        :param type: Change the schedule type. Only cron is accepted. Changing type or expression resets the NATS schedule and bumps generation.
+        :param type: Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

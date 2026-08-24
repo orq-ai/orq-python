@@ -53,8 +53,8 @@ class BudgetTypedDict(TypedDict):
     is_active: NotRequired[bool]
     expires_at: NotRequired[datetime]
     usage: NotRequired[BudgetUsageTypedDict]
-    r"""Live consumption for the current period, read from the Redis
-    counters the enforcement gate maintains. Populated by read paths
+    r"""Latest available consumption used for enforcement in the current
+    period. This is not an exact billing ledger. Populated by read paths
     (Get / List); omitted on write responses (Create / Update / Reset)
     where it carries no signal. Absent or all-zero for a budget that
     has not been spent against in the current period.
@@ -109,8 +109,8 @@ class Budget(BaseModel):
     expires_at: Optional[datetime] = None
 
     usage: Optional[BudgetUsage] = None
-    r"""Live consumption for the current period, read from the Redis
-    counters the enforcement gate maintains. Populated by read paths
+    r"""Latest available consumption used for enforcement in the current
+    period. This is not an exact billing ledger. Populated by read paths
     (Get / List); omitted on write responses (Create / Update / Reset)
     where it carries no signal. Absent or all-zero for a budget that
     has not been spent against in the current period.

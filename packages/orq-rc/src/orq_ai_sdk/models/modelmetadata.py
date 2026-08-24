@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
+from .embeddingdimensionsupport import (
+    EmbeddingDimensionSupport,
+    EmbeddingDimensionSupportTypedDict,
+)
 from .pricing import Pricing, PricingTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -19,6 +23,7 @@ class ModelMetadataTypedDict(TypedDict):
     is_private: bool
     allowed_passthrough_parameters: NotRequired[Nullable[List[str]]]
     autorouter: NotRequired[AutoRouterConfigTypedDict]
+    batch_endpoints: NotRequired[Nullable[List[str]]]
     cached_image_input_cost: NotRequired[float]
     cached_input_cost: NotRequired[float]
     chain_of_thought: NotRequired[bool]
@@ -70,6 +75,7 @@ class ModelMetadataTypedDict(TypedDict):
     reasoning_tokens: NotRequired[int]
     region: NotRequired[str]
     speed_rating: NotRequired[int]
+    supported_embedding_dimensions: NotRequired[EmbeddingDimensionSupportTypedDict]
     supported_video_aspect_ratios: NotRequired[Nullable[List[str]]]
     supported_video_durations: NotRequired[Nullable[List[int]]]
     supported_video_frame_images: NotRequired[Nullable[List[str]]]
@@ -97,6 +103,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
+    supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
     supports_parallel_tool_calls: NotRequired[bool]
     supports_pdf_input: NotRequired[bool]
@@ -120,6 +127,10 @@ class ModelMetadataTypedDict(TypedDict):
     supports_text: NotRequired[bool]
     supports_text_input: NotRequired[bool]
     supports_text_output: NotRequired[bool]
+    supports_thinking_level: NotRequired[bool]
+    supports_thinking_level_low: NotRequired[bool]
+    supports_thinking_level_medium: NotRequired[bool]
+    supports_thinking_level_minimal: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_tool_choice: NotRequired[bool]
     supports_url_context: NotRequired[bool]
@@ -139,6 +150,8 @@ class ModelMetadata(BaseModel):
     allowed_passthrough_parameters: OptionalNullable[List[str]] = UNSET
 
     autorouter: Optional[AutoRouterConfig] = None
+
+    batch_endpoints: OptionalNullable[List[str]] = UNSET
 
     cached_image_input_cost: Optional[float] = None
 
@@ -242,6 +255,8 @@ class ModelMetadata(BaseModel):
 
     speed_rating: Optional[int] = None
 
+    supported_embedding_dimensions: Optional[EmbeddingDimensionSupport] = None
+
     supported_video_aspect_ratios: OptionalNullable[List[str]] = UNSET
 
     supported_video_durations: OptionalNullable[List[int]] = UNSET
@@ -296,6 +311,8 @@ class ModelMetadata(BaseModel):
 
     supports_max_completion_tokens: Optional[bool] = None
 
+    supports_openai_realtime_api: Optional[bool] = None
+
     supports_openai_sdk: Optional[bool] = None
 
     supports_parallel_tool_calls: Optional[bool] = None
@@ -342,6 +359,14 @@ class ModelMetadata(BaseModel):
 
     supports_text_output: Optional[bool] = None
 
+    supports_thinking_level: Optional[bool] = None
+
+    supports_thinking_level_low: Optional[bool] = None
+
+    supports_thinking_level_medium: Optional[bool] = None
+
+    supports_thinking_level_minimal: Optional[bool] = None
+
     supports_tool_calling: Optional[bool] = None
 
     supports_tool_choice: Optional[bool] = None
@@ -370,6 +395,7 @@ class ModelMetadata(BaseModel):
             [
                 "allowed_passthrough_parameters",
                 "autorouter",
+                "batch_endpoints",
                 "cached_image_input_cost",
                 "cached_input_cost",
                 "chain_of_thought",
@@ -421,6 +447,7 @@ class ModelMetadata(BaseModel):
                 "reasoning_tokens",
                 "region",
                 "speed_rating",
+                "supported_embedding_dimensions",
                 "supported_video_aspect_ratios",
                 "supported_video_durations",
                 "supported_video_frame_images",
@@ -448,6 +475,7 @@ class ModelMetadata(BaseModel):
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
+                "supports_openai_realtime_api",
                 "supports_openai_sdk",
                 "supports_parallel_tool_calls",
                 "supports_pdf_input",
@@ -471,6 +499,10 @@ class ModelMetadata(BaseModel):
                 "supports_text",
                 "supports_text_input",
                 "supports_text_output",
+                "supports_thinking_level",
+                "supports_thinking_level_low",
+                "supports_thinking_level_medium",
+                "supports_thinking_level_minimal",
                 "supports_tool_calling",
                 "supports_tool_choice",
                 "supports_url_context",
@@ -487,6 +519,7 @@ class ModelMetadata(BaseModel):
         nullable_fields = set(
             [
                 "allowed_passthrough_parameters",
+                "batch_endpoints",
                 "supported_video_aspect_ratios",
                 "supported_video_durations",
                 "supported_video_frame_images",

@@ -1,0 +1,10 @@
+# TestMcpServerToolRequest
+
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `tool_name`                                                                           | *str*                                                                                 | :heavy_check_mark:                                                                    | Bare upstream tool name, not a gateway's namespaced `exposed_name`.                   |
+| `arguments`                                                                           | [Optional[models.Arguments]](../models/arguments.md)                                  | :heavy_minus_sign:                                                                    | Arguments passed to the tool, matching its `input_schema`.                            |
+| `discovery_variables`                                                                 | Dict[str, *str*]                                                                      | :heavy_minus_sign:                                                                    | Values for the server's `template_variables`; treated as sensitive and not persisted. |

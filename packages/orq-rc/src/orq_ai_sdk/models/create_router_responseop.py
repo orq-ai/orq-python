@@ -844,7 +844,7 @@ class AllowedTools(BaseModel):
 CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
-class MCPToolTypedDict(TypedDict):
+class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -860,7 +860,7 @@ class MCPToolTypedDict(TypedDict):
     r"""The MCP server endpoint URL (inline mode)."""
 
 
-class MCPTool(BaseModel):
+class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -1132,7 +1132,7 @@ CreateRouterResponseToolsTypedDict = TypeAliasType(
     Union[
         OrqAiToolTypedDict,
         ToolsFunctionTypedDict,
-        MCPToolTypedDict,
+        ToolsMCPToolTypedDict,
         OrqAdvisorToolTypedDict,
         OrqSidekickToolTypedDict,
     ],
@@ -1152,7 +1152,7 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:mcp")],
         Annotated[OrqAiTool, Tag("orq:http")],
         Annotated[OrqAiTool, Tag("orq:function")],
-        Annotated[MCPTool, Tag("mcp")],
+        Annotated[ToolsMCPTool, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

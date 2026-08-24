@@ -1,0 +1,11 @@
+# TestMcpServerRequest
+
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `connection`                                                                          | [Optional[models.McpConnection]](../models/mcpconnection.md)                          | :heavy_minus_sign:                                                                    | Connection to probe. Omit when `id` is set.                                           |
+| `auth`                                                                                | [Optional[models.McpAuthConfig]](../models/mcpauthconfig.md)                          | :heavy_minus_sign:                                                                    | Credentials to probe with. Omit when `id` is set.                                     |
+| `id`                                                                                  | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | Probe a stored server instead of sending `connection` and `auth`.                     |
+| `discovery_variables`                                                                 | Dict[str, *str*]                                                                      | :heavy_minus_sign:                                                                    | Values for the server's `template_variables`; treated as sensitive and not persisted. |

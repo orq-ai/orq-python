@@ -491,8 +491,6 @@ if TYPE_CHECKING:
         InputRole,
         InputStatus,
         InputType,
-        MCPTool,
-        MCPToolTypedDict,
         Network,
         NetworkTypedDict,
         OrqAiTool,
@@ -509,6 +507,8 @@ if TYPE_CHECKING:
         ToolsFilesTypedDict,
         ToolsFunction,
         ToolsFunctionTypedDict,
+        ToolsMCPTool,
+        ToolsMCPToolTypedDict,
         ToolsMode,
         ToolsTTL,
         ToolsType,
@@ -1766,6 +1766,22 @@ if TYPE_CHECKING:
         CreateManagementKeyResponse,
         CreateManagementKeyResponseTypedDict,
     )
+    from .createmcpgatewayrequest import (
+        CreateMcpGatewayRequest,
+        CreateMcpGatewayRequestTypedDict,
+    )
+    from .createmcpgatewayresponse import (
+        CreateMcpGatewayResponse,
+        CreateMcpGatewayResponseTypedDict,
+    )
+    from .createmcpserverrequest import (
+        CreateMcpServerRequest,
+        CreateMcpServerRequestTypedDict,
+    )
+    from .createmcpserverresponse import (
+        CreateMcpServerResponse,
+        CreateMcpServerResponseTypedDict,
+    )
     from .creatememorydocumentop import (
         CreateMemoryDocumentRequest1,
         CreateMemoryDocumentRequest1TypedDict,
@@ -2547,6 +2563,14 @@ if TYPE_CHECKING:
         DeleteManagementKeyResponse,
         DeleteManagementKeyResponseTypedDict,
     )
+    from .deletemcpgatewayresponse import (
+        DeleteMcpGatewayResponse,
+        DeleteMcpGatewayResponseTypedDict,
+    )
+    from .deletemcpserverresponse import (
+        DeleteMcpServerResponse,
+        DeleteMcpServerResponseTypedDict,
+    )
     from .deletememorydocumentop import (
         DeleteMemoryDocumentRequest,
         DeleteMemoryDocumentRequestTypedDict,
@@ -3208,6 +3232,10 @@ if TYPE_CHECKING:
     from .embeddingcontactparams import (
         EmbeddingContactParams,
         EmbeddingContactParamsTypedDict,
+    )
+    from .embeddingdimensionsupport import (
+        EmbeddingDimensionSupport,
+        EmbeddingDimensionSupportTypedDict,
     )
     from .embeddingloadbalancerconfig import (
         EmbeddingLoadBalancerConfig,
@@ -4032,6 +4060,14 @@ if TYPE_CHECKING:
     from .getmanagementkeyresponse import (
         GetManagementKeyResponse,
         GetManagementKeyResponseTypedDict,
+    )
+    from .getmcpgatewayresponse import (
+        GetMcpGatewayResponse,
+        GetMcpGatewayResponseTypedDict,
+    )
+    from .getmcpserverresponse import (
+        GetMcpServerResponse,
+        GetMcpServerResponseTypedDict,
     )
     from .getmodelcatalogmodelresponse import (
         GetModelCatalogModelResponse,
@@ -5210,6 +5246,18 @@ if TYPE_CHECKING:
         ListManagementKeysResponse,
         ListManagementKeysResponseTypedDict,
     )
+    from .listmcpgatewaysresponse import (
+        ListMcpGatewaysResponse,
+        ListMcpGatewaysResponseTypedDict,
+    )
+    from .listmcpgatewaytoolsresponse import (
+        ListMcpGatewayToolsResponse,
+        ListMcpGatewayToolsResponseTypedDict,
+    )
+    from .listmcpserversresponse import (
+        ListMcpServersResponse,
+        ListMcpServersResponseTypedDict,
+    )
     from .listmemoriesresponse import (
         ListMemoriesResponse,
         ListMemoriesResponseObject,
@@ -5490,7 +5538,83 @@ if TYPE_CHECKING:
     )
     from .managementpermissionmode import ManagementPermissionMode
     from .mcpaccess import McpAccess, McpAccessTypedDict
+    from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
+    from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
+    from .mcpauthtype import McpAuthType
+    from .mcpconnection import McpConnection, McpConnectionTypedDict
+    from .mcpconnectiontype import McpConnectionType
+    from .mcpgateway import McpGateway, McpGatewayTypedDict
+    from .mcpgatewaydeleteop import (
+        McpGatewayDeleteRequest,
+        McpGatewayDeleteRequestTypedDict,
+    )
+    from .mcpgatewaygetop import McpGatewayGetRequest, McpGatewayGetRequestTypedDict
+    from .mcpgatewaylistop import McpGatewayListRequest, McpGatewayListRequestTypedDict
+    from .mcpgatewaylisttoolsop import (
+        McpGatewayListToolsRequest,
+        McpGatewayListToolsRequestTypedDict,
+    )
+    from .mcpgatewaymode import McpGatewayMode
+    from .mcpgatewayserverlink import (
+        McpGatewayServerLink,
+        McpGatewayServerLinkTypedDict,
+    )
+    from .mcpgatewaystatus import McpGatewayStatus
+    from .mcpgatewaytool import (
+        InputSchema,
+        InputSchemaTypedDict,
+        McpGatewayTool,
+        McpGatewayToolTypedDict,
+    )
+    from .mcpgatewaytooltestresult import (
+        McpGatewayToolTestResult,
+        McpGatewayToolTestResultTypedDict,
+        Result,
+        ResultTypedDict,
+    )
+    from .mcpgatewayupdateop import (
+        McpGatewayUpdateRequest,
+        McpGatewayUpdateRequestTypedDict,
+    )
+    from .mcpheadersecret import McpHeaderSecret, McpHeaderSecretTypedDict
+    from .mcpheadersecret_output import (
+        McpHeaderSecretOutput,
+        McpHeaderSecretOutputTypedDict,
+    )
+    from .mcpoauthconfig import McpOAuthConfig, McpOAuthConfigTypedDict
+    from .mcpoauthconfig_output import (
+        McpOAuthConfigOutput,
+        McpOAuthConfigOutputTypedDict,
+    )
+    from .mcpserver import McpServer, McpServerTypedDict
+    from .mcpserverdeleteop import (
+        McpServerDeleteRequest,
+        McpServerDeleteRequestTypedDict,
+    )
+    from .mcpservergetop import McpServerGetRequest, McpServerGetRequestTypedDict
+    from .mcpserverlistop import McpServerListRequest, McpServerListRequestTypedDict
+    from .mcpserversyncop import McpServerSyncRequest, McpServerSyncRequestTypedDict
+    from .mcpservertesttoolop import (
+        McpServerTestToolRequest,
+        McpServerTestToolRequestTypedDict,
+    )
+    from .mcpserverupdateop import (
+        McpServerUpdateRequest,
+        McpServerUpdateRequestTypedDict,
+    )
+    from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
+    from .mcptestresult import McpTestResult, McpTestResultTypedDict
+    from .mcptool import (
+        McpTool,
+        McpToolInputSchema,
+        McpToolInputSchemaTypedDict,
+        McpToolTypedDict,
+    )
+    from .mcptoolannotations import McpToolAnnotations, McpToolAnnotationsTypedDict
+    from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
+    from .mcptoolexposuremode import McpToolExposureMode
     from .mcptoolinput import McpToolInput, McpToolInputType, McpToolInputTypedDict
+    from .mcptoolnaming import McpToolNaming
     from .memory import Memory, MemoryTypedDict
     from .memorydocument import MemoryDocument, MemoryDocumentTypedDict
     from .memoryparam import MemoryParam, MemoryParamTypedDict
@@ -6779,8 +6903,6 @@ if TYPE_CHECKING:
         AgentToolInputRunSchemaTypedDict,
         AgentToolInputRunType,
         AgentToolInputRunTypedDict,
-        Arguments,
-        ArgumentsTypedDict,
         Blueprint,
         BlueprintTypedDict,
         CodeTool,
@@ -6815,6 +6937,8 @@ if TYPE_CHECKING:
         RunAgentAgentToolInputRunAgentsRequestRequestBodyType,
         RunAgentAgentToolInputRunAgentsRequestType,
         RunAgentAgentToolInputRunAgentsType,
+        RunAgentAgentToolInputRunArguments,
+        RunAgentAgentToolInputRunArgumentsTypedDict,
         RunAgentAgentToolInputRunHeaders,
         RunAgentAgentToolInputRunHeadersTypedDict,
         RunAgentAgentToolInputRunParameters,
@@ -7129,6 +7253,12 @@ if TYPE_CHECKING:
     from .security import Security, SecurityTypedDict
     from .securityconfig import SecurityConfig, SecurityConfigTypedDict
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
+    from .sharing import Sharing, SharingTypedDict
+    from .sharingallprojects import SharingAllProjects, SharingAllProjectsTypedDict
+    from .sharingselectedprojects import (
+        SharingSelectedProjects,
+        SharingSelectedProjectsTypedDict,
+    )
     from .sidekicktoolinput import (
         SidekickToolInput,
         SidekickToolInputType,
@@ -7415,7 +7545,34 @@ if TYPE_CHECKING:
     from .structuredinput import StructuredInput, StructuredInputTypedDict
     from .structuredoutput import StructuredOutput, StructuredOutputTypedDict
     from .structuredtoolcall import StructuredToolCall, StructuredToolCallTypedDict
+    from .syncmcpserverrequest import (
+        SyncMcpServerRequest,
+        SyncMcpServerRequestTypedDict,
+    )
+    from .syncmcpserverresponse import (
+        SyncMcpServerResponse,
+        SyncMcpServerResponseTypedDict,
+    )
+    from .syncstatus import SyncStatus
     from .telemetry import Telemetry, TelemetryTypedDict
+    from .testmcpserverrequest import (
+        TestMcpServerRequest,
+        TestMcpServerRequestTypedDict,
+    )
+    from .testmcpserverresponse import (
+        TestMcpServerResponse,
+        TestMcpServerResponseTypedDict,
+    )
+    from .testmcpservertoolrequest import (
+        Arguments,
+        ArgumentsTypedDict,
+        TestMcpServerToolRequest,
+        TestMcpServerToolRequestTypedDict,
+    )
+    from .testmcpservertoolresponse import (
+        TestMcpServerToolResponse,
+        TestMcpServerToolResponseTypedDict,
+    )
     from .textcontentpartschema import (
         CacheControl,
         CacheControlTypedDict,
@@ -8137,6 +8294,22 @@ if TYPE_CHECKING:
     from .updatemanagementkeyresponse import (
         UpdateManagementKeyResponse,
         UpdateManagementKeyResponseTypedDict,
+    )
+    from .updatemcpgatewayrequest import (
+        UpdateMcpGatewayRequest,
+        UpdateMcpGatewayRequestTypedDict,
+    )
+    from .updatemcpgatewayresponse import (
+        UpdateMcpGatewayResponse,
+        UpdateMcpGatewayResponseTypedDict,
+    )
+    from .updatemcpserverrequest import (
+        UpdateMcpServerRequest,
+        UpdateMcpServerRequestTypedDict,
+    )
+    from .updatemcpserverresponse import (
+        UpdateMcpServerResponse,
+        UpdateMcpServerResponseTypedDict,
     )
     from .updatememorydocumentop import (
         UpdateMemoryDocumentRequest1,
@@ -10150,6 +10323,14 @@ __all__ = [
     "CreateManagementKeyRequestTypedDict",
     "CreateManagementKeyResponse",
     "CreateManagementKeyResponseTypedDict",
+    "CreateMcpGatewayRequest",
+    "CreateMcpGatewayRequestTypedDict",
+    "CreateMcpGatewayResponse",
+    "CreateMcpGatewayResponseTypedDict",
+    "CreateMcpServerRequest",
+    "CreateMcpServerRequestTypedDict",
+    "CreateMcpServerResponse",
+    "CreateMcpServerResponseTypedDict",
     "CreateMemoryDocumentRequest",
     "CreateMemoryDocumentRequest1",
     "CreateMemoryDocumentRequest1TypedDict",
@@ -10854,6 +11035,10 @@ __all__ = [
     "DeleteKnowledgeRequestTypedDict",
     "DeleteManagementKeyResponse",
     "DeleteManagementKeyResponseTypedDict",
+    "DeleteMcpGatewayResponse",
+    "DeleteMcpGatewayResponseTypedDict",
+    "DeleteMcpServerResponse",
+    "DeleteMcpServerResponseTypedDict",
     "DeleteMemoryDocumentRequest",
     "DeleteMemoryDocumentRequestTypedDict",
     "DeleteMemoryDocumentToolInput",
@@ -11478,6 +11663,8 @@ __all__ = [
     "EmbeddingCacheConfigTypedDict",
     "EmbeddingContactParams",
     "EmbeddingContactParamsTypedDict",
+    "EmbeddingDimensionSupport",
+    "EmbeddingDimensionSupportTypedDict",
     "EmbeddingLoadBalancerConfig",
     "EmbeddingLoadBalancerConfigType",
     "EmbeddingLoadBalancerConfigTypedDict",
@@ -12150,6 +12337,10 @@ __all__ = [
     "GetLogResponseTypedDict",
     "GetManagementKeyResponse",
     "GetManagementKeyResponseTypedDict",
+    "GetMcpGatewayResponse",
+    "GetMcpGatewayResponseTypedDict",
+    "GetMcpServerResponse",
+    "GetMcpServerResponseTypedDict",
     "GetModelCatalogModelResponse",
     "GetModelCatalogModelResponseTypedDict",
     "GetNotifierResponse",
@@ -12656,6 +12847,8 @@ __all__ = [
     "InputMessage",
     "InputMessageTypedDict",
     "InputRole",
+    "InputSchema",
+    "InputSchemaTypedDict",
     "InputStatus",
     "InputTokensDetails",
     "InputTokensDetailsTypedDict",
@@ -13213,6 +13406,12 @@ __all__ = [
     "ListManagementCapabilitiesResponseTypedDict",
     "ListManagementKeysResponse",
     "ListManagementKeysResponseTypedDict",
+    "ListMcpGatewayToolsResponse",
+    "ListMcpGatewayToolsResponseTypedDict",
+    "ListMcpGatewaysResponse",
+    "ListMcpGatewaysResponseTypedDict",
+    "ListMcpServersResponse",
+    "ListMcpServersResponseTypedDict",
     "ListMemoriesResponse",
     "ListMemoriesResponseObject",
     "ListMemoriesResponseTypedDict",
@@ -13461,10 +13660,8 @@ __all__ = [
     "LtTypedDict",
     "Lte",
     "LteTypedDict",
-    "MCPTool",
     "MCPToolRun",
     "MCPToolRunTypedDict",
-    "MCPToolTypedDict",
     "ManagementDomain",
     "ManagementDomainGroup",
     "ManagementDomainTypedDict",
@@ -13484,9 +13681,73 @@ __all__ = [
     "Mcp",
     "McpAccess",
     "McpAccessTypedDict",
+    "McpAuthConfig",
+    "McpAuthConfigOutput",
+    "McpAuthConfigOutputTypedDict",
+    "McpAuthConfigTypedDict",
+    "McpAuthType",
+    "McpConnection",
+    "McpConnectionType",
+    "McpConnectionTypedDict",
+    "McpGateway",
+    "McpGatewayDeleteRequest",
+    "McpGatewayDeleteRequestTypedDict",
+    "McpGatewayGetRequest",
+    "McpGatewayGetRequestTypedDict",
+    "McpGatewayListRequest",
+    "McpGatewayListRequestTypedDict",
+    "McpGatewayListToolsRequest",
+    "McpGatewayListToolsRequestTypedDict",
+    "McpGatewayMode",
+    "McpGatewayServerLink",
+    "McpGatewayServerLinkTypedDict",
+    "McpGatewayStatus",
+    "McpGatewayTool",
+    "McpGatewayToolTestResult",
+    "McpGatewayToolTestResultTypedDict",
+    "McpGatewayToolTypedDict",
+    "McpGatewayTypedDict",
+    "McpGatewayUpdateRequest",
+    "McpGatewayUpdateRequestTypedDict",
+    "McpHeaderSecret",
+    "McpHeaderSecretOutput",
+    "McpHeaderSecretOutputTypedDict",
+    "McpHeaderSecretTypedDict",
+    "McpOAuthConfig",
+    "McpOAuthConfigOutput",
+    "McpOAuthConfigOutputTypedDict",
+    "McpOAuthConfigTypedDict",
+    "McpServer",
+    "McpServerDeleteRequest",
+    "McpServerDeleteRequestTypedDict",
+    "McpServerGetRequest",
+    "McpServerGetRequestTypedDict",
+    "McpServerListRequest",
+    "McpServerListRequestTypedDict",
+    "McpServerSyncRequest",
+    "McpServerSyncRequestTypedDict",
+    "McpServerTestToolRequest",
+    "McpServerTestToolRequestTypedDict",
+    "McpServerTypedDict",
+    "McpServerUpdateRequest",
+    "McpServerUpdateRequestTypedDict",
+    "McpSyncState",
+    "McpSyncStateTypedDict",
+    "McpTestResult",
+    "McpTestResultTypedDict",
+    "McpTool",
+    "McpToolAnnotations",
+    "McpToolAnnotationsTypedDict",
+    "McpToolExposure",
+    "McpToolExposureMode",
+    "McpToolExposureTypedDict",
     "McpToolInput",
+    "McpToolInputSchema",
+    "McpToolInputSchemaTypedDict",
     "McpToolInputType",
     "McpToolInputTypedDict",
+    "McpToolNaming",
+    "McpToolTypedDict",
     "McpTypedDict",
     "Memory",
     "MemoryDocument",
@@ -14464,6 +14725,8 @@ __all__ = [
     "RestoreRequestTypedDict",
     "RestoreResponse",
     "RestoreResponseTypedDict",
+    "Result",
+    "ResultTypedDict",
     "Results",
     "Results1",
     "Results1TypedDict",
@@ -14864,6 +15127,8 @@ __all__ = [
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType",
     "RunAgentAgentToolInputRunAgentsRequestType",
     "RunAgentAgentToolInputRunAgentsType",
+    "RunAgentAgentToolInputRunArguments",
+    "RunAgentAgentToolInputRunArgumentsTypedDict",
     "RunAgentAgentToolInputRunHeaders",
     "RunAgentAgentToolInputRunHeadersTypedDict",
     "RunAgentAgentToolInputRunParameters",
@@ -15150,6 +15415,12 @@ __all__ = [
     "Seventeen",
     "SeventeenTypedDict",
     "Severity",
+    "Sharing",
+    "SharingAllProjects",
+    "SharingAllProjectsTypedDict",
+    "SharingSelectedProjects",
+    "SharingSelectedProjectsTypedDict",
+    "SharingTypedDict",
     "Shorthand",
     "SidekickToolInput",
     "SidekickToolInputType",
@@ -15430,6 +15701,11 @@ __all__ = [
     "StructuredToolCallTypedDict",
     "Style",
     "Summary",
+    "SyncMcpServerRequest",
+    "SyncMcpServerRequestTypedDict",
+    "SyncMcpServerResponse",
+    "SyncMcpServerResponseTypedDict",
+    "SyncStatus",
     "SystemMessage",
     "SystemMessageTypedDict",
     "TTL",
@@ -15445,6 +15721,14 @@ __all__ = [
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
+    "TestMcpServerRequest",
+    "TestMcpServerRequestTypedDict",
+    "TestMcpServerResponse",
+    "TestMcpServerResponseTypedDict",
+    "TestMcpServerToolRequest",
+    "TestMcpServerToolRequestTypedDict",
+    "TestMcpServerToolResponse",
+    "TestMcpServerToolResponseTypedDict",
     "Text",
     "TextContentPartSchema",
     "TextContentPartSchemaCacheControlType",
@@ -15579,6 +15863,8 @@ __all__ = [
     "ToolsFilesTypedDict",
     "ToolsFunction",
     "ToolsFunctionTypedDict",
+    "ToolsMCPTool",
+    "ToolsMCPToolTypedDict",
     "ToolsMode",
     "ToolsModel",
     "ToolsModelTypedDict",
@@ -16198,6 +16484,14 @@ __all__ = [
     "UpdateManagementKeyRequestTypedDict",
     "UpdateManagementKeyResponse",
     "UpdateManagementKeyResponseTypedDict",
+    "UpdateMcpGatewayRequest",
+    "UpdateMcpGatewayRequestTypedDict",
+    "UpdateMcpGatewayResponse",
+    "UpdateMcpGatewayResponseTypedDict",
+    "UpdateMcpServerRequest",
+    "UpdateMcpServerRequestTypedDict",
+    "UpdateMcpServerResponse",
+    "UpdateMcpServerResponseTypedDict",
     "UpdateMemoryDocumentRequest",
     "UpdateMemoryDocumentRequest1",
     "UpdateMemoryDocumentRequest1TypedDict",
@@ -17141,8 +17435,6 @@ _dynamic_imports: dict[str, str] = {
     "InputRole": ".create_router_responseop",
     "InputStatus": ".create_router_responseop",
     "InputType": ".create_router_responseop",
-    "MCPTool": ".create_router_responseop",
-    "MCPToolTypedDict": ".create_router_responseop",
     "Network": ".create_router_responseop",
     "NetworkTypedDict": ".create_router_responseop",
     "OrqAiTool": ".create_router_responseop",
@@ -17159,6 +17451,8 @@ _dynamic_imports: dict[str, str] = {
     "ToolsFilesTypedDict": ".create_router_responseop",
     "ToolsFunction": ".create_router_responseop",
     "ToolsFunctionTypedDict": ".create_router_responseop",
+    "ToolsMCPTool": ".create_router_responseop",
+    "ToolsMCPToolTypedDict": ".create_router_responseop",
     "ToolsMode": ".create_router_responseop",
     "ToolsTTL": ".create_router_responseop",
     "ToolsType": ".create_router_responseop",
@@ -18375,6 +18669,14 @@ _dynamic_imports: dict[str, str] = {
     "CreateManagementKeyRequestTypedDict": ".createmanagementkeyrequest",
     "CreateManagementKeyResponse": ".createmanagementkeyresponse",
     "CreateManagementKeyResponseTypedDict": ".createmanagementkeyresponse",
+    "CreateMcpGatewayRequest": ".createmcpgatewayrequest",
+    "CreateMcpGatewayRequestTypedDict": ".createmcpgatewayrequest",
+    "CreateMcpGatewayResponse": ".createmcpgatewayresponse",
+    "CreateMcpGatewayResponseTypedDict": ".createmcpgatewayresponse",
+    "CreateMcpServerRequest": ".createmcpserverrequest",
+    "CreateMcpServerRequestTypedDict": ".createmcpserverrequest",
+    "CreateMcpServerResponse": ".createmcpserverresponse",
+    "CreateMcpServerResponseTypedDict": ".createmcpserverresponse",
     "CreateMemoryDocumentRequest1": ".creatememorydocumentop",
     "CreateMemoryDocumentRequest1TypedDict": ".creatememorydocumentop",
     "CreateMemoryDocumentRequest": ".creatememorydocumentrequest",
@@ -19090,6 +19392,10 @@ _dynamic_imports: dict[str, str] = {
     "DeleteKnowledgeRequestTypedDict": ".deleteknowledgeop",
     "DeleteManagementKeyResponse": ".deletemanagementkeyresponse",
     "DeleteManagementKeyResponseTypedDict": ".deletemanagementkeyresponse",
+    "DeleteMcpGatewayResponse": ".deletemcpgatewayresponse",
+    "DeleteMcpGatewayResponseTypedDict": ".deletemcpgatewayresponse",
+    "DeleteMcpServerResponse": ".deletemcpserverresponse",
+    "DeleteMcpServerResponseTypedDict": ".deletemcpserverresponse",
     "DeleteMemoryDocumentRequest": ".deletememorydocumentop",
     "DeleteMemoryDocumentRequestTypedDict": ".deletememorydocumentop",
     "DeleteMemoryDocumentToolInput": ".deletememorydocumenttoolinput",
@@ -19731,6 +20037,8 @@ _dynamic_imports: dict[str, str] = {
     "EmbeddingCacheConfigTypedDict": ".embeddingcacheconfig",
     "EmbeddingContactParams": ".embeddingcontactparams",
     "EmbeddingContactParamsTypedDict": ".embeddingcontactparams",
+    "EmbeddingDimensionSupport": ".embeddingdimensionsupport",
+    "EmbeddingDimensionSupportTypedDict": ".embeddingdimensionsupport",
     "EmbeddingLoadBalancerConfig": ".embeddingloadbalancerconfig",
     "EmbeddingLoadBalancerConfigType": ".embeddingloadbalancerconfig",
     "EmbeddingLoadBalancerConfigTypedDict": ".embeddingloadbalancerconfig",
@@ -20499,6 +20807,10 @@ _dynamic_imports: dict[str, str] = {
     "GetLogResponseTypedDict": ".getlogresponse",
     "GetManagementKeyResponse": ".getmanagementkeyresponse",
     "GetManagementKeyResponseTypedDict": ".getmanagementkeyresponse",
+    "GetMcpGatewayResponse": ".getmcpgatewayresponse",
+    "GetMcpGatewayResponseTypedDict": ".getmcpgatewayresponse",
+    "GetMcpServerResponse": ".getmcpserverresponse",
+    "GetMcpServerResponseTypedDict": ".getmcpserverresponse",
     "GetModelCatalogModelResponse": ".getmodelcatalogmodelresponse",
     "GetModelCatalogModelResponseTypedDict": ".getmodelcatalogmodelresponse",
     "GetNotifierResponse": ".getnotifierresponse",
@@ -21596,6 +21908,12 @@ _dynamic_imports: dict[str, str] = {
     "ListManagementCapabilitiesResponseTypedDict": ".listmanagementcapabilitiesresponse",
     "ListManagementKeysResponse": ".listmanagementkeysresponse",
     "ListManagementKeysResponseTypedDict": ".listmanagementkeysresponse",
+    "ListMcpGatewaysResponse": ".listmcpgatewaysresponse",
+    "ListMcpGatewaysResponseTypedDict": ".listmcpgatewaysresponse",
+    "ListMcpGatewayToolsResponse": ".listmcpgatewaytoolsresponse",
+    "ListMcpGatewayToolsResponseTypedDict": ".listmcpgatewaytoolsresponse",
+    "ListMcpServersResponse": ".listmcpserversresponse",
+    "ListMcpServersResponseTypedDict": ".listmcpserversresponse",
     "ListMemoriesResponse": ".listmemoriesresponse",
     "ListMemoriesResponseObject": ".listmemoriesresponse",
     "ListMemoriesResponseTypedDict": ".listmemoriesresponse",
@@ -21843,9 +22161,77 @@ _dynamic_imports: dict[str, str] = {
     "ManagementPermissionMode": ".managementpermissionmode",
     "McpAccess": ".mcpaccess",
     "McpAccessTypedDict": ".mcpaccess",
+    "McpAuthConfig": ".mcpauthconfig",
+    "McpAuthConfigTypedDict": ".mcpauthconfig",
+    "McpAuthConfigOutput": ".mcpauthconfig_output",
+    "McpAuthConfigOutputTypedDict": ".mcpauthconfig_output",
+    "McpAuthType": ".mcpauthtype",
+    "McpConnection": ".mcpconnection",
+    "McpConnectionTypedDict": ".mcpconnection",
+    "McpConnectionType": ".mcpconnectiontype",
+    "McpGateway": ".mcpgateway",
+    "McpGatewayTypedDict": ".mcpgateway",
+    "McpGatewayDeleteRequest": ".mcpgatewaydeleteop",
+    "McpGatewayDeleteRequestTypedDict": ".mcpgatewaydeleteop",
+    "McpGatewayGetRequest": ".mcpgatewaygetop",
+    "McpGatewayGetRequestTypedDict": ".mcpgatewaygetop",
+    "McpGatewayListRequest": ".mcpgatewaylistop",
+    "McpGatewayListRequestTypedDict": ".mcpgatewaylistop",
+    "McpGatewayListToolsRequest": ".mcpgatewaylisttoolsop",
+    "McpGatewayListToolsRequestTypedDict": ".mcpgatewaylisttoolsop",
+    "McpGatewayMode": ".mcpgatewaymode",
+    "McpGatewayServerLink": ".mcpgatewayserverlink",
+    "McpGatewayServerLinkTypedDict": ".mcpgatewayserverlink",
+    "McpGatewayStatus": ".mcpgatewaystatus",
+    "InputSchema": ".mcpgatewaytool",
+    "InputSchemaTypedDict": ".mcpgatewaytool",
+    "McpGatewayTool": ".mcpgatewaytool",
+    "McpGatewayToolTypedDict": ".mcpgatewaytool",
+    "McpGatewayToolTestResult": ".mcpgatewaytooltestresult",
+    "McpGatewayToolTestResultTypedDict": ".mcpgatewaytooltestresult",
+    "Result": ".mcpgatewaytooltestresult",
+    "ResultTypedDict": ".mcpgatewaytooltestresult",
+    "McpGatewayUpdateRequest": ".mcpgatewayupdateop",
+    "McpGatewayUpdateRequestTypedDict": ".mcpgatewayupdateop",
+    "McpHeaderSecret": ".mcpheadersecret",
+    "McpHeaderSecretTypedDict": ".mcpheadersecret",
+    "McpHeaderSecretOutput": ".mcpheadersecret_output",
+    "McpHeaderSecretOutputTypedDict": ".mcpheadersecret_output",
+    "McpOAuthConfig": ".mcpoauthconfig",
+    "McpOAuthConfigTypedDict": ".mcpoauthconfig",
+    "McpOAuthConfigOutput": ".mcpoauthconfig_output",
+    "McpOAuthConfigOutputTypedDict": ".mcpoauthconfig_output",
+    "McpServer": ".mcpserver",
+    "McpServerTypedDict": ".mcpserver",
+    "McpServerDeleteRequest": ".mcpserverdeleteop",
+    "McpServerDeleteRequestTypedDict": ".mcpserverdeleteop",
+    "McpServerGetRequest": ".mcpservergetop",
+    "McpServerGetRequestTypedDict": ".mcpservergetop",
+    "McpServerListRequest": ".mcpserverlistop",
+    "McpServerListRequestTypedDict": ".mcpserverlistop",
+    "McpServerSyncRequest": ".mcpserversyncop",
+    "McpServerSyncRequestTypedDict": ".mcpserversyncop",
+    "McpServerTestToolRequest": ".mcpservertesttoolop",
+    "McpServerTestToolRequestTypedDict": ".mcpservertesttoolop",
+    "McpServerUpdateRequest": ".mcpserverupdateop",
+    "McpServerUpdateRequestTypedDict": ".mcpserverupdateop",
+    "McpSyncState": ".mcpsyncstate",
+    "McpSyncStateTypedDict": ".mcpsyncstate",
+    "McpTestResult": ".mcptestresult",
+    "McpTestResultTypedDict": ".mcptestresult",
+    "McpTool": ".mcptool",
+    "McpToolInputSchema": ".mcptool",
+    "McpToolInputSchemaTypedDict": ".mcptool",
+    "McpToolTypedDict": ".mcptool",
+    "McpToolAnnotations": ".mcptoolannotations",
+    "McpToolAnnotationsTypedDict": ".mcptoolannotations",
+    "McpToolExposure": ".mcptoolexposure",
+    "McpToolExposureTypedDict": ".mcptoolexposure",
+    "McpToolExposureMode": ".mcptoolexposuremode",
     "McpToolInput": ".mcptoolinput",
     "McpToolInputType": ".mcptoolinput",
     "McpToolInputTypedDict": ".mcptoolinput",
+    "McpToolNaming": ".mcptoolnaming",
     "Memory": ".memory",
     "MemoryTypedDict": ".memory",
     "MemoryDocument": ".memorydocument",
@@ -22924,8 +23310,6 @@ _dynamic_imports: dict[str, str] = {
     "AgentToolInputRunSchemaTypedDict": ".runagentop",
     "AgentToolInputRunType": ".runagentop",
     "AgentToolInputRunTypedDict": ".runagentop",
-    "Arguments": ".runagentop",
-    "ArgumentsTypedDict": ".runagentop",
     "Blueprint": ".runagentop",
     "BlueprintTypedDict": ".runagentop",
     "CodeTool": ".runagentop",
@@ -22960,6 +23344,8 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsRequestType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsType": ".runagentop",
+    "RunAgentAgentToolInputRunArguments": ".runagentop",
+    "RunAgentAgentToolInputRunArgumentsTypedDict": ".runagentop",
     "RunAgentAgentToolInputRunHeaders": ".runagentop",
     "RunAgentAgentToolInputRunHeadersTypedDict": ".runagentop",
     "RunAgentAgentToolInputRunParameters": ".runagentop",
@@ -23267,6 +23653,12 @@ _dynamic_imports: dict[str, str] = {
     "SecurityConfigTypedDict": ".securityconfig",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
+    "Sharing": ".sharing",
+    "SharingTypedDict": ".sharing",
+    "SharingAllProjects": ".sharingallprojects",
+    "SharingAllProjectsTypedDict": ".sharingallprojects",
+    "SharingSelectedProjects": ".sharingselectedprojects",
+    "SharingSelectedProjectsTypedDict": ".sharingselectedprojects",
     "SidekickToolInput": ".sidekicktoolinput",
     "SidekickToolInputType": ".sidekicktoolinput",
     "SidekickToolInputTypedDict": ".sidekicktoolinput",
@@ -23552,8 +23944,23 @@ _dynamic_imports: dict[str, str] = {
     "StructuredOutputTypedDict": ".structuredoutput",
     "StructuredToolCall": ".structuredtoolcall",
     "StructuredToolCallTypedDict": ".structuredtoolcall",
+    "SyncMcpServerRequest": ".syncmcpserverrequest",
+    "SyncMcpServerRequestTypedDict": ".syncmcpserverrequest",
+    "SyncMcpServerResponse": ".syncmcpserverresponse",
+    "SyncMcpServerResponseTypedDict": ".syncmcpserverresponse",
+    "SyncStatus": ".syncstatus",
     "Telemetry": ".telemetry",
     "TelemetryTypedDict": ".telemetry",
+    "TestMcpServerRequest": ".testmcpserverrequest",
+    "TestMcpServerRequestTypedDict": ".testmcpserverrequest",
+    "TestMcpServerResponse": ".testmcpserverresponse",
+    "TestMcpServerResponseTypedDict": ".testmcpserverresponse",
+    "Arguments": ".testmcpservertoolrequest",
+    "ArgumentsTypedDict": ".testmcpservertoolrequest",
+    "TestMcpServerToolRequest": ".testmcpservertoolrequest",
+    "TestMcpServerToolRequestTypedDict": ".testmcpservertoolrequest",
+    "TestMcpServerToolResponse": ".testmcpservertoolresponse",
+    "TestMcpServerToolResponseTypedDict": ".testmcpservertoolresponse",
     "CacheControl": ".textcontentpartschema",
     "CacheControlTypedDict": ".textcontentpartschema",
     "TTL": ".textcontentpartschema",
@@ -24229,6 +24636,14 @@ _dynamic_imports: dict[str, str] = {
     "UpdateManagementKeyRequestTypedDict": ".updatemanagementkeyrequest",
     "UpdateManagementKeyResponse": ".updatemanagementkeyresponse",
     "UpdateManagementKeyResponseTypedDict": ".updatemanagementkeyresponse",
+    "UpdateMcpGatewayRequest": ".updatemcpgatewayrequest",
+    "UpdateMcpGatewayRequestTypedDict": ".updatemcpgatewayrequest",
+    "UpdateMcpGatewayResponse": ".updatemcpgatewayresponse",
+    "UpdateMcpGatewayResponseTypedDict": ".updatemcpgatewayresponse",
+    "UpdateMcpServerRequest": ".updatemcpserverrequest",
+    "UpdateMcpServerRequestTypedDict": ".updatemcpserverrequest",
+    "UpdateMcpServerResponse": ".updatemcpserverresponse",
+    "UpdateMcpServerResponseTypedDict": ".updatemcpserverresponse",
     "UpdateMemoryDocumentRequest1": ".updatememorydocumentop",
     "UpdateMemoryDocumentRequest1TypedDict": ".updatememorydocumentop",
     "UpdateMemoryDocumentRequest": ".updatememorydocumentrequest",

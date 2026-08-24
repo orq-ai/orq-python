@@ -8,8 +8,8 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class BudgetUsageTypedDict(TypedDict):
-    r"""BudgetUsage is the current-period consumption of a budget, sourced
-    from the live Redis counters (not the exact ledger). Each dimension is
+    r"""BudgetUsage is the latest available current-period consumption used
+    for budget enforcement, not an exact billing ledger. Each dimension is
     the consumed side of the matching limit dimension: `amount` is the
     accumulated cost in USD (vs limits.amount), `tokens` is the accumulated
     token count (vs limits.token_limit), and `requests` is the count in the
@@ -28,8 +28,8 @@ class BudgetUsageTypedDict(TypedDict):
 
 
 class BudgetUsage(BaseModel):
-    r"""BudgetUsage is the current-period consumption of a budget, sourced
-    from the live Redis counters (not the exact ledger). Each dimension is
+    r"""BudgetUsage is the latest available current-period consumption used
+    for budget enforcement, not an exact billing ledger. Each dimension is
     the consumed side of the matching limit dimension: `amount` is the
     accumulated cost in USD (vs limits.amount), `tokens` is the accumulated
     token count (vs limits.token_limit), and `requests` is the count in the
