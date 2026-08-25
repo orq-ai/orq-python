@@ -28,7 +28,7 @@ class PublicScheduleTypedDict(TypedDict):
     expression: str
     r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
     generation: int
-    r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
+    r"""Monotonic counter incremented when the schedule's firing cadence changes, allowing outdated in-flight triggers to be ignored."""
     is_active: bool
     r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""
     payload: PublicSchedulePayloadTypedDict
@@ -62,7 +62,7 @@ class PublicSchedule(BaseModel):
     r"""6-field cron expression. Schedules stored before the cron-only restriction may also return an @every duration or an @at RFC3339 timestamp."""
 
     generation: int
-    r"""Monotonic counter bumped when the schedule's firing cadence changes. Used by the consumer to skip stale in-flight triggers."""
+    r"""Monotonic counter incremented when the schedule's firing cadence changes, allowing outdated in-flight triggers to be ignored."""
 
     is_active: bool
     r"""Whether the schedule is currently firing. Legacy once schedules flip to false automatically after firing."""

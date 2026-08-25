@@ -15,28 +15,28 @@ value: models.DeploymentGetConfig1Eq = /* values here */
 value: models.DeploymentGetConfig1Ne = /* values here */
 ```
 
-### `models.OneGt`
+### `models.DeploymentGetConfig1Gt`
 
 ```python
-value: models.OneGt = /* values here */
+value: models.DeploymentGetConfig1Gt = /* values here */
 ```
 
-### `models.OneGte`
+### `models.DeploymentGetConfig1Gte`
 
 ```python
-value: models.OneGte = /* values here */
+value: models.DeploymentGetConfig1Gte = /* values here */
 ```
 
-### `models.OneLt`
+### `models.DeploymentGetConfig1Lt`
 
 ```python
-value: models.OneLt = /* values here */
+value: models.DeploymentGetConfig1Lt = /* values here */
 ```
 
-### `models.OneLte`
+### `models.DeploymentGetConfig1Lte`
 
 ```python
-value: models.OneLte = /* values here */
+value: models.DeploymentGetConfig1Lte = /* values here */
 ```
 
 ### `models.DeploymentGetConfig1In`
@@ -49,11 +49,5 @@ value: models.DeploymentGetConfig1In = /* values here */
 
 ```python
 value: models.DeploymentGetConfig1Nin = /* values here */
-```
-
-### `models.OneExists`
-
-```python
-value: models.OneExists = /* values here */
 ```
 

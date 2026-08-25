@@ -51,9 +51,3 @@ value: models.CreateCompletionAndIn = /* values here */
 value: models.CreateCompletionAndNin = /* values here */
 ```
 
-### `models.CreateCompletionAndExists`
-
-```python
-value: models.CreateCompletionAndExists = /* values here */
-```
-

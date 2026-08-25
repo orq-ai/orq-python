@@ -7,18 +7,18 @@
 * [list](#list) - List memory stores
 * [create](#create) - Create memory store
 * [retrieve](#retrieve) - Retrieve memory store
-* [update](#update) - Update memory store
 * [delete](#delete) - Delete memory store
+* [update](#update) - Update memory store
 * [list_memories](#list_memories) - List all memories
 * [create_memory](#create_memory) - Create a new memory
 * [retrieve_memory](#retrieve_memory) - Retrieve a specific memory
-* [update_memory](#update_memory) - Update a specific memory
 * [delete_memory](#delete_memory) - Delete a specific memory
+* [update_memory](#update_memory) - Update a specific memory
 * [list_documents](#list_documents) - List all documents for a memory
 * [create_document](#create_document) - Create a new memory document
 * [retrieve_document](#retrieve_document) - Retrieve a specific memory document
-* [update_document](#update_document) - Update a specific memory document
 * [delete_document](#delete_document) - Delete a specific memory document
+* [update_document](#update_document) - Update a specific memory document
 
 ## list
 
@@ -47,7 +47,7 @@ with Orq(
 
 | Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
 | `search`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter memory stores by key (case-insensitive match)                                                                                                                                                                                                                                                                                    |
@@ -57,7 +57,7 @@ with Orq(
 
 ### Response
 
-**[models.GetAllMemoryStoresResponseBody](../../models/getallmemorystoresresponsebody.md)**
+**[models.ListMemoryStoresResponse](../../models/listmemorystoresresponse.md)**
 
 ### Errors
 
@@ -82,14 +82,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.memory_stores.create(request={
-        "key": "<key>",
-        "embedding_config": {
-            "model": "cohere/embed-multilingual-light-v3.0",
-        },
-        "description": "unlike excluding soulful quirkily hmph baseboard whereas gee deserted",
-        "path": "Default",
-    })
+    res = orq.memory_stores.create(key="<key>", embedding_config={
+        "model": "cohere/embed-multilingual-light-v3.0",
+    }, description="unlike excluding soulful quirkily hmph baseboard whereas gee deserted", path="Default")
 
     # Handle response
     print(res)
@@ -98,14 +93,18 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `request`                                                                           | [models.CreateMemoryStoreRequestBody](../../models/creatememorystorerequestbody.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
-| `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
+| Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                                                            | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.                                           |
+| `embedding_config`                                                                                                                                               | [models.MemoryStoreEmbeddingConfig](../../models/memorystoreembeddingconfig.md)                                                                                  | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              |
+| `description`                                                                                                                                                    | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              |
+| `path`                                                                                                                                                           | *str*                                                                                                                                                            | :heavy_check_mark:                                                                                                                                               | Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project. |
+| `ttl`                                                                                                                                                            | *OptionalNullable[float]*                                                                                                                                        | :heavy_minus_sign:                                                                                                                                               | N/A                                                                                                                                                              |
+| `retries`                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                 | :heavy_minus_sign:                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                              |
 
 ### Response
 
-**[models.CreateMemoryStoreResponseBody](../../models/creatememorystoreresponsebody.md)**
+**[models.MemoryStore](../../models/memorystore.md)**
 
 ### Errors
 
@@ -140,61 +139,18 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RetrieveMemoryStoreResponseBody](../../models/retrievememorystoreresponsebody.md)**
+**[models.MemoryStore](../../models/memorystore.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models.HonoAPIError    | 401, 403, 404          | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update
-
-Update the memory store configuration
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="UpdateMemoryStore" method="patch" path="/v2/memory-stores/{memory_store_key}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.memory_stores.update(memory_store_key="<value>", description="wherever cash since now exempt proliferate aha tabulate ack", path="Default")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                   | Type                                                                                                                                                                        | Required                                                                                                                                                                    | Description                                                                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `memory_store_key`                                                                                                                                                          | *str*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                          | The unique key identifier of the memory store                                                                                                                               |
-| `description`                                                                                                                                                               | *Optional[str]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                          | The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store.                                                |
-| `ttl`                                                                                                                                                                       | *OptionalNullable[float]*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                          | The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term. |
-| `path`                                                                                                                                                                      | *Optional[str]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                          | N/A                                                                                                                                                                         |
-| `retries`                                                                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                            | :heavy_minus_sign:                                                                                                                                                          | Configuration to override the default retry behavior of the client.                                                                                                         |
-
-### Response
-
-**[models.UpdateMemoryStoreResponseBody](../../models/updatememorystoreresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -223,8 +179,51 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## update
+
+Update the memory store configuration
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="UpdateMemoryStore" method="patch" path="/v2/memory-stores/{memory_store_key}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.memory_stores.update(memory_store_key="<value>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `description`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ttl`                                                               | *OptionalNullable[float]*                                           | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `path`                                                              | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.MemoryStore](../../models/memorystore.md)**
 
 ### Errors
 
@@ -260,7 +259,7 @@ with Orq(
 | Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `memory_store_key`                                                                                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | The unique key identifier of the memory store                                                                                                                                                                                                                                                                                           |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
 | `q`                                                                                                                                                                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Search query to filter memories by entity_id                                                                                                                                                                                                                                                                                            |
@@ -268,7 +267,7 @@ with Orq(
 
 ### Response
 
-**[models.GetAllMemoriesResponseBody](../../models/getallmemoriesresponsebody.md)**
+**[models.ListMemoriesResponse](../../models/listmemoriesresponse.md)**
 
 ### Errors
 
@@ -303,13 +302,13 @@ with Orq(
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `memory_store_key`                                                                                            | *str*                                                                                                         | :heavy_check_mark:                                                                                            | The unique key identifier of the memory store                                                                 |
+| `memory_store_key`                                                                                            | *str*                                                                                                         | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 | `entity_id`                                                                                                   | *str*                                                                                                         | :heavy_check_mark:                                                                                            | Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). |
 | `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |
 
 ### Response
 
-**[models.CreateMemoryResponseBody](../../models/creatememoryresponsebody.md)**
+**[models.Memory](../../models/memory.md)**
 
 ### Errors
 
@@ -344,13 +343,54 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
-| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the memory                                 |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RetrieveMemoryResponseBody](../../models/retrievememoryresponsebody.md)**
+**[models.Memory](../../models/memory.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete_memory
+
+Permanently deletes a specific memory.
+
+Use this endpoint to:
+- Remove a memory from the store
+- Clean up unused memories
+- Manage memory storage space
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteMemory" method="delete" path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.memory_stores.delete_memory(memory_store_key="<value>", memory_entity_id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
@@ -385,55 +425,14 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
-| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the memory                                 |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `metadata`                                                          | Dict[str, *str*]                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.UpdateMemoryResponseBody](../../models/updatememoryresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## delete_memory
-
-Permanently deletes a specific memory.
-
-        Use this endpoint to:
-        - Remove a memory from the store
-        - Clean up unused memories
-        - Manage memory storage space
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="DeleteMemory" method="delete" path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.memory_stores.delete_memory(memory_store_key="<value>", memory_entity_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
-| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the memory                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+**[models.Memory](../../models/memory.md)**
 
 ### Errors
 
@@ -470,7 +469,7 @@ with Orq(
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `memory_store_key`                                                                                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | The unique key identifier of the memory store                                                                                                                                                                                                                                                                                           |
 | `memory_entity_id`                                                                                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | The unique identifier of the memory                                                                                                                                                                                                                                                                                                     |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
 | `updated_after`                                                                                                                                                                                                                                                                                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter documents updated after this ISO datetime                                                                                                                                                                                                                                                                                        |
@@ -479,7 +478,7 @@ with Orq(
 
 ### Response
 
-**[models.GetAllMemoryDocumentsResponseBody](../../models/getallmemorydocumentsresponsebody.md)**
+**[models.ListMemoryDocumentsResponse](../../models/listmemorydocumentsresponse.md)**
 
 ### Errors
 
@@ -512,17 +511,17 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `memory_store_key`                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The unique key identifier of the memory store                                                                                                                                                                                                                           |
-| `memory_entity_id`                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The unique entity_id provided during the memory store creation                                                                                                                                                                                                          |
-| `text`                                                                                                                                                                                                                                                                  | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The content of the memory document (whitespace trimmed).                                                                                                                                                                                                                |
-| `metadata`                                                                                                                                                                                                                                                              | Dict[str, *str*]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                      | Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). |
-| `retries`                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                     |
+| Parameter                                                                                                                                                                                 | Type                                                                                                                                                                                      | Required                                                                                                                                                                                  | Description                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `memory_store_key`                                                                                                                                                                        | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | N/A                                                                                                                                                                                       |
+| `memory_entity_id`                                                                                                                                                                        | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | N/A                                                                                                                                                                                       |
+| `text`                                                                                                                                                                                    | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | The content of the memory document (whitespace trimmed).                                                                                                                                  |
+| `metadata`                                                                                                                                                                                | Dict[str, *str*]                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                        | Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs. |
+| `retries`                                                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                                                       |
 
 ### Response
 
-**[models.CreateMemoryDocumentResponseBody](../../models/creatememorydocumentresponsebody.md)**
+**[models.MemoryDocument](../../models/memorydocument.md)**
 
 ### Errors
 
@@ -557,14 +556,56 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
-| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the memory                                 |
-| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the document                               |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RetrieveMemoryDocumentResponseBody](../../models/retrievememorydocumentresponsebody.md)**
+**[models.MemoryDocument](../../models/memorydocument.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete_document
+
+Permanently deletes a specific memory document.
+
+Use this endpoint to:
+- Remove a document from a memory
+- Clean up unused documents
+- Manage document storage space
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteMemoryDocument" method="delete" path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.memory_stores.delete_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
@@ -597,60 +638,18 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `memory_store_key`                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The unique key identifier of the memory store                                                                                                                                                                                                                           |
-| `memory_entity_id`                                                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The unique identifier of the memory                                                                                                                                                                                                                                     |
-| `document_id`                                                                                                                                                                                                                                                           | *str*                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                      | The unique identifier of the document                                                                                                                                                                                                                                   |
-| `text`                                                                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                      | The content of the memory document (whitespace trimmed).                                                                                                                                                                                                                |
-| `metadata`                                                                                                                                                                                                                                                              | Dict[str, *str*]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                      | Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). |
-| `retries`                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                     |
+| Parameter                                                                                                                                                                                 | Type                                                                                                                                                                                      | Required                                                                                                                                                                                  | Description                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `memory_store_key`                                                                                                                                                                        | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | N/A                                                                                                                                                                                       |
+| `memory_entity_id`                                                                                                                                                                        | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | N/A                                                                                                                                                                                       |
+| `document_id`                                                                                                                                                                             | *str*                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                        | N/A                                                                                                                                                                                       |
+| `text`                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                        | The content of the memory document (whitespace trimmed).                                                                                                                                  |
+| `metadata`                                                                                                                                                                                | Dict[str, *str*]                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                        | Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs. |
+| `retries`                                                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                                                       |
 
 ### Response
 
-**[models.UpdateMemoryDocumentResponseBody](../../models/updatememorydocumentresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## delete_document
-
-Permanently deletes a specific memory document.
-
-        Use this endpoint to:
-        - Remove a document from a memory
-        - Clean up unused documents
-        - Manage document storage space
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="DeleteMemoryDocument" method="delete" path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.memory_stores.delete_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `memory_store_key`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique key identifier of the memory store                       |
-| `memory_entity_id`                                                  | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the memory                                 |
-| `document_id`                                                       | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the document                               |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+**[models.MemoryDocument](../../models/memorydocument.md)**
 
 ### Errors
 

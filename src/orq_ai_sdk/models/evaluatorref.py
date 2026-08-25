@@ -7,7 +7,7 @@ from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-EvaluatorRefExecuteOn = Literal[
+ExecuteOn = Literal[
     "input",
     "output",
     "both",
@@ -15,15 +15,16 @@ EvaluatorRefExecuteOn = Literal[
 
 
 class EvaluatorRefTypedDict(TypedDict):
-    execute_on: EvaluatorRefExecuteOn
+    execute_on: ExecuteOn
     id: str
     is_guardrail: NotRequired[bool]
     options: NotRequired[Dict[str, Any]]
     sample_rate: NotRequired[float]
+    timeout: NotRequired[int]
 
 
 class EvaluatorRef(BaseModel):
-    execute_on: EvaluatorRefExecuteOn
+    execute_on: ExecuteOn
 
     id: str
 
@@ -33,9 +34,11 @@ class EvaluatorRef(BaseModel):
 
     sample_rate: Optional[float] = None
 
+    timeout: Optional[int] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["is_guardrail", "options", "sample_rate"])
+        optional_fields = set(["is_guardrail", "options", "sample_rate", "timeout"])
         serialized = handler(self)
         m = {}
 

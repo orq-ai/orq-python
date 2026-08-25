@@ -22,10 +22,10 @@ from .responseexecutionlimits import (
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
 from .responsestreamevent import ResponseStreamEvent, ResponseStreamEventTypedDict
+from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .securityconfig import SecurityConfig, SecurityConfigTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
-from .telemetry import Telemetry, TelemetryTypedDict
 from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -168,7 +168,7 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
 CreateRouterResponse2ResponsesRequestRequestBodyInput2Type = Literal["input_file",]
 
 
-class CreateRouterResponse2FileTypedDict(TypedDict):
+class TwoFileTypedDict(TypedDict):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -187,7 +187,7 @@ class CreateRouterResponse2FileTypedDict(TypedDict):
     r"""The MIME type of the file (e.g., application/pdf)."""
 
 
-class CreateRouterResponse2File(BaseModel):
+class TwoFile(BaseModel):
     r"""A file content part. Provide file_id, file_data (base64), or file_url."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyInput2Type
@@ -306,7 +306,7 @@ r"""The detail level for image understanding."""
 CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
-class ImageTypedDict(TypedDict):
+class TwoImageTypedDict(TypedDict):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
@@ -319,7 +319,7 @@ class ImageTypedDict(TypedDict):
     r"""The URL of the image."""
 
 
-class Image(BaseModel):
+class TwoImage(BaseModel):
     r"""An image content part."""
 
     type: CreateRouterResponse2ResponsesRequestRequestBodyType
@@ -453,7 +453,7 @@ class TwoText(BaseModel):
 
 CreateRouterResponseContent2TypedDict = TypeAliasType(
     "CreateRouterResponseContent2TypedDict",
-    Union[TwoTextTypedDict, ImageTypedDict, CreateRouterResponse2FileTypedDict],
+    Union[TwoTextTypedDict, TwoImageTypedDict, TwoFileTypedDict],
 )
 r"""A content part within a message."""
 
@@ -461,8 +461,8 @@ r"""A content part within a message."""
 CreateRouterResponseContent2 = Annotated[
     Union[
         Annotated[TwoText, Tag("input_text")],
-        Annotated[Image, Tag("input_image")],
-        Annotated[CreateRouterResponse2File, Tag("input_file")],
+        Annotated[TwoImage, Tag("input_image")],
+        Annotated[TwoFile, Tag("input_file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -844,7 +844,7 @@ class AllowedTools(BaseModel):
 CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
-class MCPToolTypedDict(TypedDict):
+class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -860,7 +860,7 @@ class MCPToolTypedDict(TypedDict):
     r"""The MCP server endpoint URL (inline mode)."""
 
 
-class MCPTool(BaseModel):
+class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
     type: CreateRouterResponseToolsResponsesRequestType
@@ -1132,7 +1132,7 @@ CreateRouterResponseToolsTypedDict = TypeAliasType(
     Union[
         OrqAiToolTypedDict,
         ToolsFunctionTypedDict,
-        MCPToolTypedDict,
+        ToolsMCPToolTypedDict,
         OrqAdvisorToolTypedDict,
         OrqSidekickToolTypedDict,
     ],
@@ -1152,7 +1152,7 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:mcp")],
         Annotated[OrqAiTool, Tag("orq:http")],
         Annotated[OrqAiTool, Tag("orq:function")],
-        Annotated[MCPTool, Tag("mcp")],
+        Annotated[ToolsMCPTool, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1193,7 +1193,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces."""
     presence_penalty: NotRequired[float]
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
     previous_response_id: NotRequired[str]
@@ -1291,7 +1291,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Whether to allow parallel tool calls."""
 
     plugins: OptionalNullable[List[PublicPlugin]] = UNSET
-    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and response_healing, which repairs malformed JSON in non-streaming model output."""
+    r"""Request-scoped transforms applied to the text exchanged with the model. Supports pii_redaction, which replaces PII with placeholders before the provider sees it and restores the original values in the response; response_healing, which repairs malformed JSON in non-streaming model output; and trace_scrubbing, which removes selected sensitive fields from exported traces."""
 
     presence_penalty: Optional[float] = None
     r"""Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0."""
@@ -1533,8 +1533,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
-    telemetry: NotRequired[TelemetryTypedDict]
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: NotRequired[ResponseTelemetryTypedDict]
     top_k: NotRequired[int]
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
     variables: NotRequired[Dict[str, Any]]
@@ -1622,8 +1621,7 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     memory: Optional[MemoryParam] = None
 
-    telemetry: Optional[Telemetry] = None
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: Optional[ResponseTelemetry] = None
 
     top_k: Optional[int] = None
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""

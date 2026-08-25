@@ -21,6 +21,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -315,6 +316,7 @@ PluginsTypedDict = TypeAliasType(
     "PluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -326,6 +328,7 @@ Plugins = TypeAliasType(
     "Plugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1123,6 +1126,7 @@ FallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "FallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1134,6 +1138,7 @@ FallbackModelConfigurationPlugins = TypeAliasType(
     "FallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -2638,6 +2643,7 @@ CreateAgentRequestPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -2649,6 +2655,7 @@ CreateAgentRequestPlugins = TypeAliasType(
     "CreateAgentRequestPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -3413,6 +3420,7 @@ CreateAgentRequestFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -3424,6 +3432,7 @@ CreateAgentRequestFallbackModelConfigurationPlugins = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -4030,7 +4039,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -4080,7 +4089,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """

@@ -150,9 +150,9 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -315,9 +315,9 @@ class Typescript(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -468,9 +468,9 @@ class ResponseBodyPython(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -588,7 +588,7 @@ ResponseBodyMethod = Literal[
 ]
 
 
-class GetEvalResponseBodyHTTPTypedDict(TypedDict):
+class ResponseBodyHTTPTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsResponseMetadataTypedDict
     id: str
     display_name: str
@@ -612,7 +612,7 @@ class GetEvalResponseBodyHTTPTypedDict(TypedDict):
     r"""The type of output expected from the evaluator"""
 
 
-class GetEvalResponseBodyHTTP(BaseModel):
+class ResponseBodyHTTP(BaseModel):
     metadata: GetEvalResponseBodyEvalsResponseMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -637,9 +637,9 @@ class GetEvalResponseBodyHTTP(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -783,9 +783,9 @@ class JSON(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -983,9 +983,9 @@ class Ragas(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1655,9 +1655,9 @@ class ResponseBodyFunction(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1960,12 +1960,12 @@ class GetEvalResponseBodyEvalsModel(BaseModel):
         return m
 
 
-class GetEvalResponseBodyEvalsRetryTypedDict(TypedDict):
+class ResponseBodyRetryTypedDict(TypedDict):
     count: NotRequired[int]
     on_codes: NotRequired[List[int]]
 
 
-class GetEvalResponseBodyEvalsRetry(BaseModel):
+class ResponseBodyRetry(BaseModel):
     count: Optional[int] = 2
 
     on_codes: Optional[List[int]] = None
@@ -2086,26 +2086,26 @@ class GetEvalResponseBodyEvalsResponse200Model(BaseModel):
         return m
 
 
-class GetEvalResponseBodyEvalsFallbacksTypedDict(TypedDict):
+class ResponseBodyFallbacksTypedDict(TypedDict):
     model: GetEvalResponseBodyEvalsResponse200ModelTypedDict
 
 
-class GetEvalResponseBodyEvalsFallbacks(BaseModel):
+class ResponseBodyFallbacks(BaseModel):
     model: GetEvalResponseBodyEvalsResponse200Model
 
 
 class ResponseBodyJudgesTypedDict(TypedDict):
     model: GetEvalResponseBodyEvalsModelTypedDict
-    retry: NotRequired[GetEvalResponseBodyEvalsRetryTypedDict]
-    fallbacks: NotRequired[List[GetEvalResponseBodyEvalsFallbacksTypedDict]]
+    retry: NotRequired[ResponseBodyRetryTypedDict]
+    fallbacks: NotRequired[List[ResponseBodyFallbacksTypedDict]]
 
 
 class ResponseBodyJudges(BaseModel):
     model: GetEvalResponseBodyEvalsModel
 
-    retry: Optional[GetEvalResponseBodyEvalsRetry] = None
+    retry: Optional[ResponseBodyRetry] = None
 
-    fallbacks: Optional[List[GetEvalResponseBodyEvalsFallbacks]] = None
+    fallbacks: Optional[List[ResponseBodyFallbacks]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2495,9 +2495,9 @@ class ResponseBodyLLM(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-22T22:47:54.508Z"
+    created: Optional[str] = "2026-08-25T20:21:51.581Z"
 
-    updated: Optional[str] = "2026-08-22T22:47:54.508Z"
+    updated: Optional[str] = "2026-08-25T20:21:51.581Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2588,7 +2588,7 @@ GetEvalResponseBodyTypedDict = TypeAliasType(
         ResponseBodyPythonTypedDict,
         TypescriptTypedDict,
         RagasTypedDict,
-        GetEvalResponseBodyHTTPTypedDict,
+        ResponseBodyHTTPTypedDict,
         BedrockGuardrailTypedDict,
         ResponseBodyLLMTypedDict,
     ],
@@ -2602,7 +2602,7 @@ GetEvalResponseBody = Annotated[
         Annotated[ResponseBodyFunction, Tag("function_eval")],
         Annotated[Ragas, Tag("ragas")],
         Annotated[JSON, Tag("json_schema")],
-        Annotated[GetEvalResponseBodyHTTP, Tag("http_eval")],
+        Annotated[ResponseBodyHTTP, Tag("http_eval")],
         Annotated[ResponseBodyPython, Tag("python_eval")],
         Annotated[Typescript, Tag("typescript_eval")],
         Annotated[BedrockGuardrail, Tag("bedrock_eval")],
@@ -2625,7 +2625,7 @@ try:
 except NameError:
     pass
 try:
-    GetEvalResponseBodyHTTP.model_rebuild()
+    ResponseBodyHTTP.model_rebuild()
 except NameError:
     pass
 try:

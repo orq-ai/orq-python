@@ -1,0 +1,10 @@
+# ChunksServiceListResponse
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `object`                                                                               | [models.ChunksServiceListResponseObject](../models/chunksservicelistresponseobject.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `data`                                                                                 | List[[models.KnowledgeChunk](../models/knowledgechunk.md)]                             | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `has_more`                                                                             | *bool*                                                                                 | :heavy_check_mark:                                                                     | N/A                                                                                    |

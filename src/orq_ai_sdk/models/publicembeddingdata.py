@@ -6,7 +6,7 @@ from typing import Any, Literal
 from typing_extensions import TypedDict
 
 
-Object = Literal["embedding",]
+PublicEmbeddingDataObject = Literal["embedding",]
 r"""The object type, which is always \"embedding\"."""
 
 
@@ -15,7 +15,7 @@ class PublicEmbeddingDataTypedDict(TypedDict):
     r"""The embedding vector, which is a list of floats. The length of vector depends on the model. Can also be a base64-encoded string when encoding_format is base64."""
     index: int
     r"""The index of the embedding in the list of embeddings."""
-    object: Object
+    object: PublicEmbeddingDataObject
     r"""The object type, which is always \"embedding\"."""
 
 
@@ -26,5 +26,5 @@ class PublicEmbeddingData(BaseModel):
     index: int
     r"""The index of the embedding in the list of embeddings."""
 
-    object: Object
+    object: PublicEmbeddingDataObject
     r"""The object type, which is always \"embedding\"."""

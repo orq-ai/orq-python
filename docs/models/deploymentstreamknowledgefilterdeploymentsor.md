@@ -51,9 +51,3 @@ value: models.DeploymentStreamOrIn = /* values here */
 value: models.DeploymentStreamOrNin = /* values here */
 ```
 
-### `models.DeploymentStreamOrExists`
-
-```python
-value: models.DeploymentStreamOrExists = /* values here */
-```
-

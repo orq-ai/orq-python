@@ -3,7 +3,8 @@
 
 ## Fields
 
-| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `memory_store_key`                                                                         | *str*                                                                                      | :heavy_check_mark:                                                                         | The unique key identifier of the memory store                                              |
-| `request_body`                                                                             | [Optional[models.UpdateMemoryStoreRequestBody]](../models/updatememorystorerequestbody.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| Field                     | Type                      | Required                  | Description               |
+| ------------------------- | ------------------------- | ------------------------- | ------------------------- |
+| `description`             | *Optional[str]*           | :heavy_minus_sign:        | N/A                       |
+| `ttl`                     | *OptionalNullable[float]* | :heavy_minus_sign:        | N/A                       |
+| `path`                    | *Optional[str]*           | :heavy_minus_sign:        | N/A                       |

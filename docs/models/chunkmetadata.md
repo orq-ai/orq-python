@@ -1,23 +1,10 @@
 # ChunkMetadata
 
 
-## Supported Types
+## Fields
 
-### `str`
-
-```python
-value: str = /* values here */
-```
-
-### `float`
-
-```python
-value: float = /* values here */
-```
-
-### `bool`
-
-```python
-value: bool = /* values here */
-```
-
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `start_index`      | *int*              | :heavy_check_mark: | N/A                |
+| `end_index`        | *int*              | :heavy_check_mark: | N/A                |
+| `token_count`      | *int*              | :heavy_check_mark: | N/A                |

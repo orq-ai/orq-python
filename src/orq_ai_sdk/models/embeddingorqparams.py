@@ -16,7 +16,7 @@ from .embeddingtimeoutconfig import (
     EmbeddingTimeoutConfigTypedDict,
 )
 from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
-from .publicidentity import PublicIdentity, PublicIdentityTypedDict
+from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -34,8 +34,7 @@ class EmbeddingOrqParamsTypedDict(TypedDict):
     contact: NotRequired[EmbeddingContactParamsTypedDict]
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Deprecated: use top-level fallbacks instead."""
-    identity: NotRequired[PublicIdentityTypedDict]
-    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+    identity: NotRequired[ResponseIdentityTypedDict]
     load_balancer: NotRequired[EmbeddingLoadBalancerConfigTypedDict]
     name: NotRequired[str]
     r"""Deprecated: use top-level name instead."""
@@ -51,8 +50,7 @@ class EmbeddingOrqParams(BaseModel):
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Deprecated: use top-level fallbacks instead."""
 
-    identity: Optional[PublicIdentity] = None
-    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+    identity: Optional[ResponseIdentity] = None
 
     load_balancer: Optional[EmbeddingLoadBalancerConfig] = None
 

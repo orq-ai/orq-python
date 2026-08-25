@@ -147,7 +147,7 @@ with Orq(
 
 ## delete
 
-Permanently deletes a budget. Consumption counters in Redis for this budget are cleared immediately. The response body is empty on success.
+Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success.
 
 ### Example Usage
 
@@ -235,7 +235,7 @@ with Orq(
 
 ## reset_consumption
 
-Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved; only the Redis counters are reset.
+Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved.
 
 ### Example Usage
 

@@ -9,10 +9,10 @@
 value: models.PostV2FeedbackEvaluationRequestBody1 = /* values here */
 ```
 
-### `models.PostV2FeedbackEvaluationRequestBody2`
+### `models.RequestBody2`
 
 ```python
-value: models.PostV2FeedbackEvaluationRequestBody2 = /* values here */
+value: models.RequestBody2 = /* values here */
 ```
 
 ### `models.RequestBody3`

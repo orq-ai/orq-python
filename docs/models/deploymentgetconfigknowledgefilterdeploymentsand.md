@@ -51,9 +51,3 @@ value: models.DeploymentGetConfigAndIn = /* values here */
 value: models.DeploymentGetConfigAndNin = /* values here */
 ```
 
-### `models.DeploymentGetConfigAndExists`
-
-```python
-value: models.DeploymentGetConfigAndExists = /* values here */
-```
-

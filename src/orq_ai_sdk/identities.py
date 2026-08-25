@@ -291,7 +291,7 @@ class Identities(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateIdentityResponse:
+    ) -> models.CreateIdentityResponse1:
         r"""Create an identity
 
         Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
@@ -411,7 +411,10 @@ class Identities(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.CreateIdentityResponse, http_res)
+            return models.CreateIdentityResponse1(
+                result=unmarshal_json_response(models.CreateIdentityResponse, http_res),
+                headers=utils.get_response_headers(http_res.headers),
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -434,7 +437,7 @@ class Identities(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateIdentityResponse:
+    ) -> models.CreateIdentityResponse1:
         r"""Create an identity
 
         Creates a new identity with a unique external_id. If an identity with the same external_id already exists, the operation will fail.
@@ -554,7 +557,10 @@ class Identities(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(models.CreateIdentityResponse, http_res)
+            return models.CreateIdentityResponse1(
+                result=unmarshal_json_response(models.CreateIdentityResponse, http_res),
+                headers=utils.get_response_headers(http_res.headers),
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

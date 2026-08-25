@@ -1,0 +1,10 @@
+# ChunksServiceUpdateRequest
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `text`                                                                                                  | *Optional[str]*                                                                                         | :heavy_minus_sign:                                                                                      | The text content of the chunk                                                                           |
+| `embedding`                                                                                             | List[*float*]                                                                                           | :heavy_minus_sign:                                                                                      | N/A                                                                                                     |
+| `metadata`                                                                                              | Dict[str, [models.ChunksServiceUpdateRequestMetadata](../models/chunksserviceupdaterequestmetadata.md)] | :heavy_minus_sign:                                                                                      | Metadata of the chunk                                                                                   |

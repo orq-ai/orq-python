@@ -5,16 +5,16 @@ Returns the transcription or verbose transcription
 
 ## Supported Types
 
-### `models.CreateTranscriptionResponseBody1`
+### `models.ResponseBody1`
 
 ```python
-value: models.CreateTranscriptionResponseBody1 = /* values here */
+value: models.ResponseBody1 = /* values here */
 ```
 
-### `models.CreateTranscriptionResponseBody2`
+### `models.ResponseBody2`
 
 ```python
-value: models.CreateTranscriptionResponseBody2 = /* values here */
+value: models.ResponseBody2 = /* values here */
 ```
 
 ### `str`

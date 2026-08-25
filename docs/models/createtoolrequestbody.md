@@ -23,12 +23,6 @@ value: models.JSONSchemaTool = /* values here */
 value: models.HTTPTool = /* values here */
 ```
 
-### `models.RequestBodyMCPTool`
-
-```python
-value: models.RequestBodyMCPTool = /* values here */
-```
-
 ### `models.CodeExecutionTool`
 
 ```python

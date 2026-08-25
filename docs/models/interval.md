@@ -1,18 +1,17 @@
 # Interval
 
-How often the alert is evaluated. `30s` is a testing cadence.
+How often the alert is evaluated. Plan limits may enforce a minimum.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import Interval
-value: Interval = "30s"
+value: Interval = "5m"
 ```
 
 
 ## Values
 
-- `"30s"`
 - `"5m"`
 - `"15m"`
 - `"1h"`

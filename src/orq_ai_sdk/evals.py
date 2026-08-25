@@ -3,13 +3,15 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Evals(BaseSDK):
+    r"""Run an evaluator against a conversation and its result"""
+
     def all(
         self,
         *,
@@ -25,6 +27,8 @@ class Evals(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
+
+        List all evaluators in the workspace.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
@@ -134,6 +138,8 @@ class Evals(BaseSDK):
     ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
 
+        List all evaluators in the workspace.
+
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -239,6 +245,8 @@ class Evals(BaseSDK):
     ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
+        Create a new evaluator in the workspace.
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -337,6 +345,8 @@ class Evals(BaseSDK):
     ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
+        Create a new evaluator in the workspace.
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -433,11 +443,7 @@ class Evals(BaseSDK):
     ) -> models.GetEvalResponseBody:
         r"""Retrieve an Evaluator
 
-        Retrieve a single evaluator by its unique identifier. Returns the evaluator exactly as stored, including its type-specific configuration — prompt and model for LLM evaluators, source code for Python and TypeScript evaluators, the JSON Schema for schema evaluators, and so on.
-
-        Use this when you already know the evaluator id (for example to refresh the state of a resource you manage declaratively). To discover evaluator ids, list them with `GET /v2/evaluators`.
-
-        This endpoint returns the stored record, which carries more detail than the representation `GET /v2/evaluators` returns: `display_name` rather than `key`, `model` as an object rather than a provider-qualified string, plus the `owner`, `domain_id`, `metadata`, `enabled` and `output_type` fields.
+        Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
 
         :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
         :param retries: Override the default retry configuration for this method
@@ -532,11 +538,7 @@ class Evals(BaseSDK):
     ) -> models.GetEvalResponseBody:
         r"""Retrieve an Evaluator
 
-        Retrieve a single evaluator by its unique identifier. Returns the evaluator exactly as stored, including its type-specific configuration — prompt and model for LLM evaluators, source code for Python and TypeScript evaluators, the JSON Schema for schema evaluators, and so on.
-
-        Use this when you already know the evaluator id (for example to refresh the state of a resource you manage declaratively). To discover evaluator ids, list them with `GET /v2/evaluators`.
-
-        This endpoint returns the stored record, which carries more detail than the representation `GET /v2/evaluators` returns: `display_name` rather than `key`, `model` as an object rather than a provider-qualified string, plus the `owner`, `domain_id`, `metadata`, `enabled` and `output_type` fields.
+        Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
 
         :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
         :param retries: Override the default retry configuration for this method
@@ -660,6 +662,8 @@ class Evals(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
+
+        Update an evaluator by ID with the provided fields.
 
         :param id:
         :param type: Evaluator type. Optional on update — inferred from existing evaluator.
@@ -842,6 +846,8 @@ class Evals(BaseSDK):
     ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
 
+        Update an evaluator by ID with the provided fields.
+
         :param id:
         :param type: Evaluator type. Optional on update — inferred from existing evaluator.
         :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
@@ -993,6 +999,8 @@ class Evals(BaseSDK):
     ):
         r"""Delete an Evaluator
 
+        Delete an evaluator by its unique identifier.
+
         :param id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1091,6 +1099,8 @@ class Evals(BaseSDK):
     ):
         r"""Delete an Evaluator
 
+        Delete an evaluator by its unique identifier.
+
         :param id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1182,38 +1192,49 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
+        context: Optional[
+            Union[models.EvaluationContext, models.EvaluationContextTypedDict]
+        ] = None,
+        model: Optional[str] = None,
         query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
             Union[
-                Iterable[models.InvokeEvalMessages],
-                Iterable[models.InvokeEvalMessagesTypedDict],
+                Iterable[models.InvokeEvaluatorRequestMessages],
+                Iterable[models.InvokeEvaluatorRequestMessagesTypedDict],
             ]
         ] = None,
-        model: Optional[str] = None,
-        variables: Optional[
-            Union[
-                Mapping[str, Nullable[models.EvaluatorVariableValue]],
-                Mapping[str, Nullable[models.EvaluatorVariableValueTypedDict]],
-            ]
-        ] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InvokeEvalResponseBody:
+    ) -> models.InvokeEvaluatorResponse:
         r"""Invoke a Custom Evaluator
 
-        :param id: Evaluator ID
-        :param query: Latest user message
-        :param output: The generated response from the model
-        :param reference: The reference used to compare the output
-        :param retrievals: Knowledge base retrievals
-        :param messages: The messages used to generate the output, without the last user message
-        :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
-        :param variables: Template variables for evaluator prompt substitution. Request values override evaluator defaults, including for nested arrays and objects.
+        Runs an evaluator that already exists in the workspace. Accepts either a conversation or the structured input and output fields; when both are present the conversation wins.
+
+        :param id: Accepts a bare id, `id@version`, or `id@environment`.
+        :param context: The data to grade. When `messages` is present it is the conversation and
+            `input.user_query` is ignored; `output.response` is appended only when the
+            conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+        :param model: Model to grade with, as a catalog id such as \"openai/gpt-4o\".
+
+            Only meaningful for a hub template of type llm_eval or ragas, which has no
+            model of its own. A stored evaluator uses the model on its own definition
+            and ignores this.
+        :param query: Latest user message. Folds into `context.input.user_query`.
+        :param output: The generated response from the model. Folds into
+            `context.output.response`.
+        :param reference: The reference used to compare the output. Folds into
+            `context.input.expected_output`.
+        :param retrievals: Knowledge base retrievals. Folds into `context.input.retrievals`.
+        :param messages: The conversation that produced the output. Folds into
+            `context.messages`.
+        :param variables: Template variables for evaluator prompt substitution. Folds into
+            `context.variables`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1234,29 +1255,29 @@ class Evals(BaseSDK):
 
         request = models.InvokeEvalRequest(
             id=id,
-            request_body=models.InvokeEvalRequestBody(
+            invoke_evaluator_request=models.InvokeEvaluatorRequest(
+                context=utils.get_pydantic_model(
+                    context, Optional[models.EvaluationContext]
+                ),
+                model=model,
                 query=query,
                 output=output,
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.InvokeEvaluatorRequestMessages]]
                 ),
-                model=model,
-                variables=utils.unmarshal(
-                    variables,
-                    Optional[Dict[str, Nullable[models.EvaluatorVariableValue]]],
-                ),
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             ),
         )
 
         req = self._build_request(
             method="POST",
-            path="/v2/evaluators/{id}/invoke",
+            path="/v3/evaluators/{id}/invoke",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1264,11 +1285,11 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.invoke_evaluator_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.InvokeEvalRequestBody],
+                models.InvokeEvaluatorRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1292,31 +1313,40 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "invoke",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Run an evaluator",
+                            "lang": "curl",
+                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Run an evaluator",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nevaluation = client.evals.invoke(\n    id="01KT1FCSA8N3YD1K8YBPVTAV9E",\n    context={\n        "input": {\n            "user_query": "What is the capital of France?",\n            "expected_output": "Paris",\n            "retrievals": ["The capital of France is Paris."],\n        },\n        "output": {"response": "The capital of France is Paris."},\n        "variables": {"tone": "formal"},\n    },\n)\n\n# `passed` is the guardrail\'s decision when the evaluator has one, and the\n# grader\'s own judgement otherwise. `value` carries the verdict itself,\n# whose type follows the evaluator: a boolean, a score, a label.\nprint(evaluation.passed, evaluation.value)\n',
+                        },
+                        {
+                            "label": "Node.js - Run an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                        },
+                        {
+                            "label": "Core - Grade a conversation instead of a single turn",
+                            "lang": "curl",
+                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InvokeEvalResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponseResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "500", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponse500ResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponse500ResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.InvokeEvaluatorResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1330,38 +1360,49 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
+        context: Optional[
+            Union[models.EvaluationContext, models.EvaluationContextTypedDict]
+        ] = None,
+        model: Optional[str] = None,
         query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[
             Union[
-                Iterable[models.InvokeEvalMessages],
-                Iterable[models.InvokeEvalMessagesTypedDict],
+                Iterable[models.InvokeEvaluatorRequestMessages],
+                Iterable[models.InvokeEvaluatorRequestMessagesTypedDict],
             ]
         ] = None,
-        model: Optional[str] = None,
-        variables: Optional[
-            Union[
-                Mapping[str, Nullable[models.EvaluatorVariableValue]],
-                Mapping[str, Nullable[models.EvaluatorVariableValueTypedDict]],
-            ]
-        ] = None,
+        variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InvokeEvalResponseBody:
+    ) -> models.InvokeEvaluatorResponse:
         r"""Invoke a Custom Evaluator
 
-        :param id: Evaluator ID
-        :param query: Latest user message
-        :param output: The generated response from the model
-        :param reference: The reference used to compare the output
-        :param retrievals: Knowledge base retrievals
-        :param messages: The messages used to generate the output, without the last user message
-        :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
-        :param variables: Template variables for evaluator prompt substitution. Request values override evaluator defaults, including for nested arrays and objects.
+        Runs an evaluator that already exists in the workspace. Accepts either a conversation or the structured input and output fields; when both are present the conversation wins.
+
+        :param id: Accepts a bare id, `id@version`, or `id@environment`.
+        :param context: The data to grade. When `messages` is present it is the conversation and
+            `input.user_query` is ignored; `output.response` is appended only when the
+            conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+        :param model: Model to grade with, as a catalog id such as \"openai/gpt-4o\".
+
+            Only meaningful for a hub template of type llm_eval or ragas, which has no
+            model of its own. A stored evaluator uses the model on its own definition
+            and ignores this.
+        :param query: Latest user message. Folds into `context.input.user_query`.
+        :param output: The generated response from the model. Folds into
+            `context.output.response`.
+        :param reference: The reference used to compare the output. Folds into
+            `context.input.expected_output`.
+        :param retrievals: Knowledge base retrievals. Folds into `context.input.retrievals`.
+        :param messages: The conversation that produced the output. Folds into
+            `context.messages`.
+        :param variables: Template variables for evaluator prompt substitution. Folds into
+            `context.variables`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1382,29 +1423,29 @@ class Evals(BaseSDK):
 
         request = models.InvokeEvalRequest(
             id=id,
-            request_body=models.InvokeEvalRequestBody(
+            invoke_evaluator_request=models.InvokeEvaluatorRequest(
+                context=utils.get_pydantic_model(
+                    context, Optional[models.EvaluationContext]
+                ),
+                model=model,
                 query=query,
                 output=output,
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvalMessages]]
+                    messages, Optional[List[models.InvokeEvaluatorRequestMessages]]
                 ),
-                model=model,
-                variables=utils.unmarshal(
-                    variables,
-                    Optional[Dict[str, Nullable[models.EvaluatorVariableValue]]],
-                ),
+                variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             ),
         )
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/evaluators/{id}/invoke",
+            path="/v3/evaluators/{id}/invoke",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1412,11 +1453,11 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
+                request.invoke_evaluator_request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.InvokeEvalRequestBody],
+                models.InvokeEvaluatorRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1440,31 +1481,40 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "invoke",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Run an evaluator",
+                            "lang": "curl",
+                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
+                        },
+                        {
+                            "label": "Python - Run an evaluator",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nevaluation = client.evals.invoke(\n    id="01KT1FCSA8N3YD1K8YBPVTAV9E",\n    context={\n        "input": {\n            "user_query": "What is the capital of France?",\n            "expected_output": "Paris",\n            "retrievals": ["The capital of France is Paris."],\n        },\n        "output": {"response": "The capital of France is Paris."},\n        "variables": {"tone": "formal"},\n    },\n)\n\n# `passed` is the guardrail\'s decision when the evaluator has one, and the\n# grader\'s own judgement otherwise. `value` carries the verdict itself,\n# whose type follows the evaluator: a boolean, a score, a label.\nprint(evaluation.passed, evaluation.value)\n',
+                        },
+                        {
+                            "label": "Node.js - Run an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                        },
+                        {
+                            "label": "Core - Grade a conversation instead of a single turn",
+                            "lang": "curl",
+                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
+                        },
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InvokeEvalResponseBody, http_res)
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponseResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "500", "application/json"):
-            response_data = unmarshal_json_response(
-                models.InvokeEvalEvalsResponse500ResponseBodyData, http_res
-            )
-            raise models.InvokeEvalEvalsResponse500ResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.InvokeEvaluatorResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

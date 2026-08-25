@@ -22,6 +22,8 @@ class Moderations(BaseSDK):
     ) -> models.CreateModerationResponseBody:
         r"""Create moderation
 
+        Analyze text for content policy violations using the moderation model and return classification results.
+
         :param input: Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models.
         :param model: The content moderation model you would like to use. Defaults to omni-moderation-latest
         :param retries: Override the default retry configuration for this method
@@ -128,6 +130,8 @@ class Moderations(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateModerationResponseBody:
         r"""Create moderation
+
+        Analyze text for content policy violations using the moderation model and return classification results.
 
         :param input: Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models.
         :param model: The content moderation model you would like to use. Defaults to omni-moderation-latest

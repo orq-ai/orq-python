@@ -25,10 +25,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class BudgetRestResponseTypedDict(TypedDict):
-    r"""Budget is the canonical record stored in MongoDB `budgets.entities`.
-    It replaces the embedded `constraints.budget` on api-keys and the
-    legacy CONTACT-only `budgets.configs` collection (see ADR 0007).
-    """
+    r"""Budget defines limits and matching rules used to govern consumption."""
 
     budget_id: str
     limits: BudgetLimitsRestResponseTypedDict
@@ -59,8 +56,8 @@ class BudgetRestResponseTypedDict(TypedDict):
     is_active: NotRequired[bool]
     expires_at: NotRequired[datetime]
     usage: NotRequired[BudgetUsageTypedDict]
-    r"""Live consumption for the current period, read from the Redis
-    counters the enforcement gate maintains. Populated by read paths
+    r"""Latest available consumption used for enforcement in the current
+    period. This is not an exact billing ledger. Populated by read paths
     (Get / List); omitted on write responses (Create / Update / Reset)
     where it carries no signal. Absent or all-zero for a budget that
     has not been spent against in the current period.
@@ -70,10 +67,7 @@ class BudgetRestResponseTypedDict(TypedDict):
 
 
 class BudgetRestResponse(BaseModel):
-    r"""Budget is the canonical record stored in MongoDB `budgets.entities`.
-    It replaces the embedded `constraints.budget` on api-keys and the
-    legacy CONTACT-only `budgets.configs` collection (see ADR 0007).
-    """
+    r"""Budget defines limits and matching rules used to govern consumption."""
 
     budget_id: Annotated[str, pydantic.Field(alias="budgetId")]
 
@@ -115,8 +109,8 @@ class BudgetRestResponse(BaseModel):
     expires_at: Annotated[Optional[datetime], pydantic.Field(alias="expiresAt")] = None
 
     usage: Optional[BudgetUsage] = None
-    r"""Live consumption for the current period, read from the Redis
-    counters the enforcement gate maintains. Populated by read paths
+    r"""Latest available consumption used for enforcement in the current
+    period. This is not an exact billing ledger. Populated by read paths
     (Get / List); omitted on write responses (Create / Update / Reset)
     where it carries no signal. Absent or all-zero for a budget that
     has not been spent against in the current period.

@@ -424,19 +424,7 @@ CreateCompletionSearchType = Literal[
     "keyword_search",
     "hybrid_search",
 ]
-r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
-
-
-class CreateCompletionOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletionOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
+r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
 CreateCompletionOrRouterCompletionsNinTypedDict = TypeAliasType(
@@ -588,7 +576,6 @@ CreateCompletionFilterByRouterCompletionsOrTypedDict = TypeAliasType(
         CreateCompletionOrLteTypedDict,
         CreateCompletionOrInTypedDict,
         CreateCompletionOrNinTypedDict,
-        CreateCompletionOrExistsTypedDict,
     ],
 )
 
@@ -604,7 +591,6 @@ CreateCompletionFilterByRouterCompletionsOr = TypeAliasType(
         CreateCompletionOrLte,
         CreateCompletionOrIn,
         CreateCompletionOrNin,
-        CreateCompletionOrExists,
     ],
 )
 
@@ -622,18 +608,6 @@ class CreateCompletionFilterByOr(BaseModel):
         List[Dict[str, CreateCompletionFilterByRouterCompletionsOr]],
         pydantic.Field(alias="or"),
     ]
-
-
-class CreateCompletionAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletionAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateCompletionAndRouterCompletionsNinTypedDict = TypeAliasType(
@@ -785,7 +759,6 @@ CreateCompletionFilterByRouterCompletionsAndTypedDict = TypeAliasType(
         CreateCompletionAndLteTypedDict,
         CreateCompletionAndInTypedDict,
         CreateCompletionAndNinTypedDict,
-        CreateCompletionAndExistsTypedDict,
     ],
 )
 
@@ -801,7 +774,6 @@ CreateCompletionFilterByRouterCompletionsAnd = TypeAliasType(
         CreateCompletionAndLte,
         CreateCompletionAndIn,
         CreateCompletionAndNin,
-        CreateCompletionAndExists,
     ],
 )
 
@@ -819,18 +791,6 @@ class CreateCompletionFilterByAnd(BaseModel):
         List[Dict[str, CreateCompletionFilterByRouterCompletionsAnd]],
         pydantic.Field(alias="and"),
     ]
-
-
-class CreateCompletion1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateCompletion1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateCompletion1RouterCompletionsNinTypedDict = TypeAliasType(
@@ -982,7 +942,6 @@ CreateCompletionFilterBy1TypedDict = TypeAliasType(
         CreateCompletion1LteTypedDict,
         CreateCompletion1InTypedDict,
         CreateCompletion1NinTypedDict,
-        CreateCompletion1ExistsTypedDict,
     ],
 )
 
@@ -998,7 +957,6 @@ CreateCompletionFilterBy1 = TypeAliasType(
         CreateCompletion1Lte,
         CreateCompletion1In,
         CreateCompletion1Nin,
-        CreateCompletion1Exists,
     ],
 )
 
@@ -1073,7 +1031,7 @@ class CreateCompletionRerankConfigTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
 
 class CreateCompletionRerankConfig(BaseModel):
@@ -1086,7 +1044,7 @@ class CreateCompletionRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1122,12 +1080,12 @@ class CreateCompletionAgenticRagConfig(BaseModel):
 class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
-    top_k: NotRequired[int]
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
-    threshold: NotRequired[float]
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
-    search_type: NotRequired[CreateCompletionSearchType]
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    top_k: NotRequired[Nullable[int]]
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
+    threshold: NotRequired[Nullable[float]]
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
+    search_type: NotRequired[Nullable[CreateCompletionSearchType]]
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateCompletionFilterByTypedDict]
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[CreateCompletionSearchOptionsTypedDict]
@@ -1144,14 +1102,14 @@ class CreateCompletionKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
-    top_k: Optional[int] = None
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
+    top_k: OptionalNullable[int] = UNSET
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
 
-    threshold: Optional[float] = None
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+    threshold: OptionalNullable[float] = UNSET
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
 
-    search_type: Optional[CreateCompletionSearchType] = "hybrid_search"
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    search_type: OptionalNullable[CreateCompletionSearchType] = UNSET
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateCompletionFilterBy] = None
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
@@ -1182,15 +1140,24 @@ class CreateCompletionKnowledgeBases(BaseModel):
                 "query",
             ]
         )
+        nullable_fields = set(["top_k", "threshold", "search_type"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -1390,11 +1357,11 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     r"""Echo back the prompt in addition to the completion"""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
-    max_tokens: NotRequired[Nullable[float]]
+    max_tokens: NotRequired[Nullable[int]]
     r"""The maximum number of tokens that can be generated in the completion."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    seed: NotRequired[Nullable[float]]
+    seed: NotRequired[Nullable[int]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[CreateCompletionStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence."""
@@ -1402,7 +1369,7 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered."""
-    n: NotRequired[Nullable[float]]
+    n: NotRequired[Nullable[int]]
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
     user: NotRequired[str]
     r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
@@ -1440,13 +1407,13 @@ class CreateCompletionRequestBody(BaseModel):
     frequency_penalty: OptionalNullable[float] = 0
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
-    max_tokens: OptionalNullable[float] = 16
+    max_tokens: OptionalNullable[int] = 16
     r"""The maximum number of tokens that can be generated in the completion."""
 
     presence_penalty: OptionalNullable[float] = 0
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    seed: OptionalNullable[float] = UNSET
+    seed: OptionalNullable[int] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
     stop: OptionalNullable[CreateCompletionStop] = UNSET
@@ -1458,7 +1425,7 @@ class CreateCompletionRequestBody(BaseModel):
     top_p: OptionalNullable[float] = 1
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered."""
 
-    n: OptionalNullable[float] = 1
+    n: OptionalNullable[int] = 1
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
 
     user: Optional[str] = None

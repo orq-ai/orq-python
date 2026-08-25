@@ -617,7 +617,7 @@ class Datasets(BaseSDK):
         :param project_id: The unique identifier of the project it belongs to
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param retries: Override the default retry configuration for this method
@@ -732,7 +732,7 @@ class Datasets(BaseSDK):
         :param project_id: The unique identifier of the project it belongs to
         :param path: Entity storage path.
 
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
             With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
         :param retries: Override the default retry configuration for this method
@@ -1217,16 +1217,13 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[
-                Iterable[models.CreateDatasetItemRequestBody],
-                Iterable[models.CreateDatasetItemRequestBodyTypedDict],
-            ]
+            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.CreateDatasetItemResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
@@ -1254,7 +1251,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.CreateDatasetItemRequestBody]]
+                request_body, Optional[List[models.RequestBody]]
             ),
         )
 
@@ -1276,7 +1273,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.CreateDatasetItemRequestBody]],
+                Optional[List[models.RequestBody]],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1308,9 +1305,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.CreateDatasetItemResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1325,16 +1320,13 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[
-                Iterable[models.CreateDatasetItemRequestBody],
-                Iterable[models.CreateDatasetItemRequestBodyTypedDict],
-            ]
+            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.CreateDatasetItemResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
@@ -1362,7 +1354,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.CreateDatasetItemRequestBody]]
+                request_body, Optional[List[models.RequestBody]]
             ),
         )
 
@@ -1384,7 +1376,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.CreateDatasetItemRequestBody]],
+                Optional[List[models.RequestBody]],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1416,9 +1408,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.CreateDatasetItemResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1655,6 +1645,8 @@ class Datasets(BaseSDK):
     ) -> models.UpdateDatapointResponseBody:
         r"""Update a datapoint
 
+        Update a datapoint in the specified dataset.
+
         :param dataset_id: The unique identifier of the dataset
         :param datapoint_id: The unique identifier of the datapoint
         :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported.
@@ -1780,6 +1772,8 @@ class Datasets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDatapointResponseBody:
         r"""Update a datapoint
+
+        Update a datapoint in the specified dataset.
 
         :param dataset_id: The unique identifier of the dataset
         :param datapoint_id: The unique identifier of the datapoint

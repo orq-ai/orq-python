@@ -683,7 +683,7 @@ CreateDatasetItemMessages = Annotated[
 ]
 
 
-class CreateDatasetItemRequestBodyTypedDict(TypedDict):
+class RequestBodyTypedDict(TypedDict):
     inputs: NotRequired[Dict[str, Nullable[InputsTypedDict]]]
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported."""
     messages: NotRequired[List[CreateDatasetItemMessagesTypedDict]]
@@ -691,7 +691,7 @@ class CreateDatasetItemRequestBodyTypedDict(TypedDict):
     expected_output: NotRequired[str]
 
 
-class CreateDatasetItemRequestBody(BaseModel):
+class RequestBody(BaseModel):
     inputs: Optional[Dict[str, Nullable[Inputs]]] = None
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported."""
 
@@ -720,7 +720,7 @@ class CreateDatasetItemRequestBody(BaseModel):
 class CreateDatasetItemRequestTypedDict(TypedDict):
     dataset_id: str
     r"""The unique identifier of the dataset"""
-    request_body: NotRequired[List[CreateDatasetItemRequestBodyTypedDict]]
+    request_body: NotRequired[List[RequestBodyTypedDict]]
 
 
 class CreateDatasetItemRequest(BaseModel):
@@ -730,7 +730,7 @@ class CreateDatasetItemRequest(BaseModel):
     r"""The unique identifier of the dataset"""
 
     request_body: Annotated[
-        Optional[List[CreateDatasetItemRequestBody]],
+        Optional[List[RequestBody]],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 
@@ -1521,7 +1521,7 @@ class Evaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-22T22:48:17.382Z")
+    ] = parse_datetime("2026-08-25T20:22:00.487Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1666,7 +1666,7 @@ class Evaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-22T22:48:17.382Z")
+    ] = parse_datetime("2026-08-25T20:22:00.487Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1811,7 +1811,7 @@ class Evaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-22T22:48:17.370Z")
+    ] = parse_datetime("2026-08-25T20:22:00.486Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1956,7 +1956,7 @@ class Evaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-22T22:48:17.370Z")
+    ] = parse_datetime("2026-08-25T20:22:00.485Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -2008,7 +2008,7 @@ Evaluations = Annotated[
 ]
 
 
-class CreateDatasetItemResponseBodyTypedDict(TypedDict):
+class ResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
     workspace_id: str
@@ -2034,7 +2034,7 @@ class CreateDatasetItemResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class CreateDatasetItemResponseBody(BaseModel):
+class ResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the dataset item"""
 
@@ -2067,7 +2067,7 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-22T22:47:49.918Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-25T20:21:49.935Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -2109,6 +2109,6 @@ class CreateDatasetItemResponseBody(BaseModel):
 
 
 try:
-    CreateDatasetItemResponseBody.model_rebuild()
+    ResponseBody.model_rebuild()
 except NameError:
     pass

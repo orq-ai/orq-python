@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .alertcondition import AlertCondition, AlertConditionTypedDict
+from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from .alertrun import AlertRun, AlertRunTypedDict
 from datetime import datetime
@@ -70,6 +71,8 @@ class AlertTypedDict(TypedDict):
     r"""Rolling window of the most recent evaluation ticks, oldest first.
     Maintained by the evaluation engine; read-only.
     """
+    display: NotRequired[AlertDisplayTypedDict]
+    r"""Display options for the alert activity chart."""
 
 
 class Alert(BaseModel):
@@ -129,9 +132,12 @@ class Alert(BaseModel):
     Maintained by the evaluation engine; read-only.
     """
 
+    display: Optional[AlertDisplay] = None
+    r"""Display options for the alert activity chart."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["last_triggered_at", "recent_runs"])
+        optional_fields = set(["last_triggered_at", "recent_runs", "display"])
         serialized = handler(self)
         m = {}
 

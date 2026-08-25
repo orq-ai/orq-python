@@ -48,7 +48,7 @@ with Orq(
 
 ### Response
 
-**[models.ParseResponseBody](../../models/parseresponsebody.md)**
+**[models.ParseResponse](../../models/parseresponse.md)**
 
 ### Errors
 

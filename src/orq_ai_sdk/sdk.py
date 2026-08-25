@@ -30,14 +30,15 @@ if TYPE_CHECKING:
     from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
-    from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
     from orq_ai_sdk.logs import Logs
     from orq_ai_sdk.managementkeys import ManagementKeys
+    from orq_ai_sdk.mcpgateways import McpGateways
+    from orq_ai_sdk.mcpservers import McpServers
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.modelcatalog import ModelCatalog
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
-    from orq_ai_sdk.people import People
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
     from orq_ai_sdk.projects import Projects
@@ -52,6 +53,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.webhooks import Webhooks
+    from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
     from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
 
 
@@ -61,37 +63,40 @@ class Orq(BaseSDK):
     """
 
     evals: "Evals"
+    r"""Run an evaluator against a conversation and its result"""
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
     tools: "Tools"
-    knowledge: "Knowledge"
-    chunking: "Chunking"
-    memory_stores: "MemoryStores"
     datasets: "Datasets"
     router: "Router"
     annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     annotation_queues: "AnnotationQueues"
+    chunking: "Chunking"
+    knowledge: "KnowledgeSDK"
+    memory_stores: "MemoryStores"
     pii: "Pii"
-    guardrail_rules: "GuardrailRules"
     models: "Models"
     policies: "Policies"
-    routing_rules: "RoutingRules"
     alerts: "Alerts"
     api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
+    guardrail_rules: "GuardrailRules"
     identities: "Identities"
     management_keys: "ManagementKeys"
+    mcp_gateways: "McpGateways"
+    mcp_servers: "McpServers"
     model_catalog: "ModelCatalog"
     notifiers: "Notifiers"
-    people: "People"
     projects: "Projects"
+    routing_rules: "RoutingRules"
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
+    workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
     schedules: "Schedules"
     responses: "Responses"
@@ -104,33 +109,35 @@ class Orq(BaseSDK):
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
-        "chunking": ("orq_ai_sdk.chunking", "Chunking"),
-        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
+        "chunking": ("orq_ai_sdk.chunking", "Chunking"),
+        "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),
+        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
-        "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
-        "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
+        "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
+        "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
+        "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
         "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
-        "people": ("orq_ai_sdk.people", "People"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
+        "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
+        "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
         "workspace_settings": (
             "orq_ai_sdk.workspacesettings_sdk",
             "WorkspaceSettingsSDK",

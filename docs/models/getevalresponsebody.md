@@ -29,10 +29,10 @@ value: models.Ragas = /* values here */
 value: models.JSON = /* values here */
 ```
 
-### `models.GetEvalResponseBodyHTTP`
+### `models.ResponseBodyHTTP`
 
 ```python
-value: models.GetEvalResponseBodyHTTP = /* values here */
+value: models.ResponseBodyHTTP = /* values here */
 ```
 
 ### `models.ResponseBodyPython`

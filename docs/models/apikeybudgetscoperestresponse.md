@@ -1,7 +1,7 @@
 # APIKeyBudgetScopeRestResponse
 
 Per-api-key cap. Replaces the legacy embedded `constraints.budget`
- on auth.apiKeys.
+ associated with an API key.
 
 
 ## Fields

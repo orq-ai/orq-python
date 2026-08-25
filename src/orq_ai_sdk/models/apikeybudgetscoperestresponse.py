@@ -10,7 +10,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class APIKeyBudgetScopeRestResponseTypedDict(TypedDict):
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     api_key_id: NotRequired[str]
@@ -18,7 +18,7 @@ class APIKeyBudgetScopeRestResponseTypedDict(TypedDict):
 
 class APIKeyBudgetScopeRestResponse(BaseModel):
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     api_key_id: Annotated[Optional[str], pydantic.Field(alias="apiKeyId")] = None

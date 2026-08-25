@@ -25,7 +25,7 @@ class RetrieveToolRequest(BaseModel):
     ]
 
 
-RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus = Literal[
+RetrieveToolResponseBodyToolsResponse200Status = Literal[
     "live",
     "draft",
     "pending",
@@ -34,17 +34,17 @@ RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-RetrieveToolResponseBodyToolsResponse200ApplicationJSONType = Literal["code",]
+RetrieveToolResponseBodyToolsResponse200Type = Literal["code",]
 
 
-RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type = Literal["object",]
+RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type = Literal["object",]
 r"""The type must be \"object\" """
 
 
 class RetrieveToolResponseBodyToolsParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -60,7 +60,7 @@ class RetrieveToolResponseBodyToolsParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -121,282 +121,7 @@ class RetrieveToolResponseBodyCodeExecutionToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
-    key: str
-    r"""Unique key of the tool as it will be displayed in the UI"""
-    description: str
-    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    project_id: str
-    workspace_id: str
-    created: str
-    updated: str
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSONType
-    code_tool: RetrieveToolResponseBodyCodeToolTypedDict
-    id: NotRequired[str]
-    display_name: NotRequired[str]
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[Nullable[str]]
-    r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[Nullable[str]]
-    r"""The id of the user that last updated the tool"""
-    status: NotRequired[RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus]
-    r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
-    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
-
-    key: str
-    r"""Unique key of the tool as it will be displayed in the UI"""
-
-    description: str
-    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-
-    project_id: str
-
-    workspace_id: str
-
-    created: str
-
-    updated: str
-
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSONType
-
-    code_tool: RetrieveToolResponseBodyCodeTool
-
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5NFS9EW906CDWBRW4XG"
-    )
-
-    display_name: Optional[str] = None
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
-    created_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the user that created the tool"""
-
-    updated_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the user that last updated the tool"""
-
-    status: Optional[RetrieveToolResponseBodyToolsResponse200ApplicationJSONStatus] = (
-        "live"
-    )
-    r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
-        )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-RetrieveToolResponseBodyToolsResponse200Status = Literal[
-    "live",
-    "draft",
-    "pending",
-    "published",
-]
-r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-RetrieveToolResponseBodyToolsResponse200Type = Literal["mcp",]
-
-
-class RetrieveToolResponseBodyHeadersTypedDict(TypedDict):
-    value: str
-    encrypted: NotRequired[bool]
-
-
-class RetrieveToolResponseBodyHeaders(BaseModel):
-    value: str
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type = Literal["object",]
-
-
-class RetrieveToolResponseBodyToolsSchemaTypedDict(TypedDict):
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
-    properties: NotRequired[Dict[str, Any]]
-    required: NotRequired[List[str]]
-
-
-class RetrieveToolResponseBodyToolsSchema(BaseModel):
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
-
-    properties: Optional[Dict[str, Any]] = None
-
-    required: Optional[List[str]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["properties", "required"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class RetrieveToolResponseBodyToolsTypedDict(TypedDict):
-    name: str
-    schema_: RetrieveToolResponseBodyToolsSchemaTypedDict
-    id: NotRequired[str]
-    description: NotRequired[str]
-
-
-class RetrieveToolResponseBodyTools(BaseModel):
-    name: str
-
-    schema_: Annotated[
-        RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
-    ]
-
-    id: Optional[str] = "01M0NTJ5NE05DH993YWA47AA2D"
-
-    description: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["id", "description"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-RetrieveToolResponseBodyConnectionType = Literal[
-    "http",
-    "sse",
-]
-r"""The connection type used by the MCP server"""
-
-
-class RetrieveToolResponseBodyMcpTypedDict(TypedDict):
-    server_url: str
-    r"""The MCP server URL (cached for execution)"""
-    tools: List[RetrieveToolResponseBodyToolsTypedDict]
-    r"""Array of tools available from the MCP server"""
-    connection_type: RetrieveToolResponseBodyConnectionType
-    r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, RetrieveToolResponseBodyHeadersTypedDict]]
-    r"""HTTP headers for MCP server requests with encryption support"""
-    template_variables: NotRequired[Nullable[List[str]]]
-    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
-
-
-class RetrieveToolResponseBodyMcp(BaseModel):
-    server_url: str
-    r"""The MCP server URL (cached for execution)"""
-
-    tools: List[RetrieveToolResponseBodyTools]
-    r"""Array of tools available from the MCP server"""
-
-    connection_type: RetrieveToolResponseBodyConnectionType
-    r"""The connection type used by the MCP server"""
-
-    headers: Optional[Dict[str, RetrieveToolResponseBodyHeaders]] = None
-    r"""HTTP headers for MCP server requests with encryption support"""
-
-    template_variables: OptionalNullable[List[str]] = UNSET
-    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["headers", "template_variables"])
-        nullable_fields = set(["template_variables"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-class RetrieveToolResponseBodyMCPToolTypedDict(TypedDict):
-    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -409,7 +134,7 @@ class RetrieveToolResponseBodyMCPToolTypedDict(TypedDict):
     created: str
     updated: str
     type: RetrieveToolResponseBodyToolsResponse200Type
-    mcp: RetrieveToolResponseBodyMcpTypedDict
+    code_tool: RetrieveToolResponseBodyCodeToolTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -421,13 +146,13 @@ class RetrieveToolResponseBodyMCPToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RetrieveToolResponseBodyMCPTool(BaseModel):
-    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -448,10 +173,10 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
 
     type: RetrieveToolResponseBodyToolsResponse200Type
 
-    mcp: RetrieveToolResponseBodyMcp
+    code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5ND9HDH44S9F5Z3VMBE"
+        "tool_01M0X9CG0609NPF59XWYJXPFVM"
     )
 
     display_name: Optional[str] = None
@@ -542,14 +267,14 @@ class RetrieveToolHeaders2(BaseModel):
         return m
 
 
-RetrieveToolResponseBodyToolsHeadersTypedDict = TypeAliasType(
-    "RetrieveToolResponseBodyToolsHeadersTypedDict",
+RetrieveToolResponseBodyHeadersTypedDict = TypeAliasType(
+    "RetrieveToolResponseBodyHeadersTypedDict",
     Union[RetrieveToolHeaders2TypedDict, str],
 )
 
 
-RetrieveToolResponseBodyToolsHeaders = TypeAliasType(
-    "RetrieveToolResponseBodyToolsHeaders", Union[RetrieveToolHeaders2, str]
+RetrieveToolResponseBodyHeaders = TypeAliasType(
+    "RetrieveToolResponseBodyHeaders", Union[RetrieveToolHeaders2, str]
 )
 
 
@@ -560,7 +285,7 @@ class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: RetrieveToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, RetrieveToolResponseBodyToolsHeadersTypedDict]]
+    headers: NotRequired[Dict[str, RetrieveToolResponseBodyHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -577,7 +302,7 @@ class RetrieveToolResponseBodyBlueprint(BaseModel):
     method: RetrieveToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, RetrieveToolResponseBodyToolsHeaders]] = None
+    headers: Optional[Dict[str, RetrieveToolResponseBodyHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -603,7 +328,7 @@ class RetrieveToolResponseBodyBlueprint(BaseModel):
         return m
 
 
-RetrieveToolResponseBodyToolsResponse200ApplicationJSON3Type = Literal[
+RetrieveToolResponseBodyToolsResponse200ApplicationJSONType = Literal[
     "string",
     "number",
     "boolean",
@@ -624,7 +349,7 @@ r"""The default value of the argument."""
 
 
 class RetrieveToolResponseBodyArgumentsTypedDict(TypedDict):
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON3Type
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSONType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -635,7 +360,7 @@ class RetrieveToolResponseBodyArgumentsTypedDict(TypedDict):
 
 
 class RetrieveToolResponseBodyArguments(BaseModel):
-    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON3Type
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSONType
     r"""The type of the argument."""
 
     description: str
@@ -701,7 +426,7 @@ class RetrieveToolResponseBodyHTTPToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -732,7 +457,7 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -756,7 +481,7 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5NCAR4CWPZCBSTVZRDF"
+        "tool_01M0X9CG04VZCYD6QRD2GCMMWB"
     )
 
     display_name: Optional[str] = None
@@ -895,7 +620,7 @@ class RetrieveToolResponseBodyJSONSchemaToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -926,7 +651,7 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -950,7 +675,7 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5NBTG2Q723RDH11M1TM"
+        "tool_01M0X9CG0330BB47MFFE0PV8MN"
     )
 
     display_name: Optional[str] = None
@@ -1093,7 +818,7 @@ class RetrieveToolResponseBodyFunctionToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1124,7 +849,7 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1148,7 +873,7 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5NAVQVBXDQ9X7SZ2B8C"
+        "tool_01M0X9CG02Y0PVJKCQQGN9C5VX"
     )
 
     display_name: Optional[str] = None
@@ -1197,7 +922,6 @@ RetrieveToolResponseBodyTypedDict = TypeAliasType(
         RetrieveToolResponseBodyFunctionToolTypedDict,
         RetrieveToolResponseBodyJSONSchemaToolTypedDict,
         RetrieveToolResponseBodyHTTPToolTypedDict,
-        RetrieveToolResponseBodyMCPToolTypedDict,
         RetrieveToolResponseBodyCodeExecutionToolTypedDict,
     ],
 )
@@ -1209,7 +933,6 @@ RetrieveToolResponseBody = Annotated[
         Annotated[RetrieveToolResponseBodyFunctionTool, Tag("function")],
         Annotated[RetrieveToolResponseBodyJSONSchemaTool, Tag("json_schema")],
         Annotated[RetrieveToolResponseBodyHTTPTool, Tag("http")],
-        Annotated[RetrieveToolResponseBodyMCPTool, Tag("mcp")],
         Annotated[RetrieveToolResponseBodyCodeExecutionTool, Tag("code")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
@@ -1219,14 +942,6 @@ r"""Successfully retrieved the tool."""
 
 try:
     RetrieveToolResponseBodyCodeExecutionTool.model_rebuild()
-except NameError:
-    pass
-try:
-    RetrieveToolResponseBodyTools.model_rebuild()
-except NameError:
-    pass
-try:
-    RetrieveToolResponseBodyMCPTool.model_rebuild()
 except NameError:
     pass
 try:

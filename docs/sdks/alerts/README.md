@@ -97,6 +97,7 @@ with Orq(
 | `signal`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | UI signal preset the alert is created from. Defaults to `custom`.       |
 | `notifier_ids`                                                          | List[*str*]                                                             | :heavy_minus_sign:                                                      | Notifiers that receive trigger-open and trigger-resolve<br/> notifications. |
 | `enabled`                                                               | *Optional[bool]*                                                        | :heavy_minus_sign:                                                      | Whether the alert starts evaluating immediately. Defaults to true.      |
+| `display`                                                               | [Optional[models.AlertDisplay]](../../models/alertdisplay.md)           | :heavy_minus_sign:                                                      | Display options for the alert activity chart.                           |
 | `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
 
 ### Response
@@ -224,6 +225,7 @@ with Orq(
 | `condition`                                                         | [Optional[models.AlertCondition]](../../models/alertcondition.md)   | :heavy_minus_sign:                                                  | Replacement condition. Omit to keep the current condition.          |
 | `notifier_ids`                                                      | List[*str*]                                                         | :heavy_minus_sign:                                                  | Replacement notifier set. Omit to keep the current notifiers.       |
 | `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | New enabled state. Omit to keep the current state.                  |
+| `display`                                                           | [Optional[models.AlertDisplay]](../../models/alertdisplay.md)       | :heavy_minus_sign:                                                  | Display options to merge. Omitted fields keep their current values. |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

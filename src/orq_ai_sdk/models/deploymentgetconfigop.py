@@ -1472,18 +1472,6 @@ class DeploymentGetConfigThread(BaseModel):
         return m
 
 
-class DeploymentGetConfigOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentGetConfigOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 DeploymentGetConfigOrDeploymentsNinTypedDict = TypeAliasType(
     "DeploymentGetConfigOrDeploymentsNinTypedDict", Union[str, float, bool]
 )
@@ -1631,7 +1619,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
         DeploymentGetConfigOrLteTypedDict,
         DeploymentGetConfigOrInTypedDict,
         DeploymentGetConfigOrNinTypedDict,
-        DeploymentGetConfigOrExistsTypedDict,
     ],
 )
 
@@ -1647,7 +1634,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
         DeploymentGetConfigOrLte,
         DeploymentGetConfigOrIn,
         DeploymentGetConfigOrNin,
-        DeploymentGetConfigOrExists,
     ],
 )
 
@@ -1665,18 +1651,6 @@ class DeploymentGetConfigKnowledgeFilterOr(BaseModel):
         List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsOr]],
         pydantic.Field(alias="or"),
     ]
-
-
-class DeploymentGetConfigAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class DeploymentGetConfigAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentGetConfigAndDeploymentsNinTypedDict = TypeAliasType(
@@ -1828,7 +1802,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
         DeploymentGetConfigAndLteTypedDict,
         DeploymentGetConfigAndInTypedDict,
         DeploymentGetConfigAndNinTypedDict,
-        DeploymentGetConfigAndExistsTypedDict,
     ],
 )
 
@@ -1844,7 +1817,6 @@ DeploymentGetConfigKnowledgeFilterDeploymentsAnd = TypeAliasType(
         DeploymentGetConfigAndLte,
         DeploymentGetConfigAndIn,
         DeploymentGetConfigAndNin,
-        DeploymentGetConfigAndExists,
     ],
 )
 
@@ -1862,18 +1834,6 @@ class DeploymentGetConfigKnowledgeFilterAnd(BaseModel):
         List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsAnd]],
         pydantic.Field(alias="and"),
     ]
-
-
-class OneExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class OneExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 DeploymentGetConfig1DeploymentsNinTypedDict = TypeAliasType(
@@ -1920,49 +1880,49 @@ class DeploymentGetConfig1In(BaseModel):
     in_: Annotated[List[DeploymentGetConfig1DeploymentsIn], pydantic.Field(alias="in")]
 
 
-class OneLteTypedDict(TypedDict):
+class DeploymentGetConfig1LteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class OneLte(BaseModel):
+class DeploymentGetConfig1Lte(BaseModel):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class OneLtTypedDict(TypedDict):
+class DeploymentGetConfig1LtTypedDict(TypedDict):
     r"""Less than"""
 
     lt: float
 
 
-class OneLt(BaseModel):
+class DeploymentGetConfig1Lt(BaseModel):
     r"""Less than"""
 
     lt: float
 
 
-class OneGteTypedDict(TypedDict):
+class DeploymentGetConfig1GteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class OneGte(BaseModel):
+class DeploymentGetConfig1Gte(BaseModel):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class OneGtTypedDict(TypedDict):
+class DeploymentGetConfig1GtTypedDict(TypedDict):
     r"""Greater than"""
 
     gt: float
 
 
-class OneGt(BaseModel):
+class DeploymentGetConfig1Gt(BaseModel):
     r"""Greater than"""
 
     gt: float
@@ -2017,13 +1977,12 @@ DeploymentGetConfigKnowledgeFilter1TypedDict = TypeAliasType(
     Union[
         DeploymentGetConfig1EqTypedDict,
         DeploymentGetConfig1NeTypedDict,
-        OneGtTypedDict,
-        OneGteTypedDict,
-        OneLtTypedDict,
-        OneLteTypedDict,
+        DeploymentGetConfig1GtTypedDict,
+        DeploymentGetConfig1GteTypedDict,
+        DeploymentGetConfig1LtTypedDict,
+        DeploymentGetConfig1LteTypedDict,
         DeploymentGetConfig1InTypedDict,
         DeploymentGetConfig1NinTypedDict,
-        OneExistsTypedDict,
     ],
 )
 
@@ -2033,13 +1992,12 @@ DeploymentGetConfigKnowledgeFilter1 = TypeAliasType(
     Union[
         DeploymentGetConfig1Eq,
         DeploymentGetConfig1Ne,
-        OneGt,
-        OneGte,
-        OneLt,
-        OneLte,
+        DeploymentGetConfig1Gt,
+        DeploymentGetConfig1Gte,
+        DeploymentGetConfig1Lt,
+        DeploymentGetConfig1Lte,
         DeploymentGetConfig1In,
         DeploymentGetConfig1Nin,
-        OneExists,
     ],
 )
 
@@ -2237,13 +2195,13 @@ class DeploymentGetConfig2File(BaseModel):
         return m
 
 
-class DeploymentGetConfig23TypedDict(TypedDict):
+class Two3TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
 
 
-class DeploymentGetConfig23(BaseModel):
+class Two3(BaseModel):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2253,7 +2211,7 @@ class DeploymentGetConfig23(BaseModel):
 DeploymentGetConfig2DeploymentsResponse200Type = Literal["image_url",]
 
 
-class DeploymentGetConfig2ImageURLTypedDict(TypedDict):
+class TwoImageURLTypedDict(TypedDict):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
     id: NotRequired[str]
@@ -2262,7 +2220,7 @@ class DeploymentGetConfig2ImageURLTypedDict(TypedDict):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class DeploymentGetConfig2ImageURL(BaseModel):
+class TwoImageURL(BaseModel):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
 
@@ -2289,32 +2247,32 @@ class DeploymentGetConfig2ImageURL(BaseModel):
         return m
 
 
-class DeploymentGetConfig22TypedDict(TypedDict):
+class Two2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: DeploymentGetConfig2DeploymentsResponse200Type
-    image_url: DeploymentGetConfig2ImageURLTypedDict
+    image_url: TwoImageURLTypedDict
 
 
-class DeploymentGetConfig22(BaseModel):
+class Two2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: DeploymentGetConfig2DeploymentsResponse200Type
 
-    image_url: DeploymentGetConfig2ImageURL
+    image_url: TwoImageURL
 
 
 DeploymentGetConfig2DeploymentsResponseType = Literal["text",]
 
 
-class DeploymentGetConfig21TypedDict(TypedDict):
+class Two1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
     type: DeploymentGetConfig2DeploymentsResponseType
     text: str
 
 
-class DeploymentGetConfig21(BaseModel):
+class Two1(BaseModel):
     r"""Text content part of a prompt message"""
 
     type: DeploymentGetConfig2DeploymentsResponseType
@@ -2324,19 +2282,15 @@ class DeploymentGetConfig21(BaseModel):
 
 DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsResponse2TypedDict",
-    Union[
-        DeploymentGetConfig21TypedDict,
-        DeploymentGetConfig22TypedDict,
-        DeploymentGetConfig23TypedDict,
-    ],
+    Union[Two1TypedDict, Two2TypedDict, Two3TypedDict],
 )
 
 
 DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
-        Annotated[DeploymentGetConfig21, Tag("text")],
-        Annotated[DeploymentGetConfig22, Tag("image_url")],
-        Annotated[DeploymentGetConfig23, Tag("file")],
+        Annotated[Two1, Tag("text")],
+        Annotated[Two2, Tag("image_url")],
+        Annotated[Two3, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

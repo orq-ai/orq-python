@@ -8,11 +8,9 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteKnowledgeRequestTypedDict(TypedDict):
     knowledge_id: str
-    r"""The unique identifier of the knowledge base"""
 
 
 class DeleteKnowledgeRequest(BaseModel):
     knowledge_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the knowledge base"""

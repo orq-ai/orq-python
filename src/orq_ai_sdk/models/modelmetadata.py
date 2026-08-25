@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
+from .embeddingdimensionsupport import (
+    EmbeddingDimensionSupport,
+    EmbeddingDimensionSupportTypedDict,
+)
 from .pricing import Pricing, PricingTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -71,6 +75,7 @@ class ModelMetadataTypedDict(TypedDict):
     reasoning_tokens: NotRequired[int]
     region: NotRequired[str]
     speed_rating: NotRequired[int]
+    supported_embedding_dimensions: NotRequired[EmbeddingDimensionSupportTypedDict]
     supported_video_aspect_ratios: NotRequired[Nullable[List[str]]]
     supported_video_durations: NotRequired[Nullable[List[int]]]
     supported_video_frame_images: NotRequired[Nullable[List[str]]]
@@ -249,6 +254,8 @@ class ModelMetadata(BaseModel):
     region: Optional[str] = None
 
     speed_rating: Optional[int] = None
+
+    supported_embedding_dimensions: Optional[EmbeddingDimensionSupport] = None
 
     supported_video_aspect_ratios: OptionalNullable[List[str]] = UNSET
 
@@ -440,6 +447,7 @@ class ModelMetadata(BaseModel):
                 "reasoning_tokens",
                 "region",
                 "speed_rating",
+                "supported_embedding_dimensions",
                 "supported_video_aspect_ratios",
                 "supported_video_durations",
                 "supported_video_frame_images",

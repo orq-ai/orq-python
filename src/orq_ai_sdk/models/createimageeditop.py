@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .publiccontact import PublicContact, PublicContactTypedDict
 from .publicidentity import PublicIdentity, PublicIdentityTypedDict
+import io
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -13,8 +14,48 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, MultipartFormMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Any, List, Literal, Optional
+from typing import IO, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class ImageTypedDict(TypedDict):
+    file_name: str
+    content: Union[bytes, IO[bytes], io.IOBase]
+    content_type: NotRequired[str]
+
+
+class Image(BaseModel):
+    file_name: Annotated[
+        str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
+    ]
+
+    content: Annotated[
+        Union[bytes, IO[bytes], io.IOBase],
+        pydantic.Field(alias=""),
+        FieldMetadata(multipart=MultipartFormMetadata(content=True)),
+    ]
+
+    content_type: Annotated[
+        Optional[str],
+        pydantic.Field(alias="Content-Type"),
+        FieldMetadata(multipart=True),
+    ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["contentType"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 CreateImageEditQuality = Literal[
@@ -445,7 +486,7 @@ class CreateImageEditRequestBodyTypedDict(TypedDict):
     r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway-supported-models#image-models)"""
     prompt: str
     r"""A text description of the desired image(s)."""
-    image: NotRequired[Any]
+    image: NotRequired[ImageTypedDict]
     r"""The image(s) to edit. Must be a supported image file or an array of images.  Each image should be a png, webp, or jpg file less than 50MB. You can provide up to 16 images."""
     n: NotRequired[Nullable[float]]
     r"""The number of images to generate. Must be between 1 and 10."""
@@ -479,7 +520,9 @@ class CreateImageEditRequestBody(BaseModel):
     prompt: Annotated[str, FieldMetadata(multipart=True)]
     r"""A text description of the desired image(s)."""
 
-    image: Annotated[Optional[Any], FieldMetadata(multipart=True)] = None
+    image: Annotated[
+        Optional[Image], FieldMetadata(multipart=MultipartFormMetadata(file=True))
+    ] = None
     r"""The image(s) to edit. Must be a supported image file or an array of images.  Each image should be a png, webp, or jpg file less than 50MB. You can provide up to 16 images."""
 
     n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1

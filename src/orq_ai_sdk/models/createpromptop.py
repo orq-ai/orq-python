@@ -36,6 +36,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1070,6 +1071,7 @@ CreatePromptPluginsTypedDict = TypeAliasType(
     "CreatePromptPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1081,6 +1083,7 @@ CreatePromptPlugins = TypeAliasType(
     "CreatePromptPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1582,7 +1585,7 @@ class CreatePromptCreatePromptRequestTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1603,7 +1606,7 @@ class CreatePromptCreatePromptRequest(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1642,7 +1645,7 @@ class CreatePromptCreatePromptRequest(BaseModel):
 CreatePromptPromptsResponseType = Literal["prompt",]
 
 
-ModelType = Literal[
+CreatePromptModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -1948,7 +1951,7 @@ CreatePromptThinkingLevel = Literal[
 r"""The level of thinking to use for the model. Only supported by `Google AI`"""
 
 
-class ModelParametersTypedDict(TypedDict):
+class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -2004,7 +2007,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""The level of thinking to use for the model. Only supported by `Google AI`"""
 
 
-class ModelParameters(BaseModel):
+class CreatePromptModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -2468,9 +2471,9 @@ class PromptConfigTypedDict(TypedDict):
     stream: NotRequired[bool]
     model: NotRequired[Nullable[str]]
     model_db_id: NotRequired[Nullable[str]]
-    model_type: NotRequired[Nullable[ModelType]]
+    model_type: NotRequired[Nullable[CreatePromptModelType]]
     r"""The modality of the model"""
-    model_parameters: NotRequired[ModelParametersTypedDict]
+    model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[Nullable[CreatePromptProvider]]
     integration_id: NotRequired[Nullable[str]]
@@ -2492,10 +2495,10 @@ class PromptConfig(BaseModel):
 
     model_db_id: OptionalNullable[str] = UNSET
 
-    model_type: OptionalNullable[ModelType] = UNSET
+    model_type: OptionalNullable[CreatePromptModelType] = UNSET
     r"""The modality of the model"""
 
-    model_parameters: Optional[ModelParameters] = None
+    model_parameters: Optional[CreatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
     provider: OptionalNullable[CreatePromptProvider] = UNSET
@@ -2914,6 +2917,7 @@ CreatePromptPromptsPluginsTypedDict = TypeAliasType(
     "CreatePromptPromptsPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -2925,6 +2929,7 @@ CreatePromptPromptsPlugins = TypeAliasType(
     "CreatePromptPromptsPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -4205,7 +4210,7 @@ try:
 except NameError:
     pass
 try:
-    ModelParameters.model_rebuild()
+    CreatePromptModelParameters.model_rebuild()
 except NameError:
     pass
 try:

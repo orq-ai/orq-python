@@ -9,16 +9,16 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class IdentityBudgetScopeRestResponseTypedDict(TypedDict):
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
 
     identity_external_id: NotRequired[str]
 
 
 class IdentityBudgetScopeRestResponse(BaseModel):
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
 
     identity_external_id: Annotated[

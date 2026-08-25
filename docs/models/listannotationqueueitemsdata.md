@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.ListAnnotationQueueItemsData1`
+### `models.Data1`
 
 ```python
-value: models.ListAnnotationQueueItemsData1 = /* values here */
+value: models.Data1 = /* values here */
 ```
 
-### `models.ListAnnotationQueueItemsData2`
+### `models.Data2`
 
 ```python
-value: models.ListAnnotationQueueItemsData2 = /* values here */
+value: models.Data2 = /* values here */
 ```
 

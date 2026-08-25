@@ -9,6 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class InputTokensDetailsTypedDict(TypedDict):
     cache_creation_tokens: int
+    cache_write_tokens: int
     cached_tokens: int
     cache_creation_1h_tokens: NotRequired[int]
     cache_creation_5m_tokens: NotRequired[int]
@@ -16,6 +17,8 @@ class InputTokensDetailsTypedDict(TypedDict):
 
 class InputTokensDetails(BaseModel):
     cache_creation_tokens: int
+
+    cache_write_tokens: int
 
     cached_tokens: int
 

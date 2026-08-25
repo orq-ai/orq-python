@@ -1,0 +1,11 @@
+# UpdateChunkEnabledRequest
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `knowledge_id`                                                                       | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `datasource_id`                                                                      | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `chunk_id`                                                                           | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `chunks_service_set_enabled_request`                                                 | [models.ChunksServiceSetEnabledRequest](../models/chunksservicesetenabledrequest.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |

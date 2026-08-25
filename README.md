@@ -314,11 +314,11 @@ with Orq(
 ### [GuardrailRules](docs/sdks/guardrailrules/README.md)
 
 * [list](docs/sdks/guardrailrules/README.md#list) - List guardrail rules
-* [create](docs/sdks/guardrailrules/README.md#create) - Create guardrail rule
-* [list_used_guardrails](docs/sdks/guardrailrules/README.md#list_used_guardrails) - List used guardrails
-* [delete](docs/sdks/guardrailrules/README.md#delete) - Delete guardrail rule
-* [retrieve](docs/sdks/guardrailrules/README.md#retrieve) - Get guardrail rule
-* [update](docs/sdks/guardrailrules/README.md#update) - Update guardrail rule
+* [create](docs/sdks/guardrailrules/README.md#create) - Create a guardrail rule
+* [list_used_guardrails](docs/sdks/guardrailrules/README.md#list_used_guardrails) - List guardrails used by guardrail rules
+* [retrieve](docs/sdks/guardrailrules/README.md#retrieve) - Retrieve a guardrail rule
+* [delete](docs/sdks/guardrailrules/README.md#delete) - Delete a guardrail rule
+* [update](docs/sdks/guardrailrules/README.md#update) - Update a guardrail rule
 
 ### [HumanReviewSets](docs/sdks/humanreviewsets/README.md)
 
@@ -336,27 +336,30 @@ with Orq(
 * [delete](docs/sdks/identities/README.md#delete) - Delete an identity
 * [update](docs/sdks/identities/README.md#update) - Update an identity
 
-### [Knowledge](docs/sdks/knowledge/README.md)
+### [Knowledge](docs/sdks/knowledgesdk/README.md)
 
-* [list](docs/sdks/knowledge/README.md#list) - List all knowledge bases
-* [create](docs/sdks/knowledge/README.md#create) - Create a knowledge
-* [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
-* [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
-* [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
-* [search](docs/sdks/knowledge/README.md#search) - Search knowledge base
-* [list_datasources](docs/sdks/knowledge/README.md#list_datasources) - List all datasources
-* [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
-* [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource
-* [delete_datasource](docs/sdks/knowledge/README.md#delete_datasource) - Deletes a datasource
-* [update_datasource](docs/sdks/knowledge/README.md#update_datasource) - Update a datasource
-* [create_chunks](docs/sdks/knowledge/README.md#create_chunks) - Create chunks for a datasource
-* [list_chunks](docs/sdks/knowledge/README.md#list_chunks) - List all chunks for a datasource
-* [delete_chunks](docs/sdks/knowledge/README.md#delete_chunks) - Delete multiple chunks
-* [list_chunks_paginated](docs/sdks/knowledge/README.md#list_chunks_paginated) - List chunks with offset-based pagination
-* [get_chunks_count](docs/sdks/knowledge/README.md#get_chunks_count) - Get chunks total count
-* [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
-* [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
-* [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
+* [list](docs/sdks/knowledgesdk/README.md#list) - List all knowledge bases
+* [create](docs/sdks/knowledgesdk/README.md#create) - Create a knowledge
+* [retrieve](docs/sdks/knowledgesdk/README.md#retrieve) - Retrieves a knowledge base
+* [delete](docs/sdks/knowledgesdk/README.md#delete) - Deletes a knowledge
+* [update](docs/sdks/knowledgesdk/README.md#update) - Updates a knowledge
+* [list_datasources](docs/sdks/knowledgesdk/README.md#list_datasources) - List all datasources
+* [create_datasource](docs/sdks/knowledgesdk/README.md#create_datasource) - Create a new datasource
+* [retrieve_datasource](docs/sdks/knowledgesdk/README.md#retrieve_datasource) - Retrieve a datasource
+* [delete_datasource](docs/sdks/knowledgesdk/README.md#delete_datasource) - Deletes a datasource
+* [update_datasource](docs/sdks/knowledgesdk/README.md#update_datasource) - Update a datasource
+* [list_chunks](docs/sdks/knowledgesdk/README.md#list_chunks) - List all chunks for a datasource
+* [create_chunks](docs/sdks/knowledgesdk/README.md#create_chunks) - Create chunks for a datasource
+* [delete_chunks](docs/sdks/knowledgesdk/README.md#delete_chunks) - Delete multiple chunks
+* [get_chunks_count](docs/sdks/knowledgesdk/README.md#get_chunks_count) - Get chunks total count
+* [list_chunks_paginated](docs/sdks/knowledgesdk/README.md#list_chunks_paginated) - List chunks with offset-based pagination
+* [retrieve_chunk](docs/sdks/knowledgesdk/README.md#retrieve_chunk) - Retrieve a chunk
+* [delete_chunk](docs/sdks/knowledgesdk/README.md#delete_chunk) - Delete a chunk
+* [update_chunk](docs/sdks/knowledgesdk/README.md#update_chunk) - Update a chunk
+* [toggle_chunk](docs/sdks/knowledgesdk/README.md#toggle_chunk) - Set a chunk's enabled status
+* [retrieve_processing_status](docs/sdks/knowledgesdk/README.md#retrieve_processing_status) - Retrieve datasource processing status
+* [search](docs/sdks/knowledgesdk/README.md#search) - Search knowledge base
+* [retrieve_file_url](docs/sdks/knowledgesdk/README.md#retrieve_file_url) - Retrieve a file upload URL
 
 ### [Logs](docs/sdks/logs/README.md)
 
@@ -380,23 +383,42 @@ with Orq(
 * [delete](docs/sdks/managementkeys/README.md#delete) - Delete a management key
 * [update](docs/sdks/managementkeys/README.md#update) - Update a management key
 
+### [McpGateways](docs/sdks/mcpgateways/README.md)
+
+* [list](docs/sdks/mcpgateways/README.md#list) - List MCP gateways
+* [create](docs/sdks/mcpgateways/README.md#create) - Create an MCP gateway
+* [list_tools](docs/sdks/mcpgateways/README.md#list_tools) - List exposed tools for a gateway
+* [retrieve](docs/sdks/mcpgateways/README.md#retrieve) - Retrieve an MCP gateway
+* [delete](docs/sdks/mcpgateways/README.md#delete) - Delete an MCP gateway
+* [update](docs/sdks/mcpgateways/README.md#update) - Update an MCP gateway
+
+### [McpServers](docs/sdks/mcpservers/README.md)
+
+* [list](docs/sdks/mcpservers/README.md#list) - List MCP servers
+* [create](docs/sdks/mcpservers/README.md#create) - Create an MCP server
+* [retrieve](docs/sdks/mcpservers/README.md#retrieve) - Retrieve an MCP server
+* [delete](docs/sdks/mcpservers/README.md#delete) - Delete an MCP server
+* [update](docs/sdks/mcpservers/README.md#update) - Update an MCP server
+* [test_tool](docs/sdks/mcpservers/README.md#test_tool) - Test an MCP server tool
+* [sync](docs/sdks/mcpservers/README.md#sync) - Sync an MCP server
+
 ### [MemoryStores](docs/sdks/memorystores/README.md)
 
 * [list](docs/sdks/memorystores/README.md#list) - List memory stores
 * [create](docs/sdks/memorystores/README.md#create) - Create memory store
 * [retrieve](docs/sdks/memorystores/README.md#retrieve) - Retrieve memory store
-* [update](docs/sdks/memorystores/README.md#update) - Update memory store
 * [delete](docs/sdks/memorystores/README.md#delete) - Delete memory store
+* [update](docs/sdks/memorystores/README.md#update) - Update memory store
 * [list_memories](docs/sdks/memorystores/README.md#list_memories) - List all memories
 * [create_memory](docs/sdks/memorystores/README.md#create_memory) - Create a new memory
 * [retrieve_memory](docs/sdks/memorystores/README.md#retrieve_memory) - Retrieve a specific memory
-* [update_memory](docs/sdks/memorystores/README.md#update_memory) - Update a specific memory
 * [delete_memory](docs/sdks/memorystores/README.md#delete_memory) - Delete a specific memory
+* [update_memory](docs/sdks/memorystores/README.md#update_memory) - Update a specific memory
 * [list_documents](docs/sdks/memorystores/README.md#list_documents) - List all documents for a memory
 * [create_document](docs/sdks/memorystores/README.md#create_document) - Create a new memory document
 * [retrieve_document](docs/sdks/memorystores/README.md#retrieve_document) - Retrieve a specific memory document
-* [update_document](docs/sdks/memorystores/README.md#update_document) - Update a specific memory document
 * [delete_document](docs/sdks/memorystores/README.md#delete_document) - Delete a specific memory document
+* [update_document](docs/sdks/memorystores/README.md#update_document) - Update a specific memory document
 
 ### [ModelCatalog](docs/sdks/modelcatalog/README.md)
 
@@ -430,15 +452,6 @@ with Orq(
 * [get](docs/sdks/notifiers/README.md#get) - Retrieve a notifier
 * [delete](docs/sdks/notifiers/README.md#delete) - Delete a notifier
 * [update](docs/sdks/notifiers/README.md#update) - Update a notifier
-
-### [People](docs/sdks/people/README.md)
-
-* [list](docs/sdks/people/README.md#list) - List all people
-* [create](docs/sdks/people/README.md#create) - Invite people to a workspace
-* [get](docs/sdks/people/README.md#get) - Retrieve a person
-* [delete](docs/sdks/people/README.md#delete) - Delete a person
-* [update](docs/sdks/people/README.md#update) - Update a person
-* [resend_invitation](docs/sdks/people/README.md#resend_invitation) - Resend invitation
 
 ### [Pii](docs/sdks/pii/README.md)
 
@@ -532,11 +545,11 @@ with Orq(
 ### [RoutingRules](docs/sdks/routingrules/README.md)
 
 * [list](docs/sdks/routingrules/README.md#list) - List routing rules
-* [create](docs/sdks/routingrules/README.md#create) - Create routing rule
-* [list_used_models](docs/sdks/routingrules/README.md#list_used_models) - List used models
-* [delete](docs/sdks/routingrules/README.md#delete) - Delete routing rule
-* [retrieve](docs/sdks/routingrules/README.md#retrieve) - Get routing rule
-* [update](docs/sdks/routingrules/README.md#update) - Update routing rule
+* [create](docs/sdks/routingrules/README.md#create) - Create a routing rule
+* [list_used_models](docs/sdks/routingrules/README.md#list_used_models) - List models used by routing rules
+* [retrieve](docs/sdks/routingrules/README.md#retrieve) - Retrieve a routing rule
+* [delete](docs/sdks/routingrules/README.md#delete) - Delete a routing rule
+* [update](docs/sdks/routingrules/README.md#update) - Update a routing rule
 
 ### [Schedules](docs/sdks/schedules/README.md)
 
@@ -595,6 +608,17 @@ with Orq(
 * [get](docs/sdks/webhooks/README.md#get) - Retrieve a webhook
 * [delete](docs/sdks/webhooks/README.md#delete) - Delete a webhook
 * [update](docs/sdks/webhooks/README.md#update) - Update a webhook
+
+### [WorkspaceSecurity](docs/sdks/workspacesecurity/README.md)
+
+* [list_domains](docs/sdks/workspacesecurity/README.md#list_domains) - List verified domains
+* [create_domain](docs/sdks/workspacesecurity/README.md#create_domain) - Add a domain
+* [delete_domain](docs/sdks/workspacesecurity/README.md#delete_domain) - Delete a domain
+* [verify_domain](docs/sdks/workspacesecurity/README.md#verify_domain) - Verify a domain
+* [get_ip_allowlist](docs/sdks/workspacesecurity/README.md#get_ip_allowlist) - Retrieve the IP allowlist
+* [update_ip_allowlist](docs/sdks/workspacesecurity/README.md#update_ip_allowlist) - Enable or disable the IP allowlist
+* [add_ip_range](docs/sdks/workspacesecurity/README.md#add_ip_range) - Add an IP range
+* [delete_ip_range](docs/sdks/workspacesecurity/README.md#delete_ip_range) - Delete an IP range
 
 ### [WorkspaceSettings](docs/sdks/workspacesettingssdk/README.md)
 
@@ -858,7 +882,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (42)</summary>
+<details><summary>Less common errors (40)</summary>
 
 <br />
 
@@ -869,43 +893,41 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 254 methods.*
-* [`InvokeEvalEvalsResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponsebody.py): Bad request. Status code `400`. Applicable to 1 of 254 methods.*
-* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 254 methods.*
-* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 254 methods.*
-* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 254 methods.*
-* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 254 methods.*
-* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 254 methods.*
-* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`InvokeEvalEvalsResponseResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponseresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`GetV2EvaluatorsIDVersionsEvalsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 254 methods.*
-* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 254 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 254 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 254 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 254 methods.*
-* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 254 methods.*
-* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 254 methods.*
-* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 254 methods.*
-* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 254 methods.*
-* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 254 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 254 methods.*
-* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 254 methods.*
-* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 254 methods.*
-* [`InvokeEvalEvalsResponse500ResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponse500responsebody.py): Error running the evaluator. Status code `500`. Applicable to 1 of 254 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 272 methods.*
+* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 272 methods.*
+* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 272 methods.*
+* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 272 methods.*
+* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2EvaluatorsIDVersionsEvalsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 272 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 272 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 272 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>

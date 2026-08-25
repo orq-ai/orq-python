@@ -1,0 +1,10 @@
+# McpAuthConfig
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `type`                                                                                  | [models.McpAuthType](../models/mcpauthtype.md)                                          | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `static_headers`                                                                        | List[[models.McpHeaderSecret](../models/mcpheadersecret.md)]                            | :heavy_minus_sign:                                                                      | Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS. |
+| `oauth`                                                                                 | [Optional[models.McpOAuthConfig]](../models/mcpoauthconfig.md)                          | :heavy_minus_sign:                                                                      | Not settable through these endpoints.                                                   |

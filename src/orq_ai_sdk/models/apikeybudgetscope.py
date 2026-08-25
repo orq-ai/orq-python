@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class APIKeyBudgetScopeTypedDict(TypedDict):
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     api_key_id: NotRequired[str]
@@ -17,7 +17,7 @@ class APIKeyBudgetScopeTypedDict(TypedDict):
 
 class APIKeyBudgetScope(BaseModel):
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     api_key_id: Optional[str] = None

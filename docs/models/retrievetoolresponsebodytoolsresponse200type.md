@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RetrieveToolResponseBodyToolsResponse200Type
-value: RetrieveToolResponseBodyToolsResponse200Type = "mcp"
+value: RetrieveToolResponseBodyToolsResponse200Type = "code"
 ```
 
 
 ## Values
 
-- `"mcp"`
+- `"code"`

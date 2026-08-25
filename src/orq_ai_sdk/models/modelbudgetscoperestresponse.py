@@ -9,7 +9,7 @@ from typing_extensions import Annotated, TypedDict
 class ModelBudgetScopeRestResponseTypedDict(TypedDict):
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
     model_id: str
@@ -18,7 +18,7 @@ class ModelBudgetScopeRestResponseTypedDict(TypedDict):
 class ModelBudgetScopeRestResponse(BaseModel):
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
     model_id: Annotated[str, pydantic.Field(alias="modelId")]

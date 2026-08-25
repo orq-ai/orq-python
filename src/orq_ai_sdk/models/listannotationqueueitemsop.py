@@ -70,7 +70,7 @@ ListAnnotationQueueItemsObject = Literal["list",]
 ListAnnotationQueueItemsDataAnnotationQueuesType = Literal["datapoint",]
 
 
-class ListAnnotationQueueItemsData2TypedDict(TypedDict):
+class Data2TypedDict(TypedDict):
     id: str
     annotation_queue_id: str
     r"""The unique identifier of the annotation queue"""
@@ -82,7 +82,7 @@ class ListAnnotationQueueItemsData2TypedDict(TypedDict):
     r"""The unique identifiers of the human reviews that have been used to annotate the item"""
 
 
-class ListAnnotationQueueItemsData2(BaseModel):
+class Data2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     annotation_queue_id: str
@@ -118,7 +118,7 @@ class ListAnnotationQueueItemsData2(BaseModel):
 ListAnnotationQueueItemsDataType = Literal["span",]
 
 
-class ListAnnotationQueueItemsData1TypedDict(TypedDict):
+class Data1TypedDict(TypedDict):
     id: str
     annotation_queue_id: str
     r"""The unique identifier of the annotation queue"""
@@ -132,7 +132,7 @@ class ListAnnotationQueueItemsData1TypedDict(TypedDict):
     r"""The trace identifier this span belongs to"""
 
 
-class ListAnnotationQueueItemsData1(BaseModel):
+class Data1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     annotation_queue_id: str
@@ -169,18 +169,12 @@ class ListAnnotationQueueItemsData1(BaseModel):
 
 
 ListAnnotationQueueItemsDataTypedDict = TypeAliasType(
-    "ListAnnotationQueueItemsDataTypedDict",
-    Union[
-        ListAnnotationQueueItemsData2TypedDict, ListAnnotationQueueItemsData1TypedDict
-    ],
+    "ListAnnotationQueueItemsDataTypedDict", Union[Data2TypedDict, Data1TypedDict]
 )
 
 
 ListAnnotationQueueItemsData = Annotated[
-    Union[
-        Annotated[ListAnnotationQueueItemsData1, Tag("span")],
-        Annotated[ListAnnotationQueueItemsData2, Tag("datapoint")],
-    ],
+    Union[Annotated[Data1, Tag("span")], Annotated[Data2, Tag("datapoint")]],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 
@@ -204,10 +198,10 @@ class ListAnnotationQueueItemsResponseBody(BaseModel):
 
 
 try:
-    ListAnnotationQueueItemsData2.model_rebuild()
+    Data2.model_rebuild()
 except NameError:
     pass
 try:
-    ListAnnotationQueueItemsData1.model_rebuild()
+    Data1.model_rebuild()
 except NameError:
     pass

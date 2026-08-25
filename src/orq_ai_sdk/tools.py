@@ -23,7 +23,7 @@ class Tools(BaseSDK):
     ) -> models.GetAllToolsResponseBody:
         r"""List tools
 
-        Lists all workspace tools. By default, returns all tools in a single response. Set `limit` to enable cursor-based pagination with `starting_after` and `ending_before`.
+        List all workspace tools. By default returns all tools in one response. Set `limit` for cursor-based pagination.
 
         :param limit: Maximum number of tools per page (1-200). Omit to return all tools.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
@@ -122,7 +122,7 @@ class Tools(BaseSDK):
     ) -> models.GetAllToolsResponseBody:
         r"""List tools
 
-        Lists all workspace tools. By default, returns all tools in a single response. Set `limit` to enable cursor-based pagination with `starting_after` and `ending_before`.
+        List all workspace tools. By default returns all tools in one response. Set `limit` for cursor-based pagination.
 
         :param limit: Maximum number of tools per page (1-200). Omit to return all tools.
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.

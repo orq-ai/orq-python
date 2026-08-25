@@ -1436,18 +1436,6 @@ class Thread(BaseModel):
         return m
 
 
-class OrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class OrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 OrNinTypedDict = TypeAliasType("OrNinTypedDict", Union[str, float, bool])
 
 
@@ -1579,7 +1567,6 @@ OrTypedDict = TypeAliasType(
         OrLteTypedDict,
         InvokeDeploymentRequestOrInTypedDict,
         InvokeDeploymentRequestOrNinTypedDict,
-        OrExistsTypedDict,
     ],
 )
 
@@ -1595,7 +1582,6 @@ Or = TypeAliasType(
         OrLte,
         InvokeDeploymentRequestOrIn,
         InvokeDeploymentRequestOrNin,
-        OrExists,
     ],
 )
 
@@ -1610,18 +1596,6 @@ class KnowledgeFilterOr(BaseModel):
     r"""Or"""
 
     or_: Annotated[List[Dict[str, Or]], pydantic.Field(alias="or")]
-
-
-class AndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class AndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 AndNinTypedDict = TypeAliasType("AndNinTypedDict", Union[str, float, bool])
@@ -1755,7 +1729,6 @@ AndTypedDict = TypeAliasType(
         AndLteTypedDict,
         InvokeDeploymentRequestAndInTypedDict,
         InvokeDeploymentRequestAndNinTypedDict,
-        AndExistsTypedDict,
     ],
 )
 
@@ -1771,7 +1744,6 @@ And = TypeAliasType(
         AndLte,
         InvokeDeploymentRequestAndIn,
         InvokeDeploymentRequestAndNin,
-        AndExists,
     ],
 )
 
@@ -1788,31 +1760,19 @@ class KnowledgeFilterAnd(BaseModel):
     and_: Annotated[List[Dict[str, And]], pydantic.Field(alias="and")]
 
 
-class ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
-
-
 NinTypedDict = TypeAliasType("NinTypedDict", Union[str, float, bool])
 
 
 Nin = TypeAliasType("Nin", Union[str, float, bool])
 
 
-class OneNinTypedDict(TypedDict):
+class InvokeDeploymentRequest1NinTypedDict(TypedDict):
     r"""Not in"""
 
     nin: List[NinTypedDict]
 
 
-class OneNin(BaseModel):
+class InvokeDeploymentRequest1Nin(BaseModel):
     r"""Not in"""
 
     nin: List[Nin]
@@ -1824,13 +1784,13 @@ InTypedDict = TypeAliasType("InTypedDict", Union[str, float, bool])
 In = TypeAliasType("In", Union[str, float, bool])
 
 
-class OneInTypedDict(TypedDict):
+class InvokeDeploymentRequest1InTypedDict(TypedDict):
     r"""In"""
 
     in_: List[InTypedDict]
 
 
-class OneIn(BaseModel):
+class InvokeDeploymentRequest1In(BaseModel):
     r"""In"""
 
     in_: Annotated[List[In], pydantic.Field(alias="in")]
@@ -1890,13 +1850,13 @@ NeTypedDict = TypeAliasType("NeTypedDict", Union[str, float, bool])
 Ne = TypeAliasType("Ne", Union[str, float, bool])
 
 
-class OneNeTypedDict(TypedDict):
+class InvokeDeploymentRequest1NeTypedDict(TypedDict):
     r"""Not equal to"""
 
     ne: NeTypedDict
 
 
-class OneNe(BaseModel):
+class InvokeDeploymentRequest1Ne(BaseModel):
     r"""Not equal to"""
 
     ne: Ne
@@ -1908,13 +1868,13 @@ EqTypedDict = TypeAliasType("EqTypedDict", Union[str, float, bool])
 Eq = TypeAliasType("Eq", Union[str, float, bool])
 
 
-class OneEqTypedDict(TypedDict):
+class InvokeDeploymentRequest1EqTypedDict(TypedDict):
     r"""Equal to"""
 
     eq: EqTypedDict
 
 
-class OneEq(BaseModel):
+class InvokeDeploymentRequest1Eq(BaseModel):
     r"""Equal to"""
 
     eq: Eq
@@ -1923,21 +1883,30 @@ class OneEq(BaseModel):
 KnowledgeFilter1TypedDict = TypeAliasType(
     "KnowledgeFilter1TypedDict",
     Union[
-        OneEqTypedDict,
-        OneNeTypedDict,
+        InvokeDeploymentRequest1EqTypedDict,
+        InvokeDeploymentRequest1NeTypedDict,
         GtTypedDict,
         GteTypedDict,
         LtTypedDict,
         LteTypedDict,
-        OneInTypedDict,
-        OneNinTypedDict,
-        ExistsTypedDict,
+        InvokeDeploymentRequest1InTypedDict,
+        InvokeDeploymentRequest1NinTypedDict,
     ],
 )
 
 
 KnowledgeFilter1 = TypeAliasType(
-    "KnowledgeFilter1", Union[OneEq, OneNe, Gt, Gte, Lt, Lte, OneIn, OneNin, Exists]
+    "KnowledgeFilter1",
+    Union[
+        InvokeDeploymentRequest1Eq,
+        InvokeDeploymentRequest1Ne,
+        Gt,
+        Gte,
+        Lt,
+        Lte,
+        InvokeDeploymentRequest1In,
+        InvokeDeploymentRequest1Nin,
+    ],
 )
 
 
@@ -2083,6 +2052,6 @@ try:
 except NameError:
     pass
 try:
-    OneIn.model_rebuild()
+    InvokeDeploymentRequest1In.model_rebuild()
 except NameError:
     pass

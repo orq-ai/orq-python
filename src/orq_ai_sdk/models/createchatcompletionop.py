@@ -38,6 +38,7 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1198,6 +1199,7 @@ CreateChatCompletionPluginsTypedDict = TypeAliasType(
     "CreateChatCompletionPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1209,6 +1211,7 @@ CreateChatCompletionPlugins = TypeAliasType(
     "CreateChatCompletionPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1616,19 +1619,7 @@ CreateChatCompletionSearchType = Literal[
     "keyword_search",
     "hybrid_search",
 ]
-r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
-
-
-class CreateChatCompletionOrExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletionOrExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
+r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
 
 CreateChatCompletionOrRouterChatCompletionsNinTypedDict = TypeAliasType(
@@ -1769,8 +1760,8 @@ class CreateChatCompletionOrEq(BaseModel):
     eq: CreateChatCompletionOrRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict",
+CreateChatCompletionFilterByOrTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByOrTypedDict",
     Union[
         CreateChatCompletionOrEqTypedDict,
         CreateChatCompletionOrNeTypedDict,
@@ -1780,13 +1771,12 @@ CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict = TypeAliasType(
         CreateChatCompletionOrLteTypedDict,
         CreateChatCompletionOrInTypedDict,
         CreateChatCompletionOrNinTypedDict,
-        CreateChatCompletionOrExistsTypedDict,
     ],
 )
 
 
-CreateChatCompletionFilterByRouterChatCompletionsOr = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsOr",
+CreateChatCompletionFilterByOr = TypeAliasType(
+    "CreateChatCompletionFilterByOr",
     Union[
         CreateChatCompletionOrEq,
         CreateChatCompletionOrNe,
@@ -1796,36 +1786,22 @@ CreateChatCompletionFilterByRouterChatCompletionsOr = TypeAliasType(
         CreateChatCompletionOrLte,
         CreateChatCompletionOrIn,
         CreateChatCompletionOrNin,
-        CreateChatCompletionOrExists,
     ],
 )
 
 
-class CreateChatCompletionFilterByOrTypedDict(TypedDict):
+class CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict(TypedDict):
     r"""Or"""
 
-    or_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict]]
+    or_: List[Dict[str, CreateChatCompletionFilterByOrTypedDict]]
 
 
-class CreateChatCompletionFilterByOr(BaseModel):
+class CreateChatCompletionFilterByRouterChatCompletionsOr(BaseModel):
     r"""Or"""
 
     or_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOr]],
-        pydantic.Field(alias="or"),
+        List[Dict[str, CreateChatCompletionFilterByOr]], pydantic.Field(alias="or")
     ]
-
-
-class CreateChatCompletionAndExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletionAndExists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateChatCompletionAndRouterChatCompletionsNinTypedDict = TypeAliasType(
@@ -1966,8 +1942,8 @@ class CreateChatCompletionAndEq(BaseModel):
     eq: CreateChatCompletionAndRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict",
+CreateChatCompletionFilterByAndTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByAndTypedDict",
     Union[
         CreateChatCompletionAndEqTypedDict,
         CreateChatCompletionAndNeTypedDict,
@@ -1977,13 +1953,12 @@ CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict = TypeAliasType(
         CreateChatCompletionAndLteTypedDict,
         CreateChatCompletionAndInTypedDict,
         CreateChatCompletionAndNinTypedDict,
-        CreateChatCompletionAndExistsTypedDict,
     ],
 )
 
 
-CreateChatCompletionFilterByRouterChatCompletionsAnd = TypeAliasType(
-    "CreateChatCompletionFilterByRouterChatCompletionsAnd",
+CreateChatCompletionFilterByAnd = TypeAliasType(
+    "CreateChatCompletionFilterByAnd",
     Union[
         CreateChatCompletionAndEq,
         CreateChatCompletionAndNe,
@@ -1993,36 +1968,22 @@ CreateChatCompletionFilterByRouterChatCompletionsAnd = TypeAliasType(
         CreateChatCompletionAndLte,
         CreateChatCompletionAndIn,
         CreateChatCompletionAndNin,
-        CreateChatCompletionAndExists,
     ],
 )
 
 
-class CreateChatCompletionFilterByAndTypedDict(TypedDict):
+class CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict(TypedDict):
     r"""And"""
 
-    and_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict]]
+    and_: List[Dict[str, CreateChatCompletionFilterByAndTypedDict]]
 
 
-class CreateChatCompletionFilterByAnd(BaseModel):
+class CreateChatCompletionFilterByRouterChatCompletionsAnd(BaseModel):
     r"""And"""
 
     and_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAnd]],
-        pydantic.Field(alias="and"),
+        List[Dict[str, CreateChatCompletionFilterByAnd]], pydantic.Field(alias="and")
     ]
-
-
-class CreateChatCompletion1ExistsTypedDict(TypedDict):
-    r"""Exists"""
-
-    exists: bool
-
-
-class CreateChatCompletion1Exists(BaseModel):
-    r"""Exists"""
-
-    exists: bool
 
 
 CreateChatCompletion1RouterChatCompletionsNinTypedDict = TypeAliasType(
@@ -2174,7 +2135,6 @@ CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
         CreateChatCompletion1LteTypedDict,
         CreateChatCompletion1InTypedDict,
         CreateChatCompletion1NinTypedDict,
-        CreateChatCompletion1ExistsTypedDict,
     ],
 )
 
@@ -2190,7 +2150,6 @@ CreateChatCompletionFilterBy1 = TypeAliasType(
         CreateChatCompletion1Lte,
         CreateChatCompletion1In,
         CreateChatCompletion1Nin,
-        CreateChatCompletion1Exists,
     ],
 )
 
@@ -2198,8 +2157,8 @@ CreateChatCompletionFilterBy1 = TypeAliasType(
 CreateChatCompletionFilterByTypedDict = TypeAliasType(
     "CreateChatCompletionFilterByTypedDict",
     Union[
-        CreateChatCompletionFilterByAndTypedDict,
-        CreateChatCompletionFilterByOrTypedDict,
+        CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict,
+        CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict,
         Dict[str, CreateChatCompletionFilterBy1TypedDict],
     ],
 )
@@ -2209,8 +2168,8 @@ r"""The metadata filter to apply to the search. Check the [Searching a Knowledge
 CreateChatCompletionFilterBy = TypeAliasType(
     "CreateChatCompletionFilterBy",
     Union[
-        CreateChatCompletionFilterByAnd,
-        CreateChatCompletionFilterByOr,
+        CreateChatCompletionFilterByRouterChatCompletionsAnd,
+        CreateChatCompletionFilterByRouterChatCompletionsOr,
         Dict[str, CreateChatCompletionFilterBy1],
     ],
 )
@@ -2265,7 +2224,7 @@ class CreateChatCompletionRerankConfigTypedDict(TypedDict):
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
 
 class CreateChatCompletionRerankConfig(BaseModel):
@@ -2278,7 +2237,7 @@ class CreateChatCompletionRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10
-    r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
+    r"""The number of top results to return after reranking. Defaults to `10`."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2314,12 +2273,12 @@ class CreateChatCompletionAgenticRagConfig(BaseModel):
 class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
-    top_k: NotRequired[int]
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
-    threshold: NotRequired[float]
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
-    search_type: NotRequired[CreateChatCompletionSearchType]
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    top_k: NotRequired[Nullable[int]]
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
+    threshold: NotRequired[Nullable[float]]
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
+    search_type: NotRequired[Nullable[CreateChatCompletionSearchType]]
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateChatCompletionFilterByTypedDict]
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[CreateChatCompletionSearchOptionsTypedDict]
@@ -2336,14 +2295,14 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
-    top_k: Optional[int] = None
-    r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`."""
+    top_k: OptionalNullable[int] = UNSET
+    r"""The number of results to return. Send `null` or omit to use the knowledge base configured `top_k`."""
 
-    threshold: Optional[float] = None
-    r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+    threshold: OptionalNullable[float] = UNSET
+    r"""The threshold to apply to the search. Send `null` or omit to use the knowledge base configured `threshold`"""
 
-    search_type: Optional[CreateChatCompletionSearchType] = "hybrid_search"
-    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
+    search_type: OptionalNullable[CreateChatCompletionSearchType] = UNSET
+    r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateChatCompletionFilterBy] = None
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
@@ -2374,15 +2333,24 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
                 "query",
             ]
         )
+        nullable_fields = set(["top_k", "threshold", "search_type"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
@@ -4325,7 +4293,7 @@ try:
 except NameError:
     pass
 try:
-    CreateChatCompletionFilterByOr.model_rebuild()
+    CreateChatCompletionFilterByRouterChatCompletionsOr.model_rebuild()
 except NameError:
     pass
 try:
@@ -4333,7 +4301,7 @@ try:
 except NameError:
     pass
 try:
-    CreateChatCompletionFilterByAnd.model_rebuild()
+    CreateChatCompletionFilterByRouterChatCompletionsAnd.model_rebuild()
 except NameError:
     pass
 try:

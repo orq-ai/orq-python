@@ -1,11 +1,7 @@
 # Config
 
 
-## Supported Types
+## Fields
 
-### `models.Config1`
-
-```python
-value: models.Config1 = /* values here */
-```
-
+| Field       | Type        | Required    | Description |
+| ----------- | ----------- | ----------- | ----------- |

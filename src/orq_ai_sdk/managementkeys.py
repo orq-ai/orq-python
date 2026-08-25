@@ -236,7 +236,7 @@ class ManagementKeys(BaseSDK):
         *,
         name: str,
         permission_mode: Optional[models.ManagementPermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -278,7 +278,7 @@ class ManagementKeys(BaseSDK):
         request = models.CreateManagementKeyRequest(
             name=name,
             permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, int]]),
+            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
         )
 
@@ -343,7 +343,7 @@ class ManagementKeys(BaseSDK):
         *,
         name: str,
         permission_mode: Optional[models.ManagementPermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -385,7 +385,7 @@ class ManagementKeys(BaseSDK):
         request = models.CreateManagementKeyRequest(
             name=name,
             permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, int]]),
+            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
         )
 
@@ -976,7 +976,7 @@ class ManagementKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.ManagementKeyStatus] = None,
         permission_mode: Optional[models.ManagementPermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1022,7 +1022,7 @@ class ManagementKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, int]]),
+                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
             ),
@@ -1095,7 +1095,7 @@ class ManagementKeys(BaseSDK):
         name: Optional[str] = None,
         status: Optional[models.ManagementKeyStatus] = None,
         permission_mode: Optional[models.ManagementPermissionMode] = None,
-        access: Optional[Mapping[str, int]] = None,
+        access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         clear_expires_at: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1141,7 +1141,7 @@ class ManagementKeys(BaseSDK):
                 name=name,
                 status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, int]]),
+                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 expires_at=expires_at,
                 clear_expires_at=clear_expires_at,
             ),

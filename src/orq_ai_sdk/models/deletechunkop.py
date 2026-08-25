@@ -7,26 +7,20 @@ from typing_extensions import Annotated, TypedDict
 
 
 class DeleteChunkRequestTypedDict(TypedDict):
-    chunk_id: str
-    r"""The unique identifier of the chunk"""
-    datasource_id: str
-    r"""The unique identifier of the data source"""
     knowledge_id: str
-    r"""The unique identifier of the knowledge base"""
+    datasource_id: str
+    chunk_id: str
 
 
 class DeleteChunkRequest(BaseModel):
-    chunk_id: Annotated[
+    knowledge_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the chunk"""
 
     datasource_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the data source"""
 
-    knowledge_id: Annotated[
+    chunk_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the knowledge base"""

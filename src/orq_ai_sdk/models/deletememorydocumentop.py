@@ -8,25 +8,19 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteMemoryDocumentRequestTypedDict(TypedDict):
     memory_store_key: str
-    r"""The unique key identifier of the memory store"""
     memory_entity_id: str
-    r"""The unique identifier of the memory"""
     document_id: str
-    r"""The unique identifier of the document"""
 
 
 class DeleteMemoryDocumentRequest(BaseModel):
     memory_store_key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique key identifier of the memory store"""
 
     memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the memory"""
 
     document_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the document"""

@@ -8,11 +8,9 @@ from typing_extensions import Annotated, TypedDict
 
 class GuardrailRuleDeleteRequestTypedDict(TypedDict):
     guardrail_rule_id: str
-    r"""The ID of the guardrail rule"""
 
 
 class GuardrailRuleDeleteRequest(BaseModel):
     guardrail_rule_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The ID of the guardrail rule"""

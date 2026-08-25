@@ -37,12 +37,12 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     project: NotRequired[ProjectBudgetScopeRestResponseTypedDict]
     r"""Per-project cap."""
     identity: NotRequired[IdentityBudgetScopeRestResponseTypedDict]
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
     api_key: NotRequired[APIKeyBudgetScopeRestResponseTypedDict]
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
     provider: NotRequired[ProviderBudgetScopeTypedDict]
     r"""Per-provider cap. The value is the provider enum string (e.g.
@@ -51,7 +51,7 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     model: NotRequired[ModelBudgetScopeRestResponseTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
 
@@ -68,15 +68,15 @@ class BudgetScopeRestResponse(BaseModel):
     r"""Per-project cap."""
 
     identity: Optional[IdentityBudgetScopeRestResponse] = None
-    r"""Per-identity cap. Keyed by the contact's external_id (not the
-    internal Mongo `_id`) so the scope is stable across imports.
+    r"""Per-identity cap. Keyed by the contact's external identifier so the
+    scope is stable across imports.
     """
 
     api_key: Annotated[
         Optional[APIKeyBudgetScopeRestResponse], pydantic.Field(alias="apiKey")
     ] = None
     r"""Per-api-key cap. Replaces the legacy embedded `constraints.budget`
-    on auth.apiKeys.
+    associated with an API key.
     """
 
     provider: Optional[ProviderBudgetScope] = None
@@ -87,7 +87,7 @@ class BudgetScopeRestResponse(BaseModel):
     model: Optional[ModelBudgetScopeRestResponse] = None
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models) — NOT the Mongo `_id` of the model master-data document.
+    models), rather than an internal identifier.
     """
 
     @model_serializer(mode="wrap")

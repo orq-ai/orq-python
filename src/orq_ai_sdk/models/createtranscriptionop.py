@@ -667,7 +667,7 @@ class Segments(BaseModel):
     no_speech_prob: float
 
 
-class CreateTranscriptionResponseBody2TypedDict(TypedDict):
+class ResponseBody2TypedDict(TypedDict):
     text: str
     task: NotRequired[str]
     language: NotRequired[str]
@@ -676,7 +676,7 @@ class CreateTranscriptionResponseBody2TypedDict(TypedDict):
     segments: NotRequired[List[SegmentsTypedDict]]
 
 
-class CreateTranscriptionResponseBody2(BaseModel):
+class ResponseBody2(BaseModel):
     text: str
 
     task: Optional[str] = None
@@ -706,27 +706,22 @@ class CreateTranscriptionResponseBody2(BaseModel):
         return m
 
 
-class CreateTranscriptionResponseBody1TypedDict(TypedDict):
+class ResponseBody1TypedDict(TypedDict):
     text: str
 
 
-class CreateTranscriptionResponseBody1(BaseModel):
+class ResponseBody1(BaseModel):
     text: str
 
 
 CreateTranscriptionResponseBodyTypedDict = TypeAliasType(
     "CreateTranscriptionResponseBodyTypedDict",
-    Union[
-        CreateTranscriptionResponseBody1TypedDict,
-        CreateTranscriptionResponseBody2TypedDict,
-        str,
-    ],
+    Union[ResponseBody1TypedDict, ResponseBody2TypedDict, str],
 )
 r"""Returns the transcription or verbose transcription"""
 
 
 CreateTranscriptionResponseBody = TypeAliasType(
-    "CreateTranscriptionResponseBody",
-    Union[CreateTranscriptionResponseBody1, CreateTranscriptionResponseBody2, str],
+    "CreateTranscriptionResponseBody", Union[ResponseBody1, ResponseBody2, str]
 )
 r"""Returns the transcription or verbose transcription"""

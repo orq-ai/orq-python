@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .alertcondition import AlertCondition, AlertConditionTypedDict
+from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
@@ -24,6 +25,8 @@ class UpdateAlertRequestTypedDict(TypedDict):
     r"""Replacement notifier set. Omit to keep the current notifiers."""
     enabled: NotRequired[bool]
     r"""New enabled state. Omit to keep the current state."""
+    display: NotRequired[AlertDisplayTypedDict]
+    r"""Display options to merge. Omitted fields keep their current values."""
 
 
 class UpdateAlertRequest(BaseModel):
@@ -48,6 +51,9 @@ class UpdateAlertRequest(BaseModel):
     enabled: Optional[bool] = None
     r"""New enabled state. Omit to keep the current state."""
 
+    display: Optional[AlertDisplay] = None
+    r"""Display options to merge. Omitted fields keep their current values."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -59,6 +65,7 @@ class UpdateAlertRequest(BaseModel):
                 "condition",
                 "notifier_ids",
                 "enabled",
+                "display",
             ]
         )
         serialized = handler(self)

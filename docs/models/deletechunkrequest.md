@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                                       | Type                                        | Required                                    | Description                                 |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `chunk_id`                                  | *str*                                       | :heavy_check_mark:                          | The unique identifier of the chunk          |
-| `datasource_id`                             | *str*                                       | :heavy_check_mark:                          | The unique identifier of the data source    |
-| `knowledge_id`                              | *str*                                       | :heavy_check_mark:                          | The unique identifier of the knowledge base |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `knowledge_id`     | *str*              | :heavy_check_mark: | N/A                |
+| `datasource_id`    | *str*              | :heavy_check_mark: | N/A                |
+| `chunk_id`         | *str*              | :heavy_check_mark: | N/A                |

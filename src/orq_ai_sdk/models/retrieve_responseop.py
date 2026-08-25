@@ -8,7 +8,7 @@ from .memoryparam import MemoryParam, MemoryParamTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
-from .telemetry import Telemetry, TelemetryTypedDict
+from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -124,8 +124,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     user: Nullable[str]
     conversation: NotRequired[ConversationParamTypedDict]
     memory: NotRequired[MemoryParamTypedDict]
-    telemetry: NotRequired[TelemetryTypedDict]
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: NotRequired[ResponseTelemetryTypedDict]
     top_k: NotRequired[int]
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""
     variables: NotRequired[Dict[str, Any]]
@@ -213,8 +212,7 @@ class RetrieveResponseResponseBody(BaseModel):
 
     memory: Optional[MemoryParam] = None
 
-    telemetry: Optional[Telemetry] = None
-    r"""Telemetry information for correlating the response with traces"""
+    telemetry: Optional[ResponseTelemetry] = None
 
     top_k: Optional[int] = None
     r"""Only sample from the top K options for each subsequent token. Present only when set on the request."""

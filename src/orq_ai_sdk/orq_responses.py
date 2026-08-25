@@ -40,7 +40,12 @@ class OrqResponses(BaseSDK):
                 models.AgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        memory: Optional[
+            Union[
+                models.AgentResponseRequestMemory,
+                models.AgentResponseRequestMemoryTypedDict,
+            ]
+        ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
@@ -59,7 +64,7 @@ class OrqResponses(BaseSDK):
     ) -> models.CreateAgentResponseRequestResponse:
         r"""Create response
 
-        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
+        Create an agent response for a given message. Return the complete conversation including messages, tool interactions, and token usage.
 
         :param agent_key: The unique key of identifier of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
@@ -107,7 +112,9 @@ class OrqResponses(BaseSDK):
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.AgentResponseRequestThread]
                 ),
-                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.AgentResponseRequestMemory]
+                ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
@@ -243,7 +250,12 @@ class OrqResponses(BaseSDK):
                 models.AgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        memory: Optional[
+            Union[
+                models.AgentResponseRequestMemory,
+                models.AgentResponseRequestMemoryTypedDict,
+            ]
+        ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
@@ -262,7 +274,7 @@ class OrqResponses(BaseSDK):
     ) -> models.CreateAgentResponseRequestResponse:
         r"""Create response
 
-        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
+        Create an agent response for a given message. Return the complete conversation including messages, tool interactions, and token usage.
 
         :param agent_key: The unique key of identifier of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
@@ -310,7 +322,9 @@ class OrqResponses(BaseSDK):
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.AgentResponseRequestThread]
                 ),
-                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.AgentResponseRequestMemory]
+                ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
@@ -438,7 +452,7 @@ class OrqResponses(BaseSDK):
     ) -> models.GetAgentResponse:
         r"""Get response
 
-        Retrieves the current state of an agent response by task ID. Returns the response output, model information, token usage, and execution status. When the agent is still processing, the output array will be empty and status will be `in_progress`. Once completed, the response includes the full output, usage statistics, and finish reason.
+        Retrieve an agent response by task ID, including output, model info, token usage, and execution status.
 
         :param agent_key: The unique key identifier of the agent
         :param task_id: The agent execution task ID returned from create response
@@ -537,7 +551,7 @@ class OrqResponses(BaseSDK):
     ) -> models.GetAgentResponse:
         r"""Get response
 
-        Retrieves the current state of an agent response by task ID. Returns the response output, model information, token usage, and execution status. When the agent is still processing, the output array will be empty and status will be `in_progress`. Once completed, the response includes the full output, usage statistics, and finish reason.
+        Retrieve an agent response by task ID, including output, model info, token usage, and execution status.
 
         :param agent_key: The unique key identifier of the agent
         :param task_id: The agent execution task ID returned from create response

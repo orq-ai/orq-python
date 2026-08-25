@@ -11,15 +11,15 @@ A content part within a message.
 value: models.TwoText = /* values here */
 ```
 
-### `models.Image`
+### `models.TwoImage`
 
 ```python
-value: models.Image = /* values here */
+value: models.TwoImage = /* values here */
 ```
 
-### `models.CreateRouterResponse2File`
+### `models.TwoFile`
 
 ```python
-value: models.CreateRouterResponse2File = /* values here */
+value: models.TwoFile = /* values here */
 ```
 

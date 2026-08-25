@@ -94,7 +94,7 @@ with Orq(
 
 ### Response
 
-**[models.CreateIdentityResponse](../../models/createidentityresponse.md)**
+**[models.CreateIdentityResponse1](../../models/createidentityresponse1.md)**
 
 ### Errors
 

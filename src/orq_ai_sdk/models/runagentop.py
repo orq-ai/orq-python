@@ -60,6 +60,7 @@ from .thinkingconfigenabledschema import (
 )
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
+from .tracescrubbingplugin import TraceScrubbingPlugin, TraceScrubbingPluginTypedDict
 from .webscrapertoolinput import WebScraperToolInput, WebScraperToolInputTypedDict
 from .writememorystoretoolinput import (
     WriteMemoryStoreToolInput,
@@ -379,6 +380,7 @@ RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -390,6 +392,7 @@ RunAgentModelConfigurationPlugins = TypeAliasType(
     "RunAgentModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -1186,6 +1189,7 @@ RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
+        TraceScrubbingPluginTypedDict,
         PIIRedactionPluginAutoTypedDict,
         PIIRedactionPluginEnTypedDict,
         PIIRedactionPluginNlTypedDict,
@@ -1197,6 +1201,7 @@ RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
     "RunAgentFallbackModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
+        TraceScrubbingPlugin,
         PIIRedactionPluginAuto,
         PIIRedactionPluginEn,
         PIIRedactionPluginNl,
@@ -2065,7 +2070,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M0NTJ5F4D1VXHM4X9093QB1K"
+    id: Optional[str] = "01M0X9CFV6CM3N5SC504SAH8TR"
 
     description: Optional[str] = None
 
@@ -2703,7 +2708,7 @@ DefaultValue = TypeAliasType("DefaultValue", Union[str, float, bool])
 r"""The default value of the argument."""
 
 
-class ArgumentsTypedDict(TypedDict):
+class RunAgentAgentToolInputRunArgumentsTypedDict(TypedDict):
     type: RunAgentAgentToolInputRunType
     r"""The type of the argument."""
     description: str
@@ -2714,7 +2719,7 @@ class ArgumentsTypedDict(TypedDict):
     r"""The default value of the argument."""
 
 
-class Arguments(BaseModel):
+class RunAgentAgentToolInputRunArguments(BaseModel):
     type: RunAgentAgentToolInputRunType
     r"""The type of the argument."""
 
@@ -2747,7 +2752,7 @@ class Arguments(BaseModel):
 class HTTPTypedDict(TypedDict):
     blueprint: BlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
-    arguments: NotRequired[Dict[str, ArgumentsTypedDict]]
+    arguments: NotRequired[Dict[str, RunAgentAgentToolInputRunArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
@@ -2755,7 +2760,7 @@ class HTTP(BaseModel):
     blueprint: Blueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
-    arguments: Optional[Dict[str, Arguments]] = None
+    arguments: Optional[Dict[str, RunAgentAgentToolInputRunArguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
     @model_serializer(mode="wrap")
@@ -3072,7 +3077,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -3126,7 +3131,7 @@ class RunAgentRequestBody(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """

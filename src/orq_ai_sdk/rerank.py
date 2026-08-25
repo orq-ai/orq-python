@@ -16,7 +16,8 @@ class Rerank(BaseSDK):
         query: str,
         documents: Iterable[str],
         model: str,
-        top_n: Optional[float] = None,
+        top_n: Optional[int] = None,
+        return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
@@ -62,6 +63,7 @@ class Rerank(BaseSDK):
         :param documents: A list of texts that will be compared to the `query`. For optimal performance we recommend against sending more than 1,000 documents in a single request.
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
+        :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
@@ -94,6 +96,7 @@ class Rerank(BaseSDK):
             documents=utils.unmarshal(documents, List[str]),
             model=model,
             top_n=top_n,
+            return_documents=return_documents,
             filename=filename,
             name=name,
             fallbacks=utils.get_pydantic_model(
@@ -179,7 +182,8 @@ class Rerank(BaseSDK):
         query: str,
         documents: Iterable[str],
         model: str,
-        top_n: Optional[float] = None,
+        top_n: Optional[int] = None,
+        return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
         fallbacks: Optional[
@@ -225,6 +229,7 @@ class Rerank(BaseSDK):
         :param documents: A list of texts that will be compared to the `query`. For optimal performance we recommend against sending more than 1,000 documents in a single request.
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
+        :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
@@ -257,6 +262,7 @@ class Rerank(BaseSDK):
             documents=utils.unmarshal(documents, List[str]),
             model=model,
             top_n=top_n,
+            return_documents=return_documents,
             filename=filename,
             name=name,
             fallbacks=utils.get_pydantic_model(

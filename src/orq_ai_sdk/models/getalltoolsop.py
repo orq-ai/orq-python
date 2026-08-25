@@ -63,7 +63,7 @@ class GetAllToolsRequest(BaseModel):
 GetAllToolsObject = Literal["list",]
 
 
-GetAllToolsDataToolsResponse200Status = Literal[
+GetAllToolsDataToolsResponseStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -72,17 +72,17 @@ GetAllToolsDataToolsResponse200Status = Literal[
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-GetAllToolsDataToolsResponse200Type = Literal["code",]
+GetAllToolsDataToolsResponseType = Literal["code",]
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type = Literal["object",]
+GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal["object",]
 r"""The type must be \"object\" """
 
 
 class GetAllToolsDataParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
     r"""The type must be \"object\" """
     properties: Dict[str, Any]
     r"""The properties of the function parameters"""
@@ -98,7 +98,7 @@ class GetAllToolsDataParameters(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
     r"""The type must be \"object\" """
 
     properties: Dict[str, Any]
@@ -159,278 +159,7 @@ class DataCodeExecutionToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
-    key: str
-    r"""Unique key of the tool as it will be displayed in the UI"""
-    description: str
-    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    project_id: str
-    workspace_id: str
-    created: str
-    updated: str
-    type: GetAllToolsDataToolsResponse200Type
-    code_tool: DataCodeToolTypedDict
-    id: NotRequired[str]
-    display_name: NotRequired[str]
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    created_by_id: NotRequired[Nullable[str]]
-    r"""The id of the user that created the tool"""
-    updated_by_id: NotRequired[Nullable[str]]
-    r"""The id of the user that last updated the tool"""
-    status: NotRequired[GetAllToolsDataToolsResponse200Status]
-    r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-class DataCodeExecutionTool(BaseModel):
-    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
-
-    With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-    """
-
-    key: str
-    r"""Unique key of the tool as it will be displayed in the UI"""
-
-    description: str
-    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-
-    project_id: str
-
-    workspace_id: str
-
-    created: str
-
-    updated: str
-
-    type: GetAllToolsDataToolsResponse200Type
-
-    code_tool: DataCodeTool
-
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5M3JHR8WV2S4FX6YHNK"
-    )
-
-    display_name: Optional[str] = None
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
-    created_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the user that created the tool"""
-
-    updated_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the user that last updated the tool"""
-
-    status: Optional[GetAllToolsDataToolsResponse200Status] = "live"
-    r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            ["_id", "display_name", "created_by_id", "updated_by_id", "status"]
-        )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-GetAllToolsDataToolsResponseStatus = Literal[
-    "live",
-    "draft",
-    "pending",
-    "published",
-]
-r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-GetAllToolsDataToolsResponseType = Literal["mcp",]
-
-
-class DataHeadersTypedDict(TypedDict):
-    value: str
-    encrypted: NotRequired[bool]
-
-
-class DataHeaders(BaseModel):
-    value: str
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type = Literal["object",]
-
-
-class GetAllToolsDataSchemaTypedDict(TypedDict):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type
-    properties: NotRequired[Dict[str, Any]]
-    required: NotRequired[List[str]]
-
-
-class GetAllToolsDataSchema(BaseModel):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type
-
-    properties: Optional[Dict[str, Any]] = None
-
-    required: Optional[List[str]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["properties", "required"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class DataToolsTypedDict(TypedDict):
-    name: str
-    schema_: GetAllToolsDataSchemaTypedDict
-    id: NotRequired[str]
-    description: NotRequired[str]
-
-
-class DataTools(BaseModel):
-    name: str
-
-    schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
-
-    id: Optional[str] = "01M0NTJ5M2NW7XH9962SSHMYQS"
-
-    description: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["id", "description"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-DataConnectionType = Literal[
-    "http",
-    "sse",
-]
-r"""The connection type used by the MCP server"""
-
-
-class DataMcpTypedDict(TypedDict):
-    server_url: str
-    r"""The MCP server URL (cached for execution)"""
-    tools: List[DataToolsTypedDict]
-    r"""Array of tools available from the MCP server"""
-    connection_type: DataConnectionType
-    r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, DataHeadersTypedDict]]
-    r"""HTTP headers for MCP server requests with encryption support"""
-    template_variables: NotRequired[Nullable[List[str]]]
-    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
-
-
-class DataMcp(BaseModel):
-    server_url: str
-    r"""The MCP server URL (cached for execution)"""
-
-    tools: List[DataTools]
-    r"""Array of tools available from the MCP server"""
-
-    connection_type: DataConnectionType
-    r"""The connection type used by the MCP server"""
-
-    headers: Optional[Dict[str, DataHeaders]] = None
-    r"""HTTP headers for MCP server requests with encryption support"""
-
-    template_variables: OptionalNullable[List[str]] = UNSET
-    r"""Names of template variables detected in server_url and headers. Used by the FE to prompt for one-time values on sync/refresh."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["headers", "template_variables"])
-        nullable_fields = set(["template_variables"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-class DataMCPToolTypedDict(TypedDict):
-    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
-
-    path: str
-    r"""Entity storage path.
-
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -443,7 +172,7 @@ class DataMCPToolTypedDict(TypedDict):
     created: str
     updated: str
     type: GetAllToolsDataToolsResponseType
-    mcp: DataMcpTypedDict
+    code_tool: DataCodeToolTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -455,13 +184,13 @@ class DataMCPToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class DataMCPTool(BaseModel):
-    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+class DataCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
 
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -482,10 +211,10 @@ class DataMCPTool(BaseModel):
 
     type: GetAllToolsDataToolsResponseType
 
-    mcp: DataMcp
+    code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5M0CBANPG86RDH14S58"
+        "tool_01M0X9CFZ3RSXFETEC2NSR6XA4"
     )
 
     display_name: Optional[str] = None
@@ -576,14 +305,12 @@ class GetAllToolsHeaders2(BaseModel):
         return m
 
 
-GetAllToolsDataHeadersTypedDict = TypeAliasType(
-    "GetAllToolsDataHeadersTypedDict", Union[GetAllToolsHeaders2TypedDict, str]
+DataHeadersTypedDict = TypeAliasType(
+    "DataHeadersTypedDict", Union[GetAllToolsHeaders2TypedDict, str]
 )
 
 
-GetAllToolsDataHeaders = TypeAliasType(
-    "GetAllToolsDataHeaders", Union[GetAllToolsHeaders2, str]
-)
+DataHeaders = TypeAliasType("DataHeaders", Union[GetAllToolsHeaders2, str])
 
 
 class DataBlueprintTypedDict(TypedDict):
@@ -593,7 +320,7 @@ class DataBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: DataMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
+    headers: NotRequired[Dict[str, DataHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -610,7 +337,7 @@ class DataBlueprint(BaseModel):
     method: DataMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
+    headers: Optional[Dict[str, DataHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -636,7 +363,7 @@ class DataBlueprint(BaseModel):
         return m
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal[
+GetAllToolsDataToolsResponse200Type = Literal[
     "string",
     "number",
     "boolean",
@@ -655,7 +382,7 @@ r"""The default value of the argument."""
 
 
 class DataArgumentsTypedDict(TypedDict):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    type: GetAllToolsDataToolsResponse200Type
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -666,7 +393,7 @@ class DataArgumentsTypedDict(TypedDict):
 
 
 class DataArguments(BaseModel):
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    type: GetAllToolsDataToolsResponse200Type
     r"""The type of the argument."""
 
     description: str
@@ -732,7 +459,7 @@ class DataHTTPToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -763,7 +490,7 @@ class DataHTTPTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -787,7 +514,7 @@ class DataHTTPTool(BaseModel):
     http: DataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5KY6N5QYWBQWTCF82BY"
+        "tool_01M0X9CFZ1DBFJ3CQ79ADY1MDQ"
     )
 
     display_name: Optional[str] = None
@@ -926,7 +653,7 @@ class DataJSONSchemaToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -957,7 +684,7 @@ class DataJSONSchemaTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -981,7 +708,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5KWNF2ECXV70MXAVWD2"
+        "tool_01M0X9CFZ0873KY1CWFHW7ZSQG"
     )
 
     display_name: Optional[str] = None
@@ -1124,7 +851,7 @@ class DataFunctionToolTypedDict(TypedDict):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1155,7 +882,7 @@ class DataFunctionTool(BaseModel):
     path: str
     r"""Entity storage path.
 
-    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element identifies the project, followed by nested folders (auto-created as needed). Example: `Default/agents`.
+    With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
 
     With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
     """
@@ -1179,7 +906,7 @@ class DataFunctionTool(BaseModel):
     function: DataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M0NTJ5KV8JJB6CT2F0JB80M5"
+        "tool_01M0X9CFYZ2VFZPVTA3FZV5DTB"
     )
 
     display_name: Optional[str] = None
@@ -1228,7 +955,6 @@ GetAllToolsDataTypedDict = TypeAliasType(
         DataFunctionToolTypedDict,
         DataJSONSchemaToolTypedDict,
         DataHTTPToolTypedDict,
-        DataMCPToolTypedDict,
         DataCodeExecutionToolTypedDict,
     ],
 )
@@ -1239,7 +965,6 @@ GetAllToolsData = Annotated[
         Annotated[DataFunctionTool, Tag("function")],
         Annotated[DataJSONSchemaTool, Tag("json_schema")],
         Annotated[DataHTTPTool, Tag("http")],
-        Annotated[DataMCPTool, Tag("mcp")],
         Annotated[DataCodeExecutionTool, Tag("code")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
@@ -1266,14 +991,6 @@ class GetAllToolsResponseBody(BaseModel):
 
 try:
     DataCodeExecutionTool.model_rebuild()
-except NameError:
-    pass
-try:
-    DataTools.model_rebuild()
-except NameError:
-    pass
-try:
-    DataMCPTool.model_rebuild()
 except NameError:
     pass
 try:

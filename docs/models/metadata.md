@@ -1,9 +1,23 @@
 # Metadata
 
-Optional. Replacement custom JSON metadata.
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+
