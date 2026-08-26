@@ -2032,49 +2032,49 @@ class CreateChatCompletion1In(BaseModel):
     ]
 
 
-class CreateChatCompletion1LteTypedDict(TypedDict):
+class OneLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class CreateChatCompletion1Lte(BaseModel):
+class OneLte(BaseModel):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class CreateChatCompletion1LtTypedDict(TypedDict):
+class OneLtTypedDict(TypedDict):
     r"""Less than"""
 
     lt: float
 
 
-class CreateChatCompletion1Lt(BaseModel):
+class OneLt(BaseModel):
     r"""Less than"""
 
     lt: float
 
 
-class CreateChatCompletion1GteTypedDict(TypedDict):
+class OneGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class CreateChatCompletion1Gte(BaseModel):
+class OneGte(BaseModel):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class CreateChatCompletion1GtTypedDict(TypedDict):
+class OneGtTypedDict(TypedDict):
     r"""Greater than"""
 
     gt: float
 
 
-class CreateChatCompletion1Gt(BaseModel):
+class OneGt(BaseModel):
     r"""Greater than"""
 
     gt: float
@@ -2129,10 +2129,10 @@ CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
     Union[
         CreateChatCompletion1EqTypedDict,
         CreateChatCompletion1NeTypedDict,
-        CreateChatCompletion1GtTypedDict,
-        CreateChatCompletion1GteTypedDict,
-        CreateChatCompletion1LtTypedDict,
-        CreateChatCompletion1LteTypedDict,
+        OneGtTypedDict,
+        OneGteTypedDict,
+        OneLtTypedDict,
+        OneLteTypedDict,
         CreateChatCompletion1InTypedDict,
         CreateChatCompletion1NinTypedDict,
     ],
@@ -2144,10 +2144,10 @@ CreateChatCompletionFilterBy1 = TypeAliasType(
     Union[
         CreateChatCompletion1Eq,
         CreateChatCompletion1Ne,
-        CreateChatCompletion1Gt,
-        CreateChatCompletion1Gte,
-        CreateChatCompletion1Lt,
-        CreateChatCompletion1Lte,
+        OneGt,
+        OneGte,
+        OneLt,
+        OneLte,
         CreateChatCompletion1In,
         CreateChatCompletion1Nin,
     ],
@@ -3250,7 +3250,7 @@ class Delta(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterChatCompletionsChoicesTypedDict(TypedDict):
+class CreateChatCompletionChoicesTypedDict(TypedDict):
     finish_reason: Nullable[CreateChatCompletionRouterChatCompletionsFinishReason]
     r"""The reason the model stopped generating tokens."""
     delta: DeltaTypedDict
@@ -3263,7 +3263,7 @@ class CreateChatCompletionRouterChatCompletionsChoicesTypedDict(TypedDict):
     r"""Log probability information for the choice."""
 
 
-class CreateChatCompletionRouterChatCompletionsChoices(BaseModel):
+class CreateChatCompletionChoices(BaseModel):
     finish_reason: Nullable[CreateChatCompletionRouterChatCompletionsFinishReason]
     r"""The reason the model stopped generating tokens."""
 
@@ -3490,7 +3490,7 @@ class CreateChatCompletionDataTypedDict(TypedDict):
 
     id: str
     r"""A unique identifier for the chat completion."""
-    choices: List[CreateChatCompletionRouterChatCompletionsChoicesTypedDict]
+    choices: List[CreateChatCompletionChoicesTypedDict]
     r"""A list of chat completion choices. Can contain more than one elements if n is greater than 1. Can also be empty for the last chunk if you set stream_options: {\"include_usage\": true}."""
     created: float
     r"""The Unix timestamp (in seconds) of when the chat completion was created."""
@@ -3511,7 +3511,7 @@ class CreateChatCompletionData(BaseModel):
     id: str
     r"""A unique identifier for the chat completion."""
 
-    choices: List[CreateChatCompletionRouterChatCompletionsChoices]
+    choices: List[CreateChatCompletionChoices]
     r"""A list of chat completion choices. Can contain more than one elements if n is greater than 1. Can also be empty for the last chunk if you set stream_options: {\"include_usage\": true}."""
 
     created: float
@@ -3950,7 +3950,7 @@ class CreateChatCompletionLogprobs(BaseModel):
         return m
 
 
-class CreateChatCompletionChoicesTypedDict(TypedDict):
+class ChoicesTypedDict(TypedDict):
     finish_reason: Nullable[CreateChatCompletionFinishReason]
     r"""The reason the model stopped generating tokens."""
     message: CreateChatCompletionMessageTypedDict
@@ -3961,7 +3961,7 @@ class CreateChatCompletionChoicesTypedDict(TypedDict):
     r"""Log probability information for the choice."""
 
 
-class CreateChatCompletionChoices(BaseModel):
+class Choices(BaseModel):
     finish_reason: Nullable[CreateChatCompletionFinishReason]
     r"""The reason the model stopped generating tokens."""
 
@@ -4182,7 +4182,7 @@ class CreateChatCompletionResponseBodyTypedDict(TypedDict):
 
     id: str
     r"""A unique identifier for the chat completion."""
-    choices: List[CreateChatCompletionChoicesTypedDict]
+    choices: List[ChoicesTypedDict]
     r"""A list of chat completion choices. Can be more than one if n is greater than 1."""
     created: float
     r"""The Unix timestamp (in seconds) of when the chat completion was created."""
@@ -4201,7 +4201,7 @@ class CreateChatCompletionResponseBody(BaseModel):
     id: str
     r"""A unique identifier for the chat completion."""
 
-    choices: List[CreateChatCompletionChoices]
+    choices: List[Choices]
     r"""A list of chat completion choices. Can be more than one if n is greater than 1."""
 
     created: float

@@ -2284,6 +2284,7 @@ UpdatePromptProvider = Literal[
     "fireworks",
     "baseten",
     "reson8",
+    "meta",
     "slack",
     "orq",
 ]

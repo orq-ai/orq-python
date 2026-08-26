@@ -1,15 +1,15 @@
 # DeploymentGetConfig2DeploymentsType
 
-Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
+The type of the content part. Always `file`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfig2DeploymentsType
-value: DeploymentGetConfig2DeploymentsType = "ephemeral"
+value: DeploymentGetConfig2DeploymentsType = "file"
 ```
 
 
 ## Values
 
-- `"ephemeral"`
+- `"file"`

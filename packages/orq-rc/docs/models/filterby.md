@@ -11,15 +11,15 @@ The metadata filter to apply to the search. Check the [Searching a Knowledge Bas
 value: Dict[str, models.FilterBy1] = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestFilterByAnd`
+### `models.FilterByAnd`
 
 ```python
-value: models.SearchKnowledgeRequestFilterByAnd = /* values here */
+value: models.FilterByAnd = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestFilterByOr`
+### `models.FilterByOr`
 
 ```python
-value: models.SearchKnowledgeRequestFilterByOr = /* values here */
+value: models.FilterByOr = /* values here */
 ```
 

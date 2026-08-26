@@ -727,6 +727,7 @@ DeploymentsProvider = Literal[
     "fireworks",
     "baseten",
     "reson8",
+    "meta",
     "slack",
     "orq",
 ]
@@ -746,7 +747,7 @@ DeploymentsRole = Literal[
 r"""The role of the prompt message"""
 
 
-Deployments2DeploymentsResponseType = Literal["file",]
+Deployments2DeploymentsType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -792,19 +793,19 @@ class Deployments2File(BaseModel):
 
 
 class Deployments23TypedDict(TypedDict):
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsType
     r"""The type of the content part. Always `file`."""
     file: Deployments2FileTypedDict
 
 
 class Deployments23(BaseModel):
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsType
     r"""The type of the content part. Always `file`."""
 
     file: Deployments2File
 
 
-Deployments2DeploymentsType = Literal["image_url",]
+Deployments2Type = Literal["image_url",]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -846,32 +847,32 @@ class Deployments2ImageURL(BaseModel):
 class Deployments22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsType
+    type: Deployments2Type
     image_url: Deployments2ImageURLTypedDict
 
 
 class Deployments22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsType
+    type: Deployments2Type
 
     image_url: Deployments2ImageURL
 
 
-Deployments2Type = Literal["text",]
+Deployments2DeploymentsResponseType = Literal["text",]
 
 
 class Deployments21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2Type
+    type: Deployments2DeploymentsResponseType
     text: str
 
 
 class Deployments21(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2Type
+    type: Deployments2DeploymentsResponseType
 
     text: str
 

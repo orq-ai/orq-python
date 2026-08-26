@@ -1,10 +1,53 @@
 # KnowledgeFilterAnd
 
-And
 
+## Supported Types
 
-## Fields
+### `models.DeploymentGetConfigAndDeploymentsEq`
 
-| Field                                            | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `and_`                                           | List[Dict[str, [models.And](../models/and_.md)]] | :heavy_check_mark:                               | N/A                                              |
+```python
+value: models.DeploymentGetConfigAndDeploymentsEq = /* values here */
+```
+
+### `models.DeploymentGetConfigAndDeploymentsNe`
+
+```python
+value: models.DeploymentGetConfigAndDeploymentsNe = /* values here */
+```
+
+### `models.DeploymentGetConfigAndGt`
+
+```python
+value: models.DeploymentGetConfigAndGt = /* values here */
+```
+
+### `models.DeploymentGetConfigAndGte`
+
+```python
+value: models.DeploymentGetConfigAndGte = /* values here */
+```
+
+### `models.DeploymentGetConfigAndLt`
+
+```python
+value: models.DeploymentGetConfigAndLt = /* values here */
+```
+
+### `models.DeploymentGetConfigAndLte`
+
+```python
+value: models.DeploymentGetConfigAndLte = /* values here */
+```
+
+### `models.DeploymentGetConfigAndDeploymentsIn`
+
+```python
+value: models.DeploymentGetConfigAndDeploymentsIn = /* values here */
+```
+
+### `models.DeploymentGetConfigAndDeploymentsNin`
+
+```python
+value: models.DeploymentGetConfigAndDeploymentsNin = /* values here */
+```
+

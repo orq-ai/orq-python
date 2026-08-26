@@ -1,10 +1,23 @@
 # DeploymentGetConfigOrEq
 
-Equal to
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `eq`                                                                                         | [models.DeploymentGetConfigOrDeploymentsEq](../models/deploymentgetconfigordeploymentseq.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

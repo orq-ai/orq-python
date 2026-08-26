@@ -48,5 +48,6 @@ value: ListPromptVersionsProvider = "openai"
 - `"fireworks"`
 - `"baseten"`
 - `"reson8"`
+- `"meta"`
 - `"slack"`
 - `"orq"`

@@ -1,23 +1,10 @@
 # DeploymentGetConfigAndDeploymentsNe
 
+Not equal to
 
-## Supported Types
 
-### `str`
+## Fields
 
-```python
-value: str = /* values here */
-```
-
-### `float`
-
-```python
-value: float = /* values here */
-```
-
-### `bool`
-
-```python
-value: bool = /* values here */
-```
-
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ne`                                                                     | [models.DeploymentGetConfigAndNe](../models/deploymentgetconfigandne.md) | :heavy_check_mark:                                                       | N/A                                                                      |

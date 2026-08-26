@@ -1,6 +1,6 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsContent
 
-The contents of the developer message.
+The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the developer message.
 value: str = /* values here */
 ```
 
-### `List[models.TextContentPartSchema]`
+### `List[models.DeploymentGetConfigContent2]`
 
 ```python
-value: List[models.TextContentPartSchema] = /* values here */
+value: List[models.DeploymentGetConfigContent2] = /* values here */
 ```
 

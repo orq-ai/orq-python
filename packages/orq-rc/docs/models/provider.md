@@ -1,7 +1,5 @@
 # Provider
 
-The provider used to generate the response
-
 ## Example Usage
 
 ```python
@@ -50,5 +48,6 @@ value: Provider = "openai"
 - `"fireworks"`
 - `"baseten"`
 - `"reson8"`
+- `"meta"`
 - `"slack"`
 - `"orq"`

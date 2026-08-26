@@ -1,15 +1,15 @@
 # DeploymentGetConfigPrefixMessagesType
 
-The type of the tool. Currently, only `function` is supported.
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigPrefixMessagesType
-value: DeploymentGetConfigPrefixMessagesType = "function"
+value: DeploymentGetConfigPrefixMessagesType = "ephemeral"
 ```
 
 
 ## Values
 
-- `"function"`
+- `"ephemeral"`

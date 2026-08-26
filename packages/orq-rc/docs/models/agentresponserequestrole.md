@@ -5,15 +5,15 @@ Message role (user or tool for continuing executions)
 
 ## Supported Types
 
-### `models.RoleUserMessage`
+### `models.UserMessage`
 
 ```python
-value: models.RoleUserMessage = /* values here */
+value: models.UserMessage = /* values here */
 ```
 
-### `models.RoleToolMessage`
+### `models.ToolMessage`
 
 ```python
-value: models.RoleToolMessage = /* values here */
+value: models.ToolMessage = /* values here */
 ```
 

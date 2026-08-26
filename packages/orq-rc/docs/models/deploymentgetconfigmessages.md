@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfigMessagesSystemMessage`
+### `models.MessagesSystemMessage`
 
 ```python
-value: models.DeploymentGetConfigMessagesSystemMessage = /* values here */
+value: models.MessagesSystemMessage = /* values here */
 ```
 
-### `models.DeploymentGetConfigMessagesDeveloperMessage`
+### `models.MessagesDeveloperMessage`
 
 ```python
-value: models.DeploymentGetConfigMessagesDeveloperMessage = /* values here */
+value: models.MessagesDeveloperMessage = /* values here */
 ```
 
-### `models.DeploymentGetConfigMessagesUserMessage`
+### `models.MessagesUserMessage`
 
 ```python
-value: models.DeploymentGetConfigMessagesUserMessage = /* values here */
+value: models.MessagesUserMessage = /* values here */
 ```
 
-### `models.DeploymentGetConfigMessagesAssistantMessage`
+### `models.MessagesAssistantMessage`
 
 ```python
-value: models.DeploymentGetConfigMessagesAssistantMessage = /* values here */
+value: models.MessagesAssistantMessage = /* values here */
 ```
 
-### `models.DeploymentGetConfigMessagesToolMessage`
+### `models.MessagesToolMessage`
 
 ```python
-value: models.DeploymentGetConfigMessagesToolMessage = /* values here */
+value: models.MessagesToolMessage = /* values here */
 ```
 

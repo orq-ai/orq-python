@@ -3,51 +3,51 @@
 
 ## Supported Types
 
-### `models.InvokeDeploymentRequest1Eq`
+### `models.DeploymentGetConfig1Eq`
 
 ```python
-value: models.InvokeDeploymentRequest1Eq = /* values here */
+value: models.DeploymentGetConfig1Eq = /* values here */
 ```
 
-### `models.InvokeDeploymentRequest1Ne`
+### `models.DeploymentGetConfig1Ne`
 
 ```python
-value: models.InvokeDeploymentRequest1Ne = /* values here */
+value: models.DeploymentGetConfig1Ne = /* values here */
 ```
 
-### `models.Gt`
+### `models.DeploymentGetConfig1Gt`
 
 ```python
-value: models.Gt = /* values here */
+value: models.DeploymentGetConfig1Gt = /* values here */
 ```
 
-### `models.Gte`
+### `models.DeploymentGetConfig1Gte`
 
 ```python
-value: models.Gte = /* values here */
+value: models.DeploymentGetConfig1Gte = /* values here */
 ```
 
-### `models.Lt`
+### `models.DeploymentGetConfig1Lt`
 
 ```python
-value: models.Lt = /* values here */
+value: models.DeploymentGetConfig1Lt = /* values here */
 ```
 
-### `models.Lte`
+### `models.DeploymentGetConfig1Lte`
 
 ```python
-value: models.Lte = /* values here */
+value: models.DeploymentGetConfig1Lte = /* values here */
 ```
 
-### `models.InvokeDeploymentRequest1In`
+### `models.DeploymentGetConfig1In`
 
 ```python
-value: models.InvokeDeploymentRequest1In = /* values here */
+value: models.DeploymentGetConfig1In = /* values here */
 ```
 
-### `models.InvokeDeploymentRequest1Nin`
+### `models.DeploymentGetConfig1Nin`
 
 ```python
-value: models.InvokeDeploymentRequest1Nin = /* values here */
+value: models.DeploymentGetConfig1Nin = /* values here */
 ```
 

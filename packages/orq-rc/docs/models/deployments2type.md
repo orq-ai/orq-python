@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import Deployments2Type
-value: Deployments2Type = "text"
+value: Deployments2Type = "image_url"
 ```
 
 
 ## Values
 
-- `"text"`
+- `"image_url"`

@@ -32,35 +32,35 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]
+DeploymentGetConfigPrefixMessagesDeploymentsRequestRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentGetConfigContentDeploymentsRequest2TypedDict = TextContentPartSchemaTypedDict
+DeploymentGetConfigContentDeployments2TypedDict = TextContentPartSchemaTypedDict
 
 
-DeploymentGetConfigContentDeploymentsRequest2 = TextContentPartSchema
+DeploymentGetConfigContentDeployments2 = TextContentPartSchema
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2TypedDict]],
+DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict",
+    Union[str, List[DeploymentGetConfigContentDeployments2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Content = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Content",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2]],
+DeploymentGetConfigPrefixMessagesDeploymentsRequestContent = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsRequestContent",
+    Union[str, List[DeploymentGetConfigContentDeployments2]],
 )
 r"""The contents of the tool message."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsType = Literal["ephemeral",]
+DeploymentGetConfigPrefixMessagesType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentGetConfigPrefixMessagesTTL = Literal[
+PrefixMessagesTTL = Literal[
     "5m",
     "1h",
 ]
@@ -73,10 +73,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentGetConfigPrefixMessagesCacheControlTypedDict(TypedDict):
-    type: DeploymentGetConfigPrefixMessagesDeploymentsType
+class PrefixMessagesCacheControlTypedDict(TypedDict):
+    type: DeploymentGetConfigPrefixMessagesType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentGetConfigPrefixMessagesTTL]
+    ttl: NotRequired[PrefixMessagesTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -86,11 +86,11 @@ class DeploymentGetConfigPrefixMessagesCacheControlTypedDict(TypedDict):
     """
 
 
-class DeploymentGetConfigPrefixMessagesCacheControl(BaseModel):
-    type: DeploymentGetConfigPrefixMessagesDeploymentsType
+class PrefixMessagesCacheControl(BaseModel):
+    type: DeploymentGetConfigPrefixMessagesType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[DeploymentGetConfigPrefixMessagesTTL] = "5m"
+    ttl: Optional[PrefixMessagesTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -117,28 +117,26 @@ class DeploymentGetConfigPrefixMessagesCacheControl(BaseModel):
 
 
 class PrefixMessagesToolMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Role
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case tool."""
-    content: (
-        DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict
-    )
+    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict
     r"""The contents of the tool message."""
     tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
-    cache_control: NotRequired[DeploymentGetConfigPrefixMessagesCacheControlTypedDict]
+    cache_control: NotRequired[PrefixMessagesCacheControlTypedDict]
 
 
 class PrefixMessagesToolMessage(BaseModel):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Role
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case tool."""
 
-    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Content
+    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
     r"""The contents of the tool message."""
 
     tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
-    cache_control: Optional[DeploymentGetConfigPrefixMessagesCacheControl] = None
+    cache_control: Optional[PrefixMessagesCacheControl] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -166,8 +164,8 @@ class PrefixMessagesToolMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContentDeployments2TypedDict",
+DeploymentGetConfigContent2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContent2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
@@ -177,7 +175,7 @@ DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContentDeployments2 = Annotated[
+DeploymentGetConfigContent2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -188,23 +186,21 @@ DeploymentGetConfigContentDeployments2 = Annotated[
 ]
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeployments2TypedDict]],
+DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict",
+    Union[str, List[DeploymentGetConfigContent2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent",
-    Union[str, List[DeploymentGetConfigContentDeployments2]],
+DeploymentGetConfigPrefixMessagesDeploymentsContent = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsContent",
+    Union[str, List[DeploymentGetConfigContent2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole = Literal[
-    "assistant",
-]
+DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant`."""
 
 
@@ -222,18 +218,18 @@ class PrefixMessagesAudio(BaseModel):
     r"""Unique identifier for a previous audio response from the model."""
 
 
-DeploymentGetConfigPrefixMessagesType = Literal["function",]
+PrefixMessagesType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
-class DeploymentGetConfigPrefixMessagesFunctionTypedDict(TypedDict):
+class PrefixMessagesFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name of the function to call."""
     arguments: NotRequired[str]
     r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
 
 
-class DeploymentGetConfigPrefixMessagesFunction(BaseModel):
+class PrefixMessagesFunction(BaseModel):
     name: Optional[str] = None
     r"""The name of the function to call."""
 
@@ -260,9 +256,9 @@ class DeploymentGetConfigPrefixMessagesFunction(BaseModel):
 class PrefixMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
-    type: DeploymentGetConfigPrefixMessagesType
+    type: PrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
-    function: DeploymentGetConfigPrefixMessagesFunctionTypedDict
+    function: PrefixMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
@@ -271,10 +267,10 @@ class PrefixMessagesToolCalls(BaseModel):
     id: str
     r"""The ID of the tool call."""
 
-    type: DeploymentGetConfigPrefixMessagesType
+    type: PrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
 
-    function: DeploymentGetConfigPrefixMessagesFunction
+    function: PrefixMessagesFunction
 
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
@@ -296,15 +292,13 @@ class PrefixMessagesToolCalls(BaseModel):
         return m
 
 
-class PrefixMessagesAssistantMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
+class AssistantMessageTypedDict(TypedDict):
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRole
     r"""The role of the messages author, in this case `assistant`."""
     reasoning_content: NotRequired[str]
     r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
-        Nullable[
-            DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict
-        ]
+        Nullable[DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict]
     ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -317,16 +311,16 @@ class PrefixMessagesAssistantMessageTypedDict(TypedDict):
     r"""The tool calls generated by the model, such as function calls."""
 
 
-class PrefixMessagesAssistantMessage(BaseModel):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
+class AssistantMessage(BaseModel):
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRole
     r"""The role of the messages author, in this case `assistant`."""
 
     reasoning_content: Optional[str] = None
     r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
-    content: OptionalNullable[
-        DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent
-    ] = UNSET
+    content: OptionalNullable[DeploymentGetConfigPrefixMessagesDeploymentsContent] = (
+        UNSET
+    )
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -369,19 +363,19 @@ class PrefixMessagesAssistantMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestRole = Literal["user",]
+DeploymentGetConfigPrefixMessagesRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentGetConfig2Type = Literal["file",]
+TwoType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-DeploymentGetConfig2DeploymentsType = Literal["ephemeral",]
+DeploymentGetConfig2Type = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentGetConfig2TTL = Literal[
+TwoTTL = Literal[
     "5m",
     "1h",
 ]
@@ -394,10 +388,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentGetConfig2CacheControlTypedDict(TypedDict):
-    type: DeploymentGetConfig2DeploymentsType
+class TwoCacheControlTypedDict(TypedDict):
+    type: DeploymentGetConfig2Type
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentGetConfig2TTL]
+    ttl: NotRequired[TwoTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -407,11 +401,11 @@ class DeploymentGetConfig2CacheControlTypedDict(TypedDict):
     """
 
 
-class DeploymentGetConfig2CacheControl(BaseModel):
-    type: DeploymentGetConfig2DeploymentsType
+class TwoCacheControl(BaseModel):
+    type: DeploymentGetConfig2Type
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[DeploymentGetConfig2TTL] = "5m"
+    ttl: Optional[TwoTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -437,22 +431,22 @@ class DeploymentGetConfig2CacheControl(BaseModel):
         return m
 
 
-class DeploymentGetConfig24TypedDict(TypedDict):
-    type: DeploymentGetConfig2Type
+class Two4TypedDict(TypedDict):
+    type: TwoType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[DeploymentGetConfig2CacheControlTypedDict]
+    cache_control: NotRequired[TwoCacheControlTypedDict]
 
 
-class DeploymentGetConfig24(BaseModel):
-    type: DeploymentGetConfig2Type
+class Two4(BaseModel):
+    type: TwoType
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
-    cache_control: Optional[DeploymentGetConfig2CacheControl] = None
+    cache_control: Optional[TwoCacheControl] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -471,56 +465,55 @@ class DeploymentGetConfig24(BaseModel):
         return m
 
 
-DeploymentGetConfigContent2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContent2TypedDict",
+Content2TypedDict = TypeAliasType(
+    "Content2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        DeploymentGetConfig24TypedDict,
+        Two4TypedDict,
     ],
 )
 
 
-DeploymentGetConfigContent2 = Annotated[
+Content2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[DeploymentGetConfig24, Tag("file")],
+        Annotated[Two4, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict",
-    Union[str, List[DeploymentGetConfigContent2TypedDict]],
+DeploymentGetConfigPrefixMessagesContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesContentTypedDict",
+    Union[str, List[Content2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRequestContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentGetConfigContent2]],
+DeploymentGetConfigPrefixMessagesContent = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesContent", Union[str, List[Content2]]
 )
 r"""The contents of the user message."""
 
 
 class PrefixMessagesUserMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRole
+    role: DeploymentGetConfigPrefixMessagesRole
     r"""The role of the messages author, in this case `user`."""
-    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict
+    content: DeploymentGetConfigPrefixMessagesContentTypedDict
     r"""The contents of the user message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
 class PrefixMessagesUserMessage(BaseModel):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRole
+    role: DeploymentGetConfigPrefixMessagesRole
     r"""The role of the messages author, in this case `user`."""
 
-    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
+    content: DeploymentGetConfigPrefixMessagesContent
     r"""The contents of the user message."""
 
     name: Optional[str] = None
@@ -543,38 +536,36 @@ class PrefixMessagesUserMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["developer",]
+PrefixMessagesRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict",
-    Union[str, List[TextContentPartSchemaTypedDict]],
+PrefixMessagesContentTypedDict = TypeAliasType(
+    "PrefixMessagesContentTypedDict", Union[str, List[TextContentPartSchemaTypedDict]]
 )
 r"""The contents of the developer message."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsContent",
-    Union[str, List[TextContentPartSchema]],
+PrefixMessagesContent = TypeAliasType(
+    "PrefixMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the developer message."""
 
 
-class PrefixMessagesDeveloperMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRole
+class DeveloperMessageTypedDict(TypedDict):
+    role: PrefixMessagesRole
     r"""The role of the messages author, in this case  `developer`."""
-    content: DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict
+    content: PrefixMessagesContentTypedDict
     r"""The contents of the developer message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-class PrefixMessagesDeveloperMessage(BaseModel):
-    role: DeploymentGetConfigPrefixMessagesDeploymentsRole
+class DeveloperMessage(BaseModel):
+    role: PrefixMessagesRole
     r"""The role of the messages author, in this case  `developer`."""
 
-    content: DeploymentGetConfigPrefixMessagesDeploymentsContent
+    content: PrefixMessagesContent
     r"""The contents of the developer message."""
 
     name: Optional[str] = None
@@ -597,41 +588,44 @@ class PrefixMessagesDeveloperMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigPrefixMessagesRole = Literal["system",]
+DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-DeploymentGetConfigPrefixMessagesContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesContentTypedDict",
+DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict",
     Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
-DeploymentGetConfigPrefixMessagesContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesContent", Union[str, List[TextContentPartSchema]]
+DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
+    "DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent",
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the system message."""
 
 
-class PrefixMessagesSystemMessageTypedDict(TypedDict):
+class SystemMessageTypedDict(TypedDict):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: DeploymentGetConfigPrefixMessagesRole
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `system`."""
-    content: DeploymentGetConfigPrefixMessagesContentTypedDict
+    content: (
+        DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict
+    )
     r"""The contents of the system message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-class PrefixMessagesSystemMessage(BaseModel):
+class SystemMessage(BaseModel):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: DeploymentGetConfigPrefixMessagesRole
+    role: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `system`."""
 
-    content: DeploymentGetConfigPrefixMessagesContent
+    content: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyContent
     r"""The contents of the system message."""
 
     name: Optional[str] = None
@@ -654,68 +648,64 @@ class PrefixMessagesSystemMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigPrefixMessagesTypedDict = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesTypedDict",
+PrefixMessagesTypedDict = TypeAliasType(
+    "PrefixMessagesTypedDict",
     Union[
-        PrefixMessagesSystemMessageTypedDict,
-        PrefixMessagesDeveloperMessageTypedDict,
+        SystemMessageTypedDict,
+        DeveloperMessageTypedDict,
         PrefixMessagesUserMessageTypedDict,
         PrefixMessagesToolMessageTypedDict,
-        PrefixMessagesAssistantMessageTypedDict,
+        AssistantMessageTypedDict,
     ],
 )
 
 
-DeploymentGetConfigPrefixMessages = Annotated[
+PrefixMessages = Annotated[
     Union[
-        Annotated[PrefixMessagesSystemMessage, Tag("system")],
-        Annotated[PrefixMessagesDeveloperMessage, Tag("developer")],
+        Annotated[SystemMessage, Tag("system")],
+        Annotated[DeveloperMessage, Tag("developer")],
         Annotated[PrefixMessagesUserMessage, Tag("user")],
-        Annotated[PrefixMessagesAssistantMessage, Tag("assistant")],
+        Annotated[AssistantMessage, Tag("assistant")],
         Annotated[PrefixMessagesToolMessage, Tag("tool")],
     ],
     Discriminator(lambda m: get_discriminator(m, "role", "role")),
 ]
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]
+DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages52TypedDict = (
+DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict = (
     TextContentPartSchemaTypedDict
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages52 = (
-    TextContentPartSchema
-)
+DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2 = TextContentPartSchema
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBody5ContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestRequestBody5ContentTypedDict",
+DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict",
     Union[
         str,
-        List[
-            DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages52TypedDict
-        ],
+        List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict],
     ],
 )
 r"""The contents of the tool message."""
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Content = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Content",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages52]],
+DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
+    "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent",
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2]],
 )
 r"""The contents of the tool message."""
 
 
-DeploymentGetConfigMessagesDeploymentsType = Literal["ephemeral",]
+DeploymentGetConfigMessagesType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentGetConfigMessagesTTL = Literal[
+MessagesTTL = Literal[
     "5m",
     "1h",
 ]
@@ -728,10 +718,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentGetConfigMessagesCacheControlTypedDict(TypedDict):
-    type: DeploymentGetConfigMessagesDeploymentsType
+class MessagesCacheControlTypedDict(TypedDict):
+    type: DeploymentGetConfigMessagesType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentGetConfigMessagesTTL]
+    ttl: NotRequired[MessagesTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -741,11 +731,11 @@ class DeploymentGetConfigMessagesCacheControlTypedDict(TypedDict):
     """
 
 
-class DeploymentGetConfigMessagesCacheControl(BaseModel):
-    type: DeploymentGetConfigMessagesDeploymentsType
+class MessagesCacheControl(BaseModel):
+    type: DeploymentGetConfigMessagesType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[DeploymentGetConfigMessagesTTL] = "5m"
+    ttl: Optional[MessagesTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -771,27 +761,27 @@ class DeploymentGetConfigMessagesCacheControl(BaseModel):
         return m
 
 
-class DeploymentGetConfigMessagesToolMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Role
+class MessagesToolMessageTypedDict(TypedDict):
+    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case tool."""
-    content: DeploymentGetConfigMessagesDeploymentsRequestRequestBody5ContentTypedDict
+    content: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict
     r"""The contents of the tool message."""
     tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
-    cache_control: NotRequired[DeploymentGetConfigMessagesCacheControlTypedDict]
+    cache_control: NotRequired[MessagesCacheControlTypedDict]
 
 
-class DeploymentGetConfigMessagesToolMessage(BaseModel):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Role
+class MessagesToolMessage(BaseModel):
+    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case tool."""
 
-    content: DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Content
+    content: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent
     r"""The contents of the tool message."""
 
     tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
-    cache_control: Optional[DeploymentGetConfigMessagesCacheControl] = None
+    cache_control: Optional[MessagesCacheControl] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -819,20 +809,18 @@ class DeploymentGetConfigMessagesToolMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict = (
-    TypeAliasType(
-        "DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict",
-        Union[
-            RefusalPartSchemaTypedDict,
-            RedactedReasoningPartSchemaTypedDict,
-            TextContentPartSchemaTypedDict,
-            ReasoningPartSchemaTypedDict,
-        ],
-    )
+DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict",
+    Union[
+        RefusalPartSchemaTypedDict,
+        RedactedReasoningPartSchemaTypedDict,
+        TextContentPartSchemaTypedDict,
+        ReasoningPartSchemaTypedDict,
+    ],
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2 = Annotated[
+DeploymentGetConfigContentDeploymentsRequestRequestBody2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -843,53 +831,50 @@ DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2 = Annotated[
 ]
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict",
-    Union[
-        str,
-        List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict],
-    ],
+DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
+    "DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict",
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2]],
+DeploymentGetConfigMessagesDeploymentsRequestContent = TypeAliasType(
+    "DeploymentGetConfigMessagesDeploymentsRequestContent",
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
+DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant`."""
 
 
-class DeploymentGetConfigMessagesAudioTypedDict(TypedDict):
+class MessagesAudioTypedDict(TypedDict):
     r"""Data about a previous audio response from the model."""
 
     id: str
     r"""Unique identifier for a previous audio response from the model."""
 
 
-class DeploymentGetConfigMessagesAudio(BaseModel):
+class MessagesAudio(BaseModel):
     r"""Data about a previous audio response from the model."""
 
     id: str
     r"""Unique identifier for a previous audio response from the model."""
 
 
-DeploymentGetConfigMessagesType = Literal["function",]
+MessagesType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
-class DeploymentGetConfigMessagesFunctionTypedDict(TypedDict):
+class MessagesFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name of the function to call."""
     arguments: NotRequired[str]
     r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
 
 
-class DeploymentGetConfigMessagesFunction(BaseModel):
+class MessagesFunction(BaseModel):
     name: Optional[str] = None
     r"""The name of the function to call."""
 
@@ -913,24 +898,24 @@ class DeploymentGetConfigMessagesFunction(BaseModel):
         return m
 
 
-class DeploymentGetConfigMessagesToolCallsTypedDict(TypedDict):
+class MessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
-    type: DeploymentGetConfigMessagesType
+    type: MessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
-    function: DeploymentGetConfigMessagesFunctionTypedDict
+    function: MessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
-class DeploymentGetConfigMessagesToolCalls(BaseModel):
+class MessagesToolCalls(BaseModel):
     id: str
     r"""The ID of the tool call."""
 
-    type: DeploymentGetConfigMessagesType
+    type: MessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
 
-    function: DeploymentGetConfigMessagesFunction
+    function: MessagesFunction
 
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
@@ -952,37 +937,35 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
         return m
 
 
-class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
+class MessagesAssistantMessageTypedDict(TypedDict):
+    role: DeploymentGetConfigMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
     reasoning_content: NotRequired[str]
     r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
     content: NotRequired[
-        Nullable[
-            DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict
-        ]
+        Nullable[DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict]
     ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
-    audio: NotRequired[Nullable[DeploymentGetConfigMessagesAudioTypedDict]]
+    audio: NotRequired[Nullable[MessagesAudioTypedDict]]
     r"""Data about a previous audio response from the model."""
-    tool_calls: NotRequired[List[DeploymentGetConfigMessagesToolCallsTypedDict]]
+    tool_calls: NotRequired[List[MessagesToolCallsTypedDict]]
     r"""The tool calls generated by the model, such as function calls."""
 
 
-class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
+class MessagesAssistantMessage(BaseModel):
+    role: DeploymentGetConfigMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
 
     reasoning_content: Optional[str] = None
     r"""Provider reasoning content that must be replayed with assistant tool calls when continuing a reasoning-model conversation."""
 
-    content: OptionalNullable[
-        DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent
-    ] = UNSET
+    content: OptionalNullable[DeploymentGetConfigMessagesDeploymentsRequestContent] = (
+        UNSET
+    )
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -991,10 +974,10 @@ class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     name: Optional[str] = None
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
-    audio: OptionalNullable[DeploymentGetConfigMessagesAudio] = UNSET
+    audio: OptionalNullable[MessagesAudio] = UNSET
     r"""Data about a previous audio response from the model."""
 
-    tool_calls: Optional[List[DeploymentGetConfigMessagesToolCalls]] = None
+    tool_calls: Optional[List[MessagesToolCalls]] = None
     r"""The tool calls generated by the model, such as function calls."""
 
     @model_serializer(mode="wrap")
@@ -1025,19 +1008,19 @@ class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["user",]
+DeploymentGetConfigMessagesDeploymentsRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentGetConfig2DeploymentsRequestType = Literal["file",]
+DeploymentGetConfig2DeploymentsType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-DeploymentGetConfig2DeploymentsRequestRequestBodyType = Literal["ephemeral",]
+DeploymentGetConfig2DeploymentsRequestType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentGetConfig2DeploymentsTTL = Literal[
+DeploymentGetConfig2TTL = Literal[
     "5m",
     "1h",
 ]
@@ -1050,10 +1033,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentGetConfig2DeploymentsCacheControlTypedDict(TypedDict):
-    type: DeploymentGetConfig2DeploymentsRequestRequestBodyType
+class DeploymentGetConfig2CacheControlTypedDict(TypedDict):
+    type: DeploymentGetConfig2DeploymentsRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentGetConfig2DeploymentsTTL]
+    ttl: NotRequired[DeploymentGetConfig2TTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1063,11 +1046,11 @@ class DeploymentGetConfig2DeploymentsCacheControlTypedDict(TypedDict):
     """
 
 
-class DeploymentGetConfig2DeploymentsCacheControl(BaseModel):
-    type: DeploymentGetConfig2DeploymentsRequestRequestBodyType
+class DeploymentGetConfig2CacheControl(BaseModel):
+    type: DeploymentGetConfig2DeploymentsRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[DeploymentGetConfig2DeploymentsTTL] = "5m"
+    ttl: Optional[DeploymentGetConfig2TTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1093,22 +1076,22 @@ class DeploymentGetConfig2DeploymentsCacheControl(BaseModel):
         return m
 
 
-class DeploymentGetConfig2Deployments4TypedDict(TypedDict):
-    type: DeploymentGetConfig2DeploymentsRequestType
+class DeploymentGetConfig24TypedDict(TypedDict):
+    type: DeploymentGetConfig2DeploymentsType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[DeploymentGetConfig2DeploymentsCacheControlTypedDict]
+    cache_control: NotRequired[DeploymentGetConfig2CacheControlTypedDict]
 
 
-class DeploymentGetConfig2Deployments4(BaseModel):
-    type: DeploymentGetConfig2DeploymentsRequestType
+class DeploymentGetConfig24(BaseModel):
+    type: DeploymentGetConfig2DeploymentsType
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
-    cache_control: Optional[DeploymentGetConfig2DeploymentsCacheControl] = None
+    cache_control: Optional[DeploymentGetConfig2CacheControl] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1127,111 +1110,57 @@ class DeploymentGetConfig2Deployments4(BaseModel):
         return m
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict",
+DeploymentGetConfigContentDeploymentsRequest2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContentDeploymentsRequest2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        DeploymentGetConfig2Deployments4TypedDict,
+        DeploymentGetConfig24TypedDict,
     ],
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBody2 = Annotated[
+DeploymentGetConfigContentDeploymentsRequest2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[DeploymentGetConfig2Deployments4, Tag("file")],
+        Annotated[DeploymentGetConfig24, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 
 
-DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict]],
-)
-r"""The contents of the user message."""
-
-
-DeploymentGetConfigMessagesDeploymentsRequestContent = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2]],
-)
-r"""The contents of the user message."""
-
-
-class DeploymentGetConfigMessagesUserMessageTypedDict(TypedDict):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `user`."""
-    content: DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict
-    r"""The contents of the user message."""
-    name: NotRequired[str]
-    r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
-
-
-class DeploymentGetConfigMessagesUserMessage(BaseModel):
-    role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `user`."""
-
-    content: DeploymentGetConfigMessagesDeploymentsRequestContent
-    r"""The contents of the user message."""
-
-    name: Optional[str] = None
-    r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["name"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-DeploymentGetConfigMessagesDeploymentsRole = Literal["developer",]
-r"""The role of the messages author, in this case  `developer`."""
-
-
 DeploymentGetConfigMessagesDeploymentsContentTypedDict = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsContentTypedDict",
-    Union[str, List[TextContentPartSchemaTypedDict]],
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2TypedDict]],
 )
-r"""The contents of the developer message."""
+r"""The contents of the user message."""
 
 
 DeploymentGetConfigMessagesDeploymentsContent = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsContent",
-    Union[str, List[TextContentPartSchema]],
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2]],
 )
-r"""The contents of the developer message."""
+r"""The contents of the user message."""
 
 
-class DeploymentGetConfigMessagesDeveloperMessageTypedDict(TypedDict):
+class MessagesUserMessageTypedDict(TypedDict):
     role: DeploymentGetConfigMessagesDeploymentsRole
-    r"""The role of the messages author, in this case  `developer`."""
+    r"""The role of the messages author, in this case `user`."""
     content: DeploymentGetConfigMessagesDeploymentsContentTypedDict
-    r"""The contents of the developer message."""
+    r"""The contents of the user message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-class DeploymentGetConfigMessagesDeveloperMessage(BaseModel):
+class MessagesUserMessage(BaseModel):
     role: DeploymentGetConfigMessagesDeploymentsRole
-    r"""The role of the messages author, in this case  `developer`."""
+    r"""The role of the messages author, in this case `user`."""
 
     content: DeploymentGetConfigMessagesDeploymentsContent
-    r"""The contents of the developer message."""
+    r"""The contents of the user message."""
 
     name: Optional[str] = None
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
@@ -1253,41 +1182,93 @@ class DeploymentGetConfigMessagesDeveloperMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigMessagesRole = Literal["system",]
-r"""The role of the messages author, in this case `system`."""
+DeploymentGetConfigMessagesRole = Literal["developer",]
+r"""The role of the messages author, in this case  `developer`."""
 
 
 DeploymentGetConfigMessagesContentTypedDict = TypeAliasType(
     "DeploymentGetConfigMessagesContentTypedDict",
     Union[str, List[TextContentPartSchemaTypedDict]],
 )
-r"""The contents of the system message."""
+r"""The contents of the developer message."""
 
 
 DeploymentGetConfigMessagesContent = TypeAliasType(
     "DeploymentGetConfigMessagesContent", Union[str, List[TextContentPartSchema]]
 )
+r"""The contents of the developer message."""
+
+
+class MessagesDeveloperMessageTypedDict(TypedDict):
+    role: DeploymentGetConfigMessagesRole
+    r"""The role of the messages author, in this case  `developer`."""
+    content: DeploymentGetConfigMessagesContentTypedDict
+    r"""The contents of the developer message."""
+    name: NotRequired[str]
+    r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
+
+
+class MessagesDeveloperMessage(BaseModel):
+    role: DeploymentGetConfigMessagesRole
+    r"""The role of the messages author, in this case  `developer`."""
+
+    content: DeploymentGetConfigMessagesContent
+    r"""The contents of the developer message."""
+
+    name: Optional[str] = None
+    r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+MessagesRole = Literal["system",]
+r"""The role of the messages author, in this case `system`."""
+
+
+MessagesContentTypedDict = TypeAliasType(
+    "MessagesContentTypedDict", Union[str, List[TextContentPartSchemaTypedDict]]
+)
 r"""The contents of the system message."""
 
 
-class DeploymentGetConfigMessagesSystemMessageTypedDict(TypedDict):
+MessagesContent = TypeAliasType(
+    "MessagesContent", Union[str, List[TextContentPartSchema]]
+)
+r"""The contents of the system message."""
+
+
+class MessagesSystemMessageTypedDict(TypedDict):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: DeploymentGetConfigMessagesRole
+    role: MessagesRole
     r"""The role of the messages author, in this case `system`."""
-    content: DeploymentGetConfigMessagesContentTypedDict
+    content: MessagesContentTypedDict
     r"""The contents of the system message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-class DeploymentGetConfigMessagesSystemMessage(BaseModel):
+class MessagesSystemMessage(BaseModel):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: DeploymentGetConfigMessagesRole
+    role: MessagesRole
     r"""The role of the messages author, in this case `system`."""
 
-    content: DeploymentGetConfigMessagesContent
+    content: MessagesContent
     r"""The contents of the system message."""
 
     name: Optional[str] = None
@@ -1313,22 +1294,22 @@ class DeploymentGetConfigMessagesSystemMessage(BaseModel):
 DeploymentGetConfigMessagesTypedDict = TypeAliasType(
     "DeploymentGetConfigMessagesTypedDict",
     Union[
-        DeploymentGetConfigMessagesSystemMessageTypedDict,
-        DeploymentGetConfigMessagesDeveloperMessageTypedDict,
-        DeploymentGetConfigMessagesUserMessageTypedDict,
-        DeploymentGetConfigMessagesToolMessageTypedDict,
-        DeploymentGetConfigMessagesAssistantMessageTypedDict,
+        MessagesSystemMessageTypedDict,
+        MessagesDeveloperMessageTypedDict,
+        MessagesUserMessageTypedDict,
+        MessagesToolMessageTypedDict,
+        MessagesAssistantMessageTypedDict,
     ],
 )
 
 
 DeploymentGetConfigMessages = Annotated[
     Union[
-        Annotated[DeploymentGetConfigMessagesSystemMessage, Tag("system")],
-        Annotated[DeploymentGetConfigMessagesDeveloperMessage, Tag("developer")],
-        Annotated[DeploymentGetConfigMessagesUserMessage, Tag("user")],
-        Annotated[DeploymentGetConfigMessagesAssistantMessage, Tag("assistant")],
-        Annotated[DeploymentGetConfigMessagesToolMessage, Tag("tool")],
+        Annotated[MessagesSystemMessage, Tag("system")],
+        Annotated[MessagesDeveloperMessage, Tag("developer")],
+        Annotated[MessagesUserMessage, Tag("user")],
+        Annotated[MessagesAssistantMessage, Tag("assistant")],
+        Annotated[MessagesToolMessage, Tag("tool")],
     ],
     Discriminator(lambda m: get_discriminator(m, "role", "role")),
 ]
@@ -1374,14 +1355,14 @@ class DeploymentGetConfigMetadata(BaseModel):
         return m
 
 
-class DeploymentGetConfigDocumentsTypedDict(TypedDict):
+class DocumentsTypedDict(TypedDict):
     text: str
     r"""The text content of the document"""
     metadata: NotRequired[DeploymentGetConfigMetadataTypedDict]
     r"""Metadata about the document"""
 
 
-class DeploymentGetConfigDocuments(BaseModel):
+class Documents(BaseModel):
     text: str
     r"""The text content of the document"""
 
@@ -1405,7 +1386,7 @@ class DeploymentGetConfigDocuments(BaseModel):
         return m
 
 
-class DeploymentGetConfigInvokeOptionsTypedDict(TypedDict):
+class InvokeOptionsTypedDict(TypedDict):
     include_retrievals: NotRequired[bool]
     r"""Whether to include the retrieved knowledge chunks in the response."""
     include_usage: NotRequired[bool]
@@ -1414,7 +1395,7 @@ class DeploymentGetConfigInvokeOptionsTypedDict(TypedDict):
     r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
 
 
-class DeploymentGetConfigInvokeOptions(BaseModel):
+class InvokeOptions(BaseModel):
     include_retrievals: Optional[bool] = False
     r"""Whether to include the retrieved knowledge chunks in the response."""
 
@@ -1472,48 +1453,48 @@ class DeploymentGetConfigThread(BaseModel):
         return m
 
 
-DeploymentGetConfigOrDeploymentsNinTypedDict = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsNinTypedDict", Union[str, float, bool]
+DeploymentGetConfigOrNinTypedDict = TypeAliasType(
+    "DeploymentGetConfigOrNinTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigOrDeploymentsNin = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsNin", Union[str, float, bool]
+DeploymentGetConfigOrNin = TypeAliasType(
+    "DeploymentGetConfigOrNin", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigOrNinTypedDict(TypedDict):
+class DeploymentGetConfigOrDeploymentsNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[DeploymentGetConfigOrDeploymentsNinTypedDict]
+    nin: List[DeploymentGetConfigOrNinTypedDict]
 
 
-class DeploymentGetConfigOrNin(BaseModel):
+class DeploymentGetConfigOrDeploymentsNin(BaseModel):
     r"""Not in"""
 
-    nin: List[DeploymentGetConfigOrDeploymentsNin]
+    nin: List[DeploymentGetConfigOrNin]
 
 
-DeploymentGetConfigOrDeploymentsInTypedDict = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsInTypedDict", Union[str, float, bool]
+DeploymentGetConfigOrInTypedDict = TypeAliasType(
+    "DeploymentGetConfigOrInTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigOrDeploymentsIn = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsIn", Union[str, float, bool]
+DeploymentGetConfigOrIn = TypeAliasType(
+    "DeploymentGetConfigOrIn", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigOrInTypedDict(TypedDict):
+class DeploymentGetConfigOrDeploymentsInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[DeploymentGetConfigOrDeploymentsInTypedDict]
+    in_: List[DeploymentGetConfigOrInTypedDict]
 
 
-class DeploymentGetConfigOrIn(BaseModel):
+class DeploymentGetConfigOrDeploymentsIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[DeploymentGetConfigOrDeploymentsIn], pydantic.Field(alias="in")]
+    in_: Annotated[List[DeploymentGetConfigOrIn], pydantic.Field(alias="in")]
 
 
 class DeploymentGetConfigOrLteTypedDict(TypedDict):
@@ -1564,76 +1545,76 @@ class DeploymentGetConfigOrGt(BaseModel):
     gt: float
 
 
-DeploymentGetConfigOrDeploymentsNeTypedDict = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsNeTypedDict", Union[str, float, bool]
+DeploymentGetConfigOrNeTypedDict = TypeAliasType(
+    "DeploymentGetConfigOrNeTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigOrDeploymentsNe = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsNe", Union[str, float, bool]
+DeploymentGetConfigOrNe = TypeAliasType(
+    "DeploymentGetConfigOrNe", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigOrNeTypedDict(TypedDict):
+class DeploymentGetConfigOrDeploymentsNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: DeploymentGetConfigOrDeploymentsNeTypedDict
+    ne: DeploymentGetConfigOrNeTypedDict
 
 
-class DeploymentGetConfigOrNe(BaseModel):
+class DeploymentGetConfigOrDeploymentsNe(BaseModel):
     r"""Not equal to"""
 
-    ne: DeploymentGetConfigOrDeploymentsNe
+    ne: DeploymentGetConfigOrNe
 
 
-DeploymentGetConfigOrDeploymentsEqTypedDict = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsEqTypedDict", Union[str, float, bool]
+DeploymentGetConfigOrEqTypedDict = TypeAliasType(
+    "DeploymentGetConfigOrEqTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigOrDeploymentsEq = TypeAliasType(
-    "DeploymentGetConfigOrDeploymentsEq", Union[str, float, bool]
+DeploymentGetConfigOrEq = TypeAliasType(
+    "DeploymentGetConfigOrEq", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigOrEqTypedDict(TypedDict):
+class DeploymentGetConfigOrDeploymentsEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: DeploymentGetConfigOrDeploymentsEqTypedDict
+    eq: DeploymentGetConfigOrEqTypedDict
 
 
-class DeploymentGetConfigOrEq(BaseModel):
+class DeploymentGetConfigOrDeploymentsEq(BaseModel):
     r"""Equal to"""
 
-    eq: DeploymentGetConfigOrDeploymentsEq
+    eq: DeploymentGetConfigOrEq
 
 
-DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict",
+KnowledgeFilterOrTypedDict = TypeAliasType(
+    "KnowledgeFilterOrTypedDict",
     Union[
-        DeploymentGetConfigOrEqTypedDict,
-        DeploymentGetConfigOrNeTypedDict,
+        DeploymentGetConfigOrDeploymentsEqTypedDict,
+        DeploymentGetConfigOrDeploymentsNeTypedDict,
         DeploymentGetConfigOrGtTypedDict,
         DeploymentGetConfigOrGteTypedDict,
         DeploymentGetConfigOrLtTypedDict,
         DeploymentGetConfigOrLteTypedDict,
-        DeploymentGetConfigOrInTypedDict,
-        DeploymentGetConfigOrNinTypedDict,
+        DeploymentGetConfigOrDeploymentsInTypedDict,
+        DeploymentGetConfigOrDeploymentsNinTypedDict,
     ],
 )
 
 
-DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsOr",
+KnowledgeFilterOr = TypeAliasType(
+    "KnowledgeFilterOr",
     Union[
-        DeploymentGetConfigOrEq,
-        DeploymentGetConfigOrNe,
+        DeploymentGetConfigOrDeploymentsEq,
+        DeploymentGetConfigOrDeploymentsNe,
         DeploymentGetConfigOrGt,
         DeploymentGetConfigOrGte,
         DeploymentGetConfigOrLt,
         DeploymentGetConfigOrLte,
-        DeploymentGetConfigOrIn,
-        DeploymentGetConfigOrNin,
+        DeploymentGetConfigOrDeploymentsIn,
+        DeploymentGetConfigOrDeploymentsNin,
     ],
 )
 
@@ -1641,62 +1622,57 @@ DeploymentGetConfigKnowledgeFilterDeploymentsOr = TypeAliasType(
 class DeploymentGetConfigKnowledgeFilterOrTypedDict(TypedDict):
     r"""Or"""
 
-    or_: List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsOrTypedDict]]
+    or_: List[Dict[str, KnowledgeFilterOrTypedDict]]
 
 
 class DeploymentGetConfigKnowledgeFilterOr(BaseModel):
     r"""Or"""
 
-    or_: Annotated[
-        List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsOr]],
-        pydantic.Field(alias="or"),
-    ]
+    or_: Annotated[List[Dict[str, KnowledgeFilterOr]], pydantic.Field(alias="or")]
 
 
-DeploymentGetConfigAndDeploymentsNinTypedDict = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsNinTypedDict", Union[str, float, bool]
+DeploymentGetConfigAndNinTypedDict = TypeAliasType(
+    "DeploymentGetConfigAndNinTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigAndDeploymentsNin = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsNin", Union[str, float, bool]
+DeploymentGetConfigAndNin = TypeAliasType(
+    "DeploymentGetConfigAndNin", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigAndNinTypedDict(TypedDict):
+class DeploymentGetConfigAndDeploymentsNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[DeploymentGetConfigAndDeploymentsNinTypedDict]
+    nin: List[DeploymentGetConfigAndNinTypedDict]
 
 
-class DeploymentGetConfigAndNin(BaseModel):
+class DeploymentGetConfigAndDeploymentsNin(BaseModel):
     r"""Not in"""
 
-    nin: List[DeploymentGetConfigAndDeploymentsNin]
+    nin: List[DeploymentGetConfigAndNin]
 
 
-DeploymentGetConfigAndDeploymentsInTypedDict = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsInTypedDict", Union[str, float, bool]
+DeploymentGetConfigAndInTypedDict = TypeAliasType(
+    "DeploymentGetConfigAndInTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigAndDeploymentsIn = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsIn", Union[str, float, bool]
+DeploymentGetConfigAndIn = TypeAliasType(
+    "DeploymentGetConfigAndIn", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigAndInTypedDict(TypedDict):
+class DeploymentGetConfigAndDeploymentsInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[DeploymentGetConfigAndDeploymentsInTypedDict]
+    in_: List[DeploymentGetConfigAndInTypedDict]
 
 
-class DeploymentGetConfigAndIn(BaseModel):
+class DeploymentGetConfigAndDeploymentsIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[
-        List[DeploymentGetConfigAndDeploymentsIn], pydantic.Field(alias="in")
-    ]
+    in_: Annotated[List[DeploymentGetConfigAndIn], pydantic.Field(alias="in")]
 
 
 class DeploymentGetConfigAndLteTypedDict(TypedDict):
@@ -1747,76 +1723,76 @@ class DeploymentGetConfigAndGt(BaseModel):
     gt: float
 
 
-DeploymentGetConfigAndDeploymentsNeTypedDict = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsNeTypedDict", Union[str, float, bool]
+DeploymentGetConfigAndNeTypedDict = TypeAliasType(
+    "DeploymentGetConfigAndNeTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigAndDeploymentsNe = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsNe", Union[str, float, bool]
+DeploymentGetConfigAndNe = TypeAliasType(
+    "DeploymentGetConfigAndNe", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigAndNeTypedDict(TypedDict):
+class DeploymentGetConfigAndDeploymentsNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: DeploymentGetConfigAndDeploymentsNeTypedDict
+    ne: DeploymentGetConfigAndNeTypedDict
 
 
-class DeploymentGetConfigAndNe(BaseModel):
+class DeploymentGetConfigAndDeploymentsNe(BaseModel):
     r"""Not equal to"""
 
-    ne: DeploymentGetConfigAndDeploymentsNe
+    ne: DeploymentGetConfigAndNe
 
 
-DeploymentGetConfigAndDeploymentsEqTypedDict = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsEqTypedDict", Union[str, float, bool]
+DeploymentGetConfigAndEqTypedDict = TypeAliasType(
+    "DeploymentGetConfigAndEqTypedDict", Union[str, float, bool]
 )
 
 
-DeploymentGetConfigAndDeploymentsEq = TypeAliasType(
-    "DeploymentGetConfigAndDeploymentsEq", Union[str, float, bool]
+DeploymentGetConfigAndEq = TypeAliasType(
+    "DeploymentGetConfigAndEq", Union[str, float, bool]
 )
 
 
-class DeploymentGetConfigAndEqTypedDict(TypedDict):
+class DeploymentGetConfigAndDeploymentsEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: DeploymentGetConfigAndDeploymentsEqTypedDict
+    eq: DeploymentGetConfigAndEqTypedDict
 
 
-class DeploymentGetConfigAndEq(BaseModel):
+class DeploymentGetConfigAndDeploymentsEq(BaseModel):
     r"""Equal to"""
 
-    eq: DeploymentGetConfigAndDeploymentsEq
+    eq: DeploymentGetConfigAndEq
 
 
-DeploymentGetConfigKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsAndTypedDict",
+KnowledgeFilterAndTypedDict = TypeAliasType(
+    "KnowledgeFilterAndTypedDict",
     Union[
-        DeploymentGetConfigAndEqTypedDict,
-        DeploymentGetConfigAndNeTypedDict,
+        DeploymentGetConfigAndDeploymentsEqTypedDict,
+        DeploymentGetConfigAndDeploymentsNeTypedDict,
         DeploymentGetConfigAndGtTypedDict,
         DeploymentGetConfigAndGteTypedDict,
         DeploymentGetConfigAndLtTypedDict,
         DeploymentGetConfigAndLteTypedDict,
-        DeploymentGetConfigAndInTypedDict,
-        DeploymentGetConfigAndNinTypedDict,
+        DeploymentGetConfigAndDeploymentsInTypedDict,
+        DeploymentGetConfigAndDeploymentsNinTypedDict,
     ],
 )
 
 
-DeploymentGetConfigKnowledgeFilterDeploymentsAnd = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterDeploymentsAnd",
+KnowledgeFilterAnd = TypeAliasType(
+    "KnowledgeFilterAnd",
     Union[
-        DeploymentGetConfigAndEq,
-        DeploymentGetConfigAndNe,
+        DeploymentGetConfigAndDeploymentsEq,
+        DeploymentGetConfigAndDeploymentsNe,
         DeploymentGetConfigAndGt,
         DeploymentGetConfigAndGte,
         DeploymentGetConfigAndLt,
         DeploymentGetConfigAndLte,
-        DeploymentGetConfigAndIn,
-        DeploymentGetConfigAndNin,
+        DeploymentGetConfigAndDeploymentsIn,
+        DeploymentGetConfigAndDeploymentsNin,
     ],
 )
 
@@ -1824,16 +1800,13 @@ DeploymentGetConfigKnowledgeFilterDeploymentsAnd = TypeAliasType(
 class DeploymentGetConfigKnowledgeFilterAndTypedDict(TypedDict):
     r"""And"""
 
-    and_: List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsAndTypedDict]]
+    and_: List[Dict[str, KnowledgeFilterAndTypedDict]]
 
 
 class DeploymentGetConfigKnowledgeFilterAnd(BaseModel):
     r"""And"""
 
-    and_: Annotated[
-        List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsAnd]],
-        pydantic.Field(alias="and"),
-    ]
+    and_: Annotated[List[Dict[str, KnowledgeFilterAnd]], pydantic.Field(alias="and")]
 
 
 DeploymentGetConfig1DeploymentsNinTypedDict = TypeAliasType(
@@ -1972,8 +1945,8 @@ class DeploymentGetConfig1Eq(BaseModel):
     eq: DeploymentGetConfig1DeploymentsEq
 
 
-DeploymentGetConfigKnowledgeFilter1TypedDict = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilter1TypedDict",
+KnowledgeFilter1TypedDict = TypeAliasType(
+    "KnowledgeFilter1TypedDict",
     Union[
         DeploymentGetConfig1EqTypedDict,
         DeploymentGetConfig1NeTypedDict,
@@ -1987,8 +1960,8 @@ DeploymentGetConfigKnowledgeFilter1TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigKnowledgeFilter1 = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilter1",
+KnowledgeFilter1 = TypeAliasType(
+    "KnowledgeFilter1",
     Union[
         DeploymentGetConfig1Eq,
         DeploymentGetConfig1Ne,
@@ -2002,23 +1975,23 @@ DeploymentGetConfigKnowledgeFilter1 = TypeAliasType(
 )
 
 
-DeploymentGetConfigKnowledgeFilterTypedDict = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilterTypedDict",
+KnowledgeFilterTypedDict = TypeAliasType(
+    "KnowledgeFilterTypedDict",
     Union[
         DeploymentGetConfigKnowledgeFilterAndTypedDict,
         DeploymentGetConfigKnowledgeFilterOrTypedDict,
-        Dict[str, DeploymentGetConfigKnowledgeFilter1TypedDict],
+        Dict[str, KnowledgeFilter1TypedDict],
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
-DeploymentGetConfigKnowledgeFilter = TypeAliasType(
-    "DeploymentGetConfigKnowledgeFilter",
+KnowledgeFilter = TypeAliasType(
+    "KnowledgeFilter",
     Union[
         DeploymentGetConfigKnowledgeFilterAnd,
         DeploymentGetConfigKnowledgeFilterOr,
-        Dict[str, DeploymentGetConfigKnowledgeFilter1],
+        Dict[str, KnowledgeFilter1],
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
@@ -2031,7 +2004,7 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
     context: NotRequired[Dict[str, Any]]
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
-    prefix_messages: NotRequired[List[DeploymentGetConfigPrefixMessagesTypedDict]]
+    prefix_messages: NotRequired[List[PrefixMessagesTypedDict]]
     r"""A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment."""
     messages: NotRequired[List[DeploymentGetConfigMessagesTypedDict]]
     r"""A list of messages to send to the deployment."""
@@ -2043,11 +2016,11 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     r"""Key-value pairs that you want to attach to the log generated by this request."""
     extra_params: NotRequired[Dict[str, Any]]
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
-    documents: NotRequired[List[DeploymentGetConfigDocumentsTypedDict]]
+    documents: NotRequired[List[DocumentsTypedDict]]
     r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
-    invoke_options: NotRequired[DeploymentGetConfigInvokeOptionsTypedDict]
+    invoke_options: NotRequired[InvokeOptionsTypedDict]
     thread: NotRequired[DeploymentGetConfigThreadTypedDict]
-    knowledge_filter: NotRequired[DeploymentGetConfigKnowledgeFilterTypedDict]
+    knowledge_filter: NotRequired[KnowledgeFilterTypedDict]
     r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
@@ -2061,7 +2034,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
     context: Optional[Dict[str, Any]] = None
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
 
-    prefix_messages: Optional[List[DeploymentGetConfigPrefixMessages]] = None
+    prefix_messages: Optional[List[PrefixMessages]] = None
     r"""A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment."""
 
     messages: Optional[List[DeploymentGetConfigMessages]] = None
@@ -2079,14 +2052,14 @@ class DeploymentGetConfigRequestBody(BaseModel):
     extra_params: Optional[Dict[str, Any]] = None
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
 
-    documents: Optional[List[DeploymentGetConfigDocuments]] = None
+    documents: Optional[List[Documents]] = None
     r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
 
-    invoke_options: Optional[DeploymentGetConfigInvokeOptions] = None
+    invoke_options: Optional[InvokeOptions] = None
 
     thread: Optional[DeploymentGetConfigThread] = None
 
-    knowledge_filter: Optional[DeploymentGetConfigKnowledgeFilter] = None
+    knowledge_filter: Optional[KnowledgeFilter] = None
     r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
     @model_serializer(mode="wrap")
@@ -3002,7 +2975,7 @@ class DeploymentGetConfigResponseBody(BaseModel):
 
 
 try:
-    DeploymentGetConfigOrIn.model_rebuild()
+    DeploymentGetConfigOrDeploymentsIn.model_rebuild()
 except NameError:
     pass
 try:
@@ -3010,7 +2983,7 @@ try:
 except NameError:
     pass
 try:
-    DeploymentGetConfigAndIn.model_rebuild()
+    DeploymentGetConfigAndDeploymentsIn.model_rebuild()
 except NameError:
     pass
 try:

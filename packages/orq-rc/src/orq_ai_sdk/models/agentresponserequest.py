@@ -19,22 +19,22 @@ from typing_extensions import (
 )
 
 
-RoleToolMessage = Literal["tool",]
+ToolMessage = Literal["tool",]
 r"""Message containing tool execution results"""
 
 
-RoleUserMessage = Literal["user",]
+UserMessage = Literal["user",]
 r"""Message from the end user"""
 
 
 AgentResponseRequestRoleTypedDict = TypeAliasType(
-    "AgentResponseRequestRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
+    "AgentResponseRequestRoleTypedDict", Union[UserMessage, ToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
 AgentResponseRequestRole = TypeAliasType(
-    "AgentResponseRequestRole", Union[RoleUserMessage, RoleToolMessage]
+    "AgentResponseRequestRole", Union[UserMessage, ToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 
@@ -219,7 +219,7 @@ class Contact(BaseModel):
         return m
 
 
-class AgentResponseRequestThreadTypedDict(TypedDict):
+class ThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
 
     id: str
@@ -228,7 +228,7 @@ class AgentResponseRequestThreadTypedDict(TypedDict):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class AgentResponseRequestThread(BaseModel):
+class Thread(BaseModel):
     r"""Thread information to group related requests"""
 
     id: str
@@ -333,7 +333,7 @@ class AgentResponseRequestTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[ContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    thread: NotRequired[AgentResponseRequestThreadTypedDict]
+    thread: NotRequired[ThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[AgentResponseRequestMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
@@ -374,7 +374,7 @@ class AgentResponseRequest(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    thread: Optional[AgentResponseRequestThread] = None
+    thread: Optional[Thread] = None
     r"""Thread information to group related requests"""
 
     memory: Optional[AgentResponseRequestMemory] = None

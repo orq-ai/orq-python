@@ -15,28 +15,28 @@ value: models.CreateChatCompletion1Eq = /* values here */
 value: models.CreateChatCompletion1Ne = /* values here */
 ```
 
-### `models.CreateChatCompletion1Gt`
+### `models.OneGt`
 
 ```python
-value: models.CreateChatCompletion1Gt = /* values here */
+value: models.OneGt = /* values here */
 ```
 
-### `models.CreateChatCompletion1Gte`
+### `models.OneGte`
 
 ```python
-value: models.CreateChatCompletion1Gte = /* values here */
+value: models.OneGte = /* values here */
 ```
 
-### `models.CreateChatCompletion1Lt`
+### `models.OneLt`
 
 ```python
-value: models.CreateChatCompletion1Lt = /* values here */
+value: models.OneLt = /* values here */
 ```
 
-### `models.CreateChatCompletion1Lte`
+### `models.OneLte`
 
 ```python
-value: models.CreateChatCompletion1Lte = /* values here */
+value: models.OneLte = /* values here */
 ```
 
 ### `models.CreateChatCompletion1In`

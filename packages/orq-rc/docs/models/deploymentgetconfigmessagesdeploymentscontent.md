@@ -1,6 +1,6 @@
 # DeploymentGetConfigMessagesDeploymentsContent
 
-The contents of the developer message.
+The contents of the user message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the developer message.
 value: str = /* values here */
 ```
 
-### `List[models.TextContentPartSchema]`
+### `List[models.DeploymentGetConfigContentDeploymentsRequest2]`
 
 ```python
-value: List[models.TextContentPartSchema] = /* values here */
+value: List[models.DeploymentGetConfigContentDeploymentsRequest2] = /* values here */
 ```
 

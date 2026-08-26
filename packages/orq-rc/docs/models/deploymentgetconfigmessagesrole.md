@@ -1,15 +1,15 @@
 # DeploymentGetConfigMessagesRole
 
-The role of the messages author, in this case `system`.
+The role of the messages author, in this case  `developer`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigMessagesRole
-value: DeploymentGetConfigMessagesRole = "system"
+value: DeploymentGetConfigMessagesRole = "developer"
 ```
 
 
 ## Values
 
-- `"system"`
+- `"developer"`

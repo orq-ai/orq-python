@@ -1,59 +1,10 @@
 # FilterByOr
 
+Or
 
-## Supported Types
 
-### `models.SearchKnowledgeRequestOrFilterByEq`
+## Fields
 
-```python
-value: models.SearchKnowledgeRequestOrFilterByEq = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrFilterByNe`
-
-```python
-value: models.SearchKnowledgeRequestOrFilterByNe = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrGt`
-
-```python
-value: models.SearchKnowledgeRequestOrGt = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrGte`
-
-```python
-value: models.SearchKnowledgeRequestOrGte = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrLt`
-
-```python
-value: models.SearchKnowledgeRequestOrLt = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrLte`
-
-```python
-value: models.SearchKnowledgeRequestOrLte = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrFilterByIn`
-
-```python
-value: models.SearchKnowledgeRequestOrFilterByIn = /* values here */
-```
-
-### `models.SearchKnowledgeRequestOrFilterByNin`
-
-```python
-value: models.SearchKnowledgeRequestOrFilterByNin = /* values here */
-```
-
-### `models.OrExists`
-
-```python
-value: models.OrExists = /* values here */
-```
-
+| Field                                          | Type                                           | Required                                       | Description                                    |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `or_`                                          | List[Dict[str, [models.Or](../models/or_.md)]] | :heavy_check_mark:                             | N/A                                            |

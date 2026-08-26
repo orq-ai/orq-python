@@ -1,23 +1,10 @@
 # SearchKnowledgeRequestAndEq
 
+Equal to
 
-## Supported Types
 
-### `str`
+## Fields
 
-```python
-value: str = /* values here */
-```
-
-### `float`
-
-```python
-value: float = /* values here */
-```
-
-### `bool`
-
-```python
-value: bool = /* values here */
-```
-
+| Field                              | Type                               | Required                           | Description                        |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| `eq`                               | [models.AndEq](../models/andeq.md) | :heavy_check_mark:                 | N/A                                |
