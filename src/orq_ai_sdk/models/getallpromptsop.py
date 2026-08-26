@@ -640,6 +640,8 @@ GetAllPromptsProvider = Literal[
     "fireworks",
     "baseten",
     "reson8",
+    "meta",
+    "greenpt",
     "slack",
     "orq",
 ]
