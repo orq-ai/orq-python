@@ -150,9 +150,9 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -315,9 +315,9 @@ class Typescript(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -468,9 +468,9 @@ class ResponseBodyPython(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -637,9 +637,9 @@ class ResponseBodyHTTP(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -783,9 +783,9 @@ class JSON(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -983,9 +983,9 @@ class Ragas(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1655,9 +1655,9 @@ class ResponseBodyFunction(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2495,9 +2495,9 @@ class ResponseBodyLLM(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-08-26T07:29:37.805Z"
+    created: Optional[str] = "2026-08-26T09:46:51.830Z"
 
-    updated: Optional[str] = "2026-08-26T07:29:37.805Z"
+    updated: Optional[str] = "2026-08-26T09:46:51.831Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
