@@ -1,6 +1,6 @@
 # OrqSidekickTool
 
-Lets the primary model delegate a concrete task to a configured secondary model.
+Lets the primary model delegate a concrete task to a configured worker model. Use type "orq:subagent" ("orq:sidekick" is the legacy alias).
 
 
 ## Fields
@@ -14,4 +14,4 @@ Lets the primary model delegate a concrete task to a configured secondary model.
 | `reasoning_effort`                                                                                                 | [Optional[models.OrqSidekickToolReasoningEffort]](../models/orqsidekicktoolreasoningeffort.md)                     | :heavy_minus_sign:                                                                                                 | Reasoning effort for supported models. Omit to use the provider default.                                           |
 | `system_prompt`                                                                                                    | *Optional[str]*                                                                                                    | :heavy_minus_sign:                                                                                                 | Optional system prompt for the secondary model.                                                                    |
 | `temperature`                                                                                                      | *Optional[float]*                                                                                                  | :heavy_minus_sign:                                                                                                 | Sampling temperature. The selected model may impose a lower maximum.                                               |
-| `type`                                                                                                             | [models.OrqSidekickToolType](../models/orqsidekicktooltype.md)                                                     | :heavy_check_mark:                                                                                                 | Sidekick tool discriminator.                                                                                       |
+| `type`                                                                                                             | [models.OrqSidekickToolType](../models/orqsidekicktooltype.md)                                                     | :heavy_check_mark:                                                                                                 | Subagent tool discriminator; orq:sidekick is the legacy alias.                                                     |

@@ -27,6 +27,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.evals import Evals
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
+    from orq_ai_sdk.filesystems import FileSystems
     from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
@@ -75,6 +76,7 @@ class Orq(BaseSDK):
     human_review_sets: "HumanReviewSets"
     annotation_queues: "AnnotationQueues"
     chunking: "Chunking"
+    file_systems: "FileSystems"
     knowledge: "KnowledgeSDK"
     memory_stores: "MemoryStores"
     pii: "Pii"
@@ -116,6 +118,7 @@ class Orq(BaseSDK):
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
+        "file_systems": ("orq_ai_sdk.filesystems", "FileSystems"),
         "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "pii": ("orq_ai_sdk.pii", "Pii"),

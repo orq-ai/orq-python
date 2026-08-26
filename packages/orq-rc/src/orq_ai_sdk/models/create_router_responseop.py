@@ -957,6 +957,16 @@ class Network(BaseModel):
 
 
 CreateRouterResponseToolsResponsesType = Literal[
+    "orq:web_search",
+    "orq:web_fetch",
+    "orq:datetime",
+    "orq:search_models",
+    "orq:image_generation",
+    "orq:apply_patch",
+    "orq:fusion",
+    "orq:shell",
+    "orq:query_knowledge_base",
+    "orq:retrieve_knowledge_bases",
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
@@ -965,18 +975,20 @@ CreateRouterResponseToolsResponsesType = Literal[
     "orq:http",
     "orq:function",
 ]
-r"""The orq.ai tool type."""
+r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
 
 class OrqAiToolTypedDict(TypedDict):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesType
-    r"""The orq.ai tool type."""
+    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
     network: NotRequired[NetworkTypedDict]
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
+    timezone: NotRequired[str]
+    r"""Default IANA timezone for orq:datetime (e.g., \"Europe/Amsterdam\")."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
@@ -985,7 +997,7 @@ class OrqAiTool(BaseModel):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
     type: CreateRouterResponseToolsResponsesType
-    r"""The orq.ai tool type."""
+    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
 
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
@@ -993,12 +1005,15 @@ class OrqAiTool(BaseModel):
     network: Optional[Network] = None
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
 
+    timezone: Optional[str] = None
+    r"""Default IANA timezone for orq:datetime (e.g., \"Europe/Amsterdam\")."""
+
     tool_id: Optional[str] = None
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["files", "network", "tool_id"])
+        optional_fields = set(["files", "network", "timezone", "tool_id"])
         serialized = handler(self)
         m = {}
 
@@ -1144,7 +1159,18 @@ CreateRouterResponseTools = Annotated[
     Union[
         Annotated[ToolsFunction, Tag("function")],
         Annotated[OrqAdvisorTool, Tag("orq:advisor")],
+        Annotated[OrqSidekickTool, Tag("orq:subagent")],
         Annotated[OrqSidekickTool, Tag("orq:sidekick")],
+        Annotated[OrqAiTool, Tag("orq:web_search")],
+        Annotated[OrqAiTool, Tag("orq:web_fetch")],
+        Annotated[OrqAiTool, Tag("orq:datetime")],
+        Annotated[OrqAiTool, Tag("orq:search_models")],
+        Annotated[OrqAiTool, Tag("orq:image_generation")],
+        Annotated[OrqAiTool, Tag("orq:apply_patch")],
+        Annotated[OrqAiTool, Tag("orq:fusion")],
+        Annotated[OrqAiTool, Tag("orq:shell")],
+        Annotated[OrqAiTool, Tag("orq:query_knowledge_base")],
+        Annotated[OrqAiTool, Tag("orq:retrieve_knowledge_bases")],
         Annotated[OrqAiTool, Tag("orq:current_date")],
         Annotated[OrqAiTool, Tag("orq:google_search")],
         Annotated[OrqAiTool, Tag("orq:web_scraper")],

@@ -63,6 +63,7 @@ from .executionreviewrequiredstreamingevent import (
     ExecutionReviewRequiredStreamingEventTypedDict,
 )
 from .filepart import FilePart, FilePartTypedDict
+from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
 from .piiredactionpluginauto import (
     PIIRedactionPluginAuto,
@@ -2086,7 +2087,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type = Literal[
     "mcp",
 ]
 
@@ -2118,19 +2119,19 @@ class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType = Literal[
     "object",
 ]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchemaTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchema(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2167,7 +2168,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01M0WP27YY73VKNX8YZVGHADZA"
+    id: Optional[str] = "01M0YFK6TC2J36J3BHPAY2BYNT"
 
     description: Optional[str] = None
 
@@ -2241,7 +2242,7 @@ class AgentToolInputRunMcp(BaseModel):
 class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2255,7 +2256,7 @@ class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
 class AgentToolInputRunMCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2288,7 +2289,7 @@ class AgentToolInputRunMCPToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal[
     "json_schema",
 ]
 
@@ -2376,7 +2377,7 @@ class StreamRunAgentAgentToolInputRunJSONSchema(BaseModel):
 class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2390,7 +2391,7 @@ class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
 class AgentToolInputRunJSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2948,20 +2949,21 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
 StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
     "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
-        RetrieveKnowledgeBasesToolInputTypedDict,
         CurrentDateToolInputTypedDict,
+        WebScraperToolInputTypedDict,
         CallSubAgentToolInputTypedDict,
-        QueryKnowledgeBaseToolInputTypedDict,
+        RetrieveAgentsToolInputTypedDict,
         QueryMemoryStoreToolInputTypedDict,
         WriteMemoryStoreToolInputTypedDict,
         RetrieveMemoryStoresToolInputTypedDict,
         DeleteMemoryDocumentToolInputTypedDict,
-        WebScraperToolInputTypedDict,
-        GoogleSearchToolInputTypedDict,
-        RetrieveAgentsToolInputTypedDict,
-        AdvisorToolInputTypedDict,
+        QueryKnowledgeBaseToolInputTypedDict,
+        RetrieveKnowledgeBasesToolInputTypedDict,
         SidekickToolInputTypedDict,
+        AdvisorToolInputTypedDict,
+        GoogleSearchToolInputTypedDict,
         CodeInterpreterToolInputTypedDict,
+        FileSystemToolInputTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
         AgentToolInputRunJSONSchemaToolRunTypedDict,
         AgentToolInputRunMCPToolRunTypedDict,
@@ -2988,6 +2990,7 @@ StreamRunAgentAgentToolInputRun = Annotated[
         Annotated[AdvisorToolInput, Tag("advisor")],
         Annotated[SidekickToolInput, Tag("sidekick")],
         Annotated[CodeInterpreterToolInput, Tag("code_interpreter")],
+        Annotated[FileSystemToolInput, Tag("file_system")],
         Annotated[AgentToolInputRunHTTPToolRun, Tag("http")],
         Annotated[AgentToolInputRunCodeToolRun, Tag("code")],
         Annotated[AgentToolInputRunFunctionToolRun, Tag("function")],

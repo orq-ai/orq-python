@@ -11,7 +11,6 @@
 * [update](#update) - Update an MCP server
 * [test_tool](#test_tool) - Test an MCP server tool
 * [sync](#sync) - Sync an MCP server
-* [test](#test) - Test an MCP server connection
 
 ## list
 
@@ -313,49 +312,6 @@ with Orq(
 ### Response
 
 **[models.SyncMcpServerResponse](../../models/syncmcpserverresponse.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## test
-
-Probes an upstream MCP server connection without persisting it. Returns discovered tools and connectivity status.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="McpServerTest" method="post" path="/v2/mcp-servers:test" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.mcp_servers.test()
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `connection`                                                                          | [Optional[models.McpConnection]](../../models/mcpconnection.md)                       | :heavy_minus_sign:                                                                    | Connection to probe. Omit when `id` is set.                                           |
-| `auth`                                                                                | [Optional[models.McpAuthConfig]](../../models/mcpauthconfig.md)                       | :heavy_minus_sign:                                                                    | Credentials to probe with. Omit when `id` is set.                                     |
-| `id`                                                                                  | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | Probe a stored server instead of sending `connection` and `auth`.                     |
-| `discovery_variables`                                                                 | Dict[str, *str*]                                                                      | :heavy_minus_sign:                                                                    | Values for the server's `template_variables`; treated as sensitive and not persisted. |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
-
-### Response
-
-**[models.TestMcpServerResponse](../../models/testmcpserverresponse.md)**
 
 ### Errors
 

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
-value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = "mcp"
+value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = "json_schema"
 ```
 
 
 ## Values
 
-- `"mcp"`
+- `"json_schema"`

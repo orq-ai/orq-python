@@ -16,6 +16,7 @@ from .deletememorydocumenttoolinput import (
 from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
+from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
 from .piiredactionpluginauto import (
     PIIRedactionPluginAuto,
@@ -1993,7 +1994,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -2023,19 +2024,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType = Literal[
     "object",
 ]
 
 
 class AgentToolInputRunSchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class AgentToolInputRunSchema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2070,7 +2071,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M0WP27XSZNYTBZ730VZMMX06"
+    id: Optional[str] = "01M0YFK6SBHPJ6FHKKYY35M7XE"
 
     description: Optional[str] = None
 
@@ -2142,7 +2143,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2156,7 +2157,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2838,20 +2839,21 @@ class HTTPToolRun(BaseModel):
 AgentToolInputRunTypedDict = TypeAliasType(
     "AgentToolInputRunTypedDict",
     Union[
-        RetrieveKnowledgeBasesToolInputTypedDict,
         CurrentDateToolInputTypedDict,
+        WebScraperToolInputTypedDict,
         CallSubAgentToolInputTypedDict,
-        QueryKnowledgeBaseToolInputTypedDict,
+        RetrieveAgentsToolInputTypedDict,
         QueryMemoryStoreToolInputTypedDict,
         WriteMemoryStoreToolInputTypedDict,
         RetrieveMemoryStoresToolInputTypedDict,
         DeleteMemoryDocumentToolInputTypedDict,
-        WebScraperToolInputTypedDict,
-        GoogleSearchToolInputTypedDict,
-        RetrieveAgentsToolInputTypedDict,
-        AdvisorToolInputTypedDict,
+        QueryKnowledgeBaseToolInputTypedDict,
+        RetrieveKnowledgeBasesToolInputTypedDict,
         SidekickToolInputTypedDict,
+        AdvisorToolInputTypedDict,
+        GoogleSearchToolInputTypedDict,
         CodeInterpreterToolInputTypedDict,
+        FileSystemToolInputTypedDict,
         FunctionToolRunTypedDict,
         JSONSchemaToolRunTypedDict,
         MCPToolRunTypedDict,
@@ -2878,6 +2880,7 @@ AgentToolInputRun = Annotated[
         Annotated[AdvisorToolInput, Tag("advisor")],
         Annotated[SidekickToolInput, Tag("sidekick")],
         Annotated[CodeInterpreterToolInput, Tag("code_interpreter")],
+        Annotated[FileSystemToolInput, Tag("file_system")],
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],

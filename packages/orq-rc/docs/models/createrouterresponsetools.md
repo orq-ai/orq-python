@@ -23,6 +23,72 @@ value: models.OrqAdvisorTool = /* values here */
 value: models.OrqSidekickTool = /* values here */
 ```
 
+### `models.OrqSidekickTool`
+
+```python
+value: models.OrqSidekickTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
+### `models.OrqAiTool`
+
+```python
+value: models.OrqAiTool = /* values here */
+```
+
 ### `models.OrqAiTool`
 
 ```python

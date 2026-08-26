@@ -1578,6 +1578,20 @@ if TYPE_CHECKING:
     )
     from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
     from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
+    from .createfilesystemfolderrequest import (
+        CreateFileSystemFolderRequest,
+        CreateFileSystemFolderRequestTypedDict,
+    )
+    from .createfilesystemfolderresponse import (
+        CreateFileSystemFolderResponse,
+        CreateFileSystemFolderResponseTypedDict,
+    )
+    from .createfilesystemrequest import (
+        CreateFileSystemRequest,
+        CreateFileSystemRequestTypedDict,
+        ExternalAccess,
+    )
+    from .createfolderop import CreateFolderRequest, CreateFolderRequestTypedDict
     from .createguardrailrulerequest import (
         CreateGuardrailRuleRequest,
         CreateGuardrailRuleRequestTypedDict,
@@ -2545,7 +2559,21 @@ if TYPE_CHECKING:
         DeleteEvalResponseBody,
         DeleteEvalResponseBodyData,
     )
+    from .deletefileop import DeleteFileRequest, DeleteFileRequestTypedDict
     from .deletefileresponse import DeleteFileResponse, DeleteFileResponseTypedDict
+    from .deletefilesystemfileresponse import (
+        DeleteFileSystemFileResponse,
+        DeleteFileSystemFileResponseType,
+        DeleteFileSystemFileResponseTypedDict,
+    )
+    from .deletefilesystemop import (
+        DeleteFileSystemRequest,
+        DeleteFileSystemRequestTypedDict,
+    )
+    from .deletefilesystemresponse import (
+        DeleteFileSystemResponse,
+        DeleteFileSystemResponseTypedDict,
+    )
     from .deleteguardrailruleresponse import (
         DeleteGuardrailRuleResponse,
         DeleteGuardrailRuleResponseTypedDict,
@@ -3470,6 +3498,7 @@ if TYPE_CHECKING:
         FileContentPartSchemaTypedDict,
     )
     from .filedeleteop import FileDeleteRequest, FileDeleteRequestTypedDict
+    from .fileentry import FileEntry, FileEntryType, FileEntryTypedDict
     from .filegetop import FileGetRequest, FileGetRequestTypedDict
     from .filelistop import FileListRequest, FileListRequestTypedDict
     from .filepart import (
@@ -3484,6 +3513,13 @@ if TYPE_CHECKING:
         FilePartTypedDict,
     )
     from .filepurpose import FilePurpose
+    from .filesystem import FileSystem, FileSystemTypedDict
+    from .filesystemexternalaccess import FileSystemExternalAccess
+    from .filesystemtoolinput import (
+        FileSystemToolInput,
+        FileSystemToolInputType,
+        FileSystemToolInputTypedDict,
+    )
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
     from .filter_ import FieldT, Filter, FilterOp, FilterTypedDict
     from .findlogpatternsmeta import FindLogPatternsMeta, FindLogPatternsMetaTypedDict
@@ -4828,8 +4864,8 @@ if TYPE_CHECKING:
     )
     from .knowledgebasesservicelistresponse import (
         KnowledgeBasesServiceListResponse,
+        KnowledgeBasesServiceListResponseObject,
         KnowledgeBasesServiceListResponseTypedDict,
-        Object,
     )
     from .knowledgebasesserviceupdaterequest import (
         KnowledgeBasesServiceUpdateRequest,
@@ -5202,7 +5238,21 @@ if TYPE_CHECKING:
         QueryParamStatusTypedDict,
     )
     from .listdomainsresponse import ListDomainsResponse, ListDomainsResponseTypedDict
+    from .listfilesop import ListFilesRequest, ListFilesRequestTypedDict
     from .listfilesresponse import ListFilesResponse, ListFilesResponseTypedDict
+    from .listfilesystemfilesresponse import (
+        ListFileSystemFilesResponse,
+        ListFileSystemFilesResponseTypedDict,
+    )
+    from .listfilesystemsop import (
+        ListFileSystemsRequest,
+        ListFileSystemsRequestTypedDict,
+    )
+    from .listfilesystemsresponse import (
+        ListFileSystemsResponse,
+        ListFileSystemsResponseTypedDict,
+        Object,
+    )
     from .listguardrailrulesresponse import (
         ListGuardrailRulesResponse,
         ListGuardrailRulesResponseTypedDict,
@@ -5603,7 +5653,6 @@ if TYPE_CHECKING:
         McpServerUpdateRequestTypedDict,
     )
     from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
-    from .mcptestresult import McpTestResult, McpTestResultTypedDict
     from .mcptool import (
         McpTool,
         McpToolInputSchema,
@@ -5729,6 +5778,15 @@ if TYPE_CHECKING:
         ModelValidateRequestBodyTypedDict,
     )
     from .monitorfilter import MonitorFilter, MonitorFilterTypedDict, Op
+    from .movefileop import MoveFileRequest, MoveFileRequestTypedDict
+    from .movefilesystemfilerequest import (
+        MoveFileSystemFileRequest,
+        MoveFileSystemFileRequestTypedDict,
+    )
+    from .movefilesystemfileresponse import (
+        MoveFileSystemFileResponse,
+        MoveFileSystemFileResponseTypedDict,
+    )
     from .no_response_error import NoResponseError
     from .notifier import (
         EmailNotifier,
@@ -6774,6 +6832,10 @@ if TYPE_CHECKING:
         RetrieveDatasourceRequest,
         RetrieveDatasourceRequestTypedDict,
     )
+    from .retrievefilesystemop import (
+        RetrieveFileSystemRequest,
+        RetrieveFileSystemRequestTypedDict,
+    )
     from .retrieveidentityop import (
         RetrieveIdentityRequest,
         RetrieveIdentityRequestTypedDict,
@@ -6930,8 +6992,8 @@ if TYPE_CHECKING:
         RunAgentA2AMessageTypedDict,
         RunAgentA2ATaskResponse,
         RunAgentA2ATaskResponseTypedDict,
-        RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType,
-        RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type,
+        RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType,
+        RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type,
         RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType,
         RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType,
         RunAgentAgentToolInputRunAgentsRequestRequestBodyType,
@@ -7252,6 +7314,10 @@ if TYPE_CHECKING:
     from .searchtype import SearchType
     from .security import Security, SecurityTypedDict
     from .securityconfig import SecurityConfig, SecurityConfigTypedDict
+    from .servertoolusedetails import (
+        ServerToolUseDetails,
+        ServerToolUseDetailsTypedDict,
+    )
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
     from .sharing import Sharing, SharingTypedDict
     from .sharingallprojects import SharingAllProjects, SharingAllProjectsTypedDict
@@ -7292,6 +7358,12 @@ if TYPE_CHECKING:
         SpanDetailTypedDict,
     )
     from .spansummary import SpanSummary, SpanSummaryTypedDict
+    from .statfileop import StatFileRequest, StatFileRequestTypedDict
+    from .statfilesystemfileresponse import (
+        StatFileSystemFileResponse,
+        StatFileSystemFileResponseType,
+        StatFileSystemFileResponseTypedDict,
+    )
     from .streamagentop import (
         StreamAgentA2AInvokeRequest,
         StreamAgentA2AInvokeRequestTypedDict,
@@ -7357,9 +7429,9 @@ if TYPE_CHECKING:
         StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict,
         StreamRunAgentAgentToolInputRunAgentsParameters,
         StreamRunAgentAgentToolInputRunAgentsParametersTypedDict,
-        StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type,
-        StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType,
         StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type,
+        StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType,
+        StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type,
         StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType,
         StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType,
         StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType,
@@ -7555,14 +7627,6 @@ if TYPE_CHECKING:
     )
     from .syncstatus import SyncStatus
     from .telemetry import Telemetry, TelemetryTypedDict
-    from .testmcpserverrequest import (
-        TestMcpServerRequest,
-        TestMcpServerRequestTypedDict,
-    )
-    from .testmcpserverresponse import (
-        TestMcpServerResponse,
-        TestMcpServerResponseTypedDict,
-    )
     from .testmcpservertoolrequest import (
         Arguments,
         ArgumentsTypedDict,
@@ -8255,6 +8319,15 @@ if TYPE_CHECKING:
     )
     from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
     from .updatefileresponse import UpdateFileResponse, UpdateFileResponseTypedDict
+    from .updatefilesystemop import (
+        UpdateFileSystemRequest1,
+        UpdateFileSystemRequest1TypedDict,
+    )
+    from .updatefilesystemrequest import (
+        UpdateFileSystemRequest,
+        UpdateFileSystemRequestExternalAccess,
+        UpdateFileSystemRequestTypedDict,
+    )
     from .updateguardrailrulerequest import (
         UpdateGuardrailRuleRequest,
         UpdateGuardrailRuleRequestTypedDict,
@@ -10163,6 +10236,14 @@ __all__ = [
     "CreateFileRequestTypedDict",
     "CreateFileResponse",
     "CreateFileResponseTypedDict",
+    "CreateFileSystemFolderRequest",
+    "CreateFileSystemFolderRequestTypedDict",
+    "CreateFileSystemFolderResponse",
+    "CreateFileSystemFolderResponseTypedDict",
+    "CreateFileSystemRequest",
+    "CreateFileSystemRequestTypedDict",
+    "CreateFolderRequest",
+    "CreateFolderRequestTypedDict",
     "CreateGuardrailRuleRequest",
     "CreateGuardrailRuleRequestTypedDict",
     "CreateGuardrailRuleResponse",
@@ -11023,8 +11104,17 @@ __all__ = [
     "DeleteEvalRequestTypedDict",
     "DeleteEvalResponseBody",
     "DeleteEvalResponseBodyData",
+    "DeleteFileRequest",
+    "DeleteFileRequestTypedDict",
     "DeleteFileResponse",
     "DeleteFileResponseTypedDict",
+    "DeleteFileSystemFileResponse",
+    "DeleteFileSystemFileResponseType",
+    "DeleteFileSystemFileResponseTypedDict",
+    "DeleteFileSystemRequest",
+    "DeleteFileSystemRequestTypedDict",
+    "DeleteFileSystemResponse",
+    "DeleteFileSystemResponseTypedDict",
     "DeleteGuardrailRuleResponse",
     "DeleteGuardrailRuleResponseTypedDict",
     "DeleteIdentityRequest",
@@ -11802,6 +11892,7 @@ __all__ = [
     "ExtendedMessagePartsTypedDict",
     "ExtendedMessageRole",
     "ExtendedMessageTypedDict",
+    "ExternalAccess",
     "ExternalConfig",
     "ExternalConfigTypedDict",
     "FacetGroup",
@@ -11866,6 +11957,9 @@ __all__ = [
     "FileContentRequestTypedDict",
     "FileDeleteRequest",
     "FileDeleteRequestTypedDict",
+    "FileEntry",
+    "FileEntryType",
+    "FileEntryTypedDict",
     "FileGetRequest",
     "FileGetRequestTypedDict",
     "FileInURIFormat",
@@ -11878,6 +11972,12 @@ __all__ = [
     "FilePartKind",
     "FilePartTypedDict",
     "FilePurpose",
+    "FileSystem",
+    "FileSystemExternalAccess",
+    "FileSystemToolInput",
+    "FileSystemToolInputType",
+    "FileSystemToolInputTypedDict",
+    "FileSystemTypedDict",
     "FileTypedDict",
     "FileUpdateRequest",
     "FileUpdateRequestTypedDict",
@@ -13024,6 +13124,7 @@ __all__ = [
     "KnowledgeBasesServiceCreateRequestType",
     "KnowledgeBasesServiceCreateRequestTypedDict",
     "KnowledgeBasesServiceListResponse",
+    "KnowledgeBasesServiceListResponseObject",
     "KnowledgeBasesServiceListResponseTypedDict",
     "KnowledgeBasesServiceUpdateRequest",
     "KnowledgeBasesServiceUpdateRequest1",
@@ -13379,6 +13480,14 @@ __all__ = [
     "ListDatasourcesRequestTypedDict",
     "ListDomainsResponse",
     "ListDomainsResponseTypedDict",
+    "ListFileSystemFilesResponse",
+    "ListFileSystemFilesResponseTypedDict",
+    "ListFileSystemsRequest",
+    "ListFileSystemsRequestTypedDict",
+    "ListFileSystemsResponse",
+    "ListFileSystemsResponseTypedDict",
+    "ListFilesRequest",
+    "ListFilesRequestTypedDict",
     "ListFilesResponse",
     "ListFilesResponseTypedDict",
     "ListGuardrailRuleUsedGuardrailsResponse",
@@ -13733,8 +13842,6 @@ __all__ = [
     "McpServerUpdateRequestTypedDict",
     "McpSyncState",
     "McpSyncStateTypedDict",
-    "McpTestResult",
-    "McpTestResultTypedDict",
     "McpTool",
     "McpToolAnnotations",
     "McpToolAnnotationsTypedDict",
@@ -13932,6 +14039,12 @@ __all__ = [
     "Moderation",
     "MonitorFilter",
     "MonitorFilterTypedDict",
+    "MoveFileRequest",
+    "MoveFileRequestTypedDict",
+    "MoveFileSystemFileRequest",
+    "MoveFileSystemFileRequestTypedDict",
+    "MoveFileSystemFileResponse",
+    "MoveFileSystemFileResponseTypedDict",
     "Ne",
     "NeTypedDict",
     "Network",
@@ -15010,6 +15123,8 @@ __all__ = [
     "RetrieveDatasetResponseBodyTypedDict",
     "RetrieveDatasourceRequest",
     "RetrieveDatasourceRequestTypedDict",
+    "RetrieveFileSystemRequest",
+    "RetrieveFileSystemRequestTypedDict",
     "RetrieveIdentityRequest",
     "RetrieveIdentityRequestTypedDict",
     "RetrieveIdentityResponse",
@@ -15120,8 +15235,8 @@ __all__ = [
     "RunAgentA2AMessageTypedDict",
     "RunAgentA2ATaskResponse",
     "RunAgentA2ATaskResponseTypedDict",
-    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType",
-    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type",
+    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType",
+    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType",
@@ -15405,6 +15520,8 @@ __all__ = [
     "SentenceChunker",
     "SentenceChunkerStrategy",
     "SentenceChunkerStrategyTypedDict",
+    "ServerToolUseDetails",
+    "ServerToolUseDetailsTypedDict",
     "ServiceAccountOwner",
     "ServiceAccountOwnerTypedDict",
     "ServiceTier",
@@ -15468,6 +15585,11 @@ __all__ = [
     "SpanSummaryTypedDict",
     "SpecificFunction",
     "SpecificFunctionTypedDict",
+    "StatFileRequest",
+    "StatFileRequestTypedDict",
+    "StatFileSystemFileResponse",
+    "StatFileSystemFileResponseType",
+    "StatFileSystemFileResponseTypedDict",
     "Status",
     "Stop",
     "StopTypedDict",
@@ -15509,9 +15631,9 @@ __all__ = [
     "StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict",
     "StreamRunAgentAgentToolInputRunAgentsParameters",
     "StreamRunAgentAgentToolInputRunAgentsParametersTypedDict",
-    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type",
-    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type",
+    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType",
+    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType",
@@ -15721,10 +15843,6 @@ __all__ = [
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
-    "TestMcpServerRequest",
-    "TestMcpServerRequestTypedDict",
-    "TestMcpServerResponse",
-    "TestMcpServerResponseTypedDict",
     "TestMcpServerToolRequest",
     "TestMcpServerToolRequestTypedDict",
     "TestMcpServerToolResponse",
@@ -16458,6 +16576,11 @@ __all__ = [
     "UpdateFileRequestTypedDict",
     "UpdateFileResponse",
     "UpdateFileResponseTypedDict",
+    "UpdateFileSystemRequest",
+    "UpdateFileSystemRequest1",
+    "UpdateFileSystemRequest1TypedDict",
+    "UpdateFileSystemRequestExternalAccess",
+    "UpdateFileSystemRequestTypedDict",
     "UpdateFunctionTool",
     "UpdateFunctionToolTypedDict",
     "UpdateGuardrailRuleRequest",
@@ -18501,6 +18624,15 @@ _dynamic_imports: dict[str, str] = {
     "CreateFileRequestTypedDict": ".createfilerequest",
     "CreateFileResponse": ".createfileresponse",
     "CreateFileResponseTypedDict": ".createfileresponse",
+    "CreateFileSystemFolderRequest": ".createfilesystemfolderrequest",
+    "CreateFileSystemFolderRequestTypedDict": ".createfilesystemfolderrequest",
+    "CreateFileSystemFolderResponse": ".createfilesystemfolderresponse",
+    "CreateFileSystemFolderResponseTypedDict": ".createfilesystemfolderresponse",
+    "CreateFileSystemRequest": ".createfilesystemrequest",
+    "CreateFileSystemRequestTypedDict": ".createfilesystemrequest",
+    "ExternalAccess": ".createfilesystemrequest",
+    "CreateFolderRequest": ".createfolderop",
+    "CreateFolderRequestTypedDict": ".createfolderop",
     "CreateGuardrailRuleRequest": ".createguardrailrulerequest",
     "CreateGuardrailRuleRequestTypedDict": ".createguardrailrulerequest",
     "CreateGuardrailRuleResponse": ".createguardrailruleresponse",
@@ -19380,8 +19512,17 @@ _dynamic_imports: dict[str, str] = {
     "DeleteEvalRequestTypedDict": ".deleteevalop",
     "DeleteEvalResponseBody": ".deleteevalop",
     "DeleteEvalResponseBodyData": ".deleteevalop",
+    "DeleteFileRequest": ".deletefileop",
+    "DeleteFileRequestTypedDict": ".deletefileop",
     "DeleteFileResponse": ".deletefileresponse",
     "DeleteFileResponseTypedDict": ".deletefileresponse",
+    "DeleteFileSystemFileResponse": ".deletefilesystemfileresponse",
+    "DeleteFileSystemFileResponseType": ".deletefilesystemfileresponse",
+    "DeleteFileSystemFileResponseTypedDict": ".deletefilesystemfileresponse",
+    "DeleteFileSystemRequest": ".deletefilesystemop",
+    "DeleteFileSystemRequestTypedDict": ".deletefilesystemop",
+    "DeleteFileSystemResponse": ".deletefilesystemresponse",
+    "DeleteFileSystemResponseTypedDict": ".deletefilesystemresponse",
     "DeleteGuardrailRuleResponse": ".deleteguardrailruleresponse",
     "DeleteGuardrailRuleResponseTypedDict": ".deleteguardrailruleresponse",
     "DeleteIdentityRequest": ".deleteidentityop",
@@ -20249,6 +20390,9 @@ _dynamic_imports: dict[str, str] = {
     "FileContentPartSchemaTypedDict": ".filecontentpartschema",
     "FileDeleteRequest": ".filedeleteop",
     "FileDeleteRequestTypedDict": ".filedeleteop",
+    "FileEntry": ".fileentry",
+    "FileEntryType": ".fileentry",
+    "FileEntryTypedDict": ".fileentry",
     "FileGetRequest": ".filegetop",
     "FileGetRequestTypedDict": ".filegetop",
     "FileListRequest": ".filelistop",
@@ -20263,6 +20407,12 @@ _dynamic_imports: dict[str, str] = {
     "FilePartKind": ".filepart",
     "FilePartTypedDict": ".filepart",
     "FilePurpose": ".filepurpose",
+    "FileSystem": ".filesystem",
+    "FileSystemTypedDict": ".filesystem",
+    "FileSystemExternalAccess": ".filesystemexternalaccess",
+    "FileSystemToolInput": ".filesystemtoolinput",
+    "FileSystemToolInputType": ".filesystemtoolinput",
+    "FileSystemToolInputTypedDict": ".filesystemtoolinput",
     "FileUpdateRequest": ".fileupdateop",
     "FileUpdateRequestTypedDict": ".fileupdateop",
     "FieldT": ".filter_",
@@ -21534,8 +21684,8 @@ _dynamic_imports: dict[str, str] = {
     "KnowledgeBasesServiceCreateRequestType": ".knowledgebasesservicecreaterequest",
     "KnowledgeBasesServiceCreateRequestTypedDict": ".knowledgebasesservicecreaterequest",
     "KnowledgeBasesServiceListResponse": ".knowledgebasesservicelistresponse",
+    "KnowledgeBasesServiceListResponseObject": ".knowledgebasesservicelistresponse",
     "KnowledgeBasesServiceListResponseTypedDict": ".knowledgebasesservicelistresponse",
-    "Object": ".knowledgebasesservicelistresponse",
     "KnowledgeBasesServiceUpdateRequest": ".knowledgebasesserviceupdaterequest",
     "KnowledgeBasesServiceUpdateRequest1": ".knowledgebasesserviceupdaterequest",
     "KnowledgeBasesServiceUpdateRequest1TypedDict": ".knowledgebasesserviceupdaterequest",
@@ -21881,8 +22031,17 @@ _dynamic_imports: dict[str, str] = {
     "QueryParamStatusTypedDict": ".listdatasourcesop",
     "ListDomainsResponse": ".listdomainsresponse",
     "ListDomainsResponseTypedDict": ".listdomainsresponse",
+    "ListFilesRequest": ".listfilesop",
+    "ListFilesRequestTypedDict": ".listfilesop",
     "ListFilesResponse": ".listfilesresponse",
     "ListFilesResponseTypedDict": ".listfilesresponse",
+    "ListFileSystemFilesResponse": ".listfilesystemfilesresponse",
+    "ListFileSystemFilesResponseTypedDict": ".listfilesystemfilesresponse",
+    "ListFileSystemsRequest": ".listfilesystemsop",
+    "ListFileSystemsRequestTypedDict": ".listfilesystemsop",
+    "ListFileSystemsResponse": ".listfilesystemsresponse",
+    "ListFileSystemsResponseTypedDict": ".listfilesystemsresponse",
+    "Object": ".listfilesystemsresponse",
     "ListGuardrailRulesResponse": ".listguardrailrulesresponse",
     "ListGuardrailRulesResponseTypedDict": ".listguardrailrulesresponse",
     "ListGuardrailRuleUsedGuardrailsResponse": ".listguardrailruleusedguardrailsresponse",
@@ -22217,8 +22376,6 @@ _dynamic_imports: dict[str, str] = {
     "McpServerUpdateRequestTypedDict": ".mcpserverupdateop",
     "McpSyncState": ".mcpsyncstate",
     "McpSyncStateTypedDict": ".mcpsyncstate",
-    "McpTestResult": ".mcptestresult",
-    "McpTestResultTypedDict": ".mcptestresult",
     "McpTool": ".mcptool",
     "McpToolInputSchema": ".mcptool",
     "McpToolInputSchemaTypedDict": ".mcptool",
@@ -22328,6 +22485,12 @@ _dynamic_imports: dict[str, str] = {
     "MonitorFilter": ".monitorfilter",
     "MonitorFilterTypedDict": ".monitorfilter",
     "Op": ".monitorfilter",
+    "MoveFileRequest": ".movefileop",
+    "MoveFileRequestTypedDict": ".movefileop",
+    "MoveFileSystemFileRequest": ".movefilesystemfilerequest",
+    "MoveFileSystemFileRequestTypedDict": ".movefilesystemfilerequest",
+    "MoveFileSystemFileResponse": ".movefilesystemfileresponse",
+    "MoveFileSystemFileResponseTypedDict": ".movefilesystemfileresponse",
     "NoResponseError": ".no_response_error",
     "EmailNotifier": ".notifier",
     "EmailNotifierTypedDict": ".notifier",
@@ -23205,6 +23368,8 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveDatasetResponseBodyTypedDict": ".retrievedatasetop",
     "RetrieveDatasourceRequest": ".retrievedatasourceop",
     "RetrieveDatasourceRequestTypedDict": ".retrievedatasourceop",
+    "RetrieveFileSystemRequest": ".retrievefilesystemop",
+    "RetrieveFileSystemRequestTypedDict": ".retrievefilesystemop",
     "RetrieveIdentityRequest": ".retrieveidentityop",
     "RetrieveIdentityRequestTypedDict": ".retrieveidentityop",
     "RetrieveIdentityResponse": ".retrieveidentityresponse",
@@ -23337,8 +23502,8 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentA2AMessageTypedDict": ".runagentop",
     "RunAgentA2ATaskResponse": ".runagentop",
     "RunAgentA2ATaskResponseTypedDict": ".runagentop",
-    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType": ".runagentop",
-    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type": ".runagentop",
+    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType": ".runagentop",
+    "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type": ".runagentop",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType": ".runagentop",
     "RunAgentAgentToolInputRunAgentsRequestRequestBodyType": ".runagentop",
@@ -23651,6 +23816,8 @@ _dynamic_imports: dict[str, str] = {
     "SecurityTypedDict": ".security",
     "SecurityConfig": ".securityconfig",
     "SecurityConfigTypedDict": ".securityconfig",
+    "ServerToolUseDetails": ".servertoolusedetails",
+    "ServerToolUseDetailsTypedDict": ".servertoolusedetails",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
     "Sharing": ".sharing",
@@ -23691,6 +23858,11 @@ _dynamic_imports: dict[str, str] = {
     "SpanDetailTypedDict": ".spandetail",
     "SpanSummary": ".spansummary",
     "SpanSummaryTypedDict": ".spansummary",
+    "StatFileRequest": ".statfileop",
+    "StatFileRequestTypedDict": ".statfileop",
+    "StatFileSystemFileResponse": ".statfilesystemfileresponse",
+    "StatFileSystemFileResponseType": ".statfilesystemfileresponse",
+    "StatFileSystemFileResponseTypedDict": ".statfilesystemfileresponse",
     "StreamAgentA2AInvokeRequest": ".streamagentop",
     "StreamAgentA2AInvokeRequestTypedDict": ".streamagentop",
     "StreamAgentA2AMessage": ".streamagentop",
@@ -23754,9 +23926,9 @@ _dynamic_imports: dict[str, str] = {
     "StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsParameters": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsParametersTypedDict": ".streamrunagentop",
-    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type": ".streamrunagentop",
-    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type": ".streamrunagentop",
+    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType": ".streamrunagentop",
+    "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType": ".streamrunagentop",
     "StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType": ".streamrunagentop",
@@ -23951,10 +24123,6 @@ _dynamic_imports: dict[str, str] = {
     "SyncStatus": ".syncstatus",
     "Telemetry": ".telemetry",
     "TelemetryTypedDict": ".telemetry",
-    "TestMcpServerRequest": ".testmcpserverrequest",
-    "TestMcpServerRequestTypedDict": ".testmcpserverrequest",
-    "TestMcpServerResponse": ".testmcpserverresponse",
-    "TestMcpServerResponseTypedDict": ".testmcpserverresponse",
     "Arguments": ".testmcpservertoolrequest",
     "ArgumentsTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolRequest": ".testmcpservertoolrequest",
@@ -24616,6 +24784,11 @@ _dynamic_imports: dict[str, str] = {
     "UpdateFileRequestTypedDict": ".updatefilerequest",
     "UpdateFileResponse": ".updatefileresponse",
     "UpdateFileResponseTypedDict": ".updatefileresponse",
+    "UpdateFileSystemRequest1": ".updatefilesystemop",
+    "UpdateFileSystemRequest1TypedDict": ".updatefilesystemop",
+    "UpdateFileSystemRequest": ".updatefilesystemrequest",
+    "UpdateFileSystemRequestExternalAccess": ".updatefilesystemrequest",
+    "UpdateFileSystemRequestTypedDict": ".updatefilesystemrequest",
     "UpdateGuardrailRuleRequest": ".updateguardrailrulerequest",
     "UpdateGuardrailRuleRequestTypedDict": ".updateguardrailrulerequest",
     "UpdateGuardrailRuleResponse": ".updateguardrailruleresponse",

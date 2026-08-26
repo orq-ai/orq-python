@@ -40,6 +40,13 @@ class McpAccessTypedDict(TypedDict):
     that are both exposed by the target gateway and members of the
     union of these toolsets. Empty means no toolset restriction.
     """
+    allowed_filesystem_ids: NotRequired[List[str]]
+    r"""Allow-list of file system ids (`fsys_<ULID>`) the key may reach over
+    the file system MCP endpoint. Ignored when deny_all is true. Empty
+    (with deny_all=false) means no restriction. The access mode a key
+    gets on a reachable file system is the file system's own
+    external_access, never something the key carries.
+    """
 
 
 class McpAccess(BaseModel):
@@ -78,9 +85,24 @@ class McpAccess(BaseModel):
     union of these toolsets. Empty means no toolset restriction.
     """
 
+    allowed_filesystem_ids: Optional[List[str]] = None
+    r"""Allow-list of file system ids (`fsys_<ULID>`) the key may reach over
+    the file system MCP endpoint. Ignored when deny_all is true. Empty
+    (with deny_all=false) means no restriction. The access mode a key
+    gets on a reachable file system is the file system's own
+    external_access, never something the key carries.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["deny_all", "allowed_mcp_gateway_ids", "toolset_ids"])
+        optional_fields = set(
+            [
+                "deny_all",
+                "allowed_mcp_gateway_ids",
+                "toolset_ids",
+                "allowed_filesystem_ids",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
