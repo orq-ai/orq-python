@@ -104,12 +104,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # on_trace_end — Orq's traces-list Metadata column reads from the
         # leading row, which is the root, not the LLM child.
         self._trace_metadata: Dict[str, Dict[str, Any]] = {}
-        # FunctionSpanData has no call id (__slots__: name/input/output/mcp_data),
-        # so tool spans take theirs from the response span, which carries the ids
-        # and always ends first. Empty under trace_include_sensitive_data=False,
-        # where the SDK omits model output entirely.
-        self._pending_tool_call_ids: Dict[str, Dict[str, List[Optional[str]]]] = {}  # scope -> tool name -> call ids
-        self._tool_call_ids: Dict[str, str] = {}  # function span id -> call id
+        # FunctionSpanData has no call id, so tool spans take theirs from the
+        # response span, which carries the ids and always ends first.
+        self._pending_tool_call_ids: Dict[str, Dict[str, List[Optional[str]]]] = {}  # scope -> tool name -> ids
+        self._tool_call_ids: Dict[str, str] = {}  # function span id -> id
 
     def on_trace_start(self, trace: Trace) -> None:
         """Called when a trace is started."""
@@ -187,8 +185,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if parent_agent_span_id:
                 self._span_hierarchy[span.span_id] = parent_agent_span_id
 
-        # Claimed at start: parallel tool spans finish out of order, but start
-        # in the order the model asked for them.
+        # At start: parallel tool spans finish out of order, but start in order.
         if isinstance(span.span_data, FunctionSpanData):
             call_id = self._take_tool_call_id(
                 self._tool_call_scope(span), span.span_data.name
@@ -435,15 +432,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                                 self._agent_outputs[parent_agent_span_id] = response_output
 
     def _tool_call_scope(self, span: Span[SpanData]) -> str:
-        """Key the tool call id queues by the agent turn they belong to."""
         return self._span_hierarchy.get(span.span_id) or span.trace_id
 
     def _record_tool_call_ids(self, span: Span[SpanData], data: ResponseSpanData) -> None:
-        """Queue the call ids of every tool call the model just asked for.
-
-        An id-less call is queued as None rather than skipped, so it cannot
-        shift a later call of the same name onto the wrong id.
-        """
+        """Queue the ids of the tool calls the model just asked for."""
         response = getattr(data, "response", None)
         output = getattr(response, "output", None) if response else None
         if not isinstance(output, list):
@@ -453,14 +445,13 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         for item in output:
             if getattr(item, "type", None) != "function_call":
                 continue
-            # call_id, never item.id — the latter is the storage id ("fc_..."),
-            # not the key the tool result comes back under.
             tool_name = getattr(item, "name", None)
             if tool_name:
+                # call_id, not item.id ("fc_..."): None keeps the slot so a
+                # later call of the same name cannot inherit this id.
                 queues.setdefault(tool_name, []).append(getattr(item, "call_id", None))
 
     def _take_tool_call_id(self, scope: str, tool_name: str) -> Optional[str]:
-        """Pop the next queued call id for a tool, matching by name and order."""
         queue = self._pending_tool_call_ids.get(scope, {}).get(tool_name)
         if queue:
             return queue.pop(0)
