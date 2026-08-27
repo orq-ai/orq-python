@@ -356,12 +356,12 @@ ModelConfigurationPlugins = TypeAliasType(
 )
 
 
-class UpdateAgentModelConfigurationFallbacksTypedDict(TypedDict):
+class ModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class UpdateAgentModelConfigurationFallbacks(BaseModel):
+class ModelConfigurationFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -584,7 +584,7 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[ModelConfigurationPluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
-    fallbacks: NotRequired[List[UpdateAgentModelConfigurationFallbacksTypedDict]]
+    fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[ModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
@@ -668,7 +668,7 @@ class ModelConfigurationParameters(BaseModel):
     plugins: Optional[List[ModelConfigurationPlugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
-    fallbacks: Optional[List[UpdateAgentModelConfigurationFallbacks]] = None
+    fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     cache: Optional[ModelConfigurationCache] = None
@@ -753,7 +753,7 @@ class ModelConfigurationParameters(BaseModel):
         return m
 
 
-class UpdateAgentModelConfigurationRetryTypedDict(TypedDict):
+class ModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -762,7 +762,7 @@ class UpdateAgentModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class UpdateAgentModelConfigurationRetry(BaseModel):
+class ModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -798,7 +798,7 @@ class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[UpdateAgentModelConfigurationRetryTypedDict]
+    retry: NotRequired[ModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -814,7 +814,7 @@ class UpdateAgentModelConfiguration2(BaseModel):
     parameters: Optional[ModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[UpdateAgentModelConfigurationRetry] = None
+    retry: Optional[ModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -1874,7 +1874,7 @@ UpdateAgentEngine = Literal[
 ]
 
 
-UpdateAgentVersionIncrement = Literal[
+VersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -1914,7 +1914,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
-    version_increment: NotRequired[UpdateAgentVersionIncrement]
+    version_increment: NotRequired[VersionIncrement]
     r"""Optional semantic version bump to create after a successful publish."""
     version_description: NotRequired[str]
     r"""Optional description stored with the created version."""
@@ -1970,7 +1970,7 @@ class UpdateAgentRequestBody(BaseModel):
     engine: Optional[UpdateAgentEngine] = None
 
     version_increment: Annotated[
-        Optional[UpdateAgentVersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
     ] = None
     r"""Optional semantic version bump to create after a successful publish."""
 

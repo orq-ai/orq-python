@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .piiredaction import PiiRedaction, PiiRedactionTypedDict
+from .policyprofileidlist import PolicyProfileIDList, PolicyProfileIDListTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import Optional
@@ -29,6 +30,7 @@ class UpdateWorkspaceSettingsRequestTypedDict(TypedDict):
     the current PII redaction configuration unchanged; when present it fully
     replaces the stored pii_redaction object.
     """
+    default_policy_profile_ids: NotRequired[PolicyProfileIDListTypedDict]
 
 
 class UpdateWorkspaceSettingsRequest(BaseModel):
@@ -55,10 +57,17 @@ class UpdateWorkspaceSettingsRequest(BaseModel):
     replaces the stored pii_redaction object.
     """
 
+    default_policy_profile_ids: Optional[PolicyProfileIDList] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["display_name", "enforce_enabled_models", "pii_redaction"]
+            [
+                "display_name",
+                "enforce_enabled_models",
+                "pii_redaction",
+                "default_policy_profile_ids",
+            ]
         )
         serialized = handler(self)
         m = {}

@@ -4,7 +4,7 @@ from __future__ import annotations
 from .piiredaction import PiiRedaction, PiiRedactionTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -23,6 +23,7 @@ class WorkspaceSettingsTypedDict(TypedDict):
     r"""Workspace-default PII redaction plugin configuration. Omitted when the
     workspace has never configured it.
     """
+    default_policy_profile_ids: NotRequired[List[str]]
 
 
 class WorkspaceSettings(BaseModel):
@@ -44,9 +45,11 @@ class WorkspaceSettings(BaseModel):
     workspace has never configured it.
     """
 
+    default_policy_profile_ids: Optional[List[str]] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["pii_redaction"])
+        optional_fields = set(["pii_redaction", "default_policy_profile_ids"])
         serialized = handler(self)
         m = {}
 

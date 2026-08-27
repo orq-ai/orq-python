@@ -50,7 +50,9 @@ class Router(BaseSDK):
         self,
         *,
         model: str,
-        document: Union[models.Document, models.DocumentTypedDict],
+        document: Union[
+            models.PostV2RouterOcrDocument, models.PostV2RouterOcrDocumentTypedDict
+        ],
         pages: OptionalNullable[Iterable[int]] = UNSET,
         ocr_settings: Optional[
             Union[models.OcrSettings, models.OcrSettingsTypedDict]
@@ -86,7 +88,7 @@ class Router(BaseSDK):
 
         request = models.PostV2RouterOcrRequestBody(
             model=model,
-            document=utils.get_pydantic_model(document, models.Document),
+            document=utils.get_pydantic_model(document, models.PostV2RouterOcrDocument),
             pages=utils.unmarshal(pages, OptionalNullable[List[int]]),
             ocr_settings=utils.get_pydantic_model(
                 ocr_settings, Optional[models.OcrSettings]
@@ -153,7 +155,9 @@ class Router(BaseSDK):
         self,
         *,
         model: str,
-        document: Union[models.Document, models.DocumentTypedDict],
+        document: Union[
+            models.PostV2RouterOcrDocument, models.PostV2RouterOcrDocumentTypedDict
+        ],
         pages: OptionalNullable[Iterable[int]] = UNSET,
         ocr_settings: Optional[
             Union[models.OcrSettings, models.OcrSettingsTypedDict]
@@ -189,7 +193,7 @@ class Router(BaseSDK):
 
         request = models.PostV2RouterOcrRequestBody(
             model=model,
-            document=utils.get_pydantic_model(document, models.Document),
+            document=utils.get_pydantic_model(document, models.PostV2RouterOcrDocument),
             pages=utils.unmarshal(pages, OptionalNullable[List[int]]),
             ocr_settings=utils.get_pydantic_model(
                 ocr_settings, Optional[models.OcrSettings]

@@ -5,10 +5,10 @@ The metadata filter to apply to the search. Check the [Searching a Knowledge Bas
 
 ## Supported Types
 
-### `Dict[str, models.FilterBy1]`
+### `Dict[str, models.One]`
 
 ```python
-value: Dict[str, models.FilterBy1] = /* values here */
+value: Dict[str, models.One] = /* values here */
 ```
 
 ### `models.FilterByAnd`

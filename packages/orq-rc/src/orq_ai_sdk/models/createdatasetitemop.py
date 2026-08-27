@@ -1521,7 +1521,7 @@ class Evaluations4(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-26T13:26:53.807Z")
+    ] = parse_datetime("2026-08-27T08:20:50.265Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1601,7 +1601,7 @@ r"""The expected shape of the value. Derived from the human review type, or inhe
 CreateDatasetItemEvaluationsDatasetsType = Literal["boolean",]
 
 
-class Evaluations3TypedDict(TypedDict):
+class CreateDatasetItemEvaluations3TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the human evaluation"""
     evaluation_type: CreateDatasetItemEvaluationsEvaluationType
@@ -1625,7 +1625,7 @@ class Evaluations3TypedDict(TypedDict):
     r"""Deprecated. The date and time the item was reviewed"""
 
 
-class Evaluations3(BaseModel):
+class CreateDatasetItemEvaluations3(BaseModel):
     id: str
     r"""The unique identifier of the human evaluation"""
 
@@ -1666,7 +1666,7 @@ class Evaluations3(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-26T13:26:53.806Z")
+    ] = parse_datetime("2026-08-27T08:20:50.265Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1811,7 +1811,7 @@ class Evaluations2(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-26T13:26:53.805Z")
+    ] = parse_datetime("2026-08-27T08:20:50.265Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1956,7 +1956,7 @@ class Evaluations1(BaseModel):
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = parse_datetime("2026-08-26T13:26:53.805Z")
+    ] = parse_datetime("2026-08-27T08:20:50.264Z")
     r"""Deprecated. The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1991,7 +1991,7 @@ EvaluationsTypedDict = TypeAliasType(
     Union[
         Evaluations1TypedDict,
         Evaluations2TypedDict,
-        Evaluations3TypedDict,
+        CreateDatasetItemEvaluations3TypedDict,
         Evaluations4TypedDict,
     ],
 )
@@ -2001,7 +2001,7 @@ Evaluations = Annotated[
     Union[
         Annotated[Evaluations1, Tag("string")],
         Annotated[Evaluations2, Tag("number")],
-        Annotated[Evaluations3, Tag("boolean")],
+        Annotated[CreateDatasetItemEvaluations3, Tag("boolean")],
         Annotated[Evaluations4, Tag("string_array")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
@@ -2067,7 +2067,7 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-26T13:26:42.563Z")
+    updated: Optional[datetime] = parse_datetime("2026-08-27T08:20:42.765Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

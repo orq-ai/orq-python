@@ -10,29 +10,27 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Evals(BaseSDK):
-    r"""Run an evaluator against a conversation and its result"""
-
     def all(
         self,
         *,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[models.QueryParamSort] = None,
+        sort: Optional[str] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvalsResponseBody:
+    ) -> models.ListEvaluatorsResponse:
         r"""Get all Evaluators
 
         List all evaluators in the workspace.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param limit: Page size, 1-200. Unset uses the server default (10).
+        :param starting_after:
+        :param ending_before:
         :param search:
         :param sort:
         :param project_id:
@@ -105,14 +103,8 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetEvalsEvalsResponseBodyData, http_res
-            )
-            raise models.GetEvalsEvalsResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.ListEvaluatorsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -125,24 +117,24 @@ class Evals(BaseSDK):
     async def all_async(
         self,
         *,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[models.QueryParamSort] = None,
+        sort: Optional[str] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvalsResponseBody:
+    ) -> models.ListEvaluatorsResponse:
         r"""Get all Evaluators
 
         List all evaluators in the workspace.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param limit: Page size, 1-200. Unset uses the server default (10).
+        :param starting_after:
+        :param ending_before:
         :param search:
         :param sort:
         :param project_id:
@@ -215,14 +207,8 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetEvalsEvalsResponseBodyData, http_res
-            )
-            raise models.GetEvalsEvalsResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.ListEvaluatorsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -235,14 +221,14 @@ class Evals(BaseSDK):
     def create(
         self,
         *,
-        request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
-        ] = None,
+        request: Union[
+            models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateEvalResponseBody:
+    ) -> models.EvaluatorDocumentResponse:
         r"""Create an Evaluator
 
         Create a new evaluator in the workspace.
@@ -267,8 +253,8 @@ class Evals(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.CreateEvalRequestBody])
-        request = cast(Optional[models.CreateEvalRequestBody], request)
+            request = utils.unmarshal(request, models.CreateEvalRequestBody)
+        request = cast(models.CreateEvalRequestBody, request)
 
         req = self._build_request(
             method="POST",
@@ -276,7 +262,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -284,7 +270,7 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateEvalRequestBody]
+                request, False, False, "json", models.CreateEvalRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -315,15 +301,9 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.CreateEvalEvalsResponseBodyData, http_res
-            )
-            raise models.CreateEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, ["403", "4XX"], "*"):
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -335,14 +315,14 @@ class Evals(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
-        ] = None,
+        request: Union[
+            models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateEvalResponseBody:
+    ) -> models.EvaluatorDocumentResponse:
         r"""Create an Evaluator
 
         Create a new evaluator in the workspace.
@@ -367,8 +347,8 @@ class Evals(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.CreateEvalRequestBody])
-        request = cast(Optional[models.CreateEvalRequestBody], request)
+            request = utils.unmarshal(request, models.CreateEvalRequestBody)
+        request = cast(models.CreateEvalRequestBody, request)
 
         req = self._build_request_async(
             method="POST",
@@ -376,7 +356,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -384,7 +364,7 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateEvalRequestBody]
+                request, False, False, "json", models.CreateEvalRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -415,15 +395,9 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.CreateEvalEvalsResponseBodyData, http_res
-            )
-            raise models.CreateEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, ["403", "4XX"], "*"):
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -440,12 +414,12 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvalResponseBody:
+    ) -> models.EvaluatorDocumentResponse:
         r"""Retrieve an Evaluator
 
         Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
 
-        :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
+        :param id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -510,14 +484,8 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetEvalEvalsResponseBodyData, http_res
-            )
-            raise models.GetEvalEvalsResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -535,12 +503,12 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvalResponseBody:
+    ) -> models.EvaluatorDocumentResponse:
         r"""Retrieve an Evaluator
 
         Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
 
-        :param id: Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`.
+        :param id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -605,380 +573,8 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetEvalEvalsResponseBodyData, http_res
-            )
-            raise models.GetEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update(
-        self,
-        *,
-        id: str,
-        type_: Optional[str] = None,
-        path: Optional[str] = None,
-        project_id: Optional[str] = None,
-        key: Optional[str] = None,
-        description: Optional[str] = None,
-        prompt: Optional[str] = None,
-        output_type: Optional[str] = None,
-        categories: OptionalNullable[Iterable[str]] = UNSET,
-        categorical_labels: OptionalNullable[
-            Union[
-                Iterable[models.UpdateEvalCategoricalLabels],
-                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
-            ]
-        ] = UNSET,
-        dataset_id: OptionalNullable[str] = UNSET,
-        repetitions: Optional[float] = None,
-        mode: Optional[models.UpdateEvalMode] = None,
-        model: Optional[str] = None,
-        jury: Optional[
-            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
-        ] = None,
-        schema: Optional[str] = None,
-        url: Optional[str] = None,
-        method: Optional[str] = None,
-        headers: Optional[Mapping[str, str]] = None,
-        payload: Optional[Mapping[str, Any]] = None,
-        code: Optional[str] = None,
-        guardrail_config: Optional[Any] = None,
-        version_increment: Optional[models.VersionIncrement] = None,
-        version_description: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateEvalResponseBody:
-        r"""Update an Evaluator
-
-        Update an evaluator by ID with the provided fields.
-
-        :param id:
-        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
-        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
-        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
-        :param key:
-        :param description:
-        :param prompt:
-        :param output_type:
-        :param categories:
-        :param categorical_labels:
-        :param dataset_id:
-        :param repetitions:
-        :param mode:
-        :param model:
-        :param jury:
-        :param schema_:
-        :param url:
-        :param method:
-        :param headers:
-        :param payload:
-        :param code:
-        :param guardrail_config:
-        :param version_increment:
-        :param version_description:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateEvalRequest(
-            id=id,
-            request_body=models.UpdateEvalRequestBody(
-                type=type_,
-                path=path,
-                project_id=project_id,
-                key=key,
-                description=description,
-                prompt=prompt,
-                output_type=output_type,
-                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
-                categorical_labels=utils.get_pydantic_model(
-                    categorical_labels,
-                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
-                ),
-                dataset_id=dataset_id,
-                repetitions=repetitions,
-                mode=mode,
-                model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
-                schema_=schema,
-                url=url,
-                method=method,
-                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
-                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
-                code=code,
-                guardrail_config=guardrail_config,
-                version_increment=version_increment,
-                version_description=version_description,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/evaluators/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateEvalRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateEval",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.UpdateEvalEvalsResponseBodyData, http_res
-            )
-            raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_async(
-        self,
-        *,
-        id: str,
-        type_: Optional[str] = None,
-        path: Optional[str] = None,
-        project_id: Optional[str] = None,
-        key: Optional[str] = None,
-        description: Optional[str] = None,
-        prompt: Optional[str] = None,
-        output_type: Optional[str] = None,
-        categories: OptionalNullable[Iterable[str]] = UNSET,
-        categorical_labels: OptionalNullable[
-            Union[
-                Iterable[models.UpdateEvalCategoricalLabels],
-                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
-            ]
-        ] = UNSET,
-        dataset_id: OptionalNullable[str] = UNSET,
-        repetitions: Optional[float] = None,
-        mode: Optional[models.UpdateEvalMode] = None,
-        model: Optional[str] = None,
-        jury: Optional[
-            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
-        ] = None,
-        schema: Optional[str] = None,
-        url: Optional[str] = None,
-        method: Optional[str] = None,
-        headers: Optional[Mapping[str, str]] = None,
-        payload: Optional[Mapping[str, Any]] = None,
-        code: Optional[str] = None,
-        guardrail_config: Optional[Any] = None,
-        version_increment: Optional[models.VersionIncrement] = None,
-        version_description: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateEvalResponseBody:
-        r"""Update an Evaluator
-
-        Update an evaluator by ID with the provided fields.
-
-        :param id:
-        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
-        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
-        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
-        :param key:
-        :param description:
-        :param prompt:
-        :param output_type:
-        :param categories:
-        :param categorical_labels:
-        :param dataset_id:
-        :param repetitions:
-        :param mode:
-        :param model:
-        :param jury:
-        :param schema_:
-        :param url:
-        :param method:
-        :param headers:
-        :param payload:
-        :param code:
-        :param guardrail_config:
-        :param version_increment:
-        :param version_description:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateEvalRequest(
-            id=id,
-            request_body=models.UpdateEvalRequestBody(
-                type=type_,
-                path=path,
-                project_id=project_id,
-                key=key,
-                description=description,
-                prompt=prompt,
-                output_type=output_type,
-                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
-                categorical_labels=utils.get_pydantic_model(
-                    categorical_labels,
-                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
-                ),
-                dataset_id=dataset_id,
-                repetitions=repetitions,
-                mode=mode,
-                model=model,
-                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
-                schema_=schema,
-                url=url,
-                method=method,
-                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
-                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
-                code=code,
-                guardrail_config=guardrail_config,
-                version_increment=version_increment,
-                version_description=version_description,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/evaluators/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateEvalRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateEval",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.UpdateEvalEvalsResponseBodyData, http_res
-            )
-            raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -996,7 +592,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> models.DeleteEvaluatorResponse:
         r"""Delete an Evaluator
 
         Delete an evaluator by its unique identifier.
@@ -1066,19 +662,8 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalResponseBodyData, http_res
-            )
-            raise models.DeleteEvalResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalEvalsResponseBodyData, http_res
-            )
-            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.DeleteEvaluatorResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1096,7 +681,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
+    ) -> models.DeleteEvaluatorResponse:
         r"""Delete an Evaluator
 
         Delete an evaluator by its unique identifier.
@@ -1166,19 +751,598 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalResponseBodyData, http_res
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.DeleteEvaluatorResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def update(
+        self,
+        *,
+        id: str,
+        request_body: Union[
+            models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.EvaluatorDocumentResponse:
+        r"""Update an Evaluator
+
+        Update an evaluator by ID with the provided fields.
+
+        :param id:
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateEvalRequest(
+            id=id,
+            request_body=utils.get_pydantic_model(
+                request_body, models.UpdateEvalRequestBody
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/evaluators/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body, False, False, "json", models.UpdateEvalRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateEval",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        id: str,
+        request_body: Union[
+            models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.EvaluatorDocumentResponse:
+        r"""Update an Evaluator
+
+        Update an evaluator by ID with the provided fields.
+
+        :param id:
+        :param request_body:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateEvalRequest(
+            id=id,
+            request_body=utils.get_pydantic_model(
+                request_body, models.UpdateEvalRequestBody
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/evaluators/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body, False, False, "json", models.UpdateEvalRequestBody
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateEval",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def list_versions(
+        self,
+        *,
+        id: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListEvaluatorVersionsResponse:
+        r"""List evaluator versions
+
+        Returns version history for a specific evaluator.
+
+        :param id:
+        :param limit: Page size, 1-200. Unset uses the server default (10).
+        :param starting_after:
+        :param ending_before:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListEvalVersionsRequest(
+            id=id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/evaluators/{id}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListEvalVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListEvaluatorVersionsResponse, http_res
             )
-            raise models.DeleteEvalResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "409", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteEvalEvalsResponseBodyData, http_res
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def list_versions_async(
+        self,
+        *,
+        id: str,
+        limit: Optional[int] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListEvaluatorVersionsResponse:
+        r"""List evaluator versions
+
+        Returns version history for a specific evaluator.
+
+        :param id:
+        :param limit: Page size, 1-200. Unset uses the server default (10).
+        :param starting_after:
+        :param ending_before:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListEvalVersionsRequest(
+            id=id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/evaluators/{id}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListEvalVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListEvaluatorVersionsResponse, http_res
             )
-            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def get_version(
+        self,
+        *,
+        id: str,
+        version_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetEvaluatorVersionResponse:
+        r"""Get evaluator version
+
+        Returns a specific version of an evaluator.
+
+        :param id:
+        :param version_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetEvalVersionRequest(
+            id=id,
+            version_id=version_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/evaluators/{id}/versions/{version_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetEvalVersion",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getVersion",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetEvaluatorVersionResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def get_version_async(
+        self,
+        *,
+        id: str,
+        version_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetEvaluatorVersionResponse:
+        r"""Get evaluator version
+
+        Returns a specific version of an evaluator.
+
+        :param id:
+        :param version_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetEvalVersionRequest(
+            id=id,
+            version_id=version_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/evaluators/{id}/versions/{version_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetEvalVersion",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Evals"],
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "getVersion",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.GetEvaluatorVersionResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1515,222 +1679,6 @@ class Evals(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeEvaluatorResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def list_versions(
-        self,
-        *,
-        id: str,
-        limit: Optional[int] = 10,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2EvaluatorsIDVersionsResponseBody:
-        r"""List evaluator versions
-
-        Returns version history for a specific evaluator
-
-        :param id:
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetV2EvaluatorsIDVersionsRequest(
-            id=id,
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/evaluators/{id}/versions",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/evaluators/{id}/versions",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetV2EvaluatorsIDVersionsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetV2EvaluatorsIDVersionsEvalsResponseBodyData, http_res
-            )
-            raise models.GetV2EvaluatorsIDVersionsEvalsResponseBody(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def list_versions_async(
-        self,
-        *,
-        id: str,
-        limit: Optional[int] = 10,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2EvaluatorsIDVersionsResponseBody:
-        r"""List evaluator versions
-
-        Returns version history for a specific evaluator
-
-        :param id:
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetV2EvaluatorsIDVersionsRequest(
-            id=id,
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/evaluators/{id}/versions",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_/v2/evaluators/{id}/versions",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "listVersions"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.GetV2EvaluatorsIDVersionsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.GetV2EvaluatorsIDVersionsEvalsResponseBodyData, http_res
-            )
-            raise models.GetV2EvaluatorsIDVersionsEvalsResponseBody(
-                response_data, http_res
-            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

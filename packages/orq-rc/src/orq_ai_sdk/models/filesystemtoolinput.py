@@ -3,21 +3,63 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Any, Dict, Literal, Optional
+from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 FileSystemToolInputType = Literal["file_system",]
 
 
+AccessMode = Literal[
+    "read_only",
+    "read_write",
+]
+r"""Whether the agent may only read this file system, or also write to it."""
+
+
+class ConfigurationTypedDict(TypedDict):
+    file_system_id: NotRequired[str]
+    r"""The id of the file system to attach."""
+    file_system_key: NotRequired[str]
+    r"""The key of the file system to attach."""
+    access_mode: NotRequired[AccessMode]
+    r"""Whether the agent may only read this file system, or also write to it."""
+
+
+class Configuration(BaseModel):
+    file_system_id: Optional[str] = None
+    r"""The id of the file system to attach."""
+
+    file_system_key: Optional[str] = None
+    r"""The key of the file system to attach."""
+
+    access_mode: Optional[AccessMode] = "read_only"
+    r"""Whether the agent may only read this file system, or also write to it."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["file_system_id", "file_system_key", "access_mode"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class FileSystemToolInputTypedDict(TypedDict):
     r"""Attaches a persistent file system to the agent, named by file_system_id or file_system_key in the configuration. The agent may only read it unless the configured access_mode is read_write."""
 
     type: FileSystemToolInputType
+    configuration: ConfigurationTypedDict
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
-    configuration: NotRequired[Dict[str, Any]]
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
 
 
 class FileSystemToolInput(BaseModel):
@@ -25,15 +67,14 @@ class FileSystemToolInput(BaseModel):
 
     type: FileSystemToolInputType
 
+    configuration: Configuration
+
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
-    configuration: Optional[Dict[str, Any]] = None
-    r"""Static tool configuration set at design time. Merged over LLM-provided arguments at execution time."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["requires_approval", "configuration"])
+        optional_fields = set(["requires_approval"])
         serialized = handler(self)
         m = {}
 

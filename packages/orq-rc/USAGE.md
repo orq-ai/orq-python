@@ -9,7 +9,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.evals.all(limit=10)
+    res = orq.deployments.list(limit=10)
 
     # Handle response
     print(res)
@@ -31,7 +31,7 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.evals.all_async(limit=10)
+        res = await orq.deployments.list_async(limit=10)
 
         # Handle response
         print(res)

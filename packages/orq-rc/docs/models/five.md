@@ -1,8 +1,14 @@
 # Five
 
+## Example Usage
 
-## Fields
+```python
+from orq_ai_sdk.models import Five
+value: Five = "url"
+```
 
-| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                           | [models.EvaluatorResponseFunctionFunctionParams5Type](../models/evaluatorresponsefunctionfunctionparams5type.md) | :heavy_check_mark:                                                                                               | N/A                                                                                                              |
+
+## Values
+
+- `"url"`
+- `"base64_json"`

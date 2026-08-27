@@ -2,26 +2,20 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
-from orq_ai_sdk.utils import (
-    FieldMetadata,
-    PathParamMetadata,
-    QueryParamMetadata,
-    get_discriminator,
-)
-import pydantic
-from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from pydantic import model_serializer
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ListAnnotationQueueItemsRequestTypedDict(TypedDict):
     annotation_queue_id: str
     limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
+    r"""Optional. Number of items to return. Defaults to 10 and must be between 1 and 200."""
     starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""Cursor for forward pagination. Set to the `_id` of the last item from the previous page."""
     ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""Cursor for backward pagination. Set to the `_id` of the first item from the previous page."""
 
 
 class ListAnnotationQueueItemsRequest(BaseModel):
@@ -32,20 +26,20 @@ class ListAnnotationQueueItemsRequest(BaseModel):
     limit: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 10
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
+    ] = None
+    r"""Optional. Number of items to return. Defaults to 10 and must be between 1 and 200."""
 
     starting_after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""Cursor for forward pagination. Set to the `_id` of the last item from the previous page."""
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""Cursor for backward pagination. Set to the `_id` of the first item from the previous page."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -62,146 +56,3 @@ class ListAnnotationQueueItemsRequest(BaseModel):
                     m[k] = val
 
         return m
-
-
-ListAnnotationQueueItemsObject = Literal["list",]
-
-
-ListAnnotationQueueItemsDataAnnotationQueuesType = Literal["datapoint",]
-
-
-class Data2TypedDict(TypedDict):
-    id: str
-    annotation_queue_id: str
-    r"""The unique identifier of the annotation queue"""
-    workspace_id: str
-    r"""The unique identifier of the workspace it belongs to"""
-    datapoint_id: str
-    type: ListAnnotationQueueItemsDataAnnotationQueuesType
-    used_human_review_ids: NotRequired[List[str]]
-    r"""The unique identifiers of the human reviews that have been used to annotate the item"""
-
-
-class Data2(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    annotation_queue_id: str
-    r"""The unique identifier of the annotation queue"""
-
-    workspace_id: str
-    r"""The unique identifier of the workspace it belongs to"""
-
-    datapoint_id: str
-
-    type: ListAnnotationQueueItemsDataAnnotationQueuesType
-
-    used_human_review_ids: Optional[List[str]] = None
-    r"""The unique identifiers of the human reviews that have been used to annotate the item"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["used_human_review_ids"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-ListAnnotationQueueItemsDataType = Literal["span",]
-
-
-class Data1TypedDict(TypedDict):
-    id: str
-    annotation_queue_id: str
-    r"""The unique identifier of the annotation queue"""
-    workspace_id: str
-    r"""The unique identifier of the workspace it belongs to"""
-    span_id: str
-    type: ListAnnotationQueueItemsDataType
-    used_human_review_ids: NotRequired[List[str]]
-    r"""The unique identifiers of the human reviews that have been used to annotate the item"""
-    trace_id: NotRequired[str]
-    r"""The trace identifier this span belongs to"""
-
-
-class Data1(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    annotation_queue_id: str
-    r"""The unique identifier of the annotation queue"""
-
-    workspace_id: str
-    r"""The unique identifier of the workspace it belongs to"""
-
-    span_id: str
-
-    type: ListAnnotationQueueItemsDataType
-
-    used_human_review_ids: Optional[List[str]] = None
-    r"""The unique identifiers of the human reviews that have been used to annotate the item"""
-
-    trace_id: Optional[str] = None
-    r"""The trace identifier this span belongs to"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["used_human_review_ids", "trace_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-ListAnnotationQueueItemsDataTypedDict = TypeAliasType(
-    "ListAnnotationQueueItemsDataTypedDict", Union[Data2TypedDict, Data1TypedDict]
-)
-
-
-ListAnnotationQueueItemsData = Annotated[
-    Union[Annotated[Data1, Tag("span")], Annotated[Data2, Tag("datapoint")]],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
-class ListAnnotationQueueItemsResponseBodyTypedDict(TypedDict):
-    r"""Annotation queue items retrieved."""
-
-    object: ListAnnotationQueueItemsObject
-    data: List[ListAnnotationQueueItemsDataTypedDict]
-    has_more: bool
-
-
-class ListAnnotationQueueItemsResponseBody(BaseModel):
-    r"""Annotation queue items retrieved."""
-
-    object: ListAnnotationQueueItemsObject
-
-    data: List[ListAnnotationQueueItemsData]
-
-    has_more: bool
-
-
-try:
-    Data2.model_rebuild()
-except NameError:
-    pass
-try:
-    Data1.model_rebuild()
-except NameError:
-    pass

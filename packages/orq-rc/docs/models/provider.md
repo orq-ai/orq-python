@@ -49,5 +49,6 @@ value: Provider = "openai"
 - `"baseten"`
 - `"reson8"`
 - `"meta"`
+- `"greenpt"`
 - `"slack"`
 - `"orq"`

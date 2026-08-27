@@ -336,12 +336,12 @@ Plugins = TypeAliasType(
 )
 
 
-class ModelConfigurationFallbacksTypedDict(TypedDict):
+class FallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class ModelConfigurationFallbacks(BaseModel):
+class Fallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -566,7 +566,7 @@ class ParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[PluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
-    fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
+    fallbacks: NotRequired[List[FallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[CacheTypedDict]
     r"""Cache configuration for the request."""
@@ -652,7 +652,7 @@ class Parameters(BaseModel):
     plugins: Optional[List[Plugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
-    fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
+    fallbacks: Optional[List[Fallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     cache: Optional[Cache] = None
@@ -737,7 +737,7 @@ class Parameters(BaseModel):
         return m
 
 
-class ModelConfigurationRetryTypedDict(TypedDict):
+class RetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -746,7 +746,7 @@ class ModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class ModelConfigurationRetry(BaseModel):
+class Retry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -782,7 +782,7 @@ class ModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[ModelConfigurationRetryTypedDict]
+    retry: NotRequired[RetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -798,7 +798,7 @@ class ModelConfiguration2(BaseModel):
     parameters: Optional[Parameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[ModelConfigurationRetry] = None
+    retry: Optional[Retry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")

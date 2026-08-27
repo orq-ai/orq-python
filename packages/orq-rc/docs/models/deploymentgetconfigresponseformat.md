@@ -35,15 +35,15 @@ value: models.ResponseFormat3 = /* values here */
 value: models.ResponseFormat4 = /* values here */
 ```
 
-### `models.ResponseFormat5`
+### `models.Five`
 
 ```python
-value: models.ResponseFormat5 = /* values here */
+value: models.Five = /* values here */
 ```
 
-### `models.ResponseFormat6`
+### `models.Six`
 
 ```python
-value: models.ResponseFormat6 = /* values here */
+value: models.Six = /* values here */
 ```
 

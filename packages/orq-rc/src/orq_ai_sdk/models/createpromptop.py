@@ -1669,7 +1669,7 @@ CreatePromptPromptsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-CreatePromptResponseFormat6 = Literal[
+ResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -1678,7 +1678,7 @@ CreatePromptResponseFormat6 = Literal[
 ]
 
 
-CreatePromptResponseFormat5 = Literal[
+ResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
@@ -1808,8 +1808,8 @@ CreatePromptPromptsResponseResponseFormatTypedDict = TypeAliasType(
         CreatePromptResponseFormat3TypedDict,
         CreatePromptResponseFormat1TypedDict,
         CreatePromptResponseFormat4,
-        CreatePromptResponseFormat5,
-        CreatePromptResponseFormat6,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -1829,8 +1829,8 @@ CreatePromptPromptsResponseResponseFormat = TypeAliasType(
         CreatePromptResponseFormat3,
         CreatePromptResponseFormat1,
         CreatePromptResponseFormat4,
-        CreatePromptResponseFormat5,
-        CreatePromptResponseFormat6,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2187,6 +2187,7 @@ Provider = Literal[
     "baseten",
     "reson8",
     "meta",
+    "greenpt",
     "slack",
     "orq",
 ]

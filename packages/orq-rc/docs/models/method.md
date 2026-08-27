@@ -1,5 +1,7 @@
 # Method
 
+The HTTP method to use.
+
 ## Example Usage
 
 ```python
@@ -12,3 +14,5 @@ value: Method = "GET"
 
 - `"GET"`
 - `"POST"`
+- `"PUT"`
+- `"DELETE"`

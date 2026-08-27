@@ -15,10 +15,10 @@ value: models.Evaluations1 = /* values here */
 value: models.Evaluations2 = /* values here */
 ```
 
-### `models.Evaluations3`
+### `models.CreateDatasetItemEvaluations3`
 
 ```python
-value: models.Evaluations3 = /* values here */
+value: models.CreateDatasetItemEvaluations3 = /* values here */
 ```
 
 ### `models.Evaluations4`

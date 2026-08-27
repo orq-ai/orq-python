@@ -36,22 +36,22 @@ DeploymentGetConfigPrefixMessagesDeploymentsRequestRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentGetConfigContentDeployments2TypedDict = TextContentPartSchemaTypedDict
+DeploymentGetConfigContent2TypedDict = TextContentPartSchemaTypedDict
 
 
-DeploymentGetConfigContentDeployments2 = TextContentPartSchema
+DeploymentGetConfigContent2 = TextContentPartSchema
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
     "DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeployments2TypedDict]],
+    Union[str, List[DeploymentGetConfigContent2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsRequestContent = TypeAliasType(
     "DeploymentGetConfigPrefixMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentGetConfigContentDeployments2]],
+    Union[str, List[DeploymentGetConfigContent2]],
 )
 r"""The contents of the tool message."""
 
@@ -164,8 +164,8 @@ class PrefixMessagesToolMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigContent2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContent2TypedDict",
+Content2TypedDict = TypeAliasType(
+    "Content2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
@@ -175,7 +175,7 @@ DeploymentGetConfigContent2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContent2 = Annotated[
+Content2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -188,14 +188,13 @@ DeploymentGetConfigContent2 = Annotated[
 
 DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
     "DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict",
-    Union[str, List[DeploymentGetConfigContent2TypedDict]],
+    Union[str, List[Content2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesDeploymentsContent",
-    Union[str, List[DeploymentGetConfigContent2]],
+    "DeploymentGetConfigPrefixMessagesDeploymentsContent", Union[str, List[Content2]]
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -431,7 +430,7 @@ class TwoCacheControl(BaseModel):
         return m
 
 
-class Two4TypedDict(TypedDict):
+class FourTypedDict(TypedDict):
     type: TwoType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
@@ -439,7 +438,7 @@ class Two4TypedDict(TypedDict):
     cache_control: NotRequired[TwoCacheControlTypedDict]
 
 
-class Two4(BaseModel):
+class Four(BaseModel):
     type: TwoType
     r"""The type of the content part. Always `file`."""
 
@@ -465,23 +464,23 @@ class Two4(BaseModel):
         return m
 
 
-Content2TypedDict = TypeAliasType(
-    "Content2TypedDict",
+DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        Two4TypedDict,
+        FourTypedDict,
     ],
 )
 
 
-Content2 = Annotated[
+DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[Two4, Tag("file")],
+        Annotated[Four, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -489,13 +488,22 @@ Content2 = Annotated[
 
 DeploymentGetConfigPrefixMessagesContentTypedDict = TypeAliasType(
     "DeploymentGetConfigPrefixMessagesContentTypedDict",
-    Union[str, List[Content2TypedDict]],
+    Union[
+        str,
+        List[
+            DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict
+        ],
+    ],
 )
 r"""The contents of the user message."""
 
 
 DeploymentGetConfigPrefixMessagesContent = TypeAliasType(
-    "DeploymentGetConfigPrefixMessagesContent", Union[str, List[Content2]]
+    "DeploymentGetConfigPrefixMessagesContent",
+    Union[
+        str,
+        List[DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2],
+    ],
 )
 r"""The contents of the user message."""
 
@@ -676,27 +684,28 @@ DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict = (
+DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = (
     TextContentPartSchemaTypedDict
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2 = TextContentPartSchema
+DeploymentGetConfigContentDeploymentsRequestRequestBody2 = TextContentPartSchema
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAliasType(
-    "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict",
-    Union[
-        str,
-        List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2TypedDict],
-    ],
+DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict = (
+    TypeAliasType(
+        "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContentTypedDict",
+        Union[
+            str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict]
+        ],
+    )
 )
 r"""The contents of the tool message."""
 
 
 DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsRequestRequestBodyContent",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2]],
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2]],
 )
 r"""The contents of the tool message."""
 
@@ -809,8 +818,8 @@ class MessagesToolMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict",
+DeploymentGetConfigContentDeploymentsRequest2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContentDeploymentsRequest2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
@@ -820,7 +829,7 @@ DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasTyp
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBody2 = Annotated[
+DeploymentGetConfigContentDeploymentsRequest2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -833,14 +842,14 @@ DeploymentGetConfigContentDeploymentsRequestRequestBody2 = Annotated[
 
 DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsRequestContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict]],
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 DeploymentGetConfigMessagesDeploymentsRequestContent = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequestRequestBody2]],
+    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1076,7 +1085,7 @@ class DeploymentGetConfig2CacheControl(BaseModel):
         return m
 
 
-class DeploymentGetConfig24TypedDict(TypedDict):
+class Two4TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
@@ -1084,7 +1093,7 @@ class DeploymentGetConfig24TypedDict(TypedDict):
     cache_control: NotRequired[DeploymentGetConfig2CacheControlTypedDict]
 
 
-class DeploymentGetConfig24(BaseModel):
+class Two4(BaseModel):
     type: DeploymentGetConfig2DeploymentsType
     r"""The type of the content part. Always `file`."""
 
@@ -1110,23 +1119,23 @@ class DeploymentGetConfig24(BaseModel):
         return m
 
 
-DeploymentGetConfigContentDeploymentsRequest2TypedDict = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsRequest2TypedDict",
+DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
+    "DeploymentGetConfigContentDeployments2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        DeploymentGetConfig24TypedDict,
+        Two4TypedDict,
     ],
 )
 
 
-DeploymentGetConfigContentDeploymentsRequest2 = Annotated[
+DeploymentGetConfigContentDeployments2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[DeploymentGetConfig24, Tag("file")],
+        Annotated[Two4, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1134,14 +1143,14 @@ DeploymentGetConfigContentDeploymentsRequest2 = Annotated[
 
 DeploymentGetConfigMessagesDeploymentsContentTypedDict = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsContentTypedDict",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2TypedDict]],
+    Union[str, List[DeploymentGetConfigContentDeployments2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 DeploymentGetConfigMessagesDeploymentsContent = TypeAliasType(
     "DeploymentGetConfigMessagesDeploymentsContent",
-    Union[str, List[DeploymentGetConfigContentDeploymentsRequest2]],
+    Union[str, List[DeploymentGetConfigContentDeployments2]],
 )
 r"""The contents of the user message."""
 
@@ -2387,7 +2396,7 @@ DeploymentGetConfigFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-ResponseFormat6 = Literal[
+Six = Literal[
     "json",
     "text",
     "srt",
@@ -2396,7 +2405,7 @@ ResponseFormat6 = Literal[
 ]
 
 
-ResponseFormat5 = Literal[
+Five = Literal[
     "url",
     "base64_json",
 ]
@@ -2516,8 +2525,8 @@ DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
         ResponseFormat3TypedDict,
         ResponseFormat1TypedDict,
         ResponseFormat4,
-        ResponseFormat5,
-        ResponseFormat6,
+        Five,
+        Six,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2533,12 +2542,7 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
     Union[
-        ResponseFormat2,
-        ResponseFormat3,
-        ResponseFormat1,
-        ResponseFormat4,
-        ResponseFormat5,
-        ResponseFormat6,
+        ResponseFormat2, ResponseFormat3, ResponseFormat1, ResponseFormat4, Five, Six
     ],
 )
 r"""An object specifying the format that the model must output.

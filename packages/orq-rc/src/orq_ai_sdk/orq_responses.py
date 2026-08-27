@@ -44,7 +44,10 @@ class OrqResponses(BaseSDK):
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
-            Union[models.Configuration, models.ConfigurationTypedDict]
+            Union[
+                models.AgentResponseRequestConfiguration,
+                models.AgentResponseRequestConfigurationTypedDict,
+            ]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
@@ -111,7 +114,7 @@ class OrqResponses(BaseSDK):
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.Configuration]
+                    configuration, Optional[models.AgentResponseRequestConfiguration]
                 ),
                 background=background,
                 stream=stream,
@@ -247,7 +250,10 @@ class OrqResponses(BaseSDK):
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
-            Union[models.Configuration, models.ConfigurationTypedDict]
+            Union[
+                models.AgentResponseRequestConfiguration,
+                models.AgentResponseRequestConfigurationTypedDict,
+            ]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
@@ -314,7 +320,7 @@ class OrqResponses(BaseSDK):
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.Configuration]
+                    configuration, Optional[models.AgentResponseRequestConfiguration]
                 ),
                 background=background,
                 stream=stream,

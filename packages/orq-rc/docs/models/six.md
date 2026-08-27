@@ -1,8 +1,17 @@
 # Six
 
+## Example Usage
 
-## Fields
+```python
+from orq_ai_sdk.models import Six
+value: Six = "json"
+```
 
-| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                           | [models.EvaluatorResponseFunctionFunctionParams6Type](../models/evaluatorresponsefunctionfunctionparams6type.md) | :heavy_check_mark:                                                                                               | N/A                                                                                                              |
+
+## Values
+
+- `"json"`
+- `"text"`
+- `"srt"`
+- `"verbose_json"`
+- `"vtt"`

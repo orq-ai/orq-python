@@ -10,9 +10,9 @@ from typing_extensions import NotRequired, TypedDict
 class BudgetMatchTypedDict(TypedDict):
     r"""BudgetMatch carries the CEL expression that decides whether a budget
     applies to a request. Available variables: `model`, `provider`,
-    `model_id`, `api_key`, `identity`, `project`, `metadata` (map),
-    `headers` (map, lowercase keys). An empty expression always matches.
-    Expressions are syntax-validated at write time.
+    `model_id`, `api_key`, `api_key_labels` (map), `factory`, `identity`,
+    `project`, `metadata` (map), `headers` (map, lowercase keys). An empty
+    expression always matches. Expressions are syntax-validated at write time.
     """
 
     cel: NotRequired[str]
@@ -21,9 +21,9 @@ class BudgetMatchTypedDict(TypedDict):
 class BudgetMatch(BaseModel):
     r"""BudgetMatch carries the CEL expression that decides whether a budget
     applies to a request. Available variables: `model`, `provider`,
-    `model_id`, `api_key`, `identity`, `project`, `metadata` (map),
-    `headers` (map, lowercase keys). An empty expression always matches.
-    Expressions are syntax-validated at write time.
+    `model_id`, `api_key`, `api_key_labels` (map), `factory`, `identity`,
+    `project`, `metadata` (map), `headers` (map, lowercase keys). An empty
+    expression always matches. Expressions are syntax-validated at write time.
     """
 
     cel: Optional[str] = None

@@ -10,6 +10,8 @@ from typing_extensions import NotRequired, TypedDict
 
 class PricingVariantTypedDict(TypedDict):
     when: str
+    audio_input: NotRequired[PriceTypedDict]
+    audio_output: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
@@ -20,6 +22,10 @@ class PricingVariantTypedDict(TypedDict):
 
 class PricingVariant(BaseModel):
     when: str
+
+    audio_input: Optional[Price] = None
+
+    audio_output: Optional[Price] = None
 
     cache_read: Optional[Price] = None
 
@@ -37,6 +43,8 @@ class PricingVariant(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "audio_input",
+                "audio_output",
                 "cache_read",
                 "cache_write_1h",
                 "cache_write_5m",

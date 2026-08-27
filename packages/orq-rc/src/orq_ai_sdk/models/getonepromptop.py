@@ -604,6 +604,7 @@ GetOnePromptProvider = Literal[
     "baseten",
     "reson8",
     "meta",
+    "greenpt",
     "slack",
     "orq",
 ]

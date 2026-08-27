@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import ResponseBodyType
-value: ResponseBodyType = "llm_eval"
+value: ResponseBodyType = "function"
 ```
 
 
 ## Values
 
-- `"llm_eval"`
+- `"function"`

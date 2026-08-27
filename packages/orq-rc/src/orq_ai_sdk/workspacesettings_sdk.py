@@ -186,6 +186,9 @@ class WorkspaceSettingsSDK(BaseSDK):
         pii_redaction: Optional[
             Union[models.PiiRedaction, models.PiiRedactionTypedDict]
         ] = None,
+        default_policy_profile_ids: Optional[
+            Union[models.PolicyProfileIDList, models.PolicyProfileIDListTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -201,6 +204,7 @@ class WorkspaceSettingsSDK(BaseSDK):
         :param pii_redaction: Replacement workspace-default PII redaction configuration. Omit to leave
             the current PII redaction configuration unchanged; when present it fully
             replaces the stored pii_redaction object.
+        :param default_policy_profile_ids:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -224,6 +228,9 @@ class WorkspaceSettingsSDK(BaseSDK):
             enforce_enabled_models=enforce_enabled_models,
             pii_redaction=utils.get_pydantic_model(
                 pii_redaction, Optional[models.PiiRedaction]
+            ),
+            default_policy_profile_ids=utils.get_pydantic_model(
+                default_policy_profile_ids, Optional[models.PolicyProfileIDList]
             ),
         )
 
@@ -293,6 +300,9 @@ class WorkspaceSettingsSDK(BaseSDK):
         pii_redaction: Optional[
             Union[models.PiiRedaction, models.PiiRedactionTypedDict]
         ] = None,
+        default_policy_profile_ids: Optional[
+            Union[models.PolicyProfileIDList, models.PolicyProfileIDListTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -308,6 +318,7 @@ class WorkspaceSettingsSDK(BaseSDK):
         :param pii_redaction: Replacement workspace-default PII redaction configuration. Omit to leave
             the current PII redaction configuration unchanged; when present it fully
             replaces the stored pii_redaction object.
+        :param default_policy_profile_ids:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -331,6 +342,9 @@ class WorkspaceSettingsSDK(BaseSDK):
             enforce_enabled_models=enforce_enabled_models,
             pii_redaction=utils.get_pydantic_model(
                 pii_redaction, Optional[models.PiiRedaction]
+            ),
+            default_policy_profile_ids=utils.get_pydantic_model(
+                default_policy_profile_ids, Optional[models.PolicyProfileIDList]
             ),
         )
 

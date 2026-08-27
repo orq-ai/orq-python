@@ -35,15 +35,15 @@ value: models.CreatePromptResponseFormat3 = /* values here */
 value: models.CreatePromptResponseFormat4 = /* values here */
 ```
 
-### `models.CreatePromptResponseFormat5`
+### `models.ResponseFormat5`
 
 ```python
-value: models.CreatePromptResponseFormat5 = /* values here */
+value: models.ResponseFormat5 = /* values here */
 ```
 
-### `models.CreatePromptResponseFormat6`
+### `models.ResponseFormat6`
 
 ```python
-value: models.CreatePromptResponseFormat6 = /* values here */
+value: models.ResponseFormat6 = /* values here */
 ```
 

@@ -2124,8 +2124,8 @@ class CreateChatCompletion1Eq(BaseModel):
     eq: CreateChatCompletion1RouterChatCompletionsEq
 
 
-CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
-    "CreateChatCompletionFilterBy1TypedDict",
+FilterBy1TypedDict = TypeAliasType(
+    "FilterBy1TypedDict",
     Union[
         CreateChatCompletion1EqTypedDict,
         CreateChatCompletion1NeTypedDict,
@@ -2139,8 +2139,8 @@ CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionFilterBy1 = TypeAliasType(
-    "CreateChatCompletionFilterBy1",
+FilterBy1 = TypeAliasType(
+    "FilterBy1",
     Union[
         CreateChatCompletion1Eq,
         CreateChatCompletion1Ne,
@@ -2159,7 +2159,7 @@ CreateChatCompletionFilterByTypedDict = TypeAliasType(
     Union[
         CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict,
         CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict,
-        Dict[str, CreateChatCompletionFilterBy1TypedDict],
+        Dict[str, FilterBy1TypedDict],
     ],
 )
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
@@ -2170,7 +2170,7 @@ CreateChatCompletionFilterBy = TypeAliasType(
     Union[
         CreateChatCompletionFilterByRouterChatCompletionsAnd,
         CreateChatCompletionFilterByRouterChatCompletionsOr,
-        Dict[str, CreateChatCompletionFilterBy1],
+        Dict[str, FilterBy1],
     ],
 )
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""

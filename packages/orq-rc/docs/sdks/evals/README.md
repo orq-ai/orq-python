@@ -2,17 +2,16 @@
 
 ## Overview
 
-Run an evaluator against a conversation and its result
-
 ### Available Operations
 
 * [all](#all) - Get all Evaluators
 * [create](#create) - Create an Evaluator
 * [get](#get) - Retrieve an Evaluator
-* [update](#update) - Update an Evaluator
 * [delete](#delete) - Delete an Evaluator
-* [invoke](#invoke) - Invoke a Custom Evaluator
+* [update](#update) - Update an Evaluator
 * [list_versions](#list_versions) - List evaluator versions
+* [get_version](#get_version) - Get evaluator version
+* [invoke](#invoke) - Invoke a Custom Evaluator
 
 ## all
 
@@ -39,26 +38,25 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `search`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `sort`                                                                                                                                                                                                                                                                                                                                  | [Optional[models.QueryParamSort]](../../models/queryparamsort.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `project_id`                                                                                                                                                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size, 1-200. Unset uses the server default (10).               |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `sort`                                                              | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.GetEvalsResponseBody](../../models/getevalsresponsebody.md)**
+**[models.ListEvaluatorsResponse](../../models/listevaluatorsresponse.md)**
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| models.GetEvalsEvalsResponseBody | 404                              | application/json                 |
-| models.APIDefaultError           | 4XX, 5XX                         | \*/\*                            |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
@@ -76,13 +74,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.evals.create(request={
-        "code": "<value>",
-        "type": "python_eval",
-        "path": "Default",
-        "description": "",
-        "key": "<key>",
-    })
+    res = orq.evals.create(request={})
 
     # Handle response
     print(res)
@@ -98,14 +90,13 @@ with Orq(
 
 ### Response
 
-**[models.CreateEvalResponseBody](../../models/createevalresponsebody.md)**
+**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| models.CreateEvalEvalsResponseBody | 404                                | application/json                   |
-| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
 
@@ -132,85 +123,20 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 | Example                                                                                     |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `id`                                                                                        | *str*                                                                                       | :heavy_check_mark:                                                                          | Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`. | 01JMDPA3QW5C1V0NJ1PW34T4E5                                                                  |
-| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |                                                                                             |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.GetEvalResponseBody](../../models/getevalresponsebody.md)**
+**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models.GetEvalEvalsResponseBody | 404                             | application/json                |
-| models.APIDefaultError          | 4XX, 5XX                        | \*/\*                           |
-
-## update
-
-Update an evaluator by ID with the provided fields.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="UpdateEval" method="patch" path="/v2/evaluators/{id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.evals.update(id="<id>", path="Default", project_id="01JMDPA3QW5C1V0NJ1PW34T4E5")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                | Example                                                                                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                                                                                                                                                       | *str*                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `type`                                                                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | Evaluator type. Optional on update — inferred from existing evaluator.                                                                                                                                                                     |                                                                                                                                                                                                                                            |
-| `path`                                                                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.                                                                | Default Project                                                                                                                                                                                                                            |
-| `project_id`                                                                                                                                                                                                                               | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`. | 01JMDPA3QW5C1V0NJ1PW34T4E5                                                                                                                                                                                                                 |
-| `key`                                                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `description`                                                                                                                                                                                                                              | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `prompt`                                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `output_type`                                                                                                                                                                                                                              | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `categories`                                                                                                                                                                                                                               | List[*str*]                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `categorical_labels`                                                                                                                                                                                                                       | List[[models.UpdateEvalCategoricalLabels](../../models/updateevalcategoricallabels.md)]                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `dataset_id`                                                                                                                                                                                                                               | *OptionalNullable[str]*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `repetitions`                                                                                                                                                                                                                              | *Optional[float]*                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `mode`                                                                                                                                                                                                                                     | [Optional[models.UpdateEvalMode]](../../models/updateevalmode.md)                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `model`                                                                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `jury`                                                                                                                                                                                                                                     | [Optional[models.UpdateEvalJury]](../../models/updateevaljury.md)                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `schema_`                                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `url`                                                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `method`                                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `headers`                                                                                                                                                                                                                                  | Dict[str, *str*]                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `payload`                                                                                                                                                                                                                                  | Dict[str, *Any*]                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `code`                                                                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `guardrail_config`                                                                                                                                                                                                                         | *Optional[Any]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `version_increment`                                                                                                                                                                                                                        | [Optional[models.VersionIncrement]](../../models/versionincrement.md)                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `version_description`                                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-| `retries`                                                                                                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                                                                                                        |                                                                                                                                                                                                                                            |
-
-### Response
-
-**[models.UpdateEvalResponseBody](../../models/updateevalresponsebody.md)**
-
-### Errors
-
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| models.UpdateEvalEvalsResponseBody | 404                                | application/json                   |
-| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
@@ -228,9 +154,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.evals.delete(id="<id>")
+    res = orq.evals.delete(id="<id>")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
@@ -241,13 +168,140 @@ with Orq(
 | `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
+### Response
+
+**[models.DeleteEvaluatorResponse](../../models/deleteevaluatorresponse.md)**
+
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| models.DeleteEvalResponseBody      | 404                                | application/json                   |
-| models.DeleteEvalEvalsResponseBody | 409                                | application/json                   |
-| models.APIDefaultError             | 4XX, 5XX                           | \*/\*                              |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## update
+
+Update an evaluator by ID with the provided fields.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="UpdateEval" method="patch" path="/v2/evaluators/{id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.update(id="<id>", request_body={})
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `id`                                                                  | *str*                                                                 | :heavy_check_mark:                                                    | N/A                                                                   |
+| `request_body`                                                        | [models.UpdateEvalRequestBody](../../models/updateevalrequestbody.md) | :heavy_check_mark:                                                    | N/A                                                                   |
+| `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
+
+### Response
+
+**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## list_versions
+
+Returns version history for a specific evaluator.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListEvalVersions" method="get" path="/v2/evaluators/{id}/versions" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.list_versions(id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size, 1-200. Unset uses the server default (10).               |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListEvaluatorVersionsResponse](../../models/listevaluatorversionsresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## get_version
+
+Returns a specific version of an evaluator.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetEvalVersion" method="get" path="/v2/evaluators/{id}/versions/{version_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.get_version(id="<id>", version_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `version_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetEvaluatorVersionResponse](../../models/getevaluatorversionresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## invoke
 
@@ -296,47 +350,3 @@ with Orq(
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## list_versions
-
-Returns version history for a specific evaluator
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="get_/v2/evaluators/{id}/versions" method="get" path="/v2/evaluators/{id}/versions" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.evals.list_versions(id="<id>", limit=10)
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                    | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
-
-### Response
-
-**[models.GetV2EvaluatorsIDVersionsResponseBody](../../models/getv2evaluatorsidversionsresponsebody.md)**
-
-### Errors
-
-| Error Type                                        | Status Code                                       | Content Type                                      |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| models.GetV2EvaluatorsIDVersionsEvalsResponseBody | 404                                               | application/json                                  |
-| models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |

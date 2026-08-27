@@ -3,57 +3,51 @@
 
 ## Supported Types
 
-### `models.OneEq`
+### `models.CreateChatCompletion1Eq`
 
 ```python
-value: models.OneEq = /* values here */
+value: models.CreateChatCompletion1Eq = /* values here */
 ```
 
-### `models.OneNe`
+### `models.CreateChatCompletion1Ne`
 
 ```python
-value: models.OneNe = /* values here */
+value: models.CreateChatCompletion1Ne = /* values here */
 ```
 
-### `models.Gt`
+### `models.OneGt`
 
 ```python
-value: models.Gt = /* values here */
+value: models.OneGt = /* values here */
 ```
 
-### `models.Gte`
+### `models.OneGte`
 
 ```python
-value: models.Gte = /* values here */
+value: models.OneGte = /* values here */
 ```
 
-### `models.Lt`
+### `models.OneLt`
 
 ```python
-value: models.Lt = /* values here */
+value: models.OneLt = /* values here */
 ```
 
-### `models.Lte`
+### `models.OneLte`
 
 ```python
-value: models.Lte = /* values here */
+value: models.OneLte = /* values here */
 ```
 
-### `models.OneIn`
+### `models.CreateChatCompletion1In`
 
 ```python
-value: models.OneIn = /* values here */
+value: models.CreateChatCompletion1In = /* values here */
 ```
 
-### `models.OneNin`
+### `models.CreateChatCompletion1Nin`
 
 ```python
-value: models.OneNin = /* values here */
-```
-
-### `models.Exists`
-
-```python
-value: models.Exists = /* values here */
+value: models.CreateChatCompletion1Nin = /* values here */
 ```
 

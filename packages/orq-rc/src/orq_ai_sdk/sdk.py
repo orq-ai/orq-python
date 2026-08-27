@@ -63,8 +63,6 @@ class Orq(BaseSDK):
     https://docs.orq.ai - orq.ai Documentation
     """
 
-    evals: "Evals"
-    r"""Run an evaluator against a conversation and its result"""
     deployments: "Deployments"
     agents: "Agents"
     prompts: "Prompts"
@@ -74,15 +72,16 @@ class Orq(BaseSDK):
     annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
-    annotation_queues: "AnnotationQueues"
     chunking: "Chunking"
     file_systems: "FileSystems"
     knowledge: "KnowledgeSDK"
     memory_stores: "MemoryStores"
+    evals: "Evals"
     pii: "Pii"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
+    annotation_queues: "AnnotationQueues"
     api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
@@ -106,7 +105,6 @@ class Orq(BaseSDK):
     reporting: "Reporting"
     traces: "Traces"
     _sub_sdk_map = {
-        "evals": ("orq_ai_sdk.evals", "Evals"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
@@ -116,15 +114,16 @@ class Orq(BaseSDK):
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
-        "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "file_systems": ("orq_ai_sdk.filesystems", "FileSystems"),
         "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
+        "evals": ("orq_ai_sdk.evals", "Evals"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
+        "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),

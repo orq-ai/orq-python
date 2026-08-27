@@ -502,8 +502,8 @@ class OneEq(BaseModel):
     eq: Eq
 
 
-FilterBy1TypedDict = TypeAliasType(
-    "FilterBy1TypedDict",
+OneTypedDict = TypeAliasType(
+    "OneTypedDict",
     Union[
         OneEqTypedDict,
         OneNeTypedDict,
@@ -518,25 +518,21 @@ FilterBy1TypedDict = TypeAliasType(
 )
 
 
-FilterBy1 = TypeAliasType(
-    "FilterBy1", Union[OneEq, OneNe, Gt, Gte, Lt, Lte, OneIn, OneNin, Exists]
-)
+One = TypeAliasType("One", Union[OneEq, OneNe, Gt, Gte, Lt, Lte, OneIn, OneNin, Exists])
 
 
 FilterByTypedDict = TypeAliasType(
     "FilterByTypedDict",
-    Union[FilterByAndTypedDict, FilterByOrTypedDict, Dict[str, FilterBy1TypedDict]],
+    Union[FilterByAndTypedDict, FilterByOrTypedDict, Dict[str, OneTypedDict]],
 )
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
-FilterBy = TypeAliasType(
-    "FilterBy", Union[FilterByAnd, FilterByOr, Dict[str, FilterBy1]]
-)
+FilterBy = TypeAliasType("FilterBy", Union[FilterByAnd, FilterByOr, Dict[str, One]])
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
-class AgenticRagConfig2TypedDict(TypedDict):
+class TwoTypedDict(TypedDict):
     model_db_id: str
     r"""Internal database model identifier used by the retrieval testing UI."""
     provider: str
@@ -547,7 +543,7 @@ class AgenticRagConfig2TypedDict(TypedDict):
     r"""Optional integration identifier for the stored model configuration."""
 
 
-class AgenticRagConfig2(BaseModel):
+class Two(BaseModel):
     model_db_id: str
     r"""Internal database model identifier used by the retrieval testing UI."""
 
@@ -638,14 +634,13 @@ class AgenticRagConfig1(BaseModel):
 
 SearchKnowledgeRequestAgenticRagConfigTypedDict = TypeAliasType(
     "SearchKnowledgeRequestAgenticRagConfigTypedDict",
-    Union[AgenticRagConfig1TypedDict, AgenticRagConfig2TypedDict],
+    Union[AgenticRagConfig1TypedDict, TwoTypedDict],
 )
 r"""Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values."""
 
 
 SearchKnowledgeRequestAgenticRagConfig = TypeAliasType(
-    "SearchKnowledgeRequestAgenticRagConfig",
-    Union[AgenticRagConfig1, AgenticRagConfig2],
+    "SearchKnowledgeRequestAgenticRagConfig", Union[AgenticRagConfig1, Two]
 )
 r"""Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values."""
 

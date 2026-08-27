@@ -390,7 +390,7 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-DeploymentsDeploymentsType = Literal["ephemeral",]
+DeploymentsDeploymentsResponseType = Literal["ephemeral",]
 r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
 
 
@@ -410,7 +410,7 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 class DeploymentsCacheControlTypedDict(TypedDict):
     r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
 
-    type: DeploymentsDeploymentsType
+    type: DeploymentsDeploymentsResponseType
     r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
     ttl: NotRequired[DeploymentsTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
@@ -425,7 +425,7 @@ class DeploymentsCacheControlTypedDict(TypedDict):
 class DeploymentsCacheControl(BaseModel):
     r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
 
-    type: DeploymentsDeploymentsType
+    type: DeploymentsDeploymentsResponseType
     r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
 
     ttl: Optional[DeploymentsTTL] = "5m"
@@ -728,6 +728,7 @@ DeploymentsProvider = Literal[
     "baseten",
     "reson8",
     "meta",
+    "greenpt",
     "slack",
     "orq",
 ]
@@ -905,7 +906,7 @@ DeploymentsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-DeploymentsDeploymentsResponseType = Literal["function",]
+DeploymentsDeploymentsType = Literal["function",]
 
 
 class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
@@ -922,14 +923,14 @@ class DeploymentsDeploymentsFunction(BaseModel):
 
 
 class DeploymentsToolCallsTypedDict(TypedDict):
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
     function: DeploymentsDeploymentsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class DeploymentsToolCalls(BaseModel):
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
 
     function: DeploymentsDeploymentsFunction
 

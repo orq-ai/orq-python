@@ -5,10 +5,10 @@ The metadata filter to apply to the search. Check the [Searching a Knowledge Bas
 
 ## Supported Types
 
-### `Dict[str, models.CreateChatCompletionFilterBy1]`
+### `Dict[str, models.FilterBy1]`
 
 ```python
-value: Dict[str, models.CreateChatCompletionFilterBy1] = /* values here */
+value: Dict[str, models.FilterBy1] = /* values here */
 ```
 
 ### `models.CreateChatCompletionFilterByRouterChatCompletionsAnd`

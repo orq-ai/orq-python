@@ -96,6 +96,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_distillation: NotRequired[bool]
     supports_extended_thinking: NotRequired[bool]
     supports_fine_tuning: NotRequired[bool]
+    supports_google_realtime_api: NotRequired[bool]
     supports_image_edit: NotRequired[bool]
     supports_image_input: NotRequired[bool]
     supports_image_output: NotRequired[bool]
@@ -297,6 +298,8 @@ class ModelMetadata(BaseModel):
 
     supports_fine_tuning: Optional[bool] = None
 
+    supports_google_realtime_api: Optional[bool] = None
+
     supports_image_edit: Optional[bool] = None
 
     supports_image_input: Optional[bool] = None
@@ -468,6 +471,7 @@ class ModelMetadata(BaseModel):
                 "supports_distillation",
                 "supports_extended_thinking",
                 "supports_fine_tuning",
+                "supports_google_realtime_api",
                 "supports_image_edit",
                 "supports_image_input",
                 "supports_image_output",

@@ -5,6 +5,10 @@ from .apikeybudgetscoperestresponse import (
     APIKeyBudgetScopeRestResponse,
     APIKeyBudgetScopeRestResponseTypedDict,
 )
+from .factorybudgetscoperestresponse import (
+    FactoryBudgetScopeRestResponse,
+    FactoryBudgetScopeRestResponseTypedDict,
+)
 from .identitybudgetscoperestresponse import (
     IdentityBudgetScopeRestResponse,
     IdentityBudgetScopeRestResponseTypedDict,
@@ -28,7 +32,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class BudgetScopeRestResponseTypedDict(TypedDict):
     r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    six variants are ordered by enforcement precedence (most specific to
+    variants are ordered by enforcement precedence (most specific to
     most general) and mirror the BudgetScopeKind filter enum.
     """
 
@@ -53,11 +57,15 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
     models), rather than an internal identifier.
     """
+    factory: NotRequired[FactoryBudgetScopeRestResponseTypedDict]
+    r"""Per-factory cap. Matches requests whose api key carries the label
+    `factory=<factory_id>` (keys minted for agent sessions of that factory).
+    """
 
 
 class BudgetScopeRestResponse(BaseModel):
     r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    six variants are ordered by enforcement precedence (most specific to
+    variants are ordered by enforcement precedence (most specific to
     most general) and mirror the BudgetScopeKind filter enum.
     """
 
@@ -90,10 +98,23 @@ class BudgetScopeRestResponse(BaseModel):
     models), rather than an internal identifier.
     """
 
+    factory: Optional[FactoryBudgetScopeRestResponse] = None
+    r"""Per-factory cap. Matches requests whose api key carries the label
+    `factory=<factory_id>` (keys minted for agent sessions of that factory).
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["workspace", "project", "identity", "apiKey", "provider", "model"]
+            [
+                "workspace",
+                "project",
+                "identity",
+                "apiKey",
+                "provider",
+                "model",
+                "factory",
+            ]
         )
         serialized = handler(self)
         m = {}
