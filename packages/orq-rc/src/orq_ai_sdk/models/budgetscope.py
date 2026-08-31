@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .apikeybudgetscope import APIKeyBudgetScope, APIKeyBudgetScopeTypedDict
-from .factorybudgetscope import FactoryBudgetScope, FactoryBudgetScopeTypedDict
 from .identitybudgetscope import IdentityBudgetScope, IdentityBudgetScopeTypedDict
 from .modelbudgetscope import ModelBudgetScope, ModelBudgetScopeTypedDict
 from .projectbudgetscope import ProjectBudgetScope, ProjectBudgetScopeTypedDict
@@ -15,10 +14,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class BudgetScopeTypedDict(TypedDict):
-    r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    variants are ordered by enforcement precedence (most specific to
-    most general) and mirror the BudgetScopeKind filter enum.
-    """
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
 
     workspace: NotRequired[WorkspaceBudgetScopeTypedDict]
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""
@@ -41,17 +37,10 @@ class BudgetScopeTypedDict(TypedDict):
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
     models), rather than an internal identifier.
     """
-    factory: NotRequired[FactoryBudgetScopeTypedDict]
-    r"""Per-factory cap. Matches requests whose api key carries the label
-    `factory=<factory_id>` (keys minted for agent sessions of that factory).
-    """
 
 
 class BudgetScope(BaseModel):
-    r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    variants are ordered by enforcement precedence (most specific to
-    most general) and mirror the BudgetScopeKind filter enum.
-    """
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
 
     workspace: Optional[WorkspaceBudgetScope] = None
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""
@@ -80,23 +69,10 @@ class BudgetScope(BaseModel):
     models), rather than an internal identifier.
     """
 
-    factory: Optional[FactoryBudgetScope] = None
-    r"""Per-factory cap. Matches requests whose api key carries the label
-    `factory=<factory_id>` (keys minted for agent sessions of that factory).
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "workspace",
-                "project",
-                "identity",
-                "api_key",
-                "provider",
-                "model",
-                "factory",
-            ]
+            ["workspace", "project", "identity", "api_key", "provider", "model"]
         )
         serialized = handler(self)
         m = {}

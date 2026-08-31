@@ -293,6 +293,16 @@ if TYPE_CHECKING:
         InputAudio,
         InputAudioTypedDict,
     )
+    from .auditlog import (
+        AuditLog,
+        AuditLogMetadata,
+        AuditLogMetadataTypedDict,
+        AuditLogTypedDict,
+    )
+    from .auditlogfilter import AuditLogFilter, AuditLogFilterTypedDict
+    from .auditlogfilterquery import AuditLogFilterQuery, AuditLogFilterQueryTypedDict
+    from .auditlogpagination import AuditLogPagination, AuditLogPaginationTypedDict
+    from .auditlogsort import AuditLogSort, AuditLogSortTypedDict
     from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
     from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
     from .autorouterv2creatorconfig import (
@@ -637,6 +647,8 @@ if TYPE_CHECKING:
         CreateAgentRequestModelConfigurationExecuteOn,
         CreateAgentRequestModelConfigurationGuardrails,
         CreateAgentRequestModelConfigurationGuardrailsTypedDict,
+        CreateAgentRequestModelConfigurationPlugins,
+        CreateAgentRequestModelConfigurationPluginsTypedDict,
         CreateAgentRequestModelConfigurationReasoningEffort,
         CreateAgentRequestModelConfigurationType,
         CreateAgentRequestModelTypedDict,
@@ -789,8 +801,6 @@ if TYPE_CHECKING:
         ModelConfigurationTypedDict,
         Parameters,
         ParametersTypedDict,
-        Plugins,
-        PluginsTypedDict,
         ResponseFormat,
         ResponseFormatJSONObject,
         ResponseFormatJSONObjectTypedDict,
@@ -857,14 +867,14 @@ if TYPE_CHECKING:
         AnnotationsValueTypedDict,
         CreateAnnotationAnnotations,
         CreateAnnotationAnnotationsTypedDict,
+        CreateAnnotationAnnotationsValue,
+        CreateAnnotationAnnotationsValueTypedDict,
         CreateAnnotationMetadata,
         CreateAnnotationMetadataTypedDict,
         CreateAnnotationRequest,
         CreateAnnotationRequestBody,
         CreateAnnotationRequestBodyTypedDict,
         CreateAnnotationRequestTypedDict,
-        Value,
-        ValueTypedDict,
     )
     from .createannotationqueuerequest import (
         CreateAnnotationQueueRequest,
@@ -3036,11 +3046,6 @@ if TYPE_CHECKING:
     from .facetgroup import FacetGroup, FacetGroupTypedDict
     from .facetkey import FacetKey, FacetKeyTypedDict
     from .facetvalue import FacetValue, FacetValueTypedDict
-    from .factorybudgetscope import FactoryBudgetScope, FactoryBudgetScopeTypedDict
-    from .factorybudgetscoperestresponse import (
-        FactoryBudgetScopeRestResponse,
-        FactoryBudgetScopeRestResponseTypedDict,
-    )
     from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
     from .fieldinfo import FieldInfo, FieldInfoTypedDict
     from .file import File, FileTypedDict
@@ -3837,6 +3842,10 @@ if TYPE_CHECKING:
     from .getuploadfileurlresponse import (
         GetUploadFileURLResponse,
         GetUploadFileURLResponseTypedDict,
+    )
+    from .getworkspaceresponse import (
+        GetWorkspaceResponse,
+        GetWorkspaceResponseTypedDict,
     )
     from .getworkspacesettingsresponse import (
         GetWorkspaceSettingsResponse,
@@ -4709,6 +4718,10 @@ if TYPE_CHECKING:
         ListWebhooksResponse,
         ListWebhooksResponseTypedDict,
     )
+    from .listworkspacesresponse import (
+        ListWorkspacesResponse,
+        ListWorkspacesResponseTypedDict,
+    )
     from .litellmmodel import LiteLLMModel, LiteLLMModelTypedDict
     from .litellmmodelinfo import LiteLLMModelInfo, LiteLLMModelInfoTypedDict
     from .litellmparams import LiteLLMParams, LiteLLMParamsTypedDict
@@ -5100,7 +5113,6 @@ if TYPE_CHECKING:
         PolicyListResponseBody,
         PolicyListResponseBodyTypedDict,
     )
-    from .policyprofileidlist import PolicyProfileIDList, PolicyProfileIDListTypedDict
     from .policyretryconfig import PolicyRetryConfig, PolicyRetryConfigTypedDict
     from .policyupdateop import (
         PolicyUpdateRequest,
@@ -5279,6 +5291,14 @@ if TYPE_CHECKING:
         PublicSchedulePayloadTypedDict,
     )
     from .publicusage import PublicUsage, PublicUsageTypedDict
+    from .queryauditlogsrequest import (
+        QueryAuditLogsRequest,
+        QueryAuditLogsRequestTypedDict,
+    )
+    from .queryauditlogsresponse import (
+        QueryAuditLogsResponse,
+        QueryAuditLogsResponseTypedDict,
+    )
     from .queryknowledgebasetoolinput import (
         QueryKnowledgeBaseToolInput,
         QueryKnowledgeBaseToolInputType,
@@ -7970,6 +7990,16 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
+    from .updateworkspacerequest import (
+        UpdateWorkspaceRequest,
+        UpdateWorkspaceRequestMetadata,
+        UpdateWorkspaceRequestMetadataTypedDict,
+        UpdateWorkspaceRequestTypedDict,
+    )
+    from .updateworkspaceresponse import (
+        UpdateWorkspaceResponse,
+        UpdateWorkspaceResponseTypedDict,
+    )
     from .updateworkspacesettingsrequest import (
         UpdateWorkspaceSettingsRequest,
         UpdateWorkspaceSettingsRequestTypedDict,
@@ -7986,6 +8016,7 @@ if TYPE_CHECKING:
         UpsertChunkTypedDict,
     )
     from .userowner import UserOwner, UserOwnerTypedDict
+    from .value import Value
     from .verifydomainresponse import (
         VerifyDomainResponse,
         VerifyDomainResponseTypedDict,
@@ -8016,9 +8047,27 @@ if TYPE_CHECKING:
         WebScraperToolInputType,
         WebScraperToolInputTypedDict,
     )
+    from .workspace import (
+        Features,
+        FeaturesTypedDict,
+        Workspace,
+        WorkspaceMetadata,
+        WorkspaceMetadataTypedDict,
+        WorkspaceTypedDict,
+    )
     from .workspacebudgetscope import (
         WorkspaceBudgetScope,
         WorkspaceBudgetScopeTypedDict,
+    )
+    from .workspacecapabilities import (
+        WorkspaceCapabilities,
+        WorkspaceCapabilitiesTypedDict,
+    )
+    from .workspacegetop import WorkspaceGetRequest, WorkspaceGetRequestTypedDict
+    from .workspacelistop import WorkspaceListRequest, WorkspaceListRequestTypedDict
+    from .workspaceorganization import (
+        WorkspaceOrganization,
+        WorkspaceOrganizationTypedDict,
     )
     from .workspacesecurityaddiprangeop import (
         WorkspaceSecurityAddIPRangeRequest,
@@ -8053,6 +8102,18 @@ if TYPE_CHECKING:
         WorkspaceSecurityVerifyDomainRequestTypedDict,
     )
     from .workspacesettings import WorkspaceSettings, WorkspaceSettingsTypedDict
+    from .workspacesettingsfields import (
+        ModelGardenSettings,
+        ModelGardenSettingsTypedDict,
+        Plugins,
+        PluginsTypedDict,
+        WorkspaceSettingsFields,
+        WorkspaceSettingsFieldsTypedDict,
+    )
+    from .workspaceupdateop import (
+        WorkspaceUpdateRequest,
+        WorkspaceUpdateRequestTypedDict,
+    )
     from .writememorystoretoolinput import (
         WriteMemoryStoreToolInput,
         WriteMemoryStoreToolInputType,
@@ -8341,6 +8402,18 @@ __all__ = [
     "AudioContentPartSchemaTypedDict",
     "AudioModel",
     "AudioModelTypedDict",
+    "AuditLog",
+    "AuditLogFilter",
+    "AuditLogFilterQuery",
+    "AuditLogFilterQueryTypedDict",
+    "AuditLogFilterTypedDict",
+    "AuditLogMetadata",
+    "AuditLogMetadataTypedDict",
+    "AuditLogPagination",
+    "AuditLogPaginationTypedDict",
+    "AuditLogSort",
+    "AuditLogSortTypedDict",
+    "AuditLogTypedDict",
     "AutoRouterConfig",
     "AutoRouterConfigTypedDict",
     "AutoRouterV2Config",
@@ -8600,6 +8673,8 @@ __all__ = [
     "CreateAgentRequestModelConfigurationExecuteOn",
     "CreateAgentRequestModelConfigurationGuardrails",
     "CreateAgentRequestModelConfigurationGuardrailsTypedDict",
+    "CreateAgentRequestModelConfigurationPlugins",
+    "CreateAgentRequestModelConfigurationPluginsTypedDict",
     "CreateAgentRequestModelConfigurationReasoningEffort",
     "CreateAgentRequestModelConfigurationType",
     "CreateAgentRequestModelTypedDict",
@@ -8711,6 +8786,8 @@ __all__ = [
     "CreateAlertResponseTypedDict",
     "CreateAnnotationAnnotations",
     "CreateAnnotationAnnotationsTypedDict",
+    "CreateAnnotationAnnotationsValue",
+    "CreateAnnotationAnnotationsValueTypedDict",
     "CreateAnnotationMetadata",
     "CreateAnnotationMetadataTypedDict",
     "CreateAnnotationQueueRequest",
@@ -10616,10 +10693,6 @@ __all__ = [
     "FacetKeyTypedDict",
     "FacetValue",
     "FacetValueTypedDict",
-    "FactoryBudgetScope",
-    "FactoryBudgetScopeRestResponse",
-    "FactoryBudgetScopeRestResponseTypedDict",
-    "FactoryBudgetScopeTypedDict",
     "FallbackConfig",
     "FallbackConfigTypedDict",
     "FallbackModelConfiguration",
@@ -10664,6 +10737,8 @@ __all__ = [
     "FastChunker",
     "FastChunkerStrategy",
     "FastChunkerStrategyTypedDict",
+    "Features",
+    "FeaturesTypedDict",
     "FieldInfo",
     "FieldInfoTypedDict",
     "FieldT",
@@ -11410,6 +11485,8 @@ __all__ = [
     "GetV2ToolsToolIDVersionsVersionIDResponseBodyTypedDict",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBody",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBodyData",
+    "GetWorkspaceResponse",
+    "GetWorkspaceResponseTypedDict",
     "GetWorkspaceSettingsResponse",
     "GetWorkspaceSettingsResponseTypedDict",
     "GoogleSearchToolInput",
@@ -12209,6 +12286,8 @@ __all__ = [
     "ListTraceSpansResponseTypedDict",
     "ListWebhooksResponse",
     "ListWebhooksResponseTypedDict",
+    "ListWorkspacesResponse",
+    "ListWorkspacesResponseTypedDict",
     "LiteLLMModel",
     "LiteLLMModelInfo",
     "LiteLLMModelInfoTypedDict",
@@ -12448,6 +12527,8 @@ __all__ = [
     "ModelDocumentTypedDict",
     "ModelEnableRequestBody",
     "ModelEnableRequestBodyTypedDict",
+    "ModelGardenSettings",
+    "ModelGardenSettingsTypedDict",
     "ModelMetadata",
     "ModelMetadataTypedDict",
     "ModelModalities",
@@ -12676,8 +12757,6 @@ __all__ = [
     "PolicyListRequestTypedDict",
     "PolicyListResponseBody",
     "PolicyListResponseBodyTypedDict",
-    "PolicyProfileIDList",
-    "PolicyProfileIDListTypedDict",
     "PolicyRetryConfig",
     "PolicyRetryConfigTypedDict",
     "PolicyTypedDict",
@@ -12844,6 +12923,10 @@ __all__ = [
     "PublicUsageTypedDict",
     "Quality",
     "Query",
+    "QueryAuditLogsRequest",
+    "QueryAuditLogsRequestTypedDict",
+    "QueryAuditLogsResponse",
+    "QueryAuditLogsResponseTypedDict",
     "QueryKnowledgeBaseToolInput",
     "QueryKnowledgeBaseToolInputType",
     "QueryKnowledgeBaseToolInputTypedDict",
@@ -15299,6 +15382,12 @@ __all__ = [
     "UpdateToolResponseBodyTypedDict",
     "UpdateToolToolsResponseBody",
     "UpdateToolToolsResponseBodyData",
+    "UpdateWorkspaceRequest",
+    "UpdateWorkspaceRequestMetadata",
+    "UpdateWorkspaceRequestMetadataTypedDict",
+    "UpdateWorkspaceRequestTypedDict",
+    "UpdateWorkspaceResponse",
+    "UpdateWorkspaceResponseTypedDict",
     "UpdateWorkspaceSettingsRequest",
     "UpdateWorkspaceSettingsRequestTypedDict",
     "UpdateWorkspaceSettingsResponse",
@@ -15321,7 +15410,6 @@ __all__ = [
     "UserOwner",
     "UserOwnerTypedDict",
     "Value",
-    "ValueTypedDict",
     "Verbosity",
     "VerifyDomainResponse",
     "VerifyDomainResponseTypedDict",
@@ -15361,8 +15449,19 @@ __all__ = [
     "Window",
     "Words",
     "WordsTypedDict",
+    "Workspace",
     "WorkspaceBudgetScope",
     "WorkspaceBudgetScopeTypedDict",
+    "WorkspaceCapabilities",
+    "WorkspaceCapabilitiesTypedDict",
+    "WorkspaceGetRequest",
+    "WorkspaceGetRequestTypedDict",
+    "WorkspaceListRequest",
+    "WorkspaceListRequestTypedDict",
+    "WorkspaceMetadata",
+    "WorkspaceMetadataTypedDict",
+    "WorkspaceOrganization",
+    "WorkspaceOrganizationTypedDict",
     "WorkspaceSecurityAddIPRangeRequest",
     "WorkspaceSecurityAddIPRangeRequestTypedDict",
     "WorkspaceSecurityCreateDomainRequest",
@@ -15380,7 +15479,12 @@ __all__ = [
     "WorkspaceSecurityVerifyDomainRequest",
     "WorkspaceSecurityVerifyDomainRequestTypedDict",
     "WorkspaceSettings",
+    "WorkspaceSettingsFields",
+    "WorkspaceSettingsFieldsTypedDict",
     "WorkspaceSettingsTypedDict",
+    "WorkspaceTypedDict",
+    "WorkspaceUpdateRequest",
+    "WorkspaceUpdateRequestTypedDict",
     "WriteMemoryStoreToolInput",
     "WriteMemoryStoreToolInputType",
     "WriteMemoryStoreToolInputTypedDict",
@@ -15646,6 +15750,18 @@ _dynamic_imports: dict[str, str] = {
     "Format": ".audiocontentpartschema",
     "InputAudio": ".audiocontentpartschema",
     "InputAudioTypedDict": ".audiocontentpartschema",
+    "AuditLog": ".auditlog",
+    "AuditLogMetadata": ".auditlog",
+    "AuditLogMetadataTypedDict": ".auditlog",
+    "AuditLogTypedDict": ".auditlog",
+    "AuditLogFilter": ".auditlogfilter",
+    "AuditLogFilterTypedDict": ".auditlogfilter",
+    "AuditLogFilterQuery": ".auditlogfilterquery",
+    "AuditLogFilterQueryTypedDict": ".auditlogfilterquery",
+    "AuditLogPagination": ".auditlogpagination",
+    "AuditLogPaginationTypedDict": ".auditlogpagination",
+    "AuditLogSort": ".auditlogsort",
+    "AuditLogSortTypedDict": ".auditlogsort",
     "AutoRouterConfig": ".autorouterconfig",
     "AutoRouterConfigTypedDict": ".autorouterconfig",
     "AutoRouterV2Config": ".autorouterv2config",
@@ -15958,6 +16074,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateAgentRequestModelConfigurationExecuteOn": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationGuardrails": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationGuardrailsTypedDict": ".createagentrequestop",
+    "CreateAgentRequestModelConfigurationPlugins": ".createagentrequestop",
+    "CreateAgentRequestModelConfigurationPluginsTypedDict": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationReasoningEffort": ".createagentrequestop",
     "CreateAgentRequestModelConfigurationType": ".createagentrequestop",
     "CreateAgentRequestModelTypedDict": ".createagentrequestop",
@@ -16110,8 +16228,6 @@ _dynamic_imports: dict[str, str] = {
     "ModelConfigurationTypedDict": ".createagentrequestop",
     "Parameters": ".createagentrequestop",
     "ParametersTypedDict": ".createagentrequestop",
-    "Plugins": ".createagentrequestop",
-    "PluginsTypedDict": ".createagentrequestop",
     "ResponseFormat": ".createagentrequestop",
     "ResponseFormatJSONObject": ".createagentrequestop",
     "ResponseFormatJSONObjectTypedDict": ".createagentrequestop",
@@ -16174,14 +16290,14 @@ _dynamic_imports: dict[str, str] = {
     "AnnotationsValueTypedDict": ".createannotationop",
     "CreateAnnotationAnnotations": ".createannotationop",
     "CreateAnnotationAnnotationsTypedDict": ".createannotationop",
+    "CreateAnnotationAnnotationsValue": ".createannotationop",
+    "CreateAnnotationAnnotationsValueTypedDict": ".createannotationop",
     "CreateAnnotationMetadata": ".createannotationop",
     "CreateAnnotationMetadataTypedDict": ".createannotationop",
     "CreateAnnotationRequest": ".createannotationop",
     "CreateAnnotationRequestBody": ".createannotationop",
     "CreateAnnotationRequestBodyTypedDict": ".createannotationop",
     "CreateAnnotationRequestTypedDict": ".createannotationop",
-    "Value": ".createannotationop",
-    "ValueTypedDict": ".createannotationop",
     "CreateAnnotationQueueRequest": ".createannotationqueuerequest",
     "CreateAnnotationQueueRequestTypedDict": ".createannotationqueuerequest",
     "CreateAPIKeyRequest": ".createapikeyrequest",
@@ -18199,10 +18315,6 @@ _dynamic_imports: dict[str, str] = {
     "FacetKeyTypedDict": ".facetkey",
     "FacetValue": ".facetvalue",
     "FacetValueTypedDict": ".facetvalue",
-    "FactoryBudgetScope": ".factorybudgetscope",
-    "FactoryBudgetScopeTypedDict": ".factorybudgetscope",
-    "FactoryBudgetScopeRestResponse": ".factorybudgetscoperestresponse",
-    "FactoryBudgetScopeRestResponseTypedDict": ".factorybudgetscoperestresponse",
     "FallbackConfig": ".fallbackconfig",
     "FallbackConfigTypedDict": ".fallbackconfig",
     "FieldInfo": ".fieldinfo",
@@ -18961,6 +19073,8 @@ _dynamic_imports: dict[str, str] = {
     "GetTraceSpanResponseTypedDict": ".gettracespanresponse",
     "GetUploadFileURLResponse": ".getuploadfileurlresponse",
     "GetUploadFileURLResponseTypedDict": ".getuploadfileurlresponse",
+    "GetWorkspaceResponse": ".getworkspaceresponse",
+    "GetWorkspaceResponseTypedDict": ".getworkspaceresponse",
     "GetWorkspaceSettingsResponse": ".getworkspacesettingsresponse",
     "GetWorkspaceSettingsResponseTypedDict": ".getworkspacesettingsresponse",
     "GoogleSearchToolInput": ".googlesearchtoolinput",
@@ -19714,6 +19828,8 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
     "ListWebhooksResponse": ".listwebhooksresponse",
     "ListWebhooksResponseTypedDict": ".listwebhooksresponse",
+    "ListWorkspacesResponse": ".listworkspacesresponse",
+    "ListWorkspacesResponseTypedDict": ".listworkspacesresponse",
     "LiteLLMModel": ".litellmmodel",
     "LiteLLMModelTypedDict": ".litellmmodel",
     "LiteLLMModelInfo": ".litellmmodelinfo",
@@ -20061,8 +20177,6 @@ _dynamic_imports: dict[str, str] = {
     "PolicyListRequestTypedDict": ".policylistop",
     "PolicyListResponseBody": ".policylistop",
     "PolicyListResponseBodyTypedDict": ".policylistop",
-    "PolicyProfileIDList": ".policyprofileidlist",
-    "PolicyProfileIDListTypedDict": ".policyprofileidlist",
     "PolicyRetryConfig": ".policyretryconfig",
     "PolicyRetryConfigTypedDict": ".policyretryconfig",
     "PolicyUpdateRequest": ".policyupdateop",
@@ -20227,6 +20341,10 @@ _dynamic_imports: dict[str, str] = {
     "PublicSchedulePayloadTypedDict": ".publicschedulepayload",
     "PublicUsage": ".publicusage",
     "PublicUsageTypedDict": ".publicusage",
+    "QueryAuditLogsRequest": ".queryauditlogsrequest",
+    "QueryAuditLogsRequestTypedDict": ".queryauditlogsrequest",
+    "QueryAuditLogsResponse": ".queryauditlogsresponse",
+    "QueryAuditLogsResponseTypedDict": ".queryauditlogsresponse",
     "QueryKnowledgeBaseToolInput": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputType": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputTypedDict": ".queryknowledgebasetoolinput",
@@ -22643,6 +22761,12 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
+    "UpdateWorkspaceRequest": ".updateworkspacerequest",
+    "UpdateWorkspaceRequestMetadata": ".updateworkspacerequest",
+    "UpdateWorkspaceRequestMetadataTypedDict": ".updateworkspacerequest",
+    "UpdateWorkspaceRequestTypedDict": ".updateworkspacerequest",
+    "UpdateWorkspaceResponse": ".updateworkspaceresponse",
+    "UpdateWorkspaceResponseTypedDict": ".updateworkspaceresponse",
     "UpdateWorkspaceSettingsRequest": ".updateworkspacesettingsrequest",
     "UpdateWorkspaceSettingsRequestTypedDict": ".updateworkspacesettingsrequest",
     "UpdateWorkspaceSettingsResponse": ".updateworkspacesettingsresponse",
@@ -22655,6 +22779,7 @@ _dynamic_imports: dict[str, str] = {
     "UpsertChunkTypedDict": ".upsertchunk",
     "UserOwner": ".userowner",
     "UserOwnerTypedDict": ".userowner",
+    "Value": ".value",
     "VerifyDomainResponse": ".verifydomainresponse",
     "VerifyDomainResponseTypedDict": ".verifydomainresponse",
     "VertexCapabilities": ".vertexcapabilities",
@@ -22687,8 +22812,22 @@ _dynamic_imports: dict[str, str] = {
     "WebScraperToolInput": ".webscrapertoolinput",
     "WebScraperToolInputType": ".webscrapertoolinput",
     "WebScraperToolInputTypedDict": ".webscrapertoolinput",
+    "Features": ".workspace",
+    "FeaturesTypedDict": ".workspace",
+    "Workspace": ".workspace",
+    "WorkspaceMetadata": ".workspace",
+    "WorkspaceMetadataTypedDict": ".workspace",
+    "WorkspaceTypedDict": ".workspace",
     "WorkspaceBudgetScope": ".workspacebudgetscope",
     "WorkspaceBudgetScopeTypedDict": ".workspacebudgetscope",
+    "WorkspaceCapabilities": ".workspacecapabilities",
+    "WorkspaceCapabilitiesTypedDict": ".workspacecapabilities",
+    "WorkspaceGetRequest": ".workspacegetop",
+    "WorkspaceGetRequestTypedDict": ".workspacegetop",
+    "WorkspaceListRequest": ".workspacelistop",
+    "WorkspaceListRequestTypedDict": ".workspacelistop",
+    "WorkspaceOrganization": ".workspaceorganization",
+    "WorkspaceOrganizationTypedDict": ".workspaceorganization",
     "WorkspaceSecurityAddIPRangeRequest": ".workspacesecurityaddiprangeop",
     "WorkspaceSecurityAddIPRangeRequestTypedDict": ".workspacesecurityaddiprangeop",
     "WorkspaceSecurityCreateDomainRequest": ".workspacesecuritycreatedomainop",
@@ -22707,6 +22846,14 @@ _dynamic_imports: dict[str, str] = {
     "WorkspaceSecurityVerifyDomainRequestTypedDict": ".workspacesecurityverifydomainop",
     "WorkspaceSettings": ".workspacesettings",
     "WorkspaceSettingsTypedDict": ".workspacesettings",
+    "ModelGardenSettings": ".workspacesettingsfields",
+    "ModelGardenSettingsTypedDict": ".workspacesettingsfields",
+    "Plugins": ".workspacesettingsfields",
+    "PluginsTypedDict": ".workspacesettingsfields",
+    "WorkspaceSettingsFields": ".workspacesettingsfields",
+    "WorkspaceSettingsFieldsTypedDict": ".workspacesettingsfields",
+    "WorkspaceUpdateRequest": ".workspaceupdateop",
+    "WorkspaceUpdateRequestTypedDict": ".workspaceupdateop",
     "WriteMemoryStoreToolInput": ".writememorystoretoolinput",
     "WriteMemoryStoreToolInputType": ".writememorystoretoolinput",
     "WriteMemoryStoreToolInputTypedDict": ".writememorystoretoolinput",

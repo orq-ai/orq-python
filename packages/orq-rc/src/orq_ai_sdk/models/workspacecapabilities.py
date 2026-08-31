@@ -7,16 +7,19 @@ from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class PolicyProfileIDListTypedDict(TypedDict):
-    ids: NotRequired[List[str]]
+class WorkspaceCapabilitiesTypedDict(TypedDict):
+    roles: NotRequired[List[str]]
+    projects: NotRequired[List[str]]
 
 
-class PolicyProfileIDList(BaseModel):
-    ids: Optional[List[str]] = None
+class WorkspaceCapabilities(BaseModel):
+    roles: Optional[List[str]] = None
+
+    projects: Optional[List[str]] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["ids"])
+        optional_fields = set(["roles", "projects"])
         serialized = handler(self)
         m = {}
 

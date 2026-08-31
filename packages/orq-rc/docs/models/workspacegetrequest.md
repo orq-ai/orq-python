@@ -1,8 +1,8 @@
-# PolicyProfileIDList
+# WorkspaceGetRequest
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `ids`              | List[*str*]        | :heavy_minus_sign: | N/A                |
+| `key`              | *str*              | :heavy_check_mark: | N/A                |

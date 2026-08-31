@@ -312,8 +312,8 @@ class CreateAgentRequestModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-PluginsTypedDict = TypeAliasType(
-    "PluginsTypedDict",
+CreateAgentRequestModelConfigurationPluginsTypedDict = TypeAliasType(
+    "CreateAgentRequestModelConfigurationPluginsTypedDict",
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
@@ -324,8 +324,8 @@ PluginsTypedDict = TypeAliasType(
 )
 
 
-Plugins = TypeAliasType(
-    "Plugins",
+CreateAgentRequestModelConfigurationPlugins = TypeAliasType(
+    "CreateAgentRequestModelConfigurationPlugins",
     Union[
         ResponseHealingPlugin,
         TraceScrubbingPlugin,
@@ -564,7 +564,7 @@ class ParametersTypedDict(TypedDict):
         List[CreateAgentRequestModelConfigurationGuardrailsTypedDict]
     ]
     r"""A list of guardrails to apply to the request."""
-    plugins: NotRequired[List[PluginsTypedDict]]
+    plugins: NotRequired[List[CreateAgentRequestModelConfigurationPluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
     fallbacks: NotRequired[List[FallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
@@ -649,7 +649,7 @@ class Parameters(BaseModel):
     guardrails: Optional[List[CreateAgentRequestModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
-    plugins: Optional[List[Plugins]] = None
+    plugins: Optional[List[CreateAgentRequestModelConfigurationPlugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
     fallbacks: Optional[List[Fallbacks]] = None

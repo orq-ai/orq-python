@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.annotationqueues import AnnotationQueues
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
+    from orq_ai_sdk.auditlogs import AuditLogs
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
@@ -54,6 +55,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.webhooks import Webhooks
+    from orq_ai_sdk.workspaces import Workspaces
     from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
     from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
 
@@ -83,6 +85,7 @@ class Orq(BaseSDK):
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
     api_keys: "APIKeys"
+    audit_logs: "AuditLogs"
     budgets: "Budgets"
     files: "Files"
     guardrail_rules: "GuardrailRules"
@@ -97,6 +100,7 @@ class Orq(BaseSDK):
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
+    workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
     schedules: "Schedules"
@@ -125,6 +129,7 @@ class Orq(BaseSDK):
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
+        "audit_logs": ("orq_ai_sdk.auditlogs", "AuditLogs"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
@@ -139,6 +144,7 @@ class Orq(BaseSDK):
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
+        "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),
         "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
         "workspace_settings": (
             "orq_ai_sdk.workspacesettings_sdk",
