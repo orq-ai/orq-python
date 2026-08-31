@@ -104,6 +104,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # on_trace_end — Orq's traces-list Metadata column reads from the
         # leading row, which is the root, not the LLM child.
         self._trace_metadata: Dict[str, Dict[str, Any]] = {}
+        # FunctionSpanData has no call id, so tool spans take theirs from the
+        # response span, which carries the ids and always ends first.
+        self._pending_tool_call_ids: Dict[str, Dict[str, List[Optional[str]]]] = {}  # scope -> tool name -> ids
+        self._tool_call_ids: Dict[str, str] = {}  # function span id -> id
 
     def on_trace_start(self, trace: Trace) -> None:
         """Called when a trace is started."""
@@ -126,6 +130,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             root_span.end()
         else:
             self._trace_metadata.pop(trace.trace_id, None)
+        self._pending_tool_call_ids.pop(trace.trace_id, None)
 
     @staticmethod
     def _apply_metadata_attributes(otel_span: OtelSpan, metadata: Dict[str, Any]) -> None:
@@ -180,6 +185,14 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if parent_agent_span_id:
                 self._span_hierarchy[span.span_id] = parent_agent_span_id
 
+        # At start: parallel tool spans finish out of order, but start in order.
+        if isinstance(span.span_data, FunctionSpanData):
+            call_id = self._take_tool_call_id(
+                self._tool_call_scope(span), span.span_data.name
+            )
+            if call_id:
+                self._tool_call_ids[span.span_id] = call_id
+
     def on_span_end(self, span: Span[SpanData]) -> None:
         """Called when a span is finished."""
         if token := self._tokens.pop(span.span_id, None):
@@ -197,12 +210,13 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             self._handle_agent_span(otel_span, data, span.span_id)
         elif isinstance(data, ResponseSpanData):
             self._handle_response_span(otel_span, data, getattr(span, "trace_id", None))
+            self._record_tool_call_ids(span, data)
             self._collect_agent_data(span.span_id, data, "input", "output")
         elif isinstance(data, GenerationSpanData):
             self._handle_generation_span(otel_span, data)
             self._collect_agent_data(span.span_id, data, "input", "output")
         elif isinstance(data, FunctionSpanData):
-            self._handle_function_span(otel_span, data)
+            self._handle_function_span(otel_span, data, span.span_id)
         elif isinstance(data, HandoffSpanData):
             self._handle_handoff_span(otel_span, data)
 
@@ -237,6 +251,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         self._agent_spans.pop(span_id, None)
         self._agent_inputs.pop(span_id, None)
         self._agent_outputs.pop(span_id, None)
+        self._pending_tool_call_ids.pop(span_id, None)
 
     def _handle_response_span(self, otel_span: OtelSpan, data: ResponseSpanData, trace_id: Optional[str] = None) -> None:
         """Handle response span."""
@@ -328,18 +343,15 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if hasattr(data, "usage") and data.usage:
             self._set_usage_attributes(otel_span, data.usage)
 
-    def _handle_function_span(self, otel_span: OtelSpan, data: FunctionSpanData) -> None:
+    def _handle_function_span(
+        self, otel_span: OtelSpan, data: FunctionSpanData, span_id: str
+    ) -> None:
         """Handle function span."""
         otel_span.set_attribute(SpanAttributes.TOOL_NAME.value, data.name)
 
-        # Add tool call ID if available
-        call_id = getattr(data, 'call_id', None)
+        call_id = self._tool_call_ids.pop(span_id, None)
         if call_id:
             otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, call_id)
-        else:
-            data_id = getattr(data, 'id', None)
-            if data_id:
-                otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data_id)
 
         if data.input is not None:
             arguments = data.input if isinstance(data.input, str) else str(data.input)
@@ -418,6 +430,32 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                             response_output = getattr(response, "output", None)
                             if response_output:
                                 self._agent_outputs[parent_agent_span_id] = response_output
+
+    def _tool_call_scope(self, span: Span[SpanData]) -> str:
+        return self._span_hierarchy.get(span.span_id) or span.trace_id
+
+    def _record_tool_call_ids(self, span: Span[SpanData], data: ResponseSpanData) -> None:
+        """Queue the ids of the tool calls the model just asked for."""
+        response = getattr(data, "response", None)
+        output = getattr(response, "output", None) if response else None
+        if not isinstance(output, list):
+            return
+
+        queues = self._pending_tool_call_ids.setdefault(self._tool_call_scope(span), {})
+        for item in output:
+            if getattr(item, "type", None) != "function_call":
+                continue
+            tool_name = getattr(item, "name", None)
+            if tool_name:
+                # call_id, not item.id ("fc_..."): None keeps the slot so a
+                # later call of the same name cannot inherit this id.
+                queues.setdefault(tool_name, []).append(getattr(item, "call_id", None))
+
+    def _take_tool_call_id(self, scope: str, tool_name: str) -> Optional[str]:
+        queue = self._pending_tool_call_ids.get(scope, {}).get(tool_name)
+        if queue:
+            return queue.pop(0)
+        return None
 
     def _find_parent_agent_span(self, parent_id: Optional[str]) -> Optional[str]:
         """Find the nearest parent agent span ID."""
@@ -520,7 +558,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                     tool_call_data = {
                         "role": "assistant",
                         "tool_calls": [{
-                            "id": getattr(item, "id", getattr(item, "call_id", "")),
+                            "id": getattr(item, "call_id", None) or "",
                             "type": "function",
                             "function": {
                                 "name": getattr(item, "name", ""),
