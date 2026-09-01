@@ -164,7 +164,7 @@ class UpdateAnnotationQueueResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-08-31T22:50:44.228Z")
+    updated: Optional[datetime] = parse_datetime("2026-09-01T07:51:05.805Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
