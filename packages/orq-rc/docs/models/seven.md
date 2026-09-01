@@ -1,0 +1,16 @@
+# Seven
+
+Embeds the text and breaks where meaning shifts, so related passages stay together. Makes paid embedding calls.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `type`                                                                               | [models.ChunkingConfiguration7Type](../models/chunkingconfiguration7type.md)         | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `chunk_size`                                                                         | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Maximum number of tokens per chunk.                                                  |
+| `embedding_model`                                                                    | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | Embedding model used to detect semantic boundaries.                                  |
+| `dimensions`                                                                         | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Number of dimensions for the embedding output, when the model supports it.           |
+| `threshold`                                                                          | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | Similarity threshold from 0 through 1, or "auto".                                    |
+| `mode`                                                                               | [Optional[models.ChunkingConfigurationMode]](../models/chunkingconfigurationmode.md) | :heavy_minus_sign:                                                                   | Comparison mode.                                                                     |
+| `similarity_window`                                                                  | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Window size for similarity comparison.                                               |

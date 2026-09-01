@@ -430,7 +430,7 @@ class TwoCacheControl(BaseModel):
         return m
 
 
-class FourTypedDict(TypedDict):
+class DeploymentGetConfig24TypedDict(TypedDict):
     type: TwoType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
@@ -438,7 +438,7 @@ class FourTypedDict(TypedDict):
     cache_control: NotRequired[TwoCacheControlTypedDict]
 
 
-class Four(BaseModel):
+class DeploymentGetConfig24(BaseModel):
     type: TwoType
     r"""The type of the content part. Always `file`."""
 
@@ -470,7 +470,7 @@ DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict 
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        FourTypedDict,
+        DeploymentGetConfig24TypedDict,
     ],
 )
 
@@ -480,7 +480,7 @@ DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2 = Annotat
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[Four, Tag("file")],
+        Annotated[DeploymentGetConfig24, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2396,7 +2396,7 @@ DeploymentGetConfigFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-Six = Literal[
+ResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -2405,7 +2405,7 @@ Six = Literal[
 ]
 
 
-Five = Literal[
+ResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
@@ -2525,8 +2525,8 @@ DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
         ResponseFormat3TypedDict,
         ResponseFormat1TypedDict,
         ResponseFormat4,
-        Five,
-        Six,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2542,7 +2542,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
     Union[
-        ResponseFormat2, ResponseFormat3, ResponseFormat1, ResponseFormat4, Five, Six
+        ResponseFormat2,
+        ResponseFormat3,
+        ResponseFormat1,
+        ResponseFormat4,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.

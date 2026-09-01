@@ -10,4 +10,8 @@ Value = Literal[
     "api",
     "scim",
     "system",
+    "router",
+    "mcp",
+    "automation",
+    "internal",
 ]

@@ -1,17 +1,16 @@
 # Six
 
-## Example Usage
-
-```python
-from orq_ai_sdk.models import Six
-value: Six = "json"
-```
+Splits on delimiters or a regular expression without tokenizing. Fastest option; chunk sizes vary with where delimiters fall.
 
 
-## Values
+## Fields
 
-- `"json"`
-- `"text"`
-- `"srt"`
-- `"verbose_json"`
-- `"vtt"`
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `type`                                                                                      | [models.ChunkingConfiguration6Type](../models/chunkingconfiguration6type.md)                | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `target_size`                                                                               | *Optional[int]*                                                                             | :heavy_minus_sign:                                                                          | Target chunk size in bytes.                                                                 |
+| `delimiters`                                                                                | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | Single-byte characters to split on.                                                         |
+| `pattern`                                                                                   | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | Multi-byte split pattern. Takes precedence over delimiters when set.                        |
+| `prefix`                                                                                    | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | Attach the delimiter to the start of the next chunk instead of the end of the previous one. |
+| `consecutive`                                                                               | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | Split at the start of a run of consecutive delimiters rather than at each one.              |
+| `forward_fallback`                                                                          | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | Search forward for a delimiter when searching backward finds none.                          |

@@ -15,10 +15,10 @@ value: models.RequestBody1 = /* values here */
 value: models.RequestBody2 = /* values here */
 ```
 
-### `models.Three`
+### `models.RequestBody3`
 
 ```python
-value: models.Three = /* values here */
+value: models.RequestBody3 = /* values here */
 ```
 
 ### `models.RequestBody4`

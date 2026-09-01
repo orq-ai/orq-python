@@ -4,15 +4,434 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import get_discriminator
 from pydantic import Discriminator, Tag, model_serializer
-from typing import Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing import List, Literal, Optional, Union
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
+
+
+ChunkingConfiguration9Type = Literal["agentic",]
+
+
+class NineTypedDict(TypedDict):
+    r"""Asks a model to choose the boundaries. Slowest and most expensive, best on documents with irregular structure. Makes paid model calls."""
+
+    type: ChunkingConfiguration9Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    model: NotRequired[str]
+    r"""Model that chooses the chunk boundaries."""
+    candidate_size: NotRequired[int]
+    r"""Size of candidate splits offered to the model."""
+    min_characters_per_chunk: NotRequired[int]
+    r"""Minimum number of characters each chunk must contain."""
+    system_prompt: NotRequired[str]
+    r"""Custom system prompt for the boundary model."""
+
+
+class Nine(BaseModel):
+    r"""Asks a model to choose the boundaries. Slowest and most expensive, best on documents with irregular structure. Makes paid model calls."""
+
+    type: ChunkingConfiguration9Type
+
+    chunk_size: Optional[int] = 1024
+    r"""Maximum number of tokens per chunk."""
+
+    model: Optional[str] = "openai/gpt-4o"
+    r"""Model that chooses the chunk boundaries."""
+
+    candidate_size: Optional[int] = 128
+    r"""Size of candidate splits offered to the model."""
+
+    min_characters_per_chunk: Optional[int] = 24
+    r"""Minimum number of characters each chunk must contain."""
+
+    system_prompt: Optional[str] = None
+    r"""Custom system prompt for the boundary model."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "chunk_size",
+                "model",
+                "candidate_size",
+                "min_characters_per_chunk",
+                "system_prompt",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration8Type = Literal["late",]
+
+
+class EightTypedDict(TypedDict):
+    r"""Embeds the document before splitting it recursively, so each chunk is embedded with the surrounding document in context. Makes paid embedding calls."""
+
+    type: ChunkingConfiguration8Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    separators: NotRequired[List[str]]
+    r"""Separator hierarchy to split on, tried in order. Defaults to paragraph, line, space, then character."""
+    min_characters_per_chunk: NotRequired[int]
+    r"""Minimum number of characters each chunk must contain."""
+    embedding_model: NotRequired[str]
+    r"""Embedding model used to embed the document before it is split."""
+    dimensions: NotRequired[int]
+    r"""Number of dimensions for the embedding output, when the model supports it."""
+
+
+class Eight(BaseModel):
+    r"""Embeds the document before splitting it recursively, so each chunk is embedded with the surrounding document in context. Makes paid embedding calls."""
+
+    type: ChunkingConfiguration8Type
+
+    chunk_size: Optional[int] = 512
+    r"""Maximum number of tokens per chunk."""
+
+    separators: Optional[List[str]] = None
+    r"""Separator hierarchy to split on, tried in order. Defaults to paragraph, line, space, then character."""
+
+    min_characters_per_chunk: Optional[int] = 24
+    r"""Minimum number of characters each chunk must contain."""
+
+    embedding_model: Optional[str] = None
+    r"""Embedding model used to embed the document before it is split."""
+
+    dimensions: Optional[int] = None
+    r"""Number of dimensions for the embedding output, when the model supports it."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "chunk_size",
+                "separators",
+                "min_characters_per_chunk",
+                "embedding_model",
+                "dimensions",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration7Type = Literal["semantic",]
+
+
+ChunkingConfigurationMode = Literal[
+    "window",
+    "sentence",
+]
+r"""Comparison mode."""
+
+
+class SevenTypedDict(TypedDict):
+    r"""Embeds the text and breaks where meaning shifts, so related passages stay together. Makes paid embedding calls."""
+
+    type: ChunkingConfiguration7Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    embedding_model: NotRequired[str]
+    r"""Embedding model used to detect semantic boundaries."""
+    dimensions: NotRequired[int]
+    r"""Number of dimensions for the embedding output, when the model supports it."""
+    threshold: NotRequired[str]
+    r"""Similarity threshold from 0 through 1, or \"auto\"."""
+    mode: NotRequired[ChunkingConfigurationMode]
+    r"""Comparison mode."""
+    similarity_window: NotRequired[int]
+    r"""Window size for similarity comparison."""
+
+
+class Seven(BaseModel):
+    r"""Embeds the text and breaks where meaning shifts, so related passages stay together. Makes paid embedding calls."""
+
+    type: ChunkingConfiguration7Type
+
+    chunk_size: Optional[int] = 512
+    r"""Maximum number of tokens per chunk."""
+
+    embedding_model: Optional[str] = None
+    r"""Embedding model used to detect semantic boundaries."""
+
+    dimensions: Optional[int] = None
+    r"""Number of dimensions for the embedding output, when the model supports it."""
+
+    threshold: Optional[str] = "auto"
+    r"""Similarity threshold from 0 through 1, or \"auto\"."""
+
+    mode: Optional[ChunkingConfigurationMode] = "window"
+    r"""Comparison mode."""
+
+    similarity_window: Optional[int] = 1
+    r"""Window size for similarity comparison."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "chunk_size",
+                "embedding_model",
+                "dimensions",
+                "threshold",
+                "mode",
+                "similarity_window",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration6Type = Literal["fast",]
+
+
+class SixTypedDict(TypedDict):
+    r"""Splits on delimiters or a regular expression without tokenizing. Fastest option; chunk sizes vary with where delimiters fall."""
+
+    type: ChunkingConfiguration6Type
+    target_size: NotRequired[int]
+    r"""Target chunk size in bytes."""
+    delimiters: NotRequired[str]
+    r"""Single-byte characters to split on."""
+    pattern: NotRequired[str]
+    r"""Multi-byte split pattern. Takes precedence over delimiters when set."""
+    prefix: NotRequired[bool]
+    r"""Attach the delimiter to the start of the next chunk instead of the end of the previous one."""
+    consecutive: NotRequired[bool]
+    r"""Split at the start of a run of consecutive delimiters rather than at each one."""
+    forward_fallback: NotRequired[bool]
+    r"""Search forward for a delimiter when searching backward finds none."""
+
+
+class Six(BaseModel):
+    r"""Splits on delimiters or a regular expression without tokenizing. Fastest option; chunk sizes vary with where delimiters fall."""
+
+    type: ChunkingConfiguration6Type
+
+    target_size: Optional[int] = 4096
+    r"""Target chunk size in bytes."""
+
+    delimiters: Optional[str] = "\n.?"
+    r"""Single-byte characters to split on."""
+
+    pattern: Optional[str] = None
+    r"""Multi-byte split pattern. Takes precedence over delimiters when set."""
+
+    prefix: Optional[bool] = False
+    r"""Attach the delimiter to the start of the next chunk instead of the end of the previous one."""
+
+    consecutive: Optional[bool] = False
+    r"""Split at the start of a run of consecutive delimiters rather than at each one."""
+
+    forward_fallback: Optional[bool] = False
+    r"""Search forward for a delimiter when searching backward finds none."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "target_size",
+                "delimiters",
+                "pattern",
+                "prefix",
+                "consecutive",
+                "forward_fallback",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration5Type = Literal["recursive",]
+
+
+class FiveTypedDict(TypedDict):
+    r"""Splits on a separator hierarchy, falling back through paragraph, line, sentence, and word boundaries until chunks fit. Respects document structure."""
+
+    type: ChunkingConfiguration5Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    separators: NotRequired[List[str]]
+    r"""Separator hierarchy to split on, tried in order. Defaults to paragraph, line, space, then character."""
+    min_characters_per_chunk: NotRequired[int]
+    r"""Minimum number of characters each chunk must contain."""
+
+
+class Five(BaseModel):
+    r"""Splits on a separator hierarchy, falling back through paragraph, line, sentence, and word boundaries until chunks fit. Respects document structure."""
+
+    type: ChunkingConfiguration5Type
+
+    chunk_size: Optional[int] = 512
+    r"""Maximum number of tokens per chunk."""
+
+    separators: Optional[List[str]] = None
+    r"""Separator hierarchy to split on, tried in order. Defaults to paragraph, line, space, then character."""
+
+    min_characters_per_chunk: Optional[int] = 24
+    r"""Minimum number of characters each chunk must contain."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["chunk_size", "separators", "min_characters_per_chunk"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration4Type = Literal["sentence",]
+
+
+class FourTypedDict(TypedDict):
+    r"""Groups whole sentences up to the chunk size, so chunks never cut a sentence in half."""
+
+    type: ChunkingConfiguration4Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    chunk_overlap: NotRequired[int]
+    r"""Number of tokens to overlap between consecutive chunks. Helps preserve continuity across chunk boundaries."""
+    min_sentences_per_chunk: NotRequired[int]
+    r"""Minimum number of sentences each chunk must contain."""
+
+
+class Four(BaseModel):
+    r"""Groups whole sentences up to the chunk size, so chunks never cut a sentence in half."""
+
+    type: ChunkingConfiguration4Type
+
+    chunk_size: Optional[int] = 512
+    r"""Maximum number of tokens per chunk."""
+
+    chunk_overlap: Optional[int] = 0
+    r"""Number of tokens to overlap between consecutive chunks. Helps preserve continuity across chunk boundaries."""
+
+    min_sentences_per_chunk: Optional[int] = 1
+    r"""Minimum number of sentences each chunk must contain."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["chunk_size", "chunk_overlap", "min_sentences_per_chunk"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ChunkingConfiguration3Type = Literal["token",]
+
+
+class ThreeTypedDict(TypedDict):
+    r"""Splits text into fixed-size token windows with optional overlap. Predictable chunk sizes, no regard for sentence or paragraph boundaries."""
+
+    type: ChunkingConfiguration3Type
+    chunk_size: NotRequired[int]
+    r"""Maximum number of tokens per chunk."""
+    chunk_overlap: NotRequired[int]
+    r"""Number of tokens to overlap between consecutive chunks. Helps preserve continuity across chunk boundaries."""
+
+
+class Three(BaseModel):
+    r"""Splits text into fixed-size token windows with optional overlap. Predictable chunk sizes, no regard for sentence or paragraph boundaries."""
+
+    type: ChunkingConfiguration3Type
+
+    chunk_size: Optional[int] = 512
+    r"""Maximum number of tokens per chunk."""
+
+    chunk_overlap: Optional[int] = 0
+    r"""Number of tokens to overlap between consecutive chunks. Helps preserve continuity across chunk boundaries."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["chunk_size", "chunk_overlap"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 ChunkingConfiguration2Type = Literal["advanced",]
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class ChunkingConfiguration2TypedDict(TypedDict):
-    r"""Provides advanced settings for customizing chunking behavior, enabling fine-grained control to better meet specific data processing needs."""
+    r"""Provides advanced settings for customizing chunking behavior, enabling fine-grained control to better meet specific data processing needs. Deprecated: use one of the named chunking strategies instead."""
 
     type: ChunkingConfiguration2Type
     chunk_max_characters: NotRequired[float]
@@ -21,8 +440,11 @@ class ChunkingConfiguration2TypedDict(TypedDict):
     r"""Specifies the number of characters to overlap between consecutive chunks. This overlap helps maintain semantic continuity when splitting large text elements."""
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class ChunkingConfiguration2(BaseModel):
-    r"""Provides advanced settings for customizing chunking behavior, enabling fine-grained control to better meet specific data processing needs."""
+    r"""Provides advanced settings for customizing chunking behavior, enabling fine-grained control to better meet specific data processing needs. Deprecated: use one of the named chunking strategies instead."""
 
     type: ChunkingConfiguration2Type
 
@@ -52,21 +474,37 @@ class ChunkingConfiguration2(BaseModel):
 ChunkingConfigurationType = Literal["default",]
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class ChunkingConfiguration1TypedDict(TypedDict):
-    r"""Optimized chunking strategy focusing on speed and avoiding duplication of content chunks."""
+    r"""Optimized chunking strategy focusing on speed and avoiding duplication of content chunks. Deprecated: use one of the named chunking strategies instead."""
 
     type: ChunkingConfigurationType
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class ChunkingConfiguration1(BaseModel):
-    r"""Optimized chunking strategy focusing on speed and avoiding duplication of content chunks."""
+    r"""Optimized chunking strategy focusing on speed and avoiding duplication of content chunks. Deprecated: use one of the named chunking strategies instead."""
 
     type: ChunkingConfigurationType
 
 
 ChunkingConfigurationTypedDict = TypeAliasType(
     "ChunkingConfigurationTypedDict",
-    Union[ChunkingConfiguration1TypedDict, ChunkingConfiguration2TypedDict],
+    Union[
+        ChunkingConfiguration1TypedDict,
+        ChunkingConfiguration2TypedDict,
+        ThreeTypedDict,
+        FourTypedDict,
+        FiveTypedDict,
+        EightTypedDict,
+        NineTypedDict,
+        SixTypedDict,
+        SevenTypedDict,
+    ],
 )
 r"""The chunking configuration settings for the datasource. Defaults to the system's standard chunking configuration if not specified."""
 
@@ -75,6 +513,13 @@ ChunkingConfiguration = Annotated[
     Union[
         Annotated[ChunkingConfiguration1, Tag("default")],
         Annotated[ChunkingConfiguration2, Tag("advanced")],
+        Annotated[Three, Tag("token")],
+        Annotated[Four, Tag("sentence")],
+        Annotated[Five, Tag("recursive")],
+        Annotated[Six, Tag("fast")],
+        Annotated[Seven, Tag("semantic")],
+        Annotated[Eight, Tag("late")],
+        Annotated[Nine, Tag("agentic")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

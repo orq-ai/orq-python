@@ -1,14 +1,13 @@
 # Five
 
-## Example Usage
-
-```python
-from orq_ai_sdk.models import Five
-value: Five = "url"
-```
+Splits on a separator hierarchy, falling back through paragraph, line, sentence, and word boundaries until chunks fit. Respects document structure.
 
 
-## Values
+## Fields
 
-- `"url"`
-- `"base64_json"`
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.ChunkingConfiguration5Type](../models/chunkingconfiguration5type.md)                         | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `chunk_size`                                                                                         | *Optional[int]*                                                                                      | :heavy_minus_sign:                                                                                   | Maximum number of tokens per chunk.                                                                  |
+| `separators`                                                                                         | List[*str*]                                                                                          | :heavy_minus_sign:                                                                                   | Separator hierarchy to split on, tried in order. Defaults to paragraph, line, space, then character. |
+| `min_characters_per_chunk`                                                                           | *Optional[int]*                                                                                      | :heavy_minus_sign:                                                                                   | Minimum number of characters each chunk must contain.                                                |

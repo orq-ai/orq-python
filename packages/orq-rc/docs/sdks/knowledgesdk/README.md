@@ -11,6 +11,7 @@
 * [update](#update) - Updates a knowledge
 * [list_datasources](#list_datasources) - List all datasources
 * [create_datasource](#create_datasource) - Create a new datasource
+* [preview_chunks](#preview_chunks) - Preview datasource chunks
 * [retrieve_datasource](#retrieve_datasource) - Retrieve a datasource
 * [delete_datasource](#delete_datasource) - Deletes a datasource
 * [update_datasource](#update_datasource) - Update a datasource
@@ -325,6 +326,48 @@ with Orq(
 ### Response
 
 **[models.Datasource](../../models/datasource.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## preview_chunks
+
+Parses an uploaded file and returns the chunks it would produce for the given chunking options without creating a datasource.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="PreviewDatasourceChunks" method="post" path="/v2/knowledge/{knowledge_id}/datasources/preview-chunks" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.preview_chunks(knowledge_id="<id>", file_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `knowledge_id`                                                                          | *str*                                                                                   | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `file_id`                                                                               | *str*                                                                                   | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `chunking_options`                                                                      | [Optional[models.DatasourceChunkingOptions]](../../models/datasourcechunkingoptions.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
+
+### Response
+
+**[models.DatasourcesServicePreviewChunksResponse](../../models/datasourcesservicepreviewchunksresponse.md)**
 
 ### Errors
 

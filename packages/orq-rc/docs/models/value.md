@@ -15,3 +15,7 @@ value: Value = "ORIGIN_UNSPECIFIED"
 - `"api"`
 - `"scim"`
 - `"system"`
+- `"router"`
+- `"mcp"`
+- `"automation"`
+- `"internal"`
