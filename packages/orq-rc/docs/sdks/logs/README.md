@@ -60,11 +60,11 @@ with Orq(
 
 ## list_facets
 
-Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values for the requested time range.
+Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values. Accepts optional filters and free-text query to narrow the counted subset.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="ListLogFacets" method="get" path="/v3/logs/facets" -->
+<!-- UsageSnippet language="python" operationID="ListLogFacets" method="post" path="/v3/logs/facets" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -89,6 +89,9 @@ with Orq(
 | `to`                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `key_limit`                                                          | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `value_limit`                                                        | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `query`                                                              | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filter_operator`                                                    | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `filters`                                                            | List[[models.TraceFilter](../../models/tracefilter.md)]              | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `retries`                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)     | :heavy_minus_sign:                                                   | Configuration to override the default retry behavior of the client.  |
 
 ### Response

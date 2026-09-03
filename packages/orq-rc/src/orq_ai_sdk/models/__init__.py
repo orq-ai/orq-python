@@ -4463,7 +4463,10 @@ if TYPE_CHECKING:
         ListKnowledgeBasesRequest,
         ListKnowledgeBasesRequestTypedDict,
     )
-    from .listlogfacetsop import ListLogFacetsRequest, ListLogFacetsRequestTypedDict
+    from .listlogfacetsrequest import (
+        ListLogFacetsRequest,
+        ListLogFacetsRequestTypedDict,
+    )
     from .listlogfacetsresponse import (
         ListLogFacetsResponse,
         ListLogFacetsResponseTypedDict,
@@ -19689,8 +19692,8 @@ _dynamic_imports: dict[str, str] = {
     "ListKnowledgeBasesQueryParamType": ".listknowledgebasesop",
     "ListKnowledgeBasesRequest": ".listknowledgebasesop",
     "ListKnowledgeBasesRequestTypedDict": ".listknowledgebasesop",
-    "ListLogFacetsRequest": ".listlogfacetsop",
-    "ListLogFacetsRequestTypedDict": ".listlogfacetsop",
+    "ListLogFacetsRequest": ".listlogfacetsrequest",
+    "ListLogFacetsRequestTypedDict": ".listlogfacetsrequest",
     "ListLogFacetsResponse": ".listlogfacetsresponse",
     "ListLogFacetsResponseTypedDict": ".listlogfacetsresponse",
     "ListLogFacetValuesRequest": ".listlogfacetvaluesop",
