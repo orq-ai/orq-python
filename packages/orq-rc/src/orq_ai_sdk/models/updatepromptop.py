@@ -10,12 +10,7 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
-from .piiredactionpluginauto import (
-    PIIRedactionPluginAuto,
-    PIIRedactionPluginAutoTypedDict,
-)
-from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
-from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -1004,23 +999,19 @@ UpdatePromptPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-UpdatePromptPlugins = TypeAliasType(
-    "UpdatePromptPlugins",
+UpdatePromptPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class UpdatePromptFallbacksTypedDict(TypedDict):
@@ -3018,23 +3009,19 @@ UpdatePromptPromptsPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-UpdatePromptPromptsPlugins = TypeAliasType(
-    "UpdatePromptPromptsPlugins",
+UpdatePromptPromptsPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class UpdatePromptPromptsFallbacksTypedDict(TypedDict):

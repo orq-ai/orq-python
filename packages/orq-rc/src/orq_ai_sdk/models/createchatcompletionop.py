@@ -10,12 +10,7 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
-from .piiredactionpluginauto import (
-    PIIRedactionPluginAuto,
-    PIIRedactionPluginAutoTypedDict,
-)
-from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
-from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .publiccontact import PublicContact, PublicContactTypedDict
 from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
@@ -1200,23 +1195,19 @@ CreateChatCompletionPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-CreateChatCompletionPlugins = TypeAliasType(
-    "CreateChatCompletionPlugins",
+CreateChatCompletionPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class CreateChatCompletionFallbacksTypedDict(TypedDict):

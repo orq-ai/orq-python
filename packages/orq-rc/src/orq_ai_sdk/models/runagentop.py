@@ -18,12 +18,7 @@ from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
-from .piiredactionpluginauto import (
-    PIIRedactionPluginAuto,
-    PIIRedactionPluginAutoTypedDict,
-)
-from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
-from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .queryknowledgebasetoolinput import (
     QueryKnowledgeBaseToolInput,
     QueryKnowledgeBaseToolInputTypedDict,
@@ -382,23 +377,19 @@ RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-RunAgentModelConfigurationPlugins = TypeAliasType(
-    "RunAgentModelConfigurationPlugins",
+RunAgentModelConfigurationPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class RunAgentModelConfigurationFallbacksTypedDict(TypedDict):
@@ -1191,23 +1182,19 @@ RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
-    "RunAgentFallbackModelConfigurationPlugins",
+RunAgentFallbackModelConfigurationPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class RunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -2071,7 +2058,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M1NQ4PMH23SM3S5WSKMEFRA0"
+    id: Optional[str] = "01M1NY972TSH0RH25AQVWHM5VC"
 
     description: Optional[str] = None
 
@@ -2502,11 +2489,11 @@ class AgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-AgentToolInputRunLanguage = Literal["python",]
+Language = Literal["python",]
 
 
 class CodeToolTypedDict(TypedDict):
-    language: AgentToolInputRunLanguage
+    language: Language
     code: str
     r"""The code to execute."""
     parameters: NotRequired[AgentToolInputRunParametersTypedDict]
@@ -2514,7 +2501,7 @@ class CodeToolTypedDict(TypedDict):
 
 
 class CodeTool(BaseModel):
-    language: AgentToolInputRunLanguage
+    language: Language
 
     code: str
     r"""The code to execute."""
@@ -2914,6 +2901,8 @@ class RunAgentEvaluatorsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+    options: NotRequired[Dict[str, Any]]
+    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class RunAgentEvaluators(BaseModel):
@@ -2926,9 +2915,12 @@ class RunAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
+    options: Optional[Dict[str, Any]] = None
+    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate"])
+        optional_fields = set(["sample_rate", "options"])
         serialized = handler(self)
         m = {}
 
@@ -2957,6 +2949,8 @@ class RunAgentGuardrailsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+    options: NotRequired[Dict[str, Any]]
+    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class RunAgentGuardrails(BaseModel):
@@ -2969,9 +2963,12 @@ class RunAgentGuardrails(BaseModel):
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
+    options: Optional[Dict[str, Any]] = None
+    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate"])
+        optional_fields = set(["sample_rate", "options"])
         serialized = handler(self)
         m = {}
 

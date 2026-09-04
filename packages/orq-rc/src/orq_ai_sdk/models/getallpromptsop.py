@@ -10,12 +10,7 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
-from .piiredactionpluginauto import (
-    PIIRedactionPluginAuto,
-    PIIRedactionPluginAutoTypedDict,
-)
-from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
-from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -1360,23 +1355,19 @@ GetAllPromptsPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-GetAllPromptsPlugins = TypeAliasType(
-    "GetAllPromptsPlugins",
+GetAllPromptsPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class GetAllPromptsFallbacksTypedDict(TypedDict):

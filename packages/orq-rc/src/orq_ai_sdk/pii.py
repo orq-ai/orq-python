@@ -6,10 +6,174 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, Mapping, Optional
+from typing import Dict, Iterable, List, Mapping, Optional
 
 
 class Pii(BaseSDK):
+    def capabilities(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.CapabilitiesResponse:
+        r"""Get PII capabilities
+
+        Reports the entity catalog, supported regions, and default thresholds the PII detection service currently exposes, including per-entity default thresholds.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+        req = self._build_request(
+            method="GET",
+            path="/v2/pii/capabilities",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=None,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="PIICapabilities",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=None,
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.CapabilitiesResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def capabilities_async(
+        self,
+        *,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.CapabilitiesResponse:
+        r"""Get PII capabilities
+
+        Reports the entity catalog, supported regions, and default thresholds the PII detection service currently exposes, including per-entity default thresholds.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/pii/capabilities",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=None,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="PIICapabilities",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=None,
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.CapabilitiesResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def detect(
         self,
         *,
@@ -17,6 +181,9 @@ class Pii(BaseSDK):
         language: Optional[str] = None,
         threshold: Optional[float] = None,
         include_entities: Optional[bool] = None,
+        regions: Optional[Iterable[str]] = None,
+        entities: Optional[Iterable[str]] = None,
+        entity_thresholds: Optional[Mapping[str, float]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,6 +197,32 @@ class Pii(BaseSDK):
         :param language: BCP-47 language code. Unset means auto-detect.
         :param threshold: Global minimum recognizer score (0.0-1.0). Unset uses the provider default.
         :param include_entities: When true, the response includes a per-type entity breakdown.
+        :param regions: Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+            entity type those regions cover is included, alongside the base catalog.
+            [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+            region, so selecting nothing is the widest request rather than the narrowest.
+            Empty alongside a non-empty `entities` stays strict. See the capabilities
+            endpoint for the region list.
+
+            Combines with `entities`: the detector unions the two selections, so a
+            request carrying both covers the regions plus the named types. Note that
+            `entities` only narrows coverage when it travels alone.
+        :param entities: The entity types to cover. A named type fires even when it belongs to a
+            region, so a region's types can be selected individually without naming
+            the region. Alone this is a strict allowlist; alongside `regions` it adds
+            to the region coverage instead of narrowing it.
+        :param entity_thresholds: Per-entity confidence cutoff overrides. An override REPLACES the global
+            `threshold` for that type and may sit above or below it: the gateway
+            lowers the first-pass floor it sends the detector to the smallest value
+            in the map, and every selected type carries its own cutoff, so a
+            sub-global override detects MORE of that type without widening the rest.
+
+            This only tunes confidence; it never changes which types are covered.
+            Coverage is decided by `entities` alone, so every key here must also
+            appear in `entities` — a key that does not is rejected, as is any key at
+            all when `entities` is empty.
+
+            Declarative [0,1] bound mirrors existing constraint on `threshold`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -53,6 +246,11 @@ class Pii(BaseSDK):
             language=language,
             threshold=threshold,
             include_entities=include_entities,
+            regions=utils.unmarshal(regions, Optional[List[str]]),
+            entities=utils.unmarshal(entities, Optional[List[str]]),
+            entity_thresholds=utils.unmarshal(
+                entity_thresholds, Optional[Dict[str, float]]
+            ),
         )
 
         req = self._build_request(
@@ -93,7 +291,15 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.pii.detect({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -118,6 +324,9 @@ class Pii(BaseSDK):
         language: Optional[str] = None,
         threshold: Optional[float] = None,
         include_entities: Optional[bool] = None,
+        regions: Optional[Iterable[str]] = None,
+        entities: Optional[Iterable[str]] = None,
+        entity_thresholds: Optional[Mapping[str, float]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -131,6 +340,32 @@ class Pii(BaseSDK):
         :param language: BCP-47 language code. Unset means auto-detect.
         :param threshold: Global minimum recognizer score (0.0-1.0). Unset uses the provider default.
         :param include_entities: When true, the response includes a per-type entity breakdown.
+        :param regions: Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+            entity type those regions cover is included, alongside the base catalog.
+            [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+            region, so selecting nothing is the widest request rather than the narrowest.
+            Empty alongside a non-empty `entities` stays strict. See the capabilities
+            endpoint for the region list.
+
+            Combines with `entities`: the detector unions the two selections, so a
+            request carrying both covers the regions plus the named types. Note that
+            `entities` only narrows coverage when it travels alone.
+        :param entities: The entity types to cover. A named type fires even when it belongs to a
+            region, so a region's types can be selected individually without naming
+            the region. Alone this is a strict allowlist; alongside `regions` it adds
+            to the region coverage instead of narrowing it.
+        :param entity_thresholds: Per-entity confidence cutoff overrides. An override REPLACES the global
+            `threshold` for that type and may sit above or below it: the gateway
+            lowers the first-pass floor it sends the detector to the smallest value
+            in the map, and every selected type carries its own cutoff, so a
+            sub-global override detects MORE of that type without widening the rest.
+
+            This only tunes confidence; it never changes which types are covered.
+            Coverage is decided by `entities` alone, so every key here must also
+            appear in `entities` — a key that does not is rejected, as is any key at
+            all when `entities` is empty.
+
+            Declarative [0,1] bound mirrors existing constraint on `threshold`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -154,6 +389,11 @@ class Pii(BaseSDK):
             language=language,
             threshold=threshold,
             include_entities=include_entities,
+            regions=utils.unmarshal(regions, Optional[List[str]]),
+            entities=utils.unmarshal(entities, Optional[List[str]]),
+            entity_thresholds=utils.unmarshal(
+                entity_thresholds, Optional[Dict[str, float]]
+            ),
         )
 
         req = self._build_request_async(
@@ -194,7 +434,15 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.pii.detect({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -218,6 +466,9 @@ class Pii(BaseSDK):
         text: Optional[str] = None,
         language: Optional[str] = None,
         threshold: Optional[float] = None,
+        regions: Optional[Iterable[str]] = None,
+        entities: Optional[Iterable[str]] = None,
+        entity_thresholds: Optional[Mapping[str, float]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -230,6 +481,32 @@ class Pii(BaseSDK):
         :param text:
         :param language:
         :param threshold:
+        :param regions: Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+            entity type those regions cover is included, alongside the base catalog.
+            [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+            region, so selecting nothing is the widest request rather than the narrowest.
+            Empty alongside a non-empty `entities` stays strict. See the capabilities
+            endpoint for the region list.
+
+            Combines with `entities`: the detector unions the two selections, so a
+            request carrying both covers the regions plus the named types. Note that
+            `entities` only narrows coverage when it travels alone.
+        :param entities: The entity types to cover. A named type fires even when it belongs to a
+            region, so a region's types can be selected individually without naming
+            the region. Alone this is a strict allowlist; alongside `regions` it adds
+            to the region coverage instead of narrowing it.
+        :param entity_thresholds: Per-entity confidence cutoff overrides. An override REPLACES the global
+            `threshold` for that type and may sit above or below it: the gateway
+            lowers the first-pass floor it sends the detector to the smallest value
+            in the map, and every selected type carries its own cutoff, so a
+            sub-global override detects MORE of that type without widening the rest.
+
+            This only tunes confidence; it never changes which types are covered.
+            Coverage is decided by `entities` alone, so every key here must also
+            appear in `entities` — a key that does not is rejected, as is any key at
+            all when `entities` is empty.
+
+            Declarative [0,1] bound mirrors existing constraint on `threshold`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -252,6 +529,11 @@ class Pii(BaseSDK):
             text=text,
             language=language,
             threshold=threshold,
+            regions=utils.unmarshal(regions, Optional[List[str]]),
+            entities=utils.unmarshal(entities, Optional[List[str]]),
+            entity_thresholds=utils.unmarshal(
+                entity_thresholds, Optional[Dict[str, float]]
+            ),
         )
 
         req = self._build_request(
@@ -292,7 +574,15 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.pii.redact({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -316,6 +606,9 @@ class Pii(BaseSDK):
         text: Optional[str] = None,
         language: Optional[str] = None,
         threshold: Optional[float] = None,
+        regions: Optional[Iterable[str]] = None,
+        entities: Optional[Iterable[str]] = None,
+        entity_thresholds: Optional[Mapping[str, float]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -328,6 +621,32 @@ class Pii(BaseSDK):
         :param text:
         :param language:
         :param threshold:
+        :param regions: Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+            entity type those regions cover is included, alongside the base catalog.
+            [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+            region, so selecting nothing is the widest request rather than the narrowest.
+            Empty alongside a non-empty `entities` stays strict. See the capabilities
+            endpoint for the region list.
+
+            Combines with `entities`: the detector unions the two selections, so a
+            request carrying both covers the regions plus the named types. Note that
+            `entities` only narrows coverage when it travels alone.
+        :param entities: The entity types to cover. A named type fires even when it belongs to a
+            region, so a region's types can be selected individually without naming
+            the region. Alone this is a strict allowlist; alongside `regions` it adds
+            to the region coverage instead of narrowing it.
+        :param entity_thresholds: Per-entity confidence cutoff overrides. An override REPLACES the global
+            `threshold` for that type and may sit above or below it: the gateway
+            lowers the first-pass floor it sends the detector to the smallest value
+            in the map, and every selected type carries its own cutoff, so a
+            sub-global override detects MORE of that type without widening the rest.
+
+            This only tunes confidence; it never changes which types are covered.
+            Coverage is decided by `entities` alone, so every key here must also
+            appear in `entities` — a key that does not is rejected, as is any key at
+            all when `entities` is empty.
+
+            Declarative [0,1] bound mirrors existing constraint on `threshold`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -350,6 +669,11 @@ class Pii(BaseSDK):
             text=text,
             language=language,
             threshold=threshold,
+            regions=utils.unmarshal(regions, Optional[List[str]]),
+            entities=utils.unmarshal(entities, Optional[List[str]]),
+            entity_thresholds=utils.unmarshal(
+                entity_thresholds, Optional[Dict[str, float]]
+            ),
         )
 
         req = self._build_request_async(
@@ -390,7 +714,15 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.pii.redact({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
