@@ -267,6 +267,12 @@ class McpGateways(BaseSDK):
         tool_naming: Optional[models.McpToolNaming] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.McpGatewayPlugin],
+                Iterable[models.McpGatewayPluginTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -283,6 +289,7 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
+        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -311,6 +318,9 @@ class McpGateways(BaseSDK):
             tool_naming=tool_naming,
             mode=mode,
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.McpGatewayPlugin]]
+            ),
         )
 
         req = self._build_request(
@@ -404,6 +414,12 @@ class McpGateways(BaseSDK):
         tool_naming: Optional[models.McpToolNaming] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.McpGatewayPlugin],
+                Iterable[models.McpGatewayPluginTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -420,6 +436,7 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
+        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -448,6 +465,9 @@ class McpGateways(BaseSDK):
             tool_naming=tool_naming,
             mode=mode,
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
+            plugins=utils.get_pydantic_model(
+                plugins, Optional[List[models.McpGatewayPlugin]]
+            ),
         )
 
         req = self._build_request_async(
@@ -1232,6 +1252,12 @@ class McpGateways(BaseSDK):
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.McpGatewayPlugin],
+                Iterable[models.McpGatewayPluginTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1253,6 +1279,7 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
+        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1285,6 +1312,9 @@ class McpGateways(BaseSDK):
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
+                plugins=utils.get_pydantic_model(
+                    plugins, Optional[List[models.McpGatewayPlugin]]
+                ),
             ),
         )
 
@@ -1391,6 +1421,12 @@ class McpGateways(BaseSDK):
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
+        plugins: Optional[
+            Union[
+                Iterable[models.McpGatewayPlugin],
+                Iterable[models.McpGatewayPluginTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1412,6 +1448,7 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
+        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1444,6 +1481,9 @@ class McpGateways(BaseSDK):
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
+                plugins=utils.get_pydantic_model(
+                    plugins, Optional[List[models.McpGatewayPlugin]]
+                ),
             ),
         )
 

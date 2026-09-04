@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
+from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
 from .mcpgatewaystatus import McpGatewayStatus
 from .mcptoolnaming import McpToolNaming
@@ -36,6 +37,8 @@ class McpGatewayTypedDict(TypedDict):
     mode: NotRequired[McpGatewayMode]
     sharing: NotRequired[SharingTypedDict]
     r"""Which projects in the workspace may use this gateway."""
+    plugins: NotRequired[List[McpGatewayPluginTypedDict]]
+    r"""Plugins run on every tool call this gateway serves."""
 
 
 class McpGateway(BaseModel):
@@ -75,6 +78,9 @@ class McpGateway(BaseModel):
     sharing: Optional[Sharing] = None
     r"""Which projects in the workspace may use this gateway."""
 
+    plugins: Optional[List[McpGatewayPlugin]] = None
+    r"""Plugins run on every tool call this gateway serves."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -92,6 +98,7 @@ class McpGateway(BaseModel):
                 "exposed_tools_count",
                 "mode",
                 "sharing",
+                "plugins",
             ]
         )
         serialized = handler(self)

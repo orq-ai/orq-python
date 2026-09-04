@@ -16,3 +16,11 @@ value: Op = "eq"
 - `"neq"`
 - `"in"`
 - `"not_in"`
+- `"gt"`
+- `"gte"`
+- `"lt"`
+- `"lte"`
+- `"between"`
+- `"contains"`
+- `"exists"`
+- `"not_exists"`

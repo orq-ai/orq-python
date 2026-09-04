@@ -11,6 +11,14 @@ Op = Literal[
     "neq",
     "in",
     "not_in",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "between",
+    "contains",
+    "exists",
+    "not_exists",
 ]
 r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
 
