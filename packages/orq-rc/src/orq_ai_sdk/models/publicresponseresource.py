@@ -4,6 +4,10 @@ from __future__ import annotations
 from .conversationparam import ConversationParam, ConversationParamTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .openaipromptcacheoptions import (
+    OpenAIPromptCacheOptions,
+    OpenAIPromptCacheOptionsTypedDict,
+)
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from .reasoning import Reasoning, ReasoningTypedDict
 from .responseerror import ResponseError, ResponseErrorTypedDict
@@ -63,6 +67,7 @@ class PublicResponseResourceTypedDict(TypedDict):
     presence_penalty: float
     previous_response_id: Nullable[str]
     prompt_cache_key: Nullable[str]
+    prompt_cache_options: Nullable[OpenAIPromptCacheOptionsTypedDict]
     prompt_cache_retention: Nullable[str]
     reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
@@ -132,6 +137,8 @@ class PublicResponseResource(BaseModel):
 
     prompt_cache_key: Nullable[str]
 
+    prompt_cache_options: Nullable[OpenAIPromptCacheOptions]
+
     prompt_cache_retention: Nullable[str]
 
     reasoning: Nullable[Reasoning]
@@ -193,6 +200,7 @@ class PublicResponseResource(BaseModel):
                 "output",
                 "previous_response_id",
                 "prompt_cache_key",
+                "prompt_cache_options",
                 "prompt_cache_retention",
                 "reasoning",
                 "safety_identifier",

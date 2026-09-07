@@ -219,7 +219,7 @@ class Contact(BaseModel):
         return m
 
 
-class ThreadTypedDict(TypedDict):
+class AgentResponseRequestThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
 
     id: str
@@ -228,7 +228,7 @@ class ThreadTypedDict(TypedDict):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class Thread(BaseModel):
+class AgentResponseRequestThread(BaseModel):
     r"""Thread information to group related requests"""
 
     id: str
@@ -333,7 +333,7 @@ class AgentResponseRequestTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[ContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    thread: NotRequired[ThreadTypedDict]
+    thread: NotRequired[AgentResponseRequestThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[AgentResponseRequestMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
@@ -374,7 +374,7 @@ class AgentResponseRequest(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    thread: Optional[Thread] = None
+    thread: Optional[AgentResponseRequestThread] = None
     r"""Thread information to group related requests"""
 
     memory: Optional[AgentResponseRequestMemory] = None

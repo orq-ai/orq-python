@@ -15,7 +15,7 @@ TextContentPartSchemaType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-TTL = Literal[
+TextContentPartSchemaTTL = Literal[
     "5m",
     "1h",
 ]
@@ -31,7 +31,7 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 class CacheControlTypedDict(TypedDict):
     type: TextContentPartSchemaType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[TTL]
+    ttl: NotRequired[TextContentPartSchemaTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -45,7 +45,7 @@ class CacheControl(BaseModel):
     type: TextContentPartSchemaType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[TTL] = "5m"
+    ttl: Optional[TextContentPartSchemaTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes

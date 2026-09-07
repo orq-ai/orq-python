@@ -71,6 +71,12 @@ class Responses(BaseSDK):
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
         prompt_cache_key: Optional[str] = None,
+        prompt_cache_options: Optional[
+            Union[
+                models.OpenAIPromptCacheOptions,
+                models.OpenAIPromptCacheOptionsTypedDict,
+            ]
+        ] = None,
         reasoning: Optional[
             Union[models.ReasoningParam, models.ReasoningParamTypedDict]
         ] = None,
@@ -152,6 +158,7 @@ class Responses(BaseSDK):
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
+        :param prompt_cache_options:
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
@@ -234,6 +241,9 @@ class Responses(BaseSDK):
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
             prompt_cache_key=prompt_cache_key,
+            prompt_cache_options=utils.get_pydantic_model(
+                prompt_cache_options, Optional[models.OpenAIPromptCacheOptions]
+            ),
             reasoning=utils.get_pydantic_model(
                 reasoning, Optional[models.ReasoningParam]
             ),
@@ -403,6 +413,12 @@ class Responses(BaseSDK):
         presence_penalty: Optional[float] = None,
         previous_response_id: Optional[str] = None,
         prompt_cache_key: Optional[str] = None,
+        prompt_cache_options: Optional[
+            Union[
+                models.OpenAIPromptCacheOptions,
+                models.OpenAIPromptCacheOptionsTypedDict,
+            ]
+        ] = None,
         reasoning: Optional[
             Union[models.ReasoningParam, models.ReasoningParamTypedDict]
         ] = None,
@@ -484,6 +500,7 @@ class Responses(BaseSDK):
         :param presence_penalty: Penalize new tokens based on their presence in the text so far. Between -2.0 and 2.0.
         :param previous_response_id: The ID of a previous response to continue from. Requires store to be true (default) on the original response.
         :param prompt_cache_key: Key for prompt caching across requests.
+        :param prompt_cache_options:
         :param reasoning:
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
@@ -566,6 +583,9 @@ class Responses(BaseSDK):
             presence_penalty=presence_penalty,
             previous_response_id=previous_response_id,
             prompt_cache_key=prompt_cache_key,
+            prompt_cache_options=utils.get_pydantic_model(
+                prompt_cache_options, Optional[models.OpenAIPromptCacheOptions]
+            ),
             reasoning=utils.get_pydantic_model(
                 reasoning, Optional[models.ReasoningParam]
             ),

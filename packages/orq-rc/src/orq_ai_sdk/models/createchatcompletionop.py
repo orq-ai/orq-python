@@ -1471,7 +1471,7 @@ Version = Literal["latest",]
 r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
-class PromptTypedDict(TypedDict):
+class CreateChatCompletionPromptTypedDict(TypedDict):
     r"""Prompt configuration for the request"""
 
     id: str
@@ -1480,7 +1480,7 @@ class PromptTypedDict(TypedDict):
     r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
-class Prompt(BaseModel):
+class CreateChatCompletionPrompt(BaseModel):
     r"""Prompt configuration for the request"""
 
     id: str
@@ -2432,7 +2432,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
         List[CreateChatCompletionRouterChatCompletionsFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    prompt: NotRequired[PromptTypedDict]
+    prompt: NotRequired[CreateChatCompletionPromptTypedDict]
     r"""Prompt configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
@@ -2468,7 +2468,7 @@ class CreateChatCompletionOrq(BaseModel):
     fallbacks: Optional[List[CreateChatCompletionRouterChatCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    prompt: Optional[Prompt] = None
+    prompt: Optional[CreateChatCompletionPrompt] = None
     r"""Prompt configuration for the request"""
 
     identity: Optional[PublicIdentity] = None

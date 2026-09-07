@@ -346,6 +346,12 @@ class Usage2TypedDict(TypedDict):
     type: PostV2RouterOcrUsageType
     tokens_processed: int
     r"""The number of tokens processed"""
+    input_cost: NotRequired[float]
+    r"""Cost (USD) attributed to input processing. Present when billing was computed for this response."""
+    output_cost: NotRequired[float]
+    r"""Cost (USD) attributed to output processing. Present when billing was computed for this response."""
+    total_cost: NotRequired[float]
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
 
 
 class Usage2(BaseModel):
@@ -355,6 +361,31 @@ class Usage2(BaseModel):
 
     tokens_processed: int
     r"""The number of tokens processed"""
+
+    input_cost: Optional[float] = None
+    r"""Cost (USD) attributed to input processing. Present when billing was computed for this response."""
+
+    output_cost: Optional[float] = None
+    r"""Cost (USD) attributed to output processing. Present when billing was computed for this response."""
+
+    total_cost: Optional[float] = None
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["input_cost", "output_cost", "total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UsageType = Literal["pages",]
@@ -366,6 +397,12 @@ class Usage1TypedDict(TypedDict):
     type: UsageType
     pages_processed: int
     r"""The number of pages processed"""
+    input_cost: NotRequired[float]
+    r"""Cost (USD) attributed to input processing. Present when billing was computed for this response."""
+    output_cost: NotRequired[float]
+    r"""Cost (USD) attributed to output processing. Present when billing was computed for this response."""
+    total_cost: NotRequired[float]
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
 
 
 class Usage1(BaseModel):
@@ -375,6 +412,31 @@ class Usage1(BaseModel):
 
     pages_processed: int
     r"""The number of pages processed"""
+
+    input_cost: Optional[float] = None
+    r"""Cost (USD) attributed to input processing. Present when billing was computed for this response."""
+
+    output_cost: Optional[float] = None
+    r"""Cost (USD) attributed to output processing. Present when billing was computed for this response."""
+
+    total_cost: Optional[float] = None
+    r"""Total cost (USD) of the response. Present when billing was computed for this response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["input_cost", "output_cost", "total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 PostV2RouterOcrUsageTypedDict = TypeAliasType(

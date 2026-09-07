@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.filesystems import FileSystems
     from orq_ai_sdk.guardrailrules import GuardrailRules
+    from orq_ai_sdk.hub import Hub
     from orq_ai_sdk.human_review_sets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
@@ -50,6 +51,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.router import Router
     from orq_ai_sdk.routingrules import RoutingRules
     from orq_ai_sdk.schedules import Schedules
+    from orq_ai_sdk.sessions import Sessions
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.smartrouters import SmartRouters
     from orq_ai_sdk.tools import Tools
@@ -89,6 +91,7 @@ class Orq(BaseSDK):
     budgets: "Budgets"
     files: "Files"
     guardrail_rules: "GuardrailRules"
+    hub: "Hub"
     identities: "Identities"
     management_keys: "ManagementKeys"
     mcp_gateways: "McpGateways"
@@ -97,6 +100,7 @@ class Orq(BaseSDK):
     notifiers: "Notifiers"
     projects: "Projects"
     routing_rules: "RoutingRules"
+    sessions: "Sessions"
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
@@ -133,6 +137,7 @@ class Orq(BaseSDK):
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
+        "hub": ("orq_ai_sdk.hub", "Hub"),
         "identities": ("orq_ai_sdk.identities", "Identities"),
         "management_keys": ("orq_ai_sdk.managementkeys", "ManagementKeys"),
         "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
@@ -141,6 +146,7 @@ class Orq(BaseSDK):
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
+        "sessions": ("orq_ai_sdk.sessions", "Sessions"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),

@@ -11,6 +11,12 @@ A tool definition. The "type" field determines the tool kind.
 value: models.ToolsFunction = /* values here */
 ```
 
+### `models.Custom`
+
+```python
+value: models.Custom = /* values here */
+```
+
 ### `models.OrqAdvisorTool`
 
 ```python

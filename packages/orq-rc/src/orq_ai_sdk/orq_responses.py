@@ -34,7 +34,12 @@ class OrqResponses(BaseSDK):
             ]
         ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        thread: Optional[
+            Union[
+                models.AgentResponseRequestThread,
+                models.AgentResponseRequestThreadTypedDict,
+            ]
+        ] = None,
         memory: Optional[
             Union[
                 models.AgentResponseRequestMemory,
@@ -107,7 +112,9 @@ class OrqResponses(BaseSDK):
                     identity, Optional[models.AgentResponseRequestIdentity]
                 ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
-                thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.AgentResponseRequestThread]
+                ),
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.AgentResponseRequestMemory]
                 ),
@@ -240,7 +247,12 @@ class OrqResponses(BaseSDK):
             ]
         ] = None,
         contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        thread: Optional[
+            Union[
+                models.AgentResponseRequestThread,
+                models.AgentResponseRequestThreadTypedDict,
+            ]
+        ] = None,
         memory: Optional[
             Union[
                 models.AgentResponseRequestMemory,
@@ -313,7 +325,9 @@ class OrqResponses(BaseSDK):
                     identity, Optional[models.AgentResponseRequestIdentity]
                 ),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
-                thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.AgentResponseRequestThread]
+                ),
                 memory=utils.get_pydantic_model(
                     memory, Optional[models.AgentResponseRequestMemory]
                 ),

@@ -1879,6 +1879,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1905,6 +1907,8 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -1937,6 +1941,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2031,6 +2037,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2057,6 +2065,8 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2089,6 +2099,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2182,6 +2194,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2208,6 +2222,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2242,6 +2258,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2340,6 +2358,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2366,6 +2386,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2400,6 +2422,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,

@@ -1,0 +1,13 @@
+# Custom
+
+A custom tool that accepts free-form input.
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `async_`                                                                                             | *Optional[bool]*                                                                                     | :heavy_minus_sign:                                                                                   | Whether the tool response can be returned asynchronously.                                            |
+| `description`                                                                                        | *Optional[str]*                                                                                      | :heavy_minus_sign:                                                                                   | A description of what the custom tool does.                                                          |
+| `name`                                                                                               | *str*                                                                                                | :heavy_check_mark:                                                                                   | The name of the custom tool.                                                                         |
+| `type`                                                                                               | [models.CreateRouterResponseToolsResponsesType](../models/createrouterresponsetoolsresponsestype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

@@ -124,6 +124,8 @@ if TYPE_CHECKING:
         AgentResponseRequestMemoryTypedDict,
         AgentResponseRequestRole,
         AgentResponseRequestRoleTypedDict,
+        AgentResponseRequestThread,
+        AgentResponseRequestThreadTypedDict,
         AgentResponseRequestTypedDict,
         Contact,
         ContactTypedDict,
@@ -132,8 +134,6 @@ if TYPE_CHECKING:
         Engine,
         PublicMessagePart,
         PublicMessagePartTypedDict,
-        Thread,
-        ThreadTypedDict,
         ToolMessage,
         UserMessage,
     )
@@ -528,17 +528,23 @@ if TYPE_CHECKING:
         CreateRouterResponseToolChoiceType,
         CreateRouterResponseToolChoiceTypedDict,
         CreateRouterResponseTools,
+        CreateRouterResponseToolsResponsesRequestRequestBodyType,
         CreateRouterResponseToolsResponsesRequestType,
         CreateRouterResponseToolsResponsesType,
         CreateRouterResponseToolsType,
         CreateRouterResponseToolsTypedDict,
         CreateRouterResponseTruncation,
         CreateRouterResponseType,
+        Custom,
+        CustomTypedDict,
         FormatJSONSchema,
         FormatJSONSchemaTypedDict,
         FormatType,
         InputContent,
         InputContentTypedDict,
+        InputEffort,
+        InputReasoning,
+        InputReasoningTypedDict,
         InputRole,
         InputStatus,
         InputType,
@@ -1096,8 +1102,10 @@ if TYPE_CHECKING:
         CreateChatCompletionParametersTypedDict,
         CreateChatCompletionPlugins,
         CreateChatCompletionPluginsTypedDict,
+        CreateChatCompletionPrompt,
         CreateChatCompletionPromptTokensDetails,
         CreateChatCompletionPromptTokensDetailsTypedDict,
+        CreateChatCompletionPromptTypedDict,
         CreateChatCompletionReasoningEffort,
         CreateChatCompletionRefusal,
         CreateChatCompletionRefusalTypedDict,
@@ -1220,8 +1228,6 @@ if TYPE_CHECKING:
         OneLtTypedDict,
         OneLte,
         OneLteTypedDict,
-        Prompt,
-        PromptTypedDict,
         Version,
     )
     from .createchunkop import CreateChunkRequest, CreateChunkRequestTypedDict
@@ -2271,6 +2277,7 @@ if TYPE_CHECKING:
         CreateSpeechTimeout,
         CreateSpeechTimeoutTypedDict,
     )
+    from .createthreadrequest import CreateThreadRequest, CreateThreadRequestTypedDict
     from .createtoolop import (
         CodeExecutionTool,
         CodeExecutionToolTypedDict,
@@ -2635,6 +2642,7 @@ if TYPE_CHECKING:
         DeletePromptResponseBody,
         DeletePromptResponseBodyData,
     )
+    from .deletesessionop import DeleteSessionRequest, DeleteSessionRequestTypedDict
     from .deleteskillresponse import DeleteSkillResponse, DeleteSkillResponseTypedDict
     from .deletesmartrouterresponse import (
         DeleteSmartRouterResponse,
@@ -3457,6 +3465,7 @@ if TYPE_CHECKING:
         GetGuardrailRuleResponse,
         GetGuardrailRuleResponseTypedDict,
     )
+    from .gethubitemresponse import GetHubItemResponse, GetHubItemResponseTypedDict
     from .getipallowlistresponse import (
         GetIPAllowlistResponse,
         GetIPAllowlistResponseTypedDict,
@@ -3858,10 +3867,19 @@ if TYPE_CHECKING:
         GetPromptVersionVerbosity,
         GetPromptVersionVoice,
     )
+    from .getsessionop import GetSessionRequest, GetSessionRequestTypedDict
     from .getskillresponse import GetSkillResponse, GetSkillResponseTypedDict
     from .getsmartrouterresponse import (
         GetSmartRouterResponse,
         GetSmartRouterResponseTypedDict,
+    )
+    from .getthreadcountrequest import (
+        GetThreadCountRequest,
+        GetThreadCountRequestTypedDict,
+    )
+    from .getthreadcountresponse import (
+        GetThreadCountResponse,
+        GetThreadCountResponseTypedDict,
     )
     from .gettraceresponse import GetTraceResponse, GetTraceResponseTypedDict
     from .gettracespanresponse import (
@@ -3921,6 +3939,18 @@ if TYPE_CHECKING:
     )
     from .honoapierror import HonoAPIError, HonoAPIErrorData
     from .httptoolinput import HTTPToolInput, HTTPToolInputType, HTTPToolInputTypedDict
+    from .hubgetop import HubGetRequest, HubGetRequestTypedDict
+    from .hubitem import (
+        Evaluator,
+        EvaluatorTypedDict,
+        HubItem,
+        HubItemTypedDict,
+        Prompt,
+        PromptTypedDict,
+    )
+    from .hubitemsummary import HubItemSummary, HubItemSummaryTypedDict
+    from .hubsearchhit import HubSearchHit, HubSearchHitTypedDict
+    from .hubsearchop import HubSearchRequest, HubSearchRequestTypedDict
     from .identity import Budget, BudgetTypedDict, Identity, IdentityTypedDict
     from .identitybudgetscope import IdentityBudgetScope, IdentityBudgetScopeTypedDict
     from .identitybudgetscoperestresponse import (
@@ -4725,6 +4755,8 @@ if TYPE_CHECKING:
         ListSmartRoutersResponse,
         ListSmartRoutersResponseTypedDict,
     )
+    from .listthreadsrequest import ListThreadsRequest, ListThreadsRequestTypedDict
+    from .listthreadsresponse import ListThreadsResponse, ListThreadsResponseTypedDict
     from .listtracefacetsresponse import (
         ListTraceFacetsResponse,
         ListTraceFacetsResponseTypedDict,
@@ -5014,6 +5046,12 @@ if TYPE_CHECKING:
     from .notifierlistop import NotifierListRequest, NotifierListRequestTypedDict
     from .notifiertype import NotifierType
     from .notifierupdateop import NotifierUpdateRequest, NotifierUpdateRequestTypedDict
+    from .openaipromptcacheoptions import (
+        OpenAIPromptCacheOptions,
+        OpenAIPromptCacheOptionsMode,
+        OpenAIPromptCacheOptionsTypedDict,
+        TTL,
+    )
     from .orqadvisortool import (
         OrqAdvisorTool,
         OrqAdvisorToolType,
@@ -6375,6 +6413,10 @@ if TYPE_CHECKING:
         SchemaTypedDict,
     )
     from .scopemode import ScopeMode
+    from .searchhubitemsresponse import (
+        SearchHubItemsResponse,
+        SearchHubItemsResponseTypedDict,
+    )
     from .searchknowledgematch import (
         SearchKnowledgeMatch,
         SearchKnowledgeMatchMetadata,
@@ -6520,6 +6562,7 @@ if TYPE_CHECKING:
         ServerToolUseDetailsTypedDict,
     )
     from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
+    from .sessioninterval import SessionInterval
     from .sharing import Sharing, SharingTypedDict
     from .sharingallprojects import SharingAllProjects, SharingAllProjectsTypedDict
     from .sharingselectedprojects import (
@@ -6841,8 +6884,8 @@ if TYPE_CHECKING:
     from .textcontentpartschema import (
         CacheControl,
         CacheControlTypedDict,
-        TTL,
         TextContentPartSchema,
+        TextContentPartSchemaTTL,
         TextContentPartSchemaType,
         TextContentPartSchemaTypedDict,
         Type,
@@ -6864,6 +6907,11 @@ if TYPE_CHECKING:
         ThinkingConfigEnabledSchemaTypedDict,
         ThinkingLevel,
     )
+    from .thread import Thread, ThreadTypedDict
+    from .threadbilling import ThreadBilling, ThreadBillingTypedDict
+    from .threadfilters import ThreadFilters, ThreadFiltersTypedDict
+    from .threadkind import ThreadKind
+    from .threadusage import ThreadUsage, ThreadUsageTypedDict
     from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
     from .timeoutstreamingevent import (
         TimeoutStreamingEvent,
@@ -7900,6 +7948,7 @@ if TYPE_CHECKING:
         UpdateRoutingRuleRequest,
         UpdateRoutingRuleRequestTypedDict,
     )
+    from .updatesessionop import UpdateSessionRequest, UpdateSessionRequestTypedDict
     from .updateskillrequest import UpdateSkillRequest, UpdateSkillRequestTypedDict
     from .updateskillresponse import UpdateSkillResponse, UpdateSkillResponseTypedDict
     from .updatesmartrouterrequest import (
@@ -7910,6 +7959,7 @@ if TYPE_CHECKING:
         UpdateSmartRouterResponse,
         UpdateSmartRouterResponseTypedDict,
     )
+    from .updatethreadrequest import UpdateThreadRequest, UpdateThreadRequestTypedDict
     from .updatetoolop import (
         RequestBodyVersionIncrement,
         UpdateCodeExecutionTool,
@@ -8246,6 +8296,8 @@ __all__ = [
     "AgentResponseRequestMemoryTypedDict",
     "AgentResponseRequestRole",
     "AgentResponseRequestRoleTypedDict",
+    "AgentResponseRequestThread",
+    "AgentResponseRequestThreadTypedDict",
     "AgentResponseRequestTypedDict",
     "AgentSource",
     "AgentStartedStreamingEvent",
@@ -9015,8 +9067,10 @@ __all__ = [
     "CreateChatCompletionParametersTypedDict",
     "CreateChatCompletionPlugins",
     "CreateChatCompletionPluginsTypedDict",
+    "CreateChatCompletionPrompt",
     "CreateChatCompletionPromptTokensDetails",
     "CreateChatCompletionPromptTokensDetailsTypedDict",
+    "CreateChatCompletionPromptTypedDict",
     "CreateChatCompletionReasoningEffort",
     "CreateChatCompletionRefusal",
     "CreateChatCompletionRefusalTypedDict",
@@ -10029,6 +10083,7 @@ __all__ = [
     "CreateRouterResponseToolChoiceType",
     "CreateRouterResponseToolChoiceTypedDict",
     "CreateRouterResponseTools",
+    "CreateRouterResponseToolsResponsesRequestRequestBodyType",
     "CreateRouterResponseToolsResponsesRequestType",
     "CreateRouterResponseToolsResponsesType",
     "CreateRouterResponseToolsType",
@@ -10082,6 +10137,8 @@ __all__ = [
     "CreateSpeechThreadTypedDict",
     "CreateSpeechTimeout",
     "CreateSpeechTimeoutTypedDict",
+    "CreateThreadRequest",
+    "CreateThreadRequestTypedDict",
     "CreateToolHeaders2",
     "CreateToolHeaders2TypedDict",
     "CreateToolHeadersTools2",
@@ -10204,6 +10261,8 @@ __all__ = [
     "CurrentDateToolInput",
     "CurrentDateToolInputType",
     "CurrentDateToolInputTypedDict",
+    "Custom",
+    "CustomTypedDict",
     "Data",
     "DataArguments",
     "DataArgumentsTypedDict",
@@ -10344,6 +10403,8 @@ __all__ = [
     "DeletePromptRequestTypedDict",
     "DeletePromptResponseBody",
     "DeletePromptResponseBodyData",
+    "DeleteSessionRequest",
+    "DeleteSessionRequestTypedDict",
     "DeleteSkillResponse",
     "DeleteSkillResponseTypedDict",
     "DeleteSmartRouterResponse",
@@ -10693,10 +10754,12 @@ __all__ = [
     "EvaluationsSource",
     "EvaluationsType",
     "EvaluationsTypedDict",
+    "Evaluator",
     "EvaluatorDocumentResponse",
     "EvaluatorDocumentResponseTypedDict",
     "EvaluatorRef",
     "EvaluatorRefTypedDict",
+    "EvaluatorTypedDict",
     "Evaluators",
     "EvaluatorsTypedDict",
     "ExecuteOn",
@@ -11098,6 +11161,8 @@ __all__ = [
     "GetFileResponseTypedDict",
     "GetGuardrailRuleResponse",
     "GetGuardrailRuleResponseTypedDict",
+    "GetHubItemResponse",
+    "GetHubItemResponseTypedDict",
     "GetIPAllowlistResponse",
     "GetIPAllowlistResponseTypedDict",
     "GetLogContextRequest",
@@ -11481,10 +11546,16 @@ __all__ = [
     "GetPromptVersionUseCases",
     "GetPromptVersionVerbosity",
     "GetPromptVersionVoice",
+    "GetSessionRequest",
+    "GetSessionRequestTypedDict",
     "GetSkillResponse",
     "GetSkillResponseTypedDict",
     "GetSmartRouterResponse",
     "GetSmartRouterResponseTypedDict",
+    "GetThreadCountRequest",
+    "GetThreadCountRequestTypedDict",
+    "GetThreadCountResponse",
+    "GetThreadCountResponseTypedDict",
     "GetTraceResponse",
     "GetTraceResponseTypedDict",
     "GetTraceSpanResponse",
@@ -11573,6 +11644,16 @@ __all__ = [
     "HeadersTypedDict",
     "HonoAPIError",
     "HonoAPIErrorData",
+    "HubGetRequest",
+    "HubGetRequestTypedDict",
+    "HubItem",
+    "HubItemSummary",
+    "HubItemSummaryTypedDict",
+    "HubItemTypedDict",
+    "HubSearchHit",
+    "HubSearchHitTypedDict",
+    "HubSearchRequest",
+    "HubSearchRequestTypedDict",
     "ID",
     "ID1",
     "IPAllowlist",
@@ -11612,8 +11693,11 @@ __all__ = [
     "InputAudioTypedDict",
     "InputContent",
     "InputContentTypedDict",
+    "InputEffort",
     "InputMessage",
     "InputMessageTypedDict",
+    "InputReasoning",
+    "InputReasoningTypedDict",
     "InputRole",
     "InputSchema",
     "InputSchemaTypedDict",
@@ -12312,6 +12396,10 @@ __all__ = [
     "ListSkillsResponseTypedDict",
     "ListSmartRoutersResponse",
     "ListSmartRoutersResponseTypedDict",
+    "ListThreadsRequest",
+    "ListThreadsRequestTypedDict",
+    "ListThreadsResponse",
+    "ListThreadsResponseTypedDict",
     "ListTraceFacetValuesResponse",
     "ListTraceFacetValuesResponseTypedDict",
     "ListTraceFacetsResponse",
@@ -12677,6 +12765,9 @@ __all__ = [
     "OneNinTypedDict",
     "OneTypedDict",
     "Op",
+    "OpenAIPromptCacheOptions",
+    "OpenAIPromptCacheOptionsMode",
+    "OpenAIPromptCacheOptionsTypedDict",
     "Options",
     "OptionsTypedDict",
     "Or",
@@ -13924,6 +14015,8 @@ __all__ = [
     "Schema",
     "SchemaTypedDict",
     "ScopeMode",
+    "SearchHubItemsResponse",
+    "SearchHubItemsResponseTypedDict",
     "SearchKnowledgeMatch",
     "SearchKnowledgeMatchMetadata",
     "SearchKnowledgeMatchMetadataTypedDict",
@@ -13989,6 +14082,7 @@ __all__ = [
     "ServiceAccountOwner",
     "ServiceAccountOwnerTypedDict",
     "ServiceTier",
+    "SessionInterval",
     "Settings",
     "SettingsTypedDict",
     "Seven",
@@ -14305,6 +14399,7 @@ __all__ = [
     "TestMcpServerToolResponseTypedDict",
     "Text",
     "TextContentPartSchema",
+    "TextContentPartSchemaTTL",
     "TextContentPartSchemaType",
     "TextContentPartSchemaTypedDict",
     "TextPart",
@@ -14323,7 +14418,14 @@ __all__ = [
     "ThinkingLevel",
     "ThinkingTypedDict",
     "Thread",
+    "ThreadBilling",
+    "ThreadBillingTypedDict",
+    "ThreadFilters",
+    "ThreadFiltersTypedDict",
+    "ThreadKind",
     "ThreadTypedDict",
+    "ThreadUsage",
+    "ThreadUsageTypedDict",
     "Three",
     "ThreeTypedDict",
     "Threshold",
@@ -15323,6 +15425,8 @@ __all__ = [
     "UpdatePromptVoice",
     "UpdateRoutingRuleRequest",
     "UpdateRoutingRuleRequestTypedDict",
+    "UpdateSessionRequest",
+    "UpdateSessionRequestTypedDict",
     "UpdateSkillRequest",
     "UpdateSkillRequestTypedDict",
     "UpdateSkillResponse",
@@ -15331,6 +15435,8 @@ __all__ = [
     "UpdateSmartRouterRequestTypedDict",
     "UpdateSmartRouterResponse",
     "UpdateSmartRouterResponseTypedDict",
+    "UpdateThreadRequest",
+    "UpdateThreadRequestTypedDict",
     "UpdateToolHeaders2",
     "UpdateToolHeaders2TypedDict",
     "UpdateToolHeadersTools2",
@@ -15629,6 +15735,8 @@ _dynamic_imports: dict[str, str] = {
     "AgentResponseRequestMemoryTypedDict": ".agentresponserequest",
     "AgentResponseRequestRole": ".agentresponserequest",
     "AgentResponseRequestRoleTypedDict": ".agentresponserequest",
+    "AgentResponseRequestThread": ".agentresponserequest",
+    "AgentResponseRequestThreadTypedDict": ".agentresponserequest",
     "AgentResponseRequestTypedDict": ".agentresponserequest",
     "Contact": ".agentresponserequest",
     "ContactTypedDict": ".agentresponserequest",
@@ -15637,8 +15745,6 @@ _dynamic_imports: dict[str, str] = {
     "Engine": ".agentresponserequest",
     "PublicMessagePart": ".agentresponserequest",
     "PublicMessagePartTypedDict": ".agentresponserequest",
-    "Thread": ".agentresponserequest",
-    "ThreadTypedDict": ".agentresponserequest",
     "ToolMessage": ".agentresponserequest",
     "UserMessage": ".agentresponserequest",
     "AgentSource": ".agentstartedstreamingevent",
@@ -15997,17 +16103,23 @@ _dynamic_imports: dict[str, str] = {
     "CreateRouterResponseToolChoiceType": ".create_router_responseop",
     "CreateRouterResponseToolChoiceTypedDict": ".create_router_responseop",
     "CreateRouterResponseTools": ".create_router_responseop",
+    "CreateRouterResponseToolsResponsesRequestRequestBodyType": ".create_router_responseop",
     "CreateRouterResponseToolsResponsesRequestType": ".create_router_responseop",
     "CreateRouterResponseToolsResponsesType": ".create_router_responseop",
     "CreateRouterResponseToolsType": ".create_router_responseop",
     "CreateRouterResponseToolsTypedDict": ".create_router_responseop",
     "CreateRouterResponseTruncation": ".create_router_responseop",
     "CreateRouterResponseType": ".create_router_responseop",
+    "Custom": ".create_router_responseop",
+    "CustomTypedDict": ".create_router_responseop",
     "FormatJSONSchema": ".create_router_responseop",
     "FormatJSONSchemaTypedDict": ".create_router_responseop",
     "FormatType": ".create_router_responseop",
     "InputContent": ".create_router_responseop",
     "InputContentTypedDict": ".create_router_responseop",
+    "InputEffort": ".create_router_responseop",
+    "InputReasoning": ".create_router_responseop",
+    "InputReasoningTypedDict": ".create_router_responseop",
     "InputRole": ".create_router_responseop",
     "InputStatus": ".create_router_responseop",
     "InputType": ".create_router_responseop",
@@ -16555,8 +16667,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateChatCompletionParametersTypedDict": ".createchatcompletionop",
     "CreateChatCompletionPlugins": ".createchatcompletionop",
     "CreateChatCompletionPluginsTypedDict": ".createchatcompletionop",
+    "CreateChatCompletionPrompt": ".createchatcompletionop",
     "CreateChatCompletionPromptTokensDetails": ".createchatcompletionop",
     "CreateChatCompletionPromptTokensDetailsTypedDict": ".createchatcompletionop",
+    "CreateChatCompletionPromptTypedDict": ".createchatcompletionop",
     "CreateChatCompletionReasoningEffort": ".createchatcompletionop",
     "CreateChatCompletionRefusal": ".createchatcompletionop",
     "CreateChatCompletionRefusalTypedDict": ".createchatcompletionop",
@@ -16679,8 +16793,6 @@ _dynamic_imports: dict[str, str] = {
     "OneLtTypedDict": ".createchatcompletionop",
     "OneLte": ".createchatcompletionop",
     "OneLteTypedDict": ".createchatcompletionop",
-    "Prompt": ".createchatcompletionop",
-    "PromptTypedDict": ".createchatcompletionop",
     "Version": ".createchatcompletionop",
     "CreateChunkRequest": ".createchunkop",
     "CreateChunkRequestTypedDict": ".createchunkop",
@@ -17660,6 +17772,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateSpeechThreadTypedDict": ".createspeechop",
     "CreateSpeechTimeout": ".createspeechop",
     "CreateSpeechTimeoutTypedDict": ".createspeechop",
+    "CreateThreadRequest": ".createthreadrequest",
+    "CreateThreadRequestTypedDict": ".createthreadrequest",
     "CodeExecutionTool": ".createtoolop",
     "CodeExecutionToolTypedDict": ".createtoolop",
     "CreateToolHeaders2": ".createtoolop",
@@ -17962,6 +18076,8 @@ _dynamic_imports: dict[str, str] = {
     "DeletePromptRequestTypedDict": ".deletepromptop",
     "DeletePromptResponseBody": ".deletepromptop",
     "DeletePromptResponseBodyData": ".deletepromptop",
+    "DeleteSessionRequest": ".deletesessionop",
+    "DeleteSessionRequestTypedDict": ".deletesessionop",
     "DeleteSkillResponse": ".deleteskillresponse",
     "DeleteSkillResponseTypedDict": ".deleteskillresponse",
     "DeleteSmartRouterResponse": ".deletesmartrouterresponse",
@@ -18746,6 +18862,8 @@ _dynamic_imports: dict[str, str] = {
     "GetFileResponseTypedDict": ".getfileresponse",
     "GetGuardrailRuleResponse": ".getguardrailruleresponse",
     "GetGuardrailRuleResponseTypedDict": ".getguardrailruleresponse",
+    "GetHubItemResponse": ".gethubitemresponse",
+    "GetHubItemResponseTypedDict": ".gethubitemresponse",
     "GetIPAllowlistResponse": ".getipallowlistresponse",
     "GetIPAllowlistResponseTypedDict": ".getipallowlistresponse",
     "GetLogContextRequest1": ".getlogcontextop",
@@ -19129,10 +19247,16 @@ _dynamic_imports: dict[str, str] = {
     "GetPromptVersionUseCases": ".getpromptversionop",
     "GetPromptVersionVerbosity": ".getpromptversionop",
     "GetPromptVersionVoice": ".getpromptversionop",
+    "GetSessionRequest": ".getsessionop",
+    "GetSessionRequestTypedDict": ".getsessionop",
     "GetSkillResponse": ".getskillresponse",
     "GetSkillResponseTypedDict": ".getskillresponse",
     "GetSmartRouterResponse": ".getsmartrouterresponse",
     "GetSmartRouterResponseTypedDict": ".getsmartrouterresponse",
+    "GetThreadCountRequest": ".getthreadcountrequest",
+    "GetThreadCountRequestTypedDict": ".getthreadcountrequest",
+    "GetThreadCountResponse": ".getthreadcountresponse",
+    "GetThreadCountResponseTypedDict": ".getthreadcountresponse",
     "GetTraceResponse": ".gettraceresponse",
     "GetTraceResponseTypedDict": ".gettraceresponse",
     "GetTraceSpanResponse": ".gettracespanresponse",
@@ -19173,6 +19297,20 @@ _dynamic_imports: dict[str, str] = {
     "HTTPToolInput": ".httptoolinput",
     "HTTPToolInputType": ".httptoolinput",
     "HTTPToolInputTypedDict": ".httptoolinput",
+    "HubGetRequest": ".hubgetop",
+    "HubGetRequestTypedDict": ".hubgetop",
+    "Evaluator": ".hubitem",
+    "EvaluatorTypedDict": ".hubitem",
+    "HubItem": ".hubitem",
+    "HubItemTypedDict": ".hubitem",
+    "Prompt": ".hubitem",
+    "PromptTypedDict": ".hubitem",
+    "HubItemSummary": ".hubitemsummary",
+    "HubItemSummaryTypedDict": ".hubitemsummary",
+    "HubSearchHit": ".hubsearchhit",
+    "HubSearchHitTypedDict": ".hubsearchhit",
+    "HubSearchRequest": ".hubsearchop",
+    "HubSearchRequestTypedDict": ".hubsearchop",
     "Budget": ".identity",
     "BudgetTypedDict": ".identity",
     "Identity": ".identity",
@@ -19880,6 +20018,10 @@ _dynamic_imports: dict[str, str] = {
     "ListSkillsResponseTypedDict": ".listskillsresponse",
     "ListSmartRoutersResponse": ".listsmartroutersresponse",
     "ListSmartRoutersResponseTypedDict": ".listsmartroutersresponse",
+    "ListThreadsRequest": ".listthreadsrequest",
+    "ListThreadsRequestTypedDict": ".listthreadsrequest",
+    "ListThreadsResponse": ".listthreadsresponse",
+    "ListThreadsResponseTypedDict": ".listthreadsresponse",
     "ListTraceFacetsResponse": ".listtracefacetsresponse",
     "ListTraceFacetsResponseTypedDict": ".listtracefacetsresponse",
     "ListTraceFacetValuesResponse": ".listtracefacetvaluesresponse",
@@ -20130,6 +20272,10 @@ _dynamic_imports: dict[str, str] = {
     "NotifierType": ".notifiertype",
     "NotifierUpdateRequest": ".notifierupdateop",
     "NotifierUpdateRequestTypedDict": ".notifierupdateop",
+    "OpenAIPromptCacheOptions": ".openaipromptcacheoptions",
+    "OpenAIPromptCacheOptionsMode": ".openaipromptcacheoptions",
+    "OpenAIPromptCacheOptionsTypedDict": ".openaipromptcacheoptions",
+    "TTL": ".openaipromptcacheoptions",
     "OrqAdvisorTool": ".orqadvisortool",
     "OrqAdvisorToolType": ".orqadvisortool",
     "OrqAdvisorToolTypedDict": ".orqadvisortool",
@@ -21284,6 +21430,8 @@ _dynamic_imports: dict[str, str] = {
     "Schema": ".runagentop",
     "SchemaTypedDict": ".runagentop",
     "ScopeMode": ".scopemode",
+    "SearchHubItemsResponse": ".searchhubitemsresponse",
+    "SearchHubItemsResponseTypedDict": ".searchhubitemsresponse",
     "SearchKnowledgeMatch": ".searchknowledgematch",
     "SearchKnowledgeMatchMetadata": ".searchknowledgematch",
     "SearchKnowledgeMatchMetadataTypedDict": ".searchknowledgematch",
@@ -21421,6 +21569,7 @@ _dynamic_imports: dict[str, str] = {
     "ServerToolUseDetailsTypedDict": ".servertoolusedetails",
     "ServiceAccountOwner": ".serviceaccountowner",
     "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
+    "SessionInterval": ".sessioninterval",
     "Sharing": ".sharing",
     "SharingTypedDict": ".sharing",
     "SharingAllProjects": ".sharingallprojects",
@@ -21732,8 +21881,8 @@ _dynamic_imports: dict[str, str] = {
     "TestMcpServerToolResponseTypedDict": ".testmcpservertoolresponse",
     "CacheControl": ".textcontentpartschema",
     "CacheControlTypedDict": ".textcontentpartschema",
-    "TTL": ".textcontentpartschema",
     "TextContentPartSchema": ".textcontentpartschema",
+    "TextContentPartSchemaTTL": ".textcontentpartschema",
     "TextContentPartSchemaType": ".textcontentpartschema",
     "TextContentPartSchemaTypedDict": ".textcontentpartschema",
     "Type": ".textcontentpartschema",
@@ -21750,6 +21899,15 @@ _dynamic_imports: dict[str, str] = {
     "ThinkingConfigEnabledSchemaType": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchemaTypedDict": ".thinkingconfigenabledschema",
     "ThinkingLevel": ".thinkingconfigenabledschema",
+    "Thread": ".thread",
+    "ThreadTypedDict": ".thread",
+    "ThreadBilling": ".threadbilling",
+    "ThreadBillingTypedDict": ".threadbilling",
+    "ThreadFilters": ".threadfilters",
+    "ThreadFiltersTypedDict": ".threadfilters",
+    "ThreadKind": ".threadkind",
+    "ThreadUsage": ".threadusage",
+    "ThreadUsageTypedDict": ".threadusage",
     "TimeoutConfig": ".timeoutconfig",
     "TimeoutConfigTypedDict": ".timeoutconfig",
     "TimeoutStreamingEvent": ".timeoutstreamingevent",
@@ -22711,6 +22869,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePromptVoice": ".updatepromptop",
     "UpdateRoutingRuleRequest": ".updateroutingrulerequest",
     "UpdateRoutingRuleRequestTypedDict": ".updateroutingrulerequest",
+    "UpdateSessionRequest": ".updatesessionop",
+    "UpdateSessionRequestTypedDict": ".updatesessionop",
     "UpdateSkillRequest": ".updateskillrequest",
     "UpdateSkillRequestTypedDict": ".updateskillrequest",
     "UpdateSkillResponse": ".updateskillresponse",
@@ -22719,6 +22879,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateSmartRouterRequestTypedDict": ".updatesmartrouterrequest",
     "UpdateSmartRouterResponse": ".updatesmartrouterresponse",
     "UpdateSmartRouterResponseTypedDict": ".updatesmartrouterresponse",
+    "UpdateThreadRequest": ".updatethreadrequest",
+    "UpdateThreadRequestTypedDict": ".updatethreadrequest",
     "RequestBodyVersionIncrement": ".updatetoolop",
     "UpdateCodeExecutionTool": ".updatetoolop",
     "UpdateCodeExecutionToolTypedDict": ".updatetoolop",
