@@ -106,7 +106,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List knowledge bases",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -225,7 +225,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List knowledge bases",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -334,7 +334,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
                         }
                     ],
                 },
@@ -441,7 +441,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
                         }
                     ],
                 },
@@ -540,7 +540,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve knowledge base",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -639,7 +639,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve knowledge base",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -738,7 +738,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete knowledge base",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -837,7 +837,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete knowledge base",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -952,7 +952,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1067,7 +1067,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1183,7 +1183,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List datasources",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1301,7 +1301,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List datasources",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1447,7 +1447,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create datasource",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1591,7 +1591,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create datasource",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1925,7 +1925,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2027,7 +2027,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2129,7 +2129,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete datasource",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2231,7 +2231,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete datasource",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2348,7 +2348,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update datasource",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
                         }
                     ],
                 },
@@ -2465,7 +2465,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update datasource",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
                         }
                     ],
                 },
@@ -2587,7 +2587,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List chunks",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2709,7 +2709,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List chunks",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2821,7 +2821,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create chunks",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -2933,7 +2933,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create chunks",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -3047,7 +3047,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete multiple chunks",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"chunk_ids\": [\n      \"chunk_01JEXAMPLE000000000001\",\n      \"chunk_01JEXAMPLE000000000002\"\n    ]\n  }'\n",
+                            "source": 'curl --request DELETE \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "chunk_ids": [\n      "chunk_01JEXAMPLE000000000001",\n      "chunk_01JEXAMPLE000000000002"\n    ]\n  }\'\n',
                         }
                     ],
                 },
@@ -3163,7 +3163,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete multiple chunks",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"chunk_ids\": [\n      \"chunk_01JEXAMPLE000000000001\",\n      \"chunk_01JEXAMPLE000000000002\"\n    ]\n  }'\n",
+                            "source": 'curl --request DELETE \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "chunk_ids": [\n      "chunk_01JEXAMPLE000000000001",\n      "chunk_01JEXAMPLE000000000002"\n    ]\n  }\'\n',
                         }
                     ],
                 },
@@ -3285,7 +3285,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Count chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"enabled\":true}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","enabled":true}\'\n',
                         }
                     ],
                 },
@@ -3405,7 +3405,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Count chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"enabled\":true}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","enabled":true}\'\n',
                         }
                     ],
                 },
@@ -3531,7 +3531,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List a page of chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"limit\":25,\"page\":1}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","limit":25,"page":1}\'\n',
                         }
                     ],
                 },
@@ -3659,7 +3659,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List a page of chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"limit\":25,\"page\":1}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","limit":25,"page":1}\'\n',
                         }
                     ],
                 },
@@ -3766,7 +3766,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve chunk",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3871,7 +3871,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve chunk",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3976,7 +3976,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete chunk",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4081,7 +4081,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete chunk",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4212,7 +4212,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update chunk",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
                         }
                     ],
                 },
@@ -4343,7 +4343,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update chunk",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
                         }
                     ],
                 },
@@ -4460,7 +4460,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Set chunk enabled status",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
                         }
                     ],
                 },
@@ -4577,7 +4577,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Set chunk enabled status",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
                         }
                     ],
                 },
@@ -4679,7 +4679,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource processing status",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4783,7 +4783,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource processing status",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4942,7 +4942,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url "https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search" \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
                         },
                         {
                             "label": "Node.js",
@@ -5109,7 +5109,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url "https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search" \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
                         },
                         {
                             "label": "Node.js",
@@ -5227,7 +5227,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create file upload policy",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -5341,7 +5341,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create file upload policy",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },

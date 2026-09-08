@@ -131,7 +131,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Create session",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "duration": 1240,\n    "contact_ids": [],\n    "billing": {\n      "input_cost": 0.0012,\n      "output_cost": 0.0024,\n      "total_cost": 0.0036\n    },\n    "usage": {\n      "prompt_tokens": 480,\n      "completion_tokens": 132,\n      "total_tokens": 612\n    },\n    "traces_count": 1,\n    "tags": ["support"],\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "duration": 1240,\n    "contact_ids": [],\n    "billing": {\n      "input_cost": 0.0012,\n      "output_cost": 0.0024,\n      "total_cost": 0.0036\n    },\n    "usage": {\n      "prompt_tokens": 480,\n      "completion_tokens": 132,\n      "total_tokens": 612\n    },\n    "traces_count": 1,\n    "tags": ["support"],\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create session",
@@ -282,7 +282,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Create session",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "duration": 1240,\n    "contact_ids": [],\n    "billing": {\n      "input_cost": 0.0012,\n      "output_cost": 0.0024,\n      "total_cost": 0.0036\n    },\n    "usage": {\n      "prompt_tokens": 480,\n      "completion_tokens": 132,\n      "total_tokens": 612\n    },\n    "traces_count": 1,\n    "tags": ["support"],\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "duration": 1240,\n    "contact_ids": [],\n    "billing": {\n      "input_cost": 0.0012,\n      "output_cost": 0.0024,\n      "total_cost": 0.0036\n    },\n    "usage": {\n      "prompt_tokens": 480,\n      "completion_tokens": 132,\n      "total_tokens": 612\n    },\n    "traces_count": 1,\n    "tags": ["support"],\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create session",
@@ -400,7 +400,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Count sessions",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/count\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
                         },
                         {
                             "label": "Python - Count sessions",
@@ -518,7 +518,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Count sessions",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/count\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
                         },
                         {
                             "label": "Python - Count sessions",
@@ -636,7 +636,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - List sessions",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/query\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
                         },
                         {
                             "label": "Python - List sessions",
@@ -754,7 +754,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - List sessions",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/query\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/sessions/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filters": {\n      "interval": "SESSION_INTERVAL_LAST_24_HOURS",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n      "tags": ["support"]\n    },\n    "limit": 25,\n    "page": 1\n  }\'\n',
                         },
                         {
                             "label": "Python - List sessions",
@@ -856,7 +856,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - List session tags",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/tags' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/tags' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List session tags",
@@ -958,7 +958,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - List session tags",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/tags' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/tags' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List session tags",
@@ -1067,7 +1067,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Retrieve session",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve session",
@@ -1176,7 +1176,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Retrieve session",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve session",
@@ -1285,7 +1285,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Delete session",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete session",
@@ -1394,7 +1394,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Delete session",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete session",
@@ -1564,7 +1564,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Update session",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"tags\": [\"support\", \"escalated\"],\n    \"traces_count\": 3\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tags": ["support", "escalated"],\n    "traces_count": 3\n  }\'\n',
                         },
                         {
                             "label": "Python - Update session",
@@ -1734,7 +1734,7 @@ class Sessions(BaseSDK):
                         {
                             "label": "Core - Update session",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"tags\": [\"support\", \"escalated\"],\n    \"traces_count\": 3\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/sessions/thread_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tags": ["support", "escalated"],\n    "traces_count": 3\n  }\'\n',
                         },
                         {
                             "label": "Python - Update session",

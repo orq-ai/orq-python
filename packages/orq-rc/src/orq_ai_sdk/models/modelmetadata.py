@@ -35,6 +35,7 @@ class ModelMetadataTypedDict(TypedDict):
     embedding_dimensions: NotRequired[int]
     extended_context_pricing_mode: NotRequired[str]
     extended_context_threshold: NotRequired[int]
+    function_tools_require_effort_none: NotRequired[bool]
     generate_audio: NotRequired[bool]
     image_input_cost: NotRequired[float]
     image_output_cost: NotRequired[float]
@@ -175,6 +176,8 @@ class ModelMetadata(BaseModel):
     extended_context_pricing_mode: Optional[str] = None
 
     extended_context_threshold: Optional[int] = None
+
+    function_tools_require_effort_none: Optional[bool] = None
 
     generate_audio: Optional[bool] = None
 
@@ -410,6 +413,7 @@ class ModelMetadata(BaseModel):
                 "embedding_dimensions",
                 "extended_context_pricing_mode",
                 "extended_context_threshold",
+                "function_tools_require_effort_none",
                 "generate_audio",
                 "image_input_cost",
                 "image_output_cost",

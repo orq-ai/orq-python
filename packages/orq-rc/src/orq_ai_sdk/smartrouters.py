@@ -103,7 +103,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - List Smart Routers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/smart-routers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/smart-routers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Node.js - List Smart Routers",
@@ -222,7 +222,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - List Smart Routers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/smart-routers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/smart-routers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Node.js - List Smart Routers",
@@ -333,7 +333,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Create a Smart Router",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
                         },
                         {
                             "label": "Node.js - Create a Smart Router",
@@ -444,7 +444,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Create a Smart Router",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/smart-routers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "production-assistant",\n    "models": [\n      "anthropic/claude-opus-5",\n      "openai/gpt-5.4-mini"\n    ],\n    "profile": "SMART_ROUTER_PROFILE_QUALITY"\n  }\'\n',
                         },
                         {
                             "label": "Node.js - Create a Smart Router",
@@ -546,7 +546,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Retrieve a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Node.js - Retrieve a Smart Router",
@@ -648,7 +648,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Retrieve a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Node.js - Retrieve a Smart Router",
@@ -750,7 +750,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Delete a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Node.js - Delete a Smart Router",
@@ -852,7 +852,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Delete a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Node.js - Delete a Smart Router",
@@ -969,7 +969,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Update a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"profile\":\"SMART_ROUTER_PROFILE_COST\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"profile\":\"SMART_ROUTER_PROFILE_COST\"}'\n",
                         },
                         {
                             "label": "Node.js - Update a Smart Router",
@@ -1086,7 +1086,7 @@ class SmartRouters(BaseSDK):
                         {
                             "label": "Core - Update a Smart Router",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"profile\":\"SMART_ROUTER_PROFILE_COST\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/smart-routers/019d-smart-router-id' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"profile\":\"SMART_ROUTER_PROFILE_COST\"}'\n",
                         },
                         {
                             "label": "Node.js - Update a Smart Router",

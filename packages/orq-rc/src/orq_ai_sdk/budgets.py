@@ -30,7 +30,7 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponse:
         r"""List budgets
 
-        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense.
+        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `budget_id` of the last
@@ -151,7 +151,7 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponse:
         r"""List budgets
 
-        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense.
+        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `budget_id` of the last
@@ -274,7 +274,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponse:
         r"""Create a new budget
 
-        Creates a new budget in the workspace. Exactly one scope variant must be set (workspace / project / identity / api_key / provider / model). At least one of `limits.amount`, `limits.token_limit`, or `rate_limit.requests_per_minute` MUST be provided. Uniqueness is enforced across (workspace_id, scope_kind, scope_target_id).
+        Creates a new budget in the workspace. Exactly one scope variant must be set (workspace / project / identity / api_key / provider / model). At least one of `limits.amount`, `limits.token_limit`, or `rate_limit.requests_per_minute` MUST be provided. Uniqueness is enforced across (workspace_id, scope_kind, scope_target_id). Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
@@ -405,7 +405,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponse:
         r"""Create a new budget
 
-        Creates a new budget in the workspace. Exactly one scope variant must be set (workspace / project / identity / api_key / provider / model). At least one of `limits.amount`, `limits.token_limit`, or `rate_limit.requests_per_minute` MUST be provided. Uniqueness is enforced across (workspace_id, scope_kind, scope_target_id).
+        Creates a new budget in the workspace. Exactly one scope variant must be set (workspace / project / identity / api_key / provider / model). At least one of `limits.amount`, `limits.token_limit`, or `rate_limit.requests_per_minute` MUST be provided. Uniqueness is enforced across (workspace_id, scope_kind, scope_target_id). Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
@@ -526,7 +526,7 @@ class Budgets(BaseSDK):
     ) -> models.GetBudgetResponse:
         r"""Retrieve a budget
 
-        Retrieves the metadata for an existing budget by its unique identifier. Returns `NotFound` when the budget does not exist in the caller's workspace.
+        Retrieves the metadata for an existing budget by its unique identifier. Returns `NotFound` when the budget does not exist in the caller's workspace. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to retrieve.
         :param retries: Override the default retry configuration for this method
@@ -615,7 +615,7 @@ class Budgets(BaseSDK):
     ) -> models.GetBudgetResponse:
         r"""Retrieve a budget
 
-        Retrieves the metadata for an existing budget by its unique identifier. Returns `NotFound` when the budget does not exist in the caller's workspace.
+        Retrieves the metadata for an existing budget by its unique identifier. Returns `NotFound` when the budget does not exist in the caller's workspace. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to retrieve.
         :param retries: Override the default retry configuration for this method
@@ -704,7 +704,7 @@ class Budgets(BaseSDK):
     ) -> models.DeleteBudgetResponse:
         r"""Delete a budget
 
-        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success.
+        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to delete.
         :param retries: Override the default retry configuration for this method
@@ -793,7 +793,7 @@ class Budgets(BaseSDK):
     ) -> models.DeleteBudgetResponse:
         r"""Delete a budget
 
-        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success.
+        Permanently deletes a budget. Its consumption counters are cleared immediately. The response body is empty on success. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to delete.
         :param retries: Override the default retry configuration for this method
@@ -894,7 +894,7 @@ class Budgets(BaseSDK):
     ) -> models.UpdateBudgetResponse:
         r"""Update a budget
 
-        Updates mutable fields of a budget: limits, rate limit, activation, and expiration. The scope is immutable — to change a budget's target, delete and recreate it. Omitted fields keep their current values.
+        Updates mutable fields of a budget: limits, rate limit, activation, and expiration. The scope is immutable — to change a budget's target, delete and recreate it. Omitted fields keep their current values. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to update.
         :param limits: New limits. Omit to keep current.
@@ -1028,7 +1028,7 @@ class Budgets(BaseSDK):
     ) -> models.UpdateBudgetResponse:
         r"""Update a budget
 
-        Updates mutable fields of a budget: limits, rate limit, activation, and expiration. The scope is immutable — to change a budget's target, delete and recreate it. Omitted fields keep their current values.
+        Updates mutable fields of a budget: limits, rate limit, activation, and expiration. The scope is immutable — to change a budget's target, delete and recreate it. Omitted fields keep their current values. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id to update.
         :param limits: New limits. Omit to keep current.
@@ -1154,7 +1154,7 @@ class Budgets(BaseSDK):
     ) -> models.ResetBudgetConsumptionResponse:
         r"""Reset budget consumption
 
-        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved.
+        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id whose current-period counters should be cleared.
         :param reset_budget_consumption_request:
@@ -1260,7 +1260,7 @@ class Budgets(BaseSDK):
     ) -> models.ResetBudgetConsumptionResponse:
         r"""Reset budget consumption
 
-        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved.
+        Clears the current-period cost, token, and request counters for the budget. The budget record itself is preserved. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param budget_id: Budget id whose current-period counters should be cleared.
         :param reset_budget_consumption_request:

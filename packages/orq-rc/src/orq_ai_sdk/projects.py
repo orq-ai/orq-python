@@ -94,7 +94,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - List projects",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List projects",
@@ -209,7 +209,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - List projects",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List projects",
@@ -325,7 +325,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Create project",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project",
@@ -441,7 +441,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Create project",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project",
@@ -548,7 +548,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Retrieve project",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve project",
@@ -655,7 +655,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Retrieve project",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve project",
@@ -762,7 +762,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Delete project",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete project",
@@ -869,7 +869,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Delete project",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete project",
@@ -995,7 +995,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Update project",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update project",
@@ -1121,7 +1121,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Update project",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update project",

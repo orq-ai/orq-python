@@ -103,7 +103,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - List project files",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
                         },
                         {
                             "label": "Python - List project files",
@@ -227,7 +227,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - List project files",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/files' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
                         },
                         {
                             "label": "Python - List project files",
@@ -349,7 +349,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Upload retrieval file",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
                         },
                         {
                             "label": "Python - Upload retrieval file",
@@ -471,7 +471,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Upload retrieval file",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/files\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "filename": "support-faq.md",\n    "content": "IyBTdXBwb3J0IEZBUQoKQ29tbW9uIHJlc29sdXRpb25zIGFuZCBlc2NhbGF0aW9uIHBhdGhzLg==",\n    "content_type": "text/markdown",\n    "purpose": "FILE_PURPOSE_RETRIEVAL",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n  }\'\n',
                         },
                         {
                             "label": "Python - Upload retrieval file",
@@ -578,7 +578,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Get download URL",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get download URL",
@@ -685,7 +685,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Get download URL",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V/content' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Get download URL",
@@ -792,7 +792,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Retrieve file metadata",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve file metadata",
@@ -899,7 +899,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Retrieve file metadata",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve file metadata",
@@ -1006,7 +1006,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Delete file",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete file",
@@ -1113,7 +1113,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Delete file",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete file",
@@ -1232,7 +1232,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Rename file",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
                         },
                         {
                             "label": "Python - Rename file",
@@ -1351,7 +1351,7 @@ class Files(BaseSDK):
                         {
                             "label": "Core - Rename file",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/files/file_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"file_name\": \"support-faq-v2.md\"\n  }'\n",
                         },
                         {
                             "label": "Python - Rename file",

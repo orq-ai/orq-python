@@ -89,7 +89,7 @@ class Hub(BaseSDK):
                         {
                             "label": "Core - Search hub items",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/hub/search' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'q=summarize' \\\n  --data-urlencode 'types=prompt'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/hub/search' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'q=summarize' \\\n  --data-urlencode 'types=prompt'\n",
                         },
                         {
                             "label": "Python - Search hub items",
@@ -199,7 +199,7 @@ class Hub(BaseSDK):
                         {
                             "label": "Core - Search hub items",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/hub/search' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'q=summarize' \\\n  --data-urlencode 'types=prompt'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/hub/search' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'q=summarize' \\\n  --data-urlencode 'types=prompt'\n",
                         },
                         {
                             "label": "Python - Search hub items",
@@ -306,7 +306,7 @@ class Hub(BaseSDK):
                         {
                             "label": "Core - Retrieve hub item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/hub/hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/hub/hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve hub item",
@@ -413,7 +413,7 @@ class Hub(BaseSDK):
                         {
                             "label": "Core - Retrieve hub item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/hub/hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/hub/hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve hub item",

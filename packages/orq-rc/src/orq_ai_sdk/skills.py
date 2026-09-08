@@ -95,7 +95,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - List skills",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List skills",
@@ -211,7 +211,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - List skills",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/skills' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List skills",
@@ -321,7 +321,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Create project skill",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project skill",
@@ -431,7 +431,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Create project skill",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/skills\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "summarize_support_ticket",\n    "description": "Summarize support tickets into concise resolution notes.",\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "path": "/customer-success/skills/summarize-support-ticket",\n    "tags": ["support", "summarization"],\n    "instructions": "Read the ticket conversation and return the problem, customer sentiment, and proposed next step."\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project skill",
@@ -539,7 +539,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Retrieve skill",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve skill",
@@ -647,7 +647,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Retrieve skill",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve skill",
@@ -754,7 +754,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Delete skill",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete skill",
@@ -861,7 +861,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Delete skill",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete skill",
@@ -995,7 +995,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Update skill instructions",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
                         },
                         {
                             "label": "Python - Update skill instructions",
@@ -1129,7 +1129,7 @@ class Skills(BaseSDK):
                         {
                             "label": "Core - Update skill instructions",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/skills/skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "description": "Summarize support tickets for escalation handoff.",\n    "tags": ["support", "handoff"],\n    "instructions": "Return the issue summary, urgency, attempted fixes, and recommended owner."\n  }\'\n',
                         },
                         {
                             "label": "Python - Update skill instructions",

@@ -110,7 +110,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - List guardrail rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/guardrail-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/guardrail-rules' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         }
                     ],
                 },
@@ -231,7 +231,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - List guardrail rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/guardrail-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/guardrail-rules' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         }
                     ],
                 },
@@ -372,7 +372,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Create guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create guardrail rule",
@@ -523,7 +523,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Create guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/guardrail-rules\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Protect customer data",\n    "description": "Blocks sensitive customer data from model output.",\n    "enabled": true,\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create guardrail rule",
@@ -633,7 +633,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - List guardrails used by rules",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/used-guardrails' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/used-guardrails' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -735,7 +735,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - List guardrails used by rules",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/used-guardrails' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/used-guardrails' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -837,7 +837,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Retrieve guardrail rule",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -937,7 +937,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Retrieve guardrail rule",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1037,7 +1037,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Delete guardrail rule",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1137,7 +1137,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Delete guardrail rule",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1284,7 +1284,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Configure guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "expression": {"cel": "model == \'\\\'\'openai/gpt-5\'\\\'\'"},\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "expression": {"cel": "model == \'\\\'\'openai/gpt-5\'\\\'\'"},\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         }
                     ],
                 },
@@ -1431,7 +1431,7 @@ class GuardrailRules(BaseSDK):
                         {
                             "label": "Core - Configure guardrail rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "expression": {"cel": "model == \'\\\'\'openai/gpt-5\'\\\'\'"},\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/guardrail-rules/grl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "expression": {"cel": "model == \'\\\'\'openai/gpt-5\'\\\'\'"},\n    "guardrails": [{\n      "id": "orq_pii_detection",\n      "execute_on": "output",\n      "sample_rate": 1,\n      "is_guardrail": true\n    }]\n  }\'\n',
                         }
                     ],
                 },

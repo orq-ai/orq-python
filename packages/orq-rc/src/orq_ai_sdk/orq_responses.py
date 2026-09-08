@@ -182,7 +182,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
                         },
                         {
                             "label": "Python",
@@ -395,7 +395,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
                         },
                         {
                             "label": "Python",

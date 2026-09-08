@@ -107,7 +107,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - List routing rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List routing rules",
@@ -235,7 +235,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - List routing rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List routing rules",
@@ -393,7 +393,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Create routing rule",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Private customer traffic\",\n    \"description\": \"Routes private customer requests through the guarded model path.\"\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/routing-rules\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Private customer traffic",\n    "description": "Routes private customer requests through the guarded model path."\n  }\'\n',
                         },
                         {
                             "label": "Python - Create routing rule",
@@ -551,7 +551,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Create routing rule",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/routing-rules' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Private customer traffic\",\n    \"description\": \"Routes private customer requests through the guarded model path.\"\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/routing-rules\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Private customer traffic",\n    "description": "Routes private customer requests through the guarded model path."\n  }\'\n',
                         },
                         {
                             "label": "Python - Create routing rule",
@@ -661,7 +661,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - List models used by routing rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List routing rule models",
@@ -773,7 +773,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - List models used by routing rules",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/routing-rules/used-models' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - List routing rule models",
@@ -885,7 +885,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Retrieve routing rule",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve routing rule",
@@ -995,7 +995,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Retrieve routing rule",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve routing rule",
@@ -1105,7 +1105,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Delete routing rule",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete routing rule",
@@ -1215,7 +1215,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Delete routing rule",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete routing rule",
@@ -1379,7 +1379,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",
@@ -1543,7 +1543,7 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",

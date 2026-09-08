@@ -101,7 +101,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - List notifiers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/notifiers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/notifiers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List notifiers",
@@ -223,7 +223,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - List notifiers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/notifiers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/notifiers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List notifiers",
@@ -335,7 +335,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Create email notifier",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/notifiers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "display_name": "Production alerts",\n    "type": "NOTIFIER_TYPE_EMAIL",\n    "emails": ["ops@example.com", "alerts@example.com"],\n    "metadata": {"environment": "production"}\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/notifiers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "display_name": "Production alerts",\n    "type": "NOTIFIER_TYPE_EMAIL",\n    "emails": ["ops@example.com", "alerts@example.com"],\n    "metadata": {"environment": "production"}\n  }\'\n',
                         },
                         {
                             "label": "Python - Create email notifier",
@@ -447,7 +447,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Create email notifier",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/notifiers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "display_name": "Production alerts",\n    "type": "NOTIFIER_TYPE_EMAIL",\n    "emails": ["ops@example.com", "alerts@example.com"],\n    "metadata": {"environment": "production"}\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/notifiers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "display_name": "Production alerts",\n    "type": "NOTIFIER_TYPE_EMAIL",\n    "emails": ["ops@example.com", "alerts@example.com"],\n    "metadata": {"environment": "production"}\n  }\'\n',
                         },
                         {
                             "label": "Python - Create email notifier",
@@ -554,7 +554,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Retrieve notifier",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve notifier",
@@ -661,7 +661,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Retrieve notifier",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve notifier",
@@ -768,7 +768,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Delete notifier",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete notifier",
@@ -875,7 +875,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Delete notifier",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete notifier",
@@ -1022,7 +1022,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Update notifier",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Production incident alerts\",\n    \"emails\": [\"incidents@example.com\"]\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Production incident alerts",\n    "emails": ["incidents@example.com"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update notifier",
@@ -1169,7 +1169,7 @@ class Notifiers(BaseSDK):
                         {
                             "label": "Core - Update notifier",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Production incident alerts\",\n    \"emails\": [\"incidents@example.com\"]\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/notifiers/notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Production incident alerts",\n    "emails": ["incidents@example.com"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update notifier",

@@ -97,7 +97,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - List MCP servers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=github'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=github'\n",
                         },
                         {
                             "label": "Python - List MCP servers",
@@ -215,7 +215,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - List MCP servers",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=github'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=github'\n",
                         },
                         {
                             "label": "Python - List MCP servers",
@@ -349,7 +349,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Create MCP server",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "github",\n    "display_name": "GitHub",\n    "description": "Repository and issue tools for the platform team.",\n    "connection": {\n      "type": "MCP_CONNECTION_TYPE_HTTP",\n      "url": "https://api.githubcopilot.com/mcp/"\n    },\n    "auth": {\n      "type": "MCP_AUTH_TYPE_STATIC_HEADERS",\n      "static_headers": [\n        { "key": "Authorization", "value": "Bearer ghp_example_token" }\n      ]\n    },\n    "default_tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "github",\n    "display_name": "GitHub",\n    "description": "Repository and issue tools for the platform team.",\n    "connection": {\n      "type": "MCP_CONNECTION_TYPE_HTTP",\n      "url": "https://api.githubcopilot.com/mcp/"\n    },\n    "auth": {\n      "type": "MCP_AUTH_TYPE_STATIC_HEADERS",\n      "static_headers": [\n        { "key": "Authorization", "value": "Bearer ghp_example_token" }\n      ]\n    },\n    "default_tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP server",
@@ -483,7 +483,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Create MCP server",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "github",\n    "display_name": "GitHub",\n    "description": "Repository and issue tools for the platform team.",\n    "connection": {\n      "type": "MCP_CONNECTION_TYPE_HTTP",\n      "url": "https://api.githubcopilot.com/mcp/"\n    },\n    "auth": {\n      "type": "MCP_AUTH_TYPE_STATIC_HEADERS",\n      "static_headers": [\n        { "key": "Authorization", "value": "Bearer ghp_example_token" }\n      ]\n    },\n    "default_tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "github",\n    "display_name": "GitHub",\n    "description": "Repository and issue tools for the platform team.",\n    "connection": {\n      "type": "MCP_CONNECTION_TYPE_HTTP",\n      "url": "https://api.githubcopilot.com/mcp/"\n    },\n    "auth": {\n      "type": "MCP_AUTH_TYPE_STATIC_HEADERS",\n      "static_headers": [\n        { "key": "Authorization", "value": "Bearer ghp_example_token" }\n      ]\n    },\n    "default_tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP server",
@@ -592,7 +592,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP server",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP server",
@@ -701,7 +701,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP server",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP server",
@@ -810,7 +810,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Delete an MCP server",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP server",
@@ -919,7 +919,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Delete an MCP server",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an MCP server",
@@ -1070,7 +1070,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Update an MCP server",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an MCP server",
@@ -1221,7 +1221,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Update an MCP server",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "GitHub (read only)",\n    "default_tool_exposure": {\n      "mode": "MCP_TOOL_EXPOSURE_MODE_ALL",\n      "read_only": true\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an MCP server",
@@ -1352,7 +1352,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
@@ -1483,7 +1483,7 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
@@ -1606,12 +1606,12 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Sync the tool catalog",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Core - Sync a server that uses template variables",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"discovery_variables\": { \"github_token\": \"ghp_example_token\" }\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Sync the tool catalog",
@@ -1734,12 +1734,12 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Sync the tool catalog",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{}'\n",
                         },
                         {
                             "label": "Core - Sync a server that uses template variables",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"discovery_variables\": { \"github_token\": \"ghp_example_token\" }\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD:sync\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "discovery_variables": { "github_token": "ghp_example_token" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Sync the tool catalog",

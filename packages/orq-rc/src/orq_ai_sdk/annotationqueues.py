@@ -100,7 +100,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List annotation queues",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
                         },
                         {
                             "label": "Python - List annotation queues",
@@ -223,7 +223,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List annotation queues",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
                         },
                         {
                             "label": "Python - List annotation queues",
@@ -343,7 +343,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Create an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an annotation queue",
@@ -461,7 +461,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Create an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an annotation queue",
@@ -570,7 +570,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an annotation queue",
@@ -679,7 +679,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve an annotation queue",
@@ -788,7 +788,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Delete an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an annotation queue",
@@ -899,7 +899,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Delete an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete an annotation queue",
@@ -1031,7 +1031,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Update an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Support quality review (Q3)\",\n    \"description\": \"Updated review scope\"\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support quality review (Q3)",\n    "description": "Updated review scope"\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an annotation queue",
@@ -1161,7 +1161,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Update an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Support quality review (Q3)\",\n    \"description\": \"Updated review scope\"\n  }'\n",
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support quality review (Q3)",\n    "description": "Updated review scope"\n  }\'\n',
                         },
                         {
                             "label": "Python - Update an annotation queue",
@@ -1270,7 +1270,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove all items from a queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Remove all items from a queue",
@@ -1381,7 +1381,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove all items from a queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Remove all items from a queue",
@@ -1501,7 +1501,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List items in a queue",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List items in a queue",
@@ -1621,7 +1621,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List items in a queue",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List items in a queue",
@@ -1749,7 +1749,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Add span items to a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Add span items to a queue",
@@ -1877,7 +1877,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Add span items to a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Add span items to a queue",
@@ -2000,7 +2000,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove span items from a queue",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"span_ids\": [\"span_01\", \"span_02\"]\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "span_ids": ["span_01", "span_02"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Remove span items from a queue",
@@ -2123,7 +2123,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove span items from a queue",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"span_ids\": [\"span_01\", \"span_02\"]\n  }'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "span_ids": ["span_01", "span_02"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Remove span items from a queue",
@@ -2237,7 +2237,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve a queue item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve a queue item",
@@ -2351,7 +2351,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve a queue item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Retrieve a queue item",

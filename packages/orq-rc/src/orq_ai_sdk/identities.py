@@ -113,7 +113,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - List identities by tag",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
                         },
                         {
                             "label": "Python - List identities by tag",
@@ -247,7 +247,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - List identities by tag",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'search=acme' \\\n  --data-urlencode 'filter_by.tags=enterprise' \\\n  --data-urlencode 'include_metrics=true'\n",
                         },
                         {
                             "label": "Python - List identities by tag",
@@ -375,7 +375,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Create customer identity",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create customer identity",
@@ -390,7 +390,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Create minimal identity",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
                         },
                         {
                             "label": "Python - Create minimal identity",
@@ -521,7 +521,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Create customer identity",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/identities\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "external_id": "customer_12345",\n    "display_name": "Ada Lovelace",\n    "email": "ada@example.com",\n    "tags": ["enterprise", "beta"],\n    "metadata": {\n      "plan": "enterprise",\n      "region": "eu"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create customer identity",
@@ -536,7 +536,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Create minimal identity",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/identities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"external_id\": \"user_9f4b2a\"\n  }'\n",
                         },
                         {
                             "label": "Python - Create minimal identity",
@@ -655,7 +655,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Retrieve identity with metrics",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'include_metrics=true'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'include_metrics=true'\n",
                         },
                         {
                             "label": "Python - Retrieve identity with metrics",
@@ -771,7 +771,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Retrieve identity with metrics",
                             "lang": "curl",
-                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'include_metrics=true'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'include_metrics=true'\n",
                         },
                         {
                             "label": "Python - Retrieve identity with metrics",
@@ -880,7 +880,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Delete identity",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete identity",
@@ -989,7 +989,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Delete identity",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/identities/customer_12345' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         },
                         {
                             "label": "Python - Delete identity",
@@ -1122,7 +1122,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Update identity profile",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update identity profile",
@@ -1255,7 +1255,7 @@ class Identities(BaseSDK):
                         {
                             "label": "Core - Update identity profile",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/identities/customer_12345\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Ada L.",\n    "tags": ["enterprise", "priority"],\n    "metadata": {\n      "plan": "enterprise",\n      "lifecycle": "renewal"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Update identity profile",
