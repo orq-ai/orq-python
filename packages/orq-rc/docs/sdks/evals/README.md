@@ -90,7 +90,7 @@ with Orq(
 
 ### Response
 
-**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
+**[models.CreateEvalResponseBody](../../models/createevalresponsebody.md)**
 
 ### Errors
 
@@ -130,7 +130,7 @@ with Orq(
 
 ### Response
 
-**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
+**[models.GetEvalResponseBody](../../models/getevalresponsebody.md)**
 
 ### Errors
 
@@ -211,7 +211,7 @@ with Orq(
 
 ### Response
 
-**[models.EvaluatorDocumentResponse](../../models/evaluatordocumentresponse.md)**
+**[models.UpdateEvalResponseBody](../../models/updateevalresponsebody.md)**
 
 ### Errors
 
@@ -295,7 +295,7 @@ with Orq(
 
 ### Response
 
-**[models.GetEvaluatorVersionResponse](../../models/getevaluatorversionresponse.md)**
+**[models.GetEvalVersionResponseBody](../../models/getevalversionresponsebody.md)**
 
 ### Errors
 
@@ -343,7 +343,7 @@ with Orq(
 
 ### Response
 
-**[models.InvokeEvaluatorResponse](../../models/invokeevaluatorresponse.md)**
+**[models.EvaluationResult](../../models/evaluationresult.md)**
 
 ### Errors
 

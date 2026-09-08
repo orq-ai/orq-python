@@ -11,3 +11,11 @@ class CreateEvalRequestBodyTypedDict(TypedDict):
 
 class CreateEvalRequestBody(BaseModel):
     pass
+
+
+class CreateEvalResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+
+class CreateEvalResponseBody(BaseModel):
+    r"""OK"""

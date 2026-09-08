@@ -14,3 +14,11 @@ class GetEvalRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+
+
+class GetEvalResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+
+class GetEvalResponseBody(BaseModel):
+    r"""OK"""

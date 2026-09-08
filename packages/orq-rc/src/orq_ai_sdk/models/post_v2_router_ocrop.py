@@ -104,13 +104,13 @@ class Document1(BaseModel):
         return m
 
 
-PostV2RouterOcrDocumentTypedDict = TypeAliasType(
-    "PostV2RouterOcrDocumentTypedDict", Union[Document2TypedDict, Document1TypedDict]
+DocumentTypedDict = TypeAliasType(
+    "DocumentTypedDict", Union[Document2TypedDict, Document1TypedDict]
 )
 r"""Document to run OCR on. Can be a DocumentURLChunk or ImageURLChunk."""
 
 
-PostV2RouterOcrDocument = Annotated[
+Document = Annotated[
     Union[
         Annotated[Document1, Tag("document_url")],
         Annotated[Document2, Tag("image_url")],
@@ -176,7 +176,7 @@ class PostV2RouterOcrRequestBodyTypedDict(TypedDict):
 
     model: str
     r"""ID of the model to use for OCR."""
-    document: PostV2RouterOcrDocumentTypedDict
+    document: DocumentTypedDict
     r"""Document to run OCR on. Can be a DocumentURLChunk or ImageURLChunk."""
     pages: NotRequired[Nullable[List[int]]]
     r"""Specific pages to process. Can be a single number, range, or list. Starts from 0. Null for all pages."""
@@ -190,7 +190,7 @@ class PostV2RouterOcrRequestBody(BaseModel):
     model: str
     r"""ID of the model to use for OCR."""
 
-    document: PostV2RouterOcrDocument
+    document: Document
     r"""Document to run OCR on. Can be a DocumentURLChunk or ImageURLChunk."""
 
     pages: OptionalNullable[List[int]] = UNSET

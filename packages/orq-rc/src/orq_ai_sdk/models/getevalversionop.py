@@ -19,3 +19,11 @@ class GetEvalVersionRequest(BaseModel):
     version_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+
+
+class GetEvalVersionResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+
+class GetEvalVersionResponseBody(BaseModel):
+    r"""OK"""

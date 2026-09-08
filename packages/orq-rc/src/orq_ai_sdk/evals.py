@@ -228,7 +228,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
         Create a new evaluator in the workspace.
@@ -302,7 +302,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -322,7 +322,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
         Create a new evaluator in the workspace.
@@ -396,7 +396,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -414,7 +414,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.GetEvalResponseBody:
         r"""Retrieve an Evaluator
 
         Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
@@ -485,7 +485,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -503,7 +503,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.GetEvalResponseBody:
         r"""Retrieve an Evaluator
 
         Retrieve a single evaluator by ID with more detail than the list endpoint: full type-specific config, owner, domain_id, metadata, enabled, and output_type.
@@ -574,7 +574,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.GetEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -773,7 +773,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
 
         Update an evaluator by ID with the provided fields.
@@ -851,7 +851,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -872,7 +872,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EvaluatorDocumentResponse:
+    ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
 
         Update an evaluator by ID with the provided fields.
@@ -950,7 +950,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.EvaluatorDocumentResponse, http_res)
+            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1169,7 +1169,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvaluatorVersionResponse:
+    ) -> models.GetEvalVersionResponseBody:
         r"""Get evaluator version
 
         Returns a specific version of an evaluator.
@@ -1246,7 +1246,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvaluatorVersionResponse, http_res)
+            return unmarshal_json_response(models.GetEvalVersionResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1265,7 +1265,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetEvaluatorVersionResponse:
+    ) -> models.GetEvalVersionResponseBody:
         r"""Get evaluator version
 
         Returns a specific version of an evaluator.
@@ -1342,7 +1342,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.GetEvaluatorVersionResponse, http_res)
+            return unmarshal_json_response(models.GetEvalVersionResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1375,7 +1375,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InvokeEvaluatorResponse:
+    ) -> models.EvaluationResult:
         r"""Invoke a Custom Evaluator
 
         Runs an evaluator that already exists in the workspace. Accepts either a conversation or the structured input and output fields; when both are present the conversation wins.
@@ -1510,7 +1510,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InvokeEvaluatorResponse, http_res)
+            return unmarshal_json_response(models.EvaluationResult, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1543,7 +1543,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.InvokeEvaluatorResponse:
+    ) -> models.EvaluationResult:
         r"""Invoke a Custom Evaluator
 
         Runs an evaluator that already exists in the workspace. Accepts either a conversation or the structured input and output fields; when both are present the conversation wins.
@@ -1678,7 +1678,7 @@ class Evals(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.InvokeEvaluatorResponse, http_res)
+            return unmarshal_json_response(models.EvaluationResult, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

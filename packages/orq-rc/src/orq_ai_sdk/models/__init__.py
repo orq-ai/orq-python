@@ -1584,7 +1584,12 @@ if TYPE_CHECKING:
         Input2,
         Input2TypedDict,
     )
-    from .createevalop import CreateEvalRequestBody, CreateEvalRequestBodyTypedDict
+    from .createevalop import (
+        CreateEvalRequestBody,
+        CreateEvalRequestBodyTypedDict,
+        CreateEvalResponseBody,
+        CreateEvalResponseBodyTypedDict,
+    )
     from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
     from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
     from .createfilesystemfolderrequest import (
@@ -3044,12 +3049,6 @@ if TYPE_CHECKING:
         MessagesTypedDict,
     )
     from .evaluationresult import EvaluationResult, EvaluationResultTypedDict
-    from .evaluatordocumentresponse import (
-        Document,
-        DocumentTypedDict,
-        EvaluatorDocumentResponse,
-        EvaluatorDocumentResponseTypedDict,
-    )
     from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict, ExecuteOn
     from .executionnamedstreamingevent import (
         ExecutionNamedStreamingEvent,
@@ -3447,15 +3446,19 @@ if TYPE_CHECKING:
     )
     from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import GetChunksCountRequest, GetChunksCountRequestTypedDict
-    from .getevalop import GetEvalRequest, GetEvalRequestTypedDict
-    from .getevalsop import GetEvalsRequest, GetEvalsRequestTypedDict
-    from .getevaluatorversionresponse import (
-        GetEvaluatorVersionResponse,
-        GetEvaluatorVersionResponseDocument,
-        GetEvaluatorVersionResponseDocumentTypedDict,
-        GetEvaluatorVersionResponseTypedDict,
+    from .getevalop import (
+        GetEvalRequest,
+        GetEvalRequestTypedDict,
+        GetEvalResponseBody,
+        GetEvalResponseBodyTypedDict,
     )
-    from .getevalversionop import GetEvalVersionRequest, GetEvalVersionRequestTypedDict
+    from .getevalsop import GetEvalsRequest, GetEvalsRequestTypedDict
+    from .getevalversionop import (
+        GetEvalVersionRequest,
+        GetEvalVersionRequestTypedDict,
+        GetEvalVersionResponseBody,
+        GetEvalVersionResponseBodyTypedDict,
+    )
     from .getfilecontentresponse import (
         GetFileContentResponse,
         GetFileContentResponseTypedDict,
@@ -4020,10 +4023,6 @@ if TYPE_CHECKING:
         InvokeEvaluatorRequestMessages,
         InvokeEvaluatorRequestMessagesTypedDict,
         InvokeEvaluatorRequestTypedDict,
-    )
-    from .invokeevaluatorresponse import (
-        InvokeEvaluatorResponse,
-        InvokeEvaluatorResponseTypedDict,
     )
     from .ipallowlist import IPAllowlist, IPAllowlistTypedDict
     from .iprange import IPRange, IPRangeTypedDict
@@ -5251,6 +5250,7 @@ if TYPE_CHECKING:
     from .post_v2_router_ocrop import (
         Dimensions,
         DimensionsTypedDict,
+        Document,
         Document1,
         Document1TypedDict,
         Document2,
@@ -5258,15 +5258,14 @@ if TYPE_CHECKING:
         DocumentImageURL,
         DocumentImageURLTypedDict,
         DocumentType,
+        DocumentTypedDict,
         ImageURL2,
         ImageURL2TypedDict,
         OcrSettings,
         OcrSettingsTypedDict,
         Pages,
         PagesTypedDict,
-        PostV2RouterOcrDocument,
         PostV2RouterOcrDocumentType,
-        PostV2RouterOcrDocumentTypedDict,
         PostV2RouterOcrImages,
         PostV2RouterOcrImagesTypedDict,
         PostV2RouterOcrRequestBody,
@@ -7540,6 +7539,8 @@ if TYPE_CHECKING:
         UpdateEvalRequestBody,
         UpdateEvalRequestBodyTypedDict,
         UpdateEvalRequestTypedDict,
+        UpdateEvalResponseBody,
+        UpdateEvalResponseBodyTypedDict,
     )
     from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
     from .updatefileresponse import UpdateFileResponse, UpdateFileResponseTypedDict
@@ -9496,6 +9497,8 @@ __all__ = [
     "CreateEmbeddingResponseBodyTypedDict",
     "CreateEvalRequestBody",
     "CreateEvalRequestBodyTypedDict",
+    "CreateEvalResponseBody",
+    "CreateEvalResponseBodyTypedDict",
     "CreateFileRequest",
     "CreateFileRequestTypedDict",
     "CreateFileResponse",
@@ -10755,8 +10758,6 @@ __all__ = [
     "EvaluationsType",
     "EvaluationsTypedDict",
     "Evaluator",
-    "EvaluatorDocumentResponse",
-    "EvaluatorDocumentResponseTypedDict",
     "EvaluatorRef",
     "EvaluatorRefTypedDict",
     "EvaluatorTypedDict",
@@ -11147,14 +11148,14 @@ __all__ = [
     "GetChunksCountRequestTypedDict",
     "GetEvalRequest",
     "GetEvalRequestTypedDict",
+    "GetEvalResponseBody",
+    "GetEvalResponseBodyTypedDict",
     "GetEvalVersionRequest",
     "GetEvalVersionRequestTypedDict",
+    "GetEvalVersionResponseBody",
+    "GetEvalVersionResponseBodyTypedDict",
     "GetEvalsRequest",
     "GetEvalsRequestTypedDict",
-    "GetEvaluatorVersionResponse",
-    "GetEvaluatorVersionResponseDocument",
-    "GetEvaluatorVersionResponseDocumentTypedDict",
-    "GetEvaluatorVersionResponseTypedDict",
     "GetFileContentResponse",
     "GetFileContentResponseTypedDict",
     "GetFileResponse",
@@ -11747,8 +11748,6 @@ __all__ = [
     "InvokeEvaluatorRequestMessages",
     "InvokeEvaluatorRequestMessagesTypedDict",
     "InvokeEvaluatorRequestTypedDict",
-    "InvokeEvaluatorResponse",
-    "InvokeEvaluatorResponseTypedDict",
     "InvokeOptions",
     "InvokeOptionsTypedDict",
     "JSONObject",
@@ -12939,9 +12938,7 @@ __all__ = [
     "PostV2HumanEvalSetsResponseBodyFilterType",
     "PostV2HumanEvalSetsResponseBodyHumanReviewSetsFilterType",
     "PostV2HumanEvalSetsResponseBodyTypedDict",
-    "PostV2RouterOcrDocument",
     "PostV2RouterOcrDocumentType",
-    "PostV2RouterOcrDocumentTypedDict",
     "PostV2RouterOcrImages",
     "PostV2RouterOcrImagesTypedDict",
     "PostV2RouterOcrRequestBody",
@@ -15064,6 +15061,8 @@ __all__ = [
     "UpdateEvalRequestBody",
     "UpdateEvalRequestBodyTypedDict",
     "UpdateEvalRequestTypedDict",
+    "UpdateEvalResponseBody",
+    "UpdateEvalResponseBodyTypedDict",
     "UpdateFileRequest",
     "UpdateFileRequestTypedDict",
     "UpdateFileResponse",
@@ -17140,6 +17139,8 @@ _dynamic_imports: dict[str, str] = {
     "Input2TypedDict": ".createembeddingop",
     "CreateEvalRequestBody": ".createevalop",
     "CreateEvalRequestBodyTypedDict": ".createevalop",
+    "CreateEvalResponseBody": ".createevalop",
+    "CreateEvalResponseBodyTypedDict": ".createevalop",
     "CreateFileRequest": ".createfilerequest",
     "CreateFileRequestTypedDict": ".createfilerequest",
     "CreateFileResponse": ".createfileresponse",
@@ -18463,10 +18464,6 @@ _dynamic_imports: dict[str, str] = {
     "MessagesTypedDict": ".evaluationcontext",
     "EvaluationResult": ".evaluationresult",
     "EvaluationResultTypedDict": ".evaluationresult",
-    "Document": ".evaluatordocumentresponse",
-    "DocumentTypedDict": ".evaluatordocumentresponse",
-    "EvaluatorDocumentResponse": ".evaluatordocumentresponse",
-    "EvaluatorDocumentResponseTypedDict": ".evaluatordocumentresponse",
     "EvaluatorRef": ".evaluatorref",
     "EvaluatorRefTypedDict": ".evaluatorref",
     "ExecuteOn": ".evaluatorref",
@@ -18848,14 +18845,14 @@ _dynamic_imports: dict[str, str] = {
     "GetChunksCountRequestTypedDict": ".getchunkscountop",
     "GetEvalRequest": ".getevalop",
     "GetEvalRequestTypedDict": ".getevalop",
+    "GetEvalResponseBody": ".getevalop",
+    "GetEvalResponseBodyTypedDict": ".getevalop",
     "GetEvalsRequest": ".getevalsop",
     "GetEvalsRequestTypedDict": ".getevalsop",
-    "GetEvaluatorVersionResponse": ".getevaluatorversionresponse",
-    "GetEvaluatorVersionResponseDocument": ".getevaluatorversionresponse",
-    "GetEvaluatorVersionResponseDocumentTypedDict": ".getevaluatorversionresponse",
-    "GetEvaluatorVersionResponseTypedDict": ".getevaluatorversionresponse",
     "GetEvalVersionRequest": ".getevalversionop",
     "GetEvalVersionRequestTypedDict": ".getevalversionop",
+    "GetEvalVersionResponseBody": ".getevalversionop",
+    "GetEvalVersionResponseBodyTypedDict": ".getevalversionop",
     "GetFileContentResponse": ".getfilecontentresponse",
     "GetFileContentResponseTypedDict": ".getfilecontentresponse",
     "GetFileResponse": ".getfileresponse",
@@ -19379,8 +19376,6 @@ _dynamic_imports: dict[str, str] = {
     "InvokeEvaluatorRequestMessages": ".invokeevaluatorrequest",
     "InvokeEvaluatorRequestMessagesTypedDict": ".invokeevaluatorrequest",
     "InvokeEvaluatorRequestTypedDict": ".invokeevaluatorrequest",
-    "InvokeEvaluatorResponse": ".invokeevaluatorresponse",
-    "InvokeEvaluatorResponseTypedDict": ".invokeevaluatorresponse",
     "IPAllowlist": ".ipallowlist",
     "IPAllowlistTypedDict": ".ipallowlist",
     "IPRange": ".iprange",
@@ -20450,6 +20445,7 @@ _dynamic_imports: dict[str, str] = {
     "RequestBodyFilterType": ".post_v2_human_eval_setsop",
     "Dimensions": ".post_v2_router_ocrop",
     "DimensionsTypedDict": ".post_v2_router_ocrop",
+    "Document": ".post_v2_router_ocrop",
     "Document1": ".post_v2_router_ocrop",
     "Document1TypedDict": ".post_v2_router_ocrop",
     "Document2": ".post_v2_router_ocrop",
@@ -20457,15 +20453,14 @@ _dynamic_imports: dict[str, str] = {
     "DocumentImageURL": ".post_v2_router_ocrop",
     "DocumentImageURLTypedDict": ".post_v2_router_ocrop",
     "DocumentType": ".post_v2_router_ocrop",
+    "DocumentTypedDict": ".post_v2_router_ocrop",
     "ImageURL2": ".post_v2_router_ocrop",
     "ImageURL2TypedDict": ".post_v2_router_ocrop",
     "OcrSettings": ".post_v2_router_ocrop",
     "OcrSettingsTypedDict": ".post_v2_router_ocrop",
     "Pages": ".post_v2_router_ocrop",
     "PagesTypedDict": ".post_v2_router_ocrop",
-    "PostV2RouterOcrDocument": ".post_v2_router_ocrop",
     "PostV2RouterOcrDocumentType": ".post_v2_router_ocrop",
-    "PostV2RouterOcrDocumentTypedDict": ".post_v2_router_ocrop",
     "PostV2RouterOcrImages": ".post_v2_router_ocrop",
     "PostV2RouterOcrImagesTypedDict": ".post_v2_router_ocrop",
     "PostV2RouterOcrRequestBody": ".post_v2_router_ocrop",
@@ -22512,6 +22507,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateEvalRequestBody": ".updateevalop",
     "UpdateEvalRequestBodyTypedDict": ".updateevalop",
     "UpdateEvalRequestTypedDict": ".updateevalop",
+    "UpdateEvalResponseBody": ".updateevalop",
+    "UpdateEvalResponseBodyTypedDict": ".updateevalop",
     "UpdateFileRequest": ".updatefilerequest",
     "UpdateFileRequestTypedDict": ".updatefilerequest",
     "UpdateFileResponse": ".updatefileresponse",

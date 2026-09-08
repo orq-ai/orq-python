@@ -28,3 +28,11 @@ class UpdateEvalRequest(BaseModel):
         UpdateEvalRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
+
+
+class UpdateEvalResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+
+class UpdateEvalResponseBody(BaseModel):
+    r"""OK"""
