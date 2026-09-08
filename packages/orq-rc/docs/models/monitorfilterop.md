@@ -1,0 +1,26 @@
+# MonitorFilterOp
+
+Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values.
+
+## Example Usage
+
+```python
+from orq_ai_sdk.models import MonitorFilterOp
+value: MonitorFilterOp = "eq"
+```
+
+
+## Values
+
+- `"eq"`
+- `"neq"`
+- `"in"`
+- `"not_in"`
+- `"gt"`
+- `"gte"`
+- `"lt"`
+- `"lte"`
+- `"between"`
+- `"contains"`
+- `"exists"`
+- `"not_exists"`

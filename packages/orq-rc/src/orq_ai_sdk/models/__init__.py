@@ -329,7 +329,12 @@ if TYPE_CHECKING:
     )
     from .budgetdeleteop import BudgetDeleteRequest, BudgetDeleteRequestTypedDict
     from .budgetgetop import BudgetGetRequest, BudgetGetRequestTypedDict
-    from .budgetlimit import BudgetLimit, BudgetLimitTypedDict, Currency, Period
+    from .budgetlimit import (
+        BudgetLimit,
+        BudgetLimitCurrency,
+        BudgetLimitTypedDict,
+        Period,
+    )
     from .budgetlimits import BudgetLimits, BudgetLimitsTypedDict
     from .budgetlimitsrestresponse import (
         BudgetLimitsRestResponse,
@@ -3117,7 +3122,7 @@ if TYPE_CHECKING:
         FileSystemToolInputTypedDict,
     )
     from .fileupdateop import FileUpdateRequest, FileUpdateRequestTypedDict
-    from .filter_ import FieldT, Filter, FilterOp, FilterTypedDict
+    from .filter_ import FieldT, Filter, FilterTypedDict, Op
     from .findlogpatternsmeta import FindLogPatternsMeta, FindLogPatternsMetaTypedDict
     from .findlogpatternsrequest import (
         FindLogPatternsRequest,
@@ -4973,7 +4978,7 @@ if TYPE_CHECKING:
     )
     from .modelprovider import ModelProvider, ModelProviderTypedDict
     from .modelref import ModelRef, ModelRefTypedDict
-    from .modelsconfig import Mode, ModelsConfig, ModelsConfigTypedDict
+    from .modelsconfig import ModelsConfig, ModelsConfigMode, ModelsConfigTypedDict
     from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
     from .modelupdateawsbedrockop import (
         ModelUpdateAwsBedrockRequest,
@@ -5007,7 +5012,7 @@ if TYPE_CHECKING:
         ModelValidateRequestBody,
         ModelValidateRequestBodyTypedDict,
     )
-    from .monitorfilter import MonitorFilter, MonitorFilterTypedDict, Op
+    from .monitorfilter import MonitorFilter, MonitorFilterOp, MonitorFilterTypedDict
     from .movefileop import MoveFileRequest, MoveFileRequestTypedDict
     from .movefilesystemfilerequest import (
         MoveFileSystemFileRequest,
@@ -5381,8 +5386,8 @@ if TYPE_CHECKING:
         Grain,
         GroupBy,
         Metric,
+        Mode,
         QueryReportRequest,
-        QueryReportRequestMode,
         QueryReportRequestTypedDict,
         Sort,
     )
@@ -5659,9 +5664,9 @@ if TYPE_CHECKING:
         ResponseMCPListToolsInProgressStreamEventTypedDict,
     )
     from .responsemeta import (
+        Currency,
         EffectiveGrain,
         ResponseMeta,
-        ResponseMetaCurrency,
         ResponseMetaTypedDict,
     )
     from .responseoutputitemaddedstreamevent import (
@@ -8521,6 +8526,7 @@ __all__ = [
     "BudgetGetRequest",
     "BudgetGetRequestTypedDict",
     "BudgetLimit",
+    "BudgetLimitCurrency",
     "BudgetLimitTypedDict",
     "BudgetLimits",
     "BudgetLimitsRestResponse",
@@ -10885,7 +10891,6 @@ __all__ = [
     "FilterByOr",
     "FilterByOrTypedDict",
     "FilterByTypedDict",
-    "FilterOp",
     "FilterType",
     "FilterTypedDict",
     "Filters",
@@ -12699,9 +12704,11 @@ __all__ = [
     "ModelValidateRequestBody",
     "ModelValidateRequestBodyTypedDict",
     "ModelsConfig",
+    "ModelsConfigMode",
     "ModelsConfigTypedDict",
     "Moderation",
     "MonitorFilter",
+    "MonitorFilterOp",
     "MonitorFilterTypedDict",
     "MoveFileRequest",
     "MoveFileRequestTypedDict",
@@ -13073,7 +13080,6 @@ __all__ = [
     "QueryParamsSort",
     "QueryParamsSortTypedDict",
     "QueryReportRequest",
-    "QueryReportRequestMode",
     "QueryReportRequestTypedDict",
     "QueryReportResponse",
     "QueryReportResponseObject",
@@ -13363,7 +13369,6 @@ __all__ = [
     "ResponseMCPListToolsInProgressStreamEventType",
     "ResponseMCPListToolsInProgressStreamEventTypedDict",
     "ResponseMeta",
-    "ResponseMetaCurrency",
     "ResponseMetaTypedDict",
     "ResponseOutputItemAddedStreamEvent",
     "ResponseOutputItemAddedStreamEventType",
@@ -15931,8 +15936,8 @@ _dynamic_imports: dict[str, str] = {
     "BudgetGetRequest": ".budgetgetop",
     "BudgetGetRequestTypedDict": ".budgetgetop",
     "BudgetLimit": ".budgetlimit",
+    "BudgetLimitCurrency": ".budgetlimit",
     "BudgetLimitTypedDict": ".budgetlimit",
-    "Currency": ".budgetlimit",
     "Period": ".budgetlimit",
     "BudgetLimits": ".budgetlimits",
     "BudgetLimitsTypedDict": ".budgetlimits",
@@ -18536,8 +18541,8 @@ _dynamic_imports: dict[str, str] = {
     "FileUpdateRequestTypedDict": ".fileupdateop",
     "FieldT": ".filter_",
     "Filter": ".filter_",
-    "FilterOp": ".filter_",
     "FilterTypedDict": ".filter_",
+    "Op": ".filter_",
     "FindLogPatternsMeta": ".findlogpatternsmeta",
     "FindLogPatternsMetaTypedDict": ".findlogpatternsmeta",
     "FindLogPatternsRequest": ".findlogpatternsrequest",
@@ -20201,8 +20206,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelProviderTypedDict": ".modelprovider",
     "ModelRef": ".modelref",
     "ModelRefTypedDict": ".modelref",
-    "Mode": ".modelsconfig",
     "ModelsConfig": ".modelsconfig",
+    "ModelsConfigMode": ".modelsconfig",
     "ModelsConfigTypedDict": ".modelsconfig",
     "ModelSharingConfig": ".modelsharingconfig",
     "ModelSharingConfigTypedDict": ".modelsharingconfig",
@@ -20229,8 +20234,8 @@ _dynamic_imports: dict[str, str] = {
     "ModelValidateRequestBody": ".modelvalidateop",
     "ModelValidateRequestBodyTypedDict": ".modelvalidateop",
     "MonitorFilter": ".monitorfilter",
+    "MonitorFilterOp": ".monitorfilter",
     "MonitorFilterTypedDict": ".monitorfilter",
-    "Op": ".monitorfilter",
     "MoveFileRequest": ".movefileop",
     "MoveFileRequestTypedDict": ".movefileop",
     "MoveFileSystemFileRequest": ".movefilesystemfilerequest",
@@ -20563,8 +20568,8 @@ _dynamic_imports: dict[str, str] = {
     "Grain": ".queryreportrequest",
     "GroupBy": ".queryreportrequest",
     "Metric": ".queryreportrequest",
+    "Mode": ".queryreportrequest",
     "QueryReportRequest": ".queryreportrequest",
-    "QueryReportRequestMode": ".queryreportrequest",
     "QueryReportRequestTypedDict": ".queryreportrequest",
     "Sort": ".queryreportrequest",
     "QueryReportResponse": ".queryreportresponse",
@@ -20754,9 +20759,9 @@ _dynamic_imports: dict[str, str] = {
     "ResponseMCPListToolsInProgressStreamEvent": ".responsemcplisttoolsinprogressstreamevent",
     "ResponseMCPListToolsInProgressStreamEventType": ".responsemcplisttoolsinprogressstreamevent",
     "ResponseMCPListToolsInProgressStreamEventTypedDict": ".responsemcplisttoolsinprogressstreamevent",
+    "Currency": ".responsemeta",
     "EffectiveGrain": ".responsemeta",
     "ResponseMeta": ".responsemeta",
-    "ResponseMetaCurrency": ".responsemeta",
     "ResponseMetaTypedDict": ".responsemeta",
     "ResponseOutputItemAddedStreamEvent": ".responseoutputitemaddedstreamevent",
     "ResponseOutputItemAddedStreamEventType": ".responseoutputitemaddedstreamevent",

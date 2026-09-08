@@ -82,6 +82,9 @@ class Orq(BaseSDK):
     memory_stores: "MemoryStores"
     evals: "Evals"
     pii: "Pii"
+    logs: "Logs"
+    reporting: "Reporting"
+    traces: "Traces"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
@@ -109,9 +112,6 @@ class Orq(BaseSDK):
     workspace_settings: "WorkspaceSettingsSDK"
     schedules: "Schedules"
     responses: "Responses"
-    logs: "Logs"
-    reporting: "Reporting"
-    traces: "Traces"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
@@ -128,6 +128,9 @@ class Orq(BaseSDK):
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
+        "logs": ("orq_ai_sdk.logs", "Logs"),
+        "reporting": ("orq_ai_sdk.reporting", "Reporting"),
+        "traces": ("orq_ai_sdk.traces", "Traces"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
@@ -158,9 +161,6 @@ class Orq(BaseSDK):
         ),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
-        "logs": ("orq_ai_sdk.logs", "Logs"),
-        "reporting": ("orq_ai_sdk.reporting", "Reporting"),
-        "traces": ("orq_ai_sdk.traces", "Traces"),
     }
 
     def __init__(
