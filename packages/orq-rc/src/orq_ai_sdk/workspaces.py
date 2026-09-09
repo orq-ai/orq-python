@@ -397,6 +397,9 @@ class Workspaces(BaseSDK):
             ]
         ] = None,
         enforce_enabled_models: Optional[bool] = None,
+        chat_kit: Optional[
+            Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -413,6 +416,7 @@ class Workspaces(BaseSDK):
         :param settings:
         :param metadata:
         :param enforce_enabled_models:
+        :param chat_kit:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -444,6 +448,9 @@ class Workspaces(BaseSDK):
                     metadata, Optional[models.UpdateWorkspaceRequestMetadata]
                 ),
                 enforce_enabled_models=enforce_enabled_models,
+                chat_kit=utils.get_pydantic_model(
+                    chat_kit, Optional[models.ChatKitResources]
+                ),
             ),
         )
 
@@ -526,6 +533,9 @@ class Workspaces(BaseSDK):
             ]
         ] = None,
         enforce_enabled_models: Optional[bool] = None,
+        chat_kit: Optional[
+            Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -542,6 +552,7 @@ class Workspaces(BaseSDK):
         :param settings:
         :param metadata:
         :param enforce_enabled_models:
+        :param chat_kit:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -573,6 +584,9 @@ class Workspaces(BaseSDK):
                     metadata, Optional[models.UpdateWorkspaceRequestMetadata]
                 ),
                 enforce_enabled_models=enforce_enabled_models,
+                chat_kit=utils.get_pydantic_model(
+                    chat_kit, Optional[models.ChatKitResources]
+                ),
             ),
         )
 

@@ -367,6 +367,8 @@ if TYPE_CHECKING:
         CapabilitiesResponse,
         CapabilitiesResponseTypedDict,
     )
+    from .chatkitresource import ChatKitResource, ChatKitResourceTypedDict
+    from .chatkitresources import ChatKitResources, ChatKitResourcesTypedDict
     from .chunk import Chunk, ChunkTypedDict
     from .chunkingcleanupoptions import (
         ChunkingCleanupOptions,
@@ -8569,6 +8571,10 @@ __all__ = [
     "CategoryAppliedInputTypesTypedDict",
     "CategoryScores",
     "CategoryScoresTypedDict",
+    "ChatKitResource",
+    "ChatKitResourceTypedDict",
+    "ChatKitResources",
+    "ChatKitResourcesTypedDict",
     "Choice",
     "ChoiceTypedDict",
     "Choices",
@@ -15969,6 +15975,10 @@ _dynamic_imports: dict[str, str] = {
     "CallSubAgentToolInputTypedDict": ".callsubagenttoolinput",
     "CapabilitiesResponse": ".capabilitiesresponse",
     "CapabilitiesResponseTypedDict": ".capabilitiesresponse",
+    "ChatKitResource": ".chatkitresource",
+    "ChatKitResourceTypedDict": ".chatkitresource",
+    "ChatKitResources": ".chatkitresources",
+    "ChatKitResourcesTypedDict": ".chatkitresources",
     "Chunk": ".chunk",
     "ChunkTypedDict": ".chunk",
     "ChunkingCleanupOptions": ".chunkingcleanupoptions",
