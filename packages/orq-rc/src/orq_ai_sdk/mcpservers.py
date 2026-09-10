@@ -1352,17 +1352,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orquesta-web is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
                         },
                         {
                             "label": "Node.js - Test a single tool",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orquesta-web is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
                         },
                     ],
                 },
@@ -1483,17 +1483,17 @@ class McpServers(BaseSDK):
                         {
                             "label": "Core - Test a single tool",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orquesta-web is:open label:bug" }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-servers/01JQ0K5R8N2ZC7X4M9T3V6HWBD/tools:test\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "tool_name": "search_issues",\n    "arguments": { "query": "repo:orq-ai/orq-cli is:open label:bug" }\n  }\'\n',
                         },
                         {
                             "label": "Python - Test a single tool",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orquesta-web is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\n# tool_name is the upstream name, not a gateway\'s namespaced exposed_name.\nresult = client.mcp_servers.test_tool(\n    id="01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n    tool_name="search_issues",\n    arguments={"query": "repo:orq-ai/orq-cli is:open label:bug"},\n)\n\nprint(result.result.ok, result.result.latency_ms)\n',
                         },
                         {
                             "label": "Node.js - Test a single tool",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orquesta-web is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\n// toolName is the upstream name, not a gateway's namespaced exposedName.\nconst { result } = await client.mcpServers.testTool({\n  id: '01JQ0K5R8N2ZC7X4M9T3V6HWBD',\n  toolName: 'search_issues',\n  arguments: { query: 'repo:orq-ai/orq-cli is:open label:bug' },\n});\n\nconsole.log(result.ok, result.latencyMs);\n",
                         },
                     ],
                 },
