@@ -27,7 +27,7 @@ class ListDatasourcesRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
-    limit: NotRequired[float]
+    limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     status: NotRequired[QueryParamStatusTypedDict]
     r"""Filter datasources by status."""
@@ -58,7 +58,7 @@ class ListDatasourcesRequest(BaseModel):
     r"""Search query to find datasources by name."""
 
     limit: Annotated[
-        Optional[float],
+        Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 50
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
