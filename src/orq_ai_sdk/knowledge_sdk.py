@@ -1095,7 +1095,7 @@ class KnowledgeSDK(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        limit: Optional[float] = 50,
+        limit: Optional[int] = 50,
         status: Optional[
             Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
@@ -1213,7 +1213,7 @@ class KnowledgeSDK(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        limit: Optional[float] = 50,
+        limit: Optional[int] = 50,
         status: Optional[
             Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
