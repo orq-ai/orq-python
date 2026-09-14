@@ -101,7 +101,7 @@ class AuditLogs(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url https://api.orq.ai/v2/audit-logs/query \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header "Content-Type: application/json" \\\n  --data \'{\n    "filters": {\n      "operator": "and",\n      "filters": [\n        {\n          "type": "string",\n          "path": "entity_type",\n          "operator": "is",\n          "value": "skill"\n        }\n      ]\n    },\n    "pagination": {\n      "limit": 20\n    },\n    "sorting": [\n      {\n        "key": "created_at",\n        "direction": "desc"\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url https://my.orq.ai/v2/audit-logs/query \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header "Content-Type: application/json" \\\n  --data \'{\n    "filters": {\n      "operator": "and",\n      "filters": [\n        {\n          "type": "string",\n          "path": "entity_type",\n          "operator": "is",\n          "value": "skill"\n        }\n      ]\n    },\n    "pagination": {\n      "limit": 20\n    },\n    "sorting": [\n      {\n        "key": "created_at",\n        "direction": "desc"\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "TypeScript",
@@ -218,7 +218,7 @@ class AuditLogs(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url https://api.orq.ai/v2/audit-logs/query \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header "Content-Type: application/json" \\\n  --data \'{\n    "filters": {\n      "operator": "and",\n      "filters": [\n        {\n          "type": "string",\n          "path": "entity_type",\n          "operator": "is",\n          "value": "skill"\n        }\n      ]\n    },\n    "pagination": {\n      "limit": 20\n    },\n    "sorting": [\n      {\n        "key": "created_at",\n        "direction": "desc"\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url https://my.orq.ai/v2/audit-logs/query \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header "Content-Type: application/json" \\\n  --data \'{\n    "filters": {\n      "operator": "and",\n      "filters": [\n        {\n          "type": "string",\n          "path": "entity_type",\n          "operator": "is",\n          "value": "skill"\n        }\n      ]\n    },\n    "pagination": {\n      "limit": 20\n    },\n    "sorting": [\n      {\n        "key": "created_at",\n        "direction": "desc"\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "TypeScript",

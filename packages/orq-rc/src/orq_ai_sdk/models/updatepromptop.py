@@ -1232,7 +1232,7 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     messages: NotRequired[List[UpdatePromptMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdatePromptAudioTypedDict]]
@@ -1314,7 +1314,7 @@ class UpdatePromptPromptInput(BaseModel):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
     model: OptionalNullable[str] = UNSET
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""

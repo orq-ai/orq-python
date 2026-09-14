@@ -1484,7 +1484,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Core - Run an evaluator",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Run an evaluator",
@@ -1499,7 +1499,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
                         },
                     ],
                 },
@@ -1652,7 +1652,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Core - Run an evaluator",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "input": {\n        "user_query": "What is the capital of France?",\n        "expected_output": "Paris",\n        "retrievals": ["The capital of France is Paris."]\n      },\n      "output": {\n        "response": "The capital of France is Paris."\n      },\n      "variables": {\n        "tone": "formal"\n      }\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Run an evaluator",
@@ -1667,7 +1667,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
                             "lang": "curl",
-                            "source": 'curl \'https://api.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
+                            "source": 'curl \'https://my.orq.ai/v3/evaluators/01KT1FCSA8N3YD1K8YBPVTAV9E/invoke\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data-raw \'{\n    "context": {\n      "messages": [\n        {"role": "user", "content": "What is the capital of France?"},\n        {"role": "assistant", "content": "The capital of France is Paris."}\n      ],\n      "input": {\n        "expected_output": "Paris"\n      }\n    }\n  }\'\n',
                         },
                     ],
                 },

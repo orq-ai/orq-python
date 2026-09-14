@@ -948,7 +948,7 @@ CreateCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 CreateCompletionFilterBy = TypeAliasType(
@@ -959,7 +959,7 @@ CreateCompletionFilterBy = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 class CreateCompletionSearchOptionsTypedDict(TypedDict):
@@ -1006,7 +1006,7 @@ class CreateCompletionRerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
@@ -1017,7 +1017,7 @@ class CreateCompletionRerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
 
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -1046,14 +1046,14 @@ class CreateCompletionAgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateCompletionAgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
@@ -1066,7 +1066,7 @@ class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[Nullable[CreateCompletionSearchType]]
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
     search_options: NotRequired[CreateCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateCompletionRerankConfigTypedDict]
@@ -1091,7 +1091,7 @@ class CreateCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
     search_options: Optional[CreateCompletionSearchOptions] = None
     r"""Additional search options"""

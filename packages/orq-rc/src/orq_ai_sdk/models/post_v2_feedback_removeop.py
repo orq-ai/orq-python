@@ -27,6 +27,7 @@ PostV2FeedbackRemoveProduct = Literal[
     "evaluators",
     "otel",
     "ai-chat",
+    "mcp_gateway",
 ]
 
 
@@ -84,6 +85,7 @@ PostV2FeedbackRemoveFeedbackProduct = Literal[
     "evaluators",
     "otel",
     "ai-chat",
+    "mcp_gateway",
 ]
 
 

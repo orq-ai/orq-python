@@ -29,3 +29,4 @@ value: ToolExecutionFailedStreamingEventProduct = "remoteconfigs"
 - `"evaluators"`
 - `"otel"`
 - `"ai-chat"`
+- `"mcp_gateway"`
