@@ -31,9 +31,9 @@ class Logs(BaseSDK):
 
         :param from_:
         :param to:
-        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
-            libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
-            defaults to \"auto\" (grain picked from the time range).
+        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
+            grain from the requested time range. Empty returns rows without time
+            buckets.
         :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -138,9 +138,9 @@ class Logs(BaseSDK):
 
         :param from_:
         :param to:
-        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
-            libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
-            defaults to \"auto\" (grain picked from the time range).
+        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
+            grain from the requested time range. Empty returns rows without time
+            buckets.
         :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

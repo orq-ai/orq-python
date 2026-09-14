@@ -30,7 +30,7 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponse:
         r"""List budgets
 
-        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
+        Returns budgets visible to the current workspace, ordered by most recently updated with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that matches scope target names and ids. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `budget_id` of the last
@@ -43,9 +43,8 @@ class Budgets(BaseSDK):
         :param is_active: Optional filter: only return budgets with this active state.
         :param period: Optional filter: only return budgets whose limits.period matches
             one of the listed values. Empty means no period filter.
-        :param query: Optional free-text query. Server translates this into a Typesense
-            search over the denormalized `scope_target_name` and id fields on
-            the per-workspace `{workspace_id}_budgets` collection.
+        :param query: Optional free-text query matched against a budget's scope target
+            name and id.
         :param sort_by: Field used to order the list. Unset orders by most-recently-updated.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -151,7 +150,7 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponse:
         r"""List budgets
 
-        Returns budgets visible to the current workspace, ordered by creation time with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that searches across denormalized target names via Typesense. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
+        Returns budgets visible to the current workspace, ordered by most recently updated with the newest first. Supports filtering by scope kind, scope target id, period, and active state, plus an optional free-text query that matches scope target names and ids. Requires a Management Key with the Budgets permission; project-scoped API keys cannot manage budgets.
 
         :param limit: Page size, 1–200. Unset uses the server default (25).
         :param starting_after: Cursor for forward pagination. Set to the `budget_id` of the last
@@ -164,9 +163,8 @@ class Budgets(BaseSDK):
         :param is_active: Optional filter: only return budgets with this active state.
         :param period: Optional filter: only return budgets whose limits.period matches
             one of the listed values. Empty means no period filter.
-        :param query: Optional free-text query. Server translates this into a Typesense
-            search over the denormalized `scope_target_name` and id fields on
-            the per-workspace `{workspace_id}_budgets` collection.
+        :param query: Optional free-text query matched against a budget's scope target
+            name and id.
         :param sort_by: Field used to order the list. Unset orders by most-recently-updated.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

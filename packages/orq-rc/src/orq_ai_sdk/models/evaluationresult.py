@@ -8,12 +8,10 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class EvaluationResultTypedDict(TypedDict):
-    r"""The verdict. Shaped to match WorkflowRunMinifiedEvalSchema, the body the
-    TypeScript route returned, so existing consumers read the same JSON.
-    """
+    r"""The verdict. Its shape is fixed so existing consumers read the same JSON."""
 
     type: NotRequired[str]
-    r"""Discriminator, matching the legacy union: \"string\", \"number\", \"boolean\",
+    r"""Discriminator for the verdict shape: \"string\", \"number\", \"boolean\",
     \"string_array\", \"rouge_n\", \"bert_score\", \"llm_evaluator\", \"http_eval\".
     """
     value: NotRequired[Any]
@@ -23,8 +21,7 @@ class EvaluationResultTypedDict(TypedDict):
     """
     trace_id: NotRequired[str]
     r"""Trace reference of the evaluator's own span. Optional so an absent
-    reference is omitted rather than emitted as an empty string, matching the
-    legacy body.
+    reference is omitted rather than emitted as an empty string.
     """
     span_id: NotRequired[str]
     evaluator_id: NotRequired[str]
@@ -35,8 +32,8 @@ class EvaluationResultTypedDict(TypedDict):
     """
     passed: NotRequired[bool]
     r"""The guardrail's decision when the evaluator has one, the grader's own
-    judgement otherwise. Always present — the endpoint this replaces omitted it
-    without a guardrail, so read `guardrail_config` to detect one, not this.
+    judgement otherwise. Always present, so read `guardrail_config` to detect
+    a guardrail, not this.
     """
     explanation: NotRequired[str]
     categories: NotRequired[List[str]]
@@ -50,12 +47,10 @@ class EvaluationResultTypedDict(TypedDict):
 
 
 class EvaluationResult(BaseModel):
-    r"""The verdict. Shaped to match WorkflowRunMinifiedEvalSchema, the body the
-    TypeScript route returned, so existing consumers read the same JSON.
-    """
+    r"""The verdict. Its shape is fixed so existing consumers read the same JSON."""
 
     type: Optional[str] = None
-    r"""Discriminator, matching the legacy union: \"string\", \"number\", \"boolean\",
+    r"""Discriminator for the verdict shape: \"string\", \"number\", \"boolean\",
     \"string_array\", \"rouge_n\", \"bert_score\", \"llm_evaluator\", \"http_eval\".
     """
 
@@ -67,8 +62,7 @@ class EvaluationResult(BaseModel):
 
     trace_id: Optional[str] = None
     r"""Trace reference of the evaluator's own span. Optional so an absent
-    reference is omitted rather than emitted as an empty string, matching the
-    legacy body.
+    reference is omitted rather than emitted as an empty string.
     """
 
     span_id: Optional[str] = None
@@ -83,8 +77,8 @@ class EvaluationResult(BaseModel):
 
     passed: Optional[bool] = None
     r"""The guardrail's decision when the evaluator has one, the grader's own
-    judgement otherwise. Always present — the endpoint this replaces omitted it
-    without a guardrail, so read `guardrail_config` to detect one, not this.
+    judgement otherwise. Always present, so read `guardrail_config` to detect
+    a guardrail, not this.
     """
 
     explanation: Optional[str] = None

@@ -1383,7 +1383,7 @@ class Evals(BaseSDK):
         :param id: Accepts a bare id, `id@version`, or `id@environment`.
         :param context: The data to grade. When `messages` is present it is the conversation and
             `input.user_query` is ignored; `output.response` is appended only when the
-            conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+            conversation carries no assistant turn.
         :param model: Model to grade with, as a catalog id such as \"openai/gpt-4o\".
 
             Only meaningful for a hub template of type llm_eval or ragas, which has no
@@ -1551,7 +1551,7 @@ class Evals(BaseSDK):
         :param id: Accepts a bare id, `id@version`, or `id@environment`.
         :param context: The data to grade. When `messages` is present it is the conversation and
             `input.user_query` is ignored; `output.response` is appended only when the
-            conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+            conversation carries no assistant turn.
         :param model: Model to grade with, as a catalog id such as \"openai/gpt-4o\".
 
             Only meaningful for a hub template of type llm_eval or ragas, which has no

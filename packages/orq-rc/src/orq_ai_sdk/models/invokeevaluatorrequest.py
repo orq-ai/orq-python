@@ -18,14 +18,14 @@ class InvokeEvaluatorRequestMessages(BaseModel):
 
 class InvokeEvaluatorRequestTypedDict(TypedDict):
     r"""Accepts two shapes. `context` names its fields after the template variables
-    they feed and is the one to use; the flat fields below are the legacy body,
-    folded into `context` when it is absent. Setting `context` wins.
+    they feed and is the one to use; the flat fields below are folded into
+    `context` when it is absent. Setting `context` wins.
     """
 
     context: NotRequired[EvaluationContextTypedDict]
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+    conversation carries no assistant turn.
     """
     model: NotRequired[str]
     r"""Model to grade with, as a catalog id such as \"openai/gpt-4o\".
@@ -58,14 +58,14 @@ class InvokeEvaluatorRequestTypedDict(TypedDict):
 
 class InvokeEvaluatorRequest(BaseModel):
     r"""Accepts two shapes. `context` names its fields after the template variables
-    they feed and is the one to use; the flat fields below are the legacy body,
-    folded into `context` when it is absent. Setting `context` wins.
+    they feed and is the one to use; the flat fields below are folded into
+    `context` when it is absent. Setting `context` wins.
     """
 
     context: Optional[EvaluationContext] = None
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+    conversation carries no assistant turn.
     """
 
     model: Optional[str] = None

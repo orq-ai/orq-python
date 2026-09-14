@@ -534,7 +534,7 @@ r"""The metadata filter to apply to the search. Check the [Searching a Knowledge
 
 class TwoTypedDict(TypedDict):
     model_db_id: str
-    r"""Internal database model identifier used by the retrieval testing UI."""
+    r"""Identifier of the stored model configuration to use."""
     provider: str
     r"""Provider identifier for the stored model configuration."""
     model: NotRequired[str]
@@ -545,7 +545,7 @@ class TwoTypedDict(TypedDict):
 
 class Two(BaseModel):
     model_db_id: str
-    r"""Internal database model identifier used by the retrieval testing UI."""
+    r"""Identifier of the stored model configuration to use."""
 
     provider: str
     r"""Provider identifier for the stored model configuration."""
@@ -586,7 +586,7 @@ class AgenticRagConfig1TypedDict(TypedDict):
     model: str
     r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
     model_db_id: NotRequired[str]
-    r"""Internal database model identifier used by the retrieval testing UI."""
+    r"""Identifier of the stored model configuration to use."""
     provider: NotRequired[str]
     r"""Provider identifier for the stored model configuration."""
     integration_id: NotRequired[Nullable[str]]
@@ -598,7 +598,7 @@ class AgenticRagConfig1(BaseModel):
     r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
 
     model_db_id: Optional[str] = None
-    r"""Internal database model identifier used by the retrieval testing UI."""
+    r"""Identifier of the stored model configuration to use."""
 
     provider: Optional[str] = None
     r"""Provider identifier for the stored model configuration."""
@@ -646,8 +646,8 @@ r"""Represents a dynamically typed value which can be either null, a number, a s
 
 
 class SearchKnowledgeRequestTypedDict(TypedDict):
-    r"""SearchKnowledgeRequest mirrors the existing public search body and adds the
-    internal retrieval configuration override used by the knowledge testing UI.
+    r"""Search request. Sets the knowledge base and query, plus optional retrieval
+    settings.
     """
 
     query: str
@@ -672,8 +672,8 @@ class SearchKnowledgeRequestTypedDict(TypedDict):
 
 
 class SearchKnowledgeRequest(BaseModel):
-    r"""SearchKnowledgeRequest mirrors the existing public search body and adds the
-    internal retrieval configuration override used by the knowledge testing UI.
+    r"""Search request. Sets the knowledge base and query, plus optional retrieval
+    settings.
     """
 
     query: str

@@ -111,7 +111,7 @@ class SearchRetrievalConfigRerankConfig(BaseModel):
 
 
 class SearchRetrievalConfigTypedDict(TypedDict):
-    r"""SearchRetrievalConfig mirrors RetrievalConfigInDatabaseSchema. Type remains
+    r"""SearchRetrievalConfig is the retrieval strategy configuration. Type remains
     optional because external knowledge bases use the same base configuration
     without a retrieval strategy discriminator.
     """
@@ -124,7 +124,7 @@ class SearchRetrievalConfigTypedDict(TypedDict):
 
 
 class SearchRetrievalConfig(BaseModel):
-    r"""SearchRetrievalConfig mirrors RetrievalConfigInDatabaseSchema. Type remains
+    r"""SearchRetrievalConfig is the retrieval strategy configuration. Type remains
     optional because external knowledge bases use the same base configuration
     without a retrieval strategy discriminator.
     """
