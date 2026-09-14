@@ -312,6 +312,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -346,6 +348,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -386,6 +390,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -488,6 +494,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -522,6 +530,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -562,6 +572,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -900,6 +912,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -932,6 +946,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -975,6 +991,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1076,6 +1094,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1108,6 +1128,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1151,6 +1173,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
