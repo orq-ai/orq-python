@@ -120,7 +120,7 @@ class KnowledgeSDK(BaseSDK):
             return unmarshal_json_response(
                 models.KnowledgeBasesServiceListResponse, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -239,7 +239,7 @@ class KnowledgeSDK(BaseSDK):
             return unmarshal_json_response(
                 models.KnowledgeBasesServiceListResponse, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -346,7 +346,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -453,7 +453,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -552,7 +552,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -651,7 +651,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -750,7 +750,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -849,7 +849,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -964,7 +964,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1079,7 +1079,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -4964,7 +4964,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchKnowledgeResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -5131,7 +5131,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchKnowledgeResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -5245,7 +5245,7 @@ class KnowledgeSDK(BaseSDK):
                 models.KnowledgeAPIErrorData, http_res
             )
             raise models.KnowledgeAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -5359,7 +5359,7 @@ class KnowledgeSDK(BaseSDK):
                 models.KnowledgeAPIErrorData, http_res
             )
             raise models.KnowledgeAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
