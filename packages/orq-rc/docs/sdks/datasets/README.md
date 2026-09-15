@@ -306,6 +306,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve_datapoint

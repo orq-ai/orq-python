@@ -12,7 +12,7 @@ class AuditLogFilterTypedDict(TypedDict):
     type: str
     r"""Filter value type, such as string, date, number, boolean, or array."""
     path: str
-    r"""Audit log field path to filter on. Supported paths include created_at, entity_id, entity_type, action, actor_id, and metadata.display_name."""
+    r"""Audit log field path to filter on. Supported paths include created_at, entity_id, entity_type, action, actor_id, origin, and metadata.display_name."""
     operator: str
     r"""Filter operator supported by the selected field type."""
     value: Any
@@ -26,7 +26,7 @@ class AuditLogFilter(BaseModel):
     r"""Filter value type, such as string, date, number, boolean, or array."""
 
     path: str
-    r"""Audit log field path to filter on. Supported paths include created_at, entity_id, entity_type, action, actor_id, and metadata.display_name."""
+    r"""Audit log field path to filter on. Supported paths include created_at, entity_id, entity_type, action, actor_id, origin, and metadata.display_name."""
 
     operator: str
     r"""Filter operator supported by the selected field type."""

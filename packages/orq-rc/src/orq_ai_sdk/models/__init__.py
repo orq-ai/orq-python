@@ -34,10 +34,6 @@ if TYPE_CHECKING:
         AddAnnotationQueueItemsRequest,
         AddAnnotationQueueItemsRequestTypedDict,
     )
-    from .addannotationqueueitemsresponse import (
-        AddAnnotationQueueItemsResponse,
-        AddAnnotationQueueItemsResponseTypedDict,
-    )
     from .addiprangerequest import AddIPRangeRequest, AddIPRangeRequestTypedDict
     from .addiprangeresponse import AddIPRangeResponse, AddIPRangeResponseTypedDict
     from .advisortoolinput import (
@@ -456,10 +452,6 @@ if TYPE_CHECKING:
     from .clearannotationqueueop import (
         ClearAnnotationQueueRequest,
         ClearAnnotationQueueRequestTypedDict,
-    )
-    from .clearannotationqueueresponse import (
-        ClearAnnotationQueueResponse,
-        ClearAnnotationQueueResponseTypedDict,
     )
     from .cleardatasetop import ClearDatasetRequest, ClearDatasetRequestTypedDict
     from .codeinterpretertoolinput import (
@@ -2561,10 +2553,6 @@ if TYPE_CHECKING:
     from .deleteannotationqueueop import (
         DeleteAnnotationQueueRequest,
         DeleteAnnotationQueueRequestTypedDict,
-    )
-    from .deleteannotationqueueresponse import (
-        DeleteAnnotationQueueResponse,
-        DeleteAnnotationQueueResponseTypedDict,
     )
     from .deletebudgetresponse import (
         DeleteBudgetResponse,
@@ -5450,10 +5438,6 @@ if TYPE_CHECKING:
         RemoveAnnotationQueueItemsRequest,
         RemoveAnnotationQueueItemsRequestTypedDict,
     )
-    from .removeannotationqueueitemsresponse import (
-        RemoveAnnotationQueueItemsResponse,
-        RemoveAnnotationQueueItemsResponseTypedDict,
-    )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
     from .rerankconfig import RerankConfig, RerankConfigTypedDict
     from .rerankmodelparameters import (
@@ -8241,8 +8225,6 @@ __all__ = [
     "AddAnnotationQueueItemsRequest1",
     "AddAnnotationQueueItemsRequest1TypedDict",
     "AddAnnotationQueueItemsRequestTypedDict",
-    "AddAnnotationQueueItemsResponse",
-    "AddAnnotationQueueItemsResponseTypedDict",
     "AddIPRangeRequest",
     "AddIPRangeRequestTypedDict",
     "AddIPRangeResponse",
@@ -8631,8 +8613,6 @@ __all__ = [
     "ChunksServiceUpdateRequestTypedDict",
     "ClearAnnotationQueueRequest",
     "ClearAnnotationQueueRequestTypedDict",
-    "ClearAnnotationQueueResponse",
-    "ClearAnnotationQueueResponseTypedDict",
     "ClearDatasetRequest",
     "ClearDatasetRequestTypedDict",
     "CodeExecutionTool",
@@ -10354,8 +10334,6 @@ __all__ = [
     "DeleteAnnotationMetadataTypedDict",
     "DeleteAnnotationQueueRequest",
     "DeleteAnnotationQueueRequestTypedDict",
-    "DeleteAnnotationQueueResponse",
-    "DeleteAnnotationQueueResponseTypedDict",
     "DeleteAnnotationRequest",
     "DeleteAnnotationRequestBody",
     "DeleteAnnotationRequestBodyTypedDict",
@@ -13135,8 +13113,6 @@ __all__ = [
     "RemoveAnnotationQueueItemsRequest1",
     "RemoveAnnotationQueueItemsRequest1TypedDict",
     "RemoveAnnotationQueueItemsRequestTypedDict",
-    "RemoveAnnotationQueueItemsResponse",
-    "RemoveAnnotationQueueItemsResponseTypedDict",
     "RequestBody",
     "RequestBody1",
     "RequestBody1TypedDict",
@@ -15669,8 +15645,6 @@ _dynamic_imports: dict[str, str] = {
     "AddAnnotationQueueItemsRequest1TypedDict": ".addannotationqueueitemsop",
     "AddAnnotationQueueItemsRequest": ".addannotationqueueitemsrequest",
     "AddAnnotationQueueItemsRequestTypedDict": ".addannotationqueueitemsrequest",
-    "AddAnnotationQueueItemsResponse": ".addannotationqueueitemsresponse",
-    "AddAnnotationQueueItemsResponseTypedDict": ".addannotationqueueitemsresponse",
     "AddIPRangeRequest": ".addiprangerequest",
     "AddIPRangeRequestTypedDict": ".addiprangerequest",
     "AddIPRangeResponse": ".addiprangeresponse",
@@ -16043,8 +16017,6 @@ _dynamic_imports: dict[str, str] = {
     "ChunksServiceUpdateRequestTypedDict": ".chunksserviceupdaterequest",
     "ClearAnnotationQueueRequest": ".clearannotationqueueop",
     "ClearAnnotationQueueRequestTypedDict": ".clearannotationqueueop",
-    "ClearAnnotationQueueResponse": ".clearannotationqueueresponse",
-    "ClearAnnotationQueueResponseTypedDict": ".clearannotationqueueresponse",
     "ClearDatasetRequest": ".cleardatasetop",
     "ClearDatasetRequestTypedDict": ".cleardatasetop",
     "CodeInterpreterToolInput": ".codeinterpretertoolinput",
@@ -18032,8 +18004,6 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
     "DeleteAnnotationQueueRequest": ".deleteannotationqueueop",
     "DeleteAnnotationQueueRequestTypedDict": ".deleteannotationqueueop",
-    "DeleteAnnotationQueueResponse": ".deleteannotationqueueresponse",
-    "DeleteAnnotationQueueResponseTypedDict": ".deleteannotationqueueresponse",
     "DeleteBudgetResponse": ".deletebudgetresponse",
     "DeleteBudgetResponseTypedDict": ".deletebudgetresponse",
     "DeleteChunkRequest": ".deletechunkop",
@@ -20629,8 +20599,6 @@ _dynamic_imports: dict[str, str] = {
     "RemoveAnnotationQueueItemsRequest1TypedDict": ".removeannotationqueueitemsop",
     "RemoveAnnotationQueueItemsRequest": ".removeannotationqueueitemsrequest",
     "RemoveAnnotationQueueItemsRequestTypedDict": ".removeannotationqueueitemsrequest",
-    "RemoveAnnotationQueueItemsResponse": ".removeannotationqueueitemsresponse",
-    "RemoveAnnotationQueueItemsResponseTypedDict": ".removeannotationqueueitemsresponse",
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",

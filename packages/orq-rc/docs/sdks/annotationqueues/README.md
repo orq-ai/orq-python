@@ -157,10 +157,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.annotation_queues.delete(annotation_queue_id="<id>")
+    orq.annotation_queues.delete(annotation_queue_id="<id>")
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
@@ -170,10 +169,6 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `annotation_queue_id`                                               | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.DeleteAnnotationQueueResponse](../../models/deleteannotationqueueresponse.md)**
 
 ### Errors
 
@@ -241,10 +236,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.annotation_queues.clear(annotation_queue_id="<id>")
+    orq.annotation_queues.clear(annotation_queue_id="<id>")
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
@@ -254,10 +248,6 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `annotation_queue_id`                                               | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ClearAnnotationQueueResponse](../../models/clearannotationqueueresponse.md)**
 
 ### Errors
 
@@ -346,7 +336,7 @@ with Orq(
 
 ### Response
 
-**[models.AddAnnotationQueueItemsResponse](../../models/addannotationqueueitemsresponse.md)**
+**[List[models.AnnotationQueueItem]](../../models/.md)**
 
 ### Errors
 
@@ -370,13 +360,12 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.annotation_queues.remove_items(annotation_queue_id="<id>", span_ids=[
+    orq.annotation_queues.remove_items(annotation_queue_id="<id>", span_ids=[
         "<value 1>",
         "<value 2>",
     ])
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 
 ```
 
@@ -387,10 +376,6 @@ with Orq(
 | `annotation_queue_id`                                                        | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
 | `span_ids`                                                                   | List[*str*]                                                                  | :heavy_check_mark:                                                           | The unique identifiers of the spans to be removed from the annotation queue. |
 | `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
-
-### Response
-
-**[models.RemoveAnnotationQueueItemsResponse](../../models/removeannotationqueueitemsresponse.md)**
 
 ### Errors
 

@@ -718,7 +718,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteAnnotationQueueResponse:
+    ):
         r"""Delete an annotation queue
 
         Deletes an annotation queue, its items, and the queue references stored on the annotated spans.
@@ -756,7 +756,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -808,10 +808,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.DeleteAnnotationQueueResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -829,7 +827,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteAnnotationQueueResponse:
+    ):
         r"""Delete an annotation queue
 
         Deletes an annotation queue, its items, and the queue references stored on the annotated spans.
@@ -867,7 +865,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -919,10 +917,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.DeleteAnnotationQueueResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1200,7 +1196,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ClearAnnotationQueueResponse:
+    ):
         r"""Clear an annotation queue
 
         Removes every item from the annotation queue without deleting the queue itself.
@@ -1238,7 +1234,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1290,10 +1286,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.ClearAnnotationQueueResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1311,7 +1305,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ClearAnnotationQueueResponse:
+    ):
         r"""Clear an annotation queue
 
         Removes every item from the annotation queue without deleting the queue itself.
@@ -1349,7 +1343,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1401,10 +1395,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.ClearAnnotationQueueResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1666,7 +1658,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AddAnnotationQueueItemsResponse:
+    ) -> List[models.AnnotationQueueItem]:
         r"""Add items to an annotation queue
 
         Adds spans to the annotation queue. Spans already present are skipped; the response contains only the newly created items.
@@ -1770,9 +1762,7 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.AddAnnotationQueueItemsResponse, http_res
-            )
+            return unmarshal_json_response(List[models.AnnotationQueueItem], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1794,7 +1784,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AddAnnotationQueueItemsResponse:
+    ) -> List[models.AnnotationQueueItem]:
         r"""Add items to an annotation queue
 
         Adds spans to the annotation queue. Spans already present are skipped; the response contains only the newly created items.
@@ -1898,9 +1888,7 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.AddAnnotationQueueItemsResponse, http_res
-            )
+            return unmarshal_json_response(List[models.AnnotationQueueItem], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1919,7 +1907,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RemoveAnnotationQueueItemsResponse:
+    ):
         r"""Remove items from an annotation queue
 
         Removes the referenced spans from the annotation queue.
@@ -1961,7 +1949,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -2020,10 +2008,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RemoveAnnotationQueueItemsResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2042,7 +2028,7 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RemoveAnnotationQueueItemsResponse:
+    ):
         r"""Remove items from an annotation queue
 
         Removes the referenced spans from the annotation queue.
@@ -2084,7 +2070,7 @@ class AnnotationQueues(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
@@ -2143,10 +2129,8 @@ class AnnotationQueues(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RemoveAnnotationQueueItemsResponse, http_res
-            )
+        if utils.match_response(http_res, "204", "*"):
+            return
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

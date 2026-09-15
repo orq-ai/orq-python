@@ -934,7 +934,7 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 296 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 13 of 296 methods.*
 * [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 296 methods.*
 * [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 296 methods.*
 * [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 296 methods.*
