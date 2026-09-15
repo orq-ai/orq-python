@@ -54,7 +54,7 @@ with Orq(
 
 ## create
 
-Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access.
+Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
 
 ### Example Usage
 
@@ -136,7 +136,7 @@ with Orq(
 
 ## delete
 
-Deletes a project from the workspace. The response body is empty when the delete succeeds.
+Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
 
 ### Example Usage
 
@@ -176,7 +176,7 @@ with Orq(
 
 ## update
 
-Updates the specified project by setting the values of the parameters passed.
+Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
 
 ### Example Usage
 

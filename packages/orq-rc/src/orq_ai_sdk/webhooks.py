@@ -1150,7 +1150,7 @@ class Webhooks(BaseSDK):
     ) -> models.Webhook:
         r"""Retrieve a webhook
 
-        Retrieves a webhook in the current workspace by ID. The response includes its signing secret; treat it as sensitive.
+        Retrieves a webhook in the current workspace by ID. The signing secret is returned masked; it is only shown in full when the webhook is created.
 
         :param id:
         :param retries: Override the default retry configuration for this method
@@ -1247,7 +1247,7 @@ class Webhooks(BaseSDK):
     ) -> models.Webhook:
         r"""Retrieve a webhook
 
-        Retrieves a webhook in the current workspace by ID. The response includes its signing secret; treat it as sensitive.
+        Retrieves a webhook in the current workspace by ID. The signing secret is returned masked; it is only shown in full when the webhook is created.
 
         :param id:
         :param retries: Override the default retry configuration for this method

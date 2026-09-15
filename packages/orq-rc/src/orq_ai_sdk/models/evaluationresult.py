@@ -26,8 +26,8 @@ class EvaluationResultTypedDict(TypedDict):
     span_id: NotRequired[str]
     evaluator_id: NotRequired[str]
     status: NotRequired[str]
-    r"""How the run ended, as distinct from `passed`: \"passed\", \"condition_failed\" 
-    or \"timed_out\". A string, not an enum, because the engine owns the
+    r"""How the run ended, as distinct from `passed`: \"passed\", \"condition_failed\",
+    \"failed\" or \"timed_out\". A string, not an enum, because the engine owns the
     vocabulary.
     """
     passed: NotRequired[bool]
@@ -70,8 +70,8 @@ class EvaluationResult(BaseModel):
     evaluator_id: Optional[str] = None
 
     status: Optional[str] = None
-    r"""How the run ended, as distinct from `passed`: \"passed\", \"condition_failed\" 
-    or \"timed_out\". A string, not an enum, because the engine owns the
+    r"""How the run ended, as distinct from `passed`: \"passed\", \"condition_failed\",
+    \"failed\" or \"timed_out\". A string, not an enum, because the engine owns the
     vocabulary.
     """
 
