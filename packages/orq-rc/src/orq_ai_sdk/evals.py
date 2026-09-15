@@ -1364,12 +1364,7 @@ class Evals(BaseSDK):
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
-        messages: Optional[
-            Union[
-                Iterable[models.InvokeEvaluatorRequestMessages],
-                Iterable[models.InvokeEvaluatorRequestMessagesTypedDict],
-            ]
-        ] = None,
+        messages: Optional[Iterable[Mapping[str, Any]]] = None,
         variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1428,9 +1423,7 @@ class Evals(BaseSDK):
                 output=output,
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvaluatorRequestMessages]]
-                ),
+                messages=utils.unmarshal(messages, Optional[List[Dict[str, Any]]]),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             ),
         )
@@ -1494,7 +1487,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
@@ -1532,12 +1525,7 @@ class Evals(BaseSDK):
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[Iterable[str]] = None,
-        messages: Optional[
-            Union[
-                Iterable[models.InvokeEvaluatorRequestMessages],
-                Iterable[models.InvokeEvaluatorRequestMessagesTypedDict],
-            ]
-        ] = None,
+        messages: Optional[Iterable[Mapping[str, Any]]] = None,
         variables: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1596,9 +1584,7 @@ class Evals(BaseSDK):
                 output=output,
                 reference=reference,
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.InvokeEvaluatorRequestMessages]]
-                ),
+                messages=utils.unmarshal(messages, Optional[List[Dict[str, Any]]]),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
             ),
         )
@@ -1662,7 +1648,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",

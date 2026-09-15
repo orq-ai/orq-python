@@ -1300,8 +1300,8 @@ class MessagesSystemMessage(BaseModel):
         return m
 
 
-DeploymentGetConfigMessagesTypedDict = TypeAliasType(
-    "DeploymentGetConfigMessagesTypedDict",
+MessagesTypedDict = TypeAliasType(
+    "MessagesTypedDict",
     Union[
         MessagesSystemMessageTypedDict,
         MessagesDeveloperMessageTypedDict,
@@ -1312,7 +1312,7 @@ DeploymentGetConfigMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigMessages = Annotated[
+Messages = Annotated[
     Union[
         Annotated[MessagesSystemMessage, Tag("system")],
         Annotated[MessagesDeveloperMessage, Tag("developer")],
@@ -2015,7 +2015,7 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
     prefix_messages: NotRequired[List[PrefixMessagesTypedDict]]
     r"""A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment."""
-    messages: NotRequired[List[DeploymentGetConfigMessagesTypedDict]]
+    messages: NotRequired[List[MessagesTypedDict]]
     r"""A list of messages to send to the deployment."""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
@@ -2046,7 +2046,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
     prefix_messages: Optional[List[PrefixMessages]] = None
     r"""A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment."""
 
-    messages: Optional[List[DeploymentGetConfigMessages]] = None
+    messages: Optional[List[Messages]] = None
     r"""A list of messages to send to the deployment."""
 
     identity: Optional[PublicIdentity] = None
@@ -2341,7 +2341,7 @@ class DeploymentGetConfigToolCalls(BaseModel):
         return m
 
 
-class DeploymentGetConfigDeploymentsMessagesTypedDict(TypedDict):
+class DeploymentGetConfigMessagesTypedDict(TypedDict):
     role: DeploymentGetConfigRole
     r"""The role of the prompt message"""
     content: Nullable[DeploymentGetConfigContentTypedDict]
@@ -2350,7 +2350,7 @@ class DeploymentGetConfigDeploymentsMessagesTypedDict(TypedDict):
     tool_call_id: NotRequired[Nullable[str]]
 
 
-class DeploymentGetConfigDeploymentsMessages(BaseModel):
+class DeploymentGetConfigMessages(BaseModel):
     role: DeploymentGetConfigRole
     r"""The role of the prompt message"""
 
@@ -2931,7 +2931,7 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     r"""The model of the configuration"""
     version: str
     r"""The current version of the deployment"""
-    messages: List[DeploymentGetConfigDeploymentsMessagesTypedDict]
+    messages: List[DeploymentGetConfigMessagesTypedDict]
     parameters: DeploymentGetConfigParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
@@ -2955,7 +2955,7 @@ class DeploymentGetConfigResponseBody(BaseModel):
     version: str
     r"""The current version of the deployment"""
 
-    messages: List[DeploymentGetConfigDeploymentsMessages]
+    messages: List[DeploymentGetConfigMessages]
 
     parameters: DeploymentGetConfigParameters
     r"""Model Parameters: Not all parameters apply to every model"""

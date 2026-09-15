@@ -221,10 +221,7 @@ class Deployments(BaseSDK):
             ]
         ] = None,
         messages: Optional[
-            Union[
-                Iterable[models.DeploymentGetConfigMessages],
-                Iterable[models.DeploymentGetConfigMessagesTypedDict],
-            ]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
@@ -295,7 +292,7 @@ class Deployments(BaseSDK):
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
             messages=utils.get_pydantic_model(
-                messages, Optional[List[models.DeploymentGetConfigMessages]]
+                messages, Optional[List[models.Messages]]
             ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]
@@ -390,10 +387,7 @@ class Deployments(BaseSDK):
             ]
         ] = None,
         messages: Optional[
-            Union[
-                Iterable[models.DeploymentGetConfigMessages],
-                Iterable[models.DeploymentGetConfigMessagesTypedDict],
-            ]
+            Union[Iterable[models.Messages], Iterable[models.MessagesTypedDict]]
         ] = None,
         identity: Optional[
             Union[models.PublicIdentity, models.PublicIdentityTypedDict]
@@ -464,7 +458,7 @@ class Deployments(BaseSDK):
                 prefix_messages, Optional[List[models.PrefixMessages]]
             ),
             messages=utils.get_pydantic_model(
-                messages, Optional[List[models.DeploymentGetConfigMessages]]
+                messages, Optional[List[models.Messages]]
             ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.PublicIdentity]

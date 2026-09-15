@@ -8,14 +8,6 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class InvokeEvaluatorRequestMessagesTypedDict(TypedDict):
-    pass
-
-
-class InvokeEvaluatorRequestMessages(BaseModel):
-    pass
-
-
 class InvokeEvaluatorRequestTypedDict(TypedDict):
     r"""Accepts two shapes. `context` names its fields after the template variables
     they feed and is the one to use; the flat fields below are folded into
@@ -46,7 +38,7 @@ class InvokeEvaluatorRequestTypedDict(TypedDict):
     """
     retrievals: NotRequired[List[str]]
     r"""Knowledge base retrievals. Folds into `context.input.retrievals`."""
-    messages: NotRequired[List[InvokeEvaluatorRequestMessagesTypedDict]]
+    messages: NotRequired[List[Dict[str, Any]]]
     r"""The conversation that produced the output. Folds into
     `context.messages`.
     """
@@ -92,7 +84,7 @@ class InvokeEvaluatorRequest(BaseModel):
     retrievals: Optional[List[str]] = None
     r"""Knowledge base retrievals. Folds into `context.input.retrievals`."""
 
-    messages: Optional[List[InvokeEvaluatorRequestMessages]] = None
+    messages: Optional[List[Dict[str, Any]]] = None
     r"""The conversation that produced the output. Folds into
     `context.messages`.
     """

@@ -2737,8 +2737,6 @@ if TYPE_CHECKING:
         DeploymentGetConfigContentTypedDict,
         DeploymentGetConfigDeploymentsFunction,
         DeploymentGetConfigDeploymentsFunctionTypedDict,
-        DeploymentGetConfigDeploymentsMessages,
-        DeploymentGetConfigDeploymentsMessagesTypedDict,
         DeploymentGetConfigDeploymentsResponse200Type,
         DeploymentGetConfigDeploymentsResponseType,
         DeploymentGetConfigDeploymentsType,
@@ -2843,6 +2841,7 @@ if TYPE_CHECKING:
         KnowledgeFilterOr,
         KnowledgeFilterOrTypedDict,
         KnowledgeFilterTypedDict,
+        Messages,
         MessagesAssistantMessage,
         MessagesAssistantMessageTypedDict,
         MessagesAudio,
@@ -2864,6 +2863,7 @@ if TYPE_CHECKING:
         MessagesToolMessage,
         MessagesToolMessageTypedDict,
         MessagesType,
+        MessagesTypedDict,
         MessagesUserMessage,
         MessagesUserMessageTypedDict,
         PhotoRealVersion,
@@ -3037,12 +3037,7 @@ if TYPE_CHECKING:
         ErrorStreamingEventType,
         ErrorStreamingEventTypedDict,
     )
-    from .evaluationcontext import (
-        EvaluationContext,
-        EvaluationContextTypedDict,
-        Messages,
-        MessagesTypedDict,
-    )
+    from .evaluationcontext import EvaluationContext, EvaluationContextTypedDict
     from .evaluationresult import EvaluationResult, EvaluationResultTypedDict
     from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict, ExecuteOn
     from .executionnamedstreamingevent import (
@@ -4015,8 +4010,6 @@ if TYPE_CHECKING:
     from .invokeevalop import InvokeEvalRequest, InvokeEvalRequestTypedDict
     from .invokeevaluatorrequest import (
         InvokeEvaluatorRequest,
-        InvokeEvaluatorRequestMessages,
-        InvokeEvaluatorRequestMessagesTypedDict,
         InvokeEvaluatorRequestTypedDict,
     )
     from .ipallowlist import IPAllowlist, IPAllowlistTypedDict
@@ -10489,8 +10482,6 @@ __all__ = [
     "DeploymentGetConfigContentTypedDict",
     "DeploymentGetConfigDeploymentsFunction",
     "DeploymentGetConfigDeploymentsFunctionTypedDict",
-    "DeploymentGetConfigDeploymentsMessages",
-    "DeploymentGetConfigDeploymentsMessagesTypedDict",
     "DeploymentGetConfigDeploymentsResponse200Type",
     "DeploymentGetConfigDeploymentsResponseType",
     "DeploymentGetConfigDeploymentsType",
@@ -11734,8 +11725,6 @@ __all__ = [
     "InvokeEvalRequest",
     "InvokeEvalRequestTypedDict",
     "InvokeEvaluatorRequest",
-    "InvokeEvaluatorRequestMessages",
-    "InvokeEvaluatorRequestMessagesTypedDict",
     "InvokeEvaluatorRequestTypedDict",
     "InvokeOptions",
     "InvokeOptionsTypedDict",
@@ -18155,8 +18144,6 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentGetConfigContentTypedDict": ".deploymentgetconfigop",
     "DeploymentGetConfigDeploymentsFunction": ".deploymentgetconfigop",
     "DeploymentGetConfigDeploymentsFunctionTypedDict": ".deploymentgetconfigop",
-    "DeploymentGetConfigDeploymentsMessages": ".deploymentgetconfigop",
-    "DeploymentGetConfigDeploymentsMessagesTypedDict": ".deploymentgetconfigop",
     "DeploymentGetConfigDeploymentsResponse200Type": ".deploymentgetconfigop",
     "DeploymentGetConfigDeploymentsResponseType": ".deploymentgetconfigop",
     "DeploymentGetConfigDeploymentsType": ".deploymentgetconfigop",
@@ -18261,6 +18248,7 @@ _dynamic_imports: dict[str, str] = {
     "KnowledgeFilterOr": ".deploymentgetconfigop",
     "KnowledgeFilterOrTypedDict": ".deploymentgetconfigop",
     "KnowledgeFilterTypedDict": ".deploymentgetconfigop",
+    "Messages": ".deploymentgetconfigop",
     "MessagesAssistantMessage": ".deploymentgetconfigop",
     "MessagesAssistantMessageTypedDict": ".deploymentgetconfigop",
     "MessagesAudio": ".deploymentgetconfigop",
@@ -18282,6 +18270,7 @@ _dynamic_imports: dict[str, str] = {
     "MessagesToolMessage": ".deploymentgetconfigop",
     "MessagesToolMessageTypedDict": ".deploymentgetconfigop",
     "MessagesType": ".deploymentgetconfigop",
+    "MessagesTypedDict": ".deploymentgetconfigop",
     "MessagesUserMessage": ".deploymentgetconfigop",
     "MessagesUserMessageTypedDict": ".deploymentgetconfigop",
     "PhotoRealVersion": ".deploymentgetconfigop",
@@ -18445,8 +18434,6 @@ _dynamic_imports: dict[str, str] = {
     "ErrorStreamingEventTypedDict": ".errorstreamingevent",
     "EvaluationContext": ".evaluationcontext",
     "EvaluationContextTypedDict": ".evaluationcontext",
-    "Messages": ".evaluationcontext",
-    "MessagesTypedDict": ".evaluationcontext",
     "EvaluationResult": ".evaluationresult",
     "EvaluationResultTypedDict": ".evaluationresult",
     "EvaluatorRef": ".evaluatorref",
@@ -19358,8 +19345,6 @@ _dynamic_imports: dict[str, str] = {
     "InvokeEvalRequest": ".invokeevalop",
     "InvokeEvalRequestTypedDict": ".invokeevalop",
     "InvokeEvaluatorRequest": ".invokeevaluatorrequest",
-    "InvokeEvaluatorRequestMessages": ".invokeevaluatorrequest",
-    "InvokeEvaluatorRequestMessagesTypedDict": ".invokeevaluatorrequest",
     "InvokeEvaluatorRequestTypedDict": ".invokeevaluatorrequest",
     "IPAllowlist": ".ipallowlist",
     "IPAllowlistTypedDict": ".ipallowlist",
