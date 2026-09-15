@@ -97,7 +97,7 @@ class CreateImageEditRetryTypedDict(TypedDict):
 class CreateImageEditRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -136,7 +136,7 @@ class CreateImageEditCache(BaseModel):
 
     type: CreateImageEditType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -235,7 +235,7 @@ class CreateImageEditRouterImagesEditsRetryTypedDict(TypedDict):
 class CreateImageEditRouterImagesEditsRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -307,7 +307,7 @@ class CreateImageEditRouterImagesEditsCache(BaseModel):
 
     type: CreateImageEditRouterImagesEditsType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -525,7 +525,7 @@ class CreateImageEditRequestBody(BaseModel):
     ] = None
     r"""The image(s) to edit. Must be a supported image file or an array of images.  Each image should be a png, webp, or jpg file less than 50MB. You can provide up to 16 images."""
 
-    n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1
+    n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1.0
     r"""The number of images to generate. Must be between 1 and 10."""
 
     size: Annotated[OptionalNullable[str], FieldMetadata(multipart=True)] = UNSET

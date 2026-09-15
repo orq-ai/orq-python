@@ -26,20 +26,20 @@ with Orq(
         "<value 1>",
     ], model="XTS", retry={
         "on_codes": [
-            429,
-            500,
-            502,
-            503,
-            504,
+            429.0,
+            500.0,
+            502.0,
+            503.0,
+            504.0,
         ],
     }, cache={
-        "ttl": 3600,
+        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
         "models": [],
     }, timeout={
-        "call_timeout": 30000,
+        "call_timeout": 30000.0,
     }, orq={
         "fallbacks": [
             {
@@ -47,16 +47,16 @@ with Orq(
             },
         ],
         "cache": {
-            "ttl": 3600,
+            "ttl": 3600.0,
             "type": "exact_match",
         },
         "retry": {
             "on_codes": [
-                429,
-                500,
-                502,
-                503,
-                504,
+                429.0,
+                500.0,
+                502.0,
+                503.0,
+                504.0,
             ],
         },
         "identity": {
@@ -89,7 +89,7 @@ with Orq(
             ],
         },
         "timeout": {
-            "call_timeout": 30000,
+            "call_timeout": 30000.0,
         },
     })
 

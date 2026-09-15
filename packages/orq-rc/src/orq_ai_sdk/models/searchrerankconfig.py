@@ -20,7 +20,7 @@ class SearchRerankConfig(BaseModel):
     model: str
     r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
 
-    threshold: Optional[float] = 0
+    threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10

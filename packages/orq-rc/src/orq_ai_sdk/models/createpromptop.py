@@ -1104,7 +1104,7 @@ class CreatePromptRetryTypedDict(TypedDict):
 class CreatePromptRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -1143,7 +1143,7 @@ class CreatePromptCache(BaseModel):
 
     type: CreatePromptType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -2948,7 +2948,7 @@ class CreatePromptPromptsRetryTypedDict(TypedDict):
 class CreatePromptPromptsRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -2987,7 +2987,7 @@ class CreatePromptPromptsCache(BaseModel):
 
     type: CreatePromptPromptsResponse200Type
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")

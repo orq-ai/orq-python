@@ -89,7 +89,7 @@ class CreateImageVariationRetryTypedDict(TypedDict):
 class CreateImageVariationRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -128,7 +128,7 @@ class CreateImageVariationCache(BaseModel):
 
     type: CreateImageVariationType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -227,7 +227,7 @@ class CreateImageVariationRouterImagesVariationsRetryTypedDict(TypedDict):
 class CreateImageVariationRouterImagesVariationsRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -299,7 +299,7 @@ class CreateImageVariationRouterImagesVariationsCache(BaseModel):
 
     type: CreateImageVariationRouterImagesVariationsType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -523,7 +523,7 @@ class CreateImageVariationRequestBody(BaseModel):
     ] = None
     r"""The image to edit. Must be a supported image file. It should be a png, webp, or jpg file less than 50MB."""
 
-    n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1
+    n: Annotated[OptionalNullable[float], FieldMetadata(multipart=True)] = 1.0
     r"""The number of images to generate. Must be between 1 and 10."""
 
     response_format: Annotated[

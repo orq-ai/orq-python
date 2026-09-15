@@ -16,7 +16,7 @@ class Speech(BaseSDK):
         model: str,
         voice: str,
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
-        speed: Optional[float] = 1,
+        speed: Optional[float] = 1.0,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[
@@ -172,7 +172,7 @@ class Speech(BaseSDK):
         model: str,
         voice: str,
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
-        speed: Optional[float] = 1,
+        speed: Optional[float] = 1.0,
         name: Optional[str] = None,
         fallbacks: Optional[
             Union[

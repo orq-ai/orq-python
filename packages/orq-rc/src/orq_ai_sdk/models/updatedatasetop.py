@@ -160,7 +160,7 @@ class UpdateDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-09-14T14:59:49.769Z")
+    updated: Optional[datetime] = parse_datetime("2026-09-15T05:01:32.178Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

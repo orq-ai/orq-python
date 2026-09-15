@@ -87,7 +87,7 @@ with Orq(
             "metadata": {
                 "file_name": "refund_policy.pdf",
                 "file_type": "application/pdf",
-                "page_number": 1,
+                "page_number": 1.0,
             },
         },
         {

@@ -112,7 +112,7 @@ class RetrieveAgentRequestMetricsTypedDict(TypedDict):
 
 
 class RetrieveAgentRequestMetrics(BaseModel):
-    total_cost: Optional[float] = 0
+    total_cost: Optional[float] = 0.0
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -289,7 +289,7 @@ class RetrieveAgentRequestEvaluators(BaseModel):
     execute_on: RetrieveAgentRequestExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     options: Optional[Dict[str, Any]] = None
@@ -337,7 +337,7 @@ class RetrieveAgentRequestGuardrails(BaseModel):
     execute_on: RetrieveAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     options: Optional[Dict[str, Any]] = None
@@ -385,7 +385,7 @@ class RetrieveAgentRequestSettings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
-    max_cost: Optional[float] = 0
+    max_cost: Optional[float] = 0.0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[RetrieveAgentRequestToolApprovalRequired] = (
@@ -770,7 +770,7 @@ class RetrieveAgentRequestCache(BaseModel):
 
     type: RetrieveAgentRequestAgentsType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1153,7 +1153,7 @@ class RetrieveAgentRequestRetryTypedDict(TypedDict):
 class RetrieveAgentRequestRetry(BaseModel):
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -1526,7 +1526,7 @@ class RetrieveAgentRequestFallbackModelConfigurationCache(BaseModel):
 
     type: RetrieveAgentRequestFallbackModelConfigurationType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1953,7 +1953,7 @@ class RetrieveAgentRequestFallbackModelConfigurationRetryTypedDict(TypedDict):
 class RetrieveAgentRequestFallbackModelConfigurationRetry(BaseModel):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None

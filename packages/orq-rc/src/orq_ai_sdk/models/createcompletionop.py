@@ -68,7 +68,7 @@ class CreateCompletionRetryTypedDict(TypedDict):
 class CreateCompletionRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -107,7 +107,7 @@ class CreateCompletionCache(BaseModel):
 
     type: CreateCompletionType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -228,7 +228,7 @@ class CreateCompletionRouterCompletionsRetryTypedDict(TypedDict):
 class CreateCompletionRouterCompletionsRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -378,7 +378,7 @@ class CreateCompletionRouterCompletionsCache(BaseModel):
 
     type: CreateCompletionRouterCompletionsType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1019,7 +1019,7 @@ class CreateCompletionRerankConfig(BaseModel):
     model: str
     r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
 
-    threshold: Optional[float] = 0
+    threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     top_k: Optional[int] = 10
@@ -1383,13 +1383,13 @@ class CreateCompletionRequestBody(BaseModel):
     echo: OptionalNullable[bool] = False
     r"""Echo back the prompt in addition to the completion"""
 
-    frequency_penalty: OptionalNullable[float] = 0
+    frequency_penalty: OptionalNullable[float] = 0.0
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
     max_tokens: OptionalNullable[int] = 16
     r"""The maximum number of tokens that can be generated in the completion."""
 
-    presence_penalty: OptionalNullable[float] = 0
+    presence_penalty: OptionalNullable[float] = 0.0
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
     seed: OptionalNullable[int] = UNSET
@@ -1398,10 +1398,10 @@ class CreateCompletionRequestBody(BaseModel):
     stop: OptionalNullable[CreateCompletionStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence."""
 
-    temperature: OptionalNullable[float] = 1
+    temperature: OptionalNullable[float] = 1.0
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
 
-    top_p: OptionalNullable[float] = 1
+    top_p: OptionalNullable[float] = 1.0
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered."""
 
     n: OptionalNullable[int] = 1

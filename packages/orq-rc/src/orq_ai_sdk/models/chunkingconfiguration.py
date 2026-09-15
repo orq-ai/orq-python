@@ -448,10 +448,10 @@ class ChunkingConfiguration2(BaseModel):
 
     type: ChunkingConfiguration2Type
 
-    chunk_max_characters: Optional[float] = 500
+    chunk_max_characters: Optional[float] = 500.0
     r"""Defines the absolute maximum character length per chunk. Text elements exceeding this size will be automatically split into multiple chunks."""
 
-    chunk_overlap: Optional[float] = 0
+    chunk_overlap: Optional[float] = 0.0
     r"""Specifies the number of characters to overlap between consecutive chunks. This overlap helps maintain semantic continuity when splitting large text elements."""
 
     @model_serializer(mode="wrap")

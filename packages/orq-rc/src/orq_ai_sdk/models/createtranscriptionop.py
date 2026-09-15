@@ -61,7 +61,7 @@ class CreateTranscriptionRetryTypedDict(TypedDict):
 class CreateTranscriptionRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -173,7 +173,7 @@ class CreateTranscriptionRouterAudioTranscriptionsRetryTypedDict(TypedDict):
 class CreateTranscriptionRouterAudioTranscriptionsRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None

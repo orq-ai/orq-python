@@ -42,7 +42,7 @@ with Orq(
 
     }, display_name="Albert_Emmerich25", has_functions=False, id="<id>", input_cost=2127.52, metadata=orq_ai_sdk.ModelMetadata(
         is_private=False,
-    ), model_developer="<value>", model_family="<value>", model_id="<id>", model_type="<value>", output_cost=5446, parameters=[
+    ), model_developer="<value>", model_family="<value>", model_id="<id>", model_type="<value>", output_cost=5446.0, parameters=[
         {
             "config": {
 

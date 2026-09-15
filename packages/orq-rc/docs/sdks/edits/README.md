@@ -22,16 +22,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.images.edits.create(model="LeBaron", prompt="<value>", n=1, retry={
+    res = orq.router.images.edits.create(model="LeBaron", prompt="<value>", n=1.0, retry={
         "on_codes": [
-            429,
-            500,
-            502,
-            503,
-            504,
+            429.0,
+            500.0,
+            502.0,
+            503.0,
+            504.0,
         ],
     }, cache={
-        "ttl": 3600,
+        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
@@ -42,15 +42,15 @@ with Orq(
             },
         ],
     }, timeout={
-        "call_timeout": 30000,
+        "call_timeout": 30000.0,
     }, orq={
         "retry": {
             "on_codes": [
-                429,
-                500,
-                502,
-                503,
-                504,
+                429.0,
+                500.0,
+                502.0,
+                503.0,
+                504.0,
             ],
         },
         "fallbacks": [
@@ -79,7 +79,7 @@ with Orq(
             ],
         },
         "cache": {
-            "ttl": 3600,
+            "ttl": 3600.0,
             "type": "exact_match",
         },
         "load_balancer": {
@@ -96,7 +96,7 @@ with Orq(
             ],
         },
         "timeout": {
-            "call_timeout": 30000,
+            "call_timeout": 30000.0,
         },
     })
 

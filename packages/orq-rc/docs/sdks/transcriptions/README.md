@@ -27,11 +27,11 @@ with Orq(
         "segment",
     ], retry={
         "on_codes": [
-            429,
-            500,
-            502,
-            503,
-            504,
+            429.0,
+            500.0,
+            502.0,
+            503.0,
+            504.0,
         ],
     }, load_balancer={
         "type": "weight_based",
@@ -42,7 +42,7 @@ with Orq(
             },
         ],
     }, timeout={
-        "call_timeout": 30000,
+        "call_timeout": 30000.0,
     }, orq={
         "fallbacks": [
             {
@@ -51,11 +51,11 @@ with Orq(
         ],
         "retry": {
             "on_codes": [
-                429,
-                500,
-                502,
-                503,
-                504,
+                429.0,
+                500.0,
+                502.0,
+                503.0,
+                504.0,
             ],
         },
         "identity": {
@@ -88,7 +88,7 @@ with Orq(
             ],
         },
         "timeout": {
-            "call_timeout": 30000,
+            "call_timeout": 30000.0,
         },
     })
 
