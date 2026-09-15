@@ -488,7 +488,7 @@ class StreamRunAgentModelConfigurationCache(BaseModel):
 
     type: StreamRunAgentModelConfigurationType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -877,7 +877,7 @@ class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
 class StreamRunAgentModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -1308,7 +1308,7 @@ class StreamRunAgentFallbackModelConfigurationCache(BaseModel):
 
     type: StreamRunAgentFallbackModelConfigurationType
 
-    ttl: Optional[float] = 1800
+    ttl: Optional[float] = 1800.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1717,7 +1717,7 @@ class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
 class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -2167,7 +2167,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01M2E8MMG3N2382WSK8H6JCS7K"
+    id: Optional[str] = "01M2J8DXNSX4ZBTFDBYPZY4A9E"
 
     description: Optional[str] = None
 
@@ -3030,7 +3030,7 @@ class StreamRunAgentEvaluators(BaseModel):
     execute_on: StreamRunAgentExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     @model_serializer(mode="wrap")
@@ -3073,7 +3073,7 @@ class StreamRunAgentGuardrails(BaseModel):
     execute_on: StreamRunAgentAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     @model_serializer(mode="wrap")
@@ -3125,7 +3125,7 @@ class StreamRunAgentSettings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
-    max_cost: Optional[float] = 0
+    max_cost: Optional[float] = 0.0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     chat_exposed: Optional[bool] = None

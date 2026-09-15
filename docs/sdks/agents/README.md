@@ -33,13 +33,13 @@ with Orq(
     res = orq.agents.create(key="<key>", role="<value>", description="alongside beneath doubtfully behest validity bah after furthermore", instructions="<value>", path="Default", model={
         "id": "<id>",
         "retry": {
-            "count": 3,
+            "count": 3.0,
             "on_codes": [
-                429,
-                500,
-                502,
-                503,
-                504,
+                429.0,
+                500.0,
+                502.0,
+                503.0,
+                504.0,
             ],
         },
     }, settings={
@@ -55,13 +55,13 @@ with Orq(
         {
             "id": "<id>",
             "retry": {
-                "count": 3,
+                "count": 3.0,
                 "on_codes": [
-                    429,
-                    500,
-                    502,
-                    503,
-                    504,
+                    429.0,
+                    500.0,
+                    502.0,
+                    503.0,
+                    504.0,
                 ],
             },
         },
@@ -125,7 +125,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.list(limit=10)
+    res = orq.agents.list(limit=10.0)
 
     # Handle response
     print(res)

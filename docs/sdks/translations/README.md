@@ -24,11 +24,11 @@ with Orq(
 
     res = orq.router.audio.translations.create(model="Impala", enable_logging=True, diarize=False, tag_audio_events=True, timestamps_granularity="word", temperature=0.5, retry={
         "on_codes": [
-            429,
-            500,
-            502,
-            503,
-            504,
+            429.0,
+            500.0,
+            502.0,
+            503.0,
+            504.0,
         ],
     }, load_balancer={
         "type": "weight_based",
@@ -39,7 +39,7 @@ with Orq(
             },
         ],
     }, timeout={
-        "call_timeout": 30000,
+        "call_timeout": 30000.0,
     }, orq={
         "fallbacks": [
             {
@@ -48,11 +48,11 @@ with Orq(
         ],
         "retry": {
             "on_codes": [
-                429,
-                500,
-                502,
-                503,
-                504,
+                429.0,
+                500.0,
+                502.0,
+                503.0,
+                504.0,
             ],
         },
         "identity": {
@@ -85,7 +85,7 @@ with Orq(
             ],
         },
         "timeout": {
-            "call_timeout": 30000,
+            "call_timeout": 30000.0,
         },
     })
 

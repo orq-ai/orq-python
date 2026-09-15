@@ -28,7 +28,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.list(limit=300)
+    res = orq.tools.list(limit=300.0)
 
     # Handle response
     print(res)

@@ -188,7 +188,7 @@ class KnowledgeBasesServiceCreateRequestRetrievalSettings(BaseModel):
     top_k: Optional[int] = 5
     r"""The number of results to return from the search."""
 
-    threshold: Optional[float] = 0
+    threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
     rerank_config: OptionalNullable[KnowledgeBasesServiceCreateRequestRerankConfig] = (

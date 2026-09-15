@@ -43,7 +43,7 @@ class CreateSpeechRetryTypedDict(TypedDict):
 class CreateSpeechRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -145,7 +145,7 @@ class CreateSpeechRouterAudioSpeechRetryTypedDict(TypedDict):
 class CreateSpeechRouterAudioSpeechRetry(BaseModel):
     r"""Retry configuration for the request"""
 
-    count: Optional[float] = 3
+    count: Optional[float] = 3.0
     r"""Number of retry attempts (1-5)"""
 
     on_codes: Optional[List[float]] = None
@@ -418,7 +418,7 @@ class CreateSpeechRequestBody(BaseModel):
     response_format: Optional[CreateSpeechResponseFormat] = "mp3"
     r"""The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format."""
 
-    speed: Optional[float] = 1
+    speed: Optional[float] = 1.0
     r"""The speed of the generated audio."""
 
     name: Optional[str] = None

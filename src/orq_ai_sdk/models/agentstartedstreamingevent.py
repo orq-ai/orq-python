@@ -219,7 +219,7 @@ class Evaluators(BaseModel):
     execute_on: AgentStartedStreamingEventDataExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     @model_serializer(mode="wrap")
@@ -262,7 +262,7 @@ class Guardrails(BaseModel):
     execute_on: AgentStartedStreamingEventExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
-    sample_rate: Optional[float] = 50
+    sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
     @model_serializer(mode="wrap")
@@ -307,7 +307,7 @@ class Settings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
-    max_cost: Optional[float] = 0
+    max_cost: Optional[float] = 0.0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"

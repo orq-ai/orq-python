@@ -22,16 +22,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.completions.create(model="XC90", prompt="<value>", echo=False, frequency_penalty=0, max_tokens=16, presence_penalty=0, temperature=1, top_p=1, n=1, retry={
+    res = orq.router.completions.create(model="XC90", prompt="<value>", echo=False, frequency_penalty=0.0, max_tokens=16, presence_penalty=0.0, temperature=1.0, top_p=1.0, n=1, retry={
         "on_codes": [
-            429,
-            500,
-            502,
-            503,
-            504,
+            429.0,
+            500.0,
+            502.0,
+            503.0,
+            504.0,
         ],
     }, cache={
-        "ttl": 3600,
+        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
@@ -42,7 +42,7 @@ with Orq(
             },
         ],
     }, timeout={
-        "call_timeout": 30000,
+        "call_timeout": 30000.0,
     }, stream=False)
 
     with res as event_stream:

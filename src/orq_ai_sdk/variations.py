@@ -20,7 +20,7 @@ class Variations(BaseSDK):
                 models.CreateImageVariationImageTypedDict,
             ]
         ] = None,
-        n: OptionalNullable[float] = 1,
+        n: OptionalNullable[float] = 1.0,
         response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
         size: Optional[models.Size] = "1024x1024",
         user: Optional[str] = None,
@@ -204,7 +204,7 @@ class Variations(BaseSDK):
                 models.CreateImageVariationImageTypedDict,
             ]
         ] = None,
-        n: OptionalNullable[float] = 1,
+        n: OptionalNullable[float] = 1.0,
         response_format: Optional[models.CreateImageVariationResponseFormat] = "url",
         size: Optional[models.Size] = "1024x1024",
         user: Optional[str] = None,
