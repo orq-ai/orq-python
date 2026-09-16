@@ -80,7 +80,7 @@ GroupBy = Literal[
 ]
 
 
-Mode = Literal[
+QueryReportRequestMode = Literal[
     "timeseries",
     "scalar",
 ]
@@ -119,7 +119,7 @@ class QueryReportRequestTypedDict(TypedDict):
     r"""When true, include a `totals` block aggregated across the full
     report window.
     """
-    mode: NotRequired[Mode]
+    mode: NotRequired[QueryReportRequestMode]
     r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
     sort: NotRequired[Sort]
     r"""Value ordering for `scalar` rows. Defaults to `desc`. Ignored for `timeseries`."""
@@ -159,7 +159,7 @@ class QueryReportRequest(BaseModel):
     report window.
     """
 
-    mode: Optional[Mode] = None
+    mode: Optional[QueryReportRequestMode] = None
     r"""Value shaping. `timeseries` (default) buckets by time; `scalar` returns one aggregated row per group over the whole window, ordered by value (top list), or a single row when `group_by` is empty."""
 
     sort: Optional[Sort] = None

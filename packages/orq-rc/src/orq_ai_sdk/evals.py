@@ -13,24 +13,24 @@ class Evals(BaseSDK):
     def all(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[str] = None,
+        sort: Optional[models.QueryParamSort] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListEvaluatorsResponse:
+    ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
 
         List all evaluators in the workspace.
 
-        :param limit: Page size, 1-200. Unset uses the server default (10).
-        :param starting_after:
-        :param ending_before:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
         :param project_id:
@@ -96,15 +96,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "all"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "all",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - List evaluators",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluators = await orq.evals.all({ limit: 20 });\n\nconsole.log(evaluators.data);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListEvaluatorsResponse, http_res)
+            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalsEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalsEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -117,24 +133,24 @@ class Evals(BaseSDK):
     async def all_async(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
-        sort: Optional[str] = None,
+        sort: Optional[models.QueryParamSort] = None,
         project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListEvaluatorsResponse:
+    ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
 
         List all evaluators in the workspace.
 
-        :param limit: Page size, 1-200. Unset uses the server default (10).
-        :param starting_after:
-        :param ending_before:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search:
         :param sort:
         :param project_id:
@@ -200,15 +216,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "all"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "all",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - List evaluators",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluators = await orq.evals.all({ limit: 20 });\n\nconsole.log(evaluators.data);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListEvaluatorsResponse, http_res)
+            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalsEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalsEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -221,9 +253,9 @@ class Evals(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict
-        ],
+        request: Optional[
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -253,8 +285,8 @@ class Evals(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateEvalRequestBody)
-        request = cast(models.CreateEvalRequestBody, request)
+            request = utils.unmarshal(request, Optional[models.CreateEvalRequestBody])
+        request = cast(Optional[models.CreateEvalRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -262,7 +294,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -270,7 +302,7 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateEvalRequestBody
+                request, False, True, "json", Optional[models.CreateEvalRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -294,16 +326,32 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Create an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.create({\n  type: 'python_eval',\n  key: 'answer_quality',\n  path: 'Default',\n  code: 'def evaluate(**kwargs):\\n    return True',\n  outputType: 'boolean',\n});\n\nconsole.log(evaluator.id);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateEvalEvalsResponseBodyData, http_res
+            )
+            raise models.CreateEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -315,9 +363,9 @@ class Evals(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict
-        ],
+        request: Optional[
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -347,8 +395,8 @@ class Evals(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateEvalRequestBody)
-        request = cast(models.CreateEvalRequestBody, request)
+            request = utils.unmarshal(request, Optional[models.CreateEvalRequestBody])
+        request = cast(Optional[models.CreateEvalRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -356,7 +404,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -364,7 +412,7 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateEvalRequestBody
+                request, False, True, "json", Optional[models.CreateEvalRequestBody]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -388,16 +436,32 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "create"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "create",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Create an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.create({\n  type: 'python_eval',\n  key: 'answer_quality',\n  path: 'Default',\n  code: 'def evaluate(**kwargs):\\n    return True',\n  outputType: 'boolean',\n});\n\nconsole.log(evaluator.id);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateEvalEvalsResponseBodyData, http_res
+            )
+            raise models.CreateEvalEvalsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -477,15 +541,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "get",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Retrieve an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.get({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n});\n\nconsole.log(evaluator);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -566,15 +646,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "get"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "get",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Retrieve an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.get({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n});\n\nconsole.log(evaluator);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.GetEvalEvalsResponseBodyData, http_res
+            )
+            raise models.GetEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -592,7 +688,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteEvaluatorResponse:
+    ):
         r"""Delete an Evaluator
 
         Delete an evaluator by its unique identifier.
@@ -655,15 +751,36 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Delete an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.evals.delete({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n});\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteEvaluatorResponse, http_res)
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteEvalResponseBodyData, http_res
+            )
+            raise models.DeleteEvalResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteEvalEvalsResponseBodyData, http_res
+            )
+            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -681,7 +798,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteEvaluatorResponse:
+    ):
         r"""Delete an Evaluator
 
         Delete an evaluator by its unique identifier.
@@ -744,15 +861,36 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "delete"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Delete an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.evals.delete({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n});\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.DeleteEvaluatorResponse, http_res)
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteEvalResponseBodyData, http_res
+            )
+            raise models.DeleteEvalResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteEvalEvalsResponseBodyData, http_res
+            )
+            raise models.DeleteEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -766,9 +904,36 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        request_body: Union[
-            models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict
-        ],
+        type_: Optional[str] = None,
+        path: Optional[str] = None,
+        project_id: Optional[str] = None,
+        key: Optional[str] = None,
+        description: Optional[str] = None,
+        prompt: Optional[str] = None,
+        output_type: Optional[str] = None,
+        categories: OptionalNullable[Iterable[str]] = UNSET,
+        categorical_labels: OptionalNullable[
+            Union[
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
+            ]
+        ] = UNSET,
+        dataset_id: OptionalNullable[str] = UNSET,
+        repetitions: Optional[float] = None,
+        mode: Optional[models.UpdateEvalMode] = None,
+        model: Optional[str] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
+        schema: Optional[str] = None,
+        url: Optional[str] = None,
+        method: Optional[str] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        payload: Optional[Mapping[str, Any]] = None,
+        code: Optional[str] = None,
+        guardrail_config: Optional[Any] = None,
+        version_increment: Optional[models.UpdateEvalVersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -779,7 +944,29 @@ class Evals(BaseSDK):
         Update an evaluator by ID with the provided fields.
 
         :param id:
-        :param request_body:
+        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
+        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
+        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
+        :param key:
+        :param description:
+        :param prompt:
+        :param output_type:
+        :param categories:
+        :param categorical_labels:
+        :param dataset_id:
+        :param repetitions:
+        :param mode:
+        :param model:
+        :param jury:
+        :param schema_:
+        :param url:
+        :param method:
+        :param headers:
+        :param payload:
+        :param code:
+        :param guardrail_config:
+        :param version_increment:
+        :param version_description:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -800,8 +987,33 @@ class Evals(BaseSDK):
 
         request = models.UpdateEvalRequest(
             id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, models.UpdateEvalRequestBody
+            request_body=models.UpdateEvalRequestBody(
+                type=type_,
+                path=path,
+                project_id=project_id,
+                key=key,
+                description=description,
+                prompt=prompt,
+                output_type=output_type,
+                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
+                categorical_labels=utils.get_pydantic_model(
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
+                ),
+                dataset_id=dataset_id,
+                repetitions=repetitions,
+                mode=mode,
+                model=model,
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
+                schema_=schema,
+                url=url,
+                method=method,
+                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
+                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
+                code=code,
+                guardrail_config=guardrail_config,
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -811,7 +1023,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -819,7 +1031,11 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.UpdateEvalRequestBody
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateEvalRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -843,15 +1059,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Update an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.update({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    description: 'Checks whether the answer meets the quality bar.',\n  },\n});\n\nconsole.log(evaluator.updated);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateEvalEvalsResponseBodyData, http_res
+            )
+            raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -865,9 +1097,36 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        request_body: Union[
-            models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict
-        ],
+        type_: Optional[str] = None,
+        path: Optional[str] = None,
+        project_id: Optional[str] = None,
+        key: Optional[str] = None,
+        description: Optional[str] = None,
+        prompt: Optional[str] = None,
+        output_type: Optional[str] = None,
+        categories: OptionalNullable[Iterable[str]] = UNSET,
+        categorical_labels: OptionalNullable[
+            Union[
+                Iterable[models.UpdateEvalCategoricalLabels],
+                Iterable[models.UpdateEvalCategoricalLabelsTypedDict],
+            ]
+        ] = UNSET,
+        dataset_id: OptionalNullable[str] = UNSET,
+        repetitions: Optional[float] = None,
+        mode: Optional[models.UpdateEvalMode] = None,
+        model: Optional[str] = None,
+        jury: Optional[
+            Union[models.UpdateEvalJury, models.UpdateEvalJuryTypedDict]
+        ] = None,
+        schema: Optional[str] = None,
+        url: Optional[str] = None,
+        method: Optional[str] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        payload: Optional[Mapping[str, Any]] = None,
+        code: Optional[str] = None,
+        guardrail_config: Optional[Any] = None,
+        version_increment: Optional[models.UpdateEvalVersionIncrement] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -878,7 +1137,29 @@ class Evals(BaseSDK):
         Update an evaluator by ID with the provided fields.
 
         :param id:
-        :param request_body:
+        :param type: Evaluator type. Optional on update — inferred from existing evaluator.
+        :param path: Legacy alternative to `project_id`. Project path. Optional on update — the evaluator keeps its current project when both are omitted. Mutually exclusive with `project_id`.
+        :param project_id: Unique identifier of the project that owns the evaluator, as returned by `GET /v2/projects`. Optional on update — the evaluator keeps its current project when omitted; supplying a different id moves it. Mutually exclusive with `path`.
+        :param key:
+        :param description:
+        :param prompt:
+        :param output_type:
+        :param categories:
+        :param categorical_labels:
+        :param dataset_id:
+        :param repetitions:
+        :param mode:
+        :param model:
+        :param jury:
+        :param schema_:
+        :param url:
+        :param method:
+        :param headers:
+        :param payload:
+        :param code:
+        :param guardrail_config:
+        :param version_increment:
+        :param version_description:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -899,8 +1180,33 @@ class Evals(BaseSDK):
 
         request = models.UpdateEvalRequest(
             id=id,
-            request_body=utils.get_pydantic_model(
-                request_body, models.UpdateEvalRequestBody
+            request_body=models.UpdateEvalRequestBody(
+                type=type_,
+                path=path,
+                project_id=project_id,
+                key=key,
+                description=description,
+                prompt=prompt,
+                output_type=output_type,
+                categories=utils.unmarshal(categories, OptionalNullable[List[str]]),
+                categorical_labels=utils.get_pydantic_model(
+                    categorical_labels,
+                    OptionalNullable[List[models.UpdateEvalCategoricalLabels]],
+                ),
+                dataset_id=dataset_id,
+                repetitions=repetitions,
+                mode=mode,
+                model=model,
+                jury=utils.get_pydantic_model(jury, Optional[models.UpdateEvalJury]),
+                schema_=schema,
+                url=url,
+                method=method,
+                headers=utils.unmarshal(headers, Optional[Dict[str, str]]),
+                payload=utils.unmarshal(payload, Optional[Dict[str, Any]]),
+                code=code,
+                guardrail_config=guardrail_config,
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -910,7 +1216,7 @@ class Evals(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -918,7 +1224,11 @@ class Evals(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.UpdateEvalRequestBody
+                request.request_body if request is not None else None,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateEvalRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -942,15 +1252,31 @@ class Evals(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Evals"],
-                extensions={"x-cli-group": "evals", "x-cli-name": "update"},
+                extensions={
+                    "x-cli-group": "evals",
+                    "x-cli-name": "update",
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js - Update an evaluator",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst evaluator = await orq.evals.update({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  requestBody: {\n    description: 'Checks whether the answer meets the quality bar.',\n  },\n});\n\nconsole.log(evaluator.updated);\n",
+                        }
+                    ],
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateEvalEvalsResponseBodyData, http_res
+            )
+            raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

@@ -2058,7 +2058,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M2NBZVXQ6ZF9TTB4SKMT89R1"
+    id: Optional[str] = "01M2NEZRM1XWDP7B1GQKY7E8XN"
 
     description: Optional[str] = None
 
@@ -2584,7 +2584,7 @@ class CodeToolRun(BaseModel):
 AgentToolInputRunType = Literal["http",]
 
 
-Method = Literal[
+RunAgentAgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2635,7 +2635,7 @@ class BlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: Method
+    method: RunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2651,7 +2651,7 @@ class Blueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: Method
+    method: RunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None

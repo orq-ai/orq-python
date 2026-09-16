@@ -1,9 +1,55 @@
 # GetEvalResponseBody
 
-OK
+The evaluator. The response shape depends on the evaluator `type`.
 
 
-## Fields
+## Supported Types
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+### `models.ResponseBodyLLM`
+
+```python
+value: models.ResponseBodyLLM = /* values here */
+```
+
+### `models.GetEvalResponseBodyFunction`
+
+```python
+value: models.GetEvalResponseBodyFunction = /* values here */
+```
+
+### `models.Ragas`
+
+```python
+value: models.Ragas = /* values here */
+```
+
+### `models.JSON`
+
+```python
+value: models.JSON = /* values here */
+```
+
+### `models.GetEvalResponseBodyHTTP`
+
+```python
+value: models.GetEvalResponseBodyHTTP = /* values here */
+```
+
+### `models.ResponseBodyPython`
+
+```python
+value: models.ResponseBodyPython = /* values here */
+```
+
+### `models.Typescript`
+
+```python
+value: models.Typescript = /* values here */
+```
+
+### `models.BedrockGuardrail`
+
+```python
+value: models.BedrockGuardrail = /* values here */
+```
+

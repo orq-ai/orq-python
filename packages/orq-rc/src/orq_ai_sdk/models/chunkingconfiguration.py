@@ -17,7 +17,7 @@ from typing_extensions import (
 ChunkingConfiguration9Type = Literal["agentic",]
 
 
-class NineTypedDict(TypedDict):
+class ChunkingConfiguration9TypedDict(TypedDict):
     r"""Asks a model to choose the boundaries. Slowest and most expensive, best on documents with irregular structure. Makes paid model calls."""
 
     type: ChunkingConfiguration9Type
@@ -33,7 +33,7 @@ class NineTypedDict(TypedDict):
     r"""Custom system prompt for the boundary model."""
 
 
-class Nine(BaseModel):
+class ChunkingConfiguration9(BaseModel):
     r"""Asks a model to choose the boundaries. Slowest and most expensive, best on documents with irregular structure. Makes paid model calls."""
 
     type: ChunkingConfiguration9Type
@@ -81,7 +81,7 @@ class Nine(BaseModel):
 ChunkingConfiguration8Type = Literal["late",]
 
 
-class EightTypedDict(TypedDict):
+class ChunkingConfiguration8TypedDict(TypedDict):
     r"""Embeds the document before splitting it recursively, so each chunk is embedded with the surrounding document in context. Makes paid embedding calls."""
 
     type: ChunkingConfiguration8Type
@@ -97,7 +97,7 @@ class EightTypedDict(TypedDict):
     r"""Number of dimensions for the embedding output, when the model supports it."""
 
 
-class Eight(BaseModel):
+class ChunkingConfiguration8(BaseModel):
     r"""Embeds the document before splitting it recursively, so each chunk is embedded with the surrounding document in context. Makes paid embedding calls."""
 
     type: ChunkingConfiguration8Type
@@ -152,7 +152,7 @@ ChunkingConfigurationMode = Literal[
 r"""Comparison mode."""
 
 
-class SevenTypedDict(TypedDict):
+class ChunkingConfiguration7TypedDict(TypedDict):
     r"""Embeds the text and breaks where meaning shifts, so related passages stay together. Makes paid embedding calls."""
 
     type: ChunkingConfiguration7Type
@@ -170,7 +170,7 @@ class SevenTypedDict(TypedDict):
     r"""Window size for similarity comparison."""
 
 
-class Seven(BaseModel):
+class ChunkingConfiguration7(BaseModel):
     r"""Embeds the text and breaks where meaning shifts, so related passages stay together. Makes paid embedding calls."""
 
     type: ChunkingConfiguration7Type
@@ -222,7 +222,7 @@ class Seven(BaseModel):
 ChunkingConfiguration6Type = Literal["fast",]
 
 
-class SixTypedDict(TypedDict):
+class ChunkingConfiguration6TypedDict(TypedDict):
     r"""Splits on delimiters or a regular expression without tokenizing. Fastest option; chunk sizes vary with where delimiters fall."""
 
     type: ChunkingConfiguration6Type
@@ -240,7 +240,7 @@ class SixTypedDict(TypedDict):
     r"""Search forward for a delimiter when searching backward finds none."""
 
 
-class Six(BaseModel):
+class ChunkingConfiguration6(BaseModel):
     r"""Splits on delimiters or a regular expression without tokenizing. Fastest option; chunk sizes vary with where delimiters fall."""
 
     type: ChunkingConfiguration6Type
@@ -292,7 +292,7 @@ class Six(BaseModel):
 ChunkingConfiguration5Type = Literal["recursive",]
 
 
-class FiveTypedDict(TypedDict):
+class ChunkingConfiguration5TypedDict(TypedDict):
     r"""Splits on a separator hierarchy, falling back through paragraph, line, sentence, and word boundaries until chunks fit. Respects document structure."""
 
     type: ChunkingConfiguration5Type
@@ -304,7 +304,7 @@ class FiveTypedDict(TypedDict):
     r"""Minimum number of characters each chunk must contain."""
 
 
-class Five(BaseModel):
+class ChunkingConfiguration5(BaseModel):
     r"""Splits on a separator hierarchy, falling back through paragraph, line, sentence, and word boundaries until chunks fit. Respects document structure."""
 
     type: ChunkingConfiguration5Type
@@ -338,7 +338,7 @@ class Five(BaseModel):
 ChunkingConfiguration4Type = Literal["sentence",]
 
 
-class FourTypedDict(TypedDict):
+class ChunkingConfiguration4TypedDict(TypedDict):
     r"""Groups whole sentences up to the chunk size, so chunks never cut a sentence in half."""
 
     type: ChunkingConfiguration4Type
@@ -350,7 +350,7 @@ class FourTypedDict(TypedDict):
     r"""Minimum number of sentences each chunk must contain."""
 
 
-class Four(BaseModel):
+class ChunkingConfiguration4(BaseModel):
     r"""Groups whole sentences up to the chunk size, so chunks never cut a sentence in half."""
 
     type: ChunkingConfiguration4Type
@@ -386,7 +386,7 @@ class Four(BaseModel):
 ChunkingConfiguration3Type = Literal["token",]
 
 
-class ThreeTypedDict(TypedDict):
+class ChunkingConfiguration3TypedDict(TypedDict):
     r"""Splits text into fixed-size token windows with optional overlap. Predictable chunk sizes, no regard for sentence or paragraph boundaries."""
 
     type: ChunkingConfiguration3Type
@@ -396,7 +396,7 @@ class ThreeTypedDict(TypedDict):
     r"""Number of tokens to overlap between consecutive chunks. Helps preserve continuity across chunk boundaries."""
 
 
-class Three(BaseModel):
+class ChunkingConfiguration3(BaseModel):
     r"""Splits text into fixed-size token windows with optional overlap. Predictable chunk sizes, no regard for sentence or paragraph boundaries."""
 
     type: ChunkingConfiguration3Type
@@ -497,13 +497,13 @@ ChunkingConfigurationTypedDict = TypeAliasType(
     Union[
         ChunkingConfiguration1TypedDict,
         ChunkingConfiguration2TypedDict,
-        ThreeTypedDict,
-        FourTypedDict,
-        FiveTypedDict,
-        EightTypedDict,
-        NineTypedDict,
-        SixTypedDict,
-        SevenTypedDict,
+        ChunkingConfiguration3TypedDict,
+        ChunkingConfiguration4TypedDict,
+        ChunkingConfiguration5TypedDict,
+        ChunkingConfiguration8TypedDict,
+        ChunkingConfiguration9TypedDict,
+        ChunkingConfiguration6TypedDict,
+        ChunkingConfiguration7TypedDict,
     ],
 )
 r"""The chunking configuration settings for the datasource. Defaults to the system's standard chunking configuration if not specified."""
@@ -513,13 +513,13 @@ ChunkingConfiguration = Annotated[
     Union[
         Annotated[ChunkingConfiguration1, Tag("default")],
         Annotated[ChunkingConfiguration2, Tag("advanced")],
-        Annotated[Three, Tag("token")],
-        Annotated[Four, Tag("sentence")],
-        Annotated[Five, Tag("recursive")],
-        Annotated[Six, Tag("fast")],
-        Annotated[Seven, Tag("semantic")],
-        Annotated[Eight, Tag("late")],
-        Annotated[Nine, Tag("agentic")],
+        Annotated[ChunkingConfiguration3, Tag("token")],
+        Annotated[ChunkingConfiguration4, Tag("sentence")],
+        Annotated[ChunkingConfiguration5, Tag("recursive")],
+        Annotated[ChunkingConfiguration6, Tag("fast")],
+        Annotated[ChunkingConfiguration7, Tag("semantic")],
+        Annotated[ChunkingConfiguration8, Tag("late")],
+        Annotated[ChunkingConfiguration9, Tag("agentic")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

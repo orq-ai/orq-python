@@ -1,0 +1,10 @@
+# ResponseBodyReplacementJudges
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `model`                                                                                | [models.GetEvalResponseBodyEvalsModel](../models/getevalresponsebodyevalsmodel.md)     | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `retry`                                                                                | [Optional[models.GetEvalResponseBodyRetry]](../models/getevalresponsebodyretry.md)     | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `fallbacks`                                                                            | List[[models.GetEvalResponseBodyFallbacks](../models/getevalresponsebodyfallbacks.md)] | :heavy_minus_sign:                                                                     | N/A                                                                                    |

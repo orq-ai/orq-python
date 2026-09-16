@@ -327,12 +327,12 @@ CreateAgentRequestModelConfigurationPlugins = Annotated[
 ]
 
 
-class FallbacksTypedDict(TypedDict):
+class CreateAgentRequestModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class Fallbacks(BaseModel):
+class CreateAgentRequestModelConfigurationFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -557,7 +557,7 @@ class ParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[CreateAgentRequestModelConfigurationPluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
-    fallbacks: NotRequired[List[FallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateAgentRequestModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[CacheTypedDict]
     r"""Cache configuration for the request."""
@@ -643,7 +643,7 @@ class Parameters(BaseModel):
     plugins: Optional[List[CreateAgentRequestModelConfigurationPlugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
-    fallbacks: Optional[List[Fallbacks]] = None
+    fallbacks: Optional[List[CreateAgentRequestModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     cache: Optional[Cache] = None
@@ -728,7 +728,7 @@ class Parameters(BaseModel):
         return m
 
 
-class RetryTypedDict(TypedDict):
+class CreateAgentRequestModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -737,7 +737,7 @@ class RetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class Retry(BaseModel):
+class CreateAgentRequestModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3.0
@@ -773,7 +773,7 @@ class ModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[RetryTypedDict]
+    retry: NotRequired[CreateAgentRequestModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -789,7 +789,7 @@ class ModelConfiguration2(BaseModel):
     parameters: Optional[Parameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[Retry] = None
+    retry: Optional[CreateAgentRequestModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")

@@ -17,45 +17,45 @@ value: models.ChunkingConfiguration1 = /* values here */
 value: models.ChunkingConfiguration2 = /* values here */
 ```
 
-### `models.Three`
+### `models.ChunkingConfiguration3`
 
 ```python
-value: models.Three = /* values here */
+value: models.ChunkingConfiguration3 = /* values here */
 ```
 
-### `models.Four`
+### `models.ChunkingConfiguration4`
 
 ```python
-value: models.Four = /* values here */
+value: models.ChunkingConfiguration4 = /* values here */
 ```
 
-### `models.Five`
+### `models.ChunkingConfiguration5`
 
 ```python
-value: models.Five = /* values here */
+value: models.ChunkingConfiguration5 = /* values here */
 ```
 
-### `models.Six`
+### `models.ChunkingConfiguration6`
 
 ```python
-value: models.Six = /* values here */
+value: models.ChunkingConfiguration6 = /* values here */
 ```
 
-### `models.Seven`
+### `models.ChunkingConfiguration7`
 
 ```python
-value: models.Seven = /* values here */
+value: models.ChunkingConfiguration7 = /* values here */
 ```
 
-### `models.Eight`
+### `models.ChunkingConfiguration8`
 
 ```python
-value: models.Eight = /* values here */
+value: models.ChunkingConfiguration8 = /* values here */
 ```
 
-### `models.Nine`
+### `models.ChunkingConfiguration9`
 
 ```python
-value: models.Nine = /* values here */
+value: models.ChunkingConfiguration9 = /* values here */
 ```
 

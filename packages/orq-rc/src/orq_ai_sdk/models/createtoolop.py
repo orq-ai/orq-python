@@ -926,7 +926,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M2NBZW0K8VTNEVDS5TEVR7VF"
+        "tool_01M2NEZRPH6TD7V8QN0EV06026"
     )
 
     display_name: Optional[str] = None
@@ -981,7 +981,7 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 CreateToolResponseBodyToolsType = Literal["http",]
 
 
-ResponseBodyMethod = Literal[
+CreateToolResponseBodyMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -1032,7 +1032,7 @@ class ResponseBodyBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: ResponseBodyMethod
+    method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, ResponseBodyHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -1048,7 +1048,7 @@ class ResponseBodyBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: ResponseBodyMethod
+    method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, ResponseBodyHeaders]] = None
@@ -1230,7 +1230,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: ResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M2NBZW0JDZM0X3JV071657KC"
+        "tool_01M2NEZRPGW0PXN185SZW73MMH"
     )
 
     display_name: Optional[str] = None
@@ -1424,7 +1424,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M2NBZW0H00TX8PTE5QSFDAHA"
+        "tool_01M2NEZRPFDC7GDEFNRW89YPGQ"
     )
 
     display_name: Optional[str] = None
@@ -1622,7 +1622,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: ResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M2NBZW0H4Q93ED8W6AXF0E7Q"
+        "tool_01M2NEZRPFYVZ2DN4MXX9HH7N8"
     )
 
     display_name: Optional[str] = None

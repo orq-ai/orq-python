@@ -1,7 +1,17 @@
 # CreateEvalRequestBody
 
 
-## Fields
+## Supported Types
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+### `models.CreateEvalRequestBody1`
+
+```python
+value: models.CreateEvalRequestBody1 = /* values here */
+```
+
+### `models.Python`
+
+```python
+value: models.Python = /* values here */
+```
+
