@@ -15,10 +15,10 @@ value: models.SystemMessage = /* values here */
 value: models.DeveloperMessage = /* values here */
 ```
 
-### `models.PrefixMessagesUserMessage`
+### `models.UserMessage`
 
 ```python
-value: models.PrefixMessagesUserMessage = /* values here */
+value: models.UserMessage = /* values here */
 ```
 
 ### `models.AssistantMessage`
@@ -27,9 +27,9 @@ value: models.PrefixMessagesUserMessage = /* values here */
 value: models.AssistantMessage = /* values here */
 ```
 
-### `models.PrefixMessagesToolMessage`
+### `models.ToolMessage`
 
 ```python
-value: models.PrefixMessagesToolMessage = /* values here */
+value: models.ToolMessage = /* values here */
 ```
 

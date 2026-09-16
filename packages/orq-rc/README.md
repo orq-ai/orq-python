@@ -131,7 +131,40 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list(limit=10)
+    res = orq.deployments.invoke(key="<key>", stream=False, identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ])
+
+    assert res is not None
 
     # Handle response
     print(res)
@@ -153,7 +186,40 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.deployments.list_async(limit=10)
+        res = await orq.deployments.invoke_async(key="<key>", stream=False, identity={
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        }, documents=[
+            {
+                "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+                "metadata": {
+                    "file_name": "refund_policy.pdf",
+                    "file_type": "application/pdf",
+                    "page_number": 1.0,
+                },
+            },
+            {
+                "text": "Premium members receive free shipping on all orders over $50.",
+                "metadata": {
+                    "file_name": "membership_benefits.md",
+                    "file_type": "text/markdown",
+                },
+            },
+        ])
+
+        assert res is not None
 
         # Handle response
         print(res)
@@ -183,7 +249,40 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list(limit=10)
+    res = orq.deployments.invoke(key="<key>", stream=False, identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ])
+
+    assert res is not None
 
     # Handle response
     print(res)
@@ -284,6 +383,8 @@ with Orq(
 
 ### [Deployments](docs/sdks/deployments/README.md)
 
+* [invoke](docs/sdks/deployments/README.md#invoke) - Invoke
+* [stream](docs/sdks/deployments/README.md#stream) - Stream
 * [list](docs/sdks/deployments/README.md#list) - List all deployments
 * [get_config](docs/sdks/deployments/README.md#get_config) - Get config
 
@@ -688,39 +789,38 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.chat.completions.create(messages=[], model="Model 3", fallbacks=[
+    res = orq.deployments.stream(key="<key>", identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
         {
-            "model": "openai/gpt-4o-mini",
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
         },
-    ], retry={
-        "on_codes": [
-            429.0,
-            500.0,
-            502.0,
-            503.0,
-            504.0,
-        ],
-    }, cache={
-        "ttl": 3600.0,
-        "type": "exact_match",
-    }, load_balancer={
-        "type": "weight_based",
-        "models": [
-            {
-                "model": "openai/gpt-4o",
-                "weight": 0.7,
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
             },
-            {
-                "model": "anthropic/claude-3-5-sonnet",
-                "weight": 0.3,
-            },
-        ],
-    }, timeout={
-        "call_timeout": 30000.0,
-    }, variables={
-        "customer_name": "John Smith",
-        "product_name": "Premium Plan",
-    }, stream=False)
+        },
+    ])
 
     with res as event_stream:
         for event in event_stream:
@@ -845,8 +945,41 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list(limit=10,
+    res = orq.deployments.invoke(key="<key>", stream=False, identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ],
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
+
+    assert res is not None
 
     # Handle response
     print(res)
@@ -865,7 +998,40 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list(limit=10)
+    res = orq.deployments.invoke(key="<key>", stream=False, identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ])
+
+    assert res is not None
 
     # Handle response
     print(res)
@@ -934,34 +1100,34 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 13 of 296 methods.*
-* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 296 methods.*
-* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 296 methods.*
-* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 296 methods.*
-* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 296 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 296 methods.*
-* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 296 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 296 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 296 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 296 methods.*
-* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 296 methods.*
-* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 296 methods.*
-* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 296 methods.*
-* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 296 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 296 methods.*
-* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 296 methods.*
-* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 296 methods.*
-* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 296 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 13 of 298 methods.*
+* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 298 methods.*
+* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 298 methods.*
+* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 298 methods.*
+* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 298 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 298 methods.*
+* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 298 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 298 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 298 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 298 methods.*
+* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 298 methods.*
+* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 298 methods.*
+* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 298 methods.*
+* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 298 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 298 methods.*
+* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 298 methods.*
+* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 298 methods.*
+* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 298 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -985,7 +1151,40 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list(limit=10)
+    res = orq.deployments.invoke(key="<key>", stream=False, identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1.0,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ])
+
+    assert res is not None
 
     # Handle response
     print(res)

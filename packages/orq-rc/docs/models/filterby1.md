@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.CreateChatCompletion1Eq`
+### `models.SearchKnowledgeRequest1Eq`
 
 ```python
-value: models.CreateChatCompletion1Eq = /* values here */
+value: models.SearchKnowledgeRequest1Eq = /* values here */
 ```
 
-### `models.CreateChatCompletion1Ne`
+### `models.SearchKnowledgeRequest1Ne`
 
 ```python
-value: models.CreateChatCompletion1Ne = /* values here */
+value: models.SearchKnowledgeRequest1Ne = /* values here */
 ```
 
 ### `models.OneGt`
@@ -39,15 +39,21 @@ value: models.OneLt = /* values here */
 value: models.OneLte = /* values here */
 ```
 
-### `models.CreateChatCompletion1In`
+### `models.SearchKnowledgeRequest1In`
 
 ```python
-value: models.CreateChatCompletion1In = /* values here */
+value: models.SearchKnowledgeRequest1In = /* values here */
 ```
 
-### `models.CreateChatCompletion1Nin`
+### `models.SearchKnowledgeRequest1Nin`
 
 ```python
-value: models.CreateChatCompletion1Nin = /* values here */
+value: models.SearchKnowledgeRequest1Nin = /* values here */
+```
+
+### `models.Exists`
+
+```python
+value: models.Exists = /* values here */
 ```
 

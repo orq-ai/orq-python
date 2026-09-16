@@ -1,15 +1,15 @@
 # DeploymentGetConfigPrefixMessagesRole
 
-The role of the messages author, in this case `user`.
+The role of the messages author, in this case `system`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigPrefixMessagesRole
-value: DeploymentGetConfigPrefixMessagesRole = "user"
+value: DeploymentGetConfigPrefixMessagesRole = "system"
 ```
 
 
 ## Values
 
-- `"user"`
+- `"system"`

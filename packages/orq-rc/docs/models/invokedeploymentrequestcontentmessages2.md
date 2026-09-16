@@ -1,4 +1,4 @@
-# DeploymentGetConfigContentDeploymentsRequestRequestBodyPrefixMessages2
+# InvokeDeploymentRequestContentMessages2
 
 
 ## Supported Types
@@ -21,9 +21,9 @@ value: models.ImageContentPartSchema = /* values here */
 value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentGetConfig24`
+### `models.Two4`
 
 ```python
-value: models.DeploymentGetConfig24 = /* values here */
+value: models.Two4 = /* values here */
 ```
 

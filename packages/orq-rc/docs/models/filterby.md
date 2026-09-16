@@ -5,21 +5,21 @@ The metadata filter to apply to the search. Check the [Searching a Knowledge Bas
 
 ## Supported Types
 
-### `Dict[str, models.One]`
+### `Dict[str, models.FilterBy1]`
 
 ```python
-value: Dict[str, models.One] = /* values here */
+value: Dict[str, models.FilterBy1] = /* values here */
 ```
 
-### `models.FilterByAnd`
+### `models.SearchKnowledgeRequestFilterByAnd`
 
 ```python
-value: models.FilterByAnd = /* values here */
+value: models.SearchKnowledgeRequestFilterByAnd = /* values here */
 ```
 
-### `models.FilterByOr`
+### `models.SearchKnowledgeRequestFilterByOr`
 
 ```python
-value: models.FilterByOr = /* values here */
+value: models.SearchKnowledgeRequestFilterByOr = /* values here */
 ```
 

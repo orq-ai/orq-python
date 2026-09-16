@@ -1,15 +1,15 @@
 # DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
 
-The role of the messages author, in this case tool.
+The role of the messages author, in this case `assistant`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole
-value: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole = "tool"
+value: DeploymentGetConfigMessagesDeploymentsRequestRequestBodyRole = "assistant"
 ```
 
 
 ## Values
 
-- `"tool"`
+- `"assistant"`

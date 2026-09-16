@@ -1,0 +1,10 @@
+# Message3
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.DeploymentInvokeMessageDeploymentsType](../models/deploymentinvokemessagedeploymentstype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `role`                                                                                               | [models.DeploymentInvokeMessageDeploymentsRole](../models/deploymentinvokemessagedeploymentsrole.md) | :heavy_check_mark:                                                                                   | The role of the prompt message                                                                       |
+| `url`                                                                                                | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

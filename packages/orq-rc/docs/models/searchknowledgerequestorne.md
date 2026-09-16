@@ -1,10 +1,23 @@
 # SearchKnowledgeRequestOrNe
 
-Not equal to
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `ne`                             | [models.OrNe](../models/orne.md) | :heavy_check_mark:               | N/A                              |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

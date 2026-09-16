@@ -1,6 +1,6 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
 
-The contents of the tool message.
+The contents of the user message.
 
 
 ## Supported Types

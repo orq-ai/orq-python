@@ -1,53 +1,10 @@
 # KnowledgeFilterOr
 
+Or
 
-## Supported Types
 
-### `models.DeploymentGetConfigOrDeploymentsEq`
+## Fields
 
-```python
-value: models.DeploymentGetConfigOrDeploymentsEq = /* values here */
-```
-
-### `models.DeploymentGetConfigOrDeploymentsNe`
-
-```python
-value: models.DeploymentGetConfigOrDeploymentsNe = /* values here */
-```
-
-### `models.DeploymentGetConfigOrGt`
-
-```python
-value: models.DeploymentGetConfigOrGt = /* values here */
-```
-
-### `models.DeploymentGetConfigOrGte`
-
-```python
-value: models.DeploymentGetConfigOrGte = /* values here */
-```
-
-### `models.DeploymentGetConfigOrLt`
-
-```python
-value: models.DeploymentGetConfigOrLt = /* values here */
-```
-
-### `models.DeploymentGetConfigOrLte`
-
-```python
-value: models.DeploymentGetConfigOrLte = /* values here */
-```
-
-### `models.DeploymentGetConfigOrDeploymentsIn`
-
-```python
-value: models.DeploymentGetConfigOrDeploymentsIn = /* values here */
-```
-
-### `models.DeploymentGetConfigOrDeploymentsNin`
-
-```python
-value: models.DeploymentGetConfigOrDeploymentsNin = /* values here */
-```
-
+| Field                                          | Type                                           | Required                                       | Description                                    |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `or_`                                          | List[Dict[str, [models.Or](../models/or_.md)]] | :heavy_check_mark:                             | N/A                                            |

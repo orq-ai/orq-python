@@ -3,51 +3,51 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig1Eq`
+### `models.DeploymentStream1Eq`
 
 ```python
-value: models.DeploymentGetConfig1Eq = /* values here */
+value: models.DeploymentStream1Eq = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Ne`
+### `models.DeploymentStream1Ne`
 
 ```python
-value: models.DeploymentGetConfig1Ne = /* values here */
+value: models.DeploymentStream1Ne = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Gt`
+### `models.DeploymentStream1Gt`
 
 ```python
-value: models.DeploymentGetConfig1Gt = /* values here */
+value: models.DeploymentStream1Gt = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Gte`
+### `models.DeploymentStream1Gte`
 
 ```python
-value: models.DeploymentGetConfig1Gte = /* values here */
+value: models.DeploymentStream1Gte = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Lt`
+### `models.DeploymentStream1Lt`
 
 ```python
-value: models.DeploymentGetConfig1Lt = /* values here */
+value: models.DeploymentStream1Lt = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Lte`
+### `models.DeploymentStream1Lte`
 
 ```python
-value: models.DeploymentGetConfig1Lte = /* values here */
+value: models.DeploymentStream1Lte = /* values here */
 ```
 
-### `models.DeploymentGetConfig1In`
+### `models.DeploymentStream1In`
 
 ```python
-value: models.DeploymentGetConfig1In = /* values here */
+value: models.DeploymentStream1In = /* values here */
 ```
 
-### `models.DeploymentGetConfig1Nin`
+### `models.DeploymentStream1Nin`
 
 ```python
-value: models.DeploymentGetConfig1Nin = /* values here */
+value: models.DeploymentStream1Nin = /* values here */
 ```
 

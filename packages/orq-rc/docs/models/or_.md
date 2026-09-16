@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.SearchKnowledgeRequestOrEq`
+### `models.InvokeDeploymentRequestOrEq`
 
 ```python
-value: models.SearchKnowledgeRequestOrEq = /* values here */
+value: models.InvokeDeploymentRequestOrEq = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestOrNe`
+### `models.InvokeDeploymentRequestOrNe`
 
 ```python
-value: models.SearchKnowledgeRequestOrNe = /* values here */
+value: models.InvokeDeploymentRequestOrNe = /* values here */
 ```
 
 ### `models.OrGt`
@@ -39,21 +39,15 @@ value: models.OrLt = /* values here */
 value: models.OrLte = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestOrIn`
+### `models.InvokeDeploymentRequestOrIn`
 
 ```python
-value: models.SearchKnowledgeRequestOrIn = /* values here */
+value: models.InvokeDeploymentRequestOrIn = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestOrNin`
+### `models.InvokeDeploymentRequestOrNin`
 
 ```python
-value: models.SearchKnowledgeRequestOrNin = /* values here */
-```
-
-### `models.OrExists`
-
-```python
-value: models.OrExists = /* values here */
+value: models.InvokeDeploymentRequestOrNin = /* values here */
 ```
 

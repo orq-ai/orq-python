@@ -1,15 +1,11 @@
 # ToolMessage
 
-Message containing tool execution results
 
-## Example Usage
+## Fields
 
-```python
-from orq_ai_sdk.models import ToolMessage
-value: ToolMessage = "tool"
-```
-
-
-## Values
-
-- `"tool"`
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `role`                                                                                                             | [models.InvokeDeploymentRequestPrefixMessages5Role](../models/invokedeploymentrequestprefixmessages5role.md)       | :heavy_check_mark:                                                                                                 | The role of the messages author, in this case tool.                                                                |
+| `content`                                                                                                          | [models.InvokeDeploymentRequestPrefixMessages5Content](../models/invokedeploymentrequestprefixmessages5content.md) | :heavy_check_mark:                                                                                                 | The contents of the tool message.                                                                                  |
+| `tool_call_id`                                                                                                     | *Nullable[str]*                                                                                                    | :heavy_check_mark:                                                                                                 | Tool call that this message is responding to.                                                                      |
+| `cache_control`                                                                                                    | [Optional[models.PrefixMessagesCacheControl]](../models/prefixmessagescachecontrol.md)                             | :heavy_minus_sign:                                                                                                 | N/A                                                                                                                |

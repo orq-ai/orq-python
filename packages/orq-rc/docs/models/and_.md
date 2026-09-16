@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.SearchKnowledgeRequestAndEq`
+### `models.InvokeDeploymentRequestAndEq`
 
 ```python
-value: models.SearchKnowledgeRequestAndEq = /* values here */
+value: models.InvokeDeploymentRequestAndEq = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestAndNe`
+### `models.InvokeDeploymentRequestAndNe`
 
 ```python
-value: models.SearchKnowledgeRequestAndNe = /* values here */
+value: models.InvokeDeploymentRequestAndNe = /* values here */
 ```
 
 ### `models.AndGt`
@@ -39,21 +39,15 @@ value: models.AndLt = /* values here */
 value: models.AndLte = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestAndIn`
+### `models.InvokeDeploymentRequestAndIn`
 
 ```python
-value: models.SearchKnowledgeRequestAndIn = /* values here */
+value: models.InvokeDeploymentRequestAndIn = /* values here */
 ```
 
-### `models.SearchKnowledgeRequestAndNin`
+### `models.InvokeDeploymentRequestAndNin`
 
 ```python
-value: models.SearchKnowledgeRequestAndNin = /* values here */
-```
-
-### `models.AndExists`
-
-```python
-value: models.AndExists = /* values here */
+value: models.InvokeDeploymentRequestAndNin = /* values here */
 ```
 

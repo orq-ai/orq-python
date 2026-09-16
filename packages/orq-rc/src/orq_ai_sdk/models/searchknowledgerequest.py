@@ -30,168 +30,184 @@ class OrExists(BaseModel):
     exists: bool
 
 
-OrNinTypedDict = TypeAliasType("OrNinTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestOrNinTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestOrNinTypedDict", Union[str, float, bool]
+)
 
 
-OrNin = TypeAliasType("OrNin", Union[str, float, bool])
+SearchKnowledgeRequestOrNin = TypeAliasType(
+    "SearchKnowledgeRequestOrNin", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestOrNinTypedDict(TypedDict):
+class SearchKnowledgeRequestOrFilterByNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[OrNinTypedDict]
+    nin: List[SearchKnowledgeRequestOrNinTypedDict]
 
 
-class SearchKnowledgeRequestOrNin(BaseModel):
+class SearchKnowledgeRequestOrFilterByNin(BaseModel):
     r"""Not in"""
 
-    nin: List[OrNin]
+    nin: List[SearchKnowledgeRequestOrNin]
 
 
-OrInTypedDict = TypeAliasType("OrInTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestOrInTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestOrInTypedDict", Union[str, float, bool]
+)
 
 
-OrIn = TypeAliasType("OrIn", Union[str, float, bool])
+SearchKnowledgeRequestOrIn = TypeAliasType(
+    "SearchKnowledgeRequestOrIn", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestOrInTypedDict(TypedDict):
+class SearchKnowledgeRequestOrFilterByInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[OrInTypedDict]
+    in_: List[SearchKnowledgeRequestOrInTypedDict]
 
 
-class SearchKnowledgeRequestOrIn(BaseModel):
+class SearchKnowledgeRequestOrFilterByIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[OrIn], pydantic.Field(alias="in")]
+    in_: Annotated[List[SearchKnowledgeRequestOrIn], pydantic.Field(alias="in")]
 
 
-class OrLteTypedDict(TypedDict):
+class SearchKnowledgeRequestOrLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class OrLte(BaseModel):
+class SearchKnowledgeRequestOrLte(BaseModel):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class OrLtTypedDict(TypedDict):
+class SearchKnowledgeRequestOrLtTypedDict(TypedDict):
     r"""Less than"""
 
     lt: float
 
 
-class OrLt(BaseModel):
+class SearchKnowledgeRequestOrLt(BaseModel):
     r"""Less than"""
 
     lt: float
 
 
-class OrGteTypedDict(TypedDict):
+class SearchKnowledgeRequestOrGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class OrGte(BaseModel):
+class SearchKnowledgeRequestOrGte(BaseModel):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class OrGtTypedDict(TypedDict):
+class SearchKnowledgeRequestOrGtTypedDict(TypedDict):
     r"""Greater than"""
 
     gt: float
 
 
-class OrGt(BaseModel):
+class SearchKnowledgeRequestOrGt(BaseModel):
     r"""Greater than"""
 
     gt: float
 
 
-OrNeTypedDict = TypeAliasType("OrNeTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestOrNeTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestOrNeTypedDict", Union[str, float, bool]
+)
 
 
-OrNe = TypeAliasType("OrNe", Union[str, float, bool])
+SearchKnowledgeRequestOrNe = TypeAliasType(
+    "SearchKnowledgeRequestOrNe", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestOrNeTypedDict(TypedDict):
+class SearchKnowledgeRequestOrFilterByNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: OrNeTypedDict
+    ne: SearchKnowledgeRequestOrNeTypedDict
 
 
-class SearchKnowledgeRequestOrNe(BaseModel):
+class SearchKnowledgeRequestOrFilterByNe(BaseModel):
     r"""Not equal to"""
 
-    ne: OrNe
+    ne: SearchKnowledgeRequestOrNe
 
 
-OrEqTypedDict = TypeAliasType("OrEqTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestOrEqTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestOrEqTypedDict", Union[str, float, bool]
+)
 
 
-OrEq = TypeAliasType("OrEq", Union[str, float, bool])
+SearchKnowledgeRequestOrEq = TypeAliasType(
+    "SearchKnowledgeRequestOrEq", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestOrEqTypedDict(TypedDict):
+class SearchKnowledgeRequestOrFilterByEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: OrEqTypedDict
+    eq: SearchKnowledgeRequestOrEqTypedDict
 
 
-class SearchKnowledgeRequestOrEq(BaseModel):
+class SearchKnowledgeRequestOrFilterByEq(BaseModel):
     r"""Equal to"""
 
-    eq: OrEq
+    eq: SearchKnowledgeRequestOrEq
 
 
-OrTypedDict = TypeAliasType(
-    "OrTypedDict",
+FilterByOrTypedDict = TypeAliasType(
+    "FilterByOrTypedDict",
     Union[
-        SearchKnowledgeRequestOrEqTypedDict,
-        SearchKnowledgeRequestOrNeTypedDict,
-        OrGtTypedDict,
-        OrGteTypedDict,
-        OrLtTypedDict,
-        OrLteTypedDict,
-        SearchKnowledgeRequestOrInTypedDict,
-        SearchKnowledgeRequestOrNinTypedDict,
+        SearchKnowledgeRequestOrFilterByEqTypedDict,
+        SearchKnowledgeRequestOrFilterByNeTypedDict,
+        SearchKnowledgeRequestOrGtTypedDict,
+        SearchKnowledgeRequestOrGteTypedDict,
+        SearchKnowledgeRequestOrLtTypedDict,
+        SearchKnowledgeRequestOrLteTypedDict,
+        SearchKnowledgeRequestOrFilterByInTypedDict,
+        SearchKnowledgeRequestOrFilterByNinTypedDict,
         OrExistsTypedDict,
     ],
 )
 
 
-Or = TypeAliasType(
-    "Or",
+FilterByOr = TypeAliasType(
+    "FilterByOr",
     Union[
-        SearchKnowledgeRequestOrEq,
-        SearchKnowledgeRequestOrNe,
-        OrGt,
-        OrGte,
-        OrLt,
-        OrLte,
-        SearchKnowledgeRequestOrIn,
-        SearchKnowledgeRequestOrNin,
+        SearchKnowledgeRequestOrFilterByEq,
+        SearchKnowledgeRequestOrFilterByNe,
+        SearchKnowledgeRequestOrGt,
+        SearchKnowledgeRequestOrGte,
+        SearchKnowledgeRequestOrLt,
+        SearchKnowledgeRequestOrLte,
+        SearchKnowledgeRequestOrFilterByIn,
+        SearchKnowledgeRequestOrFilterByNin,
         OrExists,
     ],
 )
 
 
-class FilterByOrTypedDict(TypedDict):
+class SearchKnowledgeRequestFilterByOrTypedDict(TypedDict):
     r"""Or"""
 
-    or_: List[Dict[str, OrTypedDict]]
+    or_: List[Dict[str, FilterByOrTypedDict]]
 
 
-class FilterByOr(BaseModel):
+class SearchKnowledgeRequestFilterByOr(BaseModel):
     r"""Or"""
 
-    or_: Annotated[List[Dict[str, Or]], pydantic.Field(alias="or")]
+    or_: Annotated[List[Dict[str, FilterByOr]], pydantic.Field(alias="or")]
 
 
 class AndExistsTypedDict(TypedDict):
@@ -206,168 +222,184 @@ class AndExists(BaseModel):
     exists: bool
 
 
-AndNinTypedDict = TypeAliasType("AndNinTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestAndNinTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestAndNinTypedDict", Union[str, float, bool]
+)
 
 
-AndNin = TypeAliasType("AndNin", Union[str, float, bool])
+SearchKnowledgeRequestAndNin = TypeAliasType(
+    "SearchKnowledgeRequestAndNin", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestAndNinTypedDict(TypedDict):
+class SearchKnowledgeRequestAndFilterByNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[AndNinTypedDict]
+    nin: List[SearchKnowledgeRequestAndNinTypedDict]
 
 
-class SearchKnowledgeRequestAndNin(BaseModel):
+class SearchKnowledgeRequestAndFilterByNin(BaseModel):
     r"""Not in"""
 
-    nin: List[AndNin]
+    nin: List[SearchKnowledgeRequestAndNin]
 
 
-AndInTypedDict = TypeAliasType("AndInTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestAndInTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestAndInTypedDict", Union[str, float, bool]
+)
 
 
-AndIn = TypeAliasType("AndIn", Union[str, float, bool])
+SearchKnowledgeRequestAndIn = TypeAliasType(
+    "SearchKnowledgeRequestAndIn", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestAndInTypedDict(TypedDict):
+class SearchKnowledgeRequestAndFilterByInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[AndInTypedDict]
+    in_: List[SearchKnowledgeRequestAndInTypedDict]
 
 
-class SearchKnowledgeRequestAndIn(BaseModel):
+class SearchKnowledgeRequestAndFilterByIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[AndIn], pydantic.Field(alias="in")]
+    in_: Annotated[List[SearchKnowledgeRequestAndIn], pydantic.Field(alias="in")]
 
 
-class AndLteTypedDict(TypedDict):
+class SearchKnowledgeRequestAndLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class AndLte(BaseModel):
+class SearchKnowledgeRequestAndLte(BaseModel):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class AndLtTypedDict(TypedDict):
+class SearchKnowledgeRequestAndLtTypedDict(TypedDict):
     r"""Less than"""
 
     lt: float
 
 
-class AndLt(BaseModel):
+class SearchKnowledgeRequestAndLt(BaseModel):
     r"""Less than"""
 
     lt: float
 
 
-class AndGteTypedDict(TypedDict):
+class SearchKnowledgeRequestAndGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class AndGte(BaseModel):
+class SearchKnowledgeRequestAndGte(BaseModel):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class AndGtTypedDict(TypedDict):
+class SearchKnowledgeRequestAndGtTypedDict(TypedDict):
     r"""Greater than"""
 
     gt: float
 
 
-class AndGt(BaseModel):
+class SearchKnowledgeRequestAndGt(BaseModel):
     r"""Greater than"""
 
     gt: float
 
 
-AndNeTypedDict = TypeAliasType("AndNeTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestAndNeTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestAndNeTypedDict", Union[str, float, bool]
+)
 
 
-AndNe = TypeAliasType("AndNe", Union[str, float, bool])
+SearchKnowledgeRequestAndNe = TypeAliasType(
+    "SearchKnowledgeRequestAndNe", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestAndNeTypedDict(TypedDict):
+class SearchKnowledgeRequestAndFilterByNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: AndNeTypedDict
+    ne: SearchKnowledgeRequestAndNeTypedDict
 
 
-class SearchKnowledgeRequestAndNe(BaseModel):
+class SearchKnowledgeRequestAndFilterByNe(BaseModel):
     r"""Not equal to"""
 
-    ne: AndNe
+    ne: SearchKnowledgeRequestAndNe
 
 
-AndEqTypedDict = TypeAliasType("AndEqTypedDict", Union[str, float, bool])
+SearchKnowledgeRequestAndEqTypedDict = TypeAliasType(
+    "SearchKnowledgeRequestAndEqTypedDict", Union[str, float, bool]
+)
 
 
-AndEq = TypeAliasType("AndEq", Union[str, float, bool])
+SearchKnowledgeRequestAndEq = TypeAliasType(
+    "SearchKnowledgeRequestAndEq", Union[str, float, bool]
+)
 
 
-class SearchKnowledgeRequestAndEqTypedDict(TypedDict):
+class SearchKnowledgeRequestAndFilterByEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: AndEqTypedDict
+    eq: SearchKnowledgeRequestAndEqTypedDict
 
 
-class SearchKnowledgeRequestAndEq(BaseModel):
+class SearchKnowledgeRequestAndFilterByEq(BaseModel):
     r"""Equal to"""
 
-    eq: AndEq
+    eq: SearchKnowledgeRequestAndEq
 
 
-AndTypedDict = TypeAliasType(
-    "AndTypedDict",
+FilterByAndTypedDict = TypeAliasType(
+    "FilterByAndTypedDict",
     Union[
-        SearchKnowledgeRequestAndEqTypedDict,
-        SearchKnowledgeRequestAndNeTypedDict,
-        AndGtTypedDict,
-        AndGteTypedDict,
-        AndLtTypedDict,
-        AndLteTypedDict,
-        SearchKnowledgeRequestAndInTypedDict,
-        SearchKnowledgeRequestAndNinTypedDict,
+        SearchKnowledgeRequestAndFilterByEqTypedDict,
+        SearchKnowledgeRequestAndFilterByNeTypedDict,
+        SearchKnowledgeRequestAndGtTypedDict,
+        SearchKnowledgeRequestAndGteTypedDict,
+        SearchKnowledgeRequestAndLtTypedDict,
+        SearchKnowledgeRequestAndLteTypedDict,
+        SearchKnowledgeRequestAndFilterByInTypedDict,
+        SearchKnowledgeRequestAndFilterByNinTypedDict,
         AndExistsTypedDict,
     ],
 )
 
 
-And = TypeAliasType(
-    "And",
+FilterByAnd = TypeAliasType(
+    "FilterByAnd",
     Union[
-        SearchKnowledgeRequestAndEq,
-        SearchKnowledgeRequestAndNe,
-        AndGt,
-        AndGte,
-        AndLt,
-        AndLte,
-        SearchKnowledgeRequestAndIn,
-        SearchKnowledgeRequestAndNin,
+        SearchKnowledgeRequestAndFilterByEq,
+        SearchKnowledgeRequestAndFilterByNe,
+        SearchKnowledgeRequestAndGt,
+        SearchKnowledgeRequestAndGte,
+        SearchKnowledgeRequestAndLt,
+        SearchKnowledgeRequestAndLte,
+        SearchKnowledgeRequestAndFilterByIn,
+        SearchKnowledgeRequestAndFilterByNin,
         AndExists,
     ],
 )
 
 
-class FilterByAndTypedDict(TypedDict):
+class SearchKnowledgeRequestFilterByAndTypedDict(TypedDict):
     r"""And"""
 
-    and_: List[Dict[str, AndTypedDict]]
+    and_: List[Dict[str, FilterByAndTypedDict]]
 
 
-class FilterByAnd(BaseModel):
+class SearchKnowledgeRequestFilterByAnd(BaseModel):
     r"""And"""
 
-    and_: Annotated[List[Dict[str, And]], pydantic.Field(alias="and")]
+    and_: Annotated[List[Dict[str, FilterByAnd]], pydantic.Field(alias="and")]
 
 
 class ExistsTypedDict(TypedDict):
@@ -382,153 +414,177 @@ class Exists(BaseModel):
     exists: bool
 
 
-NinTypedDict = TypeAliasType("NinTypedDict", Union[str, float, bool])
+OneNinTypedDict = TypeAliasType("OneNinTypedDict", Union[str, float, bool])
 
 
-Nin = TypeAliasType("Nin", Union[str, float, bool])
+OneNin = TypeAliasType("OneNin", Union[str, float, bool])
 
 
-class OneNinTypedDict(TypedDict):
+class SearchKnowledgeRequest1NinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[NinTypedDict]
+    nin: List[OneNinTypedDict]
 
 
-class OneNin(BaseModel):
+class SearchKnowledgeRequest1Nin(BaseModel):
     r"""Not in"""
 
-    nin: List[Nin]
+    nin: List[OneNin]
 
 
-InTypedDict = TypeAliasType("InTypedDict", Union[str, float, bool])
+OneInTypedDict = TypeAliasType("OneInTypedDict", Union[str, float, bool])
 
 
-In = TypeAliasType("In", Union[str, float, bool])
+OneIn = TypeAliasType("OneIn", Union[str, float, bool])
 
 
-class OneInTypedDict(TypedDict):
+class SearchKnowledgeRequest1InTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[InTypedDict]
+    in_: List[OneInTypedDict]
 
 
-class OneIn(BaseModel):
+class SearchKnowledgeRequest1In(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[In], pydantic.Field(alias="in")]
+    in_: Annotated[List[OneIn], pydantic.Field(alias="in")]
 
 
-class LteTypedDict(TypedDict):
+class OneLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class Lte(BaseModel):
+class OneLte(BaseModel):
     r"""Less than or equal to"""
 
     lte: float
 
 
-class LtTypedDict(TypedDict):
+class OneLtTypedDict(TypedDict):
     r"""Less than"""
 
     lt: float
 
 
-class Lt(BaseModel):
+class OneLt(BaseModel):
     r"""Less than"""
 
     lt: float
 
 
-class GteTypedDict(TypedDict):
+class OneGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class Gte(BaseModel):
+class OneGte(BaseModel):
     r"""Greater than or equal to"""
 
     gte: float
 
 
-class GtTypedDict(TypedDict):
+class OneGtTypedDict(TypedDict):
     r"""Greater than"""
 
     gt: float
 
 
-class Gt(BaseModel):
+class OneGt(BaseModel):
     r"""Greater than"""
 
     gt: float
 
 
-NeTypedDict = TypeAliasType("NeTypedDict", Union[str, float, bool])
+OneNeTypedDict = TypeAliasType("OneNeTypedDict", Union[str, float, bool])
 
 
-Ne = TypeAliasType("Ne", Union[str, float, bool])
+OneNe = TypeAliasType("OneNe", Union[str, float, bool])
 
 
-class OneNeTypedDict(TypedDict):
+class SearchKnowledgeRequest1NeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: NeTypedDict
+    ne: OneNeTypedDict
 
 
-class OneNe(BaseModel):
+class SearchKnowledgeRequest1Ne(BaseModel):
     r"""Not equal to"""
 
-    ne: Ne
+    ne: OneNe
 
 
-EqTypedDict = TypeAliasType("EqTypedDict", Union[str, float, bool])
+OneEqTypedDict = TypeAliasType("OneEqTypedDict", Union[str, float, bool])
 
 
-Eq = TypeAliasType("Eq", Union[str, float, bool])
+OneEq = TypeAliasType("OneEq", Union[str, float, bool])
 
 
-class OneEqTypedDict(TypedDict):
+class SearchKnowledgeRequest1EqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: EqTypedDict
+    eq: OneEqTypedDict
 
 
-class OneEq(BaseModel):
+class SearchKnowledgeRequest1Eq(BaseModel):
     r"""Equal to"""
 
-    eq: Eq
+    eq: OneEq
 
 
-OneTypedDict = TypeAliasType(
-    "OneTypedDict",
+FilterBy1TypedDict = TypeAliasType(
+    "FilterBy1TypedDict",
     Union[
-        OneEqTypedDict,
-        OneNeTypedDict,
-        GtTypedDict,
-        GteTypedDict,
-        LtTypedDict,
-        LteTypedDict,
-        OneInTypedDict,
-        OneNinTypedDict,
+        SearchKnowledgeRequest1EqTypedDict,
+        SearchKnowledgeRequest1NeTypedDict,
+        OneGtTypedDict,
+        OneGteTypedDict,
+        OneLtTypedDict,
+        OneLteTypedDict,
+        SearchKnowledgeRequest1InTypedDict,
+        SearchKnowledgeRequest1NinTypedDict,
         ExistsTypedDict,
     ],
 )
 
 
-One = TypeAliasType("One", Union[OneEq, OneNe, Gt, Gte, Lt, Lte, OneIn, OneNin, Exists])
+FilterBy1 = TypeAliasType(
+    "FilterBy1",
+    Union[
+        SearchKnowledgeRequest1Eq,
+        SearchKnowledgeRequest1Ne,
+        OneGt,
+        OneGte,
+        OneLt,
+        OneLte,
+        SearchKnowledgeRequest1In,
+        SearchKnowledgeRequest1Nin,
+        Exists,
+    ],
+)
 
 
 FilterByTypedDict = TypeAliasType(
     "FilterByTypedDict",
-    Union[FilterByAndTypedDict, FilterByOrTypedDict, Dict[str, OneTypedDict]],
+    Union[
+        SearchKnowledgeRequestFilterByAndTypedDict,
+        SearchKnowledgeRequestFilterByOrTypedDict,
+        Dict[str, FilterBy1TypedDict],
+    ],
 )
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
-FilterBy = TypeAliasType("FilterBy", Union[FilterByAnd, FilterByOr, Dict[str, One]])
+FilterBy = TypeAliasType(
+    "FilterBy",
+    Union[
+        SearchKnowledgeRequestFilterByAnd,
+        SearchKnowledgeRequestFilterByOr,
+        Dict[str, FilterBy1],
+    ],
+)
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
@@ -740,22 +796,22 @@ class SearchKnowledgeRequest(BaseModel):
 
 
 try:
-    SearchKnowledgeRequestOrIn.model_rebuild()
+    SearchKnowledgeRequestOrFilterByIn.model_rebuild()
 except NameError:
     pass
 try:
-    FilterByOr.model_rebuild()
+    SearchKnowledgeRequestFilterByOr.model_rebuild()
 except NameError:
     pass
 try:
-    SearchKnowledgeRequestAndIn.model_rebuild()
+    SearchKnowledgeRequestAndFilterByIn.model_rebuild()
 except NameError:
     pass
 try:
-    FilterByAnd.model_rebuild()
+    SearchKnowledgeRequestFilterByAnd.model_rebuild()
 except NameError:
     pass
 try:
-    OneIn.model_rebuild()
+    SearchKnowledgeRequest1In.model_rebuild()
 except NameError:
     pass

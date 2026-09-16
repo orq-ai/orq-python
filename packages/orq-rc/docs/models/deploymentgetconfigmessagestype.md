@@ -1,15 +1,15 @@
 # DeploymentGetConfigMessagesType
 
-Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
+The type of the tool. Currently, only `function` is supported.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigMessagesType
-value: DeploymentGetConfigMessagesType = "ephemeral"
+value: DeploymentGetConfigMessagesType = "function"
 ```
 
 
 ## Values
 
-- `"ephemeral"`
+- `"function"`

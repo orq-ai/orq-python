@@ -1,6 +1,6 @@
 # DeploymentGetConfigMessagesDeploymentsRequestContent
 
-The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified.
+The contents of the user message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentGetConfigContentDeploymentsRequest2]`
+### `List[models.DeploymentGetConfigContentDeploymentsRequestRequestBody2]`
 
 ```python
-value: List[models.DeploymentGetConfigContentDeploymentsRequest2] = /* values here */
+value: List[models.DeploymentGetConfigContentDeploymentsRequestRequestBody2] = /* values here */
 ```
 

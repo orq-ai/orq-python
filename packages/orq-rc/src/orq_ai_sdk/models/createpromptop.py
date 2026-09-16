@@ -2138,7 +2138,7 @@ class CreatePromptModelParameters(BaseModel):
         return m
 
 
-Provider = Literal[
+CreatePromptProvider = Literal[
     "openai",
     "groq",
     "cohere",
@@ -2468,7 +2468,7 @@ class PromptConfigTypedDict(TypedDict):
     r"""The modality of the model"""
     model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[Nullable[Provider]]
+    provider: NotRequired[Nullable[CreatePromptProvider]]
     integration_id: NotRequired[Nullable[str]]
     r"""The ID of the integration to use"""
     version: NotRequired[str]
@@ -2494,7 +2494,7 @@ class PromptConfig(BaseModel):
     model_parameters: Optional[CreatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: OptionalNullable[Provider] = UNSET
+    provider: OptionalNullable[CreatePromptProvider] = UNSET
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The ID of the integration to use"""

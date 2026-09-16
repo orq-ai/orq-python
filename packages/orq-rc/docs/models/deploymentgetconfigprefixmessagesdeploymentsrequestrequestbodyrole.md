@@ -1,15 +1,15 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
 
-The role of the messages author, in this case `system`.
+The role of the messages author, in this case `assistant`.
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
-value: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole = "system"
+value: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole = "assistant"
 ```
 
 
 ## Values
 
-- `"system"`
+- `"assistant"`

@@ -27,22 +27,23 @@ from typing_extensions import (
 )
 
 
-RoleToolMessage = Literal["tool",]
+InvokeAgentRoleToolMessage = Literal["tool",]
 r"""Message containing tool execution results"""
 
 
-RoleUserMessage = Literal["user",]
+InvokeAgentRoleUserMessage = Literal["user",]
 r"""Message from the end user"""
 
 
 InvokeAgentRoleTypedDict = TypeAliasType(
-    "InvokeAgentRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
+    "InvokeAgentRoleTypedDict",
+    Union[InvokeAgentRoleUserMessage, InvokeAgentRoleToolMessage],
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
 InvokeAgentRole = TypeAliasType(
-    "InvokeAgentRole", Union[RoleUserMessage, RoleToolMessage]
+    "InvokeAgentRole", Union[InvokeAgentRoleUserMessage, InvokeAgentRoleToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 

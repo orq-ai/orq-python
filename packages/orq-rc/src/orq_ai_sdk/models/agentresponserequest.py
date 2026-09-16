@@ -19,22 +19,22 @@ from typing_extensions import (
 )
 
 
-ToolMessage = Literal["tool",]
+RoleToolMessage = Literal["tool",]
 r"""Message containing tool execution results"""
 
 
-UserMessage = Literal["user",]
+RoleUserMessage = Literal["user",]
 r"""Message from the end user"""
 
 
 AgentResponseRequestRoleTypedDict = TypeAliasType(
-    "AgentResponseRequestRoleTypedDict", Union[UserMessage, ToolMessage]
+    "AgentResponseRequestRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
 AgentResponseRequestRole = TypeAliasType(
-    "AgentResponseRequestRole", Union[UserMessage, ToolMessage]
+    "AgentResponseRequestRole", Union[RoleUserMessage, RoleToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 

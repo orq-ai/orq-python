@@ -909,12 +909,12 @@ class Skills(BaseSDK):
     ) -> models.UpdateSkillResponse:
         r"""Update a skill
 
-        Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
+        Updates mutable skill fields. Omitted fields keep their current values. When `tags` is provided it replaces the existing tags; send an empty array to clear them.
 
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
         :param description: New description. Omit to keep the current description.
-        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param tags: Replacement tag list. When provided, replaces the current tags; send an empty array to clear them.
         :param path: New project path. Omit to keep the current path.
         :param instructions: New instruction body. Omit to keep the current instructions.
         :param project_id: New containing project. Omit to keep the current project.
@@ -1043,12 +1043,12 @@ class Skills(BaseSDK):
     ) -> models.UpdateSkillResponse:
         r"""Update a skill
 
-        Updates mutable skill fields. Omitted optional fields keep their current values. Repeated fields such as `tags` replace the existing collection when provided.
+        Updates mutable skill fields. Omitted fields keep their current values. When `tags` is provided it replaces the existing tags; send an empty array to clear them.
 
         :param skill_id: Skill ID to update.
         :param display_name: New workspace-unique display name. Must start with a letter and may contain letters, numbers, dashes, and underscores. Dots are not allowed.
         :param description: New description. Omit to keep the current description.
-        :param tags: Replacement tag list. Leave empty to clear tags.
+        :param tags: Replacement tag list. When provided, replaces the current tags; send an empty array to clear them.
         :param path: New project path. Omit to keep the current path.
         :param instructions: New instruction body. Omit to keep the current instructions.
         :param project_id: New containing project. Omit to keep the current project.

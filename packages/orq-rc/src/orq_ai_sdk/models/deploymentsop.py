@@ -390,7 +390,7 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-DeploymentsDeploymentsResponseType = Literal["ephemeral",]
+DeploymentsDeploymentsType = Literal["ephemeral",]
 r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
 
 
@@ -410,7 +410,7 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 class DeploymentsCacheControlTypedDict(TypedDict):
     r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
 
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
     r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
     ttl: NotRequired[DeploymentsTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
@@ -425,7 +425,7 @@ class DeploymentsCacheControlTypedDict(TypedDict):
 class DeploymentsCacheControl(BaseModel):
     r"""Provider-level prompt caching configuration applied to the request. Creates a cache control breakpoint covering the request content. Only supported by `Anthropic` Claude models."""
 
-    type: DeploymentsDeploymentsResponseType
+    type: DeploymentsDeploymentsType
     r"""Create a cache control breakpoint. Accepts only the value \"ephemeral\"."""
 
     ttl: Optional[DeploymentsTTL] = "5m"
@@ -748,7 +748,7 @@ DeploymentsRole = Literal[
 r"""The role of the prompt message"""
 
 
-Deployments2DeploymentsType = Literal["file",]
+Deployments2DeploymentsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -794,19 +794,19 @@ class Deployments2File(BaseModel):
 
 
 class Deployments23TypedDict(TypedDict):
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
     file: Deployments2FileTypedDict
 
 
 class Deployments23(BaseModel):
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
 
     file: Deployments2File
 
 
-Deployments2Type = Literal["image_url",]
+Deployments2DeploymentsType = Literal["image_url",]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -848,32 +848,32 @@ class Deployments2ImageURL(BaseModel):
 class Deployments22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2Type
+    type: Deployments2DeploymentsType
     image_url: Deployments2ImageURLTypedDict
 
 
 class Deployments22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2Type
+    type: Deployments2DeploymentsType
 
     image_url: Deployments2ImageURL
 
 
-Deployments2DeploymentsResponseType = Literal["text",]
+Deployments2Type = Literal["text",]
 
 
 class Deployments21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2Type
     text: str
 
 
 class Deployments21(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2Type
 
     text: str
 
@@ -906,7 +906,7 @@ DeploymentsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-DeploymentsDeploymentsType = Literal["function",]
+DeploymentsDeploymentsResponseType = Literal["function",]
 
 
 class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
@@ -923,14 +923,14 @@ class DeploymentsDeploymentsFunction(BaseModel):
 
 
 class DeploymentsToolCallsTypedDict(TypedDict):
-    type: DeploymentsDeploymentsType
+    type: DeploymentsDeploymentsResponseType
     function: DeploymentsDeploymentsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class DeploymentsToolCalls(BaseModel):
-    type: DeploymentsDeploymentsType
+    type: DeploymentsDeploymentsResponseType
 
     function: DeploymentsDeploymentsFunction
 
