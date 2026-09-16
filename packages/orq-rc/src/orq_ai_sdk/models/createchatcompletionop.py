@@ -2542,7 +2542,7 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     messages: List[CreateChatCompletionMessagesTypedDict]
     r"""A list of messages comprising the conversation so far."""
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
     metadata: NotRequired[Dict[str, str]]
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
     name: NotRequired[str]
@@ -2631,7 +2631,7 @@ class CreateChatCompletionRequestBody(BaseModel):
     r"""A list of messages comprising the conversation so far."""
 
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
 
     metadata: Optional[Dict[str, str]] = None
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""

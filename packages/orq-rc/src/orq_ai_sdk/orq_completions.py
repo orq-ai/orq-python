@@ -152,7 +152,7 @@ class OrqCompletions(BaseSDK):
         Creates a model response for the given chat conversation with support for retries, fallbacks, prompts, and variables.
 
         :param messages: A list of messages comprising the conversation so far.
-        :param model: Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models.
+        :param model: Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models.
         :param metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param audio: Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more.
@@ -511,7 +511,7 @@ class OrqCompletions(BaseSDK):
         Creates a model response for the given chat conversation with support for retries, fallbacks, prompts, and variables.
 
         :param messages: A list of messages comprising the conversation so far.
-        :param model: Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models.
+        :param model: Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models.
         :param metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param audio: Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more.
