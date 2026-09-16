@@ -17,6 +17,7 @@ class TraceUsageTypedDict(TypedDict):
     completion_audio_tokens: NotRequired[int]
     completion_accepted_prediction_tokens: NotRequired[int]
     completion_rejected_prediction_tokens: NotRequired[int]
+    prompt_cache_creation_tokens: NotRequired[int]
 
 
 class TraceUsage(BaseModel):
@@ -38,6 +39,8 @@ class TraceUsage(BaseModel):
 
     completion_rejected_prediction_tokens: Optional[int] = None
 
+    prompt_cache_creation_tokens: Optional[int] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -51,6 +54,7 @@ class TraceUsage(BaseModel):
                 "completion_audio_tokens",
                 "completion_accepted_prediction_tokens",
                 "completion_rejected_prediction_tokens",
+                "prompt_cache_creation_tokens",
             ]
         )
         serialized = handler(self)

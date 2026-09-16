@@ -10,6 +10,8 @@
 | `auth_mode`                   | *str*                         | :heavy_check_mark:            | N/A                           |
 | `autorouter_id`               | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `autorouter_version`          | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
+| `cache_read_cost`             | *Optional[float]*             | :heavy_minus_sign:            | N/A                           |
+| `cache_write_cost`            | *Optional[float]*             | :heavy_minus_sign:            | N/A                           |
 | `description`                 | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `display_name`                | *str*                         | :heavy_check_mark:            | N/A                           |
 | `has_reasoning`               | *Optional[bool]*              | :heavy_minus_sign:            | N/A                           |

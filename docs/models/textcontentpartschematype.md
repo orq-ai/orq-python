@@ -1,15 +1,15 @@
 # TextContentPartSchemaType
 
-The type of the content part.
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
 
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import TextContentPartSchemaType
-value: TextContentPartSchemaType = "text"
+value: TextContentPartSchemaType = "ephemeral"
 ```
 
 
 ## Values
 
-- `"text"`
+- `"ephemeral"`

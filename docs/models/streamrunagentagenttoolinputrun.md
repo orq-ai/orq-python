@@ -89,6 +89,12 @@ value: models.SidekickToolInput = /* values here */
 value: models.CodeInterpreterToolInput = /* values here */
 ```
 
+### `models.FileSystemToolInput`
+
+```python
+value: models.FileSystemToolInput = /* values here */
+```
+
 ### `models.AgentToolInputRunHTTPToolRun`
 
 ```python

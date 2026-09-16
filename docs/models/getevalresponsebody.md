@@ -11,10 +11,10 @@ The evaluator. The response shape depends on the evaluator `type`.
 value: models.ResponseBodyLLM = /* values here */
 ```
 
-### `models.ResponseBodyFunction`
+### `models.GetEvalResponseBodyFunction`
 
 ```python
-value: models.ResponseBodyFunction = /* values here */
+value: models.GetEvalResponseBodyFunction = /* values here */
 ```
 
 ### `models.Ragas`
@@ -29,10 +29,10 @@ value: models.Ragas = /* values here */
 value: models.JSON = /* values here */
 ```
 
-### `models.ResponseBodyHTTP`
+### `models.GetEvalResponseBodyHTTP`
 
 ```python
-value: models.ResponseBodyHTTP = /* values here */
+value: models.GetEvalResponseBodyHTTP = /* values here */
 ```
 
 ### `models.ResponseBodyPython`

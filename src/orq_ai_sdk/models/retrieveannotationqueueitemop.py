@@ -19,3 +19,11 @@ class RetrieveAnnotationQueueItemRequest(BaseModel):
     item_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+
+
+class RetrieveAnnotationQueueItemResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+
+class RetrieveAnnotationQueueItemResponseBody(BaseModel):
+    r"""OK"""

@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.Content2]`
+### `List[models.InvokeDeploymentRequestContentPrefixMessages2]`
 
 ```python
-value: List[models.Content2] = /* values here */
+value: List[models.InvokeDeploymentRequestContentPrefixMessages2] = /* values here */
 ```
 

@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import GetEvalResponseBodyEvalsResponse200ApplicationJSONType
-value: GetEvalResponseBodyEvalsResponse200ApplicationJSONType = "python_eval"
+value: GetEvalResponseBodyEvalsResponse200ApplicationJSONType = "http_eval"
 ```
 
 
 ## Values
 
-- `"python_eval"`
+- `"http_eval"`

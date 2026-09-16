@@ -9,7 +9,7 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 from pydantic import model_serializer
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -19,13 +19,6 @@ PublicPluginID = Literal[
     "trace_scrubbing",
 ]
 r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
-
-
-PublicPluginLanguage = Literal[
-    "en",
-    "nl",
-]
-r"""pii_redaction only. Detector language. Defaults to en."""
 
 
 PublicPluginMask = Literal[
@@ -49,13 +42,17 @@ class PublicPluginTypedDict(TypedDict):
     id: PublicPluginID
     r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
     entities: NotRequired[Nullable[List[str]]]
-    r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). Omit to redact every type detected for the language."""
-    language: NotRequired[PublicPluginLanguage]
-    r"""pii_redaction only. Detector language. Defaults to en."""
+    r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). On its own this is a strict allowlist; alongside regions it adds to the region coverage. Omit to redact every type detected for the language and regions. See GET /v2/pii/capabilities for valid types."""
+    entity_thresholds: NotRequired[Dict[str, float]]
+    r"""pii_redaction only. Per-entity confidence cutoff overrides in [0,1], keyed by entity type. An override replaces threshold for that type and may sit above or below it. Every key must also appear in entities."""
+    language: NotRequired[str]
+    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to en. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
     mask: NotRequired[Nullable[List[PublicPluginMask]]]
     r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""
     on_failure: NotRequired[PublicPluginOnFailure]
     r"""pii_redaction only. Behavior when redaction is unavailable. block (default) fails the request; passthrough sends the original text."""
+    regions: NotRequired[Nullable[List[str]]]
+    r"""pii_redaction only. Region codes selecting whole regions of coverage (e.g. nl, gb). Every entity type those regions cover is redacted, alongside the base catalog. [\"all\"] cannot be combined with other region codes, and leaving both this and entities empty also runs every region, so selecting nothing is the widest request rather than the narrowest. Combines with entities: the two selections are unioned."""
     threshold: NotRequired[float]
     r"""pii_redaction only. Detector confidence cutoff in [0,1]."""
 
@@ -65,10 +62,13 @@ class PublicPlugin(BaseModel):
     r"""Plugin discriminator. pii_redaction redacts PII, response_healing repairs malformed JSON, and trace_scrubbing removes selected sensitive fields from exported traces."""
 
     entities: OptionalNullable[List[str]] = UNSET
-    r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). Omit to redact every type detected for the language."""
+    r"""pii_redaction only. Entity types to redact (e.g. EMAIL_ADDRESS, BSN). On its own this is a strict allowlist; alongside regions it adds to the region coverage. Omit to redact every type detected for the language and regions. See GET /v2/pii/capabilities for valid types."""
 
-    language: Optional[PublicPluginLanguage] = None
-    r"""pii_redaction only. Detector language. Defaults to en."""
+    entity_thresholds: Optional[Dict[str, float]] = None
+    r"""pii_redaction only. Per-entity confidence cutoff overrides in [0,1], keyed by entity type. An override replaces threshold for that type and may sit above or below it. Every key must also appear in entities."""
+
+    language: Optional[str] = None
+    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to en. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
 
     mask: OptionalNullable[List[PublicPluginMask]] = UNSET
     r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""
@@ -76,15 +76,26 @@ class PublicPlugin(BaseModel):
     on_failure: Optional[PublicPluginOnFailure] = None
     r"""pii_redaction only. Behavior when redaction is unavailable. block (default) fails the request; passthrough sends the original text."""
 
+    regions: OptionalNullable[List[str]] = UNSET
+    r"""pii_redaction only. Region codes selecting whole regions of coverage (e.g. nl, gb). Every entity type those regions cover is redacted, alongside the base catalog. [\"all\"] cannot be combined with other region codes, and leaving both this and entities empty also runs every region, so selecting nothing is the widest request rather than the narrowest. Combines with entities: the two selections are unioned."""
+
     threshold: Optional[float] = None
     r"""pii_redaction only. Detector confidence cutoff in [0,1]."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["entities", "language", "mask", "on_failure", "threshold"]
+            [
+                "entities",
+                "entity_thresholds",
+                "language",
+                "mask",
+                "on_failure",
+                "regions",
+                "threshold",
+            ]
         )
-        nullable_fields = set(["entities", "mask"])
+        nullable_fields = set(["entities", "mask", "regions"])
         serialized = handler(self)
         m = {}
 

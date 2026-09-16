@@ -185,7 +185,7 @@ class Agents(BaseSDK):
             return unmarshal_json_response(
                 models.CreateAgentRequestResponseBody, http_res
             )
-        if utils.match_response(http_res, ["409", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -352,7 +352,7 @@ class Agents(BaseSDK):
             return unmarshal_json_response(
                 models.CreateAgentRequestResponseBody, http_res
             )
-        if utils.match_response(http_res, ["409", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -450,7 +450,7 @@ class Agents(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -548,7 +548,7 @@ class Agents(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -643,7 +643,7 @@ class Agents(BaseSDK):
                 models.DeleteAgentResponseBodyData, http_res
             )
             raise models.DeleteAgentResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -738,7 +738,7 @@ class Agents(BaseSDK):
                 models.DeleteAgentResponseBodyData, http_res
             )
             raise models.DeleteAgentResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -835,7 +835,7 @@ class Agents(BaseSDK):
                 models.RetrieveAgentRequestAgentsResponseBodyData, http_res
             )
             raise models.RetrieveAgentRequestAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -932,7 +932,7 @@ class Agents(BaseSDK):
                 models.RetrieveAgentRequestAgentsResponseBodyData, http_res
             )
             raise models.RetrieveAgentRequestAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -984,7 +984,7 @@ class Agents(BaseSDK):
         skills: OptionalNullable[Iterable[str]] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
-        version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
+        version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1130,7 +1130,7 @@ class Agents(BaseSDK):
                 models.UpdateAgentAgentsResponseBodyData, http_res
             )
             raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1182,7 +1182,7 @@ class Agents(BaseSDK):
         skills: OptionalNullable[Iterable[str]] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
-        version_increment: Optional[models.UpdateAgentVersionIncrement] = None,
+        version_increment: Optional[models.VersionIncrement] = None,
         version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1328,7 +1328,7 @@ class Agents(BaseSDK):
                 models.UpdateAgentAgentsResponseBodyData, http_res
             )
             raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2254,7 +2254,7 @@ class Agents(BaseSDK):
             raise models.StreamRunAgentAgentsResponseBody(
                 response_data, http_res, http_res_text
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2483,7 +2483,7 @@ class Agents(BaseSDK):
             raise models.StreamRunAgentAgentsResponseBody(
                 response_data, http_res, http_res_text
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2662,7 +2662,7 @@ class Agents(BaseSDK):
             raise models.StreamAgentAgentsResponseBody(
                 response_data, http_res, http_res_text
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2841,7 +2841,7 @@ class Agents(BaseSDK):
             raise models.StreamAgentAgentsResponseBody(
                 response_data, http_res, http_res_text
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

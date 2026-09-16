@@ -14,3 +14,4 @@
 | `completion_audio_tokens`               | *Optional[int]*                         | :heavy_minus_sign:                      | N/A                                     |
 | `completion_accepted_prediction_tokens` | *Optional[int]*                         | :heavy_minus_sign:                      | N/A                                     |
 | `completion_rejected_prediction_tokens` | *Optional[int]*                         | :heavy_minus_sign:                      | N/A                                     |
+| `prompt_cache_creation_tokens`          | *Optional[int]*                         | :heavy_minus_sign:                      | N/A                                     |

@@ -48,8 +48,8 @@ class Generations(BaseSDK):
         ] = None,
         plugins: Optional[
             Union[
-                Iterable[models.CreateImagePlugins],
-                Iterable[models.CreateImagePluginsTypedDict],
+                Iterable[models.PIIRedactionPlugin],
+                Iterable[models.PIIRedactionPluginTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -128,7 +128,7 @@ class Generations(BaseSDK):
                 timeout, Optional[models.CreateImageTimeout]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.CreateImagePlugins]]
+                plugins, Optional[List[models.PIIRedactionPlugin]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )
@@ -231,8 +231,8 @@ class Generations(BaseSDK):
         ] = None,
         plugins: Optional[
             Union[
-                Iterable[models.CreateImagePlugins],
-                Iterable[models.CreateImagePluginsTypedDict],
+                Iterable[models.PIIRedactionPlugin],
+                Iterable[models.PIIRedactionPluginTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -311,7 +311,7 @@ class Generations(BaseSDK):
                 timeout, Optional[models.CreateImageTimeout]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.CreateImagePlugins]]
+                plugins, Optional[List[models.PIIRedactionPlugin]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )

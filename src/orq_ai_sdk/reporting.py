@@ -34,7 +34,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. This API remains supported while the neutral telemetry envelope is proven against every reporting request shape.
+        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).
@@ -161,7 +161,7 @@ class Reporting(BaseSDK):
     ) -> models.QueryReportResponse:
         r"""Query reporting metrics
 
-        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes. This API remains supported while the neutral telemetry envelope is proven against every reporting request shape.
+        Returns time-series, scalar, and top-list analytics for AI usage, cost, latency, evaluator results, and guardrail outcomes.
 
         :param metric: Catalogue metric to query.
         :param from_: Inclusive lower bound for the report window (RFC 3339, UTC).

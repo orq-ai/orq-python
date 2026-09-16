@@ -27,6 +27,15 @@ class SpanSummaryTypedDict(TypedDict):
     usage: NotRequired[TraceUsageTypedDict]
     cost: NotRequired[TraceCostTypedDict]
     has_detail: NotRequired[bool]
+    level: NotRequired[int]
+    has_children: NotRequired[bool]
+    trace_framework: NotRequired[str]
+    r"""Row badge inputs, so the tree does not need a detail fetch per span:
+    trace_framework is set on the trace root, leading_span_type where the
+    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
+    """
+    leading_span_type: NotRequired[str]
+    guardrail_enabled: NotRequired[bool]
 
 
 class SpanSummary(BaseModel):
@@ -62,6 +71,20 @@ class SpanSummary(BaseModel):
 
     has_detail: Optional[bool] = None
 
+    level: Optional[int] = None
+
+    has_children: Optional[bool] = None
+
+    trace_framework: Optional[str] = None
+    r"""Row badge inputs, so the tree does not need a detail fetch per span:
+    trace_framework is set on the trace root, leading_span_type where the
+    ingest marked one, guardrail_enabled on evaluator spans run as guardrails.
+    """
+
+    leading_span_type: Optional[str] = None
+
+    guardrail_enabled: Optional[bool] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -82,6 +105,11 @@ class SpanSummary(BaseModel):
                 "usage",
                 "cost",
                 "has_detail",
+                "level",
+                "has_children",
+                "trace_framework",
+                "leading_span_type",
+                "guardrail_enabled",
             ]
         )
         serialized = handler(self)

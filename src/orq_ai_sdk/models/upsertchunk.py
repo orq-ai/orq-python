@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+import pydantic
 from pydantic import model_serializer
 from typing import Dict, List, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 UpsertChunkMetadataTypedDict = TypeAliasType(
@@ -21,6 +22,8 @@ class UpsertChunkTypedDict(TypedDict):
     embedding: NotRequired[List[float]]
     metadata: NotRequired[Dict[str, UpsertChunkMetadataTypedDict]]
     r"""Metadata of the chunk"""
+    id: NotRequired[str]
+    r"""Optional client-supplied chunk id. Reusing the same _id makes creation idempotent: an existing chunk with that _id in this datasource is replaced instead of duplicated."""
 
 
 class UpsertChunk(BaseModel):
@@ -32,9 +35,12 @@ class UpsertChunk(BaseModel):
     metadata: Optional[Dict[str, UpsertChunkMetadata]] = None
     r"""Metadata of the chunk"""
 
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+    r"""Optional client-supplied chunk id. Reusing the same _id makes creation idempotent: an existing chunk with that _id in this datasource is replaced instead of duplicated."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["embedding", "metadata"])
+        optional_fields = set(["embedding", "metadata", "_id"])
         serialized = handler(self)
         m = {}
 
@@ -47,3 +53,9 @@ class UpsertChunk(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpsertChunk.model_rebuild()
+except NameError:
+    pass

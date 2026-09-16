@@ -13,7 +13,7 @@ class UpdateSkillRequestTypedDict(TypedDict):
     description: NotRequired[str]
     r"""New description. Omit to keep the current description."""
     tags: NotRequired[List[str]]
-    r"""Replacement tag list. Leave empty to clear tags."""
+    r"""Replacement tag list. When provided, replaces the current tags; send an empty array to clear them."""
     path: NotRequired[str]
     r"""New project path. Omit to keep the current path."""
     instructions: NotRequired[str]
@@ -30,7 +30,7 @@ class UpdateSkillRequest(BaseModel):
     r"""New description. Omit to keep the current description."""
 
     tags: Optional[List[str]] = None
-    r"""Replacement tag list. Leave empty to clear tags."""
+    r"""Replacement tag list. When provided, replaces the current tags; send an empty array to clear them."""
 
     path: Optional[str] = None
     r"""New project path. Omit to keep the current path."""

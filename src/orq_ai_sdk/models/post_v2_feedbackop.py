@@ -39,6 +39,7 @@ PostV2FeedbackProduct = Literal[
     "evaluators",
     "otel",
     "ai-chat",
+    "mcp_gateway",
 ]
 
 
@@ -160,6 +161,7 @@ PostV2FeedbackFeedbackProduct = Literal[
     "evaluators",
     "otel",
     "ai-chat",
+    "mcp_gateway",
 ]
 
 

@@ -1,0 +1,9 @@
+# PreviewDatasourceChunksRequest
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `knowledge_id`                                                                                       | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `datasources_service_preview_chunks_request`                                                         | [models.DatasourcesServicePreviewChunksRequest](../models/datasourcesservicepreviewchunksrequest.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

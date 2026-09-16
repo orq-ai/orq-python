@@ -14,9 +14,9 @@ class AggregateLogsRequestTypedDict(TypedDict):
     from_: NotRequired[datetime]
     to: NotRequired[datetime]
     grain: NotRequired[str]
-    r"""Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
-    libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
-    defaults to \"auto\" (grain picked from the time range).
+    r"""Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
+    grain from the requested time range. Empty returns rows without time
+    buckets.
     """
     filters: NotRequired[List[TraceFilterTypedDict]]
 
@@ -27,9 +27,9 @@ class AggregateLogsRequest(BaseModel):
     to: Optional[datetime] = None
 
     grain: Optional[str] = None
-    r"""Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
-    libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
-    defaults to \"auto\" (grain picked from the time range).
+    r"""Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
+    grain from the requested time range. Empty returns rows without time
+    buckets.
     """
 
     filters: Optional[List[TraceFilter]] = None

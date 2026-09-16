@@ -17,6 +17,8 @@ class UpdateMemoryStoreRequestTypedDict(TypedDict):
     description: NotRequired[str]
     ttl: NotRequired[Nullable[float]]
     path: NotRequired[str]
+    project_id: NotRequired[str]
+    r"""New containing project. Omit to keep the current project; `path` resolves inside it."""
 
 
 class UpdateMemoryStoreRequest(BaseModel):
@@ -26,9 +28,12 @@ class UpdateMemoryStoreRequest(BaseModel):
 
     path: Optional[str] = None
 
+    project_id: Optional[str] = None
+    r"""New containing project. Omit to keep the current project; `path` resolves inside it."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "ttl", "path"])
+        optional_fields = set(["description", "ttl", "path", "project_id"])
         nullable_fields = set(["ttl"])
         serialized = handler(self)
         m = {}

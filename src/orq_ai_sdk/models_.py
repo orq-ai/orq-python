@@ -146,7 +146,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -291,7 +291,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelCreateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -312,6 +312,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -346,6 +348,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -386,6 +390,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -467,7 +473,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -488,6 +494,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -522,6 +530,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -562,6 +572,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -643,7 +655,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -763,7 +775,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -883,7 +895,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -900,6 +912,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -932,6 +946,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -975,6 +991,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1059,7 +1077,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelUpdateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1076,6 +1094,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1108,6 +1128,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1151,6 +1173,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1235,7 +1259,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelUpdateAwsBedrockResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1352,7 +1376,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelAzureFoundryDeploymentsResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1469,7 +1493,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelAzureFoundryDeploymentsResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1573,7 +1597,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.ModelDocument], http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1677,7 +1701,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.ModelDocument], http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1769,7 +1793,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[Dict[str, Any]], http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
@@ -1861,7 +1885,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[Dict[str, Any]], http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
@@ -1879,6 +1903,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1905,6 +1931,8 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -1937,6 +1965,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2013,7 +2043,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2031,6 +2061,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2057,6 +2089,8 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2089,6 +2123,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            cache_read_cost=cache_read_cost,
+            cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2165,7 +2201,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2182,6 +2218,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2208,6 +2246,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2242,6 +2282,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2323,7 +2365,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelUpdateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2340,6 +2382,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        cache_read_cost: Optional[float] = None,
+        cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2366,6 +2410,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param cache_read_cost:
+        :param cache_write_cost:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2400,6 +2446,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                cache_read_cost=cache_read_cost,
+                cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2481,7 +2529,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelUpdateOpenAILikeResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2601,7 +2649,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["400", "415", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "415", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2721,7 +2769,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["400", "415", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "415", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2832,7 +2880,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2943,7 +2991,7 @@ class Models(BaseSDK):
             return unmarshal_json_response(
                 models.ModelCreateVertexResponseBody, http_res
             )
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -3281,7 +3329,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelUpdateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -3421,7 +3469,7 @@ class Models(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ModelUpdateResponseBody, http_res)
-        if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
