@@ -17,12 +17,12 @@ class RoutingRulePluginTypedDict(TypedDict):
     a proto change.
     """
     entities: NotRequired[List[str]]
-    r"""Entity types to redact. Mutually exclusive with regions."""
+    r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
     on_failure: NotRequired[str]
     threshold: NotRequired[float]
     mask: NotRequired[List[str]]
     regions: NotRequired[List[str]]
-    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Mutually exclusive with entities."""
+    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Combines with entities: the two selections are unioned."""
     entity_thresholds: NotRequired[Dict[str, float]]
     r"""Per-entity-type confidence cutoff. Every key must also appear in entities."""
 
@@ -39,7 +39,7 @@ class RoutingRulePlugin(BaseModel):
     """
 
     entities: Optional[List[str]] = None
-    r"""Entity types to redact. Mutually exclusive with regions."""
+    r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
 
     on_failure: Optional[str] = None
 
@@ -48,7 +48,7 @@ class RoutingRulePlugin(BaseModel):
     mask: Optional[List[str]] = None
 
     regions: Optional[List[str]] = None
-    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Mutually exclusive with entities."""
+    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Combines with entities: the two selections are unioned."""
 
     entity_thresholds: Optional[Dict[str, float]] = None
     r"""Per-entity-type confidence cutoff. Every key must also appear in entities."""

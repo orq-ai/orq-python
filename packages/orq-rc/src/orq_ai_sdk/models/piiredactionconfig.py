@@ -3,7 +3,7 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,6 +33,14 @@ class PiiRedactionConfigTypedDict(TypedDict):
     """
     threshold: NotRequired[float]
     r"""Detection confidence threshold in the [0, 1] range."""
+    regions: NotRequired[List[str]]
+    r"""Regions of coverage by lowercase ISO 3166-1 alpha-2 code, or [\"all\"].
+    Adds every entity type the regions cover on top of `entities`.
+    """
+    entity_thresholds: NotRequired[Dict[str, float]]
+    r"""Per-entity-type confidence cutoff in [0, 1]. Every key must also appear in
+    `entities`.
+    """
 
 
 class PiiRedactionConfig(BaseModel):
@@ -65,9 +73,28 @@ class PiiRedactionConfig(BaseModel):
     threshold: Optional[float] = None
     r"""Detection confidence threshold in the [0, 1] range."""
 
+    regions: Optional[List[str]] = None
+    r"""Regions of coverage by lowercase ISO 3166-1 alpha-2 code, or [\"all\"].
+    Adds every entity type the regions cover on top of `entities`.
+    """
+
+    entity_thresholds: Optional[Dict[str, float]] = None
+    r"""Per-entity-type confidence cutoff in [0, 1]. Every key must also appear in
+    `entities`.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["language", "entities", "on_failure", "threshold"])
+        optional_fields = set(
+            [
+                "language",
+                "entities",
+                "on_failure",
+                "threshold",
+                "regions",
+                "entity_thresholds",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
