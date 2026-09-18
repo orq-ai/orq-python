@@ -6,6 +6,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.audio import Audio
 from orq_ai_sdk.chat import Chat
+from orq_ai_sdk.classify import Classify
 from orq_ai_sdk.completions import Completions
 from orq_ai_sdk.embeddings import Embeddings
 from orq_ai_sdk.images import Images
@@ -25,6 +26,7 @@ class Router(BaseSDK):
     completions: Completions
     images: Images
     embeddings: Embeddings
+    classify: Classify
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -45,6 +47,7 @@ class Router(BaseSDK):
         )
         self.images = Images(self.sdk_configuration, parent_ref=self.parent_ref)
         self.embeddings = Embeddings(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.classify = Classify(self.sdk_configuration, parent_ref=self.parent_ref)
 
     def ocr(
         self,

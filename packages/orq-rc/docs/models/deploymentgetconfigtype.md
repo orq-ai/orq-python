@@ -21,4 +21,5 @@ value: DeploymentGetConfigType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

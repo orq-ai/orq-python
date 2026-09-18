@@ -21,4 +21,5 @@ value: UpdatePromptModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

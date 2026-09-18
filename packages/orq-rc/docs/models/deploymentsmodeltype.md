@@ -21,4 +21,5 @@ value: DeploymentsModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

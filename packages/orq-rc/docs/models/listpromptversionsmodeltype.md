@@ -21,4 +21,5 @@ value: ListPromptVersionsModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

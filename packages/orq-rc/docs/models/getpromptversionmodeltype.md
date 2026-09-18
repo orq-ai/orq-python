@@ -21,4 +21,5 @@ value: GetPromptVersionModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

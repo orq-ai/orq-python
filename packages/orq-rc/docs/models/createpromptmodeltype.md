@@ -21,4 +21,5 @@ value: CreatePromptModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

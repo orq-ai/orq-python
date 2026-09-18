@@ -1744,6 +1744,7 @@ UpdatePromptModelType = Literal[
     "rerank",
     "ocr",
     "moderation",
+    "classify",
     "vision",
 ]
 r"""The modality of the model"""
@@ -2277,6 +2278,7 @@ UpdatePromptProvider = Literal[
     "reson8",
     "meta",
     "greenpt",
+    "typesafe",
     "slack",
     "orq",
 ]

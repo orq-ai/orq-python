@@ -64,6 +64,7 @@ Provider = Literal[
     "reson8",
     "meta",
     "greenpt",
+    "typesafe",
     "slack",
     "orq",
 ]

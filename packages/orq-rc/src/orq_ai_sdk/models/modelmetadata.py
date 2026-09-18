@@ -89,6 +89,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_batch_api: NotRequired[bool]
     supports_cache_control: NotRequired[bool]
     supports_citations: NotRequired[bool]
+    supports_classify: NotRequired[bool]
     supports_code_execution: NotRequired[bool]
     supports_commercial_use: NotRequired[bool]
     supports_computer_use: NotRequired[bool]
@@ -285,6 +286,8 @@ class ModelMetadata(BaseModel):
 
     supports_citations: Optional[bool] = None
 
+    supports_classify: Optional[bool] = None
+
     supports_code_execution: Optional[bool] = None
 
     supports_commercial_use: Optional[bool] = None
@@ -467,6 +470,7 @@ class ModelMetadata(BaseModel):
                 "supports_batch_api",
                 "supports_cache_control",
                 "supports_citations",
+                "supports_classify",
                 "supports_code_execution",
                 "supports_commercial_use",
                 "supports_computer_use",
