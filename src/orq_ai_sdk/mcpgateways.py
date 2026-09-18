@@ -100,7 +100,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List MCP gateways",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
                         },
                         {
                             "label": "Python - List MCP gateways",
@@ -221,7 +221,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List MCP gateways",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'status=MCP_GATEWAY_STATUS_ACTIVE'\n",
                         },
                         {
                             "label": "Python - List MCP gateways",
@@ -267,12 +267,6 @@ class McpGateways(BaseSDK):
         tool_naming: Optional[models.McpToolNaming] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.McpGatewayPlugin],
-                Iterable[models.McpGatewayPluginTypedDict],
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -289,7 +283,6 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
-        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -318,9 +311,6 @@ class McpGateways(BaseSDK):
             tool_naming=tool_naming,
             mode=mode,
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
-            plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.McpGatewayPlugin]]
-            ),
         )
 
         req = self._build_request(
@@ -368,7 +358,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Create MCP gateway",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-gateways\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP gateway",
@@ -414,12 +404,6 @@ class McpGateways(BaseSDK):
         tool_naming: Optional[models.McpToolNaming] = None,
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.McpGatewayPlugin],
-                Iterable[models.McpGatewayPluginTypedDict],
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -436,7 +420,6 @@ class McpGateways(BaseSDK):
         :param tool_naming:
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
-        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -465,9 +448,6 @@ class McpGateways(BaseSDK):
             tool_naming=tool_naming,
             mode=mode,
             sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
-            plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.McpGatewayPlugin]]
-            ),
         )
 
         req = self._build_request_async(
@@ -515,7 +495,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Create MCP gateway",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/mcp-gateways\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/mcp-gateways\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "key": "support-desk",\n    "display_name": "Support Desk",\n    "description": "Tools the support agent is allowed to call.",\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": { "mode": "MCP_TOOL_EXPOSURE_MODE_ALL" }\n      }\n    ],\n    "tool_naming": "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",\n    "mode": "MCP_GATEWAY_MODE_DIRECT"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create MCP gateway",
@@ -636,12 +616,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List the tools a gateway exposes",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=100'\n",
                         },
                         {
                             "label": "Core - List the tools contributed by one server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
                         },
                         {
                             "label": "Python - List the tools a gateway exposes",
@@ -762,12 +742,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - List the tools a gateway exposes",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=100'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=100'\n",
                         },
                         {
                             "label": "Core - List the tools contributed by one server",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC/tools' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'mcp_server_id=01JQ0K5R8N2ZC7X4M9T3V6HWBD'\n",
                         },
                         {
                             "label": "Python - List the tools a gateway exposes",
@@ -876,7 +856,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP gateway",
@@ -985,7 +965,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Retrieve an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve an MCP gateway",
@@ -1094,7 +1074,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Delete an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete an MCP gateway",
@@ -1203,7 +1183,7 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Delete an MCP gateway",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete an MCP gateway",
@@ -1252,12 +1232,6 @@ class McpGateways(BaseSDK):
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.McpGatewayPlugin],
-                Iterable[models.McpGatewayPluginTypedDict],
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1279,7 +1253,6 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
-        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1312,9 +1285,6 @@ class McpGateways(BaseSDK):
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
-                plugins=utils.get_pydantic_model(
-                    plugins, Optional[List[models.McpGatewayPlugin]]
-                ),
             ),
         )
 
@@ -1367,12 +1337,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Narrow the tools a gateway exposes",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Core - Disable a gateway",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
                         },
                         {
                             "label": "Python - Narrow the tools a gateway exposes",
@@ -1421,12 +1391,6 @@ class McpGateways(BaseSDK):
         mode: Optional[models.McpGatewayMode] = None,
         sharing: Optional[Union[models.Sharing, models.SharingTypedDict]] = None,
         clear_server_links: Optional[bool] = None,
-        plugins: Optional[
-            Union[
-                Iterable[models.McpGatewayPlugin],
-                Iterable[models.McpGatewayPluginTypedDict],
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1448,7 +1412,6 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
-        :param plugins: Plugins run on every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1481,9 +1444,6 @@ class McpGateways(BaseSDK):
                 mode=mode,
                 sharing=utils.get_pydantic_model(sharing, Optional[models.Sharing]),
                 clear_server_links=clear_server_links,
-                plugins=utils.get_pydantic_model(
-                    plugins, Optional[List[models.McpGatewayPlugin]]
-                ),
             ),
         )
 
@@ -1536,12 +1496,12 @@ class McpGateways(BaseSDK):
                         {
                             "label": "Core - Narrow the tools a gateway exposes",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "server_links": [\n      {\n        "mcp_server_id": "01JQ0K5R8N2ZC7X4M9T3V6HWBD",\n        "alias": "github",\n        "enabled": true,\n        "tool_exposure": {\n          "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",\n          "tool_ids": [\n            "01JQ0KA2M7VD9E4R6T8Y1U3XSB",\n            "01JQ0KB5P9WF2G7H4J6K8L1NQD"\n          ]\n        }\n      }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Core - Disable a gateway",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/mcp-gateways/01JQ0M8W4T5YB2Q7N1F6K3PZRC' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{ \"status\": \"MCP_GATEWAY_STATUS_DISABLED\" }'\n",
                         },
                         {
                             "label": "Python - Narrow the tools a gateway exposes",

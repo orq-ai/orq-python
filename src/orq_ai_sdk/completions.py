@@ -65,8 +65,8 @@ class Completions(BaseSDK):
         ] = UNSET,
         plugins: Optional[
             Union[
-                Iterable[models.PIIRedactionPlugin],
-                Iterable[models.PIIRedactionPluginTypedDict],
+                Iterable[models.CreateCompletionPlugins],
+                Iterable[models.CreateCompletionPluginsTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -157,7 +157,7 @@ class Completions(BaseSDK):
                 thinking, OptionalNullable[models.CreateCompletionThinking]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.PIIRedactionPlugin]]
+                plugins, Optional[List[models.CreateCompletionPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,
@@ -291,8 +291,8 @@ class Completions(BaseSDK):
         ] = UNSET,
         plugins: Optional[
             Union[
-                Iterable[models.PIIRedactionPlugin],
-                Iterable[models.PIIRedactionPluginTypedDict],
+                Iterable[models.CreateCompletionPlugins],
+                Iterable[models.CreateCompletionPluginsTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -383,7 +383,7 @@ class Completions(BaseSDK):
                 thinking, OptionalNullable[models.CreateCompletionThinking]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.PIIRedactionPlugin]]
+                plugins, Optional[List[models.CreateCompletionPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,

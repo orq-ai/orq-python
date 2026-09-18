@@ -11,12 +11,6 @@ A tool definition. The "type" field determines the tool kind.
 value: models.ToolsFunction = /* values here */
 ```
 
-### `models.Custom`
-
-```python
-value: models.Custom = /* values here */
-```
-
 ### `models.OrqAdvisorTool`
 
 ```python
@@ -27,72 +21,6 @@ value: models.OrqAdvisorTool = /* values here */
 
 ```python
 value: models.OrqSidekickTool = /* values here */
-```
-
-### `models.OrqSidekickTool`
-
-```python
-value: models.OrqSidekickTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
-```
-
-### `models.OrqAiTool`
-
-```python
-value: models.OrqAiTool = /* values here */
 ```
 
 ### `models.OrqAiTool`

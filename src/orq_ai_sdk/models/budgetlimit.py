@@ -6,7 +6,7 @@ from typing import Literal
 from typing_extensions import TypedDict
 
 
-BudgetLimitCurrency = Literal["usd",]
+Currency = Literal["usd",]
 
 
 Period = Literal[
@@ -19,13 +19,13 @@ Period = Literal[
 
 class BudgetLimitTypedDict(TypedDict):
     amount: float
-    currency: BudgetLimitCurrency
+    currency: Currency
     period: Period
 
 
 class BudgetLimit(BaseModel):
     amount: float
 
-    currency: BudgetLimitCurrency
+    currency: Currency
 
     period: Period

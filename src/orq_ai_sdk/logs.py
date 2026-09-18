@@ -31,9 +31,9 @@ class Logs(BaseSDK):
 
         :param from_:
         :param to:
-        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
-            grain from the requested time range. Empty returns rows without time
-            buckets.
+        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
+            libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
+            defaults to \"auto\" (grain picked from the time range).
         :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -138,9 +138,9 @@ class Logs(BaseSDK):
 
         :param from_:
         :param to:
-        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\". \"auto\" picks the
-            grain from the requested time range. Empty returns rows without time
-            buckets.
+        :param grain: Time bucket grain: \"auto\" | \"minute\" | \"hour\" | \"day\", matching the shared
+            libs/go/reporting Grain vocabulary used by the traces reporting API. Empty
+            defaults to \"auto\" (grain picked from the time range).
         :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -232,11 +232,6 @@ class Logs(BaseSDK):
         to: Optional[datetime] = None,
         key_limit: Optional[int] = None,
         value_limit: Optional[int] = None,
-        query: Optional[str] = None,
-        filter_operator: Optional[str] = None,
-        filters: Optional[
-            Union[Iterable[models.TraceFilter], Iterable[models.TraceFilterTypedDict]]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -244,15 +239,12 @@ class Logs(BaseSDK):
     ) -> models.ListLogFacetsResponse:
         r"""List log facets
 
-        Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values. Accepts optional filters and free-text query to narrow the counted subset.
+        Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values for the requested time range.
 
         :param from_:
         :param to:
         :param key_limit:
         :param value_limit:
-        :param query:
-        :param filter_operator:
-        :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -276,29 +268,21 @@ class Logs(BaseSDK):
             to=to,
             key_limit=key_limit,
             value_limit=value_limit,
-            query=query,
-            filter_operator=filter_operator,
-            filters=utils.get_pydantic_model(
-                filters, Optional[List[models.TraceFilter]]
-            ),
         )
 
         req = self._build_request(
-            method="POST",
+            method="GET",
             path="/v3/logs/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListLogFacetsRequest
-            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
@@ -346,11 +330,6 @@ class Logs(BaseSDK):
         to: Optional[datetime] = None,
         key_limit: Optional[int] = None,
         value_limit: Optional[int] = None,
-        query: Optional[str] = None,
-        filter_operator: Optional[str] = None,
-        filters: Optional[
-            Union[Iterable[models.TraceFilter], Iterable[models.TraceFilterTypedDict]]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -358,15 +337,12 @@ class Logs(BaseSDK):
     ) -> models.ListLogFacetsResponse:
         r"""List log facets
 
-        Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values. Accepts optional filters and free-text query to narrow the counted subset.
+        Return the facet hierarchy: attribute families (native, attribute, resource, scope) with their keys, counts, and top values for the requested time range.
 
         :param from_:
         :param to:
         :param key_limit:
         :param value_limit:
-        :param query:
-        :param filter_operator:
-        :param filters:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -390,29 +366,21 @@ class Logs(BaseSDK):
             to=to,
             key_limit=key_limit,
             value_limit=value_limit,
-            query=query,
-            filter_operator=filter_operator,
-            filters=utils.get_pydantic_model(
-                filters, Optional[List[models.TraceFilter]]
-            ),
         )
 
         req = self._build_request_async(
-            method="POST",
+            method="GET",
             path="/v3/logs/facets",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListLogFacetsRequest
-            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )

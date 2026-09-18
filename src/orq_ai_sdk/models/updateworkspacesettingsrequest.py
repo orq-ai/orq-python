@@ -25,9 +25,9 @@ class UpdateWorkspaceSettingsRequestTypedDict(TypedDict):
     value.
     """
     pii_redaction: NotRequired[PiiRedactionTypedDict]
-    r"""Workspace-default PII redaction update. Omit to leave it unchanged. When
-    present, `enabled` is always applied; `config` omitted keeps the stored
-    config, `config` present replaces it wholesale, and `config: {}` clears it.
+    r"""Replacement workspace-default PII redaction configuration. Omit to leave
+    the current PII redaction configuration unchanged; when present it fully
+    replaces the stored pii_redaction object.
     """
 
 
@@ -50,9 +50,9 @@ class UpdateWorkspaceSettingsRequest(BaseModel):
     """
 
     pii_redaction: Optional[PiiRedaction] = None
-    r"""Workspace-default PII redaction update. Omit to leave it unchanged. When
-    present, `enabled` is always applied; `config` omitted keeps the stored
-    config, `config` present replaces it wholesale, and `config: {}` clears it.
+    r"""Replacement workspace-default PII redaction configuration. Omit to leave
+    the current PII redaction configuration unchanged; when present it fully
+    replaces the stored pii_redaction object.
     """
 
     @model_serializer(mode="wrap")

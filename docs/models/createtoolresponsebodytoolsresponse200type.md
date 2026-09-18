@@ -1,17 +1,13 @@
 # CreateToolResponseBodyToolsResponse200Type
 
-The type of the argument.
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateToolResponseBodyToolsResponse200Type
-value: CreateToolResponseBodyToolsResponse200Type = "string"
+value: CreateToolResponseBodyToolsResponse200Type = "code"
 ```
 
 
 ## Values
 
-- `"string"`
-- `"number"`
-- `"boolean"`
+- `"code"`

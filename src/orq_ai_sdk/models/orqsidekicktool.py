@@ -19,20 +19,17 @@ OrqSidekickToolReasoningEffort = Literal[
 r"""Reasoning effort for supported models. Omit to use the provider default."""
 
 
-OrqSidekickToolType = Literal[
-    "orq:subagent",
-    "orq:sidekick",
-]
-r"""Subagent tool discriminator; orq:sidekick is the legacy alias."""
+OrqSidekickToolType = Literal["orq:sidekick",]
+r"""Sidekick tool discriminator."""
 
 
 class OrqSidekickToolTypedDict(TypedDict):
-    r"""Lets the primary model delegate a concrete task to a configured worker model. Use type \"orq:subagent\" (\"orq:sidekick\" is the legacy alias)."""
+    r"""Lets the primary model delegate a concrete task to a configured secondary model."""
 
     model: str
     r"""Secondary model in provider/model format."""
     type: OrqSidekickToolType
-    r"""Subagent tool discriminator; orq:sidekick is the legacy alias."""
+    r"""Sidekick tool discriminator."""
     max_tokens: NotRequired[int]
     r"""Maximum secondary-model output tokens. 0 uses the provider default; the selected model may impose a lower maximum."""
     max_uses: NotRequired[int]
@@ -48,13 +45,13 @@ class OrqSidekickToolTypedDict(TypedDict):
 
 
 class OrqSidekickTool(BaseModel):
-    r"""Lets the primary model delegate a concrete task to a configured worker model. Use type \"orq:subagent\" (\"orq:sidekick\" is the legacy alias)."""
+    r"""Lets the primary model delegate a concrete task to a configured secondary model."""
 
     model: str
     r"""Secondary model in provider/model format."""
 
     type: OrqSidekickToolType
-    r"""Subagent tool discriminator; orq:sidekick is the legacy alias."""
+    r"""Sidekick tool discriminator."""
 
     max_tokens: Optional[int] = None
     r"""Maximum secondary-model output tokens. 0 uses the provider default; the selected model may impose a lower maximum."""

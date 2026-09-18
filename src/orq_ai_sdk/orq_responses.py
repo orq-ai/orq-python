@@ -49,10 +49,7 @@ class OrqResponses(BaseSDK):
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
-            Union[
-                models.AgentResponseRequestConfiguration,
-                models.AgentResponseRequestConfigurationTypedDict,
-            ]
+            Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
@@ -121,7 +118,7 @@ class OrqResponses(BaseSDK):
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.AgentResponseRequestConfiguration]
+                    configuration, Optional[models.Configuration]
                 ),
                 background=background,
                 stream=stream,
@@ -182,7 +179,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/agents/customer_support/responses\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
                         },
                         {
                             "label": "Python",
@@ -262,10 +259,7 @@ class OrqResponses(BaseSDK):
         metadata: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.Engine] = None,
         configuration: Optional[
-            Union[
-                models.AgentResponseRequestConfiguration,
-                models.AgentResponseRequestConfigurationTypedDict,
-            ]
+            Union[models.Configuration, models.ConfigurationTypedDict]
         ] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
@@ -334,7 +328,7 @@ class OrqResponses(BaseSDK):
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 engine=engine,
                 configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.AgentResponseRequestConfiguration]
+                    configuration, Optional[models.Configuration]
                 ),
                 background=background,
                 stream=stream,
@@ -395,7 +389,7 @@ class OrqResponses(BaseSDK):
                         {
                             "label": "cURL",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/agents/customer_support/responses\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/agents/customer_support/responses\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "message": {\n      "role": "user",\n      "parts": [\n        {\n          "kind": "text",\n          "text": "Hi! I am testing your capabilities. Can you describe what you can do?"\n        }\n      ]\n    }\n  }\'',
                         },
                         {
                             "label": "Python",
@@ -533,7 +527,7 @@ class OrqResponses(BaseSDK):
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -632,7 +626,7 @@ class OrqResponses(BaseSDK):
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, ["401", "4XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

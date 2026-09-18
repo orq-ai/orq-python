@@ -15,7 +15,7 @@ EffectiveGrain = Literal[
 r"""Bucket grain actually applied by the planner."""
 
 
-Currency = Literal["USD",]
+ResponseMetaCurrency = Literal["USD",]
 r"""ISO 4217 currency code for cost fields. Always `USD` today."""
 
 
@@ -31,7 +31,7 @@ class ResponseMetaTypedDict(TypedDict):
     server logs can be correlated. Also returned in the
     `X-Request-Id` response header.
     """
-    currency: NotRequired[Currency]
+    currency: NotRequired[ResponseMetaCurrency]
     r"""ISO 4217 currency code for cost fields. Always `USD` today."""
     warnings: NotRequired[List[str]]
     r"""Non-fatal warnings about the response. May contain `totals_unavailable` when totals were requested but failed."""
@@ -52,7 +52,7 @@ class ResponseMeta(BaseModel):
     `X-Request-Id` response header.
     """
 
-    currency: Optional[Currency] = None
+    currency: Optional[ResponseMetaCurrency] = None
     r"""ISO 4217 currency code for cost fields. Always `USD` today."""
 
     warnings: Optional[List[str]] = None

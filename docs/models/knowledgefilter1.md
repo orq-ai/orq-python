@@ -3,51 +3,51 @@
 
 ## Supported Types
 
-### `models.DeploymentStream1Eq`
+### `models.InvokeDeploymentRequest1Eq`
 
 ```python
-value: models.DeploymentStream1Eq = /* values here */
+value: models.InvokeDeploymentRequest1Eq = /* values here */
 ```
 
-### `models.DeploymentStream1Ne`
+### `models.InvokeDeploymentRequest1Ne`
 
 ```python
-value: models.DeploymentStream1Ne = /* values here */
+value: models.InvokeDeploymentRequest1Ne = /* values here */
 ```
 
-### `models.DeploymentStream1Gt`
+### `models.Gt`
 
 ```python
-value: models.DeploymentStream1Gt = /* values here */
+value: models.Gt = /* values here */
 ```
 
-### `models.DeploymentStream1Gte`
+### `models.Gte`
 
 ```python
-value: models.DeploymentStream1Gte = /* values here */
+value: models.Gte = /* values here */
 ```
 
-### `models.DeploymentStream1Lt`
+### `models.Lt`
 
 ```python
-value: models.DeploymentStream1Lt = /* values here */
+value: models.Lt = /* values here */
 ```
 
-### `models.DeploymentStream1Lte`
+### `models.Lte`
 
 ```python
-value: models.DeploymentStream1Lte = /* values here */
+value: models.Lte = /* values here */
 ```
 
-### `models.DeploymentStream1In`
+### `models.InvokeDeploymentRequest1In`
 
 ```python
-value: models.DeploymentStream1In = /* values here */
+value: models.InvokeDeploymentRequest1In = /* values here */
 ```
 
-### `models.DeploymentStream1Nin`
+### `models.InvokeDeploymentRequest1Nin`
 
 ```python
-value: models.DeploymentStream1Nin = /* values here */
+value: models.InvokeDeploymentRequest1Nin = /* values here */
 ```
 

@@ -15,10 +15,10 @@ value: models.RetrieveDatapointEvaluations1 = /* values here */
 value: models.RetrieveDatapointEvaluations2 = /* values here */
 ```
 
-### `models.Evaluations3`
+### `models.RetrieveDatapointEvaluations3`
 
 ```python
-value: models.Evaluations3 = /* values here */
+value: models.RetrieveDatapointEvaluations3 = /* values here */
 ```
 
 ### `models.RetrieveDatapointEvaluations4`

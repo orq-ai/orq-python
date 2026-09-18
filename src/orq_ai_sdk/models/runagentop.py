@@ -16,9 +16,13 @@ from .deletememorydocumenttoolinput import (
 from .errorpart import ErrorPart, ErrorPartTypedDict
 from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
-from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
-from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .queryknowledgebasetoolinput import (
     QueryKnowledgeBaseToolInput,
     QueryKnowledgeBaseToolInputTypedDict,
@@ -377,19 +381,23 @@ RunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-RunAgentModelConfigurationPlugins = Annotated[
+RunAgentModelConfigurationPlugins = TypeAliasType(
+    "RunAgentModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class RunAgentModelConfigurationFallbacksTypedDict(TypedDict):
@@ -831,7 +839,7 @@ class RunAgentModelConfiguration2TypedDict(TypedDict):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[RunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
     retry: NotRequired[RunAgentModelConfigurationRetryTypedDict]
@@ -845,7 +853,7 @@ class RunAgentModelConfiguration2(BaseModel):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
     parameters: Optional[RunAgentModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
@@ -1182,19 +1190,23 @@ RunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-RunAgentFallbackModelConfigurationPlugins = Annotated[
+RunAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "RunAgentFallbackModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class RunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -1981,7 +1993,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -2011,19 +2023,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
     "object",
 ]
 
 
 class AgentToolInputRunSchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class AgentToolInputRunSchema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2058,7 +2070,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M2R0NDEFAM0K4B5YJQVK5J6N"
+    id: Optional[str] = "01M2SYY3KB6568B0WTXZ0BDJA1"
 
     description: Optional[str] = None
 
@@ -2130,7 +2142,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2144,7 +2156,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2489,11 +2501,11 @@ class AgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-Language = Literal["python",]
+AgentToolInputRunLanguage = Literal["python",]
 
 
 class CodeToolTypedDict(TypedDict):
-    language: Language
+    language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[AgentToolInputRunParametersTypedDict]
@@ -2501,7 +2513,7 @@ class CodeToolTypedDict(TypedDict):
 
 
 class CodeTool(BaseModel):
-    language: Language
+    language: AgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""
@@ -2584,7 +2596,7 @@ class CodeToolRun(BaseModel):
 AgentToolInputRunType = Literal["http",]
 
 
-RunAgentAgentToolInputRunMethod = Literal[
+AgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2635,7 +2647,7 @@ class BlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: RunAgentAgentToolInputRunMethod
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2651,7 +2663,7 @@ class Blueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: RunAgentAgentToolInputRunMethod
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None
@@ -2826,21 +2838,20 @@ class HTTPToolRun(BaseModel):
 AgentToolInputRunTypedDict = TypeAliasType(
     "AgentToolInputRunTypedDict",
     Union[
+        RetrieveKnowledgeBasesToolInputTypedDict,
         CurrentDateToolInputTypedDict,
-        WebScraperToolInputTypedDict,
         CallSubAgentToolInputTypedDict,
-        RetrieveAgentsToolInputTypedDict,
+        QueryKnowledgeBaseToolInputTypedDict,
         QueryMemoryStoreToolInputTypedDict,
         WriteMemoryStoreToolInputTypedDict,
         RetrieveMemoryStoresToolInputTypedDict,
         DeleteMemoryDocumentToolInputTypedDict,
-        QueryKnowledgeBaseToolInputTypedDict,
-        RetrieveKnowledgeBasesToolInputTypedDict,
-        SidekickToolInputTypedDict,
-        AdvisorToolInputTypedDict,
+        WebScraperToolInputTypedDict,
         GoogleSearchToolInputTypedDict,
+        RetrieveAgentsToolInputTypedDict,
+        AdvisorToolInputTypedDict,
+        SidekickToolInputTypedDict,
         CodeInterpreterToolInputTypedDict,
-        FileSystemToolInputTypedDict,
         FunctionToolRunTypedDict,
         JSONSchemaToolRunTypedDict,
         MCPToolRunTypedDict,
@@ -2867,7 +2878,6 @@ AgentToolInputRun = Annotated[
         Annotated[AdvisorToolInput, Tag("advisor")],
         Annotated[SidekickToolInput, Tag("sidekick")],
         Annotated[CodeInterpreterToolInput, Tag("code_interpreter")],
-        Annotated[FileSystemToolInput, Tag("file_system")],
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],
@@ -2901,8 +2911,6 @@ class RunAgentEvaluatorsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class RunAgentEvaluators(BaseModel):
@@ -2915,12 +2923,9 @@ class RunAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -2949,8 +2954,6 @@ class RunAgentGuardrailsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class RunAgentGuardrails(BaseModel):
@@ -2963,12 +2966,9 @@ class RunAgentGuardrails(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 

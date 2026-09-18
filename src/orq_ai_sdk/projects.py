@@ -94,7 +94,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - List projects",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/projects' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List projects",
@@ -209,7 +209,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - List projects",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/projects' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/projects' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List projects",
@@ -253,7 +253,7 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access.
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
@@ -325,7 +325,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Create project",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/projects\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project",
@@ -369,7 +369,7 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access.
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
@@ -441,7 +441,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Create project",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/projects\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/projects\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success",\n    "description": "Production automations for customer success workflows",\n    "teams": ["team_support", "team_growth"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Create project",
@@ -548,7 +548,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Retrieve project",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve project",
@@ -655,7 +655,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Retrieve project",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve project",
@@ -697,7 +697,7 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Deletes a project from the workspace. The response body is empty when the delete succeeds.
 
         :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
@@ -762,7 +762,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Delete project",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete project",
@@ -804,7 +804,7 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Deletes a project from the workspace. The response body is empty when the delete succeeds.
 
         :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
@@ -869,7 +869,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Delete project",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete project",
@@ -914,7 +914,7 @@ class Projects(BaseSDK):
     ) -> models.UpdateProjectResponse:
         r"""Update a project
 
-        Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Updates the specified project by setting the values of the parameters passed.
 
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.
@@ -995,7 +995,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Update project",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update project",
@@ -1040,7 +1040,7 @@ class Projects(BaseSDK):
     ) -> models.UpdateProjectResponse:
         r"""Update a project
 
-        Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Updates the specified project by setting the values of the parameters passed.
 
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.
@@ -1121,7 +1121,7 @@ class Projects(BaseSDK):
                         {
                             "label": "Core - Update project",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/projects/proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Customer Success Production",\n    "description": "Production support and retention automations",\n    "teams": ["team_support"]\n  }\'\n',
                         },
                         {
                             "label": "Python - Update project",

@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 from .agenttoolinputcrud import AgentToolInputCRUD, AgentToolInputCRUDTypedDict
-from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .responsehealingplugin import ResponseHealingPlugin, ResponseHealingPluginTypedDict
 from .thinkingconfigadaptiveschema import (
     ThinkingConfigAdaptiveSchema,
@@ -332,27 +337,31 @@ ModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-ModelConfigurationPlugins = Annotated[
+ModelConfigurationPlugins = TypeAliasType(
+    "ModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
-class ModelConfigurationFallbacksTypedDict(TypedDict):
+class UpdateAgentModelConfigurationFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class ModelConfigurationFallbacks(BaseModel):
+class UpdateAgentModelConfigurationFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -575,7 +584,7 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[ModelConfigurationPluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
-    fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
+    fallbacks: NotRequired[List[UpdateAgentModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     cache: NotRequired[ModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
@@ -659,7 +668,7 @@ class ModelConfigurationParameters(BaseModel):
     plugins: Optional[List[ModelConfigurationPlugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
-    fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
+    fallbacks: Optional[List[UpdateAgentModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     cache: Optional[ModelConfigurationCache] = None
@@ -744,7 +753,7 @@ class ModelConfigurationParameters(BaseModel):
         return m
 
 
-class ModelConfigurationRetryTypedDict(TypedDict):
+class UpdateAgentModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -753,7 +762,7 @@ class ModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class ModelConfigurationRetry(BaseModel):
+class UpdateAgentModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3.0
@@ -786,10 +795,10 @@ class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[ModelConfigurationRetryTypedDict]
+    retry: NotRequired[UpdateAgentModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -800,12 +809,12 @@ class UpdateAgentModelConfiguration2(BaseModel):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
     parameters: Optional[ModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[ModelConfigurationRetry] = None
+    retry: Optional[UpdateAgentModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -1137,19 +1146,23 @@ UpdateAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-UpdateAgentFallbackModelConfigurationPlugins = Annotated[
+UpdateAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class UpdateAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -1679,8 +1692,6 @@ class UpdateAgentEvaluatorsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class UpdateAgentEvaluators(BaseModel):
@@ -1693,12 +1704,9 @@ class UpdateAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -1727,8 +1735,6 @@ class UpdateAgentGuardrailsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class UpdateAgentGuardrails(BaseModel):
@@ -1741,12 +1747,9 @@ class UpdateAgentGuardrails(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -1871,7 +1874,7 @@ UpdateAgentEngine = Literal[
 ]
 
 
-VersionIncrement = Literal[
+UpdateAgentVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -1911,7 +1914,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
-    version_increment: NotRequired[VersionIncrement]
+    version_increment: NotRequired[UpdateAgentVersionIncrement]
     r"""Optional semantic version bump to create after a successful publish."""
     version_description: NotRequired[str]
     r"""Optional description stored with the created version."""
@@ -1967,7 +1970,7 @@ class UpdateAgentRequestBody(BaseModel):
     engine: Optional[UpdateAgentEngine] = None
 
     version_increment: Annotated[
-        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[UpdateAgentVersionIncrement], pydantic.Field(alias="versionIncrement")
     ] = None
     r"""Optional semantic version bump to create after a successful publish."""
 
@@ -2275,8 +2278,6 @@ class UpdateAgentAgentsEvaluatorsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class UpdateAgentAgentsEvaluators(BaseModel):
@@ -2289,12 +2290,9 @@ class UpdateAgentAgentsEvaluators(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -2323,8 +2321,6 @@ class UpdateAgentAgentsGuardrailsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class UpdateAgentAgentsGuardrails(BaseModel):
@@ -2337,12 +2333,9 @@ class UpdateAgentAgentsGuardrails(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -2372,7 +2365,7 @@ class UpdateAgentAgentsSettingsTypedDict(TypedDict):
     evaluators: NotRequired[List[UpdateAgentAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[UpdateAgentAgentsGuardrailsTypedDict]]
-    r"""Configuration for a guardrail applied to the agent. sample_rate has no effect here: a guardrail is a gate rather than a measurement, so it runs on every request."""
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class UpdateAgentAgentsSettings(BaseModel):
@@ -2399,7 +2392,7 @@ class UpdateAgentAgentsSettings(BaseModel):
     r"""Configuration for an evaluator applied to the agent"""
 
     guardrails: Optional[List[UpdateAgentAgentsGuardrails]] = None
-    r"""Configuration for a guardrail applied to the agent. sample_rate has no effect here: a guardrail is a gate rather than a measurement, so it runs on every request."""
+    r"""Configuration for a guardrail applied to the agent"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2727,19 +2720,23 @@ UpdateAgentPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-UpdateAgentPlugins = Annotated[
+UpdateAgentPlugins = TypeAliasType(
+    "UpdateAgentPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class UpdateAgentFallbacksTypedDict(TypedDict):
@@ -3495,19 +3492,23 @@ UpdateAgentFallbackModelConfigurationAgentsPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-UpdateAgentFallbackModelConfigurationAgentsPlugins = Annotated[
+UpdateAgentFallbackModelConfigurationAgentsPlugins = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class UpdateAgentFallbackModelConfigurationAgentsFallbacksTypedDict(TypedDict):

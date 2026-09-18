@@ -31,7 +31,6 @@ ToolExecutionFinishedStreamingEventProduct = Literal[
     "evaluators",
     "otel",
     "ai-chat",
-    "mcp_gateway",
 ]
 r"""Orquesta product"""
 

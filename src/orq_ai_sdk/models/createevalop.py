@@ -45,12 +45,12 @@ OutputType = Literal[
 ]
 
 
-CreateEvalRequestBodyType = Literal["python_eval",]
+RequestBodyType = Literal["python_eval",]
 
 
 class PythonTypedDict(TypedDict):
     code: str
-    type: CreateEvalRequestBodyType
+    type: RequestBodyType
     key: str
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[OutputType]
@@ -64,7 +64,7 @@ class PythonTypedDict(TypedDict):
 class Python(BaseModel):
     code: str
 
-    type: CreateEvalRequestBodyType
+    type: RequestBodyType
 
     key: str
 
@@ -537,25 +537,24 @@ class Llm(BaseModel):
         return m
 
 
-CreateEvalRequestBody1TypedDict = TypeAliasType(
-    "CreateEvalRequestBody1TypedDict", Union[LlmTypedDict, LLMJuryTypedDict]
+RequestBody1TypedDict = TypeAliasType(
+    "RequestBody1TypedDict", Union[LlmTypedDict, LLMJuryTypedDict]
 )
 
 
-CreateEvalRequestBody1 = Annotated[
+RequestBody1 = Annotated[
     Union[Annotated[Llm, Tag("single")], Annotated[LLMJury, Tag("jury")]],
     Discriminator(lambda m: get_discriminator(m, "mode", "mode")),
 ]
 
 
 CreateEvalRequestBodyTypedDict = TypeAliasType(
-    "CreateEvalRequestBodyTypedDict",
-    Union[PythonTypedDict, CreateEvalRequestBody1TypedDict],
+    "CreateEvalRequestBodyTypedDict", Union[PythonTypedDict, RequestBody1TypedDict]
 )
 
 
 CreateEvalRequestBody = TypeAliasType(
-    "CreateEvalRequestBody", Union[Python, CreateEvalRequestBody1]
+    "CreateEvalRequestBody", Union[Python, RequestBody1]
 )
 
 

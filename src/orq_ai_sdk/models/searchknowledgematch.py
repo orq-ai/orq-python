@@ -20,7 +20,9 @@ class SearchKnowledgeMatchTypedDict(TypedDict):
     id: str
     text: str
     vector: NotRequired[List[float]]
-    r"""Embedding vector of the chunk, returned only when requested."""
+    r"""The service maps the internal embedding field to this public name. Empty
+    repeated fields are omitted by proto JSON, preserving optional vectors.
+    """
     metadata: NotRequired[SearchKnowledgeMatchMetadataTypedDict]
     r"""Arbitrary chunk metadata, omitted unless requested."""
     scores: NotRequired[SearchKnowledgeScoresTypedDict]
@@ -33,7 +35,9 @@ class SearchKnowledgeMatch(BaseModel):
     text: str
 
     vector: Optional[List[float]] = None
-    r"""Embedding vector of the chunk, returned only when requested."""
+    r"""The service maps the internal embedding field to this public name. Empty
+    repeated fields are omitted by proto JSON, preserving optional vectors.
+    """
 
     metadata: Optional[SearchKnowledgeMatchMetadata] = None
     r"""Arbitrary chunk metadata, omitted unless requested."""

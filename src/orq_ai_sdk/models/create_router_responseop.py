@@ -8,10 +8,6 @@ from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .loadbalancerconfig import LoadBalancerConfig, LoadBalancerConfigTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
-from .openaipromptcacheoptions import (
-    OpenAIPromptCacheOptions,
-    OpenAIPromptCacheOptionsTypedDict,
-)
 from .orqadvisortool import OrqAdvisorTool, OrqAdvisorToolTypedDict
 from .orqsidekicktool import OrqSidekickTool, OrqSidekickToolTypedDict
 from .publicplugin import PublicPlugin, PublicPluginTypedDict
@@ -485,45 +481,6 @@ InputContent = TypeAliasType(
 r"""The content of the item: a string or an array of content parts."""
 
 
-InputEffort = Literal[
-    "none",
-    "minimal",
-    "low",
-    "medium",
-    "high",
-    "xhigh",
-    "max",
-]
-
-
-class InputReasoningTypedDict(TypedDict):
-    r"""Reasoning settings applied by a configuration_update item."""
-
-    effort: NotRequired[InputEffort]
-
-
-class InputReasoning(BaseModel):
-    r"""Reasoning settings applied by a configuration_update item."""
-
-    effort: Optional[InputEffort] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["effort"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 InputRole = Literal[
     "user",
     "assistant",
@@ -567,7 +524,6 @@ InputType = Literal[
     "mcp_list_tools",
     "mcp_approval_request",
     "mcp_approval_response",
-    "configuration_update",
 ]
 r"""The type of item."""
 
@@ -577,8 +533,6 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
 
     arguments: NotRequired[str]
     r"""The function arguments as a JSON string (for function_call items)."""
-    async_: NotRequired[bool]
-    r"""Whether a function or custom tool call runs asynchronously."""
     call_id: NotRequired[str]
     r"""The function call identifier (for function_call and function_call_output items)."""
     content: NotRequired[InputContentTypedDict]
@@ -589,8 +543,6 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""The name of the function that was called (for function_call items)."""
     output: NotRequired[str]
     r"""The output of the function call (for function_call_output type)."""
-    reasoning: NotRequired[InputReasoningTypedDict]
-    r"""Reasoning settings applied by a configuration_update item."""
     role: NotRequired[InputRole]
     r"""The role of the message sender (for message items)."""
     status: NotRequired[InputStatus]
@@ -604,9 +556,6 @@ class CreateRouterResponseInput2(BaseModel):
 
     arguments: Optional[str] = None
     r"""The function arguments as a JSON string (for function_call items)."""
-
-    async_: Annotated[Optional[bool], pydantic.Field(alias="async")] = None
-    r"""Whether a function or custom tool call runs asynchronously."""
 
     call_id: Optional[str] = None
     r"""The function call identifier (for function_call and function_call_output items)."""
@@ -623,9 +572,6 @@ class CreateRouterResponseInput2(BaseModel):
     output: Optional[str] = None
     r"""The output of the function call (for function_call_output type)."""
 
-    reasoning: Optional[InputReasoning] = None
-    r"""Reasoning settings applied by a configuration_update item."""
-
     role: Optional[InputRole] = None
     r"""The role of the message sender (for message items)."""
 
@@ -640,13 +586,11 @@ class CreateRouterResponseInput2(BaseModel):
         optional_fields = set(
             [
                 "arguments",
-                "async",
                 "call_id",
                 "content",
                 "id",
                 "name",
                 "output",
-                "reasoning",
                 "role",
                 "status",
                 "type",
@@ -897,13 +841,13 @@ class AllowedTools(BaseModel):
         return m
 
 
-CreateRouterResponseToolsResponsesRequestRequestBodyType = Literal["mcp",]
+CreateRouterResponseToolsResponsesRequestType = Literal["mcp",]
 
 
 class ToolsMCPToolTypedDict(TypedDict):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesRequestRequestBodyType
+    type: CreateRouterResponseToolsResponsesRequestType
     allowed_tools: NotRequired[AllowedToolsTypedDict]
     r"""Filter which tools from the MCP server are exposed."""
     headers: NotRequired[Dict[str, str]]
@@ -919,7 +863,7 @@ class ToolsMCPToolTypedDict(TypedDict):
 class ToolsMCPTool(BaseModel):
     r"""An MCP (Model Context Protocol) server tool. Provide server_url for inline mode, or key to reference a pre-configured MCP server."""
 
-    type: CreateRouterResponseToolsResponsesRequestRequestBodyType
+    type: CreateRouterResponseToolsResponsesRequestType
 
     allowed_tools: Optional[AllowedTools] = None
     r"""Filter which tools from the MCP server are exposed."""
@@ -1012,17 +956,7 @@ class Network(BaseModel):
         return m
 
 
-CreateRouterResponseToolsResponsesRequestType = Literal[
-    "orq:web_search",
-    "orq:web_fetch",
-    "orq:datetime",
-    "orq:search_models",
-    "orq:image_generation",
-    "orq:apply_patch",
-    "orq:fusion",
-    "orq:shell",
-    "orq:query_knowledge_base",
-    "orq:retrieve_knowledge_bases",
+CreateRouterResponseToolsResponsesType = Literal[
     "orq:current_date",
     "orq:google_search",
     "orq:web_scraper",
@@ -1031,20 +965,18 @@ CreateRouterResponseToolsResponsesRequestType = Literal[
     "orq:http",
     "orq:function",
 ]
-r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+r"""The orq.ai tool type."""
 
 
 class OrqAiToolTypedDict(TypedDict):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    type: CreateRouterResponseToolsResponsesType
+    r"""The orq.ai tool type."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
     network: NotRequired[NetworkTypedDict]
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
-    timezone: NotRequired[str]
-    r"""Default IANA timezone for orq:datetime (e.g., \"Europe/Amsterdam\")."""
     tool_id: NotRequired[str]
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
@@ -1052,8 +984,8 @@ class OrqAiToolTypedDict(TypedDict):
 class OrqAiTool(BaseModel):
     r"""An orq.ai platform tool reference. For MCP tools, prefer type 'mcp' with 'key' instead of 'orq:mcp' with 'tool_id'."""
 
-    type: CreateRouterResponseToolsResponsesRequestType
-    r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
+    type: CreateRouterResponseToolsResponsesType
+    r"""The orq.ai tool type."""
 
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
@@ -1061,61 +993,12 @@ class OrqAiTool(BaseModel):
     network: Optional[Network] = None
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
 
-    timezone: Optional[str] = None
-    r"""Default IANA timezone for orq:datetime (e.g., \"Europe/Amsterdam\")."""
-
     tool_id: Optional[str] = None
     r"""The tool ID (for orq:mcp, orq:http, orq:function)."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["files", "network", "timezone", "tool_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-CreateRouterResponseToolsResponsesType = Literal["custom",]
-
-
-class CustomTypedDict(TypedDict):
-    r"""A custom tool that accepts free-form input."""
-
-    name: str
-    r"""The name of the custom tool."""
-    type: CreateRouterResponseToolsResponsesType
-    async_: NotRequired[bool]
-    r"""Whether the tool response can be returned asynchronously."""
-    description: NotRequired[str]
-    r"""A description of what the custom tool does."""
-
-
-class Custom(BaseModel):
-    r"""A custom tool that accepts free-form input."""
-
-    name: str
-    r"""The name of the custom tool."""
-
-    type: CreateRouterResponseToolsResponsesType
-
-    async_: Annotated[Optional[bool], pydantic.Field(alias="async")] = None
-    r"""Whether the tool response can be returned asynchronously."""
-
-    description: Optional[str] = None
-    r"""A description of what the custom tool does."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["async", "description"])
+        optional_fields = set(["files", "network", "tool_id"])
         serialized = handler(self)
         m = {}
 
@@ -1199,8 +1082,6 @@ class ToolsFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function."""
     type: CreateRouterResponseToolsType
-    async_: NotRequired[bool]
-    r"""Whether the tool response can be returned asynchronously."""
     cache_control: NotRequired[ToolsCacheControlTypedDict]
     description: NotRequired[str]
     r"""A description of what the function does."""
@@ -1218,9 +1099,6 @@ class ToolsFunction(BaseModel):
 
     type: CreateRouterResponseToolsType
 
-    async_: Annotated[Optional[bool], pydantic.Field(alias="async")] = None
-    r"""Whether the tool response can be returned asynchronously."""
-
     cache_control: Optional[ToolsCacheControl] = None
 
     description: Optional[str] = None
@@ -1234,9 +1112,7 @@ class ToolsFunction(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            ["async", "cache_control", "description", "parameters", "strict"]
-        )
+        optional_fields = set(["cache_control", "description", "parameters", "strict"])
         serialized = handler(self)
         m = {}
 
@@ -1254,10 +1130,9 @@ class ToolsFunction(BaseModel):
 CreateRouterResponseToolsTypedDict = TypeAliasType(
     "CreateRouterResponseToolsTypedDict",
     Union[
-        CustomTypedDict,
         OrqAiToolTypedDict,
-        ToolsMCPToolTypedDict,
         ToolsFunctionTypedDict,
+        ToolsMCPToolTypedDict,
         OrqAdvisorToolTypedDict,
         OrqSidekickToolTypedDict,
     ],
@@ -1268,20 +1143,8 @@ r"""A tool definition. The \"type\" field determines the tool kind."""
 CreateRouterResponseTools = Annotated[
     Union[
         Annotated[ToolsFunction, Tag("function")],
-        Annotated[Custom, Tag("custom")],
         Annotated[OrqAdvisorTool, Tag("orq:advisor")],
-        Annotated[OrqSidekickTool, Tag("orq:subagent")],
         Annotated[OrqSidekickTool, Tag("orq:sidekick")],
-        Annotated[OrqAiTool, Tag("orq:web_search")],
-        Annotated[OrqAiTool, Tag("orq:web_fetch")],
-        Annotated[OrqAiTool, Tag("orq:datetime")],
-        Annotated[OrqAiTool, Tag("orq:search_models")],
-        Annotated[OrqAiTool, Tag("orq:image_generation")],
-        Annotated[OrqAiTool, Tag("orq:apply_patch")],
-        Annotated[OrqAiTool, Tag("orq:fusion")],
-        Annotated[OrqAiTool, Tag("orq:shell")],
-        Annotated[OrqAiTool, Tag("orq:query_knowledge_base")],
-        Annotated[OrqAiTool, Tag("orq:retrieve_knowledge_bases")],
         Annotated[OrqAiTool, Tag("orq:current_date")],
         Annotated[OrqAiTool, Tag("orq:google_search")],
         Annotated[OrqAiTool, Tag("orq:web_scraper")],
@@ -1337,7 +1200,6 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""The ID of a previous response to continue from. Requires store to be true (default) on the original response."""
     prompt_cache_key: NotRequired[str]
     r"""Key for prompt caching across requests."""
-    prompt_cache_options: NotRequired[OpenAIPromptCacheOptionsTypedDict]
     reasoning: NotRequired[ReasoningParamTypedDict]
     retry: NotRequired[ResponseRetryConfigTypedDict]
     safety_identifier: NotRequired[str]
@@ -1440,8 +1302,6 @@ class CreateRouterResponseRequestBody(BaseModel):
     prompt_cache_key: Optional[str] = None
     r"""Key for prompt caching across requests."""
 
-    prompt_cache_options: Optional[OpenAIPromptCacheOptions] = None
-
     reasoning: Optional[ReasoningParam] = None
 
     retry: Optional[ResponseRetryConfig] = None
@@ -1526,7 +1386,6 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "presence_penalty",
                 "previous_response_id",
                 "prompt_cache_key",
-                "prompt_cache_options",
                 "reasoning",
                 "retry",
                 "safety_identifier",
@@ -1654,7 +1513,6 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     presence_penalty: float
     previous_response_id: Nullable[str]
     prompt_cache_key: Nullable[str]
-    prompt_cache_options: Nullable[OpenAIPromptCacheOptionsTypedDict]
     prompt_cache_retention: Nullable[str]
     reasoning: Nullable[ReasoningTypedDict]
     safety_identifier: Nullable[str]
@@ -1726,8 +1584,6 @@ class CreateRouterResponseResponseBody(BaseModel):
 
     prompt_cache_key: Nullable[str]
 
-    prompt_cache_options: Nullable[OpenAIPromptCacheOptions]
-
     prompt_cache_retention: Nullable[str]
 
     reasoning: Nullable[Reasoning]
@@ -1789,7 +1645,6 @@ class CreateRouterResponseResponseBody(BaseModel):
                 "output",
                 "previous_response_id",
                 "prompt_cache_key",
-                "prompt_cache_options",
                 "prompt_cache_retention",
                 "reasoning",
                 "safety_identifier",
@@ -1849,22 +1704,10 @@ CreateRouterResponseResponse = TypeAliasType(
 
 
 try:
-    CreateRouterResponseInput2.model_rebuild()
-except NameError:
-    pass
-try:
     FormatJSONSchema.model_rebuild()
 except NameError:
     pass
 try:
     CreateRouterResponseText.model_rebuild()
-except NameError:
-    pass
-try:
-    Custom.model_rebuild()
-except NameError:
-    pass
-try:
-    ToolsFunction.model_rebuild()
 except NameError:
     pass

@@ -17,7 +17,7 @@ r"""Content type sent with webhook deliveries."""
 
 
 class WebhookTypedDict(TypedDict):
-    r"""A webhook subscription and its delivery configuration. The signing secret is shown in full only in the create response and is masked everywhere else."""
+    r"""A webhook subscription and its delivery configuration. Responses include the signing secret; treat it as sensitive."""
 
     id: str
     r"""Unique webhook ID."""
@@ -30,7 +30,7 @@ class WebhookTypedDict(TypedDict):
     events: List[str]
     r"""Workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
     secret: str
-    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Shown in full only in the create response; list and get return a masked value."""
+    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Treat this value as sensitive."""
     created_by_id: str
     r"""Account ID that created the webhook."""
     updated_by_id: str
@@ -46,7 +46,7 @@ class WebhookTypedDict(TypedDict):
 
 
 class Webhook(BaseModel):
-    r"""A webhook subscription and its delivery configuration. The signing secret is shown in full only in the create response and is masked everywhere else."""
+    r"""A webhook subscription and its delivery configuration. Responses include the signing secret; treat it as sensitive."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique webhook ID."""
@@ -64,7 +64,7 @@ class Webhook(BaseModel):
     r"""Workspace event slugs that trigger a delivery, for example `deployment.invoked` or `llm.response`."""
 
     secret: str
-    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Shown in full only in the create response; list and get return a masked value."""
+    r"""Signing secret used to compute `X-Orq-Signature` as the lowercase hexadecimal HMAC-SHA256 of the exact request body bytes. Treat this value as sensitive."""
 
     created_by_id: str
     r"""Account ID that created the webhook."""

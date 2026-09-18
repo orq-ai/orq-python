@@ -8,16 +8,24 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+class InvokeEvaluatorRequestMessagesTypedDict(TypedDict):
+    pass
+
+
+class InvokeEvaluatorRequestMessages(BaseModel):
+    pass
+
+
 class InvokeEvaluatorRequestTypedDict(TypedDict):
     r"""Accepts two shapes. `context` names its fields after the template variables
-    they feed and is the one to use; the flat fields below are folded into
-    `context` when it is absent. Setting `context` wins.
+    they feed and is the one to use; the flat fields below are the legacy body,
+    folded into `context` when it is absent. Setting `context` wins.
     """
 
     context: NotRequired[EvaluationContextTypedDict]
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn.
+    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
     """
     model: NotRequired[str]
     r"""Model to grade with, as a catalog id such as \"openai/gpt-4o\".
@@ -38,7 +46,7 @@ class InvokeEvaluatorRequestTypedDict(TypedDict):
     """
     retrievals: NotRequired[List[str]]
     r"""Knowledge base retrievals. Folds into `context.input.retrievals`."""
-    messages: NotRequired[List[Dict[str, Any]]]
+    messages: NotRequired[List[InvokeEvaluatorRequestMessagesTypedDict]]
     r"""The conversation that produced the output. Folds into
     `context.messages`.
     """
@@ -50,14 +58,14 @@ class InvokeEvaluatorRequestTypedDict(TypedDict):
 
 class InvokeEvaluatorRequest(BaseModel):
     r"""Accepts two shapes. `context` names its fields after the template variables
-    they feed and is the one to use; the flat fields below are folded into
-    `context` when it is absent. Setting `context` wins.
+    they feed and is the one to use; the flat fields below are the legacy body,
+    folded into `context` when it is absent. Setting `context` wins.
     """
 
     context: Optional[EvaluationContext] = None
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn.
+    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
     """
 
     model: Optional[str] = None
@@ -84,7 +92,7 @@ class InvokeEvaluatorRequest(BaseModel):
     retrievals: Optional[List[str]] = None
     r"""Knowledge base retrievals. Folds into `context.input.retrievals`."""
 
-    messages: Optional[List[Dict[str, Any]]] = None
+    messages: Optional[List[InvokeEvaluatorRequestMessages]] = None
     r"""The conversation that produced the output. Folds into
     `context.messages`.
     """

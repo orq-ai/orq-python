@@ -193,14 +193,14 @@ class WorkspaceSettingsSDK(BaseSDK):
     ) -> models.UpdateWorkspaceSettingsResponse:
         r"""Update workspace settings
 
-        Partially updates workspace settings. Every field is optional; an omitted field is left unchanged. Provide `display_name` to rename the workspace, `enforce_enabled_models` to toggle model enforcement, or `pii_redaction` to update the workspace-default PII redaction plugin: `enabled` is always applied, and `config` replaces the stored config only when present.
+        Partially updates workspace settings. Every field is optional; an omitted field is left unchanged. Provide `display_name` to rename the workspace, `enforce_enabled_models` to toggle model enforcement, or `pii_redaction` to replace the workspace-default PII redaction plugin configuration.
 
         :param display_name: New workspace display name. Omit to keep the current name.
         :param enforce_enabled_models: New value for the enforce-enabled-models flag. Omit to keep the current
             value.
-        :param pii_redaction: Workspace-default PII redaction update. Omit to leave it unchanged. When
-            present, `enabled` is always applied; `config` omitted keeps the stored
-            config, `config` present replaces it wholesale, and `config: {}` clears it.
+        :param pii_redaction: Replacement workspace-default PII redaction configuration. Omit to leave
+            the current PII redaction configuration unchanged; when present it fully
+            replaces the stored pii_redaction object.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -300,14 +300,14 @@ class WorkspaceSettingsSDK(BaseSDK):
     ) -> models.UpdateWorkspaceSettingsResponse:
         r"""Update workspace settings
 
-        Partially updates workspace settings. Every field is optional; an omitted field is left unchanged. Provide `display_name` to rename the workspace, `enforce_enabled_models` to toggle model enforcement, or `pii_redaction` to update the workspace-default PII redaction plugin: `enabled` is always applied, and `config` replaces the stored config only when present.
+        Partially updates workspace settings. Every field is optional; an omitted field is left unchanged. Provide `display_name` to rename the workspace, `enforce_enabled_models` to toggle model enforcement, or `pii_redaction` to replace the workspace-default PII redaction plugin configuration.
 
         :param display_name: New workspace display name. Omit to keep the current name.
         :param enforce_enabled_models: New value for the enforce-enabled-models flag. Omit to keep the current
             value.
-        :param pii_redaction: Workspace-default PII redaction update. Omit to leave it unchanged. When
-            present, `enabled` is always applied; `config` omitted keeps the stored
-            config, `config` present replaces it wholesale, and `config: {}` clears it.
+        :param pii_redaction: Replacement workspace-default PII redaction configuration. Omit to leave
+            the current PII redaction configuration unchanged; when present it fully
+            replaces the stored pii_redaction object.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

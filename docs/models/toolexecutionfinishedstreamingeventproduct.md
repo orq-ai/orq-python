@@ -29,4 +29,3 @@ value: ToolExecutionFinishedStreamingEventProduct = "remoteconfigs"
 - `"evaluators"`
 - `"otel"`
 - `"ai-chat"`
-- `"mcp_gateway"`

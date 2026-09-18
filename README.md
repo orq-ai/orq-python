@@ -131,40 +131,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False, identity={
-        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-        "display_name": "Jane Doe",
-        "email": "jane.doe@example.com",
-        "metadata": [
-            {
-                "department": "Engineering",
-                "role": "Senior Developer",
-            },
-        ],
-        "logo_url": "https://example.com/avatars/jane-doe.jpg",
-        "tags": [
-            "hr",
-            "engineering",
-        ],
-    }, documents=[
-        {
-            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-            "metadata": {
-                "file_name": "refund_policy.pdf",
-                "file_type": "application/pdf",
-                "page_number": 1.0,
-            },
-        },
-        {
-            "text": "Premium members receive free shipping on all orders over $50.",
-            "metadata": {
-                "file_name": "membership_benefits.md",
-                "file_type": "text/markdown",
-            },
-        },
-    ])
-
-    assert res is not None
+    res = orq.evals.all(limit=10)
 
     # Handle response
     print(res)
@@ -186,40 +153,7 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.deployments.invoke_async(key="<key>", stream=False, identity={
-            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-            "display_name": "Jane Doe",
-            "email": "jane.doe@example.com",
-            "metadata": [
-                {
-                    "department": "Engineering",
-                    "role": "Senior Developer",
-                },
-            ],
-            "logo_url": "https://example.com/avatars/jane-doe.jpg",
-            "tags": [
-                "hr",
-                "engineering",
-            ],
-        }, documents=[
-            {
-                "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-                "metadata": {
-                    "file_name": "refund_policy.pdf",
-                    "file_type": "application/pdf",
-                    "page_number": 1.0,
-                },
-            },
-            {
-                "text": "Premium members receive free shipping on all orders over $50.",
-                "metadata": {
-                    "file_name": "membership_benefits.md",
-                    "file_type": "text/markdown",
-                },
-            },
-        ])
-
-        assert res is not None
+        res = await orq.evals.all_async(limit=10)
 
         # Handle response
         print(res)
@@ -249,40 +183,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False, identity={
-        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-        "display_name": "Jane Doe",
-        "email": "jane.doe@example.com",
-        "metadata": [
-            {
-                "department": "Engineering",
-                "role": "Senior Developer",
-            },
-        ],
-        "logo_url": "https://example.com/avatars/jane-doe.jpg",
-        "tags": [
-            "hr",
-            "engineering",
-        ],
-    }, documents=[
-        {
-            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-            "metadata": {
-                "file_name": "refund_policy.pdf",
-                "file_type": "application/pdf",
-                "page_number": 1.0,
-            },
-        },
-        {
-            "text": "Premium members receive free shipping on all orders over $50.",
-            "metadata": {
-                "file_name": "membership_benefits.md",
-                "file_type": "text/markdown",
-            },
-        },
-    ])
-
-    assert res is not None
+    res = orq.evals.all(limit=10)
 
     # Handle response
     print(res)
@@ -328,12 +229,12 @@ with Orq(
 * [list](docs/sdks/annotationqueues/README.md#list) - List annotation queues
 * [create](docs/sdks/annotationqueues/README.md#create) - Create an annotation queue
 * [retrieve](docs/sdks/annotationqueues/README.md#retrieve) - Retrieve an annotation queue
+* [update](docs/sdks/annotationqueues/README.md#update) - Edit an annotation queue
 * [delete](docs/sdks/annotationqueues/README.md#delete) - Delete an annotation queue
-* [update](docs/sdks/annotationqueues/README.md#update) - Update an annotation queue
-* [clear](docs/sdks/annotationqueues/README.md#clear) - Clear an annotation queue
+* [clear](docs/sdks/annotationqueues/README.md#clear) - Delete all items
 * [list_items](docs/sdks/annotationqueues/README.md#list_items) - Query items from an annotation queue
 * [add_items](docs/sdks/annotationqueues/README.md#add_items) - Add items to an annotation queue
-* [remove_items](docs/sdks/annotationqueues/README.md#remove_items) - Remove items from an annotation queue
+* [remove_items](docs/sdks/annotationqueues/README.md#remove_items) - Remove annotation queue items
 * [retrieve_item](docs/sdks/annotationqueues/README.md#retrieve_item) - Retrieve an annotation queue item
 
 ### [Annotations](docs/sdks/annotations/README.md)
@@ -349,10 +250,6 @@ with Orq(
 * [get](docs/sdks/apikeys/README.md#get) - Retrieve an API key
 * [delete](docs/sdks/apikeys/README.md#delete) - Delete an API key
 * [update](docs/sdks/apikeys/README.md#update) - Update an API key
-
-### [AuditLogs](docs/sdks/auditlogs/README.md)
-
-* [query](docs/sdks/auditlogs/README.md#query) - Query audit logs
 
 ### [Budgets](docs/sdks/budgets/README.md)
 
@@ -384,20 +281,19 @@ with Orq(
 ### [Deployments](docs/sdks/deployments/README.md)
 
 * [invoke](docs/sdks/deployments/README.md#invoke) - Invoke
-* [stream](docs/sdks/deployments/README.md#stream) - Stream
 * [list](docs/sdks/deployments/README.md#list) - List all deployments
 * [get_config](docs/sdks/deployments/README.md#get_config) - Get config
+* [stream](docs/sdks/deployments/README.md#stream) - Stream
 
 ### [Evals](docs/sdks/evals/README.md)
 
 * [all](docs/sdks/evals/README.md#all) - Get all Evaluators
 * [create](docs/sdks/evals/README.md#create) - Create an Evaluator
 * [get](docs/sdks/evals/README.md#get) - Retrieve an Evaluator
-* [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
 * [update](docs/sdks/evals/README.md#update) - Update an Evaluator
-* [list_versions](docs/sdks/evals/README.md#list_versions) - List evaluator versions
-* [get_version](docs/sdks/evals/README.md#get_version) - Get evaluator version
+* [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
 * [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
+* [list_versions](docs/sdks/evals/README.md#list_versions) - List evaluator versions
 
 ### [Feedback](docs/sdks/feedback/README.md)
 
@@ -415,19 +311,6 @@ with Orq(
 * [delete](docs/sdks/files/README.md#delete) - Delete a file
 * [update](docs/sdks/files/README.md#update) - Update a file
 
-### [FileSystems](docs/sdks/filesystems/README.md)
-
-* [list](docs/sdks/filesystems/README.md#list) - List file systems
-* [create](docs/sdks/filesystems/README.md#create) - Create file system
-* [retrieve](docs/sdks/filesystems/README.md#retrieve) - Retrieve file system
-* [delete](docs/sdks/filesystems/README.md#delete) - Delete file system
-* [update](docs/sdks/filesystems/README.md#update) - Update file system
-* [list_files](docs/sdks/filesystems/README.md#list_files) - List files
-* [delete_file](docs/sdks/filesystems/README.md#delete_file) - Delete file
-* [move_file](docs/sdks/filesystems/README.md#move_file) - Move file
-* [stat_file](docs/sdks/filesystems/README.md#stat_file) - Stat file
-* [create_folder](docs/sdks/filesystems/README.md#create_folder) - Create folder
-
 ### [GuardrailRules](docs/sdks/guardrailrules/README.md)
 
 * [list](docs/sdks/guardrailrules/README.md#list) - List guardrail rules
@@ -436,11 +319,6 @@ with Orq(
 * [retrieve](docs/sdks/guardrailrules/README.md#retrieve) - Retrieve a guardrail rule
 * [delete](docs/sdks/guardrailrules/README.md#delete) - Delete a guardrail rule
 * [update](docs/sdks/guardrailrules/README.md#update) - Update a guardrail rule
-
-### [Hub](docs/sdks/hub/README.md)
-
-* [search](docs/sdks/hub/README.md#search) - Search hub items
-* [get](docs/sdks/hub/README.md#get) - Get a hub item
 
 ### [HumanReviewSets](docs/sdks/humanreviewsets/README.md)
 
@@ -467,7 +345,6 @@ with Orq(
 * [update](docs/sdks/knowledgesdk/README.md#update) - Updates a knowledge
 * [list_datasources](docs/sdks/knowledgesdk/README.md#list_datasources) - List all datasources
 * [create_datasource](docs/sdks/knowledgesdk/README.md#create_datasource) - Create a new datasource
-* [preview_chunks](docs/sdks/knowledgesdk/README.md#preview_chunks) - Preview datasource chunks
 * [retrieve_datasource](docs/sdks/knowledgesdk/README.md#retrieve_datasource) - Retrieve a datasource
 * [delete_datasource](docs/sdks/knowledgesdk/README.md#delete_datasource) - Deletes a datasource
 * [update_datasource](docs/sdks/knowledgesdk/README.md#update_datasource) - Update a datasource
@@ -578,7 +455,6 @@ with Orq(
 
 ### [Pii](docs/sdks/pii/README.md)
 
-* [capabilities](docs/sdks/pii/README.md#capabilities) - Get PII capabilities
 * [detect](docs/sdks/pii/README.md#detect) - Detect PII
 * [redact](docs/sdks/pii/README.md#redact) - Redact PII
 * [restore](docs/sdks/pii/README.md#restore) - Restore redacted text
@@ -684,16 +560,6 @@ with Orq(
 * [update](docs/sdks/schedules/README.md#update) - Update schedule
 * [trigger](docs/sdks/schedules/README.md#trigger) - Trigger schedule execution
 
-### [Sessions](docs/sdks/sessions/README.md)
-
-* [create](docs/sdks/sessions/README.md#create) - Create trace thread
-* [get_count](docs/sdks/sessions/README.md#get_count) - Get thread count
-* [list](docs/sdks/sessions/README.md#list) - List trace threads
-* [list_tags](docs/sdks/sessions/README.md#list_tags) - List thread tags
-* [get](docs/sdks/sessions/README.md#get) - Get trace thread
-* [delete](docs/sdks/sessions/README.md#delete) - Delete trace thread
-* [update](docs/sdks/sessions/README.md#update) - Update trace thread
-
 ### [Skills](docs/sdks/skills/README.md)
 
 * [list](docs/sdks/skills/README.md#list) - List all skills
@@ -709,12 +575,6 @@ with Orq(
 * [get](docs/sdks/smartrouters/README.md#get) - Retrieve a Smart Router
 * [delete](docs/sdks/smartrouters/README.md#delete) - Delete a Smart Router
 * [update](docs/sdks/smartrouters/README.md#update) - Update a Smart Router
-
-### [Telemetry](docs/sdks/telemetrysdk/README.md)
-
-* [list_capabilities](docs/sdks/telemetrysdk/README.md#list_capabilities) - List telemetry capabilities
-* [list_facet_values](docs/sdks/telemetrysdk/README.md#list_facet_values) - List telemetry facet values
-* [query](docs/sdks/telemetrysdk/README.md#query) - Query telemetry
 
 ### [Tools](docs/sdks/tools/README.md)
 
@@ -748,12 +608,6 @@ with Orq(
 * [get](docs/sdks/webhooks/README.md#get) - Retrieve a webhook
 * [delete](docs/sdks/webhooks/README.md#delete) - Delete a webhook
 * [update](docs/sdks/webhooks/README.md#update) - Update a webhook
-
-### [Workspaces](docs/sdks/workspaces/README.md)
-
-* [list](docs/sdks/workspaces/README.md#list) - List workspaces
-* [get](docs/sdks/workspaces/README.md#get) - Retrieve a workspace
-* [update](docs/sdks/workspaces/README.md#update) - Update a workspace
 
 ### [WorkspaceSecurity](docs/sdks/workspacesecurity/README.md)
 
@@ -951,41 +805,8 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False, identity={
-        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-        "display_name": "Jane Doe",
-        "email": "jane.doe@example.com",
-        "metadata": [
-            {
-                "department": "Engineering",
-                "role": "Senior Developer",
-            },
-        ],
-        "logo_url": "https://example.com/avatars/jane-doe.jpg",
-        "tags": [
-            "hr",
-            "engineering",
-        ],
-    }, documents=[
-        {
-            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-            "metadata": {
-                "file_name": "refund_policy.pdf",
-                "file_type": "application/pdf",
-                "page_number": 1.0,
-            },
-        },
-        {
-            "text": "Premium members receive free shipping on all orders over $50.",
-            "metadata": {
-                "file_name": "membership_benefits.md",
-                "file_type": "text/markdown",
-            },
-        },
-    ],
+    res = orq.evals.all(limit=10,
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -1004,40 +825,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False, identity={
-        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-        "display_name": "Jane Doe",
-        "email": "jane.doe@example.com",
-        "metadata": [
-            {
-                "department": "Engineering",
-                "role": "Senior Developer",
-            },
-        ],
-        "logo_url": "https://example.com/avatars/jane-doe.jpg",
-        "tags": [
-            "hr",
-            "engineering",
-        ],
-    }, documents=[
-        {
-            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-            "metadata": {
-                "file_name": "refund_policy.pdf",
-                "file_type": "application/pdf",
-                "page_number": 1.0,
-            },
-        },
-        {
-            "text": "Premium members receive free shipping on all orders over $50.",
-            "metadata": {
-                "file_name": "membership_benefits.md",
-                "file_type": "text/markdown",
-            },
-        },
-    ])
-
-    assert res is not None
+    res = orq.evals.all(limit=10)
 
     # Handle response
     print(res)
@@ -1071,7 +859,7 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list(limit=10)
+        res = orq.evals.all(limit=10)
 
         # Handle response
         print(res)
@@ -1086,8 +874,7 @@ with Orq(
         print(e.raw_response)
 
         # Depending on the method different errors may be thrown
-        if isinstance(e, models.HonoAPIError):
-            print(e.data.code)  # Optional[str]
+        if isinstance(e, models.GetEvalsEvalsResponseBody):
             print(e.data.message)  # str
 ```
 
@@ -1095,7 +882,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (39)</summary>
+<details><summary>Less common errors (40)</summary>
 
 <br />
 
@@ -1106,40 +893,41 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 13 of 301 methods.*
-* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 301 methods.*
-* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 301 methods.*
-* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 301 methods.*
-* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 301 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 301 methods.*
-* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 301 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 301 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 301 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 301 methods.*
-* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 301 methods.*
-* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 301 methods.*
-* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 301 methods.*
-* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 301 methods.*
-* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 301 methods.*
-* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 301 methods.*
-* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 301 methods.*
-* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 301 methods.*
-* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 301 methods.*
-* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 301 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 301 methods.*
-* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 301 methods.*
-* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 301 methods.*
-* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 301 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 272 methods.*
+* [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 272 methods.*
+* [`CreateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponsebody.py): Invalid schedule type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 272 methods.*
+* [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 272 methods.*
+* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2EvaluatorsIDVersionsEvalsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 272 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 272 methods.*
+* [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`CreateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/createagentscheduleschedulesresponseresponsebody.py): Agent (or agent version, when agent_tag is set) not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteAgentScheduleResponseBody`](./src/orq_ai_sdk/models/deleteagentscheduleresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/retrieveagentscheduleschedulesresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`UpdateAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponseresponsebody.py): Schedule or agent version not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`TriggerAgentScheduleSchedulesResponseResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponseresponsebody.py): Schedule not found, or belongs to a different agent. Status code `404`. Applicable to 1 of 272 methods.*
+* [`RetrieveResponseResponsesResponseBody`](./src/orq_ai_sdk/models/retrieveresponseresponsesresponsebody.py): Response not found. Status code `404`. Applicable to 1 of 272 methods.*
+* [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 272 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 272 methods.*
+* [`KnowledgeAPIError`](./src/orq_ai_sdk/models/knowledgeapierror.py): An error has occured. Status code `500`. Applicable to 1 of 272 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -1163,40 +951,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False, identity={
-        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-        "display_name": "Jane Doe",
-        "email": "jane.doe@example.com",
-        "metadata": [
-            {
-                "department": "Engineering",
-                "role": "Senior Developer",
-            },
-        ],
-        "logo_url": "https://example.com/avatars/jane-doe.jpg",
-        "tags": [
-            "hr",
-            "engineering",
-        ],
-    }, documents=[
-        {
-            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
-            "metadata": {
-                "file_name": "refund_policy.pdf",
-                "file_type": "application/pdf",
-                "page_number": 1.0,
-            },
-        },
-        {
-            "text": "Premium members receive free shipping on all orders over $50.",
-            "metadata": {
-                "file_name": "membership_benefits.md",
-                "file_type": "text/markdown",
-            },
-        },
-    ])
-
-    assert res is not None
+    res = orq.evals.all(limit=10)
 
     # Handle response
     print(res)

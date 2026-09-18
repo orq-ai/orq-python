@@ -6,19 +6,11 @@ from typing import List, Literal
 from typing_extensions import TypedDict
 
 
-MonitorFilterOp = Literal[
+Op = Literal[
     "eq",
     "neq",
     "in",
     "not_in",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-    "between",
-    "contains",
-    "exists",
-    "not_exists",
 ]
 r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
 
@@ -28,7 +20,7 @@ class MonitorFilterTypedDict(TypedDict):
     r"""Reporting dimension to filter on. Valid fields depend on the
     metric; validated when the monitor is saved.
     """
-    op: MonitorFilterOp
+    op: Op
     r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
     values: List[str]
     r"""Values compared against the selected field."""
@@ -40,7 +32,7 @@ class MonitorFilter(BaseModel):
     metric; validated when the monitor is saved.
     """
 
-    op: MonitorFilterOp
+    op: Op
     r"""Predicate operator. `eq` and `neq` accept exactly one value; `in` and `not_in` accept 1-100 values."""
 
     values: List[str]

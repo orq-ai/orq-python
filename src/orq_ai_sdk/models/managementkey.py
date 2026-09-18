@@ -37,9 +37,10 @@ class ManagementKeyTypedDict(TypedDict):
     r"""Time the key was last updated."""
     access: NotRequired[Dict[str, AccessLevel]]
     r"""Per-domain access map. Only populated when `permission_mode` is
-    `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. The authoritative list of
-    valid keys (Domain.id values) is returned by the List management
-    capability catalog endpoint (GET /v2/management-keys/capabilities).
+    `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. Valid keys are the Domain.id
+    values in the management capability catalog — see
+    libs/catalog/orq/managementkeys/v1/catalog.textpb for the canonical
+    list.
     """
     created_by_id: NotRequired[str]
     r"""Audit: user who created the key."""
@@ -86,9 +87,10 @@ class ManagementKey(BaseModel):
 
     access: Optional[Dict[str, AccessLevel]] = None
     r"""Per-domain access map. Only populated when `permission_mode` is
-    `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. The authoritative list of
-    valid keys (Domain.id values) is returned by the List management
-    capability catalog endpoint (GET /v2/management-keys/capabilities).
+    `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. Valid keys are the Domain.id
+    values in the management capability catalog — see
+    libs/catalog/orq/managementkeys/v1/catalog.textpb for the canonical
+    list.
     """
 
     created_by_id: Optional[str] = None

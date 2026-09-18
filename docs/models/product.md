@@ -29,4 +29,3 @@ value: Product = "remoteconfigs"
 - `"evaluators"`
 - `"otel"`
 - `"ai-chat"`
-- `"mcp_gateway"`

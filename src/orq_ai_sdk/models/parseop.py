@@ -25,7 +25,7 @@ class LateChunkerStrategyTypedDict(TypedDict):
     r"""The text content to be chunked"""
     strategy: LateChunker
     embedding_model: str
-    r"""Embedding model used to generate context-aware chunk embeddings. [Available embedding models](/docs/ai-gateway/supported-models#embedding-models)"""
+    r"""Embedding model used to generate context-aware chunk embeddings. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[ParseChunkingRequestChunkingRequestRequestBody7ReturnType]
@@ -51,7 +51,7 @@ class LateChunkerStrategy(BaseModel):
     strategy: LateChunker
 
     embedding_model: str
-    r"""Embedding model used to generate context-aware chunk embeddings. [Available embedding models](/docs/ai-gateway/supported-models#embedding-models)"""
+    r"""Embedding model used to generate context-aware chunk embeddings. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
 
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
@@ -216,7 +216,7 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     r"""The text content to be chunked"""
     strategy: AgenticChunker
     model: str
-    r"""Model to use for chunking. [Available models](/docs/ai-gateway/supported-models#chat-models)"""
+    r"""Model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy/supported-models#chat-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[ParseChunkingRequestChunkingRequestReturnType]
@@ -240,7 +240,7 @@ class AgenticChunkerStrategy(BaseModel):
     strategy: AgenticChunker
 
     model: str
-    r"""Model to use for chunking. [Available models](/docs/ai-gateway/supported-models#chat-models)"""
+    r"""Model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy/supported-models#chat-models]"""
 
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
@@ -321,7 +321,7 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""The text content to be chunked"""
     strategy: SemanticChunker
     embedding_model: str
-    r"""Embedding model to use for semantic similarity. [Available embedding models](/docs/ai-gateway/supported-models#embedding-models)"""
+    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[ParseChunkingRequestChunkingReturnType]
@@ -349,7 +349,7 @@ class SemanticChunkerStrategy(BaseModel):
     strategy: SemanticChunker
 
     embedding_model: str
-    r"""Embedding model to use for semantic similarity. [Available embedding models](/docs/ai-gateway/supported-models#embedding-models)"""
+    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
 
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""

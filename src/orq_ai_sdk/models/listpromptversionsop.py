@@ -10,7 +10,12 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
-from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -1374,19 +1379,23 @@ ListPromptVersionsPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-ListPromptVersionsPlugins = Annotated[
+ListPromptVersionsPlugins = TypeAliasType(
+    "ListPromptVersionsPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class ListPromptVersionsFallbacksTypedDict(TypedDict):
@@ -2261,7 +2270,7 @@ class ListPromptVersionsPromptFieldTypedDict(TypedDict):
     messages: NotRequired[List[ListPromptVersionsPromptsMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`."""
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`."""
     version: NotRequired[str]
 
 
@@ -2375,7 +2384,7 @@ class ListPromptVersionsPromptField(BaseModel):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
     model: OptionalNullable[str] = UNSET
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`."""
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`."""
 
     version: Optional[str] = None
 

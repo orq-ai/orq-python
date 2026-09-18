@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
-from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
 from .mcpgatewaystatus import McpGatewayStatus
 from .mcptoolnaming import McpToolNaming
@@ -32,8 +31,6 @@ class UpdateMcpGatewayRequestTypedDict(TypedDict):
     r"""Which projects in the workspace may use this gateway. Defaults to every project."""
     clear_server_links: NotRequired[bool]
     r"""Set true to remove every link; cannot be combined with `server_links`."""
-    plugins: NotRequired[List[McpGatewayPluginTypedDict]]
-    r"""Plugins run on every tool call this gateway serves."""
 
 
 class UpdateMcpGatewayRequest(BaseModel):
@@ -64,9 +61,6 @@ class UpdateMcpGatewayRequest(BaseModel):
     clear_server_links: Optional[bool] = None
     r"""Set true to remove every link; cannot be combined with `server_links`."""
 
-    plugins: Optional[List[McpGatewayPlugin]] = None
-    r"""Plugins run on every tool call this gateway serves."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -80,7 +74,6 @@ class UpdateMcpGatewayRequest(BaseModel):
                 "mode",
                 "sharing",
                 "clear_server_links",
-                "plugins",
             ]
         )
         serialized = handler(self)

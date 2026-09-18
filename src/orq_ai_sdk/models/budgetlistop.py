@@ -35,8 +35,9 @@ class BudgetListRequestTypedDict(TypedDict):
     one of the listed values. Empty means no period filter.
     """
     query: NotRequired[str]
-    r"""Optional free-text query matched against a budget's scope target
-    name and id.
+    r"""Optional free-text query. Server translates this into a Typesense
+    search over the denormalized `scope_target_name` and id fields on
+    the per-workspace `{workspace_id}_budgets` collection.
     """
     sort_by: NotRequired[BudgetSortField]
     r"""Field used to order the list. Unset orders by most-recently-updated."""
@@ -97,8 +98,9 @@ class BudgetListRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Optional free-text query matched against a budget's scope target
-    name and id.
+    r"""Optional free-text query. Server translates this into a Typesense
+    search over the denormalized `scope_target_name` and id fields on
+    the per-workspace `{workspace_id}_budgets` collection.
     """
 
     sort_by: Annotated[

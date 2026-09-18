@@ -7,15 +7,15 @@ from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-Type = Literal["text",]
+TextContentPartSchemaType = Literal["text",]
 r"""The type of the content part."""
 
 
-TextContentPartSchemaType = Literal["ephemeral",]
+TextContentPartSchemaCacheControlType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-TextContentPartSchemaTTL = Literal[
+TTL = Literal[
     "5m",
     "1h",
 ]
@@ -29,9 +29,9 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 
 
 class CacheControlTypedDict(TypedDict):
-    type: TextContentPartSchemaType
+    type: TextContentPartSchemaCacheControlType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[TextContentPartSchemaTTL]
+    ttl: NotRequired[TTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -42,10 +42,10 @@ class CacheControlTypedDict(TypedDict):
 
 
 class CacheControl(BaseModel):
-    type: TextContentPartSchemaType
+    type: TextContentPartSchemaCacheControlType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[TextContentPartSchemaTTL] = "5m"
+    ttl: Optional[TTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -74,7 +74,7 @@ class CacheControl(BaseModel):
 class TextContentPartSchemaTypedDict(TypedDict):
     r"""The type of the content part."""
 
-    type: Type
+    type: TextContentPartSchemaType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
@@ -84,7 +84,7 @@ class TextContentPartSchemaTypedDict(TypedDict):
 class TextContentPartSchema(BaseModel):
     r"""The type of the content part."""
 
-    type: Type
+    type: TextContentPartSchemaType
     r"""The type of the content part."""
 
     text: str

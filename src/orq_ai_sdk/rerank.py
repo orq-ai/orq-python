@@ -43,8 +43,8 @@ class Rerank(BaseSDK):
         ] = None,
         plugins: Optional[
             Union[
-                Iterable[models.PIIRedactionPlugin],
-                Iterable[models.PIIRedactionPluginTypedDict],
+                Iterable[models.CreateRerankPlugins],
+                Iterable[models.CreateRerankPluginsTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -111,7 +111,7 @@ class Rerank(BaseSDK):
                 timeout, Optional[models.CreateRerankTimeout]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.PIIRedactionPlugin]]
+                plugins, Optional[List[models.CreateRerankPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateRerankOrq]),
         )
@@ -209,8 +209,8 @@ class Rerank(BaseSDK):
         ] = None,
         plugins: Optional[
             Union[
-                Iterable[models.PIIRedactionPlugin],
-                Iterable[models.PIIRedactionPluginTypedDict],
+                Iterable[models.CreateRerankPlugins],
+                Iterable[models.CreateRerankPluginsTypedDict],
             ]
         ] = None,
         orq: Optional[
@@ -277,7 +277,7 @@ class Rerank(BaseSDK):
                 timeout, Optional[models.CreateRerankTimeout]
             ),
             plugins=utils.get_pydantic_model(
-                plugins, Optional[List[models.PIIRedactionPlugin]]
+                plugins, Optional[List[models.CreateRerankPlugins]]
             ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateRerankOrq]),
         )

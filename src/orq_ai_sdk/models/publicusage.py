@@ -3,7 +3,6 @@
 from __future__ import annotations
 from .inputtokensdetails import InputTokensDetails, InputTokensDetailsTypedDict
 from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
-from .servertoolusedetails import ServerToolUseDetails, ServerToolUseDetailsTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import Optional
@@ -20,7 +19,6 @@ class PublicUsageTypedDict(TypedDict):
     r"""Cost (USD) of input tokens. Present when billing was computed for this response."""
     output_cost: NotRequired[float]
     r"""Cost (USD) of output tokens. Present when billing was computed for this response."""
-    server_tool_use: NotRequired[ServerToolUseDetailsTypedDict]
     total_cost: NotRequired[float]
     r"""Total cost (USD) of the response. Present when billing was computed for this response."""
     web_search_requests: NotRequired[int]
@@ -43,8 +41,6 @@ class PublicUsage(BaseModel):
     output_cost: Optional[float] = None
     r"""Cost (USD) of output tokens. Present when billing was computed for this response."""
 
-    server_tool_use: Optional[ServerToolUseDetails] = None
-
     total_cost: Optional[float] = None
     r"""Total cost (USD) of the response. Present when billing was computed for this response."""
 
@@ -53,13 +49,7 @@ class PublicUsage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "input_cost",
-                "output_cost",
-                "server_tool_use",
-                "total_cost",
-                "web_search_requests",
-            ]
+            ["input_cost", "output_cost", "total_cost", "web_search_requests"]
         )
         serialized = handler(self)
         m = {}

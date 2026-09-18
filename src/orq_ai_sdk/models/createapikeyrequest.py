@@ -36,10 +36,6 @@ class CreateAPIKeyRequestTypedDict(TypedDict):
     r"""Optional MCP-gateway access restriction. Unset means no
     restriction. See McpAccess for the deny_all / allow-list semantics.
     """
-    labels: NotRequired[Dict[str, str]]
-    r"""Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}$`,
-    values up to 64 characters). See ApiKey.labels.
-    """
 
 
 class CreateAPIKeyRequest(BaseModel):
@@ -72,11 +68,6 @@ class CreateAPIKeyRequest(BaseModel):
     restriction. See McpAccess for the deny_all / allow-list semantics.
     """
 
-    labels: Optional[Dict[str, str]] = None
-    r"""Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}$`,
-    values up to 64 characters). See ApiKey.labels.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -87,7 +78,6 @@ class CreateAPIKeyRequest(BaseModel):
                 "access",
                 "expires_at",
                 "mcp_access",
-                "labels",
             ]
         )
         serialized = handler(self)

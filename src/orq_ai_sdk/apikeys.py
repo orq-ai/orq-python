@@ -124,7 +124,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List active project keys",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/api-keys' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
                         },
                         {
                             "label": "Python - List active project keys",
@@ -268,7 +268,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List active project keys",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/api-keys' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
                         },
                         {
                             "label": "Python - List active project keys",
@@ -311,7 +311,6 @@ class APIKeys(BaseSDK):
         access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-        labels: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -319,44 +318,25 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
-            Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
+        Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
 
-            :param name: Human-readable name. Required.
-            :param owner: Owner attribution. Defaults to service_account when omitted.
-            :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param permission_mode:
-            :param access: Per-domain access map. Required when `permission_mode` =
-                `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
-                catalog of valid keys (Domain.id) and AccessLevel string values,
-                or fetch the live catalog via the capability catalog endpoint.
-            :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-                the key once `expires_at` is in the past. Unset means the key
-                never expires.
-            :param mcp_access: Optional MCP-gateway access restriction. Unset means no
-                restriction. See McpAccess for the deny_all / allow-list semantics.
-            :param labels: Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}
-
-        def create(
-            self, *,
-            name: str,
-            owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
-            project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            permission_mode: Optional[models.PermissionMode] = None,
-            access: Optional[Mapping[str, models.AccessLevel]] = None,
-            expires_at: Optional[datetime] = None,
-            mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-            labels: Optional[Mapping[str, str]] = None,
-            retries: OptionalNullable[utils.RetryConfig] = UNSET,
-            server_url: Optional[str] = None,
-            timeout_ms: Optional[int] = None,
-            http_headers: Optional[Mapping[str, str]] = None
-        ) -> models.APIKeyRestResponse:
-            ,
-                values up to 64 characters). See ApiKey.labels.
-            :param retries: Override the default retry configuration for this method
-            :param server_url: Override the default server URL for this method
-            :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-            :param http_headers: Additional headers to set or replace on requests.
+        :param name: Human-readable name. Required.
+        :param owner: Owner attribution. Defaults to service_account when omitted.
+        :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
+        :param permission_mode:
+        :param access: Per-domain access map. Required when `permission_mode` =
+            `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
+            catalog of valid keys (Domain.id) and AccessLevel string values,
+            or fetch the live catalog via the capability catalog endpoint.
+        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
+            the key once `expires_at` is in the past. Unset means the key
+            never expires.
+        :param mcp_access: Optional MCP-gateway access restriction. Unset means no
+            restriction. See McpAccess for the deny_all / allow-list semantics.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -381,7 +361,6 @@ class APIKeys(BaseSDK):
             access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
             mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
-            labels=utils.unmarshal(labels, Optional[Dict[str, str]]),
         )
 
         req = self._build_request(
@@ -427,7 +406,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
@@ -442,7 +421,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
@@ -485,7 +464,6 @@ class APIKeys(BaseSDK):
         access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-        labels: Optional[Mapping[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -493,44 +471,25 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
-            Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
+        Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
 
-            :param name: Human-readable name. Required.
-            :param owner: Owner attribution. Defaults to service_account when omitted.
-            :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param permission_mode:
-            :param access: Per-domain access map. Required when `permission_mode` =
-                `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
-                catalog of valid keys (Domain.id) and AccessLevel string values,
-                or fetch the live catalog via the capability catalog endpoint.
-            :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-                the key once `expires_at` is in the past. Unset means the key
-                never expires.
-            :param mcp_access: Optional MCP-gateway access restriction. Unset means no
-                restriction. See McpAccess for the deny_all / allow-list semantics.
-            :param labels: Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}
-
-        async def create_async(
-            self, *,
-            name: str,
-            owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
-            project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            permission_mode: Optional[models.PermissionMode] = None,
-            access: Optional[Mapping[str, models.AccessLevel]] = None,
-            expires_at: Optional[datetime] = None,
-            mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-            labels: Optional[Mapping[str, str]] = None,
-            retries: OptionalNullable[utils.RetryConfig] = UNSET,
-            server_url: Optional[str] = None,
-            timeout_ms: Optional[int] = None,
-            http_headers: Optional[Mapping[str, str]] = None
-        ) -> models.APIKeyRestResponse:
-            ,
-                values up to 64 characters). See ApiKey.labels.
-            :param retries: Override the default retry configuration for this method
-            :param server_url: Override the default server URL for this method
-            :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-            :param http_headers: Additional headers to set or replace on requests.
+        :param name: Human-readable name. Required.
+        :param owner: Owner attribution. Defaults to service_account when omitted.
+        :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
+        :param permission_mode:
+        :param access: Per-domain access map. Required when `permission_mode` =
+            `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
+            catalog of valid keys (Domain.id) and AccessLevel string values,
+            or fetch the live catalog via the capability catalog endpoint.
+        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
+            the key once `expires_at` is in the past. Unset means the key
+            never expires.
+        :param mcp_access: Optional MCP-gateway access restriction. Unset means no
+            restriction. See McpAccess for the deny_all / allow-list semantics.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -555,7 +514,6 @@ class APIKeys(BaseSDK):
             access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
             expires_at=expires_at,
             mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
-            labels=utils.unmarshal(labels, Optional[Dict[str, str]]),
         )
 
         req = self._build_request_async(
@@ -601,7 +559,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
@@ -616,7 +574,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/api-keys\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
@@ -716,7 +674,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List capability catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/capabilities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - List capability catalog",
@@ -816,7 +774,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List capability catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/capabilities' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - List capability catalog",
@@ -927,7 +885,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Retrieve key metadata",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve key metadata",
@@ -1038,7 +996,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Retrieve key metadata",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve key metadata",
@@ -1145,7 +1103,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Delete a key",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete a key",
@@ -1252,7 +1210,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Delete a key",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Delete a key",
@@ -1407,7 +1365,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Disable a key",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
                         },
                         {
                             "label": "Python - Disable a key",
@@ -1562,7 +1520,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Disable a key",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
                         },
                         {
                             "label": "Python - Disable a key",

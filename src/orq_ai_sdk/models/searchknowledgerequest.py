@@ -588,9 +588,9 @@ FilterBy = TypeAliasType(
 r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
-class TwoTypedDict(TypedDict):
+class AgenticRagConfig2TypedDict(TypedDict):
     model_db_id: str
-    r"""Identifier of the stored model configuration to use."""
+    r"""Internal database model identifier used by the retrieval testing UI."""
     provider: str
     r"""Provider identifier for the stored model configuration."""
     model: NotRequired[str]
@@ -599,9 +599,9 @@ class TwoTypedDict(TypedDict):
     r"""Optional integration identifier for the stored model configuration."""
 
 
-class Two(BaseModel):
+class AgenticRagConfig2(BaseModel):
     model_db_id: str
-    r"""Identifier of the stored model configuration to use."""
+    r"""Internal database model identifier used by the retrieval testing UI."""
 
     provider: str
     r"""Provider identifier for the stored model configuration."""
@@ -642,7 +642,7 @@ class AgenticRagConfig1TypedDict(TypedDict):
     model: str
     r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
     model_db_id: NotRequired[str]
-    r"""Identifier of the stored model configuration to use."""
+    r"""Internal database model identifier used by the retrieval testing UI."""
     provider: NotRequired[str]
     r"""Provider identifier for the stored model configuration."""
     integration_id: NotRequired[Nullable[str]]
@@ -654,7 +654,7 @@ class AgenticRagConfig1(BaseModel):
     r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
 
     model_db_id: Optional[str] = None
-    r"""Identifier of the stored model configuration to use."""
+    r"""Internal database model identifier used by the retrieval testing UI."""
 
     provider: Optional[str] = None
     r"""Provider identifier for the stored model configuration."""
@@ -690,20 +690,21 @@ class AgenticRagConfig1(BaseModel):
 
 SearchKnowledgeRequestAgenticRagConfigTypedDict = TypeAliasType(
     "SearchKnowledgeRequestAgenticRagConfigTypedDict",
-    Union[AgenticRagConfig1TypedDict, TwoTypedDict],
+    Union[AgenticRagConfig1TypedDict, AgenticRagConfig2TypedDict],
 )
 r"""Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values."""
 
 
 SearchKnowledgeRequestAgenticRagConfig = TypeAliasType(
-    "SearchKnowledgeRequestAgenticRagConfig", Union[AgenticRagConfig1, Two]
+    "SearchKnowledgeRequestAgenticRagConfig",
+    Union[AgenticRagConfig1, AgenticRagConfig2],
 )
 r"""Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values."""
 
 
 class SearchKnowledgeRequestTypedDict(TypedDict):
-    r"""Search request. Sets the knowledge base and query, plus optional retrieval
-    settings.
+    r"""SearchKnowledgeRequest mirrors the existing public search body and adds the
+    internal retrieval configuration override used by the knowledge testing UI.
     """
 
     query: str
@@ -728,8 +729,8 @@ class SearchKnowledgeRequestTypedDict(TypedDict):
 
 
 class SearchKnowledgeRequest(BaseModel):
-    r"""Search request. Sets the knowledge base and query, plus optional retrieval
-    settings.
+    r"""SearchKnowledgeRequest mirrors the existing public search body and adds the
+    internal retrieval configuration override used by the knowledge testing UI.
     """
 
     query: str

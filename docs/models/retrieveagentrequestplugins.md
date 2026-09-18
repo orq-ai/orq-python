@@ -3,10 +3,22 @@
 
 ## Supported Types
 
-### `models.PIIRedactionPlugin`
+### `models.PIIRedactionPluginAuto`
 
 ```python
-value: models.PIIRedactionPlugin = /* values here */
+value: models.PIIRedactionPluginAuto = /* values here */
+```
+
+### `models.PIIRedactionPluginEn`
+
+```python
+value: models.PIIRedactionPluginEn = /* values here */
+```
+
+### `models.PIIRedactionPluginNl`
+
+```python
+value: models.PIIRedactionPluginNl = /* values here */
 ```
 
 ### `models.ResponseHealingPlugin`

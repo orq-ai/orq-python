@@ -14,7 +14,7 @@ from typing import Any, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-EvaluatorResponseLlmType = Literal["llm_eval",]
+Type = Literal["llm_eval",]
 
 
 class CategoricalLabelsTypedDict(TypedDict):
@@ -221,7 +221,7 @@ class Jury(BaseModel):
 class EvaluatorResponseLlmTypedDict(TypedDict):
     id: str
     description: str
-    type: EvaluatorResponseLlmType
+    type: Type
     prompt: str
     key: str
     mode: Mode
@@ -244,7 +244,7 @@ class EvaluatorResponseLlm(BaseModel):
 
     description: str
 
-    type: EvaluatorResponseLlmType
+    type: Type
 
     prompt: str
 
@@ -252,9 +252,9 @@ class EvaluatorResponseLlm(BaseModel):
 
     mode: Mode
 
-    created: Optional[str] = "2026-08-05T15:12:51.947Z"
+    created: Optional[str] = "2026-09-18T09:52:55.048Z"
 
-    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
+    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
 
     updated_by_id: OptionalNullable[str] = UNSET
 

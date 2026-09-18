@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import CreateToolRequestBodyType
-value: CreateToolRequestBodyType = "json_schema"
+value: CreateToolRequestBodyType = "function"
 ```
 
 
 ## Values
 
-- `"json_schema"`
+- `"function"`

@@ -63,9 +63,13 @@ from .executionreviewrequiredstreamingevent import (
     ExecutionReviewRequiredStreamingEventTypedDict,
 )
 from .filepart import FilePart, FilePartTypedDict
-from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
-from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
+from .piiredactionpluginauto import (
+    PIIRedactionPluginAuto,
+    PIIRedactionPluginAutoTypedDict,
+)
+from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
+from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
 from .queryknowledgebasetoolinput import (
     QueryKnowledgeBaseToolInput,
     QueryKnowledgeBaseToolInputTypedDict,
@@ -439,19 +443,23 @@ StreamRunAgentModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-StreamRunAgentModelConfigurationPlugins = Annotated[
+StreamRunAgentModelConfigurationPlugins = TypeAliasType(
+    "StreamRunAgentModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class StreamRunAgentModelConfigurationFallbacksTypedDict(TypedDict):
@@ -899,7 +907,7 @@ class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
     retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
@@ -913,7 +921,7 @@ class StreamRunAgentModelConfiguration2(BaseModel):
     """
 
     id: str
-    r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
     parameters: Optional[StreamRunAgentModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
@@ -1255,19 +1263,23 @@ StreamRunAgentFallbackModelConfigurationPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginTypedDict,
+        PIIRedactionPluginAutoTypedDict,
+        PIIRedactionPluginEnTypedDict,
+        PIIRedactionPluginNlTypedDict,
     ],
 )
 
 
-StreamRunAgentFallbackModelConfigurationPlugins = Annotated[
+StreamRunAgentFallbackModelConfigurationPlugins = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationPlugins",
     Union[
-        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
-        Annotated[ResponseHealingPlugin, Tag("response_healing")],
-        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
+        ResponseHealingPlugin,
+        TraceScrubbingPlugin,
+        PIIRedactionPluginAuto,
+        PIIRedactionPluginEn,
+        PIIRedactionPluginNl,
     ],
-    Discriminator(lambda m: get_discriminator(m, "id", "id")),
-]
+)
 
 
 class StreamRunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
@@ -2074,7 +2086,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal[
     "mcp",
 ]
 
@@ -2106,19 +2118,19 @@ class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType = Literal[
     "object",
 ]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchemaTypedDict(TypedDict):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
 class StreamRunAgentAgentToolInputRunAgentsSchema(BaseModel):
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20McpType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -2155,7 +2167,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01M2R0NDET0BQM8SCD2HXRDR1K"
+    id: Optional[str] = "01M2SYY3MGGWNZ0ZQ0T65ETMZB"
 
     description: Optional[str] = None
 
@@ -2229,7 +2241,7 @@ class AgentToolInputRunMcp(BaseModel):
 class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2243,7 +2255,7 @@ class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
 class AgentToolInputRunMCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools20Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2276,7 +2288,7 @@ class AgentToolInputRunMCPToolRun(BaseModel):
         return m
 
 
-StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type = Literal[
     "json_schema",
 ]
 
@@ -2364,7 +2376,7 @@ class StreamRunAgentAgentToolInputRunJSONSchema(BaseModel):
 class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -2378,7 +2390,7 @@ class AgentToolInputRunJSONSchemaToolRunTypedDict(TypedDict):
 class AgentToolInputRunJSONSchemaToolRun(BaseModel):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools19Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools18Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -2594,11 +2606,11 @@ class StreamRunAgentAgentToolInputRunParameters(BaseModel):
         self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
-AgentToolInputRunLanguage = Literal["python",]
+StreamRunAgentAgentToolInputRunLanguage = Literal["python",]
 
 
 class AgentToolInputRunCodeToolTypedDict(TypedDict):
-    language: AgentToolInputRunLanguage
+    language: StreamRunAgentAgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[StreamRunAgentAgentToolInputRunParametersTypedDict]
@@ -2606,7 +2618,7 @@ class AgentToolInputRunCodeToolTypedDict(TypedDict):
 
 
 class AgentToolInputRunCodeTool(BaseModel):
-    language: AgentToolInputRunLanguage
+    language: StreamRunAgentAgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""
@@ -2689,7 +2701,7 @@ class AgentToolInputRunCodeToolRun(BaseModel):
 StreamRunAgentAgentToolInputRunType = Literal["http",]
 
 
-AgentToolInputRunMethod = Literal[
+StreamRunAgentAgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -2741,7 +2753,7 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
 
     url: str
     r"""The URL to send the request to."""
-    method: AgentToolInputRunMethod
+    method: StreamRunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, StreamRunAgentAgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
@@ -2757,7 +2769,7 @@ class AgentToolInputRunBlueprint(BaseModel):
     url: str
     r"""The URL to send the request to."""
 
-    method: AgentToolInputRunMethod
+    method: StreamRunAgentAgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunHeaders]] = None
@@ -2936,21 +2948,20 @@ class AgentToolInputRunHTTPToolRun(BaseModel):
 StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
     "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
+        RetrieveKnowledgeBasesToolInputTypedDict,
         CurrentDateToolInputTypedDict,
-        WebScraperToolInputTypedDict,
         CallSubAgentToolInputTypedDict,
-        RetrieveAgentsToolInputTypedDict,
+        QueryKnowledgeBaseToolInputTypedDict,
         QueryMemoryStoreToolInputTypedDict,
         WriteMemoryStoreToolInputTypedDict,
         RetrieveMemoryStoresToolInputTypedDict,
         DeleteMemoryDocumentToolInputTypedDict,
-        QueryKnowledgeBaseToolInputTypedDict,
-        RetrieveKnowledgeBasesToolInputTypedDict,
-        SidekickToolInputTypedDict,
-        AdvisorToolInputTypedDict,
+        WebScraperToolInputTypedDict,
         GoogleSearchToolInputTypedDict,
+        RetrieveAgentsToolInputTypedDict,
+        AdvisorToolInputTypedDict,
+        SidekickToolInputTypedDict,
         CodeInterpreterToolInputTypedDict,
-        FileSystemToolInputTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
         AgentToolInputRunJSONSchemaToolRunTypedDict,
         AgentToolInputRunMCPToolRunTypedDict,
@@ -2977,7 +2988,6 @@ StreamRunAgentAgentToolInputRun = Annotated[
         Annotated[AdvisorToolInput, Tag("advisor")],
         Annotated[SidekickToolInput, Tag("sidekick")],
         Annotated[CodeInterpreterToolInput, Tag("code_interpreter")],
-        Annotated[FileSystemToolInput, Tag("file_system")],
         Annotated[AgentToolInputRunHTTPToolRun, Tag("http")],
         Annotated[AgentToolInputRunCodeToolRun, Tag("code")],
         Annotated[AgentToolInputRunFunctionToolRun, Tag("function")],
@@ -3011,8 +3021,6 @@ class StreamRunAgentEvaluatorsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class StreamRunAgentEvaluators(BaseModel):
@@ -3025,12 +3033,9 @@ class StreamRunAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 
@@ -3059,8 +3064,6 @@ class StreamRunAgentGuardrailsTypedDict(TypedDict):
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-    options: NotRequired[Dict[str, Any]]
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
 
 
 class StreamRunAgentGuardrails(BaseModel):
@@ -3073,12 +3076,9 @@ class StreamRunAgentGuardrails(BaseModel):
     sample_rate: Optional[float] = 50.0
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
-    options: Optional[Dict[str, Any]] = None
-    r"""Evaluator-specific configuration, passed through to the evaluator at run time. For orq_pii_detection this carries regions, entities, entity_thresholds, language and threshold, and is validated against PIIDetectionGuardrailOptions: regions and entities are two mutually exclusive coverage modes, and every entity_thresholds key must also appear in entities. on_failure is rejected: an evaluator acting as a guardrail always fails closed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["sample_rate", "options"])
+        optional_fields = set(["sample_rate"])
         serialized = handler(self)
         m = {}
 

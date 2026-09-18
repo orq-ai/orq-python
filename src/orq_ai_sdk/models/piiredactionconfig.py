@@ -3,19 +3,21 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class PiiRedactionConfigTypedDict(TypedDict):
-    r"""PiiRedactionConfig mirrors the workspace-default PII redaction plugin
-    configuration. Every field is optional; the gateway applies its own
-    defaults for unset fields.
+    r"""PiiRedactionConfig mirrors the workspace-default PII redaction plugin config
+    (libs/go/models PIIRedactionPlugin / libs/models/gateway
+    PIIRedactionPluginSchema). Every field is optional; the gateway applies its
+    own defaults for unset fields.
 
-    The stored value is validated on write using the same rules the gateway
-    applies to live requests. Without that, an invalid workspace default
-    would 400 every gateway call for the workspace, since the default plugin
-    is injected into each request and validated there.
+    The stored value is validated on write with the same
+    models.PIIRedactionPlugin.Validate() the gateway runs per request. Without
+    that, an invalid workspace default would 400 every gateway call for the
+    workspace, since the default plugin is injected into each request and
+    validated there.
     """
 
     language: NotRequired[str]
@@ -33,25 +35,19 @@ class PiiRedactionConfigTypedDict(TypedDict):
     """
     threshold: NotRequired[float]
     r"""Detection confidence threshold in the [0, 1] range."""
-    regions: NotRequired[List[str]]
-    r"""Regions of coverage by lowercase ISO 3166-1 alpha-2 code, or [\"all\"].
-    Adds every entity type the regions cover on top of `entities`.
-    """
-    entity_thresholds: NotRequired[Dict[str, float]]
-    r"""Per-entity-type confidence cutoff in [0, 1]. Every key must also appear in
-    `entities`.
-    """
 
 
 class PiiRedactionConfig(BaseModel):
-    r"""PiiRedactionConfig mirrors the workspace-default PII redaction plugin
-    configuration. Every field is optional; the gateway applies its own
-    defaults for unset fields.
+    r"""PiiRedactionConfig mirrors the workspace-default PII redaction plugin config
+    (libs/go/models PIIRedactionPlugin / libs/models/gateway
+    PIIRedactionPluginSchema). Every field is optional; the gateway applies its
+    own defaults for unset fields.
 
-    The stored value is validated on write using the same rules the gateway
-    applies to live requests. Without that, an invalid workspace default
-    would 400 every gateway call for the workspace, since the default plugin
-    is injected into each request and validated there.
+    The stored value is validated on write with the same
+    models.PIIRedactionPlugin.Validate() the gateway runs per request. Without
+    that, an invalid workspace default would 400 every gateway call for the
+    workspace, since the default plugin is injected into each request and
+    validated there.
     """
 
     language: Optional[str] = None
@@ -73,28 +69,9 @@ class PiiRedactionConfig(BaseModel):
     threshold: Optional[float] = None
     r"""Detection confidence threshold in the [0, 1] range."""
 
-    regions: Optional[List[str]] = None
-    r"""Regions of coverage by lowercase ISO 3166-1 alpha-2 code, or [\"all\"].
-    Adds every entity type the regions cover on top of `entities`.
-    """
-
-    entity_thresholds: Optional[Dict[str, float]] = None
-    r"""Per-entity-type confidence cutoff in [0, 1]. Every key must also appear in
-    `entities`.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "language",
-                "entities",
-                "on_failure",
-                "threshold",
-                "regions",
-                "entity_thresholds",
-            ]
-        )
+        optional_fields = set(["language", "entities", "on_failure", "threshold"])
         serialized = handler(self)
         m = {}
 

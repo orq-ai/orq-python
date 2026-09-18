@@ -7,17 +7,17 @@ from typing import List, Literal
 from typing_extensions import TypedDict
 
 
-KnowledgeBasesServiceListResponseObject = Literal["list",]
+Object = Literal["list",]
 
 
 class KnowledgeBasesServiceListResponseTypedDict(TypedDict):
-    object: KnowledgeBasesServiceListResponseObject
+    object: Object
     data: List[KnowledgeTypedDict]
     has_more: bool
 
 
 class KnowledgeBasesServiceListResponse(BaseModel):
-    object: KnowledgeBasesServiceListResponseObject
+    object: Object
 
     data: List[Knowledge]
 

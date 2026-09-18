@@ -246,7 +246,7 @@ class UpdateEvalJury(BaseModel):
         return m
 
 
-UpdateEvalVersionIncrement = Literal[
+VersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -280,7 +280,7 @@ class UpdateEvalRequestBodyTypedDict(TypedDict):
     payload: NotRequired[Dict[str, Any]]
     code: NotRequired[str]
     guardrail_config: NotRequired[Any]
-    version_increment: NotRequired[UpdateEvalVersionIncrement]
+    version_increment: NotRequired[VersionIncrement]
     version_description: NotRequired[str]
 
 
@@ -331,7 +331,7 @@ class UpdateEvalRequestBody(BaseModel):
     guardrail_config: Optional[Any] = None
 
     version_increment: Annotated[
-        Optional[UpdateEvalVersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
     ] = None
 
     version_description: Annotated[

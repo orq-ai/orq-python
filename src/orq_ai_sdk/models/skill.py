@@ -34,8 +34,9 @@ class SkillTypedDict(TypedDict):
     instructions: str
     r"""Instruction body executed or reused by clients that load this skill."""
     version: str
-    r"""Latest semver for the skill. It advances when the skill's definition
-    changes and is returned on every read.
+    r"""Latest semver assigned by the activity log. Stamped on the document
+    by CreateSkill / UpdateSkill so reads return it without joining
+    workspaces.activities.
     """
 
 
@@ -77,6 +78,7 @@ class Skill(BaseModel):
     r"""Instruction body executed or reused by clients that load this skill."""
 
     version: str
-    r"""Latest semver for the skill. It advances when the skill's definition
-    changes and is returned on every read.
+    r"""Latest semver assigned by the activity log. Stamped on the document
+    by CreateSkill / UpdateSkill so reads return it without joining
+    workspaces.activities.
     """

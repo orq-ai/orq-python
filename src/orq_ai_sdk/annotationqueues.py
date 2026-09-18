@@ -3,17 +3,17 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union, cast
 
 
 class AnnotationQueues(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
@@ -22,16 +22,16 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAnnotationQueuesResponse:
+    ) -> models.ListAnnotationQueuesResponseBody:
         r"""List annotation queues
 
-        Returns annotation queues in the workspace, newest first.
+        Retrieves a paginated list of annotation queues for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param limit: Optional. Number of annotation queues to return. Defaults to 10 and must be between 1 and 200.
-        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
-        :param search: Optional. Case-insensitive substring match on the annotation queue display name.
-        :param updated_by: Optional. Comma-separated account IDs; returns queues last updated by any of them.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Filter annotation queues by display name (case-insensitive match).
+        :param updated_by: Comma-separated list of user IDs; returns annotation queues last updated by any of them.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -100,7 +100,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List annotation queues",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/annotation-queues' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
                         },
                         {
                             "label": "Python - List annotation queues",
@@ -122,7 +122,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListAnnotationQueuesResponse, http_res
+                models.ListAnnotationQueuesResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -136,7 +136,7 @@ class AnnotationQueues(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
@@ -145,16 +145,16 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAnnotationQueuesResponse:
+    ) -> models.ListAnnotationQueuesResponseBody:
         r"""List annotation queues
 
-        Returns annotation queues in the workspace, newest first.
+        Retrieves a paginated list of annotation queues for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param limit: Optional. Number of annotation queues to return. Defaults to 10 and must be between 1 and 200.
-        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
-        :param search: Optional. Case-insensitive substring match on the annotation queue display name.
-        :param updated_by: Optional. Comma-separated account IDs; returns queues last updated by any of them.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Filter annotation queues by display name (case-insensitive match).
+        :param updated_by: Comma-separated list of user IDs; returns annotation queues last updated by any of them.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -223,7 +223,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List annotation queues",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/annotation-queues' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=50' \\\n  --data-urlencode 'search=support'\n",
                         },
                         {
                             "label": "Python - List annotation queues",
@@ -245,7 +245,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListAnnotationQueuesResponse, http_res
+                models.ListAnnotationQueuesResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -259,21 +259,22 @@ class AnnotationQueues(BaseSDK):
     def create(
         self,
         *,
-        display_name: str,
-        description: str,
-        project_id: str,
+        request: Optional[
+            Union[
+                models.CreateAnnotationQueueRequestBody,
+                models.CreateAnnotationQueueRequestBodyTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
+    ) -> models.CreateAnnotationQueueResponseBody:
         r"""Create an annotation queue
 
-        Creates an annotation queue in a project.
+        Create a new annotation queue in the workspace.
 
-        :param display_name: Required. The display name of the annotation queue.
-        :param description: Required. The description of the annotation queue.
-        :param project_id: Required. The project to link this annotation queue to.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -292,11 +293,11 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnnotationQueueRequest(
-            display_name=display_name,
-            description=description,
-            project_id=project_id,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.CreateAnnotationQueueRequestBody]
+            )
+        request = cast(Optional[models.CreateAnnotationQueueRequestBody], request)
 
         req = self._build_request(
             method="POST",
@@ -304,7 +305,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -312,7 +313,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnnotationQueueRequest
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.CreateAnnotationQueueRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -343,7 +348,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Create an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an annotation queue",
@@ -364,7 +369,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
+            return unmarshal_json_response(
+                models.CreateAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -377,21 +384,22 @@ class AnnotationQueues(BaseSDK):
     async def create_async(
         self,
         *,
-        display_name: str,
-        description: str,
-        project_id: str,
+        request: Optional[
+            Union[
+                models.CreateAnnotationQueueRequestBody,
+                models.CreateAnnotationQueueRequestBodyTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
+    ) -> models.CreateAnnotationQueueResponseBody:
         r"""Create an annotation queue
 
-        Creates an annotation queue in a project.
+        Create a new annotation queue in the workspace.
 
-        :param display_name: Required. The display name of the annotation queue.
-        :param description: Required. The description of the annotation queue.
-        :param project_id: Required. The project to link this annotation queue to.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -410,11 +418,11 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnnotationQueueRequest(
-            display_name=display_name,
-            description=description,
-            project_id=project_id,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.CreateAnnotationQueueRequestBody]
+            )
+        request = cast(Optional[models.CreateAnnotationQueueRequestBody], request)
 
         req = self._build_request_async(
             method="POST",
@@ -422,7 +430,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -430,7 +438,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnnotationQueueRequest
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.CreateAnnotationQueueRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -461,7 +473,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Create an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "project_id": "01HXXXXXXXXXXXXXXXXXXXXXXX",\n    "display_name": "Support quality review",\n    "description": "Human review of support agent responses"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create an annotation queue",
@@ -482,7 +494,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
+            return unmarshal_json_response(
+                models.CreateAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -500,10 +514,10 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
+    ) -> models.RetrieveAnnotationQueueResponseBody:
         r"""Retrieve an annotation queue
 
-        Retrieves an existing annotation queue by ID.
+        Retrieves a specific annotation queue by its unique identifier
 
         :param annotation_queue_id:
         :param retries: Override the default retry configuration for this method
@@ -570,7 +584,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve an annotation queue",
@@ -591,7 +605,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
+            return unmarshal_json_response(
+                models.RetrieveAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -609,10 +625,10 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
+    ) -> models.RetrieveAnnotationQueueResponseBody:
         r"""Retrieve an annotation queue
 
-        Retrieves an existing annotation queue by ID.
+        Retrieves a specific annotation queue by its unique identifier
 
         :param annotation_queue_id:
         :param retries: Override the default retry configuration for this method
@@ -679,7 +695,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve an annotation queue",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve an annotation queue",
@@ -700,225 +716,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def delete(
-        self,
-        *,
-        annotation_queue_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete an annotation queue
-
-        Deletes an annotation queue, its items, and the queue references stored on the annotated spans.
-
-        :param annotation_queue_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteAnnotationQueueRequest(
-            annotation_queue_id=annotation_queue_id,
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v2/annotation-queues/{annotation_queue_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="DeleteAnnotationQueue",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Annotation Queues"],
-                extensions={
-                    "x-cli-group": "annotation-queues",
-                    "x-cli-name": "delete",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Delete an annotation queue",
-                            "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
-                        },
-                        {
-                            "label": "Python - Delete an annotation queue",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.annotation_queues.delete(\n    annotation_queue_id="01HXXXXXXXXXXXXXXXXXXXXXXX",\n)\n',
-                        },
-                        {
-                            "label": "Node.js - Delete an annotation queue",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.delete({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n});\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def delete_async(
-        self,
-        *,
-        annotation_queue_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete an annotation queue
-
-        Deletes an annotation queue, its items, and the queue references stored on the annotated spans.
-
-        :param annotation_queue_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteAnnotationQueueRequest(
-            annotation_queue_id=annotation_queue_id,
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v2/annotation-queues/{annotation_queue_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="DeleteAnnotationQueue",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Annotation Queues"],
-                extensions={
-                    "x-cli-group": "annotation-queues",
-                    "x-cli-name": "delete",
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Delete an annotation queue",
-                            "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
-                        },
-                        {
-                            "label": "Python - Delete an annotation queue",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.annotation_queues.delete(\n    annotation_queue_id="01HXXXXXXXXXXXXXXXXXXXXXXX",\n)\n',
-                        },
-                        {
-                            "label": "Node.js - Delete an annotation queue",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.delete({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n});\n",
-                        },
-                    ],
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "204", "*"):
-            return
+            return unmarshal_json_response(
+                models.RetrieveAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -940,16 +740,16 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
-        r"""Update an annotation queue
+    ) -> models.UpdateAnnotationQueueResponseBody:
+        r"""Edit an annotation queue
 
-        Partially updates an existing annotation queue. Setting `project_id` clears the legacy `human_review_ids` selection.
+        Update an annotation queue by ID with the provided fields.
 
         :param annotation_queue_id:
-        :param display_name: Optional. New display name.
-        :param description: Optional. New description.
-        :param project_id: Optional. New project. Setting this clears the legacy `human_review_ids` selection.
-        :param human_review_ids: Legacy: update manually selected human review IDs. Only applied when `project_id` is not set.
+        :param display_name: The display name of the annotation queue
+        :param description: The description of the annotation queue
+        :param project_id: The project ID. When set, human reviews are resolved from the project automatically
+        :param human_review_ids: Legacy: update manually selected human review IDs. Only allowed when project_id is not set
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -968,9 +768,9 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateAnnotationQueueRequest1(
+        request = models.UpdateAnnotationQueueRequest(
             annotation_queue_id=annotation_queue_id,
-            update_annotation_queue_request=models.UpdateAnnotationQueueRequest(
+            request_body=models.UpdateAnnotationQueueRequestBody(
                 display_name=display_name,
                 description=description,
                 project_id=project_id,
@@ -984,7 +784,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -992,11 +792,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_annotation_queue_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.UpdateAnnotationQueueRequest,
+                Optional[models.UpdateAnnotationQueueRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1027,7 +827,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Update an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support quality review (Q3)",\n    "description": "Updated review scope"\n  }\'\n',
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Support quality review (Q3)\",\n    \"description\": \"Updated review scope\"\n  }'\n",
                         },
                         {
                             "label": "Python - Update an annotation queue",
@@ -1048,7 +848,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
+            return unmarshal_json_response(
+                models.UpdateAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1070,16 +872,16 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AnnotationQueue:
-        r"""Update an annotation queue
+    ) -> models.UpdateAnnotationQueueResponseBody:
+        r"""Edit an annotation queue
 
-        Partially updates an existing annotation queue. Setting `project_id` clears the legacy `human_review_ids` selection.
+        Update an annotation queue by ID with the provided fields.
 
         :param annotation_queue_id:
-        :param display_name: Optional. New display name.
-        :param description: Optional. New description.
-        :param project_id: Optional. New project. Setting this clears the legacy `human_review_ids` selection.
-        :param human_review_ids: Legacy: update manually selected human review IDs. Only applied when `project_id` is not set.
+        :param display_name: The display name of the annotation queue
+        :param description: The description of the annotation queue
+        :param project_id: The project ID. When set, human reviews are resolved from the project automatically
+        :param human_review_ids: Legacy: update manually selected human review IDs. Only allowed when project_id is not set
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1098,9 +900,9 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateAnnotationQueueRequest1(
+        request = models.UpdateAnnotationQueueRequest(
             annotation_queue_id=annotation_queue_id,
-            update_annotation_queue_request=models.UpdateAnnotationQueueRequest(
+            request_body=models.UpdateAnnotationQueueRequestBody(
                 display_name=display_name,
                 description=description,
                 project_id=project_id,
@@ -1114,7 +916,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1122,11 +924,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_annotation_queue_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.UpdateAnnotationQueueRequest,
+                Optional[models.UpdateAnnotationQueueRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1157,7 +959,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Update an annotation queue",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Support quality review (Q3)",\n    "description": "Updated review scope"\n  }\'\n',
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"Support quality review (Q3)\",\n    \"description\": \"Updated review scope\"\n  }'\n",
                         },
                         {
                             "label": "Python - Update an annotation queue",
@@ -1178,8 +980,228 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AnnotationQueue, http_res)
+            return unmarshal_json_response(
+                models.UpdateAnnotationQueueResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def delete(
+        self,
+        *,
+        annotation_queue_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete an annotation queue
+
+        Delete an annotation queue and its items by ID.
+
+        :param annotation_queue_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteAnnotationQueueRequest(
+            annotation_queue_id=annotation_queue_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/annotation-queues/{annotation_queue_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteAnnotationQueue",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Annotation Queues"],
+                extensions={
+                    "x-cli-group": "annotation-queues",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete an annotation queue",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete an annotation queue",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.annotation_queues.delete(\n    annotation_queue_id="01HXXXXXXXXXXXXXXXXXXXXXXX",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete an annotation queue",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.delete({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n});\n",
+                        },
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def delete_async(
+        self,
+        *,
+        annotation_queue_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete an annotation queue
+
+        Delete an annotation queue and its items by ID.
+
+        :param annotation_queue_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteAnnotationQueueRequest(
+            annotation_queue_id=annotation_queue_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/annotation-queues/{annotation_queue_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteAnnotationQueue",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Annotation Queues"],
+                extensions={
+                    "x-cli-group": "annotation-queues",
+                    "x-cli-name": "delete",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete an annotation queue",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Delete an annotation queue",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nclient.annotation_queues.delete(\n    annotation_queue_id="01HXXXXXXXXXXXXXXXXXXXXXXX",\n)\n',
+                        },
+                        {
+                            "label": "Node.js - Delete an annotation queue",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nawait client.annotationQueues.delete({\n  annotationQueueId: '01HXXXXXXXXXXXXXXXXXXXXXXX',\n});\n",
+                        },
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1197,9 +1219,9 @@ class AnnotationQueues(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Clear an annotation queue
+        r"""Delete all items
 
-        Removes every item from the annotation queue without deleting the queue itself.
+        Delete all items from an annotation queue. This action is irreversible.
 
         :param annotation_queue_id:
         :param retries: Override the default retry configuration for this method
@@ -1266,7 +1288,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove all items from a queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Remove all items from a queue",
@@ -1306,9 +1328,9 @@ class AnnotationQueues(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Clear an annotation queue
+        r"""Delete all items
 
-        Removes every item from the annotation queue without deleting the queue itself.
+        Delete all items from an annotation queue. This action is irreversible.
 
         :param annotation_queue_id:
         :param retries: Override the default retry configuration for this method
@@ -1375,7 +1397,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove all items from a queue",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Remove all items from a queue",
@@ -1410,22 +1432,22 @@ class AnnotationQueues(BaseSDK):
         self,
         *,
         annotation_queue_id: str,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAnnotationQueueItemsResponse:
+    ) -> models.ListAnnotationQueueItemsResponseBody:
         r"""Query items from an annotation queue
 
-        Queries items from the specified annotation queue. Items whose span no longer exists are skipped.
+        Queries items from the specified annotation queue.
 
         :param annotation_queue_id:
-        :param limit: Optional. Number of items to return. Defaults to 10 and must be between 1 and 200.
-        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1493,7 +1515,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List items in a queue",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List items in a queue",
@@ -1515,7 +1537,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListAnnotationQueueItemsResponse, http_res
+                models.ListAnnotationQueueItemsResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1530,22 +1552,22 @@ class AnnotationQueues(BaseSDK):
         self,
         *,
         annotation_queue_id: str,
-        limit: Optional[int] = None,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListAnnotationQueueItemsResponse:
+    ) -> models.ListAnnotationQueueItemsResponseBody:
         r"""Query items from an annotation queue
 
-        Queries items from the specified annotation queue. Items whose span no longer exists are skipped.
+        Queries items from the specified annotation queue.
 
         :param annotation_queue_id:
-        :param limit: Optional. Number of items to return. Defaults to 10 and must be between 1 and 200.
-        :param starting_after: Cursor for forward pagination. Set to the `_id` of the last item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1613,7 +1635,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - List items in a queue",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
                         },
                         {
                             "label": "Python - List items in a queue",
@@ -1635,7 +1657,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.ListAnnotationQueueItemsResponse, http_res
+                models.ListAnnotationQueueItemsResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1650,21 +1672,18 @@ class AnnotationQueues(BaseSDK):
         self,
         *,
         annotation_queue_id: str,
-        items: Union[
-            Iterable[models.AnnotationQueueItemRef],
-            Iterable[models.AnnotationQueueItemRefTypedDict],
-        ],
+        items: Union[Iterable[models.Items], Iterable[models.ItemsTypedDict]],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.AnnotationQueueItem]:
+    ) -> List[models.AddAnnotationQueueItemsResponseBody]:
         r"""Add items to an annotation queue
 
-        Adds spans to the annotation queue. Spans already present are skipped; the response contains only the newly created items.
+        Adds items to the specified annotation queue.
 
         :param annotation_queue_id:
-        :param items: The spans to add to the annotation queue.
+        :param items: The spans to add to the annotation queue
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1683,12 +1702,10 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddAnnotationQueueItemsRequest1(
+        request = models.AddAnnotationQueueItemsRequest(
             annotation_queue_id=annotation_queue_id,
-            add_annotation_queue_items_request=models.AddAnnotationQueueItemsRequest(
-                items=utils.get_pydantic_model(
-                    items, List[models.AnnotationQueueItemRef]
-                ),
+            request_body=models.AddAnnotationQueueItemsRequestBody(
+                items=utils.get_pydantic_model(items, List[models.Items]),
             ),
         )
 
@@ -1698,7 +1715,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1706,11 +1723,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.add_annotation_queue_items_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.AddAnnotationQueueItemsRequest,
+                Optional[models.AddAnnotationQueueItemsRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1741,7 +1758,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Add span items to a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Add span items to a queue",
@@ -1762,7 +1779,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.AnnotationQueueItem], http_res)
+            return unmarshal_json_response(
+                List[models.AddAnnotationQueueItemsResponseBody], http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1776,21 +1795,18 @@ class AnnotationQueues(BaseSDK):
         self,
         *,
         annotation_queue_id: str,
-        items: Union[
-            Iterable[models.AnnotationQueueItemRef],
-            Iterable[models.AnnotationQueueItemRefTypedDict],
-        ],
+        items: Union[Iterable[models.Items], Iterable[models.ItemsTypedDict]],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.AnnotationQueueItem]:
+    ) -> List[models.AddAnnotationQueueItemsResponseBody]:
         r"""Add items to an annotation queue
 
-        Adds spans to the annotation queue. Spans already present are skipped; the response contains only the newly created items.
+        Adds items to the specified annotation queue.
 
         :param annotation_queue_id:
-        :param items: The spans to add to the annotation queue.
+        :param items: The spans to add to the annotation queue
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1809,12 +1825,10 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddAnnotationQueueItemsRequest1(
+        request = models.AddAnnotationQueueItemsRequest(
             annotation_queue_id=annotation_queue_id,
-            add_annotation_queue_items_request=models.AddAnnotationQueueItemsRequest(
-                items=utils.get_pydantic_model(
-                    items, List[models.AnnotationQueueItemRef]
-                ),
+            request_body=models.AddAnnotationQueueItemsRequestBody(
+                items=utils.get_pydantic_model(items, List[models.Items]),
             ),
         )
 
@@ -1824,7 +1838,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1832,11 +1846,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.add_annotation_queue_items_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.AddAnnotationQueueItemsRequest,
+                Optional[models.AddAnnotationQueueItemsRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1867,7 +1881,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Add span items to a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      { "span_id": "span_01", "trace_id": "trace_01" },\n      { "span_id": "span_02", "trace_id": "trace_02" }\n    ]\n  }\'\n',
                         },
                         {
                             "label": "Python - Add span items to a queue",
@@ -1888,7 +1902,9 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.AnnotationQueueItem], http_res)
+            return unmarshal_json_response(
+                List[models.AddAnnotationQueueItemsResponseBody], http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1908,12 +1924,12 @@ class AnnotationQueues(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Remove items from an annotation queue
+        r"""Remove annotation queue items
 
-        Removes the referenced spans from the annotation queue.
+        Removes items from the specified annotation queue.
 
         :param annotation_queue_id:
-        :param span_ids: The unique identifiers of the spans to be removed from the annotation queue.
+        :param span_ids: The unique identifiers of the spans to be removed from the annotation queue
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1932,9 +1948,9 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RemoveAnnotationQueueItemsRequest1(
+        request = models.RemoveAnnotationQueueItemsRequest(
             annotation_queue_id=annotation_queue_id,
-            remove_annotation_queue_items_request=models.RemoveAnnotationQueueItemsRequest(
+            request_body=models.RemoveAnnotationQueueItemsRequestBody(
                 span_ids=utils.unmarshal(span_ids, List[str]),
             ),
         )
@@ -1945,7 +1961,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1953,11 +1969,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.remove_annotation_queue_items_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.RemoveAnnotationQueueItemsRequest,
+                Optional[models.RemoveAnnotationQueueItemsRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1988,7 +2004,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove span items from a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "span_ids": ["span_01", "span_02"]\n  }\'\n',
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"span_ids\": [\"span_01\", \"span_02\"]\n  }'\n",
                         },
                         {
                             "label": "Python - Remove span items from a queue",
@@ -2010,7 +2026,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2029,12 +2045,12 @@ class AnnotationQueues(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Remove items from an annotation queue
+        r"""Remove annotation queue items
 
-        Removes the referenced spans from the annotation queue.
+        Removes items from the specified annotation queue.
 
         :param annotation_queue_id:
-        :param span_ids: The unique identifiers of the spans to be removed from the annotation queue.
+        :param span_ids: The unique identifiers of the spans to be removed from the annotation queue
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2053,9 +2069,9 @@ class AnnotationQueues(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RemoveAnnotationQueueItemsRequest1(
+        request = models.RemoveAnnotationQueueItemsRequest(
             annotation_queue_id=annotation_queue_id,
-            remove_annotation_queue_items_request=models.RemoveAnnotationQueueItemsRequest(
+            request_body=models.RemoveAnnotationQueueItemsRequestBody(
                 span_ids=utils.unmarshal(span_ids, List[str]),
             ),
         )
@@ -2066,7 +2082,7 @@ class AnnotationQueues(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=True,
+            request_body_required=False,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -2074,11 +2090,11 @@ class AnnotationQueues(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.remove_annotation_queue_items_request,
+                request.request_body if request is not None else None,
                 False,
-                False,
+                True,
                 "json",
-                models.RemoveAnnotationQueueItemsRequest,
+                Optional[models.RemoveAnnotationQueueItemsRequestBody],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -2109,7 +2125,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Remove span items from a queue",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "span_ids": ["span_01", "span_02"]\n  }\'\n',
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/remove' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"span_ids\": [\"span_01\", \"span_02\"]\n  }'\n",
                         },
                         {
                             "label": "Python - Remove span items from a queue",
@@ -2131,7 +2147,7 @@ class AnnotationQueues(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -2149,10 +2165,10 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveAnnotationQueueItemResponseBody:
+    ) -> models.PublicSpan:
         r"""Retrieve an annotation queue item
 
-        Retrieves an item from the specified annotation queue in its expanded form. An annotation queue item is a pointer to a span; this endpoint returns the fully resolved span the item references.
+        Retrieve an annotation queue item. Each item is a pointer to a span with fully resolved span data.
 
         :param annotation_queue_id:
         :param item_id:
@@ -2221,7 +2237,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve a queue item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve a queue item",
@@ -2242,9 +2258,7 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveAnnotationQueueItemResponseBody, http_res
-            )
+            return unmarshal_json_response(models.PublicSpan, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2263,10 +2277,10 @@ class AnnotationQueues(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveAnnotationQueueItemResponseBody:
+    ) -> models.PublicSpan:
         r"""Retrieve an annotation queue item
 
-        Retrieves an item from the specified annotation queue in its expanded form. An annotation queue item is a pointer to a span; this endpoint returns the fully resolved span the item references.
+        Retrieve an annotation queue item. Each item is a pointer to a span with fully resolved span data.
 
         :param annotation_queue_id:
         :param item_id:
@@ -2335,7 +2349,7 @@ class AnnotationQueues(BaseSDK):
                         {
                             "label": "Core - Retrieve a queue item",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/annotation-queues/01HXXXXXXXXXXXXXXXXXXXXXXX/items/item_01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
                         },
                         {
                             "label": "Python - Retrieve a queue item",
@@ -2356,9 +2370,7 @@ class AnnotationQueues(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveAnnotationQueueItemResponseBody, http_res
-            )
+            return unmarshal_json_response(models.PublicSpan, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

@@ -37,4 +37,3 @@ value: InputType = "message"
 - `"mcp_list_tools"`
 - `"mcp_approval_request"`
 - `"mcp_approval_response"`
-- `"configuration_update"`

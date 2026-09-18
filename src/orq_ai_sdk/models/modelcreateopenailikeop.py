@@ -25,8 +25,6 @@ class ModelCreateOpenAILikeRequestBodyTypedDict(TypedDict):
     model_id: str
     model_type: str
     region: str
-    cache_read_cost: NotRequired[float]
-    cache_write_cost: NotRequired[float]
     cost_per_image: NotRequired[float]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -52,10 +50,6 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     model_type: str
 
     region: str
-
-    cache_read_cost: Optional[float] = None
-
-    cache_write_cost: Optional[float] = None
 
     cost_per_image: Optional[float] = None
 
@@ -83,8 +77,6 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "cache_read_cost",
-                "cache_write_cost",
                 "cost_per_image",
                 "description",
                 "has_reasoning",

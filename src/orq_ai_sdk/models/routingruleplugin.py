@@ -3,7 +3,7 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -11,20 +11,10 @@ class RoutingRulePluginTypedDict(TypedDict):
     id: NotRequired[str]
     r"""Plugin discriminator."""
     language: NotRequired[str]
-    r"""Languages, regions and entity types are checked against the live
-    pii-detection capabilities catalog when the rule is saved, not pinned
-    here, so a language or region the detector gains becomes writable without
-    a proto change.
-    """
     entities: NotRequired[List[str]]
-    r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
     on_failure: NotRequired[str]
     threshold: NotRequired[float]
     mask: NotRequired[List[str]]
-    regions: NotRequired[List[str]]
-    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Combines with entities: the two selections are unioned."""
-    entity_thresholds: NotRequired[Dict[str, float]]
-    r"""Per-entity-type confidence cutoff. Every key must also appear in entities."""
 
 
 class RoutingRulePlugin(BaseModel):
@@ -32,14 +22,8 @@ class RoutingRulePlugin(BaseModel):
     r"""Plugin discriminator."""
 
     language: Optional[str] = None
-    r"""Languages, regions and entity types are checked against the live
-    pii-detection capabilities catalog when the rule is saved, not pinned
-    here, so a language or region the detector gains becomes writable without
-    a proto change.
-    """
 
     entities: Optional[List[str]] = None
-    r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
 
     on_failure: Optional[str] = None
 
@@ -47,25 +31,10 @@ class RoutingRulePlugin(BaseModel):
 
     mask: Optional[List[str]] = None
 
-    regions: Optional[List[str]] = None
-    r"""Regions of coverage by ISO 3166-1 alpha-2 code, or [\"all\"]. Combines with entities: the two selections are unioned."""
-
-    entity_thresholds: Optional[Dict[str, float]] = None
-    r"""Per-entity-type confidence cutoff. Every key must also appear in entities."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "id",
-                "language",
-                "entities",
-                "on_failure",
-                "threshold",
-                "mask",
-                "regions",
-                "entity_thresholds",
-            ]
+            ["id", "language", "entities", "on_failure", "threshold", "mask"]
         )
         serialized = handler(self)
         m = {}

@@ -136,7 +136,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List the model catalog",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
                         },
                         {
                             "label": "Python - List the model catalog",
@@ -294,7 +294,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List the model catalog",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog' \\\n  --data-urlencode 'provider=openai' \\\n  --data-urlencode 'limit=10'\n",
                         },
                         {
                             "label": "Python - List the model catalog",
@@ -453,7 +453,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List model catalog offerings",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
                         },
                         {
                             "label": "Python - List model catalog offerings",
@@ -614,7 +614,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - List model catalog offerings",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/anthropic/claude-opus-4-7/offerings'\n",
                         },
                         {
                             "label": "Python - List model catalog offerings",
@@ -724,7 +724,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - Retrieve a model catalog entry",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
                         },
                         {
                             "label": "Python - Retrieve a model catalog entry",
@@ -834,7 +834,7 @@ class ModelCatalog(BaseSDK):
                         {
                             "label": "Core - Retrieve a model catalog entry",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
+                            "source": "curl --get 'https://api.orq.ai/v2/model-catalog/openai/gpt-4o'\n",
                         },
                         {
                             "label": "Python - Retrieve a model catalog entry",

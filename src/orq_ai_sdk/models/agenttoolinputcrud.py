@@ -13,7 +13,6 @@ from .deletememorydocumenttoolinput import (
     DeleteMemoryDocumentToolInput,
     DeleteMemoryDocumentToolInputTypedDict,
 )
-from .filesystemtoolinput import FileSystemToolInput, FileSystemToolInputTypedDict
 from .functiontoolinput import FunctionToolInput, FunctionToolInputTypedDict
 from .googlesearchtoolinput import GoogleSearchToolInput, GoogleSearchToolInputTypedDict
 from .httptoolinput import HTTPToolInput, HTTPToolInputTypedDict
@@ -56,20 +55,19 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
     "AgentToolInputCRUDTypedDict",
     Union[
         CurrentDateToolInputTypedDict,
-        AdvisorToolInputTypedDict,
+        WebScraperToolInputTypedDict,
         CallSubAgentToolInputTypedDict,
         RetrieveAgentsToolInputTypedDict,
         QueryMemoryStoreToolInputTypedDict,
         WriteMemoryStoreToolInputTypedDict,
         RetrieveMemoryStoresToolInputTypedDict,
         DeleteMemoryDocumentToolInputTypedDict,
-        RetrieveKnowledgeBasesToolInputTypedDict,
         QueryKnowledgeBaseToolInputTypedDict,
-        WebScraperToolInputTypedDict,
+        RetrieveKnowledgeBasesToolInputTypedDict,
         SidekickToolInputTypedDict,
+        AdvisorToolInputTypedDict,
         GoogleSearchToolInputTypedDict,
         CodeInterpreterToolInputTypedDict,
-        FileSystemToolInputTypedDict,
         FunctionToolInputTypedDict,
         JSONSchemaToolInputTypedDict,
         HTTPToolInputTypedDict,
@@ -97,7 +95,6 @@ AgentToolInputCRUD = Annotated[
         Annotated[AdvisorToolInput, Tag("advisor")],
         Annotated[SidekickToolInput, Tag("sidekick")],
         Annotated[CodeInterpreterToolInput, Tag("code_interpreter")],
-        Annotated[FileSystemToolInput, Tag("file_system")],
         Annotated[HTTPToolInput, Tag("http")],
         Annotated[CodeToolInput, Tag("code")],
         Annotated[FunctionToolInput, Tag("function")],
