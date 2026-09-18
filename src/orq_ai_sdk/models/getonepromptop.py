@@ -77,6 +77,7 @@ GetOnePromptModelType = Literal[
     "rerank",
     "ocr",
     "moderation",
+    "classify",
     "vision",
 ]
 r"""The modality of the model"""
@@ -600,6 +601,7 @@ GetOnePromptProvider = Literal[
     "reson8",
     "meta",
     "greenpt",
+    "typesafe",
     "slack",
     "orq",
 ]

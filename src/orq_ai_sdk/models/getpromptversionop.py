@@ -106,6 +106,7 @@ GetPromptVersionModelType = Literal[
     "rerank",
     "ocr",
     "moderation",
+    "classify",
     "vision",
 ]
 r"""The modality of the model"""
@@ -636,6 +637,7 @@ GetPromptVersionProvider = Literal[
     "reson8",
     "meta",
     "greenpt",
+    "typesafe",
     "slack",
     "orq",
 ]

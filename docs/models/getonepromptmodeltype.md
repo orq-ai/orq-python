@@ -21,4 +21,5 @@ value: GetOnePromptModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

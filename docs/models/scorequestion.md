@@ -1,0 +1,12 @@
+# ScoreQuestion
+
+Places the state on an ordered scale and returns the probability of each level.
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `criteria`                                                                                                 | List[*str*]                                                                                                | :heavy_check_mark:                                                                                         | Ordered level descriptions from lowest to highest. At least two levels.                                    |
+| `instructions`                                                                                             | [models.CreateClassifyQuestionsInstructions](../models/createclassifyquestionsinstructions.md)             | :heavy_check_mark:                                                                                         | The evaluation prompt for this question. A string, an object or an array.                                  |
+| `type`                                                                                                     | [models.CreateClassifyQuestionsRouterClassifyType](../models/createclassifyquestionsrouterclassifytype.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

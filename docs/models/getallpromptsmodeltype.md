@@ -21,4 +21,5 @@ value: GetAllPromptsModelType = "chat"
 - `"rerank"`
 - `"ocr"`
 - `"moderation"`
+- `"classify"`
 - `"vision"`

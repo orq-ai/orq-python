@@ -2131,6 +2131,7 @@ DeploymentGetConfigType = Literal[
     "rerank",
     "ocr",
     "moderation",
+    "classify",
     "vision",
 ]
 r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
