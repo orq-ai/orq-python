@@ -1,21 +1,13 @@
 # CreateRouterResponseToolsResponsesType
 
-The orq.ai tool type.
-
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import CreateRouterResponseToolsResponsesType
-value: CreateRouterResponseToolsResponsesType = "orq:current_date"
+value: CreateRouterResponseToolsResponsesType = "custom"
 ```
 
 
 ## Values
 
-- `"orq:current_date"`
-- `"orq:google_search"`
-- `"orq:web_scraper"`
-- `"orq:code_interpreter"`
-- `"orq:mcp"`
-- `"orq:http"`
-- `"orq:function"`
+- `"custom"`

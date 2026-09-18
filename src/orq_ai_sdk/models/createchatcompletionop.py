@@ -10,12 +10,7 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
-from .piiredactionpluginauto import (
-    PIIRedactionPluginAuto,
-    PIIRedactionPluginAutoTypedDict,
-)
-from .piiredactionpluginen import PIIRedactionPluginEn, PIIRedactionPluginEnTypedDict
-from .piiredactionpluginnl import PIIRedactionPluginNl, PIIRedactionPluginNlTypedDict
+from .piiredactionplugin import PIIRedactionPlugin, PIIRedactionPluginTypedDict
 from .publiccontact import PublicContact, PublicContactTypedDict
 from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
@@ -1200,23 +1195,19 @@ CreateChatCompletionPluginsTypedDict = TypeAliasType(
     Union[
         ResponseHealingPluginTypedDict,
         TraceScrubbingPluginTypedDict,
-        PIIRedactionPluginAutoTypedDict,
-        PIIRedactionPluginEnTypedDict,
-        PIIRedactionPluginNlTypedDict,
+        PIIRedactionPluginTypedDict,
     ],
 )
 
 
-CreateChatCompletionPlugins = TypeAliasType(
-    "CreateChatCompletionPlugins",
+CreateChatCompletionPlugins = Annotated[
     Union[
-        ResponseHealingPlugin,
-        TraceScrubbingPlugin,
-        PIIRedactionPluginAuto,
-        PIIRedactionPluginEn,
-        PIIRedactionPluginNl,
+        Annotated[PIIRedactionPlugin, Tag("pii_redaction")],
+        Annotated[ResponseHealingPlugin, Tag("response_healing")],
+        Annotated[TraceScrubbingPlugin, Tag("trace_scrubbing")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "id", "id")),
+]
 
 
 class CreateChatCompletionFallbacksTypedDict(TypedDict):
@@ -1480,7 +1471,7 @@ Version = Literal["latest",]
 r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
-class PromptTypedDict(TypedDict):
+class CreateChatCompletionPromptTypedDict(TypedDict):
     r"""Prompt configuration for the request"""
 
     id: str
@@ -1489,7 +1480,7 @@ class PromptTypedDict(TypedDict):
     r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
-class Prompt(BaseModel):
+class CreateChatCompletionPrompt(BaseModel):
     r"""Prompt configuration for the request"""
 
     id: str
@@ -2162,7 +2153,7 @@ CreateChatCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 CreateChatCompletionFilterBy = TypeAliasType(
@@ -2173,7 +2164,7 @@ CreateChatCompletionFilterBy = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 class CreateChatCompletionSearchOptionsTypedDict(TypedDict):
@@ -2220,7 +2211,7 @@ class CreateChatCompletionRerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
@@ -2231,7 +2222,7 @@ class CreateChatCompletionRerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
 
     threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -2260,14 +2251,14 @@ class CreateChatCompletionAgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateChatCompletionAgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
@@ -2280,7 +2271,7 @@ class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[Nullable[CreateChatCompletionSearchType]]
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateChatCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
     search_options: NotRequired[CreateChatCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateChatCompletionRerankConfigTypedDict]
@@ -2305,7 +2296,7 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateChatCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
     search_options: Optional[CreateChatCompletionSearchOptions] = None
     r"""Additional search options"""
@@ -2441,7 +2432,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
         List[CreateChatCompletionRouterChatCompletionsFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    prompt: NotRequired[PromptTypedDict]
+    prompt: NotRequired[CreateChatCompletionPromptTypedDict]
     r"""Prompt configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
@@ -2477,7 +2468,7 @@ class CreateChatCompletionOrq(BaseModel):
     fallbacks: Optional[List[CreateChatCompletionRouterChatCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    prompt: Optional[Prompt] = None
+    prompt: Optional[CreateChatCompletionPrompt] = None
     r"""Prompt configuration for the request"""
 
     identity: Optional[PublicIdentity] = None
@@ -2551,7 +2542,7 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     messages: List[CreateChatCompletionMessagesTypedDict]
     r"""A list of messages comprising the conversation so far."""
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
     metadata: NotRequired[Dict[str, str]]
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
     name: NotRequired[str]
@@ -2640,7 +2631,7 @@ class CreateChatCompletionRequestBody(BaseModel):
     r"""A list of messages comprising the conversation so far."""
 
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
 
     metadata: Optional[Dict[str, str]] = None
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""

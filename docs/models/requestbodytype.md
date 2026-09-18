@@ -4,10 +4,10 @@
 
 ```python
 from orq_ai_sdk.models import RequestBodyType
-value: RequestBodyType = "python_eval"
+value: RequestBodyType = "function"
 ```
 
 
 ## Values
 
-- `"python_eval"`
+- `"function"`

@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.DeploymentStreamPrefixMessagesSystemMessage`
+### `models.PrefixMessagesSystemMessage`
 
 ```python
-value: models.DeploymentStreamPrefixMessagesSystemMessage = /* values here */
+value: models.PrefixMessagesSystemMessage = /* values here */
 ```
 
-### `models.DeploymentStreamPrefixMessagesDeveloperMessage`
+### `models.PrefixMessagesDeveloperMessage`
 
 ```python
-value: models.DeploymentStreamPrefixMessagesDeveloperMessage = /* values here */
+value: models.PrefixMessagesDeveloperMessage = /* values here */
 ```
 
-### `models.DeploymentStreamPrefixMessagesUserMessage`
+### `models.PrefixMessagesUserMessage`
 
 ```python
-value: models.DeploymentStreamPrefixMessagesUserMessage = /* values here */
+value: models.PrefixMessagesUserMessage = /* values here */
 ```
 
-### `models.DeploymentStreamPrefixMessagesAssistantMessage`
+### `models.PrefixMessagesAssistantMessage`
 
 ```python
-value: models.DeploymentStreamPrefixMessagesAssistantMessage = /* values here */
+value: models.PrefixMessagesAssistantMessage = /* values here */
 ```
 
-### `models.DeploymentStreamPrefixMessagesToolMessage`
+### `models.PrefixMessagesToolMessage`
 
 ```python
-value: models.DeploymentStreamPrefixMessagesToolMessage = /* values here */
+value: models.PrefixMessagesToolMessage = /* values here */
 ```
 

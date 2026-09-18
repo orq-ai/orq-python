@@ -10,12 +10,17 @@ from typing_extensions import Annotated, TypedDict
 class GetUploadFileURLResponseTypedDict(TypedDict):
     object_name: str
     post_policy: UploadPostPolicyTypedDict
+    file_id: str
+    r"""Identifier of the file record registered for this upload"""
 
 
 class GetUploadFileURLResponse(BaseModel):
     object_name: Annotated[str, pydantic.Field(alias="objectName")]
 
     post_policy: Annotated[UploadPostPolicy, pydantic.Field(alias="postPolicy")]
+
+    file_id: Annotated[str, pydantic.Field(alias="fileId")]
+    r"""Identifier of the file record registered for this upload"""
 
 
 try:

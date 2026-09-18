@@ -3,7 +3,7 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Optional
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,6 +18,38 @@ class DetectRequestTypedDict(TypedDict):
     r"""Global minimum recognizer score (0.0-1.0). Unset uses the provider default."""
     include_entities: NotRequired[bool]
     r"""When true, the response includes a per-type entity breakdown."""
+    regions: NotRequired[List[str]]
+    r"""Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+    entity type those regions cover is included, alongside the base catalog.
+    [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+    region, so selecting nothing is the widest request rather than the narrowest.
+    Empty alongside a non-empty `entities` stays strict. See the capabilities
+    endpoint for the region list.
+
+    Combines with `entities`: the detector unions the two selections, so a
+    request carrying both covers the regions plus the named types. Note that
+    `entities` only narrows coverage when it travels alone.
+    """
+    entities: NotRequired[List[str]]
+    r"""The entity types to cover. A named type fires even when it belongs to a
+    region, so a region's types can be selected individually without naming
+    the region. Alone this is a strict allowlist; alongside `regions` it adds
+    to the region coverage instead of narrowing it.
+    """
+    entity_thresholds: NotRequired[Dict[str, float]]
+    r"""Per-entity confidence cutoff overrides. An override REPLACES the global
+    `threshold` for that type and may sit above or below it: the gateway
+    lowers the first-pass floor it sends the detector to the smallest value
+    in the map, and every selected type carries its own cutoff, so a
+    sub-global override detects MORE of that type without widening the rest.
+
+    This only tunes confidence; it never changes which types are covered.
+    Coverage is decided by `entities` alone, so every key here must also
+    appear in `entities` — a key that does not is rejected, as is any key at
+    all when `entities` is empty.
+
+    Declarative [0,1] bound mirrors existing constraint on `threshold`.
+    """
 
 
 class DetectRequest(BaseModel):
@@ -35,9 +67,54 @@ class DetectRequest(BaseModel):
     include_entities: Optional[bool] = None
     r"""When true, the response includes a per-type entity breakdown."""
 
+    regions: Optional[List[str]] = None
+    r"""Region codes selecting whole regions of coverage, e.g. \"nl\", \"gb\". Every
+    entity type those regions cover is included, alongside the base catalog.
+    [\"all\"] is exclusive. Leaving this and `entities` both empty also runs every
+    region, so selecting nothing is the widest request rather than the narrowest.
+    Empty alongside a non-empty `entities` stays strict. See the capabilities
+    endpoint for the region list.
+
+    Combines with `entities`: the detector unions the two selections, so a
+    request carrying both covers the regions plus the named types. Note that
+    `entities` only narrows coverage when it travels alone.
+    """
+
+    entities: Optional[List[str]] = None
+    r"""The entity types to cover. A named type fires even when it belongs to a
+    region, so a region's types can be selected individually without naming
+    the region. Alone this is a strict allowlist; alongside `regions` it adds
+    to the region coverage instead of narrowing it.
+    """
+
+    entity_thresholds: Optional[Dict[str, float]] = None
+    r"""Per-entity confidence cutoff overrides. An override REPLACES the global
+    `threshold` for that type and may sit above or below it: the gateway
+    lowers the first-pass floor it sends the detector to the smallest value
+    in the map, and every selected type carries its own cutoff, so a
+    sub-global override detects MORE of that type without widening the rest.
+
+    This only tunes confidence; it never changes which types are covered.
+    Coverage is decided by `entities` alone, so every key here must also
+    appear in `entities` — a key that does not is rejected, as is any key at
+    all when `entities` is empty.
+
+    Declarative [0,1] bound mirrors existing constraint on `threshold`.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["text", "language", "threshold", "include_entities"])
+        optional_fields = set(
+            [
+                "text",
+                "language",
+                "threshold",
+                "include_entities",
+                "regions",
+                "entities",
+                "entity_thresholds",
+            ]
+        )
         serialized = handler(self)
         m = {}
 

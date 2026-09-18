@@ -20,14 +20,12 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class GetEvalRequestTypedDict(TypedDict):
     id: str
-    r"""Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`."""
 
 
 class GetEvalRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Unique identifier of the evaluator, as returned in the `_id` field by `GET /v2/evaluators`."""
 
 
 class GetEvalEvalsResponseBodyData(BaseModel):
@@ -150,9 +148,9 @@ class BedrockGuardrail(BaseModel):
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -191,6 +189,163 @@ class BedrockGuardrail(BaseModel):
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id", "integration_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class GetEvalResponseBodyEvalsResponse200ApplicationJSON7MetadataTypedDict(TypedDict):
+    required_model_with_tools_support: NotRequired[bool]
+    required_retrieval_context: NotRequired[bool]
+    required_expected_output: NotRequired[bool]
+    supported_on_input_type: NotRequired[bool]
+    supported_on_output_type: NotRequired[bool]
+    support_use_as_guardrail: NotRequired[bool]
+
+
+class GetEvalResponseBodyEvalsResponse200ApplicationJSON7Metadata(BaseModel):
+    required_model_with_tools_support: Optional[bool] = None
+
+    required_retrieval_context: Optional[bool] = None
+
+    required_expected_output: Optional[bool] = None
+
+    supported_on_input_type: Optional[bool] = None
+
+    supported_on_output_type: Optional[bool] = None
+
+    support_use_as_guardrail: Optional[bool] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "required_model_with_tools_support",
+                "required_retrieval_context",
+                "required_expected_output",
+                "supported_on_input_type",
+                "supported_on_output_type",
+                "support_use_as_guardrail",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
+GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["typescript_eval",]
+
+
+class TypescriptTypedDict(TypedDict):
+    metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSON7MetadataTypedDict
+    id: str
+    display_name: str
+    description: str
+    owner: str
+    domain_id: str
+    code: str
+    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+    enabled: NotRequired[bool]
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
+    project_id: NotRequired[str]
+    r"""Unique identifier of the project owning this evaluator."""
+    guardrail_config: NotRequired[Any]
+    output_type: NotRequired[
+        GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
+    ]
+    r"""The type of output expected from the evaluator"""
+
+
+class Typescript(BaseModel):
+    metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSON7Metadata
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    display_name: str
+
+    description: str
+
+    owner: str
+
+    domain_id: str
+
+    code: str
+
+    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+
+    enabled: Optional[bool] = True
+
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
+
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
+
+    created_by_id: OptionalNullable[str] = UNSET
+
+    updated_by_id: OptionalNullable[str] = UNSET
+
+    project_id: Optional[str] = None
+    r"""Unique identifier of the project owning this evaluator."""
+
+    guardrail_config: Optional[Any] = None
+
+    output_type: Optional[
+        GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
+    ] = None
+    r"""The type of output expected from the evaluator"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "enabled",
+                "created",
+                "updated",
+                "created_by_id",
+                "updated_by_id",
+                "project_id",
+                "guardrail_config",
+                "output_type",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
         m = {}
 
@@ -261,19 +416,16 @@ class GetEvalResponseBodyEvalsResponse200ApplicationJSONMetadata(BaseModel):
         return m
 
 
-GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType = Literal[
+GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType = Literal[
     "boolean",
-    "categorical",
     "number",
-    "string",
 ]
-r"""The type of output expected from the evaluator"""
 
 
-GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["typescript_eval",]
+GetEvalResponseBodyEvalsResponse200ApplicationJSON6Type = Literal["python_eval",]
 
 
-class TypescriptTypedDict(TypedDict):
+class ResponseBodyPythonTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSONMetadataTypedDict
     id: str
     display_name: str
@@ -281,7 +433,7 @@ class TypescriptTypedDict(TypedDict):
     owner: str
     domain_id: str
     code: str
-    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON6Type
     enabled: NotRequired[bool]
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -291,12 +443,11 @@ class TypescriptTypedDict(TypedDict):
     r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
     output_type: NotRequired[
-        GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
+        GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
     ]
-    r"""The type of output expected from the evaluator"""
 
 
-class Typescript(BaseModel):
+class ResponseBodyPython(BaseModel):
     metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSONMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -311,13 +462,13 @@ class Typescript(BaseModel):
 
     code: str
 
-    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+    type: GetEvalResponseBodyEvalsResponse200ApplicationJSON6Type
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -329,9 +480,8 @@ class Typescript(BaseModel):
     guardrail_config: Optional[Any] = None
 
     output_type: Optional[
-        GetEvalResponseBodyEvalsResponse200ApplicationJSON7OutputType
+        GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
     ] = None
-    r"""The type of output expected from the evaluator"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -418,24 +568,36 @@ class GetEvalResponseBodyEvalsResponse200Metadata(BaseModel):
         return m
 
 
-GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType = Literal[
+GetEvalResponseBodyEvalsResponse200OutputType = Literal[
     "boolean",
+    "categorical",
     "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
+GetEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["http_eval",]
+
+
+ResponseBodyMethod = Literal[
+    "GET",
+    "POST",
 ]
 
 
-GetEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["python_eval",]
-
-
-class ResponseBodyPythonTypedDict(TypedDict):
+class GetEvalResponseBodyHTTPTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsResponse200MetadataTypedDict
     id: str
     display_name: str
     description: str
     owner: str
     domain_id: str
-    code: str
     type: GetEvalResponseBodyEvalsResponse200ApplicationJSONType
+    url: str
+    method: ResponseBodyMethod
+    headers: Dict[str, str]
+    payload: Dict[str, Any]
     enabled: NotRequired[bool]
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -444,12 +606,11 @@ class ResponseBodyPythonTypedDict(TypedDict):
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[
-        GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
-    ]
+    output_type: NotRequired[GetEvalResponseBodyEvalsResponse200OutputType]
+    r"""The type of output expected from the evaluator"""
 
 
-class ResponseBodyPython(BaseModel):
+class GetEvalResponseBodyHTTP(BaseModel):
     metadata: GetEvalResponseBodyEvalsResponse200Metadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -462,15 +623,21 @@ class ResponseBodyPython(BaseModel):
 
     domain_id: str
 
-    code: str
-
     type: GetEvalResponseBodyEvalsResponse200ApplicationJSONType
+
+    url: str
+
+    method: ResponseBodyMethod
+
+    headers: Dict[str, str]
+
+    payload: Dict[str, Any]
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -481,9 +648,8 @@ class ResponseBodyPython(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[
-        GetEvalResponseBodyEvalsResponse200ApplicationJSONOutputType
-    ] = None
+    output_type: Optional[GetEvalResponseBodyEvalsResponse200OutputType] = None
+    r"""The type of output expected from the evaluator"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -570,25 +736,13 @@ class GetEvalResponseBodyEvalsResponseMetadata(BaseModel):
         return m
 
 
-GetEvalResponseBodyEvalsResponse200OutputType = Literal[
-    "boolean",
-    "categorical",
-    "number",
-    "string",
-]
-r"""The type of output expected from the evaluator"""
+GetEvalResponseBodyEvalsResponseOutputType = Literal["boolean",]
 
 
-GetEvalResponseBodyEvalsResponse200Type = Literal["http_eval",]
+GetEvalResponseBodyEvalsResponse200Type = Literal["json_schema",]
 
 
-ResponseBodyMethod = Literal[
-    "GET",
-    "POST",
-]
-
-
-class ResponseBodyHTTPTypedDict(TypedDict):
+class JSONTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsResponseMetadataTypedDict
     id: str
     display_name: str
@@ -596,10 +750,7 @@ class ResponseBodyHTTPTypedDict(TypedDict):
     owner: str
     domain_id: str
     type: GetEvalResponseBodyEvalsResponse200Type
-    url: str
-    method: ResponseBodyMethod
-    headers: Dict[str, str]
-    payload: Dict[str, Any]
+    schema_: str
     enabled: NotRequired[bool]
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -608,11 +759,10 @@ class ResponseBodyHTTPTypedDict(TypedDict):
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[GetEvalResponseBodyEvalsResponse200OutputType]
-    r"""The type of output expected from the evaluator"""
+    output_type: NotRequired[GetEvalResponseBodyEvalsResponseOutputType]
 
 
-class ResponseBodyHTTP(BaseModel):
+class JSON(BaseModel):
     metadata: GetEvalResponseBodyEvalsResponseMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -627,19 +777,13 @@ class ResponseBodyHTTP(BaseModel):
 
     type: GetEvalResponseBodyEvalsResponse200Type
 
-    url: str
-
-    method: ResponseBodyMethod
-
-    headers: Dict[str, str]
-
-    payload: Dict[str, Any]
+    schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -650,8 +794,7 @@ class ResponseBodyHTTP(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[GetEvalResponseBodyEvalsResponse200OutputType] = None
-    r"""The type of output expected from the evaluator"""
+    output_type: Optional[GetEvalResponseBodyEvalsResponseOutputType] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -738,13 +881,65 @@ class GetEvalResponseBodyEvalsMetadata(BaseModel):
         return m
 
 
-GetEvalResponseBodyEvalsResponseOutputType = Literal["boolean",]
+GetEvalResponseBodyEvalsOutputType = Literal["number",]
 
 
-GetEvalResponseBodyEvalsResponseType = Literal["json_schema",]
+GetEvalResponseBodyEvalsResponseType = Literal["ragas",]
 
 
-class JSONTypedDict(TypedDict):
+class GetEvalResponseBodyModelTypedDict(TypedDict):
+    id: str
+    integration_id: NotRequired[Nullable[str]]
+
+
+class GetEvalResponseBodyModel(BaseModel):
+    id: str
+
+    integration_id: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["integration_id"])
+        nullable_fields = set(["integration_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+ResponseBodyRagasMetric = Literal[
+    "context_precision",
+    "context_recall",
+    "context_entities_recall",
+    "harmfulness",
+    "maliciousness",
+    "coherence",
+    "correctness",
+    "conciseness",
+    "response_relevancy",
+    "faithfulness",
+    "summarization",
+    "noise_sensitivity",
+]
+
+
+class RagasTypedDict(TypedDict):
     metadata: GetEvalResponseBodyEvalsMetadataTypedDict
     id: str
     display_name: str
@@ -752,7 +947,8 @@ class JSONTypedDict(TypedDict):
     owner: str
     domain_id: str
     type: GetEvalResponseBodyEvalsResponseType
-    schema_: str
+    model: GetEvalResponseBodyModelTypedDict
+    ragas_metric: ResponseBodyRagasMetric
     enabled: NotRequired[bool]
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -761,10 +957,10 @@ class JSONTypedDict(TypedDict):
     project_id: NotRequired[str]
     r"""Unique identifier of the project owning this evaluator."""
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[GetEvalResponseBodyEvalsResponseOutputType]
+    output_type: NotRequired[GetEvalResponseBodyEvalsOutputType]
 
 
-class JSON(BaseModel):
+class Ragas(BaseModel):
     metadata: GetEvalResponseBodyEvalsMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -779,13 +975,15 @@ class JSON(BaseModel):
 
     type: GetEvalResponseBodyEvalsResponseType
 
-    schema_: Annotated[str, pydantic.Field(alias="schema")]
+    model: GetEvalResponseBodyModel
+
+    ragas_metric: ResponseBodyRagasMetric
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -796,7 +994,7 @@ class JSON(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[GetEvalResponseBodyEvalsResponseOutputType] = None
+    output_type: Optional[GetEvalResponseBodyEvalsOutputType] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -883,206 +1081,6 @@ class GetEvalResponseBodyMetadata(BaseModel):
         return m
 
 
-GetEvalResponseBodyEvalsOutputType = Literal["number",]
-
-
-GetEvalResponseBodyEvalsType = Literal["ragas",]
-
-
-class ResponseBodyModelTypedDict(TypedDict):
-    id: str
-    integration_id: NotRequired[Nullable[str]]
-
-
-class ResponseBodyModel(BaseModel):
-    id: str
-
-    integration_id: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["integration_id"])
-        nullable_fields = set(["integration_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-ResponseBodyRagasMetric = Literal[
-    "context_precision",
-    "context_recall",
-    "context_entities_recall",
-    "harmfulness",
-    "maliciousness",
-    "coherence",
-    "correctness",
-    "conciseness",
-    "response_relevancy",
-    "faithfulness",
-    "summarization",
-    "noise_sensitivity",
-]
-
-
-class RagasTypedDict(TypedDict):
-    metadata: GetEvalResponseBodyMetadataTypedDict
-    id: str
-    display_name: str
-    description: str
-    owner: str
-    domain_id: str
-    type: GetEvalResponseBodyEvalsType
-    model: ResponseBodyModelTypedDict
-    ragas_metric: ResponseBodyRagasMetric
-    enabled: NotRequired[bool]
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    created_by_id: NotRequired[Nullable[str]]
-    updated_by_id: NotRequired[Nullable[str]]
-    project_id: NotRequired[str]
-    r"""Unique identifier of the project owning this evaluator."""
-    guardrail_config: NotRequired[Any]
-    output_type: NotRequired[GetEvalResponseBodyEvalsOutputType]
-
-
-class Ragas(BaseModel):
-    metadata: GetEvalResponseBodyMetadata
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    display_name: str
-
-    description: str
-
-    owner: str
-
-    domain_id: str
-
-    type: GetEvalResponseBodyEvalsType
-
-    model: ResponseBodyModel
-
-    ragas_metric: ResponseBodyRagasMetric
-
-    enabled: Optional[bool] = True
-
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
-
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
-
-    created_by_id: OptionalNullable[str] = UNSET
-
-    updated_by_id: OptionalNullable[str] = UNSET
-
-    project_id: Optional[str] = None
-    r"""Unique identifier of the project owning this evaluator."""
-
-    guardrail_config: Optional[Any] = None
-
-    output_type: Optional[GetEvalResponseBodyEvalsOutputType] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "enabled",
-                "created",
-                "updated",
-                "created_by_id",
-                "updated_by_id",
-                "project_id",
-                "guardrail_config",
-                "output_type",
-            ]
-        )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-class ResponseBodyMetadataTypedDict(TypedDict):
-    required_model_with_tools_support: NotRequired[bool]
-    required_retrieval_context: NotRequired[bool]
-    required_expected_output: NotRequired[bool]
-    supported_on_input_type: NotRequired[bool]
-    supported_on_output_type: NotRequired[bool]
-    support_use_as_guardrail: NotRequired[bool]
-
-
-class ResponseBodyMetadata(BaseModel):
-    required_model_with_tools_support: Optional[bool] = None
-
-    required_retrieval_context: Optional[bool] = None
-
-    required_expected_output: Optional[bool] = None
-
-    supported_on_input_type: Optional[bool] = None
-
-    supported_on_output_type: Optional[bool] = None
-
-    support_use_as_guardrail: Optional[bool] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "required_model_with_tools_support",
-                "required_retrieval_context",
-                "required_expected_output",
-                "supported_on_input_type",
-                "supported_on_output_type",
-                "support_use_as_guardrail",
-            ]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 GetEvalResponseBodyOutputType = Literal[
     "boolean",
     "categorical",
@@ -1091,7 +1089,7 @@ GetEvalResponseBodyOutputType = Literal[
 ]
 
 
-GetEvalResponseBodyType = Literal["function_eval",]
+GetEvalResponseBodyEvalsType = Literal["function_eval",]
 
 
 GetEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody232Type = Literal[
@@ -1511,12 +1509,12 @@ class FunctionParams3(BaseModel):
 GetEvalFunctionParamsEvalsType = Literal["contains_none",]
 
 
-class FunctionParams2TypedDict(TypedDict):
+class GetEvalFunctionParams2TypedDict(TypedDict):
     type: GetEvalFunctionParamsEvalsType
     keywords: List[str]
 
 
-class FunctionParams2(BaseModel):
+class GetEvalFunctionParams2(BaseModel):
     type: GetEvalFunctionParamsEvalsType
 
     keywords: List[str]
@@ -1525,12 +1523,12 @@ class FunctionParams2(BaseModel):
 GetEvalFunctionParamsType = Literal["contains",]
 
 
-class FunctionParams1TypedDict(TypedDict):
+class GetEvalFunctionParams1TypedDict(TypedDict):
     type: GetEvalFunctionParamsType
     value: str
 
 
-class FunctionParams1(BaseModel):
+class GetEvalFunctionParams1(BaseModel):
     type: GetEvalFunctionParamsType
 
     value: str
@@ -1565,11 +1563,11 @@ ResponseBodyFunctionParamsTypedDict = TypeAliasType(
         FunctionParams13TypedDict,
         FunctionParams25TypedDict,
         FunctionParams11TypedDict,
-        FunctionParams1TypedDict,
+        GetEvalFunctionParams1TypedDict,
         FunctionParams8TypedDict,
         FunctionParams4TypedDict,
         FunctionParams3TypedDict,
-        FunctionParams2TypedDict,
+        GetEvalFunctionParams2TypedDict,
         FunctionParams12TypedDict,
     ],
 )
@@ -1577,8 +1575,8 @@ ResponseBodyFunctionParamsTypedDict = TypeAliasType(
 
 ResponseBodyFunctionParams = Annotated[
     Union[
-        Annotated[FunctionParams1, Tag("contains")],
-        Annotated[FunctionParams2, Tag("contains_none")],
+        Annotated[GetEvalFunctionParams1, Tag("contains")],
+        Annotated[GetEvalFunctionParams2, Tag("contains_none")],
         Annotated[FunctionParams3, Tag("contains_all")],
         Annotated[FunctionParams4, Tag("contains_any")],
         Annotated[FunctionParams5, Tag("contains_email")],
@@ -1614,15 +1612,15 @@ ResponseBodyFunctionParams = Annotated[
 ]
 
 
-class ResponseBodyFunctionTypedDict(TypedDict):
-    metadata: ResponseBodyMetadataTypedDict
+class GetEvalResponseBodyFunctionTypedDict(TypedDict):
+    metadata: GetEvalResponseBodyMetadataTypedDict
     id: str
     display_name: str
     description: str
     owner: str
     domain_id: str
     output_type: GetEvalResponseBodyOutputType
-    type: GetEvalResponseBodyType
+    type: GetEvalResponseBodyEvalsType
     function_params: ResponseBodyFunctionParamsTypedDict
     enabled: NotRequired[bool]
     created: NotRequired[str]
@@ -1634,8 +1632,8 @@ class ResponseBodyFunctionTypedDict(TypedDict):
     guardrail_config: NotRequired[Any]
 
 
-class ResponseBodyFunction(BaseModel):
-    metadata: ResponseBodyMetadata
+class GetEvalResponseBodyFunction(BaseModel):
+    metadata: GetEvalResponseBodyMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
@@ -1649,15 +1647,15 @@ class ResponseBodyFunction(BaseModel):
 
     output_type: GetEvalResponseBodyOutputType
 
-    type: GetEvalResponseBodyType
+    type: GetEvalResponseBodyEvalsType
 
     function_params: ResponseBodyFunctionParams
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -1704,7 +1702,7 @@ class ResponseBodyFunction(BaseModel):
         return m
 
 
-class GetEvalResponseBodyEvalsResponse200ApplicationJSON1MetadataTypedDict(TypedDict):
+class ResponseBodyMetadataTypedDict(TypedDict):
     required_model_with_tools_support: NotRequired[bool]
     required_retrieval_context: NotRequired[bool]
     required_expected_output: NotRequired[bool]
@@ -1713,7 +1711,7 @@ class GetEvalResponseBodyEvalsResponse200ApplicationJSON1MetadataTypedDict(Typed
     support_use_as_guardrail: NotRequired[bool]
 
 
-class GetEvalResponseBodyEvalsResponse200ApplicationJSON1Metadata(BaseModel):
+class ResponseBodyMetadata(BaseModel):
     required_model_with_tools_support: Optional[bool] = None
 
     required_retrieval_context: Optional[bool] = None
@@ -1761,7 +1759,7 @@ ResponseBodyOutputType = Literal[
 r"""The type of output expected from the evaluator"""
 
 
-ResponseBodyType = Literal["llm_eval",]
+GetEvalResponseBodyType = Literal["llm_eval",]
 
 
 ResponseBodyMode = Literal[
@@ -1826,13 +1824,13 @@ class ResponseBodyModelParameters(BaseModel):
         return m
 
 
-class GetEvalResponseBodyModelTypedDict(TypedDict):
+class ResponseBodyModelTypedDict(TypedDict):
     id: str
     integration_id: NotRequired[Nullable[str]]
     model_parameters: NotRequired[ResponseBodyModelParametersTypedDict]
 
 
-class GetEvalResponseBodyModel(BaseModel):
+class ResponseBodyModel(BaseModel):
     id: str
 
     integration_id: OptionalNullable[str] = UNSET
@@ -1860,6 +1858,263 @@ class GetEvalResponseBodyModel(BaseModel):
                     or k not in optional_fields
                     or is_nullable_and_explicitly_set
                 ):
+                    m[k] = val
+
+        return m
+
+
+class GetEvalResponseBodyModelParametersTypedDict(TypedDict):
+    temperature: NotRequired[float]
+    max_tokens: NotRequired[float]
+    top_k: NotRequired[float]
+    top_p: NotRequired[float]
+    frequency_penalty: NotRequired[float]
+    presence_penalty: NotRequired[float]
+    reasoning_effort: NotRequired[str]
+    budget_tokens: NotRequired[float]
+
+
+class GetEvalResponseBodyModelParameters(BaseModel):
+    temperature: Optional[float] = None
+
+    max_tokens: Optional[float] = None
+
+    top_k: Optional[float] = None
+
+    top_p: Optional[float] = None
+
+    frequency_penalty: Optional[float] = None
+
+    presence_penalty: Optional[float] = None
+
+    reasoning_effort: Optional[str] = None
+
+    budget_tokens: Optional[float] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "temperature",
+                "max_tokens",
+                "top_k",
+                "top_p",
+                "frequency_penalty",
+                "presence_penalty",
+                "reasoning_effort",
+                "budget_tokens",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class GetEvalResponseBodyEvalsResponseModelTypedDict(TypedDict):
+    id: str
+    integration_id: NotRequired[Nullable[str]]
+    model_parameters: NotRequired[GetEvalResponseBodyModelParametersTypedDict]
+
+
+class GetEvalResponseBodyEvalsResponseModel(BaseModel):
+    id: str
+
+    integration_id: OptionalNullable[str] = UNSET
+
+    model_parameters: Optional[GetEvalResponseBodyModelParameters] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["integration_id", "model_parameters"])
+        nullable_fields = set(["integration_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class ResponseBodyRetryTypedDict(TypedDict):
+    count: NotRequired[int]
+    on_codes: NotRequired[List[int]]
+
+
+class ResponseBodyRetry(BaseModel):
+    count: Optional[int] = 2
+
+    on_codes: Optional[List[int]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class GetEvalResponseBodyEvalsResponseModelParametersTypedDict(TypedDict):
+    temperature: NotRequired[float]
+    max_tokens: NotRequired[float]
+    top_k: NotRequired[float]
+    top_p: NotRequired[float]
+    frequency_penalty: NotRequired[float]
+    presence_penalty: NotRequired[float]
+    reasoning_effort: NotRequired[str]
+    budget_tokens: NotRequired[float]
+
+
+class GetEvalResponseBodyEvalsResponseModelParameters(BaseModel):
+    temperature: Optional[float] = None
+
+    max_tokens: Optional[float] = None
+
+    top_k: Optional[float] = None
+
+    top_p: Optional[float] = None
+
+    frequency_penalty: Optional[float] = None
+
+    presence_penalty: Optional[float] = None
+
+    reasoning_effort: Optional[str] = None
+
+    budget_tokens: Optional[float] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "temperature",
+                "max_tokens",
+                "top_k",
+                "top_p",
+                "frequency_penalty",
+                "presence_penalty",
+                "reasoning_effort",
+                "budget_tokens",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class GetEvalResponseBodyEvalsResponse200ApplicationJSONModelTypedDict(TypedDict):
+    id: str
+    integration_id: NotRequired[Nullable[str]]
+    model_parameters: NotRequired[
+        GetEvalResponseBodyEvalsResponseModelParametersTypedDict
+    ]
+
+
+class GetEvalResponseBodyEvalsResponse200ApplicationJSONModel(BaseModel):
+    id: str
+
+    integration_id: OptionalNullable[str] = UNSET
+
+    model_parameters: Optional[GetEvalResponseBodyEvalsResponseModelParameters] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["integration_id", "model_parameters"])
+        nullable_fields = set(["integration_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class ResponseBodyFallbacksTypedDict(TypedDict):
+    model: GetEvalResponseBodyEvalsResponse200ApplicationJSONModelTypedDict
+
+
+class ResponseBodyFallbacks(BaseModel):
+    model: GetEvalResponseBodyEvalsResponse200ApplicationJSONModel
+
+
+class ResponseBodyJudgesTypedDict(TypedDict):
+    model: GetEvalResponseBodyEvalsResponseModelTypedDict
+    retry: NotRequired[ResponseBodyRetryTypedDict]
+    fallbacks: NotRequired[List[ResponseBodyFallbacksTypedDict]]
+
+
+class ResponseBodyJudges(BaseModel):
+    model: GetEvalResponseBodyEvalsResponseModel
+
+    retry: Optional[ResponseBodyRetry] = None
+
+    fallbacks: Optional[List[ResponseBodyFallbacks]] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["retry", "fallbacks"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
                     m[k] = val
 
         return m
@@ -1960,12 +2215,12 @@ class GetEvalResponseBodyEvalsModel(BaseModel):
         return m
 
 
-class ResponseBodyRetryTypedDict(TypedDict):
+class GetEvalResponseBodyRetryTypedDict(TypedDict):
     count: NotRequired[int]
     on_codes: NotRequired[List[int]]
 
 
-class ResponseBodyRetry(BaseModel):
+class GetEvalResponseBodyRetry(BaseModel):
     count: Optional[int] = 2
 
     on_codes: Optional[List[int]] = None
@@ -2086,279 +2341,22 @@ class GetEvalResponseBodyEvalsResponse200Model(BaseModel):
         return m
 
 
-class ResponseBodyFallbacksTypedDict(TypedDict):
+class GetEvalResponseBodyFallbacksTypedDict(TypedDict):
     model: GetEvalResponseBodyEvalsResponse200ModelTypedDict
 
 
-class ResponseBodyFallbacks(BaseModel):
+class GetEvalResponseBodyFallbacks(BaseModel):
     model: GetEvalResponseBodyEvalsResponse200Model
 
 
-class ResponseBodyJudgesTypedDict(TypedDict):
-    model: GetEvalResponseBodyEvalsModelTypedDict
-    retry: NotRequired[ResponseBodyRetryTypedDict]
-    fallbacks: NotRequired[List[ResponseBodyFallbacksTypedDict]]
-
-
-class ResponseBodyJudges(BaseModel):
-    model: GetEvalResponseBodyEvalsModel
-
-    retry: Optional[ResponseBodyRetry] = None
-
-    fallbacks: Optional[List[ResponseBodyFallbacks]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["retry", "fallbacks"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyModelParametersTypedDict(TypedDict):
-    temperature: NotRequired[float]
-    max_tokens: NotRequired[float]
-    top_k: NotRequired[float]
-    top_p: NotRequired[float]
-    frequency_penalty: NotRequired[float]
-    presence_penalty: NotRequired[float]
-    reasoning_effort: NotRequired[str]
-    budget_tokens: NotRequired[float]
-
-
-class GetEvalResponseBodyModelParameters(BaseModel):
-    temperature: Optional[float] = None
-
-    max_tokens: Optional[float] = None
-
-    top_k: Optional[float] = None
-
-    top_p: Optional[float] = None
-
-    frequency_penalty: Optional[float] = None
-
-    presence_penalty: Optional[float] = None
-
-    reasoning_effort: Optional[str] = None
-
-    budget_tokens: Optional[float] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "temperature",
-                "max_tokens",
-                "top_k",
-                "top_p",
-                "frequency_penalty",
-                "presence_penalty",
-                "reasoning_effort",
-                "budget_tokens",
-            ]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyEvalsResponseModelTypedDict(TypedDict):
-    id: str
-    integration_id: NotRequired[Nullable[str]]
-    model_parameters: NotRequired[GetEvalResponseBodyModelParametersTypedDict]
-
-
-class GetEvalResponseBodyEvalsResponseModel(BaseModel):
-    id: str
-
-    integration_id: OptionalNullable[str] = UNSET
-
-    model_parameters: Optional[GetEvalResponseBodyModelParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["integration_id", "model_parameters"])
-        nullable_fields = set(["integration_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyRetryTypedDict(TypedDict):
-    count: NotRequired[int]
-    on_codes: NotRequired[List[int]]
-
-
-class GetEvalResponseBodyRetry(BaseModel):
-    count: Optional[int] = 2
-
-    on_codes: Optional[List[int]] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyEvalsResponseModelParametersTypedDict(TypedDict):
-    temperature: NotRequired[float]
-    max_tokens: NotRequired[float]
-    top_k: NotRequired[float]
-    top_p: NotRequired[float]
-    frequency_penalty: NotRequired[float]
-    presence_penalty: NotRequired[float]
-    reasoning_effort: NotRequired[str]
-    budget_tokens: NotRequired[float]
-
-
-class GetEvalResponseBodyEvalsResponseModelParameters(BaseModel):
-    temperature: Optional[float] = None
-
-    max_tokens: Optional[float] = None
-
-    top_k: Optional[float] = None
-
-    top_p: Optional[float] = None
-
-    frequency_penalty: Optional[float] = None
-
-    presence_penalty: Optional[float] = None
-
-    reasoning_effort: Optional[str] = None
-
-    budget_tokens: Optional[float] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "temperature",
-                "max_tokens",
-                "top_k",
-                "top_p",
-                "frequency_penalty",
-                "presence_penalty",
-                "reasoning_effort",
-                "budget_tokens",
-            ]
-        )
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyEvalsResponse200ApplicationJSONModelTypedDict(TypedDict):
-    id: str
-    integration_id: NotRequired[Nullable[str]]
-    model_parameters: NotRequired[
-        GetEvalResponseBodyEvalsResponseModelParametersTypedDict
-    ]
-
-
-class GetEvalResponseBodyEvalsResponse200ApplicationJSONModel(BaseModel):
-    id: str
-
-    integration_id: OptionalNullable[str] = UNSET
-
-    model_parameters: Optional[GetEvalResponseBodyEvalsResponseModelParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["integration_id", "model_parameters"])
-        nullable_fields = set(["integration_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-class GetEvalResponseBodyFallbacksTypedDict(TypedDict):
-    model: GetEvalResponseBodyEvalsResponse200ApplicationJSONModelTypedDict
-
-
-class GetEvalResponseBodyFallbacks(BaseModel):
-    model: GetEvalResponseBodyEvalsResponse200ApplicationJSONModel
-
-
 class ResponseBodyReplacementJudgesTypedDict(TypedDict):
-    model: GetEvalResponseBodyEvalsResponseModelTypedDict
+    model: GetEvalResponseBodyEvalsModelTypedDict
     retry: NotRequired[GetEvalResponseBodyRetryTypedDict]
     fallbacks: NotRequired[List[GetEvalResponseBodyFallbacksTypedDict]]
 
 
 class ResponseBodyReplacementJudges(BaseModel):
-    model: GetEvalResponseBodyEvalsResponseModel
+    model: GetEvalResponseBodyEvalsModel
 
     retry: Optional[GetEvalResponseBodyRetry] = None
 
@@ -2447,13 +2445,13 @@ class ResponseBodyCategoricalLabels(BaseModel):
 
 
 class ResponseBodyLLMTypedDict(TypedDict):
-    metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSON1MetadataTypedDict
+    metadata: ResponseBodyMetadataTypedDict
     id: str
     display_name: str
     description: str
     owner: str
     domain_id: str
-    type: ResponseBodyType
+    type: GetEvalResponseBodyType
     prompt: str
     enabled: NotRequired[bool]
     created: NotRequired[str]
@@ -2467,7 +2465,7 @@ class ResponseBodyLLMTypedDict(TypedDict):
     r"""The type of output expected from the evaluator"""
     mode: NotRequired[Nullable[ResponseBodyMode]]
     repetitions: NotRequired[Nullable[int]]
-    model: NotRequired[GetEvalResponseBodyModelTypedDict]
+    model: NotRequired[ResponseBodyModelTypedDict]
     jury: NotRequired[Nullable[ResponseBodyJuryTypedDict]]
     categories: NotRequired[Nullable[List[str]]]
     categorical_labels: NotRequired[
@@ -2477,7 +2475,7 @@ class ResponseBodyLLMTypedDict(TypedDict):
 
 
 class ResponseBodyLLM(BaseModel):
-    metadata: GetEvalResponseBodyEvalsResponse200ApplicationJSON1Metadata
+    metadata: ResponseBodyMetadata
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
@@ -2489,15 +2487,15 @@ class ResponseBodyLLM(BaseModel):
 
     domain_id: str
 
-    type: ResponseBodyType
+    type: GetEvalResponseBodyType
 
     prompt: str
 
     enabled: Optional[bool] = True
 
-    created: Optional[str] = "2026-09-18T09:52:55.048Z"
+    created: Optional[str] = "2026-08-05T15:12:51.947Z"
 
-    updated: Optional[str] = "2026-09-18T09:52:55.048Z"
+    updated: Optional[str] = "2026-08-05T15:12:51.947Z"
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2515,7 +2513,7 @@ class ResponseBodyLLM(BaseModel):
 
     repetitions: OptionalNullable[int] = UNSET
 
-    model: Optional[GetEvalResponseBodyModel] = None
+    model: Optional[ResponseBodyModel] = None
 
     jury: OptionalNullable[ResponseBodyJury] = UNSET
 
@@ -2583,12 +2581,12 @@ class ResponseBodyLLM(BaseModel):
 GetEvalResponseBodyTypedDict = TypeAliasType(
     "GetEvalResponseBodyTypedDict",
     Union[
-        ResponseBodyFunctionTypedDict,
+        GetEvalResponseBodyFunctionTypedDict,
         JSONTypedDict,
         ResponseBodyPythonTypedDict,
         TypescriptTypedDict,
         RagasTypedDict,
-        ResponseBodyHTTPTypedDict,
+        GetEvalResponseBodyHTTPTypedDict,
         BedrockGuardrailTypedDict,
         ResponseBodyLLMTypedDict,
     ],
@@ -2599,10 +2597,10 @@ r"""The evaluator. The response shape depends on the evaluator `type`."""
 GetEvalResponseBody = Annotated[
     Union[
         Annotated[ResponseBodyLLM, Tag("llm_eval")],
-        Annotated[ResponseBodyFunction, Tag("function_eval")],
+        Annotated[GetEvalResponseBodyFunction, Tag("function_eval")],
         Annotated[Ragas, Tag("ragas")],
         Annotated[JSON, Tag("json_schema")],
-        Annotated[ResponseBodyHTTP, Tag("http_eval")],
+        Annotated[GetEvalResponseBodyHTTP, Tag("http_eval")],
         Annotated[ResponseBodyPython, Tag("python_eval")],
         Annotated[Typescript, Tag("typescript_eval")],
         Annotated[BedrockGuardrail, Tag("bedrock_eval")],
@@ -2625,7 +2623,7 @@ try:
 except NameError:
     pass
 try:
-    ResponseBodyHTTP.model_rebuild()
+    GetEvalResponseBodyHTTP.model_rebuild()
 except NameError:
     pass
 try:
@@ -2637,7 +2635,7 @@ try:
 except NameError:
     pass
 try:
-    ResponseBodyFunction.model_rebuild()
+    GetEvalResponseBodyFunction.model_rebuild()
 except NameError:
     pass
 try:

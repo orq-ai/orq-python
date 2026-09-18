@@ -106,7 +106,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List knowledge bases",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge?limit=25' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -120,7 +120,7 @@ class KnowledgeSDK(BaseSDK):
             return unmarshal_json_response(
                 models.KnowledgeBasesServiceListResponse, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -225,7 +225,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List knowledge bases",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge?limit=25' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge?limit=25' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -239,7 +239,7 @@ class KnowledgeSDK(BaseSDK):
             return unmarshal_json_response(
                 models.KnowledgeBasesServiceListResponse, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -334,7 +334,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
                         }
                     ],
                 },
@@ -346,7 +346,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -441,7 +441,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "key": "product-docs",\n    "description": "Product documentation",\n    "embedding_model": "openai/text-embedding-3-small",\n    "path": "Default/knowledge"\n  }\'\n',
                         }
                     ],
                 },
@@ -453,7 +453,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -540,7 +540,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve knowledge base",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -552,7 +552,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -639,7 +639,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve knowledge base",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -651,7 +651,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, ["401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -738,7 +738,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete knowledge base",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -750,7 +750,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -837,7 +837,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete knowledge base",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -849,7 +849,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -952,7 +952,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -964,7 +964,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1067,7 +1067,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update knowledge base",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "type": "internal",\n    "description": "Current product documentation",\n    "retrieval_settings": {\n      "retrieval_type": "hybrid_search",\n      "top_k": 8,\n      "threshold": 0.2\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1079,7 +1079,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.Knowledge, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1183,7 +1183,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List datasources",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1301,7 +1301,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List datasources",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources?limit=50' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1447,7 +1447,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create datasource",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1591,7 +1591,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create datasource",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Product guide",\n    "file_id": "file_01JEXAMPLE00000000000001",\n    "chunking_options": {\n      "chunking_configuration": {\n        "type": "advanced",\n        "chunk_max_characters": 800,\n        "chunk_overlap": 100\n      }\n    }\n  }\'\n',
                         }
                     ],
                 },
@@ -1607,6 +1607,238 @@ class KnowledgeSDK(BaseSDK):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def preview_chunks(
+        self,
+        *,
+        knowledge_id: str,
+        file_id: str,
+        chunking_options: Optional[
+            Union[
+                models.DatasourceChunkingOptions,
+                models.DatasourceChunkingOptionsTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DatasourcesServicePreviewChunksResponse:
+        r"""Preview datasource chunks
+
+        Parses an uploaded file and returns the chunks it would produce for the given chunking options without creating a datasource.
+
+        :param knowledge_id:
+        :param file_id:
+        :param chunking_options:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PreviewDatasourceChunksRequest(
+            knowledge_id=knowledge_id,
+            datasources_service_preview_chunks_request=models.DatasourcesServicePreviewChunksRequest(
+                file_id=file_id,
+                chunking_options=utils.get_pydantic_model(
+                    chunking_options, Optional[models.DatasourceChunkingOptions]
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/preview-chunks",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.datasources_service_preview_chunks_request,
+                False,
+                False,
+                "json",
+                models.DatasourcesServicePreviewChunksRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="PreviewDatasourceChunks",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "previewChunks",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.DatasourcesServicePreviewChunksResponse, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def preview_chunks_async(
+        self,
+        *,
+        knowledge_id: str,
+        file_id: str,
+        chunking_options: Optional[
+            Union[
+                models.DatasourceChunkingOptions,
+                models.DatasourceChunkingOptionsTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DatasourcesServicePreviewChunksResponse:
+        r"""Preview datasource chunks
+
+        Parses an uploaded file and returns the chunks it would produce for the given chunking options without creating a datasource.
+
+        :param knowledge_id:
+        :param file_id:
+        :param chunking_options:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PreviewDatasourceChunksRequest(
+            knowledge_id=knowledge_id,
+            datasources_service_preview_chunks_request=models.DatasourcesServicePreviewChunksRequest(
+                file_id=file_id,
+                chunking_options=utils.get_pydantic_model(
+                    chunking_options, Optional[models.DatasourceChunkingOptions]
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/preview-chunks",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.datasources_service_preview_chunks_request,
+                False,
+                False,
+                "json",
+                models.DatasourcesServicePreviewChunksRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="PreviewDatasourceChunks",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Knowledge Bases"],
+                extensions={
+                    "x-cli-group": "knowledge-bases",
+                    "x-cli-name": "previewChunks",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.DatasourcesServicePreviewChunksResponse, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
 
@@ -1693,7 +1925,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1795,7 +2027,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1897,7 +2129,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete datasource",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -1999,7 +2231,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete datasource",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2116,7 +2348,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update datasource",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
                         }
                     ],
                 },
@@ -2233,7 +2465,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update datasource",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"display_name\":\"Product guide 2026\"}'\n",
                         }
                     ],
                 },
@@ -2355,7 +2587,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List chunks",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2477,7 +2709,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List chunks",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks?limit=100' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -2589,7 +2821,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create chunks",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -2701,7 +2933,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create chunks",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "text": "ORQ routes each request to the configured model.",\n      "metadata": {"section":"routing"}\n    }\n  ]\'\n',
                         }
                     ],
                 },
@@ -2815,7 +3047,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete multiple chunks",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"chunk_ids\": [\n      \"chunk_01JEXAMPLE000000000001\",\n      \"chunk_01JEXAMPLE000000000002\"\n    ]\n  }'\n",
+                            "source": 'curl --request DELETE \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "chunk_ids": [\n      "chunk_01JEXAMPLE000000000001",\n      "chunk_01JEXAMPLE000000000002"\n    ]\n  }\'\n',
                         }
                     ],
                 },
@@ -2931,7 +3163,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete multiple chunks",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"chunk_ids\": [\n      \"chunk_01JEXAMPLE000000000001\",\n      \"chunk_01JEXAMPLE000000000002\"\n    ]\n  }'\n",
+                            "source": 'curl --request DELETE \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "chunk_ids": [\n      "chunk_01JEXAMPLE000000000001",\n      "chunk_01JEXAMPLE000000000002"\n    ]\n  }\'\n',
                         }
                     ],
                 },
@@ -3053,7 +3285,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Count chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"enabled\":true}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","enabled":true}\'\n',
                         }
                     ],
                 },
@@ -3173,7 +3405,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Count chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"enabled\":true}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/count\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","enabled":true}\'\n',
                         }
                     ],
                 },
@@ -3299,7 +3531,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List a page of chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"limit\":25,\"page\":1}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","limit":25,"page":1}\'\n',
                         }
                     ],
                 },
@@ -3427,7 +3659,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - List a page of chunks",
                             "lang": "curl",
-                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"q\":\"routing\",\"limit\":25,\"page\":1}'\n",
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/list\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{"q":"routing","limit":25,"page":1}\'\n',
                         }
                     ],
                 },
@@ -3534,7 +3766,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve chunk",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3639,7 +3871,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve chunk",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3744,7 +3976,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete chunk",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3849,7 +4081,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Delete chunk",
                             "lang": "curl",
-                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -3980,7 +4212,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update chunk",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
                         }
                     ],
                 },
@@ -4111,7 +4343,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Update chunk",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "text": "ORQ routes requests to the configured model.",\n    "metadata": {"section":"routing","reviewed":true}\n  }\'\n',
                         }
                     ],
                 },
@@ -4228,7 +4460,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Set chunk enabled status",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
                         }
                     ],
                 },
@@ -4345,7 +4577,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Set chunk enabled status",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/chunks/chunk_01JEXAMPLE000000000001/enabled' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\"enabled\":false}'\n",
                         }
                     ],
                 },
@@ -4447,7 +4679,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource processing status",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4551,7 +4783,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Retrieve datasource processing status",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/datasources/01JEXAMPLEDATASOURCE0001/datasource-processing-status' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -4710,7 +4942,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url "https://my.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search" \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
                         },
                         {
                             "label": "Node.js",
@@ -4732,7 +4964,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchKnowledgeResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -4877,7 +5109,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
+                            "source": 'curl --request POST \\\n  --url "https://my.orq.ai/v2/knowledge/$KNOWLEDGE_ID/search" \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "query": "What is our refund policy?",\n    "top_k": 10,\n    "search_type": "hybrid_search",\n    "search_options": {\n      "include_vectors": false,\n      "include_metadata": true,\n      "include_scores": true\n    }\n  }\'',
                         },
                         {
                             "label": "Node.js",
@@ -4899,7 +5131,7 @@ class KnowledgeSDK(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchKnowledgeResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -4995,7 +5227,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create file upload policy",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -5013,7 +5245,7 @@ class KnowledgeSDK(BaseSDK):
                 models.KnowledgeAPIErrorData, http_res
             )
             raise models.KnowledgeAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -5109,7 +5341,7 @@ class KnowledgeSDK(BaseSDK):
                         {
                             "label": "Core - Create file upload policy",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/knowledge/01JEXAMPLEKNOWLEDGEBASE01/upload-file?fileName=guide.pdf&contentType=application%2Fpdf&datasourceId=01JEXAMPLEDATASOURCE0001' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
                     ],
                 },
@@ -5127,7 +5359,7 @@ class KnowledgeSDK(BaseSDK):
                 models.KnowledgeAPIErrorData, http_res
             )
             raise models.KnowledgeAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

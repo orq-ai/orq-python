@@ -812,6 +812,7 @@ class MemoryStores(BaseSDK):
         description: Optional[str] = None,
         ttl: OptionalNullable[float] = UNSET,
         path: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -825,6 +826,7 @@ class MemoryStores(BaseSDK):
         :param description:
         :param ttl:
         :param path:
+        :param project_id: New containing project. Omit to keep the current project; `path` resolves inside it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -849,6 +851,7 @@ class MemoryStores(BaseSDK):
                 description=description,
                 ttl=ttl,
                 path=path,
+                project_id=project_id,
             ),
         )
 
@@ -919,6 +922,7 @@ class MemoryStores(BaseSDK):
         description: Optional[str] = None,
         ttl: OptionalNullable[float] = UNSET,
         path: Optional[str] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -932,6 +936,7 @@ class MemoryStores(BaseSDK):
         :param description:
         :param ttl:
         :param path:
+        :param project_id: New containing project. Omit to keep the current project; `path` resolves inside it.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -956,6 +961,7 @@ class MemoryStores(BaseSDK):
                 description=description,
                 ttl=ttl,
                 path=path,
+                project_id=project_id,
             ),
         )
 

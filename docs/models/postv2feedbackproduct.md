@@ -27,3 +27,4 @@ value: PostV2FeedbackProduct = "remoteconfigs"
 - `"evaluators"`
 - `"otel"`
 - `"ai-chat"`
+- `"mcp_gateway"`

@@ -54,18 +54,22 @@ class Annotations2(BaseModel):
         return m
 
 
-ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, float, bool, List[str]])
+CreateAnnotationAnnotationsValueTypedDict = TypeAliasType(
+    "CreateAnnotationAnnotationsValueTypedDict", Union[str, float, bool, List[str]]
+)
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
-Value = TypeAliasType("Value", Union[str, float, bool, List[str]])
+CreateAnnotationAnnotationsValue = TypeAliasType(
+    "CreateAnnotationAnnotationsValue", Union[str, float, bool, List[str]]
+)
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
 class Annotations1TypedDict(TypedDict):
     key: str
     r"""Unique key of the review."""
-    value: ValueTypedDict
+    value: CreateAnnotationAnnotationsValueTypedDict
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
@@ -73,7 +77,7 @@ class Annotations1(BaseModel):
     key: str
     r"""Unique key of the review."""
 
-    value: Value
+    value: CreateAnnotationAnnotationsValue
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 

@@ -9,21 +9,13 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class EvaluationContextMessagesTypedDict(TypedDict):
-    pass
-
-
-class EvaluationContextMessages(BaseModel):
-    pass
-
-
 class EvaluationContextTypedDict(TypedDict):
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+    conversation carries no assistant turn.
     """
 
-    messages: NotRequired[List[EvaluationContextMessagesTypedDict]]
+    messages: NotRequired[List[Dict[str, Any]]]
     input: NotRequired[StructuredInputTypedDict]
     r"""StructuredInput names its fields after the template variables they feed, so
     input.user_query in a prompt is user_query here.
@@ -35,10 +27,10 @@ class EvaluationContextTypedDict(TypedDict):
 class EvaluationContext(BaseModel):
     r"""The data to grade. When `messages` is present it is the conversation and
     `input.user_query` is ignored; `output.response` is appended only when the
-    conversation carries no assistant turn. Mirrors graders-api buildGraderRequest.
+    conversation carries no assistant turn.
     """
 
-    messages: Optional[List[EvaluationContextMessages]] = None
+    messages: Optional[List[Dict[str, Any]]] = None
 
     input: Optional[StructuredInput] = None
     r"""StructuredInput names its fields after the template variables they feed, so

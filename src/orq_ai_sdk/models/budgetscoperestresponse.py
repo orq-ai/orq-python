@@ -27,10 +27,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class BudgetScopeRestResponseTypedDict(TypedDict):
-    r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    six variants are ordered by enforcement precedence (most specific to
-    most general) and mirror the BudgetScopeKind filter enum.
-    """
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
 
     workspace: NotRequired[WorkspaceBudgetScopeTypedDict]
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""
@@ -56,10 +53,7 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
 
 
 class BudgetScopeRestResponse(BaseModel):
-    r"""BudgetScope is a closed oneof. Exactly one variant must be set. The
-    six variants are ordered by enforcement precedence (most specific to
-    most general) and mirror the BudgetScopeKind filter enum.
-    """
+    r"""Closed oneof of workspace, project, identity, api_key, provider, or model. Exactly one variant must be set. Variants are ordered by enforcement precedence (most specific to most general)."""
 
     workspace: Optional[WorkspaceBudgetScope] = None
     r"""Workspace-wide ceiling. The implicit target is the caller's workspace."""

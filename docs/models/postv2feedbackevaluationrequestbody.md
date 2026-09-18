@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.PostV2FeedbackEvaluationRequestBody1`
+### `models.RequestBody1`
 
 ```python
-value: models.PostV2FeedbackEvaluationRequestBody1 = /* values here */
+value: models.RequestBody1 = /* values here */
 ```
 
 ### `models.RequestBody2`

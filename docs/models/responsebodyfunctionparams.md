@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.FunctionParams1`
+### `models.GetEvalFunctionParams1`
 
 ```python
-value: models.FunctionParams1 = /* values here */
+value: models.GetEvalFunctionParams1 = /* values here */
 ```
 
-### `models.FunctionParams2`
+### `models.GetEvalFunctionParams2`
 
 ```python
-value: models.FunctionParams2 = /* values here */
+value: models.GetEvalFunctionParams2 = /* values here */
 ```
 
 ### `models.FunctionParams3`

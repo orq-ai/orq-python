@@ -276,14 +276,14 @@ Engine = Literal[
 r"""Override template engine for this invocation. If not provided, uses the agent default."""
 
 
-class ConfigurationTypedDict(TypedDict):
+class AgentResponseRequestConfigurationTypedDict(TypedDict):
     r"""Configuration options for the agent invocation"""
 
     blocking: NotRequired[bool]
     r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
 
 
-class Configuration(BaseModel):
+class AgentResponseRequestConfiguration(BaseModel):
     r"""Configuration options for the agent invocation"""
 
     blocking: Optional[bool] = False
@@ -341,7 +341,7 @@ class AgentResponseRequestTypedDict(TypedDict):
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
     engine: NotRequired[Engine]
     r"""Override template engine for this invocation. If not provided, uses the agent default."""
-    configuration: NotRequired[ConfigurationTypedDict]
+    configuration: NotRequired[AgentResponseRequestConfigurationTypedDict]
     r"""Configuration options for the agent invocation"""
     background: NotRequired[bool]
     r"""If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors."""
@@ -386,7 +386,7 @@ class AgentResponseRequest(BaseModel):
     engine: Optional[Engine] = None
     r"""Override template engine for this invocation. If not provided, uses the agent default."""
 
-    configuration: Optional[Configuration] = None
+    configuration: Optional[AgentResponseRequestConfiguration] = None
     r"""Configuration options for the agent invocation"""
 
     background: Optional[bool] = False

@@ -7,17 +7,17 @@
 * [list](#list) - List annotation queues
 * [create](#create) - Create an annotation queue
 * [retrieve](#retrieve) - Retrieve an annotation queue
-* [update](#update) - Edit an annotation queue
 * [delete](#delete) - Delete an annotation queue
-* [clear](#clear) - Delete all items
+* [update](#update) - Update an annotation queue
+* [clear](#clear) - Clear an annotation queue
 * [list_items](#list_items) - Query items from an annotation queue
 * [add_items](#add_items) - Add items to an annotation queue
-* [remove_items](#remove_items) - Remove annotation queue items
+* [remove_items](#remove_items) - Remove items from an annotation queue
 * [retrieve_item](#retrieve_item) - Retrieve an annotation queue item
 
 ## list
 
-Retrieves a paginated list of annotation queues for the current workspace. Results can be paginated using cursor-based pagination.
+Returns annotation queues in the workspace, newest first.
 
 ### Example Usage
 
@@ -40,18 +40,18 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `search`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter annotation queues by display name (case-insensitive match).                                                                                                                                                                                                                                                                      |
-| `updated_by`                                                                                                                                                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Comma-separated list of user IDs; returns annotation queues last updated by any of them.                                                                                                                                                                                                                                                |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `limit`                                                                                        | *Optional[int]*                                                                                | :heavy_minus_sign:                                                                             | Optional. Number of annotation queues to return. Defaults to 10 and must be between 1 and 200. |
+| `starting_after`                                                                               | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Cursor for forward pagination. Set to the `_id` of the last item from the previous page.       |
+| `ending_before`                                                                                | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Cursor for backward pagination. Set to the `_id` of the first item from the previous page.     |
+| `search`                                                                                       | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Optional. Case-insensitive substring match on the annotation queue display name.               |
+| `updated_by`                                                                                   | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Optional. Comma-separated account IDs; returns queues last updated by any of them.             |
+| `retries`                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                               | :heavy_minus_sign:                                                                             | Configuration to override the default retry behavior of the client.                            |
 
 ### Response
 
-**[models.ListAnnotationQueuesResponseBody](../../models/listannotationqueuesresponsebody.md)**
+**[models.ListAnnotationQueuesResponse](../../models/listannotationqueuesresponse.md)**
 
 ### Errors
 
@@ -61,7 +61,7 @@ with Orq(
 
 ## create
 
-Create a new annotation queue in the workspace.
+Creates an annotation queue in a project.
 
 ### Example Usage
 
@@ -75,11 +75,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.annotation_queues.create(request={
-        "display_name": "Vernice_Fadel",
-        "description": "categorise egg foolishly",
-        "project_id": "<id>",
-    })
+    res = orq.annotation_queues.create(display_name="Vernice_Fadel", description="categorise egg foolishly", project_id="<id>")
 
     # Handle response
     print(res)
@@ -88,14 +84,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `request`                                                                                   | [models.CreateAnnotationQueueRequestBody](../../models/createannotationqueuerequestbody.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
-| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `display_name`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Required. The display name of the annotation queue.                 |
+| `description`                                                       | *str*                                                               | :heavy_check_mark:                                                  | Required. The description of the annotation queue.                  |
+| `project_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Required. The project to link this annotation queue to.             |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.CreateAnnotationQueueResponseBody](../../models/createannotationqueueresponsebody.md)**
+**[models.AnnotationQueue](../../models/annotationqueue.md)**
 
 ### Errors
 
@@ -105,7 +103,7 @@ with Orq(
 
 ## retrieve
 
-Retrieves a specific annotation queue by its unique identifier
+Retrieves an existing annotation queue by ID.
 
 ### Example Usage
 
@@ -135,51 +133,7 @@ with Orq(
 
 ### Response
 
-**[models.RetrieveAnnotationQueueResponseBody](../../models/retrieveannotationqueueresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update
-
-Update an annotation queue by ID with the provided fields.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="UpdateAnnotationQueue" method="patch" path="/v2/annotation-queues/{annotation_queue_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.annotation_queues.update(annotation_queue_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `annotation_queue_id`                                                                      | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        |
-| `display_name`                                                                             | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | The display name of the annotation queue                                                   |
-| `description`                                                                              | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | The description of the annotation queue                                                    |
-| `project_id`                                                                               | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | The project ID. When set, human reviews are resolved from the project automatically        |
-| `human_review_ids`                                                                         | List[*str*]                                                                                | :heavy_minus_sign:                                                                         | Legacy: update manually selected human review IDs. Only allowed when project_id is not set |
-| `retries`                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                           | :heavy_minus_sign:                                                                         | Configuration to override the default retry behavior of the client.                        |
-
-### Response
-
-**[models.UpdateAnnotationQueueResponseBody](../../models/updateannotationqueueresponsebody.md)**
+**[models.AnnotationQueue](../../models/annotationqueue.md)**
 
 ### Errors
 
@@ -189,7 +143,7 @@ with Orq(
 
 ## delete
 
-Delete an annotation queue and its items by ID.
+Deletes an annotation queue, its items, and the queue references stored on the annotated spans.
 
 ### Example Usage
 
@@ -222,9 +176,53 @@ with Orq(
 | ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
+## update
+
+Partially updates an existing annotation queue. Setting `project_id` clears the legacy `human_review_ids` selection.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="UpdateAnnotationQueue" method="patch" path="/v2/annotation-queues/{annotation_queue_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.annotation_queues.update(annotation_queue_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `annotation_queue_id`                                                                         | *str*                                                                                         | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `display_name`                                                                                | *Optional[str]*                                                                               | :heavy_minus_sign:                                                                            | Optional. New display name.                                                                   |
+| `description`                                                                                 | *Optional[str]*                                                                               | :heavy_minus_sign:                                                                            | Optional. New description.                                                                    |
+| `project_id`                                                                                  | *Optional[str]*                                                                               | :heavy_minus_sign:                                                                            | Optional. New project. Setting this clears the legacy `human_review_ids` selection.           |
+| `human_review_ids`                                                                            | List[*str*]                                                                                   | :heavy_minus_sign:                                                                            | Legacy: update manually selected human review IDs. Only applied when `project_id` is not set. |
+| `retries`                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                              | :heavy_minus_sign:                                                                            | Configuration to override the default retry behavior of the client.                           |
+
+### Response
+
+**[models.AnnotationQueue](../../models/annotationqueue.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
 ## clear
 
-Delete all items from an annotation queue. This action is irreversible.
+Removes every item from the annotation queue without deleting the queue itself.
 
 ### Example Usage
 
@@ -259,7 +257,7 @@ with Orq(
 
 ## list_items
 
-Queries items from the specified annotation queue.
+Queries items from the specified annotation queue. Items whose span no longer exists are skipped.
 
 ### Example Usage
 
@@ -282,17 +280,17 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `annotation_queue_id`                                                                                                                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `annotation_queue_id`                                                                      | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `limit`                                                                                    | *Optional[int]*                                                                            | :heavy_minus_sign:                                                                         | Optional. Number of items to return. Defaults to 10 and must be between 1 and 200.         |
+| `starting_after`                                                                           | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Cursor for forward pagination. Set to the `_id` of the last item from the previous page.   |
+| `ending_before`                                                                            | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | Cursor for backward pagination. Set to the `_id` of the first item from the previous page. |
+| `retries`                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                           | :heavy_minus_sign:                                                                         | Configuration to override the default retry behavior of the client.                        |
 
 ### Response
 
-**[models.ListAnnotationQueueItemsResponseBody](../../models/listannotationqueueitemsresponsebody.md)**
+**[models.ListAnnotationQueueItemsResponse](../../models/listannotationqueueitemsresponse.md)**
 
 ### Errors
 
@@ -302,7 +300,7 @@ with Orq(
 
 ## add_items
 
-Adds items to the specified annotation queue.
+Adds spans to the annotation queue. Spans already present are skipped; the response contains only the newly created items.
 
 ### Example Usage
 
@@ -330,15 +328,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `annotation_queue_id`                                               | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `items`                                                             | List[[models.Items](../../models/items.md)]                         | :heavy_check_mark:                                                  | The spans to add to the annotation queue                            |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `annotation_queue_id`                                                         | *str*                                                                         | :heavy_check_mark:                                                            | N/A                                                                           |
+| `items`                                                                       | List[[models.AnnotationQueueItemRef](../../models/annotationqueueitemref.md)] | :heavy_check_mark:                                                            | The spans to add to the annotation queue.                                     |
+| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
 
 ### Response
 
-**[List[models.AddAnnotationQueueItemsResponseBody]](../../models/.md)**
+**[List[models.AnnotationQueueItem]](../../models/.md)**
 
 ### Errors
 
@@ -348,7 +346,7 @@ with Orq(
 
 ## remove_items
 
-Removes items from the specified annotation queue.
+Removes the referenced spans from the annotation queue.
 
 ### Example Usage
 
@@ -373,11 +371,11 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `annotation_queue_id`                                                       | *str*                                                                       | :heavy_check_mark:                                                          | N/A                                                                         |
-| `span_ids`                                                                  | List[*str*]                                                                 | :heavy_check_mark:                                                          | The unique identifiers of the spans to be removed from the annotation queue |
-| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `annotation_queue_id`                                                        | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `span_ids`                                                                   | List[*str*]                                                                  | :heavy_check_mark:                                                           | The unique identifiers of the spans to be removed from the annotation queue. |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
 
 ### Errors
 
@@ -387,7 +385,7 @@ with Orq(
 
 ## retrieve_item
 
-Retrieve an annotation queue item. Each item is a pointer to a span with fully resolved span data.
+Retrieves an item from the specified annotation queue in its expanded form. An annotation queue item is a pointer to a span; this endpoint returns the fully resolved span the item references.
 
 ### Example Usage
 
@@ -418,7 +416,7 @@ with Orq(
 
 ### Response
 
-**[models.PublicSpan](../../models/publicspan.md)**
+**[models.RetrieveAnnotationQueueItemResponseBody](../../models/retrieveannotationqueueitemresponsebody.md)**
 
 ### Errors
 

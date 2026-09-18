@@ -55,7 +55,7 @@ class Edits(BaseSDK):
 
         Edit an Image
 
-        :param model: The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway-supported-models#image-models)
+        :param model: The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)
         :param prompt: A text description of the desired image(s).
         :param image: The image(s) to edit. Must be a supported image file or an array of images.  Each image should be a png, webp, or jpg file less than 50MB. You can provide up to 16 images.
         :param n: The number of images to generate. Must be between 1 and 10.
@@ -221,7 +221,7 @@ class Edits(BaseSDK):
 
         Edit an Image
 
-        :param model: The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway-supported-models#image-models)
+        :param model: The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)
         :param prompt: A text description of the desired image(s).
         :param image: The image(s) to edit. Must be a supported image file or an array of images.  Each image should be a png, webp, or jpg file less than 50MB. You can provide up to 16 images.
         :param n: The number of images to generate. Must be between 1 and 10.

@@ -36,22 +36,22 @@ InvokeDeploymentRequestPrefixMessages5Role = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-InvokeDeploymentRequestContentPrefixMessages2TypedDict = TextContentPartSchemaTypedDict
+InvokeDeploymentRequestContent2TypedDict = TextContentPartSchemaTypedDict
 
 
-InvokeDeploymentRequestContentPrefixMessages2 = TextContentPartSchema
+InvokeDeploymentRequestContent2 = TextContentPartSchema
 
 
 InvokeDeploymentRequestPrefixMessages5ContentTypedDict = TypeAliasType(
     "InvokeDeploymentRequestPrefixMessages5ContentTypedDict",
-    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2TypedDict]],
+    Union[str, List[InvokeDeploymentRequestContent2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
 InvokeDeploymentRequestPrefixMessages5Content = TypeAliasType(
     "InvokeDeploymentRequestPrefixMessages5Content",
-    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2]],
+    Union[str, List[InvokeDeploymentRequestContent2]],
 )
 r"""The contents of the tool message."""
 
@@ -164,8 +164,8 @@ class ToolMessage(BaseModel):
         return m
 
 
-InvokeDeploymentRequestContent2TypedDict = TypeAliasType(
-    "InvokeDeploymentRequestContent2TypedDict",
+Content2TypedDict = TypeAliasType(
+    "Content2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
@@ -175,7 +175,7 @@ InvokeDeploymentRequestContent2TypedDict = TypeAliasType(
 )
 
 
-InvokeDeploymentRequestContent2 = Annotated[
+Content2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -188,14 +188,13 @@ InvokeDeploymentRequestContent2 = Annotated[
 
 InvokeDeploymentRequestPrefixMessages4ContentTypedDict = TypeAliasType(
     "InvokeDeploymentRequestPrefixMessages4ContentTypedDict",
-    Union[str, List[InvokeDeploymentRequestContent2TypedDict]],
+    Union[str, List[Content2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 InvokeDeploymentRequestPrefixMessages4Content = TypeAliasType(
-    "InvokeDeploymentRequestPrefixMessages4Content",
-    Union[str, List[InvokeDeploymentRequestContent2]],
+    "InvokeDeploymentRequestPrefixMessages4Content", Union[str, List[Content2]]
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -429,7 +428,7 @@ class TwoCacheControl(BaseModel):
         return m
 
 
-class Two4TypedDict(TypedDict):
+class InvokeDeploymentRequest24TypedDict(TypedDict):
     type: TwoType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
@@ -437,7 +436,7 @@ class Two4TypedDict(TypedDict):
     cache_control: NotRequired[TwoCacheControlTypedDict]
 
 
-class Two4(BaseModel):
+class InvokeDeploymentRequest24(BaseModel):
     type: TwoType
     r"""The type of the content part. Always `file`."""
 
@@ -463,23 +462,23 @@ class Two4(BaseModel):
         return m
 
 
-Content2TypedDict = TypeAliasType(
-    "Content2TypedDict",
+InvokeDeploymentRequestContentPrefixMessages2TypedDict = TypeAliasType(
+    "InvokeDeploymentRequestContentPrefixMessages2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        Two4TypedDict,
+        InvokeDeploymentRequest24TypedDict,
     ],
 )
 
 
-Content2 = Annotated[
+InvokeDeploymentRequestContentPrefixMessages2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[Two4, Tag("file")],
+        Annotated[InvokeDeploymentRequest24, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -487,13 +486,14 @@ Content2 = Annotated[
 
 InvokeDeploymentRequestPrefixMessagesContentTypedDict = TypeAliasType(
     "InvokeDeploymentRequestPrefixMessagesContentTypedDict",
-    Union[str, List[Content2TypedDict]],
+    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 InvokeDeploymentRequestPrefixMessagesContent = TypeAliasType(
-    "InvokeDeploymentRequestPrefixMessagesContent", Union[str, List[Content2]]
+    "InvokeDeploymentRequestPrefixMessagesContent",
+    Union[str, List[InvokeDeploymentRequestContentPrefixMessages2]],
 )
 r"""The contents of the user message."""
 
@@ -1059,7 +1059,7 @@ class InvokeDeploymentRequest2CacheControl(BaseModel):
         return m
 
 
-class InvokeDeploymentRequest24TypedDict(TypedDict):
+class Two4TypedDict(TypedDict):
     type: InvokeDeploymentRequest2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
@@ -1067,7 +1067,7 @@ class InvokeDeploymentRequest24TypedDict(TypedDict):
     cache_control: NotRequired[InvokeDeploymentRequest2CacheControlTypedDict]
 
 
-class InvokeDeploymentRequest24(BaseModel):
+class Two4(BaseModel):
     type: InvokeDeploymentRequest2Type
     r"""The type of the content part. Always `file`."""
 
@@ -1099,7 +1099,7 @@ InvokeDeploymentRequestContentMessages2TypedDict = TypeAliasType(
         AudioContentPartSchemaTypedDict,
         TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
-        InvokeDeploymentRequest24TypedDict,
+        Two4TypedDict,
     ],
 )
 
@@ -1109,7 +1109,7 @@ InvokeDeploymentRequestContentMessages2 = Annotated[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
-        Annotated[InvokeDeploymentRequest24, Tag("file")],
+        Annotated[Two4, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -1405,14 +1405,14 @@ class InvokeOptions(BaseModel):
         return m
 
 
-class ThreadTypedDict(TypedDict):
+class InvokeDeploymentRequestThreadTypedDict(TypedDict):
     id: str
     r"""Unique thread identifier to group related invocations."""
     tags: NotRequired[List[str]]
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class Thread(BaseModel):
+class InvokeDeploymentRequestThread(BaseModel):
     id: str
     r"""Unique thread identifier to group related invocations."""
 
@@ -1880,8 +1880,8 @@ class InvokeDeploymentRequest1Eq(BaseModel):
     eq: Eq
 
 
-KnowledgeFilter1TypedDict = TypeAliasType(
-    "KnowledgeFilter1TypedDict",
+OneTypedDict = TypeAliasType(
+    "OneTypedDict",
     Union[
         InvokeDeploymentRequest1EqTypedDict,
         InvokeDeploymentRequest1NeTypedDict,
@@ -1895,8 +1895,8 @@ KnowledgeFilter1TypedDict = TypeAliasType(
 )
 
 
-KnowledgeFilter1 = TypeAliasType(
-    "KnowledgeFilter1",
+One = TypeAliasType(
+    "One",
     Union[
         InvokeDeploymentRequest1Eq,
         InvokeDeploymentRequest1Ne,
@@ -1913,17 +1913,14 @@ KnowledgeFilter1 = TypeAliasType(
 KnowledgeFilterTypedDict = TypeAliasType(
     "KnowledgeFilterTypedDict",
     Union[
-        KnowledgeFilterAndTypedDict,
-        KnowledgeFilterOrTypedDict,
-        Dict[str, KnowledgeFilter1TypedDict],
+        KnowledgeFilterAndTypedDict, KnowledgeFilterOrTypedDict, Dict[str, OneTypedDict]
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 KnowledgeFilter = TypeAliasType(
-    "KnowledgeFilter",
-    Union[KnowledgeFilterAnd, KnowledgeFilterOr, Dict[str, KnowledgeFilter1]],
+    "KnowledgeFilter", Union[KnowledgeFilterAnd, KnowledgeFilterOr, Dict[str, One]]
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
@@ -1954,7 +1951,7 @@ class InvokeDeploymentRequestTypedDict(TypedDict):
     documents: NotRequired[List[DocumentsTypedDict]]
     r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
     invoke_options: NotRequired[InvokeOptionsTypedDict]
-    thread: NotRequired[ThreadTypedDict]
+    thread: NotRequired[InvokeDeploymentRequestThreadTypedDict]
     knowledge_filter: NotRequired[KnowledgeFilterTypedDict]
     r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
@@ -1997,7 +1994,7 @@ class InvokeDeploymentRequest(BaseModel):
 
     invoke_options: Optional[InvokeOptions] = None
 
-    thread: Optional[Thread] = None
+    thread: Optional[InvokeDeploymentRequestThread] = None
 
     knowledge_filter: Optional[KnowledgeFilter] = None
     r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""

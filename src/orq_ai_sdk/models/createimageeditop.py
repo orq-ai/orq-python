@@ -483,7 +483,7 @@ class CreateImageEditOrq(BaseModel):
 
 class CreateImageEditRequestBodyTypedDict(TypedDict):
     model: str
-    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway-supported-models#image-models)"""
+    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)"""
     prompt: str
     r"""A text description of the desired image(s)."""
     image: NotRequired[ImageTypedDict]
@@ -515,7 +515,7 @@ class CreateImageEditRequestBodyTypedDict(TypedDict):
 
 class CreateImageEditRequestBody(BaseModel):
     model: Annotated[str, FieldMetadata(multipart=True)]
-    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway-supported-models#image-models)"""
+    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)"""
 
     prompt: Annotated[str, FieldMetadata(multipart=True)]
     r"""A text description of the desired image(s)."""

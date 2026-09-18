@@ -1,0 +1,12 @@
+# StatFileSystemFileResponse
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `path`                                                                               | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `type`                                                                               | [models.StatFileSystemFileResponseType](../models/statfilesystemfileresponsetype.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `size_bytes`                                                                         | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `mode`                                                                               | *str*                                                                                | :heavy_check_mark:                                                                   | Permission bits in octal, for example 0644                                           |
+| `modified`                                                                           | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |

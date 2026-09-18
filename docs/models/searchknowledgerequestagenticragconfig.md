@@ -11,9 +11,9 @@ Represents a dynamically typed value which can be either null, a number, a strin
 value: models.AgenticRagConfig1 = /* values here */
 ```
 
-### `models.AgenticRagConfig2`
+### `models.Two`
 
 ```python
-value: models.AgenticRagConfig2 = /* values here */
+value: models.Two = /* values here */
 ```
 

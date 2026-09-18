@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.One`
+### `models.FunctionParams1`
 
 ```python
-value: models.One = /* values here */
+value: models.FunctionParams1 = /* values here */
 ```
 
-### `models.Two`
+### `models.FunctionParams2`
 
 ```python
-value: models.Two = /* values here */
+value: models.FunctionParams2 = /* values here */
 ```
 
 ### `models.Three`
