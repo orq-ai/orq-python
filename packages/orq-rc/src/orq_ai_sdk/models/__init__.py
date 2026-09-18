@@ -5604,6 +5604,18 @@ if TYPE_CHECKING:
         ListSmartRoutersResponse,
         ListSmartRoutersResponseTypedDict,
     )
+    from .listtelemetrycapabilitiesresponse import (
+        ListTelemetryCapabilitiesResponse,
+        ListTelemetryCapabilitiesResponseTypedDict,
+    )
+    from .listtelemetryfacetvaluesrequest import (
+        ListTelemetryFacetValuesRequest,
+        ListTelemetryFacetValuesRequestTypedDict,
+    )
+    from .listtelemetryfacetvaluesresponse import (
+        ListTelemetryFacetValuesResponse,
+        ListTelemetryFacetValuesResponseTypedDict,
+    )
     from .listthreadsrequest import ListThreadsRequest, ListThreadsRequestTypedDict
     from .listthreadsresponse import ListThreadsResponse, ListThreadsResponseTypedDict
     from .listtracefacetsresponse import (
@@ -6240,6 +6252,17 @@ if TYPE_CHECKING:
         QueryReportResponse,
         QueryReportResponseObject,
         QueryReportResponseTypedDict,
+    )
+    from .querytelemetrymeta import QueryTelemetryMeta, QueryTelemetryMetaTypedDict
+    from .querytelemetryrequest import (
+        QueryTelemetryRequest,
+        QueryTelemetryRequestMode,
+        QueryTelemetryRequestSort,
+        QueryTelemetryRequestTypedDict,
+    )
+    from .querytelemetryresponse import (
+        QueryTelemetryResponse,
+        QueryTelemetryResponseTypedDict,
     )
     from .querytracesrequest import QueryTracesRequest, QueryTracesRequestTypedDict
     from .querytracesresponse import QueryTracesResponse, QueryTracesResponseTypedDict
@@ -7716,6 +7739,31 @@ if TYPE_CHECKING:
     )
     from .syncstatus import SyncStatus
     from .telemetry import Telemetry, TelemetryTypedDict
+    from .telemetrydimensioncapability import (
+        TelemetryDimensionCapability,
+        TelemetryDimensionCapabilityTypedDict,
+    )
+    from .telemetrydimensionsetcapability import (
+        TelemetryDimensionSetCapability,
+        TelemetryDimensionSetCapabilityTypedDict,
+    )
+    from .telemetrylistcapabilitiesop import (
+        TelemetryListCapabilitiesRequest,
+        TelemetryListCapabilitiesRequestTypedDict,
+    )
+    from .telemetrymetriccapability import (
+        TelemetryMetricCapability,
+        TelemetryMetricCapabilityTypedDict,
+    )
+    from .telemetryquerymode import TelemetryQueryMode
+    from .telemetryresultkind import TelemetryResultKind
+    from .telemetryrow import TelemetryRow, TelemetryRowTypedDict
+    from .telemetrysource import TelemetrySource
+    from .telemetrysourcecapability import (
+        TelemetrySourceCapability,
+        TelemetrySourceCapabilityTypedDict,
+    )
+    from .telemetryvaluecardinality import TelemetryValueCardinality
     from .testmcpservertoolrequest import (
         Arguments,
         ArgumentsTypedDict,
@@ -13932,6 +13980,12 @@ __all__ = [
     "ListSkillsResponseTypedDict",
     "ListSmartRoutersResponse",
     "ListSmartRoutersResponseTypedDict",
+    "ListTelemetryCapabilitiesResponse",
+    "ListTelemetryCapabilitiesResponseTypedDict",
+    "ListTelemetryFacetValuesRequest",
+    "ListTelemetryFacetValuesRequestTypedDict",
+    "ListTelemetryFacetValuesResponse",
+    "ListTelemetryFacetValuesResponseTypedDict",
     "ListThreadsRequest",
     "ListThreadsRequestTypedDict",
     "ListThreadsResponse",
@@ -14659,6 +14713,14 @@ __all__ = [
     "QueryReportResponse",
     "QueryReportResponseObject",
     "QueryReportResponseTypedDict",
+    "QueryTelemetryMeta",
+    "QueryTelemetryMetaTypedDict",
+    "QueryTelemetryRequest",
+    "QueryTelemetryRequestMode",
+    "QueryTelemetryRequestSort",
+    "QueryTelemetryRequestTypedDict",
+    "QueryTelemetryResponse",
+    "QueryTelemetryResponseTypedDict",
     "QueryTracesRequest",
     "QueryTracesRequestTypedDict",
     "QueryTracesResponse",
@@ -16050,7 +16112,23 @@ __all__ = [
     "TeamOfAgents",
     "TeamOfAgentsTypedDict",
     "Telemetry",
+    "TelemetryDimensionCapability",
+    "TelemetryDimensionCapabilityTypedDict",
+    "TelemetryDimensionSetCapability",
+    "TelemetryDimensionSetCapabilityTypedDict",
+    "TelemetryListCapabilitiesRequest",
+    "TelemetryListCapabilitiesRequestTypedDict",
+    "TelemetryMetricCapability",
+    "TelemetryMetricCapabilityTypedDict",
+    "TelemetryQueryMode",
+    "TelemetryResultKind",
+    "TelemetryRow",
+    "TelemetryRowTypedDict",
+    "TelemetrySource",
+    "TelemetrySourceCapability",
+    "TelemetrySourceCapabilityTypedDict",
     "TelemetryTypedDict",
+    "TelemetryValueCardinality",
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
@@ -22567,6 +22645,12 @@ _dynamic_imports: dict[str, str] = {
     "ListSkillsResponseTypedDict": ".listskillsresponse",
     "ListSmartRoutersResponse": ".listsmartroutersresponse",
     "ListSmartRoutersResponseTypedDict": ".listsmartroutersresponse",
+    "ListTelemetryCapabilitiesResponse": ".listtelemetrycapabilitiesresponse",
+    "ListTelemetryCapabilitiesResponseTypedDict": ".listtelemetrycapabilitiesresponse",
+    "ListTelemetryFacetValuesRequest": ".listtelemetryfacetvaluesrequest",
+    "ListTelemetryFacetValuesRequestTypedDict": ".listtelemetryfacetvaluesrequest",
+    "ListTelemetryFacetValuesResponse": ".listtelemetryfacetvaluesresponse",
+    "ListTelemetryFacetValuesResponseTypedDict": ".listtelemetryfacetvaluesresponse",
     "ListThreadsRequest": ".listthreadsrequest",
     "ListThreadsRequestTypedDict": ".listthreadsrequest",
     "ListThreadsResponse": ".listthreadsresponse",
@@ -23124,6 +23208,14 @@ _dynamic_imports: dict[str, str] = {
     "QueryReportResponse": ".queryreportresponse",
     "QueryReportResponseObject": ".queryreportresponse",
     "QueryReportResponseTypedDict": ".queryreportresponse",
+    "QueryTelemetryMeta": ".querytelemetrymeta",
+    "QueryTelemetryMetaTypedDict": ".querytelemetrymeta",
+    "QueryTelemetryRequest": ".querytelemetryrequest",
+    "QueryTelemetryRequestMode": ".querytelemetryrequest",
+    "QueryTelemetryRequestSort": ".querytelemetryrequest",
+    "QueryTelemetryRequestTypedDict": ".querytelemetryrequest",
+    "QueryTelemetryResponse": ".querytelemetryresponse",
+    "QueryTelemetryResponseTypedDict": ".querytelemetryresponse",
     "QueryTracesRequest": ".querytracesrequest",
     "QueryTracesRequestTypedDict": ".querytracesrequest",
     "QueryTracesResponse": ".querytracesresponse",
@@ -24420,6 +24512,22 @@ _dynamic_imports: dict[str, str] = {
     "SyncStatus": ".syncstatus",
     "Telemetry": ".telemetry",
     "TelemetryTypedDict": ".telemetry",
+    "TelemetryDimensionCapability": ".telemetrydimensioncapability",
+    "TelemetryDimensionCapabilityTypedDict": ".telemetrydimensioncapability",
+    "TelemetryDimensionSetCapability": ".telemetrydimensionsetcapability",
+    "TelemetryDimensionSetCapabilityTypedDict": ".telemetrydimensionsetcapability",
+    "TelemetryListCapabilitiesRequest": ".telemetrylistcapabilitiesop",
+    "TelemetryListCapabilitiesRequestTypedDict": ".telemetrylistcapabilitiesop",
+    "TelemetryMetricCapability": ".telemetrymetriccapability",
+    "TelemetryMetricCapabilityTypedDict": ".telemetrymetriccapability",
+    "TelemetryQueryMode": ".telemetryquerymode",
+    "TelemetryResultKind": ".telemetryresultkind",
+    "TelemetryRow": ".telemetryrow",
+    "TelemetryRowTypedDict": ".telemetryrow",
+    "TelemetrySource": ".telemetrysource",
+    "TelemetrySourceCapability": ".telemetrysourcecapability",
+    "TelemetrySourceCapabilityTypedDict": ".telemetrysourcecapability",
+    "TelemetryValueCardinality": ".telemetryvaluecardinality",
     "Arguments": ".testmcpservertoolrequest",
     "ArgumentsTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolRequest": ".testmcpservertoolrequest",
