@@ -303,11 +303,11 @@ class APIKeys(BaseSDK):
         self,
         *,
         name: str,
+        permission_mode: models.PermissionMode,
         owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        permission_mode: Optional[models.PermissionMode] = None,
         access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
@@ -322,9 +322,9 @@ class APIKeys(BaseSDK):
             Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
 
             :param name: Human-readable name. Required.
+            :param permission_mode:
             :param owner: Owner attribution. Defaults to service_account when omitted.
             :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param permission_mode:
             :param access: Per-domain access map. Required when `permission_mode` =
                 `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
                 catalog of valid keys (Domain.id) and AccessLevel string values,
@@ -339,9 +339,9 @@ class APIKeys(BaseSDK):
         def create(
             self, *,
             name: str,
+            permission_mode: models.PermissionMode,
             owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
             project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            permission_mode: Optional[models.PermissionMode] = None,
             access: Optional[Mapping[str, models.AccessLevel]] = None,
             expires_at: Optional[datetime] = None,
             mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
@@ -477,11 +477,11 @@ class APIKeys(BaseSDK):
         self,
         *,
         name: str,
+        permission_mode: models.PermissionMode,
         owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        permission_mode: Optional[models.PermissionMode] = None,
         access: Optional[Mapping[str, models.AccessLevel]] = None,
         expires_at: Optional[datetime] = None,
         mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
@@ -496,9 +496,9 @@ class APIKeys(BaseSDK):
             Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
 
             :param name: Human-readable name. Required.
+            :param permission_mode:
             :param owner: Owner attribution. Defaults to service_account when omitted.
             :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param permission_mode:
             :param access: Per-domain access map. Required when `permission_mode` =
                 `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
                 catalog of valid keys (Domain.id) and AccessLevel string values,
@@ -513,9 +513,9 @@ class APIKeys(BaseSDK):
         async def create_async(
             self, *,
             name: str,
+            permission_mode: models.PermissionMode,
             owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
             project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            permission_mode: Optional[models.PermissionMode] = None,
             access: Optional[Mapping[str, models.AccessLevel]] = None,
             expires_at: Optional[datetime] = None,
             mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,

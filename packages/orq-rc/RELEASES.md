@@ -11059,3 +11059,13 @@ Based on:
 - [python v4.16.0-rc.4] packages/orq-rc
 ### Releases
 - [PyPI v4.16.0-rc.4] https://pypi.org/project/orq-ai-sdk/4.16.0-rc.4 - packages/orq-rc
+
+## 2026-09-19 09:48:13
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.798.0 (2.938.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.16.0-rc.5] packages/orq-rc
+### Releases
+- [PyPI v4.16.0-rc.5] https://pypi.org/project/orq-ai-sdk/4.16.0-rc.5 - packages/orq-rc

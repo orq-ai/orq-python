@@ -2561,6 +2561,8 @@ if TYPE_CHECKING:
         CreateWebhookRequestContentType,
         CreateWebhookRequestTypedDict,
     )
+    from .createwikirequest import CreateWikiRequest, CreateWikiRequestTypedDict
+    from .createwikiresponse import CreateWikiResponse, CreateWikiResponseTypedDict
     from .currentdatetoolinput import (
         CurrentDateToolInput,
         CurrentDateToolInputType,
@@ -2733,6 +2735,8 @@ if TYPE_CHECKING:
         DeleteWebhookResponse,
         DeleteWebhookResponseTypedDict,
     )
+    from .deletewikiop import DeleteWikiRequest, DeleteWikiRequestTypedDict
+    from .deletewikiresponse import DeleteWikiResponse, DeleteWikiResponseTypedDict
     from .deploymentgetconfigop import (
         DeploymentGetConfig1DeploymentsEq,
         DeploymentGetConfig1DeploymentsEqTypedDict,
@@ -4593,6 +4597,12 @@ if TYPE_CHECKING:
         GetUploadFileURLResponse,
         GetUploadFileURLResponseTypedDict,
     )
+    from .getwikiop import GetWikiRequest, GetWikiRequestTypedDict
+    from .getwikipageop import GetWikiPageRequest, GetWikiPageRequestTypedDict
+    from .getwikipageresponse import GetWikiPageResponse, GetWikiPageResponseTypedDict
+    from .getwikiresponse import GetWikiResponse, GetWikiResponseTypedDict
+    from .getwikitreeop import GetWikiTreeRequest, GetWikiTreeRequestTypedDict
+    from .getwikitreeresponse import GetWikiTreeResponse, GetWikiTreeResponseTypedDict
     from .getworkspaceresponse import (
         GetWorkspaceResponse,
         GetWorkspaceResponseTypedDict,
@@ -4676,6 +4686,14 @@ if TYPE_CHECKING:
     )
     from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
     from .inputtokensdetails import InputTokensDetails, InputTokensDetailsTypedDict
+    from .inspectrepositorywikirequest import (
+        InspectRepositoryWikiRequest,
+        InspectRepositoryWikiRequestTypedDict,
+    )
+    from .inspectrepositorywikiresponse import (
+        InspectRepositoryWikiResponse,
+        InspectRepositoryWikiResponseTypedDict,
+    )
     from .internalretrievalconfig import (
         InternalRetrievalConfig,
         InternalRetrievalConfigTypedDict,
@@ -5683,6 +5701,13 @@ if TYPE_CHECKING:
         ListWebhooksResponse,
         ListWebhooksResponseTypedDict,
     )
+    from .listwikirunsop import ListWikiRunsRequest, ListWikiRunsRequestTypedDict
+    from .listwikirunsresponse import (
+        ListWikiRunsResponse,
+        ListWikiRunsResponseTypedDict,
+    )
+    from .listwikisop import ListWikisRequest, ListWikisRequestTypedDict
+    from .listwikisresponse import ListWikisResponse, ListWikisResponseTypedDict
     from .listworkspacesresponse import (
         ListWorkspacesResponse,
         ListWorkspacesResponseTypedDict,
@@ -6343,6 +6368,9 @@ if TYPE_CHECKING:
     )
     from .redactrequest import RedactRequest, RedactRequestTypedDict
     from .redactresponse import RedactResponse, RedactResponseTypedDict
+    from .refreshwikiop import RefreshWikiRequest1, RefreshWikiRequest1TypedDict
+    from .refreshwikirequest import RefreshWikiRequest, RefreshWikiRequestTypedDict
+    from .refreshwikiresponse import RefreshWikiResponse, RefreshWikiResponseTypedDict
     from .refusalpartschema import (
         RefusalPartSchema,
         RefusalPartSchemaType,
@@ -7463,6 +7491,8 @@ if TYPE_CHECKING:
         SearchTracesResponseTypedDict,
     )
     from .searchtype import SearchType
+    from .searchwikiop import SearchWikiRequest, SearchWikiRequestTypedDict
+    from .searchwikiresponse import SearchWikiResponse, SearchWikiResponseTypedDict
     from .security import Security, SecurityTypedDict
     from .securityconfig import SecurityConfig, SecurityConfigTypedDict
     from .servertoolusedetails import (
@@ -9020,6 +9050,21 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
+    from .updatewikiop import UpdateWikiRequest1, UpdateWikiRequest1TypedDict
+    from .updatewikipageop import (
+        UpdateWikiPageRequest1,
+        UpdateWikiPageRequest1TypedDict,
+    )
+    from .updatewikipagerequest import (
+        UpdateWikiPageRequest,
+        UpdateWikiPageRequestTypedDict,
+    )
+    from .updatewikipageresponse import (
+        UpdateWikiPageResponse,
+        UpdateWikiPageResponseTypedDict,
+    )
+    from .updatewikirequest import UpdateWikiRequest, UpdateWikiRequestTypedDict
+    from .updatewikiresponse import UpdateWikiResponse, UpdateWikiResponseTypedDict
     from .updateworkspacerequest import (
         UpdateWorkspaceRequest,
         UpdateWorkspaceRequestMetadata,
@@ -9077,6 +9122,14 @@ if TYPE_CHECKING:
         WebScraperToolInputType,
         WebScraperToolInputTypedDict,
     )
+    from .wiki import Wiki, WikiTypedDict
+    from .wikipage import WikiPage, WikiPageTypedDict
+    from .wikirepository import WikiRepository, WikiRepositoryTypedDict
+    from .wikirun import WikiRun, WikiRunTypedDict
+    from .wikirunstats import WikiRunStats, WikiRunStatsTypedDict
+    from .wikisearchhit import WikiSearchHit, WikiSearchHitTypedDict
+    from .wikisettings import WikiSettings, WikiSettingsTypedDict
+    from .wikitreepage import WikiTreePage, WikiTreePageTypedDict
     from .workspace import (
         Features,
         FeaturesTypedDict,
@@ -11293,6 +11346,10 @@ __all__ = [
     "CreateWebhookRequest",
     "CreateWebhookRequestContentType",
     "CreateWebhookRequestTypedDict",
+    "CreateWikiRequest",
+    "CreateWikiRequestTypedDict",
+    "CreateWikiResponse",
+    "CreateWikiResponseTypedDict",
     "Created",
     "CreatedTypedDict",
     "Criteria",
@@ -11455,6 +11512,10 @@ __all__ = [
     "DeleteV2HumanEvalSetsIDRequestTypedDict",
     "DeleteWebhookResponse",
     "DeleteWebhookResponseTypedDict",
+    "DeleteWikiRequest",
+    "DeleteWikiRequestTypedDict",
+    "DeleteWikiResponse",
+    "DeleteWikiResponseTypedDict",
     "Delta",
     "DeltaTypedDict",
     "DeploymentGetConfig1DeploymentsEq",
@@ -13171,6 +13232,18 @@ __all__ = [
     "GetV2ToolsToolIDVersionsVersionIDResponseBodyTypedDict",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBody",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBodyData",
+    "GetWikiPageRequest",
+    "GetWikiPageRequestTypedDict",
+    "GetWikiPageResponse",
+    "GetWikiPageResponseTypedDict",
+    "GetWikiRequest",
+    "GetWikiRequestTypedDict",
+    "GetWikiResponse",
+    "GetWikiResponseTypedDict",
+    "GetWikiTreeRequest",
+    "GetWikiTreeRequestTypedDict",
+    "GetWikiTreeResponse",
+    "GetWikiTreeResponseTypedDict",
     "GetWorkspaceResponse",
     "GetWorkspaceResponseTypedDict",
     "GetWorkspaceSettingsResponse",
@@ -13285,6 +13358,10 @@ __all__ = [
     "Inputs2",
     "Inputs2TypedDict",
     "InputsTypedDict",
+    "InspectRepositoryWikiRequest",
+    "InspectRepositoryWikiRequestTypedDict",
+    "InspectRepositoryWikiResponse",
+    "InspectRepositoryWikiResponseTypedDict",
     "Instructions",
     "InstructionsTypedDict",
     "InternalRetrievalConfig",
@@ -14071,6 +14148,14 @@ __all__ = [
     "ListTraceSpansResponseTypedDict",
     "ListWebhooksResponse",
     "ListWebhooksResponseTypedDict",
+    "ListWikiRunsRequest",
+    "ListWikiRunsRequestTypedDict",
+    "ListWikiRunsResponse",
+    "ListWikiRunsResponseTypedDict",
+    "ListWikisRequest",
+    "ListWikisRequestTypedDict",
+    "ListWikisResponse",
+    "ListWikisResponseTypedDict",
     "ListWorkspacesResponse",
     "ListWorkspacesResponseTypedDict",
     "LiteLLMModel",
@@ -14834,6 +14919,12 @@ __all__ = [
     "RedactedReasoningPartSchema",
     "RedactedReasoningPartSchemaType",
     "RedactedReasoningPartSchemaTypedDict",
+    "RefreshWikiRequest",
+    "RefreshWikiRequest1",
+    "RefreshWikiRequest1TypedDict",
+    "RefreshWikiRequestTypedDict",
+    "RefreshWikiResponse",
+    "RefreshWikiResponseTypedDict",
     "Refusal",
     "RefusalPartSchema",
     "RefusalPartSchemaType",
@@ -15858,6 +15949,10 @@ __all__ = [
     "SearchTracesResponseObject",
     "SearchTracesResponseTypedDict",
     "SearchType",
+    "SearchWikiRequest",
+    "SearchWikiRequestTypedDict",
+    "SearchWikiResponse",
+    "SearchWikiResponseTypedDict",
     "Security",
     "SecurityConfig",
     "SecurityConfigTypedDict",
@@ -17404,6 +17499,18 @@ __all__ = [
     "UpdateToolResponseBodyTypedDict",
     "UpdateToolToolsResponseBody",
     "UpdateToolToolsResponseBodyData",
+    "UpdateWikiPageRequest",
+    "UpdateWikiPageRequest1",
+    "UpdateWikiPageRequest1TypedDict",
+    "UpdateWikiPageRequestTypedDict",
+    "UpdateWikiPageResponse",
+    "UpdateWikiPageResponseTypedDict",
+    "UpdateWikiRequest",
+    "UpdateWikiRequest1",
+    "UpdateWikiRequest1TypedDict",
+    "UpdateWikiRequestTypedDict",
+    "UpdateWikiResponse",
+    "UpdateWikiResponseTypedDict",
     "UpdateWorkspaceRequest",
     "UpdateWorkspaceRequestMetadata",
     "UpdateWorkspaceRequestMetadataTypedDict",
@@ -17469,6 +17576,22 @@ __all__ = [
     "WebhookUpdateRequestTypedDict",
     "WebhookUpdateResponseBody",
     "WebhookUpdateResponseBodyTypedDict",
+    "Wiki",
+    "WikiPage",
+    "WikiPageTypedDict",
+    "WikiRepository",
+    "WikiRepositoryTypedDict",
+    "WikiRun",
+    "WikiRunStats",
+    "WikiRunStatsTypedDict",
+    "WikiRunTypedDict",
+    "WikiSearchHit",
+    "WikiSearchHitTypedDict",
+    "WikiSettings",
+    "WikiSettingsTypedDict",
+    "WikiTreePage",
+    "WikiTreePageTypedDict",
+    "WikiTypedDict",
     "Window",
     "Words",
     "WordsTypedDict",
@@ -19920,6 +20043,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateWebhookRequest": ".createwebhookrequest",
     "CreateWebhookRequestContentType": ".createwebhookrequest",
     "CreateWebhookRequestTypedDict": ".createwebhookrequest",
+    "CreateWikiRequest": ".createwikirequest",
+    "CreateWikiRequestTypedDict": ".createwikirequest",
+    "CreateWikiResponse": ".createwikiresponse",
+    "CreateWikiResponseTypedDict": ".createwikiresponse",
     "CurrentDateToolInput": ".currentdatetoolinput",
     "CurrentDateToolInputType": ".currentdatetoolinput",
     "CurrentDateToolInputTypedDict": ".currentdatetoolinput",
@@ -20038,6 +20165,10 @@ _dynamic_imports: dict[str, str] = {
     "DeleteToolRequestTypedDict": ".deletetoolop",
     "DeleteWebhookResponse": ".deletewebhookresponse",
     "DeleteWebhookResponseTypedDict": ".deletewebhookresponse",
+    "DeleteWikiRequest": ".deletewikiop",
+    "DeleteWikiRequestTypedDict": ".deletewikiop",
+    "DeleteWikiResponse": ".deletewikiresponse",
+    "DeleteWikiResponseTypedDict": ".deletewikiresponse",
     "DeploymentGetConfig1DeploymentsEq": ".deploymentgetconfigop",
     "DeploymentGetConfig1DeploymentsEqTypedDict": ".deploymentgetconfigop",
     "DeploymentGetConfig1DeploymentsIn": ".deploymentgetconfigop",
@@ -21818,6 +21949,18 @@ _dynamic_imports: dict[str, str] = {
     "GetTraceSpanResponseTypedDict": ".gettracespanresponse",
     "GetUploadFileURLResponse": ".getuploadfileurlresponse",
     "GetUploadFileURLResponseTypedDict": ".getuploadfileurlresponse",
+    "GetWikiRequest": ".getwikiop",
+    "GetWikiRequestTypedDict": ".getwikiop",
+    "GetWikiPageRequest": ".getwikipageop",
+    "GetWikiPageRequestTypedDict": ".getwikipageop",
+    "GetWikiPageResponse": ".getwikipageresponse",
+    "GetWikiPageResponseTypedDict": ".getwikipageresponse",
+    "GetWikiResponse": ".getwikiresponse",
+    "GetWikiResponseTypedDict": ".getwikiresponse",
+    "GetWikiTreeRequest": ".getwikitreeop",
+    "GetWikiTreeRequestTypedDict": ".getwikitreeop",
+    "GetWikiTreeResponse": ".getwikitreeresponse",
+    "GetWikiTreeResponseTypedDict": ".getwikitreeresponse",
     "GetWorkspaceResponse": ".getworkspaceresponse",
     "GetWorkspaceResponseTypedDict": ".getworkspaceresponse",
     "GetWorkspaceSettingsResponse": ".getworkspacesettingsresponse",
@@ -21891,6 +22034,10 @@ _dynamic_imports: dict[str, str] = {
     "IncompleteDetailsTypedDict": ".incompletedetails",
     "InputTokensDetails": ".inputtokensdetails",
     "InputTokensDetailsTypedDict": ".inputtokensdetails",
+    "InspectRepositoryWikiRequest": ".inspectrepositorywikirequest",
+    "InspectRepositoryWikiRequestTypedDict": ".inspectrepositorywikirequest",
+    "InspectRepositoryWikiResponse": ".inspectrepositorywikiresponse",
+    "InspectRepositoryWikiResponseTypedDict": ".inspectrepositorywikiresponse",
     "InternalRetrievalConfig": ".internalretrievalconfig",
     "InternalRetrievalConfigTypedDict": ".internalretrievalconfig",
     "InvokeAgentA2AInvokeRequest": ".invokeagentop",
@@ -22785,6 +22932,14 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
     "ListWebhooksResponse": ".listwebhooksresponse",
     "ListWebhooksResponseTypedDict": ".listwebhooksresponse",
+    "ListWikiRunsRequest": ".listwikirunsop",
+    "ListWikiRunsRequestTypedDict": ".listwikirunsop",
+    "ListWikiRunsResponse": ".listwikirunsresponse",
+    "ListWikiRunsResponseTypedDict": ".listwikirunsresponse",
+    "ListWikisRequest": ".listwikisop",
+    "ListWikisRequestTypedDict": ".listwikisop",
+    "ListWikisResponse": ".listwikisresponse",
+    "ListWikisResponseTypedDict": ".listwikisresponse",
     "ListWorkspacesResponse": ".listworkspacesresponse",
     "ListWorkspacesResponseTypedDict": ".listworkspacesresponse",
     "LiteLLMModel": ".litellmmodel",
@@ -23369,6 +23524,12 @@ _dynamic_imports: dict[str, str] = {
     "RedactRequestTypedDict": ".redactrequest",
     "RedactResponse": ".redactresponse",
     "RedactResponseTypedDict": ".redactresponse",
+    "RefreshWikiRequest1": ".refreshwikiop",
+    "RefreshWikiRequest1TypedDict": ".refreshwikiop",
+    "RefreshWikiRequest": ".refreshwikirequest",
+    "RefreshWikiRequestTypedDict": ".refreshwikirequest",
+    "RefreshWikiResponse": ".refreshwikiresponse",
+    "RefreshWikiResponseTypedDict": ".refreshwikiresponse",
     "RefusalPartSchema": ".refusalpartschema",
     "RefusalPartSchemaType": ".refusalpartschema",
     "RefusalPartSchemaTypedDict": ".refusalpartschema",
@@ -24316,6 +24477,10 @@ _dynamic_imports: dict[str, str] = {
     "SearchTracesResponseObject": ".searchtracesresponse",
     "SearchTracesResponseTypedDict": ".searchtracesresponse",
     "SearchType": ".searchtype",
+    "SearchWikiRequest": ".searchwikiop",
+    "SearchWikiRequestTypedDict": ".searchwikiop",
+    "SearchWikiResponse": ".searchwikiresponse",
+    "SearchWikiResponseTypedDict": ".searchwikiresponse",
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "SecurityConfig": ".securityconfig",
@@ -25777,6 +25942,18 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
+    "UpdateWikiRequest1": ".updatewikiop",
+    "UpdateWikiRequest1TypedDict": ".updatewikiop",
+    "UpdateWikiPageRequest1": ".updatewikipageop",
+    "UpdateWikiPageRequest1TypedDict": ".updatewikipageop",
+    "UpdateWikiPageRequest": ".updatewikipagerequest",
+    "UpdateWikiPageRequestTypedDict": ".updatewikipagerequest",
+    "UpdateWikiPageResponse": ".updatewikipageresponse",
+    "UpdateWikiPageResponseTypedDict": ".updatewikipageresponse",
+    "UpdateWikiRequest": ".updatewikirequest",
+    "UpdateWikiRequestTypedDict": ".updatewikirequest",
+    "UpdateWikiResponse": ".updatewikiresponse",
+    "UpdateWikiResponseTypedDict": ".updatewikiresponse",
     "UpdateWorkspaceRequest": ".updateworkspacerequest",
     "UpdateWorkspaceRequestMetadata": ".updateworkspacerequest",
     "UpdateWorkspaceRequestMetadataTypedDict": ".updateworkspacerequest",
@@ -25828,6 +26005,22 @@ _dynamic_imports: dict[str, str] = {
     "WebScraperToolInput": ".webscrapertoolinput",
     "WebScraperToolInputType": ".webscrapertoolinput",
     "WebScraperToolInputTypedDict": ".webscrapertoolinput",
+    "Wiki": ".wiki",
+    "WikiTypedDict": ".wiki",
+    "WikiPage": ".wikipage",
+    "WikiPageTypedDict": ".wikipage",
+    "WikiRepository": ".wikirepository",
+    "WikiRepositoryTypedDict": ".wikirepository",
+    "WikiRun": ".wikirun",
+    "WikiRunTypedDict": ".wikirun",
+    "WikiRunStats": ".wikirunstats",
+    "WikiRunStatsTypedDict": ".wikirunstats",
+    "WikiSearchHit": ".wikisearchhit",
+    "WikiSearchHitTypedDict": ".wikisearchhit",
+    "WikiSettings": ".wikisettings",
+    "WikiSettingsTypedDict": ".wikisettings",
+    "WikiTreePage": ".wikitreepage",
+    "WikiTreePageTypedDict": ".wikitreepage",
     "Features": ".workspace",
     "FeaturesTypedDict": ".workspace",
     "Workspace": ".workspace",

@@ -16,11 +16,11 @@ from typing_extensions import NotRequired, TypedDict
 class CreateAPIKeyRequestTypedDict(TypedDict):
     name: str
     r"""Human-readable name. Required."""
+    permission_mode: PermissionMode
     owner: NotRequired[APIKeyOwnerTypedDict]
     r"""Owner attribution. Defaults to service_account when omitted."""
     project_scope: NotRequired[ProjectScopeTypedDict]
     r"""Project authorization scope. Defaults to all-projects when omitted."""
-    permission_mode: NotRequired[PermissionMode]
     access: NotRequired[Dict[str, AccessLevel]]
     r"""Per-domain access map. Required when `permission_mode` =
     `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
@@ -46,13 +46,13 @@ class CreateAPIKeyRequest(BaseModel):
     name: str
     r"""Human-readable name. Required."""
 
+    permission_mode: PermissionMode
+
     owner: Optional[APIKeyOwner] = None
     r"""Owner attribution. Defaults to service_account when omitted."""
 
     project_scope: Optional[ProjectScope] = None
     r"""Project authorization scope. Defaults to all-projects when omitted."""
-
-    permission_mode: Optional[PermissionMode] = None
 
     access: Optional[Dict[str, AccessLevel]] = None
     r"""Per-domain access map. Required when `permission_mode` =
@@ -80,15 +80,7 @@ class CreateAPIKeyRequest(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "owner",
-                "project_scope",
-                "permission_mode",
-                "access",
-                "expires_at",
-                "mcp_access",
-                "labels",
-            ]
+            ["owner", "project_scope", "access", "expires_at", "mcp_access", "labels"]
         )
         serialized = handler(self)
         m = {}
