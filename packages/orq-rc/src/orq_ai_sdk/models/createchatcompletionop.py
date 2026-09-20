@@ -285,6 +285,60 @@ class CreateChatCompletionMessagesFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class CreateChatCompletionMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionMessagesGoogleTypedDict]
+
+
+class CreateChatCompletionMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -293,6 +347,8 @@ class CreateChatCompletionMessagesToolCallsTypedDict(TypedDict):
     function: CreateChatCompletionMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreateChatCompletionMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionMessagesToolCalls(BaseModel):
@@ -307,9 +363,12 @@ class CreateChatCompletionMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreateChatCompletionMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -3068,6 +3127,60 @@ class CreateChatCompletionRouterChatCompletionsResponseFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionRouterChatCompletionsGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+
+
+class CreateChatCompletionRouterChatCompletionsGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionRouterChatCompletionsExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionRouterChatCompletionsGoogleTypedDict]
+
+
+class CreateChatCompletionRouterChatCompletionsExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionRouterChatCompletionsGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionRouterChatCompletionsToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     r"""The index of the tool call."""
@@ -3080,6 +3193,10 @@ class CreateChatCompletionRouterChatCompletionsToolCallsTypedDict(TypedDict):
     ]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+    extra_content: NotRequired[
+        CreateChatCompletionRouterChatCompletionsExtraContentTypedDict
+    ]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionRouterChatCompletionsToolCalls(BaseModel):
@@ -3097,9 +3214,16 @@ class CreateChatCompletionRouterChatCompletionsToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
 
+    extra_content: Optional[CreateChatCompletionRouterChatCompletionsExtraContent] = (
+        None
+    )
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["index", "id", "type", "function", "thought_signature"])
+        optional_fields = set(
+            ["index", "id", "type", "function", "thought_signature", "extra_content"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -3619,6 +3743,60 @@ class CreateChatCompletionRouterChatCompletionsFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+
+class CreateChatCompletionGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionGoogleTypedDict]
+
+
+class CreateChatCompletionExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     id: NotRequired[str]
@@ -3626,6 +3804,8 @@ class CreateChatCompletionToolCallsTypedDict(TypedDict):
     function: NotRequired[CreateChatCompletionRouterChatCompletionsFunctionTypedDict]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreateChatCompletionExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionToolCalls(BaseModel):
@@ -3640,9 +3820,14 @@ class CreateChatCompletionToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreateChatCompletionExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["index", "id", "type", "function", "thought_signature"])
+        optional_fields = set(
+            ["index", "id", "type", "function", "thought_signature", "extra_content"]
+        )
         serialized = handler(self)
         m = {}
 

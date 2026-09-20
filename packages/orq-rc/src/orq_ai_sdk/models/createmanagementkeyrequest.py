@@ -13,7 +13,7 @@ from typing_extensions import NotRequired, TypedDict
 class CreateManagementKeyRequestTypedDict(TypedDict):
     name: str
     r"""Human-readable name. Required."""
-    permission_mode: NotRequired[ManagementPermissionMode]
+    permission_mode: ManagementPermissionMode
     access: NotRequired[Dict[str, AccessLevel]]
     r"""Per-domain access map. Required when `permission_mode` =
     `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. See `ManagementKey.access`
@@ -32,7 +32,7 @@ class CreateManagementKeyRequest(BaseModel):
     name: str
     r"""Human-readable name. Required."""
 
-    permission_mode: Optional[ManagementPermissionMode] = None
+    permission_mode: ManagementPermissionMode
 
     access: Optional[Dict[str, AccessLevel]] = None
     r"""Per-domain access map. Required when `permission_mode` =
@@ -50,7 +50,7 @@ class CreateManagementKeyRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["permission_mode", "access", "expires_at"])
+        optional_fields = set(["access", "expires_at"])
         serialized = handler(self)
         m = {}
 

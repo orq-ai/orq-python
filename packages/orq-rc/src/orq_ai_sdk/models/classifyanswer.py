@@ -21,7 +21,7 @@ class ClassifyAnswerTypedDict(TypedDict):
     choice: NotRequired[str]
     r"""The selected option. Present for choice answers."""
     confidence: NotRequired[float]
-    r"""Confidence in the selected option or level. Present for choice and score answers."""
+    r"""Probability of the selected option or level. Present for choice and score answers."""
     legend: NotRequired[Dict[str, str]]
     r"""Level index to level description. Present for score answers."""
     noul: NotRequired[float]
@@ -40,7 +40,7 @@ class ClassifyAnswer(BaseModel):
     r"""The selected option. Present for choice answers."""
 
     confidence: Optional[float] = None
-    r"""Confidence in the selected option or level. Present for choice and score answers."""
+    r"""Probability of the selected option or level. Present for choice and score answers."""
 
     legend: Optional[Dict[str, str]] = None
     r"""Level index to level description. Present for score answers."""
