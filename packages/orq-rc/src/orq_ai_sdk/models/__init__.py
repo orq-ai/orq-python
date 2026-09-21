@@ -293,16 +293,6 @@ if TYPE_CHECKING:
         InputAudio,
         InputAudioTypedDict,
     )
-    from .auditlog import (
-        AuditLog,
-        AuditLogMetadata,
-        AuditLogMetadataTypedDict,
-        AuditLogTypedDict,
-    )
-    from .auditlogfilter import AuditLogFilter, AuditLogFilterTypedDict
-    from .auditlogfilterquery import AuditLogFilterQuery, AuditLogFilterQueryTypedDict
-    from .auditlogpagination import AuditLogPagination, AuditLogPaginationTypedDict
-    from .auditlogsort import AuditLogSort, AuditLogSortTypedDict
     from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
     from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
     from .autorouterv2creatorconfig import (
@@ -909,14 +899,14 @@ if TYPE_CHECKING:
         AnnotationsValueTypedDict,
         CreateAnnotationAnnotations,
         CreateAnnotationAnnotationsTypedDict,
-        CreateAnnotationAnnotationsValue,
-        CreateAnnotationAnnotationsValueTypedDict,
         CreateAnnotationMetadata,
         CreateAnnotationMetadataTypedDict,
         CreateAnnotationRequest,
         CreateAnnotationRequestBody,
         CreateAnnotationRequestBodyTypedDict,
         CreateAnnotationRequestTypedDict,
+        Value,
+        ValueTypedDict,
     )
     from .createannotationqueuerequest import (
         CreateAnnotationQueueRequest,
@@ -6355,14 +6345,6 @@ if TYPE_CHECKING:
         PublicSchedulePayloadTypedDict,
     )
     from .publicusage import PublicUsage, PublicUsageTypedDict
-    from .queryauditlogsrequest import (
-        QueryAuditLogsRequest,
-        QueryAuditLogsRequestTypedDict,
-    )
-    from .queryauditlogsresponse import (
-        QueryAuditLogsResponse,
-        QueryAuditLogsResponseTypedDict,
-    )
     from .queryknowledgebasetoolinput import (
         QueryKnowledgeBaseToolInput,
         QueryKnowledgeBaseToolInputType,
@@ -9187,7 +9169,6 @@ if TYPE_CHECKING:
         UpsertChunkTypedDict,
     )
     from .userowner import UserOwner, UserOwnerTypedDict
-    from .value import Value
     from .verifydomainresponse import (
         VerifyDomainResponse,
         VerifyDomainResponseTypedDict,
@@ -9591,18 +9572,6 @@ __all__ = [
     "AudioContentPartSchemaTypedDict",
     "AudioModel",
     "AudioModelTypedDict",
-    "AuditLog",
-    "AuditLogFilter",
-    "AuditLogFilterQuery",
-    "AuditLogFilterQueryTypedDict",
-    "AuditLogFilterTypedDict",
-    "AuditLogMetadata",
-    "AuditLogMetadataTypedDict",
-    "AuditLogPagination",
-    "AuditLogPaginationTypedDict",
-    "AuditLogSort",
-    "AuditLogSortTypedDict",
-    "AuditLogTypedDict",
     "AutoRouterConfig",
     "AutoRouterConfigTypedDict",
     "AutoRouterV2Config",
@@ -10019,8 +9988,6 @@ __all__ = [
     "CreateAlertResponseTypedDict",
     "CreateAnnotationAnnotations",
     "CreateAnnotationAnnotationsTypedDict",
-    "CreateAnnotationAnnotationsValue",
-    "CreateAnnotationAnnotationsValueTypedDict",
     "CreateAnnotationMetadata",
     "CreateAnnotationMetadataTypedDict",
     "CreateAnnotationQueueRequest",
@@ -15009,10 +14976,6 @@ __all__ = [
     "PythonTypedDict",
     "Quality",
     "Query",
-    "QueryAuditLogsRequest",
-    "QueryAuditLogsRequestTypedDict",
-    "QueryAuditLogsResponse",
-    "QueryAuditLogsResponseTypedDict",
     "QueryKnowledgeBaseToolInput",
     "QueryKnowledgeBaseToolInputType",
     "QueryKnowledgeBaseToolInputTypedDict",
@@ -17732,6 +17695,7 @@ __all__ = [
     "UserOwner",
     "UserOwnerTypedDict",
     "Value",
+    "ValueTypedDict",
     "Verbosity",
     "VerifyDomainResponse",
     "VerifyDomainResponseTypedDict",
@@ -18090,18 +18054,6 @@ _dynamic_imports: dict[str, str] = {
     "Format": ".audiocontentpartschema",
     "InputAudio": ".audiocontentpartschema",
     "InputAudioTypedDict": ".audiocontentpartschema",
-    "AuditLog": ".auditlog",
-    "AuditLogMetadata": ".auditlog",
-    "AuditLogMetadataTypedDict": ".auditlog",
-    "AuditLogTypedDict": ".auditlog",
-    "AuditLogFilter": ".auditlogfilter",
-    "AuditLogFilterTypedDict": ".auditlogfilter",
-    "AuditLogFilterQuery": ".auditlogfilterquery",
-    "AuditLogFilterQueryTypedDict": ".auditlogfilterquery",
-    "AuditLogPagination": ".auditlogpagination",
-    "AuditLogPaginationTypedDict": ".auditlogpagination",
-    "AuditLogSort": ".auditlogsort",
-    "AuditLogSortTypedDict": ".auditlogsort",
     "AutoRouterConfig": ".autorouterconfig",
     "AutoRouterConfigTypedDict": ".autorouterconfig",
     "AutoRouterV2Config": ".autorouterv2config",
@@ -18669,14 +18621,14 @@ _dynamic_imports: dict[str, str] = {
     "AnnotationsValueTypedDict": ".createannotationop",
     "CreateAnnotationAnnotations": ".createannotationop",
     "CreateAnnotationAnnotationsTypedDict": ".createannotationop",
-    "CreateAnnotationAnnotationsValue": ".createannotationop",
-    "CreateAnnotationAnnotationsValueTypedDict": ".createannotationop",
     "CreateAnnotationMetadata": ".createannotationop",
     "CreateAnnotationMetadataTypedDict": ".createannotationop",
     "CreateAnnotationRequest": ".createannotationop",
     "CreateAnnotationRequestBody": ".createannotationop",
     "CreateAnnotationRequestBodyTypedDict": ".createannotationop",
     "CreateAnnotationRequestTypedDict": ".createannotationop",
+    "Value": ".createannotationop",
+    "ValueTypedDict": ".createannotationop",
     "CreateAnnotationQueueRequest": ".createannotationqueuerequest",
     "CreateAnnotationQueueRequestTypedDict": ".createannotationqueuerequest",
     "CreateAPIKeyRequest": ".createapikeyrequest",
@@ -23719,10 +23671,6 @@ _dynamic_imports: dict[str, str] = {
     "PublicSchedulePayloadTypedDict": ".publicschedulepayload",
     "PublicUsage": ".publicusage",
     "PublicUsageTypedDict": ".publicusage",
-    "QueryAuditLogsRequest": ".queryauditlogsrequest",
-    "QueryAuditLogsRequestTypedDict": ".queryauditlogsrequest",
-    "QueryAuditLogsResponse": ".queryauditlogsresponse",
-    "QueryAuditLogsResponseTypedDict": ".queryauditlogsresponse",
     "QueryKnowledgeBaseToolInput": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputType": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputTypedDict": ".queryknowledgebasetoolinput",
@@ -26260,7 +26208,6 @@ _dynamic_imports: dict[str, str] = {
     "UpsertChunkTypedDict": ".upsertchunk",
     "UserOwner": ".userowner",
     "UserOwnerTypedDict": ".userowner",
-    "Value": ".value",
     "VerifyDomainResponse": ".verifydomainresponse",
     "VerifyDomainResponseTypedDict": ".verifydomainresponse",
     "VertexCapabilities": ".vertexcapabilities",
