@@ -42,7 +42,7 @@ with Orq(
 
 ### Response
 
-**[List[models.GetV2HumanEvalSetsResponseBody]](../../models/.md)**
+**[List[models.ResponseBody]](../../models/.md)**
 
 ### Errors
 

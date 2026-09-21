@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `dataset_id`                                                                       | *str*                                                                              | :heavy_check_mark:                                                                 | The unique identifier of the dataset                                               |
-| `request_body`                                                                     | [Optional[models.UpdateDatasetRequestBody]](../models/updatedatasetrequestbody.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `display_name`     | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `project_id`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |

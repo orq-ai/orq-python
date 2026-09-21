@@ -7,18 +7,20 @@
 * [list](#list) - List datasets
 * [create](#create) - Create a dataset
 * [retrieve](#retrieve) - Retrieve a dataset
-* [update](#update) - Update a dataset
 * [delete](#delete) - Delete a dataset
-* [list_datapoints](#list_datapoints) - List datapoints
-* [create_datapoint](#create_datapoint) - Create a datapoint
-* [retrieve_datapoint](#retrieve_datapoint) - Retrieve a datapoint
-* [update_datapoint](#update_datapoint) - Update a datapoint
-* [delete_datapoint](#delete_datapoint) - Delete a datapoint
+* [update](#update) - Update a dataset
 * [clear](#clear) - Delete all datapoints
+* [list_datapoints](#list_datapoints) - List datapoints
+* [create_datapoint](#create_datapoint) - Create datapoints
+* [delete_datapoints](#delete_datapoints) - Delete specific datapoints
+* [create_datapoints](#create_datapoints) - Create multiple datapoints
+* [retrieve_datapoint](#retrieve_datapoint) - Retrieve a datapoint
+* [delete_datapoint](#delete_datapoint) - Delete a datapoint
+* [update_datapoint](#update_datapoint) - Update a datapoint
 
 ## list
 
-Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
+Retrieves a paginated list of datasets for the current workspace.
 
 ### Example Usage
 
@@ -41,19 +43,19 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `search`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter datasets by display name (case-insensitive match).                                                                                                                                                                                                                                                                               |
-| `updated_by`                                                                                                                                                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Comma-separated list of user IDs; returns datasets last updated by any of them.                                                                                                                                                                                                                                                         |
-| `project_id`                                                                                                                                                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Restricts results to a single project. Defaults to every project the caller can access.                                                                                                                                                                                                                                                 |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `search`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `updated_by`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.ListDatasetsResponseBody](../../models/listdatasetsresponsebody.md)**
+**[models.ListDatasetsResponse](../../models/listdatasetsresponse.md)**
 
 ### Errors
 
@@ -63,7 +65,7 @@ with Orq(
 
 ## create
 
-Creates a new dataset in the specified project.
+Creates a new dataset in the project bound to the API key, or in the workspace default project.
 
 ### Example Usage
 
@@ -77,10 +79,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.datasets.create(request={
-        "display_name": "Neva.Raynor10",
-        "path": "Default",
-    })
+    res = orq.datasets.create(display_name="Neva.Raynor10")
 
     # Handle response
     print(res)
@@ -89,14 +88,14 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `request`                                                                   | [models.CreateDatasetRequestBody](../../models/createdatasetrequestbody.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
-| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `display_name`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Human-readable dataset name.                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.CreateDatasetResponseBody](../../models/createdatasetresponsebody.md)**
+**[models.Dataset](../../models/dataset.md)**
 
 ### Errors
 
@@ -106,7 +105,7 @@ with Orq(
 
 ## retrieve
 
-Retrieves a specific dataset by its unique identifier
+Retrieves a specific dataset by its unique identifier.
 
 ### Example Usage
 
@@ -131,67 +130,22 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RetrieveDatasetResponseBody](../../models/retrievedatasetresponsebody.md)**
+**[models.Dataset](../../models/dataset.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update
-
-Update a dataset
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="UpdateDataset" method="patch" path="/v2/datasets/{dataset_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.datasets.update(dataset_id="<id>", path="Default")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dataset_id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | *str*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | The unique identifier of the dataset                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `display_name`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | The display name of the dataset                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `project_id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | The unique identifier of the project it belongs to                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `path`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Entity storage path.<br/><br/>With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.<br/><br/>With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project. | Default Project                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `retries`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-
-### Response
-
-**[models.UpdateDatasetResponseBody](../../models/updatedatasetresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
 
-Permanently deletes a dataset and all its datapoints. This action is irreversible.
+Permanently deletes a dataset and all its datapoints.
 
 ### Example Usage
 
@@ -215,7 +169,84 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## update
+
+Updates the specified dataset.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="UpdateDataset" method="patch" path="/v2/datasets/{dataset_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.datasets.update(dataset_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `project_id`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.Dataset](../../models/dataset.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## clear
+
+Deletes all datapoints from a dataset.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ClearDataset" method="delete" path="/v2/datasets/{dataset_id}/clear" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.datasets.clear(dataset_id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -249,28 +280,27 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dataset_id`                                                                                                                                                                                                                                                                                                                            | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | The unique identifier of the dataset                                                                                                                                                                                                                                                                                                    |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[int]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10                                                                                                                                                                                                                               |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `starting_after`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `ending_before`                                                     | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.ListDatasetDatapointsResponseBody](../../models/listdatasetdatapointsresponsebody.md)**
+**[models.ListDatapointsResponse](../../models/listdatapointsresponse.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create_datapoint
 
-Creates a new datapoint in the specified dataset.
+Creates one or more datapoints in the specified dataset.
 
 ### Example Usage
 
@@ -284,7 +314,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.datasets.create_datapoint(dataset_id="<id>")
+    res = orq.datasets.create_datapoint(dataset_id="<id>", request_body=[
+        {},
+    ])
 
     # Handle response
     print(res)
@@ -295,24 +327,102 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
-| `request_body`                                                      | List[[models.RequestBody](../../models/requestbody.md)]             | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `request_body`                                                      | List[[models.DatapointInput](../../models/datapointinput.md)]       | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[List[models.ResponseBody]](../../models/.md)**
+**[List[models.Datapoint1]](../../models/.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## delete_datapoints
+
+Deletes multiple datapoints from a dataset by ID.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteDatasetDatapoints" method="post" path="/v2/datasets/{dataset_id}/datapoints-bulk-delete" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.datasets.delete_datapoints(dataset_id="<id>", item_ids=[
+        "<value 1>",
+    ])
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `item_ids`                                                          | List[*str*]                                                         | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## create_datapoints
+
+Creates multiple datapoints at once.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="BulkCreateDatapoints" method="post" path="/v2/datasets/{dataset_id}/datapoints/bulk" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.datasets.create_datapoints(dataset_id="<id>", items=[])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `items`                                                             | List[[models.DatapointInput](../../models/datapointinput.md)]       | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[List[models.Datapoint1]](../../models/.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve_datapoint
 
-Retrieves a datapoint object
+Retrieves a datapoint object.
 
 ### Example Usage
 
@@ -337,64 +447,18 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
-| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datapoint                              |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.RetrieveDatapointResponseBody](../../models/retrievedatapointresponsebody.md)**
+**[models.Datapoint1](../../models/datapoint1.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## update_datapoint
-
-Update a datapoint in the specified dataset.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="UpdateDatapoint" method="patch" path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.datasets.update_datapoint(dataset_id="<id>", datapoint_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                 | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dataset_id`                                                                                                                                              | *str*                                                                                                                                                     | :heavy_check_mark:                                                                                                                                        | The unique identifier of the dataset                                                                                                                      |
-| `datapoint_id`                                                                                                                                            | *str*                                                                                                                                                     | :heavy_check_mark:                                                                                                                                        | The unique identifier of the datapoint                                                                                                                    |
-| `inputs`                                                                                                                                                  | Dict[str, [Nullable[models.UpdateDatapointInputs]](../../models/updatedatapointinputs.md)]                                                                | :heavy_minus_sign:                                                                                                                                        | The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported. |
-| `messages`                                                                                                                                                | List[[models.UpdateDatapointMessages](../../models/updatedatapointmessages.md)]                                                                           | :heavy_minus_sign:                                                                                                                                        | A list of messages comprising the conversation so far                                                                                                     |
-| `expected_output`                                                                                                                                         | *Optional[str]*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `retries`                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                          | :heavy_minus_sign:                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                       |
-
-### Response
-
-**[models.UpdateDatapointResponseBody](../../models/updatedatapointresponsebody.md)**
-
-### Errors
-
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete_datapoint
@@ -423,24 +487,23 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
-| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datapoint                              |
+| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `datapoint_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
-## clear
+## update_datapoint
 
-Delete all datapoints from a dataset. This action is irreversible.
+Updates the inputs, messages, or expected output for a datapoint.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="ClearDataset" method="delete" path="/v2/datasets/{dataset_id}/clear" -->
+<!-- UsageSnippet language="python" operationID="UpdateDatapoint" method="patch" path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -450,22 +513,30 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.datasets.clear(dataset_id="<id>")
+    res = orq.datasets.update_datapoint(dataset_id="<id>", datapoint_id="<id>")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the dataset                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `dataset_id`                                                                                  | *str*                                                                                         | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `datapoint_id`                                                                                | *str*                                                                                         | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `inputs`                                                                                      | [Optional[models.UpdateDatapointRequestInputs]](../../models/updatedatapointrequestinputs.md) | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `messages`                                                                                    | List[*Any*]                                                                                   | :heavy_minus_sign:                                                                            | A JSON array containing dynamically typed values.                                             |
+| `expected_output`                                                                             | *Optional[str]*                                                                               | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `retries`                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                              | :heavy_minus_sign:                                                                            | Configuration to override the default retry behavior of the client.                           |
+
+### Response
+
+**[models.Datapoint1](../../models/datapoint1.md)**
 
 ### Errors
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.HonoAPIError    | 404                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

@@ -100,7 +100,7 @@ class GetV2HumanEvalSetsResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-09-21T07:21:34.711Z")
+    updated: Optional[datetime] = parse_datetime("2026-09-21T16:34:27.567Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -185,7 +185,7 @@ class GetV2HumanEvalSetsResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-09-21T07:21:34.711Z")
+    updated: Optional[datetime] = parse_datetime("2026-09-21T16:34:27.567Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -214,8 +214,8 @@ class GetV2HumanEvalSetsResponseBody1(BaseModel):
         return m
 
 
-GetV2HumanEvalSetsResponseBodyTypedDict = TypeAliasType(
-    "GetV2HumanEvalSetsResponseBodyTypedDict",
+ResponseBodyTypedDict = TypeAliasType(
+    "ResponseBodyTypedDict",
     Union[
         GetV2HumanEvalSetsResponseBody1TypedDict,
         GetV2HumanEvalSetsResponseBody2TypedDict,
@@ -223,7 +223,7 @@ GetV2HumanEvalSetsResponseBodyTypedDict = TypeAliasType(
 )
 
 
-GetV2HumanEvalSetsResponseBody = Annotated[
+ResponseBody = Annotated[
     Union[
         Annotated[GetV2HumanEvalSetsResponseBody1, Tag("span_type")],
         Annotated[GetV2HumanEvalSetsResponseBody2, Tag("name")],

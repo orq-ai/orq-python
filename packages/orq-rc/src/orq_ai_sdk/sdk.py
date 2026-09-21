@@ -72,7 +72,6 @@ class Orq(BaseSDK):
     agents: "Agents"
     prompts: "Prompts"
     tools: "Tools"
-    datasets: "Datasets"
     router: "Router"
     annotations: "Annotations"
     feedback: "Feedback"
@@ -87,6 +86,7 @@ class Orq(BaseSDK):
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
     traces: "Traces"
+    datasets: "Datasets"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
@@ -119,7 +119,6 @@ class Orq(BaseSDK):
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
@@ -134,6 +133,7 @@ class Orq(BaseSDK):
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),
+        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),

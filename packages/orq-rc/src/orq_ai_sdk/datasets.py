@@ -3,17 +3,17 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Union, cast
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Datasets(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
@@ -23,17 +23,17 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListDatasetsResponseBody:
+    ) -> models.ListDatasetsResponse:
         r"""List datasets
 
-        Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
+        Retrieves a paginated list of datasets for the current workspace.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param search: Filter datasets by display name (case-insensitive match).
-        :param updated_by: Comma-separated list of user IDs; returns datasets last updated by any of them.
-        :param project_id: Restricts results to a single project. Defaults to every project the caller can access.
+        :param limit:
+        :param starting_after:
+        :param ending_before:
+        :param search:
+        :param updated_by:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -96,7 +96,25 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "list"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List datasets",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List datasets",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.dataset_id, dataset.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List datasets",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -104,7 +122,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListDatasetsResponseBody, http_res)
+            return unmarshal_json_response(models.ListDatasetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -117,7 +135,7 @@ class Datasets(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
@@ -127,17 +145,17 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListDatasetsResponseBody:
+    ) -> models.ListDatasetsResponse:
         r"""List datasets
 
-        Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
+        Retrieves a paginated list of datasets for the current workspace.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param search: Filter datasets by display name (case-insensitive match).
-        :param updated_by: Comma-separated list of user IDs; returns datasets last updated by any of them.
-        :param project_id: Restricts results to a single project. Defaults to every project the caller can access.
+        :param limit:
+        :param starting_after:
+        :param ending_before:
+        :param search:
+        :param updated_by:
+        :param project_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -200,7 +218,25 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "list"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List datasets",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        },
+                        {
+                            "label": "Python - List datasets",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\npage = client.datasets.list(\n    limit=25,\n)\n\nfor dataset in page.data:\n    print(dataset.dataset_id, dataset.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - List datasets",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.datasets.list({\n  limit: 25,\n});\n\nfor (const dataset of page.data) {\n  console.log(dataset.datasetId, dataset.displayName);\n}\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -208,7 +244,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListDatasetsResponseBody, http_res)
+            return unmarshal_json_response(models.ListDatasetsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -221,22 +257,17 @@ class Datasets(BaseSDK):
     def create(
         self,
         *,
-        request: Optional[
-            Union[
-                models.CreateDatasetRequestBody,
-                models.CreateDatasetRequestBodyTypedDict,
-            ]
-        ] = None,
+        display_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateDatasetResponseBody:
+    ) -> models.Dataset:
         r"""Create a dataset
 
-        Creates a new dataset in the specified project.
+        Creates a new dataset in the project bound to the API key, or in the workspace default project.
 
-        :param request: The request object to send.
+        :param display_name: Human-readable dataset name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -255,11 +286,9 @@ class Datasets(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateDatasetRequestBody]
-            )
-        request = cast(Optional[models.CreateDatasetRequestBody], request)
+        request = models.CreateDatasetRequest(
+            display_name=display_name,
+        )
 
         req = self._build_request(
             method="POST",
@@ -267,7 +296,7 @@ class Datasets(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -275,7 +304,7 @@ class Datasets(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateDatasetRequestBody]
+                request, False, False, "json", models.CreateDatasetRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -299,7 +328,25 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "create"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create dataset",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval\",\n    \"path\": \"/customer-success/datasets/support-quality-eval\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Create dataset",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.dataset_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create dataset",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -307,7 +354,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateDatasetResponseBody, http_res)
+            return unmarshal_json_response(models.Dataset, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -320,22 +367,17 @@ class Datasets(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Optional[
-            Union[
-                models.CreateDatasetRequestBody,
-                models.CreateDatasetRequestBodyTypedDict,
-            ]
-        ] = None,
+        display_name: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.CreateDatasetResponseBody:
+    ) -> models.Dataset:
         r"""Create a dataset
 
-        Creates a new dataset in the specified project.
+        Creates a new dataset in the project bound to the API key, or in the workspace default project.
 
-        :param request: The request object to send.
+        :param display_name: Human-readable dataset name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -354,11 +396,9 @@ class Datasets(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateDatasetRequestBody]
-            )
-        request = cast(Optional[models.CreateDatasetRequestBody], request)
+        request = models.CreateDatasetRequest(
+            display_name=display_name,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -366,7 +406,7 @@ class Datasets(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -374,7 +414,7 @@ class Datasets(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateDatasetRequestBody]
+                request, False, False, "json", models.CreateDatasetRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -398,7 +438,25 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "create"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create dataset",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval\",\n    \"path\": \"/customer-success/datasets/support-quality-eval\"\n  }'\n",
+                        },
+                        {
+                            "label": "Python - Create dataset",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.create(\n    display_name="support_quality_eval",\n    path="/customer-success/datasets/support-quality-eval",\n)\n\nprint(dataset.dataset_id)\n',
+                        },
+                        {
+                            "label": "Node.js - Create dataset",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.create({\n  displayName: 'support_quality_eval',\n  path: '/customer-success/datasets/support-quality-eval',\n});\n\nconsole.log(dataset.datasetId);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -406,7 +464,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.CreateDatasetResponseBody, http_res)
+            return unmarshal_json_response(models.Dataset, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -424,12 +482,12 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveDatasetResponseBody:
+    ) -> models.Dataset:
         r"""Retrieve a dataset
 
-        Retrieves a specific dataset by its unique identifier
+        Retrieves a specific dataset by its unique identifier.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -487,19 +545,33 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve dataset",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve dataset",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.retrieve(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n)\n\nprint(dataset.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve dataset",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.retrieve({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n});\n\nconsole.log(dataset.displayName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveDatasetResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.Dataset, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -517,12 +589,12 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveDatasetResponseBody:
+    ) -> models.Dataset:
         r"""Retrieve a dataset
 
-        Retrieves a specific dataset by its unique identifier
+        Retrieves a specific dataset by its unique identifier.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -580,249 +652,33 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "retrieve"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve dataset",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        },
+                        {
+                            "label": "Python - Retrieve dataset",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\ndataset = client.datasets.retrieve(\n    dataset_id="01J6V6G8M4F5N8P9Q0R1S2T3U4",\n)\n\nprint(dataset.display_name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve dataset",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst dataset = await client.datasets.retrieve({\n  datasetId: '01J6V6G8M4F5N8P9Q0R1S2T3U4',\n});\n\nconsole.log(dataset.displayName);\n",
+                        },
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveDatasetResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update(
-        self,
-        *,
-        dataset_id: str,
-        display_name: Optional[str] = None,
-        project_id: Optional[str] = None,
-        path: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateDatasetResponseBody:
-        r"""Update a dataset
-
-        Update a dataset
-
-        :param dataset_id: The unique identifier of the dataset
-        :param display_name: The display name of the dataset
-        :param project_id: The unique identifier of the project it belongs to
-        :param path: Entity storage path.
-
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
-
-            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateDatasetRequest(
-            dataset_id=dataset_id,
-            request_body=models.UpdateDatasetRequestBody(
-                display_name=display_name,
-                project_id=project_id,
-                path=path,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/datasets/{dataset_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateDatasetRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateDataset",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateDatasetResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_async(
-        self,
-        *,
-        dataset_id: str,
-        display_name: Optional[str] = None,
-        project_id: Optional[str] = None,
-        path: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateDatasetResponseBody:
-        r"""Update a dataset
-
-        Update a dataset
-
-        :param dataset_id: The unique identifier of the dataset
-        :param display_name: The display name of the dataset
-        :param project_id: The unique identifier of the project it belongs to
-        :param path: Entity storage path.
-
-            With workspace-level API keys, use the format `project/folder/subfolder/...`. The first element must be the display name of an existing project, followed by nested folders (auto-created as needed). Example: `Default Project/agents`.
-
-            With project-level API keys, the project is predetermined by the API key, so the path is relative to that project. Example: `agents`. For backward compatibility, a leading project name is ignored when it matches the scoped project.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateDatasetRequest(
-            dataset_id=dataset_id,
-            request_body=models.UpdateDatasetRequestBody(
-                display_name=display_name,
-                project_id=project_id,
-                path=path,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/datasets/{dataset_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateDatasetRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateDataset",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "update"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateDatasetResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.Dataset, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -843,9 +699,9 @@ class Datasets(BaseSDK):
     ):
         r"""Delete a dataset
 
-        Permanently deletes a dataset and all its datapoints. This action is irreversible.
+        Permanently deletes a dataset and all its datapoints.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -903,7 +759,15 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "delete"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete dataset",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -912,7 +776,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -932,9 +796,9 @@ class Datasets(BaseSDK):
     ):
         r"""Delete a dataset
 
-        Permanently deletes a dataset and all its datapoints. This action is irreversible.
+        Permanently deletes a dataset and all its datapoints.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -992,7 +856,15 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "delete"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete dataset",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1001,7 +873,425 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["404", "4XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def update(
+        self,
+        *,
+        dataset_id: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Dataset:
+        r"""Update a dataset
+
+        Updates the specified dataset.
+
+        :param dataset_id:
+        :param display_name:
+        :param project_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateDatasetRequest1(
+            dataset_id=dataset_id,
+            update_dataset_request=models.UpdateDatasetRequest(
+                display_name=display_name,
+                project_id=project_id,
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/datasets/{dataset_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_dataset_request,
+                False,
+                False,
+                "json",
+                models.UpdateDatasetRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateDataset",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update dataset",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        dataset_id: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.Dataset:
+        r"""Update a dataset
+
+        Updates the specified dataset.
+
+        :param dataset_id:
+        :param display_name:
+        :param project_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateDatasetRequest1(
+            dataset_id=dataset_id,
+            update_dataset_request=models.UpdateDatasetRequest(
+                display_name=display_name,
+                project_id=project_id,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/datasets/{dataset_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_dataset_request,
+                False,
+                False,
+                "json",
+                models.UpdateDatasetRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateDataset",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update dataset",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"display_name\": \"support_quality_eval_v2\"\n  }'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Dataset, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def clear(
+        self,
+        *,
+        dataset_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete all datapoints
+
+        Deletes all datapoints from a dataset.
+
+        :param dataset_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ClearDatasetRequest(
+            dataset_id=dataset_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/datasets/{dataset_id}/clear",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ClearDataset",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Clear dataset",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def clear_async(
+        self,
+        *,
+        dataset_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete all datapoints
+
+        Deletes all datapoints from a dataset.
+
+        :param dataset_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ClearDatasetRequest(
+            dataset_id=dataset_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/datasets/{dataset_id}/clear",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ClearDataset",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Clear dataset",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/clear' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1014,22 +1304,22 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListDatasetDatapointsResponseBody:
+    ) -> models.ListDatapointsResponse:
         r"""List datapoints
 
         Retrieves a paginated list of datapoints from a specific dataset.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param dataset_id:
+        :param limit:
+        :param starting_after:
+        :param ending_before:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1090,21 +1380,23 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "listDatapoints"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List datapoints",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.ListDatasetDatapointsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.ListDatapointsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1118,22 +1410,22 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        limit: Optional[int] = 10,
+        limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListDatasetDatapointsResponseBody:
+    ) -> models.ListDatapointsResponse:
         r"""List datapoints
 
         Retrieves a paginated list of datapoints from a specific dataset.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param dataset_id:
+        :param limit:
+        :param starting_after:
+        :param ending_before:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1194,21 +1486,23 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "listDatapoints"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - List datapoints",
+                            "lang": "curl",
+                            "source": "curl --get 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --data-urlencode 'limit=25'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.ListDatasetDatapointsResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.ListDatapointsResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1222,19 +1516,19 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        request_body: Optional[
-            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
-        ] = None,
+        request_body: Union[
+            Iterable[models.DatapointInput], Iterable[models.DatapointInputTypedDict]
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.ResponseBody]:
-        r"""Create a datapoint
+    ) -> List[models.Datapoint1]:
+        r"""Create datapoints
 
-        Creates a new datapoint in the specified dataset.
+        Creates one or more datapoints in the specified dataset.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1257,7 +1551,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, List[models.DatapointInput]
             ),
         )
 
@@ -1267,7 +1561,7 @@ class Datasets(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1275,11 +1569,7 @@ class Datasets(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[List[models.RequestBody]],
+                request.request_body, False, False, "json", List[models.DatapointInput]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1303,19 +1593,23 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "createDatapoint"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create datapoints",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ResponseBody], http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(List[models.Datapoint1], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1329,19 +1623,19 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        request_body: Optional[
-            Union[Iterable[models.RequestBody], Iterable[models.RequestBodyTypedDict]]
-        ] = None,
+        request_body: Union[
+            Iterable[models.DatapointInput], Iterable[models.DatapointInputTypedDict]
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.ResponseBody]:
-        r"""Create a datapoint
+    ) -> List[models.Datapoint1]:
+        r"""Create datapoints
 
-        Creates a new datapoint in the specified dataset.
+        Creates one or more datapoints in the specified dataset.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1364,7 +1658,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, List[models.DatapointInput]
             ),
         )
 
@@ -1374,7 +1668,7 @@ class Datasets(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1382,11 +1676,7 @@ class Datasets(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[List[models.RequestBody]],
+                request.request_body, False, False, "json", List[models.DatapointInput]
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1410,19 +1700,463 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "createDatapoint"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Create datapoints",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'[\n    {\n      "inputs": {\n        "ticket": "Customer cannot reset their password."\n      },\n      "expected_output": "Ask the customer to use the reset link and verify delivery."\n    }\n  ]\'\n',
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.ResponseBody], http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def delete_datapoints(
+        self,
+        *,
+        dataset_id: str,
+        item_ids: Iterable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete specific datapoints
+
+        Deletes multiple datapoints from a dataset by ID.
+
+        :param dataset_id:
+        :param item_ids:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteDatasetDatapointsRequest(
+            dataset_id=dataset_id,
+            delete_datapoints_request=models.DeleteDatapointsRequest(
+                item_ids=utils.unmarshal(item_ids, List[str]),
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/datasets/{dataset_id}/datapoints-bulk-delete",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.delete_datapoints_request,
+                False,
+                False,
+                "json",
+                models.DeleteDatapointsRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteDatasetDatapoints",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete datapoints",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def delete_datapoints_async(
+        self,
+        *,
+        dataset_id: str,
+        item_ids: Iterable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete specific datapoints
+
+        Deletes multiple datapoints from a dataset by ID.
+
+        :param dataset_id:
+        :param item_ids:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteDatasetDatapointsRequest(
+            dataset_id=dataset_id,
+            delete_datapoints_request=models.DeleteDatapointsRequest(
+                item_ids=utils.unmarshal(item_ids, List[str]),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/datasets/{dataset_id}/datapoints-bulk-delete",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="*/*",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.delete_datapoints_request,
+                False,
+                False,
+                "json",
+                models.DeleteDatapointsRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteDatasetDatapoints",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete datapoints",
+                            "lang": "curl",
+                            "source": "curl --request POST \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints-bulk-delete' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"item_ids\": [\n      \"01J6V6H1Z2A3B4C5D6E7F8G9H0\"\n    ]\n  }'\n",
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def create_datapoints(
+        self,
+        *,
+        dataset_id: str,
+        items: Union[
+            Iterable[models.DatapointInput], Iterable[models.DatapointInputTypedDict]
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.Datapoint1]:
+        r"""Create multiple datapoints
+
+        Creates multiple datapoints at once.
+
+        :param dataset_id:
+        :param items:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.BulkCreateDatapointsRequest1(
+            dataset_id=dataset_id,
+            bulk_create_datapoints_request=models.BulkCreateDatapointsRequest(
+                items=utils.get_pydantic_model(items, List[models.DatapointInput]),
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/datasets/{dataset_id}/datapoints/bulk",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.bulk_create_datapoints_request,
+                False,
+                False,
+                "json",
+                models.BulkCreateDatapointsRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="BulkCreateDatapoints",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Bulk create datapoints",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.Datapoint1], http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def create_datapoints_async(
+        self,
+        *,
+        dataset_id: str,
+        items: Union[
+            Iterable[models.DatapointInput], Iterable[models.DatapointInputTypedDict]
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.Datapoint1]:
+        r"""Create multiple datapoints
+
+        Creates multiple datapoints at once.
+
+        :param dataset_id:
+        :param items:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.BulkCreateDatapointsRequest1(
+            dataset_id=dataset_id,
+            bulk_create_datapoints_request=models.BulkCreateDatapointsRequest(
+                items=utils.get_pydantic_model(items, List[models.DatapointInput]),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/datasets/{dataset_id}/datapoints/bulk",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.bulk_create_datapoints_request,
+                False,
+                False,
+                "json",
+                models.BulkCreateDatapointsRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="BulkCreateDatapoints",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Datasets"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Bulk create datapoints",
+                            "lang": "curl",
+                            "source": 'curl --request POST \\\n  --url \'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/bulk\' \\\n  --header \'Authorization: Bearer $ORQ_API_KEY\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "items": [\n      {\n        "inputs": {\n          "ticket": "Customer asks for an invoice copy."\n        },\n        "expected_output": "Explain where invoices are available and offer to resend it."\n      }\n    ]\n  }\'\n',
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.Datapoint1], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1441,13 +2175,13 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveDatapointResponseBody:
+    ) -> models.Datapoint1:
         r"""Retrieve a datapoint
 
-        Retrieves a datapoint object
+        Retrieves a datapoint object.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
+        :param dataset_id:
+        :param datapoint_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1507,8 +2241,13 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
-                    "x-cli-group": "datasets",
-                    "x-cli-name": "retrieveDatapoint",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve datapoint",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
                 },
             ),
             request=req,
@@ -1516,14 +2255,8 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveDatapointResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.Datapoint1, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1542,13 +2275,13 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveDatapointResponseBody:
+    ) -> models.Datapoint1:
         r"""Retrieve a datapoint
 
-        Retrieves a datapoint object
+        Retrieves a datapoint object.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
+        :param dataset_id:
+        :param datapoint_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1608,8 +2341,13 @@ class Datasets(BaseSDK):
                 ),
                 tags=["Datasets"],
                 extensions={
-                    "x-cli-group": "datasets",
-                    "x-cli-name": "retrieveDatapoint",
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve datapoint",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
                 },
             ),
             request=req,
@@ -1617,270 +2355,8 @@ class Datasets(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.RetrieveDatapointResponseBody, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def update_datapoint(
-        self,
-        *,
-        dataset_id: str,
-        datapoint_id: str,
-        inputs: Optional[
-            Union[
-                Mapping[str, Nullable[models.UpdateDatapointInputs]],
-                Mapping[str, Nullable[models.UpdateDatapointInputsTypedDict]],
-            ]
-        ] = None,
-        messages: Optional[
-            Union[
-                Iterable[models.UpdateDatapointMessages],
-                Iterable[models.UpdateDatapointMessagesTypedDict],
-            ]
-        ] = None,
-        expected_output: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateDatapointResponseBody:
-        r"""Update a datapoint
-
-        Update a datapoint in the specified dataset.
-
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported.
-        :param messages: A list of messages comprising the conversation so far
-        :param expected_output:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateDatapointRequest(
-            dataset_id=dataset_id,
-            datapoint_id=datapoint_id,
-            request_body=models.UpdateDatapointRequestBody(
-                inputs=utils.unmarshal(
-                    inputs, Optional[Dict[str, Nullable[models.UpdateDatapointInputs]]]
-                ),
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.UpdateDatapointMessages]]
-                ),
-                expected_output=expected_output,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateDatapointRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateDatapoint",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "updateDatapoint"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateDatapointResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def update_datapoint_async(
-        self,
-        *,
-        dataset_id: str,
-        datapoint_id: str,
-        inputs: Optional[
-            Union[
-                Mapping[str, Nullable[models.UpdateDatapointInputs]],
-                Mapping[str, Nullable[models.UpdateDatapointInputsTypedDict]],
-            ]
-        ] = None,
-        messages: Optional[
-            Union[
-                Iterable[models.UpdateDatapointMessages],
-                Iterable[models.UpdateDatapointMessagesTypedDict],
-            ]
-        ] = None,
-        expected_output: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateDatapointResponseBody:
-        r"""Update a datapoint
-
-        Update a datapoint in the specified dataset.
-
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects and arrays are not supported.
-        :param messages: A list of messages comprising the conversation so far
-        :param expected_output:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateDatapointRequest(
-            dataset_id=dataset_id,
-            datapoint_id=datapoint_id,
-            request_body=models.UpdateDatapointRequestBody(
-                inputs=utils.unmarshal(
-                    inputs, Optional[Dict[str, Nullable[models.UpdateDatapointInputs]]]
-                ),
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.UpdateDatapointMessages]]
-                ),
-                expected_output=expected_output,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body if request is not None else None,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateDatapointRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateDatapoint",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "updateDatapoint"},
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateDatapointResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+            return unmarshal_json_response(models.Datapoint1, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1904,8 +2380,8 @@ class Datasets(BaseSDK):
 
         Permanently deletes a specific datapoint from a dataset.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
+        :param dataset_id:
+        :param datapoint_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1939,7 +2415,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1964,19 +2440,23 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "deleteDatapoint"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete datapoint",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2000,8 +2480,8 @@ class Datasets(BaseSDK):
 
         Permanently deletes a specific datapoint from a dataset.
 
-        :param dataset_id: The unique identifier of the dataset
-        :param datapoint_id: The unique identifier of the datapoint
+        :param dataset_id:
+        :param datapoint_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2035,7 +2515,7 @@ class Datasets(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -2060,19 +2540,23 @@ class Datasets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "deleteDatapoint"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Delete datapoint",
+                            "lang": "curl",
+                            "source": "curl --request DELETE \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2082,20 +2566,33 @@ class Datasets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
-    def clear(
+    def update_datapoint(
         self,
         *,
         dataset_id: str,
+        datapoint_id: str,
+        inputs: Optional[
+            Union[
+                models.UpdateDatapointRequestInputs,
+                models.UpdateDatapointRequestInputsTypedDict,
+            ]
+        ] = None,
+        messages: Optional[Iterable[Any]] = None,
+        expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete all datapoints
+    ) -> models.Datapoint1:
+        r"""Update a datapoint
 
-        Delete all datapoints from a dataset. This action is irreversible.
+        Updates the inputs, messages, or expected output for a datapoint.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
+        :param datapoint_id:
+        :param inputs:
+        :param messages: A JSON array containing dynamically typed values.
+        :param expected_output:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2114,23 +2611,38 @@ class Datasets(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ClearDatasetRequest(
+        request = models.UpdateDatapointRequest1(
             dataset_id=dataset_id,
+            datapoint_id=datapoint_id,
+            update_datapoint_request=models.UpdateDatapointRequest(
+                inputs=utils.get_pydantic_model(
+                    inputs, Optional[models.UpdateDatapointRequestInputs]
+                ),
+                messages=utils.unmarshal(messages, Optional[List[Any]]),
+                expected_output=expected_output,
+            ),
         )
 
         req = self._build_request(
-            method="DELETE",
-            path="/v2/datasets/{dataset_id}/clear",
+            method="PATCH",
+            path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_datapoint_request,
+                False,
+                False,
+                "json",
+                models.UpdateDatapointRequest,
+            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
@@ -2147,25 +2659,29 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="ClearDataset",
+                operation_id="UpdateDatapoint",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "clear"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update datapoint",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Datapoint1, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2175,20 +2691,33 @@ class Datasets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
-    async def clear_async(
+    async def update_datapoint_async(
         self,
         *,
         dataset_id: str,
+        datapoint_id: str,
+        inputs: Optional[
+            Union[
+                models.UpdateDatapointRequestInputs,
+                models.UpdateDatapointRequestInputsTypedDict,
+            ]
+        ] = None,
+        messages: Optional[Iterable[Any]] = None,
+        expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete all datapoints
+    ) -> models.Datapoint1:
+        r"""Update a datapoint
 
-        Delete all datapoints from a dataset. This action is irreversible.
+        Updates the inputs, messages, or expected output for a datapoint.
 
-        :param dataset_id: The unique identifier of the dataset
+        :param dataset_id:
+        :param datapoint_id:
+        :param inputs:
+        :param messages: A JSON array containing dynamically typed values.
+        :param expected_output:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2207,23 +2736,38 @@ class Datasets(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ClearDatasetRequest(
+        request = models.UpdateDatapointRequest1(
             dataset_id=dataset_id,
+            datapoint_id=datapoint_id,
+            update_datapoint_request=models.UpdateDatapointRequest(
+                inputs=utils.get_pydantic_model(
+                    inputs, Optional[models.UpdateDatapointRequestInputs]
+                ),
+                messages=utils.unmarshal(messages, Optional[List[Any]]),
+                expected_output=expected_output,
+            ),
         )
 
         req = self._build_request_async(
-            method="DELETE",
-            path="/v2/datasets/{dataset_id}/clear",
+            method="PATCH",
+            path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.update_datapoint_request,
+                False,
+                False,
+                "json",
+                models.UpdateDatapointRequest,
+            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
@@ -2240,25 +2784,29 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="ClearDataset",
+                operation_id="UpdateDatapoint",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasets"],
-                extensions={"x-cli-group": "datasets", "x-cli-name": "clear"},
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Update datapoint",
+                            "lang": "curl",
+                            "source": "curl --request PATCH \\\n  --url 'https://api.orq.ai/v2/datasets/01J6V6G8M4F5N8P9Q0R1S2T3U4/datapoints/01J6V6H1Z2A3B4C5D6E7F8G9H0' \\\n  --header 'Authorization: Bearer $ORQ_API_KEY' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"expected_output\": \"Confirm the invoice email address before resending the invoice.\"\n  }'\n",
+                        }
+                    ]
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.Datapoint1, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
