@@ -18,7 +18,7 @@ class McpAuthConfigOutputTypedDict(TypedDict):
     static_headers: NotRequired[List[McpHeaderSecretOutputTypedDict]]
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
     oauth: NotRequired[McpOAuthConfigOutputTypedDict]
-    r"""Not settable through these endpoints."""
+    r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
 
 
 class McpAuthConfigOutput(BaseModel):
@@ -28,7 +28,7 @@ class McpAuthConfigOutput(BaseModel):
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
 
     oauth: Optional[McpOAuthConfigOutput] = None
-    r"""Not settable through these endpoints."""
+    r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

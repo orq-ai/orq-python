@@ -23,7 +23,7 @@ class ListIdentitiesRequestTypedDict(TypedDict):
     search: NotRequired[str]
     r"""Case-insensitive search text matched against identity profile fields."""
     filter_by_tags: NotRequired[List[str]]
-    r"""Return only identities that have at least one of these tags."""
+    r"""Return only identities that have all of these tags."""
     include_metrics: NotRequired[bool]
     r"""Include aggregate usage metrics on each returned identity."""
     sort_by: NotRequired[IdentitySortField]
@@ -68,7 +68,7 @@ class ListIdentitiesRequest(BaseModel):
         pydantic.Field(alias="filter_by.tags"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Return only identities that have at least one of these tags."""
+    r"""Return only identities that have all of these tags."""
 
     include_metrics: Annotated[
         Optional[bool],

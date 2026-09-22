@@ -20,7 +20,7 @@ class APIKeyRestResponseTypedDict(TypedDict):
     name: str
     workspace_id: str
     token: str
-    r"""Raw on create/retrieve and masked in list responses."""
+    r"""Raw on create; the key prefix on retrieve and update; masked in list responses."""
     active: NotRequired[bool]
     is_legacy: NotRequired[bool]
     source: NotRequired[str]
@@ -60,7 +60,7 @@ class APIKeyRestResponse(BaseModel):
     workspace_id: str
 
     token: str
-    r"""Raw on create/retrieve and masked in list responses."""
+    r"""Raw on create; the key prefix on retrieve and update; masked in list responses."""
 
     active: Optional[bool] = None
 
