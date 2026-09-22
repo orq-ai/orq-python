@@ -54,7 +54,7 @@ ExtendedMessageParts = Annotated[
 
 
 class ExtendedMessageTypedDict(TypedDict):
-    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with Orquesta-specific features."""
+    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with orq.ai-specific features."""
 
     kind: ExtendedMessageKind
     message_id: str
@@ -72,7 +72,7 @@ class ExtendedMessageTypedDict(TypedDict):
 
 
 class ExtendedMessage(BaseModel):
-    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with Orquesta-specific features."""
+    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with orq.ai-specific features."""
 
     kind: ExtendedMessageKind
 

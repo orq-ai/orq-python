@@ -367,13 +367,13 @@ class CreateImageVariationLoadBalancerRouterImagesVariations1(BaseModel):
 CreateImageVariationRouterImagesVariationsLoadBalancerTypedDict = (
     CreateImageVariationLoadBalancerRouterImagesVariations1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageVariationRouterImagesVariationsLoadBalancer = (
     CreateImageVariationLoadBalancerRouterImagesVariations1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageVariationRouterImagesVariationsTimeoutTypedDict(TypedDict):
@@ -410,7 +410,7 @@ class CreateImageVariationOrqTypedDict(TypedDict):
     load_balancer: NotRequired[
         CreateImageVariationRouterImagesVariationsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateImageVariationRouterImagesVariationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -447,7 +447,7 @@ class CreateImageVariationOrq(BaseModel):
     load_balancer: Optional[CreateImageVariationRouterImagesVariationsLoadBalancer] = (
         None
     )
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateImageVariationRouterImagesVariationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

@@ -2454,13 +2454,13 @@ class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
 CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateChatCompletionRouterChatCompletionsLoadBalancer = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateChatCompletionRouterChatCompletionsTimeoutTypedDict(TypedDict):
@@ -2507,7 +2507,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     load_balancer: NotRequired[
         CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateChatCompletionRouterChatCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -2560,7 +2560,7 @@ class CreateChatCompletionOrq(BaseModel):
     load_balancer: Optional[CreateChatCompletionRouterChatCompletionsLoadBalancer] = (
         None
     )
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateChatCompletionRouterChatCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

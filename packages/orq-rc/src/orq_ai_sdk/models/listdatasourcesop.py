@@ -28,7 +28,7 @@ class ListDatasourcesRequestTypedDict(TypedDict):
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
     limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50"""
     status: NotRequired[QueryParamStatusTypedDict]
     r"""Filter datasources by status."""
 
@@ -61,7 +61,7 @@ class ListDatasourcesRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 50
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50"""
 
     status: Annotated[
         Optional[QueryParamStatus],

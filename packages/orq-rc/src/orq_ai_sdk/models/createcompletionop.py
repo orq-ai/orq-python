@@ -1190,13 +1190,13 @@ class CreateCompletionLoadBalancerRouterCompletions1(BaseModel):
 CreateCompletionRouterCompletionsLoadBalancerTypedDict = (
     CreateCompletionLoadBalancerRouterCompletions1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateCompletionRouterCompletionsLoadBalancer = (
     CreateCompletionLoadBalancerRouterCompletions1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateCompletionRouterCompletionsTimeoutTypedDict(TypedDict):
@@ -1239,7 +1239,7 @@ class CreateCompletionOrqTypedDict(TypedDict):
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateCompletionKnowledgeBasesTypedDict]]
     load_balancer: NotRequired[CreateCompletionRouterCompletionsLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateCompletionRouterCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1290,7 +1290,7 @@ class CreateCompletionOrq(BaseModel):
     knowledge_bases: Optional[List[CreateCompletionKnowledgeBases]] = None
 
     load_balancer: Optional[CreateCompletionRouterCompletionsLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateCompletionRouterCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1351,7 +1351,7 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     n: NotRequired[Nullable[int]]
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
     user: NotRequired[str]
-    r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
+    r"""A unique identifier representing your end-user, which can help monitor and detect abuse."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     fallbacks: NotRequired[List[CreateCompletionFallbacksTypedDict]]
@@ -1408,7 +1408,7 @@ class CreateCompletionRequestBody(BaseModel):
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
 
     user: Optional[str] = None
-    r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
+    r"""A unique identifier representing your end-user, which can help monitor and detect abuse."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""

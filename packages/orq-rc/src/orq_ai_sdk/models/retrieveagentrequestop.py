@@ -159,7 +159,7 @@ RetrieveAgentRequestType = Literal[
     "internal",
     "a2a",
 ]
-r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
 
 RetrieveAgentRequestToolApprovalRequired = Literal[
@@ -922,7 +922,7 @@ class RetrieveAgentRequestCacheControl(BaseModel):
 
 
 class RetrieveAgentRequestParametersTypedDict(TypedDict):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -987,7 +987,7 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
 
 
 class RetrieveAgentRequestParameters(BaseModel):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2040,7 +2040,7 @@ class RetrieveAgentRequestModelTypedDict(TypedDict):
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[Nullable[RetrieveAgentRequestParametersTypedDict]]
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[RetrieveAgentRequestRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
@@ -2057,7 +2057,7 @@ class RetrieveAgentRequestModel(BaseModel):
     r"""Optional integration ID for custom model configurations"""
 
     parameters: OptionalNullable[RetrieveAgentRequestParameters] = UNSET
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[RetrieveAgentRequestRetry] = None
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
@@ -2136,7 +2136,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     source: NotRequired[RetrieveAgentRequestSource]
     engine: NotRequired[RetrieveAgentRequestEngine]
     type: NotRequired[RetrieveAgentRequestType]
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[RetrieveAgentRequestSettingsTypedDict]
 
@@ -2205,7 +2205,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     engine: Optional[RetrieveAgentRequestEngine] = "text"
 
     type: Optional[RetrieveAgentRequestType] = "internal"
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
     system_prompt: OptionalNullable[str] = UNSET
 

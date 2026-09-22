@@ -342,13 +342,13 @@ class CreateImageLoadBalancerRouterImagesGenerations1(BaseModel):
 CreateImageRouterImagesGenerationsLoadBalancerTypedDict = (
     CreateImageLoadBalancerRouterImagesGenerations1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageRouterImagesGenerationsLoadBalancer = (
     CreateImageLoadBalancerRouterImagesGenerations1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageRouterImagesGenerationsTimeoutTypedDict(TypedDict):
@@ -379,7 +379,7 @@ class CreateImageOrqTypedDict(TypedDict):
     cache: NotRequired[CreateImageRouterImagesGenerationsCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[CreateImageRouterImagesGenerationsLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateImageRouterImagesGenerationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -409,7 +409,7 @@ class CreateImageOrq(BaseModel):
     r"""Cache configuration for the request."""
 
     load_balancer: Optional[CreateImageRouterImagesGenerationsLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateImageRouterImagesGenerationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

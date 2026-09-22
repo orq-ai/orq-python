@@ -1112,7 +1112,7 @@ class KnowledgeSDK(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1230,7 +1230,7 @@ class KnowledgeSDK(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1355,10 +1355,10 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id:
         :param display_name:
-        :param description: The description of the knowledge base
+        :param description: The description of the datasource
         :param file_id:
         :param chunking_options:
-        :param id: Compatibility fields used by the former datasource shell/legacy route.
+        :param id: Optional datasource ID. When omitted, the server generates one.
         :param attachment:
         :param metadata:
         :param retries: Override the default retry configuration for this method
@@ -1499,10 +1499,10 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id:
         :param display_name:
-        :param description: The description of the knowledge base
+        :param description: The description of the datasource
         :param file_id:
         :param chunking_options:
-        :param id: Compatibility fields used by the former datasource shell/legacy route.
+        :param id: Optional datasource ID. When omitted, the server generates one.
         :param attachment:
         :param metadata:
         :param retries: Override the default retry configuration for this method
@@ -2512,7 +2512,7 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
@@ -2634,7 +2634,7 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.

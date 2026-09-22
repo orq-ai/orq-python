@@ -39,7 +39,7 @@ Product = Literal[
     "ai-chat",
     "mcp_gateway",
 ]
-r"""Orquesta product"""
+r"""orq.ai product"""
 
 
 class ToolExecutionStartedStreamingEventMemoryTypedDict(TypedDict):
@@ -57,7 +57,7 @@ class ToolExecutionContextTypedDict(TypedDict):
     agent_manifest_id: str
     agent_execution_id: str
     product: Product
-    r"""Orquesta product"""
+    r"""orq.ai product"""
     memory: NotRequired[ToolExecutionStartedStreamingEventMemoryTypedDict]
     parent_id: NotRequired[str]
     variables: NotRequired[Dict[str, Any]]
@@ -76,7 +76,7 @@ class ToolExecutionContext(BaseModel):
     agent_execution_id: str
 
     product: Product
-    r"""Orquesta product"""
+    r"""orq.ai product"""
 
     memory: Optional[ToolExecutionStartedStreamingEventMemory] = None
 

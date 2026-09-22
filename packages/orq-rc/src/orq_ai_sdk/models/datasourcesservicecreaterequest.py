@@ -22,11 +22,11 @@ from typing_extensions import NotRequired, TypedDict
 class DatasourcesServiceCreateRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
     description: NotRequired[Nullable[str]]
-    r"""The description of the knowledge base"""
+    r"""The description of the datasource"""
     file_id: NotRequired[str]
     chunking_options: NotRequired[DatasourceChunkingOptionsTypedDict]
     id: NotRequired[str]
-    r"""Compatibility fields used by the former datasource shell/legacy route."""
+    r"""Optional datasource ID. When omitted, the server generates one."""
     attachment: NotRequired[DatasourceAttachmentTypedDict]
     metadata: NotRequired[CountMetadataTypedDict]
 
@@ -35,14 +35,14 @@ class DatasourcesServiceCreateRequest(BaseModel):
     display_name: Optional[str] = None
 
     description: OptionalNullable[str] = UNSET
-    r"""The description of the knowledge base"""
+    r"""The description of the datasource"""
 
     file_id: Optional[str] = None
 
     chunking_options: Optional[DatasourceChunkingOptions] = None
 
     id: Optional[str] = None
-    r"""Compatibility fields used by the former datasource shell/legacy route."""
+    r"""Optional datasource ID. When omitted, the server generates one."""
 
     attachment: Optional[DatasourceAttachment] = None
 

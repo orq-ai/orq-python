@@ -94,7 +94,7 @@ class Completions(BaseSDK):
         :param temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
-        :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param user: A unique identifier representing your end-user, which can help monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
@@ -320,7 +320,7 @@ class Completions(BaseSDK):
         :param temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
-        :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param user: A unique identifier representing your end-user, which can help monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request

@@ -261,11 +261,11 @@ class CreateSpeechLoadBalancerRouterAudioSpeech1(BaseModel):
 CreateSpeechRouterAudioSpeechLoadBalancerTypedDict = (
     CreateSpeechLoadBalancerRouterAudioSpeech1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateSpeechRouterAudioSpeechLoadBalancer = CreateSpeechLoadBalancerRouterAudioSpeech1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateSpeechRouterAudioSpeechTimeoutTypedDict(TypedDict):
@@ -296,7 +296,7 @@ class CreateSpeechOrqTypedDict(TypedDict):
     thread: NotRequired[CreateSpeechThreadTypedDict]
     r"""Thread information to group related requests"""
     load_balancer: NotRequired[CreateSpeechRouterAudioSpeechLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateSpeechRouterAudioSpeechTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -326,7 +326,7 @@ class CreateSpeechOrq(BaseModel):
     r"""Thread information to group related requests"""
 
     load_balancer: Optional[CreateSpeechRouterAudioSpeechLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateSpeechRouterAudioSpeechTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

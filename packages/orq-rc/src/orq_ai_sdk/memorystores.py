@@ -29,7 +29,7 @@ class MemoryStores(BaseSDK):
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
@@ -137,7 +137,7 @@ class MemoryStores(BaseSDK):
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param search: Filter memory stores by key (case-insensitive match)
@@ -1043,7 +1043,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of memories for the memory store
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to filter memories by entity_id
@@ -1147,7 +1147,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of memories for the memory store
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to filter memories by entity_id
@@ -2066,7 +2066,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_entity_id: The unique identifier of the memory
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param updated_after: Filter documents updated after this ISO datetime
@@ -2176,7 +2176,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_entity_id: The unique identifier of the memory
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param updated_after: Filter documents updated after this ISO datetime

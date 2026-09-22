@@ -35,7 +35,7 @@ class DatasourceTypedDict(TypedDict):
     chunks_count: float
     id: str
     description: NotRequired[Nullable[str]]
-    r"""The description of the knowledge base"""
+    r"""The description of the datasource"""
     file_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the file used to create the datasource."""
     created_by_id: NotRequired[Nullable[str]]
@@ -43,7 +43,7 @@ class DatasourceTypedDict(TypedDict):
     update_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the last user who updated the knowledge base"""
     processing_attempts: NotRequired[List[ProcessingAttemptTypedDict]]
-    r"""Additive compatibility fields formerly available only from database-shaped responses."""
+    r"""Processing attempts recorded for the datasource."""
     metadata: NotRequired[CountMetadataTypedDict]
     attachment: NotRequired[DatasourceAttachmentTypedDict]
 
@@ -64,7 +64,7 @@ class Datasource(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     description: OptionalNullable[str] = UNSET
-    r"""The description of the knowledge base"""
+    r"""The description of the datasource"""
 
     file_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the file used to create the datasource."""
@@ -76,7 +76,7 @@ class Datasource(BaseModel):
     r"""The user ID of the last user who updated the knowledge base"""
 
     processing_attempts: Optional[List[ProcessingAttempt]] = None
-    r"""Additive compatibility fields formerly available only from database-shaped responses."""
+    r"""Processing attempts recorded for the datasource."""
 
     metadata: Optional[CountMetadata] = None
 
