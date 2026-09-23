@@ -20,7 +20,7 @@ class WikiTypedDict(TypedDict):
     branch: NotRequired[str]
     scm_connection_id: NotRequired[str]
     settings: NotRequired[WikiSettingsTypedDict]
-    automation_id: NotRequired[str]
+    loop_id: NotRequired[str]
     status: NotRequired[str]
     current_run_id: NotRequired[str]
     last_generated_commit: NotRequired[str]
@@ -50,7 +50,7 @@ class Wiki(BaseModel):
 
     settings: Optional[WikiSettings] = None
 
-    automation_id: Optional[str] = None
+    loop_id: Optional[str] = None
 
     status: Optional[str] = None
 
@@ -81,7 +81,7 @@ class Wiki(BaseModel):
                 "branch",
                 "scm_connection_id",
                 "settings",
-                "automation_id",
+                "loop_id",
                 "status",
                 "current_run_id",
                 "last_generated_commit",

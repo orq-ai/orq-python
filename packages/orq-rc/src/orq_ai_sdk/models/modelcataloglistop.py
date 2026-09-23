@@ -13,11 +13,11 @@ class ModelCatalogListRequestTypedDict(TypedDict):
     r"""Page size, 1–1000. Unset returns every non-deprecated model in one response."""
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `id` of the last item from
-    the previous page.
+    the previous page. Mutually exclusive with `ending_before`.
     """
     ending_before: NotRequired[str]
     r"""Cursor for backward pagination. Set to the `id` of the first item
-    from the previous page.
+    from the previous page. Mutually exclusive with `starting_after`.
     """
     provider: NotRequired[List[str]]
     r"""Filter by catalog provider key. Repeat to match any of several
@@ -65,7 +65,7 @@ class ModelCatalogListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for forward pagination. Set to the `id` of the last item from
-    the previous page.
+    the previous page. Mutually exclusive with `ending_before`.
     """
 
     ending_before: Annotated[
@@ -73,7 +73,7 @@ class ModelCatalogListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for backward pagination. Set to the `id` of the first item
-    from the previous page.
+    from the previous page. Mutually exclusive with `starting_after`.
     """
 
     provider: Annotated[
