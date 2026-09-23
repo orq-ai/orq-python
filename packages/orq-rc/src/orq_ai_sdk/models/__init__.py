@@ -260,7 +260,6 @@ if TYPE_CHECKING:
     )
     from .alerttriggerevent import AlertTriggerEvent, AlertTriggerEventTypedDict
     from .alertupdateop import AlertUpdateRequest, AlertUpdateRequestTypedDict
-    from .allprojects import AllProjects, AllProjectsTypedDict
     from .annotationqueue import AnnotationQueue, AnnotationQueueTypedDict
     from .annotationqueueitem import AnnotationQueueItem, AnnotationQueueItemTypedDict
     from .annotationqueueitemref import (
@@ -278,13 +277,32 @@ if TYPE_CHECKING:
         APIKeyBudgetScopeRestResponse,
         APIKeyBudgetScopeRestResponseTypedDict,
     )
+    from .apikeycreateop import (
+        APIKeyCreateRequestBody,
+        APIKeyCreateRequestBodyTypedDict,
+        APIKeyCreateSource,
+        PermissionMode,
+    )
     from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
     from .apikeygetop import APIKeyGetRequest, APIKeyGetRequestTypedDict
-    from .apikeylistop import APIKeyListRequest, APIKeyListRequestTypedDict
-    from .apikeyowner import APIKeyOwner, APIKeyOwnerTypedDict
+    from .apikeylistcapabilitiesop import (
+        APIKeyListCapabilitiesResponseBody,
+        APIKeyListCapabilitiesResponseBodyTypedDict,
+    )
+    from .apikeylistop import (
+        APIKeyListRequest,
+        APIKeyListRequestTypedDict,
+        QueryParamSource,
+    )
     from .apikeyrestresponse import APIKeyRestResponse, APIKeyRestResponseTypedDict
-    from .apikeystatus import APIKeyStatus
-    from .apikeyupdateop import APIKeyUpdateRequest, APIKeyUpdateRequestTypedDict
+    from .apikeyupdateop import (
+        APIKeyUpdatePermissionMode,
+        APIKeyUpdateRequest,
+        APIKeyUpdateRequestBody,
+        APIKeyUpdateRequestBodyTypedDict,
+        APIKeyUpdateRequestTypedDict,
+        APIKeyUpdateStatus,
+    )
     from .audiocontentpartschema import (
         AudioContentPartSchema,
         AudioContentPartSchemaType,
@@ -469,6 +487,7 @@ if TYPE_CHECKING:
         CodeInterpreterToolInputTypedDict,
     )
     from .codetoolinput import CodeToolInput, CodeToolInputType, CodeToolInputTypedDict
+    from .constraints import Constraints, ConstraintsTypedDict
     from .conversationparam import ConversationParam, ConversationParamTypedDict
     from .countmetadata import CountMetadata, CountMetadataTypedDict
     from .countwebhooksresponse import (
@@ -920,7 +939,6 @@ if TYPE_CHECKING:
         CreateAnnotationQueueRequest,
         CreateAnnotationQueueRequestTypedDict,
     )
-    from .createapikeyrequest import CreateAPIKeyRequest, CreateAPIKeyRequestTypedDict
     from .createbudgetrequest import CreateBudgetRequest, CreateBudgetRequestTypedDict
     from .createbudgetresponse import (
         CreateBudgetResponse,
@@ -3253,8 +3271,7 @@ if TYPE_CHECKING:
     )
     from .detectrequest import DetectRequest, DetectRequestTypedDict
     from .detectresponse import DetectResponse, DetectResponseTypedDict
-    from .domain import Domain, DomainTypedDict
-    from .domaingroup import DomainGroup
+    from .domain import Domain, DomainTypedDict, Group
     from .domainverification import DomainVerification, DomainVerificationTypedDict
     from .domainverificationstatus import DomainVerificationStatus
     from .embeddingcacheconfig import (
@@ -5149,10 +5166,6 @@ if TYPE_CHECKING:
         ListAnnotationQueuesResponseTypedDict,
     )
     from .listbudgetsresponse import ListBudgetsResponse, ListBudgetsResponseTypedDict
-    from .listcapabilitiesresponse import (
-        ListCapabilitiesResponse,
-        ListCapabilitiesResponseTypedDict,
-    )
     from .listchunksop import (
         ListChunksQueryParamStatus,
         ListChunksQueryParamStatusTypedDict,
@@ -5576,7 +5589,6 @@ if TYPE_CHECKING:
         ManagementKeyUpdateRequestTypedDict,
     )
     from .managementpermissionmode import ManagementPermissionMode
-    from .mcpaccess import McpAccess, McpAccessTypedDict
     from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
     from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
     from .mcpauthtype import McpAuthType
@@ -5824,7 +5836,7 @@ if TYPE_CHECKING:
         OrqSidekickToolTypedDict,
     )
     from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDict
-    from .ownertype import OwnerType
+    from .owner import Owner, OwnerTypedDict
     from .parseop import (
         AgenticChunker,
         AgenticChunkerStrategy,
@@ -5897,7 +5909,6 @@ if TYPE_CHECKING:
         PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType,
         PatchV2HumanEvalSetsIDResponseBodyTypedDict,
     )
-    from .permissionmode import PermissionMode
     from .piiredaction import PiiRedaction, PiiRedactionTypedDict
     from .piiredactionconfig import PiiRedactionConfig, PiiRedactionConfigTypedDict
     from .piiredactionplugin import (
@@ -7078,7 +7089,6 @@ if TYPE_CHECKING:
         Schema,
         SchemaTypedDict,
     )
-    from .scopemode import ScopeMode
     from .searchhubitemsresponse import (
         SearchHubItemsResponse,
         SearchHubItemsResponseTypedDict,
@@ -7229,7 +7239,6 @@ if TYPE_CHECKING:
         ServerToolUseDetails,
         ServerToolUseDetailsTypedDict,
     )
-    from .serviceaccountowner import ServiceAccountOwner, ServiceAccountOwnerTypedDict
     from .sessioninterval import SessionInterval
     from .sharing import Sharing, SharingTypedDict
     from .sharingallprojects import SharingAllProjects, SharingAllProjectsTypedDict
@@ -7242,7 +7251,6 @@ if TYPE_CHECKING:
         SidekickToolInputType,
         SidekickToolInputTypedDict,
     )
-    from .singleproject import SingleProject, SingleProjectTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
@@ -8053,7 +8061,6 @@ if TYPE_CHECKING:
         UpdateAnnotationQueueRequest,
         UpdateAnnotationQueueRequestTypedDict,
     )
-    from .updateapikeyrequest import UpdateAPIKeyRequest, UpdateAPIKeyRequestTypedDict
     from .updatebudgetrequest import UpdateBudgetRequest, UpdateBudgetRequestTypedDict
     from .updatebudgetresponse import (
         UpdateBudgetResponse,
@@ -8683,7 +8690,6 @@ if TYPE_CHECKING:
         UpsertChunkMetadataTypedDict,
         UpsertChunkTypedDict,
     )
-    from .userowner import UserOwner, UserOwnerTypedDict
     from .verifydomainresponse import (
         VerifyDomainResponse,
         VerifyDomainResponseTypedDict,
@@ -8805,19 +8811,25 @@ __all__ = [
     "APIKeyBudgetScopeRestResponse",
     "APIKeyBudgetScopeRestResponseTypedDict",
     "APIKeyBudgetScopeTypedDict",
+    "APIKeyCreateRequestBody",
+    "APIKeyCreateRequestBodyTypedDict",
+    "APIKeyCreateSource",
     "APIKeyDeleteRequest",
     "APIKeyDeleteRequestTypedDict",
     "APIKeyGetRequest",
     "APIKeyGetRequestTypedDict",
+    "APIKeyListCapabilitiesResponseBody",
+    "APIKeyListCapabilitiesResponseBodyTypedDict",
     "APIKeyListRequest",
     "APIKeyListRequestTypedDict",
-    "APIKeyOwner",
-    "APIKeyOwnerTypedDict",
     "APIKeyRestResponse",
     "APIKeyRestResponseTypedDict",
-    "APIKeyStatus",
+    "APIKeyUpdatePermissionMode",
     "APIKeyUpdateRequest",
+    "APIKeyUpdateRequestBody",
+    "APIKeyUpdateRequestBodyTypedDict",
     "APIKeyUpdateRequestTypedDict",
+    "APIKeyUpdateStatus",
     "AccessLevel",
     "AccessMode",
     "ActionReviewRequestedStreamingEvent",
@@ -9034,8 +9046,6 @@ __all__ = [
     "AlertTypedDict",
     "AlertUpdateRequest",
     "AlertUpdateRequestTypedDict",
-    "AllProjects",
-    "AllProjectsTypedDict",
     "AllowedTools",
     "AllowedToolsTypedDict",
     "And",
@@ -9273,6 +9283,8 @@ __all__ = [
     "Configuration",
     "ConfigurationTypedDict",
     "ConnectionType",
+    "Constraints",
+    "ConstraintsTypedDict",
     "Contact",
     "ContactTypedDict",
     "Content",
@@ -9288,8 +9300,6 @@ __all__ = [
     "CountMetadataTypedDict",
     "CountWebhooksResponse",
     "CountWebhooksResponseTypedDict",
-    "CreateAPIKeyRequest",
-    "CreateAPIKeyRequestTypedDict",
     "CreateAgentRequestAgentsEngine",
     "CreateAgentRequestAgentsEvaluators",
     "CreateAgentRequestAgentsEvaluatorsTypedDict",
@@ -11593,7 +11603,6 @@ __all__ = [
     "Documents",
     "DocumentsTypedDict",
     "Domain",
-    "DomainGroup",
     "DomainTypedDict",
     "DomainVerification",
     "DomainVerificationStatus",
@@ -12753,6 +12762,7 @@ __all__ = [
     "GoogleSearchToolInputTypedDict",
     "GoogleTypedDict",
     "Grain",
+    "Group",
     "GroupBy",
     "Gt",
     "GtTypedDict",
@@ -13256,8 +13266,6 @@ __all__ = [
     "ListAnnotationQueuesResponseTypedDict",
     "ListBudgetsResponse",
     "ListBudgetsResponseTypedDict",
-    "ListCapabilitiesResponse",
-    "ListCapabilitiesResponseTypedDict",
     "ListChunksPaginatedRequest",
     "ListChunksPaginatedRequestTypedDict",
     "ListChunksQueryParamStatus",
@@ -13614,8 +13622,6 @@ __all__ = [
     "ManagementPermissionMode",
     "Mask",
     "Mcp",
-    "McpAccess",
-    "McpAccessTypedDict",
     "McpAuthConfig",
     "McpAuthConfigOutput",
     "McpAuthConfigOutputTypedDict",
@@ -13994,7 +14000,8 @@ __all__ = [
     "OutputTokensDetails",
     "OutputTokensDetailsTypedDict",
     "OutputType",
-    "OwnerType",
+    "Owner",
+    "OwnerTypedDict",
     "PIIRedactionPlugin",
     "PIIRedactionPluginTypedDict",
     "Pages",
@@ -14265,6 +14272,7 @@ __all__ = [
     "QueryParam1",
     "QueryParam2",
     "QueryParamSort",
+    "QueryParamSource",
     "QueryParamStatus",
     "QueryParamStatusTypedDict",
     "QueryParamType",
@@ -15168,7 +15176,6 @@ __all__ = [
     "RunAgentToolChoiceType",
     "Schema",
     "SchemaTypedDict",
-    "ScopeMode",
     "ScoreQuestion",
     "ScoreQuestionTypedDict",
     "SearchHubItemsResponse",
@@ -15283,8 +15290,6 @@ __all__ = [
     "SentenceChunkerStrategyTypedDict",
     "ServerToolUseDetails",
     "ServerToolUseDetailsTypedDict",
-    "ServiceAccountOwner",
-    "ServiceAccountOwnerTypedDict",
     "ServiceTier",
     "SessionInterval",
     "Settings",
@@ -15305,8 +15310,6 @@ __all__ = [
     "SidekickToolInputType",
     "SidekickToolInputTypedDict",
     "Signal",
-    "SingleProject",
-    "SingleProjectTypedDict",
     "Six",
     "SixTypedDict",
     "Sixteen",
@@ -15872,8 +15875,6 @@ __all__ = [
     "Type",
     "Typescript",
     "TypescriptTypedDict",
-    "UpdateAPIKeyRequest",
-    "UpdateAPIKeyRequestTypedDict",
     "UpdateAgentAgentsEngine",
     "UpdateAgentAgentsEvaluators",
     "UpdateAgentAgentsEvaluatorsTypedDict",
@@ -16715,8 +16716,6 @@ __all__ = [
     "UseCases",
     "UserMessage",
     "UserMessageTypedDict",
-    "UserOwner",
-    "UserOwnerTypedDict",
     "Value",
     "ValueTypedDict",
     "Verbosity",
@@ -17041,8 +17040,6 @@ _dynamic_imports: dict[str, str] = {
     "AlertTriggerEventTypedDict": ".alerttriggerevent",
     "AlertUpdateRequest": ".alertupdateop",
     "AlertUpdateRequestTypedDict": ".alertupdateop",
-    "AllProjects": ".allprojects",
-    "AllProjectsTypedDict": ".allprojects",
     "AnnotationQueue": ".annotationqueue",
     "AnnotationQueueTypedDict": ".annotationqueue",
     "AnnotationQueueItem": ".annotationqueueitem",
@@ -17058,19 +17055,27 @@ _dynamic_imports: dict[str, str] = {
     "APIKeyBudgetScopeTypedDict": ".apikeybudgetscope",
     "APIKeyBudgetScopeRestResponse": ".apikeybudgetscoperestresponse",
     "APIKeyBudgetScopeRestResponseTypedDict": ".apikeybudgetscoperestresponse",
+    "APIKeyCreateRequestBody": ".apikeycreateop",
+    "APIKeyCreateRequestBodyTypedDict": ".apikeycreateop",
+    "APIKeyCreateSource": ".apikeycreateop",
+    "PermissionMode": ".apikeycreateop",
     "APIKeyDeleteRequest": ".apikeydeleteop",
     "APIKeyDeleteRequestTypedDict": ".apikeydeleteop",
     "APIKeyGetRequest": ".apikeygetop",
     "APIKeyGetRequestTypedDict": ".apikeygetop",
+    "APIKeyListCapabilitiesResponseBody": ".apikeylistcapabilitiesop",
+    "APIKeyListCapabilitiesResponseBodyTypedDict": ".apikeylistcapabilitiesop",
     "APIKeyListRequest": ".apikeylistop",
     "APIKeyListRequestTypedDict": ".apikeylistop",
-    "APIKeyOwner": ".apikeyowner",
-    "APIKeyOwnerTypedDict": ".apikeyowner",
+    "QueryParamSource": ".apikeylistop",
     "APIKeyRestResponse": ".apikeyrestresponse",
     "APIKeyRestResponseTypedDict": ".apikeyrestresponse",
-    "APIKeyStatus": ".apikeystatus",
+    "APIKeyUpdatePermissionMode": ".apikeyupdateop",
     "APIKeyUpdateRequest": ".apikeyupdateop",
+    "APIKeyUpdateRequestBody": ".apikeyupdateop",
+    "APIKeyUpdateRequestBodyTypedDict": ".apikeyupdateop",
     "APIKeyUpdateRequestTypedDict": ".apikeyupdateop",
+    "APIKeyUpdateStatus": ".apikeyupdateop",
     "AudioContentPartSchema": ".audiocontentpartschema",
     "AudioContentPartSchemaType": ".audiocontentpartschema",
     "AudioContentPartSchemaTypedDict": ".audiocontentpartschema",
@@ -17219,6 +17224,8 @@ _dynamic_imports: dict[str, str] = {
     "CodeToolInput": ".codetoolinput",
     "CodeToolInputType": ".codetoolinput",
     "CodeToolInputTypedDict": ".codetoolinput",
+    "Constraints": ".constraints",
+    "ConstraintsTypedDict": ".constraints",
     "ConversationParam": ".conversationparam",
     "ConversationParamTypedDict": ".conversationparam",
     "CountMetadata": ".countmetadata",
@@ -17658,8 +17665,6 @@ _dynamic_imports: dict[str, str] = {
     "ValueTypedDict": ".createannotationop",
     "CreateAnnotationQueueRequest": ".createannotationqueuerequest",
     "CreateAnnotationQueueRequestTypedDict": ".createannotationqueuerequest",
-    "CreateAPIKeyRequest": ".createapikeyrequest",
-    "CreateAPIKeyRequestTypedDict": ".createapikeyrequest",
     "CreateBudgetRequest": ".createbudgetrequest",
     "CreateBudgetRequestTypedDict": ".createbudgetrequest",
     "CreateBudgetResponse": ".createbudgetresponse",
@@ -19853,7 +19858,7 @@ _dynamic_imports: dict[str, str] = {
     "DetectResponseTypedDict": ".detectresponse",
     "Domain": ".domain",
     "DomainTypedDict": ".domain",
-    "DomainGroup": ".domaingroup",
+    "Group": ".domain",
     "DomainVerification": ".domainverification",
     "DomainVerificationTypedDict": ".domainverification",
     "DomainVerificationStatus": ".domainverificationstatus",
@@ -21634,8 +21639,6 @@ _dynamic_imports: dict[str, str] = {
     "ListAnnotationQueuesResponseTypedDict": ".listannotationqueuesresponse",
     "ListBudgetsResponse": ".listbudgetsresponse",
     "ListBudgetsResponseTypedDict": ".listbudgetsresponse",
-    "ListCapabilitiesResponse": ".listcapabilitiesresponse",
-    "ListCapabilitiesResponseTypedDict": ".listcapabilitiesresponse",
     "ListChunksQueryParamStatus": ".listchunksop",
     "ListChunksQueryParamStatusTypedDict": ".listchunksop",
     "ListChunksRequest": ".listchunksop",
@@ -21975,8 +21978,6 @@ _dynamic_imports: dict[str, str] = {
     "ManagementKeyUpdateRequest": ".managementkeyupdateop",
     "ManagementKeyUpdateRequestTypedDict": ".managementkeyupdateop",
     "ManagementPermissionMode": ".managementpermissionmode",
-    "McpAccess": ".mcpaccess",
-    "McpAccessTypedDict": ".mcpaccess",
     "McpAuthConfig": ".mcpauthconfig",
     "McpAuthConfigTypedDict": ".mcpauthconfig",
     "McpAuthConfigOutput": ".mcpauthconfig_output",
@@ -22194,7 +22195,8 @@ _dynamic_imports: dict[str, str] = {
     "OrqSidekickToolTypedDict": ".orqsidekicktool",
     "OutputTokensDetails": ".outputtokensdetails",
     "OutputTokensDetailsTypedDict": ".outputtokensdetails",
-    "OwnerType": ".ownertype",
+    "Owner": ".owner",
+    "OwnerTypedDict": ".owner",
     "AgenticChunker": ".parseop",
     "AgenticChunkerStrategy": ".parseop",
     "AgenticChunkerStrategyTypedDict": ".parseop",
@@ -22261,7 +22263,6 @@ _dynamic_imports: dict[str, str] = {
     "PatchV2HumanEvalSetsIDResponseBodyFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyHumanReviewSetsFilterType": ".patch_v2_human_eval_sets_id_op",
     "PatchV2HumanEvalSetsIDResponseBodyTypedDict": ".patch_v2_human_eval_sets_id_op",
-    "PermissionMode": ".permissionmode",
     "PiiRedaction": ".piiredaction",
     "PiiRedactionTypedDict": ".piiredaction",
     "PiiRedactionConfig": ".piiredactionconfig",
@@ -23250,7 +23251,6 @@ _dynamic_imports: dict[str, str] = {
     "RunAgentToolChoiceType": ".runagentop",
     "Schema": ".runagentop",
     "SchemaTypedDict": ".runagentop",
-    "ScopeMode": ".scopemode",
     "SearchHubItemsResponse": ".searchhubitemsresponse",
     "SearchHubItemsResponseTypedDict": ".searchhubitemsresponse",
     "SearchKnowledgeMatch": ".searchknowledgematch",
@@ -23392,8 +23392,6 @@ _dynamic_imports: dict[str, str] = {
     "SecurityConfigTypedDict": ".securityconfig",
     "ServerToolUseDetails": ".servertoolusedetails",
     "ServerToolUseDetailsTypedDict": ".servertoolusedetails",
-    "ServiceAccountOwner": ".serviceaccountowner",
-    "ServiceAccountOwnerTypedDict": ".serviceaccountowner",
     "SessionInterval": ".sessioninterval",
     "Sharing": ".sharing",
     "SharingTypedDict": ".sharing",
@@ -23404,8 +23402,6 @@ _dynamic_imports: dict[str, str] = {
     "SidekickToolInput": ".sidekicktoolinput",
     "SidekickToolInputType": ".sidekicktoolinput",
     "SidekickToolInputTypedDict": ".sidekicktoolinput",
-    "SingleProject": ".singleproject",
-    "SingleProjectTypedDict": ".singleproject",
     "Skill": ".skill",
     "SkillTypedDict": ".skill",
     "SkillDeleteRequest": ".skilldeleteop",
@@ -24181,8 +24177,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAnnotationQueueRequest1TypedDict": ".updateannotationqueueop",
     "UpdateAnnotationQueueRequest": ".updateannotationqueuerequest",
     "UpdateAnnotationQueueRequestTypedDict": ".updateannotationqueuerequest",
-    "UpdateAPIKeyRequest": ".updateapikeyrequest",
-    "UpdateAPIKeyRequestTypedDict": ".updateapikeyrequest",
     "UpdateBudgetRequest": ".updatebudgetrequest",
     "UpdateBudgetRequestTypedDict": ".updatebudgetrequest",
     "UpdateBudgetResponse": ".updatebudgetresponse",
@@ -24737,8 +24731,6 @@ _dynamic_imports: dict[str, str] = {
     "UpsertChunkMetadata": ".upsertchunk",
     "UpsertChunkMetadataTypedDict": ".upsertchunk",
     "UpsertChunkTypedDict": ".upsertchunk",
-    "UserOwner": ".userowner",
-    "UserOwnerTypedDict": ".userowner",
     "VerifyDomainResponse": ".verifydomainresponse",
     "VerifyDomainResponseTypedDict": ".verifydomainresponse",
     "VertexCapabilities": ".vertexcapabilities",

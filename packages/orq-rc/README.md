@@ -346,8 +346,8 @@ with Orq(
 * [list](docs/sdks/apikeys/README.md#list) - List API keys
 * [create](docs/sdks/apikeys/README.md#create) - Create a new API key
 * [list_capabilities](docs/sdks/apikeys/README.md#list_capabilities) - List capability catalog
-* [get](docs/sdks/apikeys/README.md#get) - Retrieve an API key
 * [delete](docs/sdks/apikeys/README.md#delete) - Delete an API key
+* [get](docs/sdks/apikeys/README.md#get) - Retrieve an API key
 * [update](docs/sdks/apikeys/README.md#update) - Update an API key
 
 ### [Budgets](docs/sdks/budgets/README.md)

@@ -21,7 +21,7 @@ class ClassifyAnswerTypedDict(TypedDict):
     choice: NotRequired[str]
     r"""The selected option. Present for choice answers."""
     confidence: NotRequired[float]
-    r"""Probability of the selected option or level. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on chat models the largest value in probabilities, so it adds nothing the distribution does not; typesafe/jev-latest returns its own calibrated value, which can sit below the largest probability. Present for choice and score answers."""
     legend: NotRequired[Dict[str, str]]
     r"""Level index to level description. Present for score answers."""
     noul: NotRequired[float]
@@ -29,7 +29,7 @@ class ClassifyAnswerTypedDict(TypedDict):
     probabilities: NotRequired[Dict[str, float]]
     r"""Probability distribution over the options or levels. Present for choice and score answers."""
     score: NotRequired[float]
-    r"""The selected level index. Present for score answers."""
+    r"""Position on the scale, not an index: on chat models the weighted index, each level index multiplied by that level probability and summed, so the value is usually fractional; typesafe/jev-latest returns its own score. Present for score answers."""
 
 
 class ClassifyAnswer(BaseModel):
@@ -40,7 +40,7 @@ class ClassifyAnswer(BaseModel):
     r"""The selected option. Present for choice answers."""
 
     confidence: Optional[float] = None
-    r"""Probability of the selected option or level. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on chat models the largest value in probabilities, so it adds nothing the distribution does not; typesafe/jev-latest returns its own calibrated value, which can sit below the largest probability. Present for choice and score answers."""
 
     legend: Optional[Dict[str, str]] = None
     r"""Level index to level description. Present for score answers."""
@@ -52,7 +52,7 @@ class ClassifyAnswer(BaseModel):
     r"""Probability distribution over the options or levels. Present for choice and score answers."""
 
     score: Optional[float] = None
-    r"""The selected level index. Present for score answers."""
+    r"""Position on the scale, not an index: on chat models the weighted index, each level index multiplied by that level probability and summed, so the value is usually fractional; typesafe/jev-latest returns its own score. Present for score answers."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

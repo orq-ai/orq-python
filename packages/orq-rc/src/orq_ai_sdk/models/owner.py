@@ -7,19 +7,19 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class ProjectScopeTypedDict(TypedDict):
-    mode: str
-    project_id: NotRequired[str]
+class OwnerTypedDict(TypedDict):
+    type: str
+    user_id: NotRequired[str]
 
 
-class ProjectScope(BaseModel):
-    mode: str
+class Owner(BaseModel):
+    type: str
 
-    project_id: Optional[str] = None
+    user_id: Optional[str] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["project_id"])
+        optional_fields = set(["user_id"])
         serialized = handler(self)
         m = {}
 

@@ -1,16 +1,17 @@
 # PermissionMode
 
+Permission preset; restricted keys hold only the domains granted in access.
+
 ## Example Usage
 
 ```python
 from orq_ai_sdk.models import PermissionMode
-value: PermissionMode = "PERMISSION_MODE_UNSPECIFIED"
+value: PermissionMode = "all"
 ```
 
 
 ## Values
 
-- `"PERMISSION_MODE_UNSPECIFIED"`
-- `"PERMISSION_MODE_ALL"`
-- `"PERMISSION_MODE_RESTRICTED"`
-- `"PERMISSION_MODE_READ_ONLY"`
+- `"all"`
+- `"restricted"`
+- `"read_only"`

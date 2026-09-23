@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
-| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| `api_key_id`                                                   | *str*                                                          | :heavy_check_mark:                                             | API key id to update.                                          |
-| `update_api_key_request`                                       | [models.UpdateAPIKeyRequest](../models/updateapikeyrequest.md) | :heavy_check_mark:                                             | N/A                                                            |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `api_key_id`                                                           | *str*                                                                  | :heavy_check_mark:                                                     | Unique identifier of the API key.                                      |
+| `request_body`                                                         | [models.APIKeyUpdateRequestBody](../models/apikeyupdaterequestbody.md) | :heavy_check_mark:                                                     | N/A                                                                    |

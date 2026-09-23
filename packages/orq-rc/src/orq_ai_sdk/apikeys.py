@@ -14,15 +14,8 @@ class APIKeys(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[int] = None,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
-        status: Optional[models.APIKeyStatus] = None,
-        search: Optional[str] = None,
-        owner_type: Optional[Iterable[models.OwnerType]] = None,
-        permission_mode: Optional[Iterable[models.PermissionMode]] = None,
-        include_budget: Optional[bool] = None,
+        source: Optional[models.QueryParamSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -30,28 +23,10 @@ class APIKeys(BaseSDK):
     ) -> List[models.APIKeyRestResponse]:
         r"""List API keys
 
-        Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
+        Returns API keys visible to the current workspace as a JSON array sorted by name. Raw tokens are never included; the `token` field contains a masked display value.
 
-        :param limit: Page size, 1–200. Unset uses the server default (25).
-        :param starting_after: Cursor for forward pagination. Set to the `api_key_id` of the last
-            item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `api_key_id` of the
-            first item from the previous page.
-        :param project_id: Optional filter: only return keys belonging to this project. When
-            omitted, returns workspace-scoped and any single-project keys.
-        :param status: Optional filter: only return keys with this status.
-        :param search: Optional case-insensitive substring match against the api-key
-            name. Empty means no name filter.
-        :param owner_type: Optional filter: only return keys whose `owner.kind` matches
-            one of the requested types. Combines the user / service-account
-            oneof cases into a single repeated enum so the wire stays flat
-            and multi-select filters travel as a single field. Empty means
-            no owner-type filter.
-        :param permission_mode: Optional filter: only return keys whose permission mode is one
-            of the listed presets. Empty means no permission-mode filter.
-        :param include_budget: When true, embed each key's api-key-scoped budget (config and limits
-            only, no live usage) on the returned records. Adds one budget lookup
-            for the page; omit to skip it.
+        :param project_id: Only return keys bound to this project. When omitted, every key visible to the caller is returned.
+        :param source: Only return keys of this source.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -71,17 +46,8 @@ class APIKeys(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.APIKeyListRequest(
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
             project_id=project_id,
-            status=status,
-            search=search,
-            owner_type=utils.unmarshal(owner_type, Optional[List[models.OwnerType]]),
-            permission_mode=utils.unmarshal(
-                permission_mode, Optional[List[models.PermissionMode]]
-            ),
-            include_budget=include_budget,
+            source=source,
         )
 
         req = self._build_request(
@@ -122,19 +88,19 @@ class APIKeys(BaseSDK):
                 extensions={
                     "x-code-samples": [
                         {
-                            "label": "Core - List active project keys",
+                            "label": "Core - List project keys",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
                         },
                         {
-                            "label": "Python - List active project keys",
+                            "label": "Python - List project keys",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
                         },
                         {
-                            "label": "Node.js - List active project keys",
+                            "label": "Node.js - List project keys",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
                     ]
                 },
@@ -146,7 +112,7 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.APIKeyRestResponse], http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -158,15 +124,8 @@ class APIKeys(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[int] = None,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
-        status: Optional[models.APIKeyStatus] = None,
-        search: Optional[str] = None,
-        owner_type: Optional[Iterable[models.OwnerType]] = None,
-        permission_mode: Optional[Iterable[models.PermissionMode]] = None,
-        include_budget: Optional[bool] = None,
+        source: Optional[models.QueryParamSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -174,28 +133,10 @@ class APIKeys(BaseSDK):
     ) -> List[models.APIKeyRestResponse]:
         r"""List API keys
 
-        Returns API keys visible to the current workspace as a JSON array. Raw tokens are never included; the `token` field contains a masked display value.
+        Returns API keys visible to the current workspace as a JSON array sorted by name. Raw tokens are never included; the `token` field contains a masked display value.
 
-        :param limit: Page size, 1–200. Unset uses the server default (25).
-        :param starting_after: Cursor for forward pagination. Set to the `api_key_id` of the last
-            item from the previous page.
-        :param ending_before: Cursor for backward pagination. Set to the `api_key_id` of the
-            first item from the previous page.
-        :param project_id: Optional filter: only return keys belonging to this project. When
-            omitted, returns workspace-scoped and any single-project keys.
-        :param status: Optional filter: only return keys with this status.
-        :param search: Optional case-insensitive substring match against the api-key
-            name. Empty means no name filter.
-        :param owner_type: Optional filter: only return keys whose `owner.kind` matches
-            one of the requested types. Combines the user / service-account
-            oneof cases into a single repeated enum so the wire stays flat
-            and multi-select filters travel as a single field. Empty means
-            no owner-type filter.
-        :param permission_mode: Optional filter: only return keys whose permission mode is one
-            of the listed presets. Empty means no permission-mode filter.
-        :param include_budget: When true, embed each key's api-key-scoped budget (config and limits
-            only, no live usage) on the returned records. Adds one budget lookup
-            for the page; omit to skip it.
+        :param project_id: Only return keys bound to this project. When omitted, every key visible to the caller is returned.
+        :param source: Only return keys of this source.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -215,17 +156,8 @@ class APIKeys(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.APIKeyListRequest(
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
             project_id=project_id,
-            status=status,
-            search=search,
-            owner_type=utils.unmarshal(owner_type, Optional[List[models.OwnerType]]),
-            permission_mode=utils.unmarshal(
-                permission_mode, Optional[List[models.PermissionMode]]
-            ),
-            include_budget=include_budget,
+            source=source,
         )
 
         req = self._build_request_async(
@@ -266,19 +198,19 @@ class APIKeys(BaseSDK):
                 extensions={
                     "x-code-samples": [
                         {
-                            "label": "Core - List active project keys",
+                            "label": "Core - List project keys",
                             "lang": "curl",
-                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'limit=25' \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --data-urlencode 'status=API_KEY_STATUS_ACTIVE'\n",
+                            "source": "curl --get 'https://my.orq.ai/v2/api-keys' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --data-urlencode 'project_id=proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V'\n",
                         },
                         {
-                            "label": "Python - List active project keys",
+                            "label": "Python - List project keys",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    limit=25,\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_ACTIVE",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\napi_keys = client.api_keys.list(\n    project_id="proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nfor api_key in api_keys:\n    print(api_key.name, api_key.token)\n',
                         },
                         {
-                            "label": "Node.js - List active project keys",
+                            "label": "Node.js - List project keys",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_ACTIVE',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
                     ]
                 },
@@ -290,7 +222,7 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(List[models.APIKeyRestResponse], http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -303,15 +235,18 @@ class APIKeys(BaseSDK):
         self,
         *,
         name: str,
-        permission_mode: models.PermissionMode,
-        owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
+        access: Optional[Mapping[str, str]] = None,
+        constraints: Optional[
+            Union[models.Constraints, models.ConstraintsTypedDict]
+        ] = None,
+        expiration: Optional[datetime] = None,
+        owner: Optional[Union[models.Owner, models.OwnerTypedDict]] = None,
+        permission_mode: Optional[models.PermissionMode] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        access: Optional[Mapping[str, models.AccessLevel]] = None,
-        expires_at: Optional[datetime] = None,
-        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-        labels: Optional[Mapping[str, str]] = None,
+        projects: OptionalNullable[Iterable[str]] = UNSET,
+        source: Optional[models.APIKeyCreateSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -319,44 +254,21 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
-            Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
+        Mints a new API key in the workspace, bound to the single project in `projects` or to every project when omitted. The raw token is returned once in the `token` field and is never retrievable afterwards. Unknown body fields are rejected.
 
-            :param name: Human-readable name. Required.
-            :param permission_mode:
-            :param owner: Owner attribution. Defaults to service_account when omitted.
-            :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param access: Per-domain access map. Required when `permission_mode` =
-                `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
-                catalog of valid keys (Domain.id) and AccessLevel string values,
-                or fetch the live catalog via the capability catalog endpoint.
-            :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-                the key once `expires_at` is in the past. Unset means the key
-                never expires.
-            :param mcp_access: Optional MCP-gateway access restriction. Unset means no
-                restriction. See McpAccess for the deny_all / allow-list semantics.
-            :param labels: Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}
-
-        def create(
-            self, *,
-            name: str,
-            permission_mode: models.PermissionMode,
-            owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
-            project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            access: Optional[Mapping[str, models.AccessLevel]] = None,
-            expires_at: Optional[datetime] = None,
-            mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-            labels: Optional[Mapping[str, str]] = None,
-            retries: OptionalNullable[utils.RetryConfig] = UNSET,
-            server_url: Optional[str] = None,
-            timeout_ms: Optional[int] = None,
-            http_headers: Optional[Mapping[str, str]] = None
-        ) -> models.APIKeyRestResponse:
-            ,
-                values up to 64 characters). See ApiKey.labels.
-            :param retries: Override the default retry configuration for this method
-            :param server_url: Override the default server URL for this method
-            :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-            :param http_headers: Additional headers to set or replace on requests.
+        :param name: Display name of the key.
+        :param access: Per-domain access level (none, read or write) for restricted keys; domain ids come from the capability catalog.
+        :param constraints:
+        :param expiration: Legacy expiry as an RFC 3339 timestamp; prefer constraints.expires_at.
+        :param owner:
+        :param permission_mode: Permission preset; restricted keys hold only the domains granted in access.
+        :param project_scope:
+        :param projects: Legacy single-project binding; prefer project_scope.
+        :param source: Origin of the key; router keys are minted for the AI router.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -371,17 +283,20 @@ class APIKeys(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAPIKeyRequest(
+        request = models.APIKeyCreateRequestBody(
+            access=utils.unmarshal(access, Optional[Dict[str, str]]),
+            constraints=utils.get_pydantic_model(
+                constraints, Optional[models.Constraints]
+            ),
+            expiration=expiration,
             name=name,
-            owner=utils.get_pydantic_model(owner, Optional[models.APIKeyOwner]),
+            owner=utils.get_pydantic_model(owner, Optional[models.Owner]),
+            permission_mode=permission_mode,
             project_scope=utils.get_pydantic_model(
                 project_scope, Optional[models.ProjectScope]
             ),
-            permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
-            expires_at=expires_at,
-            mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
-            labels=utils.unmarshal(labels, Optional[Dict[str, str]]),
+            projects=utils.unmarshal(projects, OptionalNullable[List[str]]),
+            source=source,
         )
 
         req = self._build_request(
@@ -398,7 +313,7 @@ class APIKeys(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAPIKeyRequest
+                request, False, False, "json", models.APIKeyCreateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -427,32 +342,32 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "type": "service_account"\n    },\n    "project_scope": {\n      "mode": "all"\n    },\n    "permission_mode": "all"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"type": "service_account"},\n    project_scope={"mode": "all"},\n    permission_mode="all",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create service account key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    type: 'service_account',\n  },\n  projectScope: {\n    mode: 'all',\n  },\n  permissionMode: 'all',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
                         },
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "mode": "single",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n    },\n    "permission_mode": "restricted",\n    "access": {\n      "agent": "write",\n      "deployment": "read"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "mode": "single",\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    },\n    permission_mode="restricted",\n    access={\n        "agent": "write",\n        "deployment": "read",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    mode: 'single',\n    projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  },\n  permissionMode: 'restricted',\n  access: {\n    agent: 'write',\n    deployment: 'read',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
@@ -464,7 +379,7 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.APIKeyRestResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -477,15 +392,18 @@ class APIKeys(BaseSDK):
         self,
         *,
         name: str,
-        permission_mode: models.PermissionMode,
-        owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
+        access: Optional[Mapping[str, str]] = None,
+        constraints: Optional[
+            Union[models.Constraints, models.ConstraintsTypedDict]
+        ] = None,
+        expiration: Optional[datetime] = None,
+        owner: Optional[Union[models.Owner, models.OwnerTypedDict]] = None,
+        permission_mode: Optional[models.PermissionMode] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        access: Optional[Mapping[str, models.AccessLevel]] = None,
-        expires_at: Optional[datetime] = None,
-        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-        labels: Optional[Mapping[str, str]] = None,
+        projects: OptionalNullable[Iterable[str]] = UNSET,
+        source: Optional[models.APIKeyCreateSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -493,44 +411,21 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Create a new API key
 
-            Mints a new opaque API key (`sk-orq-<key_id>-<secret>`) in the workspace. The raw secret is returned ONCE in the response and is never retrievable afterwards. The stored record retains only `token_prefix` and a SHA-256 `token_hash`.
+        Mints a new API key in the workspace, bound to the single project in `projects` or to every project when omitted. The raw token is returned once in the `token` field and is never retrievable afterwards. Unknown body fields are rejected.
 
-            :param name: Human-readable name. Required.
-            :param permission_mode:
-            :param owner: Owner attribution. Defaults to service_account when omitted.
-            :param project_scope: Project authorization scope. Defaults to all-projects when omitted.
-            :param access: Per-domain access map. Required when `permission_mode` =
-                `PERMISSION_MODE_RESTRICTED`. See `ApiKey.access` for the full
-                catalog of valid keys (Domain.id) and AccessLevel string values,
-                or fetch the live catalog via the capability catalog endpoint.
-            :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-                the key once `expires_at` is in the past. Unset means the key
-                never expires.
-            :param mcp_access: Optional MCP-gateway access restriction. Unset means no
-                restriction. See McpAccess for the deny_all / allow-list semantics.
-            :param labels: Optional attribution labels (at most 10; keys `^[a-z0-9_.-]{1,32}
-
-        async def create_async(
-            self, *,
-            name: str,
-            permission_mode: models.PermissionMode,
-            owner: Optional[Union[models.APIKeyOwner, models.APIKeyOwnerTypedDict]] = None,
-            project_scope: Optional[Union[models.ProjectScope, models.ProjectScopeTypedDict]] = None,
-            access: Optional[Mapping[str, models.AccessLevel]] = None,
-            expires_at: Optional[datetime] = None,
-            mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
-            labels: Optional[Mapping[str, str]] = None,
-            retries: OptionalNullable[utils.RetryConfig] = UNSET,
-            server_url: Optional[str] = None,
-            timeout_ms: Optional[int] = None,
-            http_headers: Optional[Mapping[str, str]] = None
-        ) -> models.APIKeyRestResponse:
-            ,
-                values up to 64 characters). See ApiKey.labels.
-            :param retries: Override the default retry configuration for this method
-            :param server_url: Override the default server URL for this method
-            :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-            :param http_headers: Additional headers to set or replace on requests.
+        :param name: Display name of the key.
+        :param access: Per-domain access level (none, read or write) for restricted keys; domain ids come from the capability catalog.
+        :param constraints:
+        :param expiration: Legacy expiry as an RFC 3339 timestamp; prefer constraints.expires_at.
+        :param owner:
+        :param permission_mode: Permission preset; restricted keys hold only the domains granted in access.
+        :param project_scope:
+        :param projects: Legacy single-project binding; prefer project_scope.
+        :param source: Origin of the key; router keys are minted for the AI router.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -545,17 +440,20 @@ class APIKeys(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAPIKeyRequest(
+        request = models.APIKeyCreateRequestBody(
+            access=utils.unmarshal(access, Optional[Dict[str, str]]),
+            constraints=utils.get_pydantic_model(
+                constraints, Optional[models.Constraints]
+            ),
+            expiration=expiration,
             name=name,
-            owner=utils.get_pydantic_model(owner, Optional[models.APIKeyOwner]),
+            owner=utils.get_pydantic_model(owner, Optional[models.Owner]),
+            permission_mode=permission_mode,
             project_scope=utils.get_pydantic_model(
                 project_scope, Optional[models.ProjectScope]
             ),
-            permission_mode=permission_mode,
-            access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
-            expires_at=expires_at,
-            mcp_access=utils.get_pydantic_model(mcp_access, Optional[models.McpAccess]),
-            labels=utils.unmarshal(labels, Optional[Dict[str, str]]),
+            projects=utils.unmarshal(projects, OptionalNullable[List[str]]),
+            source=source,
         )
 
         req = self._build_request_async(
@@ -572,7 +470,7 @@ class APIKeys(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAPIKeyRequest
+                request, False, False, "json", models.APIKeyCreateRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -601,32 +499,32 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "type": "service_account"\n    },\n    "project_scope": {\n      "mode": "all"\n    },\n    "permission_mode": "all"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"type": "service_account"},\n    project_scope={"mode": "all"},\n    permission_mode="all",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create service account key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    type: 'service_account',\n  },\n  projectScope: {\n    mode: 'all',\n  },\n  permissionMode: 'all',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
                         },
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "mode": "single",\n      "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n    },\n    "permission_mode": "restricted",\n    "access": {\n      "agent": "write",\n      "deployment": "read"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "mode": "single",\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    },\n    permission_mode="restricted",\n    access={\n        "agent": "write",\n        "deployment": "read",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    mode: 'single',\n    projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  },\n  permissionMode: 'restricted',\n  access: {\n    agent: 'write',\n    deployment: 'read',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
@@ -638,7 +536,7 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.APIKeyRestResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -654,10 +552,10 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListCapabilitiesResponse:
+    ) -> models.APIKeyListCapabilitiesResponseBody:
         r"""List capability catalog
 
-        Returns the capability catalog: the set of permission domains that can be granted to an API key. Each entry includes the domain id, display name, group, allowed project scopes, and the read / write verb sets resolved at authorize() time. Drives the permissions UI in the dashboard.
+        Returns the capability catalog: the set of permission domains that can be granted to an API key. Each entry includes the domain id, display name, group, allowed project scopes and whether it can be granted read or write access. No credentials are required.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -716,7 +614,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List capability catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities'\n",
                         },
                         {
                             "label": "Python - List capability catalog",
@@ -737,7 +635,9 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListCapabilitiesResponse, http_res)
+            return unmarshal_json_response(
+                models.APIKeyListCapabilitiesResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -754,10 +654,10 @@ class APIKeys(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListCapabilitiesResponse:
+    ) -> models.APIKeyListCapabilitiesResponseBody:
         r"""List capability catalog
 
-        Returns the capability catalog: the set of permission domains that can be granted to an API key. Each entry includes the domain id, display name, group, allowed project scopes, and the read / write verb sets resolved at authorize() time. Drives the permissions UI in the dashboard.
+        Returns the capability catalog: the set of permission domains that can be granted to an API key. Each entry includes the domain id, display name, group, allowed project scopes and whether it can be granted read or write access. No credentials are required.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -816,7 +716,7 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - List capability catalog",
                             "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/capabilities'\n",
                         },
                         {
                             "label": "Python - List capability catalog",
@@ -837,229 +737,9 @@ class APIKeys(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListCapabilitiesResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    def get(
-        self,
-        *,
-        api_key_id: str,
-        include_budget: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.APIKeyRestResponse:
-        r"""Retrieve an API key
-
-        Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
-
-        :param api_key_id: API key id to retrieve (e.g. `01H...`).
-        :param include_budget: When true, embed the api-key-scoped budget (config and limits only,
-            no live usage) on the returned record.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.APIKeyGetRequest(
-            api_key_id=api_key_id,
-            include_budget=include_budget,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/api-keys/{api_key_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ApiKeyGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["API keys"],
-                extensions={
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Retrieve key metadata",
-                            "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
-                        },
-                        {
-                            "label": "Python - Retrieve key metadata",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
-                        },
-                        {
-                            "label": "Node.js - Retrieve key metadata",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
-                        },
-                    ]
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
-
-        raise models.APIDefaultError("Unexpected response received", http_res)
-
-    async def get_async(
-        self,
-        *,
-        api_key_id: str,
-        include_budget: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.APIKeyRestResponse:
-        r"""Retrieve an API key
-
-        Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned — only `token_prefix`, `permission_mode`, `project_scope`, and lifecycle fields.
-
-        :param api_key_id: API key id to retrieve (e.g. `01H...`).
-        :param include_budget: When true, embed the api-key-scoped budget (config and limits only,
-            no live usage) on the returned record.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.APIKeyGetRequest(
-            api_key_id=api_key_id,
-            include_budget=include_budget,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/api-keys/{api_key_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ApiKeyGet",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["API keys"],
-                extensions={
-                    "x-code-samples": [
-                        {
-                            "label": "Core - Retrieve key metadata",
-                            "lang": "curl",
-                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
-                        },
-                        {
-                            "label": "Python - Retrieve key metadata",
-                            "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
-                        },
-                        {
-                            "label": "Node.js - Retrieve key metadata",
-                            "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
-                        },
-                    ]
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
+            return unmarshal_json_response(
+                models.APIKeyListCapabilitiesResponseBody, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1082,7 +762,7 @@ class APIKeys(BaseSDK):
 
         Permanently deletes an API key. The key is revoked immediately; in-flight requests using it will fail. The response body is empty on success.
 
-        :param api_key_id: API key id to delete.
+        :param api_key_id: Unique identifier of the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1167,7 +847,7 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1189,7 +869,7 @@ class APIKeys(BaseSDK):
 
         Permanently deletes an API key. The key is revoked immediately; in-flight requests using it will fail. The response body is empty on success.
 
-        :param api_key_id: API key id to delete.
+        :param api_key_id: Unique identifier of the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1274,7 +954,221 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def get(
+        self,
+        *,
+        api_key_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.APIKeyRestResponse:
+        r"""Retrieve an API key
+
+        Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned; `token` carries a masked display value.
+
+        :param api_key_id: Unique identifier of the API key.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.APIKeyGetRequest(
+            api_key_id=api_key_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/api-keys/{api_key_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ApiKeyGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve key metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Python - Retrieve key metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve key metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
+                        },
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
+        if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def get_async(
+        self,
+        *,
+        api_key_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.APIKeyRestResponse:
+        r"""Retrieve an API key
+
+        Retrieves the metadata for an existing API key by its unique identifier. The raw secret is never returned; `token` carries a masked display value.
+
+        :param api_key_id: Unique identifier of the API key.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.APIKeyGetRequest(
+            api_key_id=api_key_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/api-keys/{api_key_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ApiKeyGet",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["API keys"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Core - Retrieve key metadata",
+                            "lang": "curl",
+                            "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
+                        },
+                        {
+                            "label": "Python - Retrieve key metadata",
+                            "lang": "python",
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.get(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n)\n\nprint(result.name)\n',
+                        },
+                        {
+                            "label": "Node.js - Retrieve key metadata",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
+                        },
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.APIKeyRestResponse, http_res)
+        if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1287,16 +1181,17 @@ class APIKeys(BaseSDK):
         self,
         *,
         api_key_id: str,
+        access: Optional[Mapping[str, str]] = None,
+        active: Optional[bool] = None,
+        constraints: Optional[
+            Union[models.Constraints, models.ConstraintsTypedDict]
+        ] = None,
         name: Optional[str] = None,
-        status: Optional[models.APIKeyStatus] = None,
-        permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, models.AccessLevel]] = None,
+        permission_mode: Optional[models.APIKeyUpdatePermissionMode] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        expires_at: Optional[datetime] = None,
-        clear_expires_at: Optional[bool] = None,
-        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
+        status: Optional[models.APIKeyUpdateStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1304,26 +1199,16 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Update an API key
 
-        Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
+        Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope and constraints. Omitted fields keep their current values. Unknown body fields are rejected.
 
-        :param api_key_id: API key id to update.
-        :param name: New name. Omit to keep current.
-        :param status:
-        :param permission_mode:
-        :param access: Replacement access map. Required when changing to
-            `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
-            map to clear. See `ApiKey.access` for the full catalog of valid
-            keys (Domain.id) and AccessLevel string values, or fetch the
-            live catalog via the capability catalog endpoint.
-        :param project_scope: New project scope. Omit to keep current.
-        :param expires_at: New expiration. Omit to keep current. Set `clear_expires_at = true`
-            to remove an existing expiration (a zero Timestamp here would still
-            mean \"no change\" because of optional semantics).
-        :param clear_expires_at: Force-clear the expiration. Mutually exclusive with `expires_at`.
-        :param mcp_access: Replacement MCP-gateway access restriction. Absent leaves the
-            current value intact; an explicitly-set McpAccess replaces it —
-            including an empty one (deny_all=false + empty list), which clears
-            any existing restriction. See McpAccess.
+        :param api_key_id: Unique identifier of the API key.
+        :param access: Per-domain access level (none, read or write) for restricted keys.
+        :param active: Legacy toggle mirrored onto status: false disables, true re-enables.
+        :param constraints:
+        :param name: New display name.
+        :param permission_mode: Permission preset; a restricted key must keep at least one granted domain.
+        :param project_scope:
+        :param status: Lifecycle status; revoked is terminal.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1344,19 +1229,18 @@ class APIKeys(BaseSDK):
 
         request = models.APIKeyUpdateRequest(
             api_key_id=api_key_id,
-            update_api_key_request=models.UpdateAPIKeyRequest(
+            request_body=models.APIKeyUpdateRequestBody(
+                access=utils.unmarshal(access, Optional[Dict[str, str]]),
+                active=active,
+                constraints=utils.get_pydantic_model(
+                    constraints, Optional[models.Constraints]
+                ),
                 name=name,
-                status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),
-                expires_at=expires_at,
-                clear_expires_at=clear_expires_at,
-                mcp_access=utils.get_pydantic_model(
-                    mcp_access, Optional[models.McpAccess]
-                ),
+                status=status,
             ),
         )
 
@@ -1374,11 +1258,11 @@ class APIKeys(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_api_key_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.UpdateAPIKeyRequest,
+                models.APIKeyUpdateRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1407,17 +1291,17 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Disable a key",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"disabled\"\n  }'\n",
                         },
                         {
                             "label": "Python - Disable a key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="disabled",\n)\n\nprint(result.status)\n',
                         },
                         {
                             "label": "Node.js - Disable a key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'disabled',\n});\n\nconsole.log(result.status);\n",
                         },
                     ]
                 },
@@ -1429,7 +1313,9 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.APIKeyRestResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -1442,16 +1328,17 @@ class APIKeys(BaseSDK):
         self,
         *,
         api_key_id: str,
+        access: Optional[Mapping[str, str]] = None,
+        active: Optional[bool] = None,
+        constraints: Optional[
+            Union[models.Constraints, models.ConstraintsTypedDict]
+        ] = None,
         name: Optional[str] = None,
-        status: Optional[models.APIKeyStatus] = None,
-        permission_mode: Optional[models.PermissionMode] = None,
-        access: Optional[Mapping[str, models.AccessLevel]] = None,
+        permission_mode: Optional[models.APIKeyUpdatePermissionMode] = None,
         project_scope: Optional[
             Union[models.ProjectScope, models.ProjectScopeTypedDict]
         ] = None,
-        expires_at: Optional[datetime] = None,
-        clear_expires_at: Optional[bool] = None,
-        mcp_access: Optional[Union[models.McpAccess, models.McpAccessTypedDict]] = None,
+        status: Optional[models.APIKeyUpdateStatus] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1459,26 +1346,16 @@ class APIKeys(BaseSDK):
     ) -> models.APIKeyRestResponse:
         r"""Update an API key
 
-        Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope, and constraints (budget / rate limit / expiry). Omitted fields keep their current values.
+        Updates mutable fields of an API key: display name, status (active / disabled / revoked), permission mode and access map, project scope and constraints. Omitted fields keep their current values. Unknown body fields are rejected.
 
-        :param api_key_id: API key id to update.
-        :param name: New name. Omit to keep current.
-        :param status:
-        :param permission_mode:
-        :param access: Replacement access map. Required when changing to
-            `PERMISSION_MODE_RESTRICTED`; ignored otherwise. Provide an empty
-            map to clear. See `ApiKey.access` for the full catalog of valid
-            keys (Domain.id) and AccessLevel string values, or fetch the
-            live catalog via the capability catalog endpoint.
-        :param project_scope: New project scope. Omit to keep current.
-        :param expires_at: New expiration. Omit to keep current. Set `clear_expires_at = true`
-            to remove an existing expiration (a zero Timestamp here would still
-            mean \"no change\" because of optional semantics).
-        :param clear_expires_at: Force-clear the expiration. Mutually exclusive with `expires_at`.
-        :param mcp_access: Replacement MCP-gateway access restriction. Absent leaves the
-            current value intact; an explicitly-set McpAccess replaces it —
-            including an empty one (deny_all=false + empty list), which clears
-            any existing restriction. See McpAccess.
+        :param api_key_id: Unique identifier of the API key.
+        :param access: Per-domain access level (none, read or write) for restricted keys.
+        :param active: Legacy toggle mirrored onto status: false disables, true re-enables.
+        :param constraints:
+        :param name: New display name.
+        :param permission_mode: Permission preset; a restricted key must keep at least one granted domain.
+        :param project_scope:
+        :param status: Lifecycle status; revoked is terminal.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1499,19 +1376,18 @@ class APIKeys(BaseSDK):
 
         request = models.APIKeyUpdateRequest(
             api_key_id=api_key_id,
-            update_api_key_request=models.UpdateAPIKeyRequest(
+            request_body=models.APIKeyUpdateRequestBody(
+                access=utils.unmarshal(access, Optional[Dict[str, str]]),
+                active=active,
+                constraints=utils.get_pydantic_model(
+                    constraints, Optional[models.Constraints]
+                ),
                 name=name,
-                status=status,
                 permission_mode=permission_mode,
-                access=utils.unmarshal(access, Optional[Dict[str, models.AccessLevel]]),
                 project_scope=utils.get_pydantic_model(
                     project_scope, Optional[models.ProjectScope]
                 ),
-                expires_at=expires_at,
-                clear_expires_at=clear_expires_at,
-                mcp_access=utils.get_pydantic_model(
-                    mcp_access, Optional[models.McpAccess]
-                ),
+                status=status,
             ),
         )
 
@@ -1529,11 +1405,11 @@ class APIKeys(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_api_key_request,
+                request.request_body,
                 False,
                 False,
                 "json",
-                models.UpdateAPIKeyRequest,
+                models.APIKeyUpdateRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1562,17 +1438,17 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Disable a key",
                             "lang": "curl",
-                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"API_KEY_STATUS_DISABLED\"\n  }'\n",
+                            "source": "curl --request PATCH \\\n  --url 'https://my.orq.ai/v2/api-keys/01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\" \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"status\": \"disabled\"\n  }'\n",
                         },
                         {
                             "label": "Python - Disable a key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="API_KEY_STATUS_DISABLED",\n)\n\nprint(result.status)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.update(\n    api_key_id="01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    status="disabled",\n)\n\nprint(result.status)\n',
                         },
                         {
                             "label": "Node.js - Disable a key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'API_KEY_STATUS_DISABLED',\n});\n\nconsole.log(result.status);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'disabled',\n});\n\nconsole.log(result.status);\n",
                         },
                     ]
                 },
@@ -1584,7 +1460,9 @@ class APIKeys(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.APIKeyRestResponse, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "409", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

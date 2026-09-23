@@ -200,7 +200,7 @@ r"""The content to evaluate. A string, an object or an array."""
 
 class CreateClassifyRequestBodyTypedDict(TypedDict):
     model: str
-    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
+    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify."""
     questions: Dict[str, QuestionsTypedDict]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
     state: StateTypedDict
@@ -215,7 +215,7 @@ class CreateClassifyRequestBodyTypedDict(TypedDict):
 
 class CreateClassifyRequestBody(BaseModel):
     model: str
-    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
+    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify."""
 
     questions: Dict[str, Questions]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
@@ -322,7 +322,7 @@ class CreateClassifyResponseBodyTypedDict(TypedDict):
     answers: Dict[str, ClassifyAnswerTypedDict]
     r"""Answers keyed by the question identifiers from the request."""
     model: str
-    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
+    r"""The model ID from the request."""
     usage: ClassifyUsageTypedDict
     telemetry: NotRequired[ResponseTelemetryTypedDict]
 
@@ -334,7 +334,7 @@ class CreateClassifyResponseBody(BaseModel):
     r"""Answers keyed by the question identifiers from the request."""
 
     model: str
-    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
+    r"""The model ID from the request."""
 
     usage: ClassifyUsage
 

@@ -82,6 +82,7 @@ class Orq(BaseSDK):
     memory_stores: "MemoryStores"
     evals: "Evals"
     pii: "Pii"
+    api_keys: "APIKeys"
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
@@ -91,7 +92,6 @@ class Orq(BaseSDK):
     policies: "Policies"
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
-    api_keys: "APIKeys"
     budgets: "Budgets"
     files: "Files"
     guardrail_rules: "GuardrailRules"
@@ -129,6 +129,7 @@ class Orq(BaseSDK):
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
+        "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
@@ -138,7 +139,6 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
-        "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
