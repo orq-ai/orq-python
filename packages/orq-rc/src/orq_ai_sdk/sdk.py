@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
+    from orq_ai_sdk.environments import Environments
     from orq_ai_sdk.evals import Evals
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
@@ -93,6 +94,7 @@ class Orq(BaseSDK):
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
     budgets: "Budgets"
+    environments: "Environments"
     files: "Files"
     guardrail_rules: "GuardrailRules"
     hub: "Hub"
@@ -140,6 +142,7 @@ class Orq(BaseSDK):
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
+        "environments": ("orq_ai_sdk.environments", "Environments"),
         "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "hub": ("orq_ai_sdk.hub", "Hub"),

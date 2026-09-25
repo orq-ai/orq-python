@@ -1524,6 +1524,14 @@ if TYPE_CHECKING:
         CreateEmbeddingResponseBodyTypedDict,
         EncodingFormat,
     )
+    from .createenvironmentrequest import (
+        CreateEnvironmentRequest,
+        CreateEnvironmentRequestTypedDict,
+    )
+    from .createenvironmentresponse import (
+        CreateEnvironmentResponse,
+        CreateEnvironmentResponseTypedDict,
+    )
     from .createevalop import (
         CreateEval1CategoricalLabels,
         CreateEval1CategoricalLabelsTypedDict,
@@ -2574,6 +2582,10 @@ if TYPE_CHECKING:
         DeleteDatasourceRequest,
         DeleteDatasourceRequestTypedDict,
     )
+    from .deleteenvironmentresponse import (
+        DeleteEnvironmentResponse,
+        DeleteEnvironmentResponseTypedDict,
+    )
     from .deleteevalop import (
         DeleteEvalEvalsResponseBody,
         DeleteEvalEvalsResponseBodyData,
@@ -3330,6 +3342,20 @@ if TYPE_CHECKING:
         EmbeddingTimeoutConfigTypedDict,
     )
     from .entitylist import EntityList, EntityListTypedDict
+    from .environment import Environment, EnvironmentTypedDict
+    from .environmentdeleteop import (
+        EnvironmentDeleteRequest,
+        EnvironmentDeleteRequestTypedDict,
+    )
+    from .environmentgetop import EnvironmentGetRequest, EnvironmentGetRequestTypedDict
+    from .environmentlistop import (
+        EnvironmentListRequest,
+        EnvironmentListRequestTypedDict,
+    )
+    from .environmentupdateop import (
+        EnvironmentUpdateRequest,
+        EnvironmentUpdateRequestTypedDict,
+    )
     from .errorpart import ErrorPart, ErrorPartKind, ErrorPartTypedDict
     from .errorstreamingevent import (
         ErrorStreamingEvent,
@@ -3894,6 +3920,10 @@ if TYPE_CHECKING:
     )
     from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import GetChunksCountRequest, GetChunksCountRequestTypedDict
+    from .getenvironmentresponse import (
+        GetEnvironmentResponse,
+        GetEnvironmentResponseTypedDict,
+    )
     from .getevalop import (
         BedrockGuardrail,
         BedrockGuardrailTypedDict,
@@ -5217,6 +5247,10 @@ if TYPE_CHECKING:
         QueryParamStatusTypedDict,
     )
     from .listdomainsresponse import ListDomainsResponse, ListDomainsResponseTypedDict
+    from .listenvironmentsresponse import (
+        ListEnvironmentsResponse,
+        ListEnvironmentsResponseTypedDict,
+    )
     from .listevaluatorversionsresponse import (
         ListEvaluatorVersionsResponse,
         ListEvaluatorVersionsResponseData,
@@ -8114,6 +8148,14 @@ if TYPE_CHECKING:
         UpdateDatasourceRequest,
         UpdateDatasourceRequestTypedDict,
     )
+    from .updateenvironmentrequest import (
+        UpdateEnvironmentRequest,
+        UpdateEnvironmentRequestTypedDict,
+    )
+    from .updateenvironmentresponse import (
+        UpdateEnvironmentResponse,
+        UpdateEnvironmentResponseTypedDict,
+    )
     from .updateevalop import (
         UpdateEvalCategoricalLabels,
         UpdateEvalCategoricalLabelsTypedDict,
@@ -10088,6 +10130,10 @@ __all__ = [
     "CreateEmbeddingRequestBodyTypedDict",
     "CreateEmbeddingResponseBody",
     "CreateEmbeddingResponseBodyTypedDict",
+    "CreateEnvironmentRequest",
+    "CreateEnvironmentRequestTypedDict",
+    "CreateEnvironmentResponse",
+    "CreateEnvironmentResponseTypedDict",
     "CreateEval1CategoricalLabels",
     "CreateEval1CategoricalLabelsTypedDict",
     "CreateEval1Fallbacks",
@@ -10997,6 +11043,8 @@ __all__ = [
     "DeleteDatasetRequestTypedDict",
     "DeleteDatasourceRequest",
     "DeleteDatasourceRequestTypedDict",
+    "DeleteEnvironmentResponse",
+    "DeleteEnvironmentResponseTypedDict",
     "DeleteEvalEvalsResponseBody",
     "DeleteEvalEvalsResponseBodyData",
     "DeleteEvalRequest",
@@ -11688,6 +11736,16 @@ __all__ = [
     "Engine",
     "EntityList",
     "EntityListTypedDict",
+    "Environment",
+    "EnvironmentDeleteRequest",
+    "EnvironmentDeleteRequestTypedDict",
+    "EnvironmentGetRequest",
+    "EnvironmentGetRequestTypedDict",
+    "EnvironmentListRequest",
+    "EnvironmentListRequestTypedDict",
+    "EnvironmentTypedDict",
+    "EnvironmentUpdateRequest",
+    "EnvironmentUpdateRequestTypedDict",
     "Eq",
     "EqTypedDict",
     "Error",
@@ -12226,6 +12284,8 @@ __all__ = [
     "GetBudgetResponseTypedDict",
     "GetChunksCountRequest",
     "GetChunksCountRequestTypedDict",
+    "GetEnvironmentResponse",
+    "GetEnvironmentResponseTypedDict",
     "GetEvalEvalsResponseBody",
     "GetEvalEvalsResponseBodyData",
     "GetEvalFunctionParams1",
@@ -13327,6 +13387,8 @@ __all__ = [
     "ListDatasourcesRequestTypedDict",
     "ListDomainsResponse",
     "ListDomainsResponseTypedDict",
+    "ListEnvironmentsResponse",
+    "ListEnvironmentsResponseTypedDict",
     "ListEvalVersionsRequest",
     "ListEvalVersionsRequestTypedDict",
     "ListEvaluatorVersionsResponse",
@@ -16221,6 +16283,10 @@ __all__ = [
     "UpdateDatasetRequestTypedDict",
     "UpdateDatasourceRequest",
     "UpdateDatasourceRequestTypedDict",
+    "UpdateEnvironmentRequest",
+    "UpdateEnvironmentRequestTypedDict",
+    "UpdateEnvironmentResponse",
+    "UpdateEnvironmentResponseTypedDict",
     "UpdateEvalCategoricalLabels",
     "UpdateEvalCategoricalLabelsTypedDict",
     "UpdateEvalEvalsFallbacks",
@@ -18277,6 +18343,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateEmbeddingResponseBody": ".createembeddingop",
     "CreateEmbeddingResponseBodyTypedDict": ".createembeddingop",
     "EncodingFormat": ".createembeddingop",
+    "CreateEnvironmentRequest": ".createenvironmentrequest",
+    "CreateEnvironmentRequestTypedDict": ".createenvironmentrequest",
+    "CreateEnvironmentResponse": ".createenvironmentresponse",
+    "CreateEnvironmentResponseTypedDict": ".createenvironmentresponse",
     "CreateEval1CategoricalLabels": ".createevalop",
     "CreateEval1CategoricalLabelsTypedDict": ".createevalop",
     "CreateEval1Fallbacks": ".createevalop",
@@ -19234,6 +19304,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteDatasetRequestTypedDict": ".deletedatasetop",
     "DeleteDatasourceRequest": ".deletedatasourceop",
     "DeleteDatasourceRequestTypedDict": ".deletedatasourceop",
+    "DeleteEnvironmentResponse": ".deleteenvironmentresponse",
+    "DeleteEnvironmentResponseTypedDict": ".deleteenvironmentresponse",
     "DeleteEvalEvalsResponseBody": ".deleteevalop",
     "DeleteEvalEvalsResponseBodyData": ".deleteevalop",
     "DeleteEvalRequest": ".deleteevalop",
@@ -19947,6 +20019,16 @@ _dynamic_imports: dict[str, str] = {
     "EmbeddingTimeoutConfigTypedDict": ".embeddingtimeoutconfig",
     "EntityList": ".entitylist",
     "EntityListTypedDict": ".entitylist",
+    "Environment": ".environment",
+    "EnvironmentTypedDict": ".environment",
+    "EnvironmentDeleteRequest": ".environmentdeleteop",
+    "EnvironmentDeleteRequestTypedDict": ".environmentdeleteop",
+    "EnvironmentGetRequest": ".environmentgetop",
+    "EnvironmentGetRequestTypedDict": ".environmentgetop",
+    "EnvironmentListRequest": ".environmentlistop",
+    "EnvironmentListRequestTypedDict": ".environmentlistop",
+    "EnvironmentUpdateRequest": ".environmentupdateop",
+    "EnvironmentUpdateRequestTypedDict": ".environmentupdateop",
     "ErrorPart": ".errorpart",
     "ErrorPartKind": ".errorpart",
     "ErrorPartTypedDict": ".errorpart",
@@ -20481,6 +20563,8 @@ _dynamic_imports: dict[str, str] = {
     "GetBudgetResponseTypedDict": ".getbudgetresponse",
     "GetChunksCountRequest": ".getchunkscountop",
     "GetChunksCountRequestTypedDict": ".getchunkscountop",
+    "GetEnvironmentResponse": ".getenvironmentresponse",
+    "GetEnvironmentResponseTypedDict": ".getenvironmentresponse",
     "BedrockGuardrail": ".getevalop",
     "BedrockGuardrailTypedDict": ".getevalop",
     "FunctionParams10": ".getevalop",
@@ -21722,6 +21806,8 @@ _dynamic_imports: dict[str, str] = {
     "QueryParamStatusTypedDict": ".listdatasourcesop",
     "ListDomainsResponse": ".listdomainsresponse",
     "ListDomainsResponseTypedDict": ".listdomainsresponse",
+    "ListEnvironmentsResponse": ".listenvironmentsresponse",
+    "ListEnvironmentsResponseTypedDict": ".listenvironmentsresponse",
     "ListEvaluatorVersionsResponse": ".listevaluatorversionsresponse",
     "ListEvaluatorVersionsResponseData": ".listevaluatorversionsresponse",
     "ListEvaluatorVersionsResponseDataTypedDict": ".listevaluatorversionsresponse",
@@ -24261,6 +24347,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateDatasetRequestTypedDict": ".updatedatasetrequest",
     "UpdateDatasourceRequest": ".updatedatasourceop",
     "UpdateDatasourceRequestTypedDict": ".updatedatasourceop",
+    "UpdateEnvironmentRequest": ".updateenvironmentrequest",
+    "UpdateEnvironmentRequestTypedDict": ".updateenvironmentrequest",
+    "UpdateEnvironmentResponse": ".updateenvironmentresponse",
+    "UpdateEnvironmentResponseTypedDict": ".updateenvironmentresponse",
     "UpdateEvalCategoricalLabels": ".updateevalop",
     "UpdateEvalCategoricalLabelsTypedDict": ".updateevalop",
     "UpdateEvalEvalsFallbacks": ".updateevalop",

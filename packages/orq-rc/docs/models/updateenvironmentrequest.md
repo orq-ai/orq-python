@@ -1,0 +1,10 @@
+# UpdateEnvironmentRequest
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `display_name`                                                                                      | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
+| `description`                                                                                       | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
+| `sharing`                                                                                           | [Optional[models.Sharing]](../models/sharing.md)                                                    | :heavy_minus_sign:                                                                                  | Sharing controls which projects in the workspace may use this entity and<br/> what they may do with it. |
