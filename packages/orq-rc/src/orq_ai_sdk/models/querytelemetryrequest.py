@@ -50,6 +50,10 @@ class QueryTelemetryRequestTypedDict(TypedDict):
     r"""Explicit bucket width in seconds. Takes precedence over `grain` when both are set."""
     selected_range_seconds: NotRequired[int]
     r"""The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown."""
+    project_id: NotRequired[str]
+    r"""Pins the read to one project the caller can reach. Omit to keep the
+    caller's token scope.
+    """
 
 
 class QueryTelemetryRequest(BaseModel):
@@ -91,6 +95,11 @@ class QueryTelemetryRequest(BaseModel):
     selected_range_seconds: Optional[int] = None
     r"""The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown."""
 
+    project_id: Optional[str] = None
+    r"""Pins the read to one project the caller can reach. Omit to keep the
+    caller's token scope.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -110,6 +119,7 @@ class QueryTelemetryRequest(BaseModel):
                 "sort",
                 "interval_seconds",
                 "selected_range_seconds",
+                "project_id",
             ]
         )
         serialized = handler(self)

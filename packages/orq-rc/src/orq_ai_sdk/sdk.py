@@ -73,7 +73,6 @@ class Orq(BaseSDK):
     prompts: "Prompts"
     tools: "Tools"
     router: "Router"
-    annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     chunking: "Chunking"
@@ -83,6 +82,7 @@ class Orq(BaseSDK):
     evals: "Evals"
     pii: "Pii"
     api_keys: "APIKeys"
+    annotations: "Annotations"
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
@@ -112,15 +112,14 @@ class Orq(BaseSDK):
     workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
-    schedules: "Schedules"
     responses: "Responses"
+    schedules: "Schedules"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "router": ("orq_ai_sdk.router", "Router"),
-        "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
@@ -130,6 +129,7 @@ class Orq(BaseSDK):
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
+        "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
@@ -162,8 +162,8 @@ class Orq(BaseSDK):
             "orq_ai_sdk.workspacesettings_sdk",
             "WorkspaceSettingsSDK",
         ),
-        "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
+        "schedules": ("orq_ai_sdk.schedules", "Schedules"),
     }
 
     def __init__(

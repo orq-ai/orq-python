@@ -48,7 +48,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/{workspace_key}/domains",
+            path="/v2/workspaces/{workspace_key}/domains",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -137,7 +137,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/{workspace_key}/domains",
+            path="/v2/workspaces/{workspace_key}/domains",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -231,7 +231,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/{workspace_key}/domains",
+            path="/v2/workspaces/{workspace_key}/domains",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -332,7 +332,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/{workspace_key}/domains",
+            path="/v2/workspaces/{workspace_key}/domains",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -431,7 +431,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/{workspace_key}/domains/{domain_id}",
+            path="/v2/workspaces/{workspace_key}/domains/{domain_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -523,7 +523,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/{workspace_key}/domains/{domain_id}",
+            path="/v2/workspaces/{workspace_key}/domains/{domain_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -615,7 +615,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/{workspace_key}/domains/{domain_id}/verify",
+            path="/v2/workspaces/{workspace_key}/domains/{domain_id}/verify",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -707,7 +707,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/{workspace_key}/domains/{domain_id}/verify",
+            path="/v2/workspaces/{workspace_key}/domains/{domain_id}/verify",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -796,7 +796,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/{workspace_key}/ip-allowlist",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -885,7 +885,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/{workspace_key}/ip-allowlist",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -979,7 +979,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="PATCH",
-            path="/v2/{workspace_key}/ip-allowlist",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1080,7 +1080,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="PATCH",
-            path="/v2/{workspace_key}/ip-allowlist",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1184,7 +1184,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/{workspace_key}/ip-allowlist/entries",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist/entries",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1288,7 +1288,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/{workspace_key}/ip-allowlist/entries",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist/entries",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1387,7 +1387,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/{workspace_key}/ip-allowlist/entries/{range_id}",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist/entries/{range_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1479,7 +1479,7 @@ class WorkspaceSecurity(BaseSDK):
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/{workspace_key}/ip-allowlist/entries/{range_id}",
+            path="/v2/workspaces/{workspace_key}/ip-allowlist/entries/{range_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

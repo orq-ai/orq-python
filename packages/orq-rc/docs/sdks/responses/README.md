@@ -4,8 +4,67 @@
 
 ### Available Operations
 
+* [compact](#compact) - Compact response
 * [create](#create) - Create response
 * [get](#get) - Retrieve response
+
+## compact
+
+Compacts a conversation by summarizing older items to free up context window space. Returns a compaction item containing the generated summary.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="compact-response" method="post" path="/v1/responses/compact" example="compact_conversation" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.responses.compact(input=[
+        {
+            "content": "Tell me about machine learning",
+            "role": "user",
+            "type": "message",
+        },
+        {
+            "content": "Machine learning is a subset of AI...",
+            "role": "assistant",
+            "type": "message",
+        },
+    ], model="openai/gpt-4o")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `input`                                                                                  | [Optional[models.CompactResponseInput]](../../models/compactresponseinput.md)            | :heavy_minus_sign:                                                                       | Input to compact: a string or an array of input items (messages, files, etc.).           |
+| `instructions`                                                                           | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | Custom instructions for the compaction summarization.                                    |
+| `model`                                                                                  | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required. |
+| `previous_response_id`                                                                   | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | The ID of a previous response to continue from.                                          |
+| `prompt_cache_key`                                                                       | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | Key for prompt caching across requests.                                                  |
+| `retries`                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                         | :heavy_minus_sign:                                                                       | Configuration to override the default retry behavior of the client.                      |
+
+### Response
+
+**[models.CompactResponseResponseBody](../../models/compactresponseresponsebody.md)**
+
+### Errors
+
+| Error Type                                             | Status Code                                            | Content Type                                           |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| models.CompactResponseResponsesResponseBody            | 400                                                    | application/json                                       |
+| models.CompactResponseResponsesResponseResponseBody    | 401                                                    | application/json                                       |
+| models.CompactResponseResponsesResponse502ResponseBody | 502                                                    | application/json                                       |
+| models.APIDefaultError                                 | 4XX, 5XX                                               | \*/\*                                                  |
 
 ## create
 

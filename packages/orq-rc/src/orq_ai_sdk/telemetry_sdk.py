@@ -453,6 +453,7 @@ class TelemetrySDK(BaseSDK):
         sort: Optional[models.QueryTelemetryRequestSort] = None,
         interval_seconds: Optional[int] = None,
         selected_range_seconds: Optional[int] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -478,6 +479,8 @@ class TelemetrySDK(BaseSDK):
         :param sort: Ordering for scalar/top-list rows. Defaults to `desc`.
         :param interval_seconds: Explicit bucket width in seconds. Takes precedence over `grain` when both are set.
         :param selected_range_seconds: The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown.
+        :param project_id: Pins the read to one project the caller can reach. Omit to keep the
+            caller's token scope.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -516,6 +519,7 @@ class TelemetrySDK(BaseSDK):
             sort=sort,
             interval_seconds=interval_seconds,
             selected_range_seconds=selected_range_seconds,
+            project_id=project_id,
         )
 
         req = self._build_request(
@@ -596,6 +600,7 @@ class TelemetrySDK(BaseSDK):
         sort: Optional[models.QueryTelemetryRequestSort] = None,
         interval_seconds: Optional[int] = None,
         selected_range_seconds: Optional[int] = None,
+        project_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -621,6 +626,8 @@ class TelemetrySDK(BaseSDK):
         :param sort: Ordering for scalar/top-list rows. Defaults to `desc`.
         :param interval_seconds: Explicit bucket width in seconds. Takes precedence over `grain` when both are set.
         :param selected_range_seconds: The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown.
+        :param project_id: Pins the read to one project the caller can reach. Omit to keep the
+            caller's token scope.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -659,6 +666,7 @@ class TelemetrySDK(BaseSDK):
             sort=sort,
             interval_seconds=interval_seconds,
             selected_range_seconds=selected_range_seconds,
+            project_id=project_id,
         )
 
         req = self._build_request_async(

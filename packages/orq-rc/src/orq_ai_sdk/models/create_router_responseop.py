@@ -524,7 +524,7 @@ class InputReasoning(BaseModel):
         return m
 
 
-InputRole = Literal[
+CreateRouterResponseInputRole = Literal[
     "user",
     "assistant",
     "system",
@@ -541,7 +541,7 @@ InputStatus = Literal[
 r"""The status of a model-generated input item."""
 
 
-InputType = Literal[
+CreateRouterResponseInputType = Literal[
     "message",
     "function_call",
     "function_call_output",
@@ -591,11 +591,11 @@ class CreateRouterResponseInput2TypedDict(TypedDict):
     r"""The output of the function call (for function_call_output type)."""
     reasoning: NotRequired[InputReasoningTypedDict]
     r"""Reasoning settings applied by a configuration_update item."""
-    role: NotRequired[InputRole]
+    role: NotRequired[CreateRouterResponseInputRole]
     r"""The role of the message sender (for message items)."""
     status: NotRequired[InputStatus]
     r"""The status of a model-generated input item."""
-    type: NotRequired[InputType]
+    type: NotRequired[CreateRouterResponseInputType]
     r"""The type of item."""
 
 
@@ -626,13 +626,13 @@ class CreateRouterResponseInput2(BaseModel):
     reasoning: Optional[InputReasoning] = None
     r"""Reasoning settings applied by a configuration_update item."""
 
-    role: Optional[InputRole] = None
+    role: Optional[CreateRouterResponseInputRole] = None
     r"""The role of the message sender (for message items)."""
 
     status: Optional[InputStatus] = None
     r"""The status of a model-generated input item."""
 
-    type: Optional[InputType] = None
+    type: Optional[CreateRouterResponseInputType] = None
     r"""The type of item."""
 
     @model_serializer(mode="wrap")
