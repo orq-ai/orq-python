@@ -7746,6 +7746,14 @@ if TYPE_CHECKING:
     from .structuredinput import StructuredInput, StructuredInputTypedDict
     from .structuredoutput import StructuredOutput, StructuredOutputTypedDict
     from .structuredtoolcall import StructuredToolCall, StructuredToolCallTypedDict
+    from .submitfeedbackrequest import (
+        SubmitFeedbackRequest,
+        SubmitFeedbackRequestTypedDict,
+    )
+    from .submitfeedbackresponse import (
+        SubmitFeedbackResponse,
+        SubmitFeedbackResponseTypedDict,
+    )
     from .syncmcpserverrequest import (
         SyncMcpServerRequest,
         SyncMcpServerRequestTypedDict,
@@ -16111,6 +16119,10 @@ __all__ = [
     "StructuredToolCall",
     "StructuredToolCallTypedDict",
     "Style",
+    "SubmitFeedbackRequest",
+    "SubmitFeedbackRequestTypedDict",
+    "SubmitFeedbackResponse",
+    "SubmitFeedbackResponseTypedDict",
     "Summary",
     "SyncMcpServerRequest",
     "SyncMcpServerRequestTypedDict",
@@ -24529,6 +24541,10 @@ _dynamic_imports: dict[str, str] = {
     "StructuredOutputTypedDict": ".structuredoutput",
     "StructuredToolCall": ".structuredtoolcall",
     "StructuredToolCallTypedDict": ".structuredtoolcall",
+    "SubmitFeedbackRequest": ".submitfeedbackrequest",
+    "SubmitFeedbackRequestTypedDict": ".submitfeedbackrequest",
+    "SubmitFeedbackResponse": ".submitfeedbackresponse",
+    "SubmitFeedbackResponseTypedDict": ".submitfeedbackresponse",
     "SyncMcpServerRequest": ".syncmcpserverrequest",
     "SyncMcpServerRequestTypedDict": ".syncmcpserverrequest",
     "SyncMcpServerResponse": ".syncmcpserverresponse",

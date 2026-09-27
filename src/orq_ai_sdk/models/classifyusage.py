@@ -11,11 +11,11 @@ class ClassifyUsageTypedDict(TypedDict):
     input_tokens: int
     r"""The number of input tokens processed."""
     output_tokens: int
-    r"""The number of output tokens generated. Not billed."""
+    r"""The number of output tokens generated. Free for typesafe/jev-latest, billed at the model rate for chat models."""
     input_cost: NotRequired[float]
     r"""Cost (USD) of input tokens. Present when billing was computed for this request."""
     output_cost: NotRequired[float]
-    r"""Cost (USD) of output tokens, always 0 for classify. Present when billing was computed for this request."""
+    r"""Cost (USD) of output tokens. 0 for typesafe/jev-latest. Present when billing was computed for this request."""
     total_cost: NotRequired[float]
     r"""Total cost (USD) of the request. Present when billing was computed for this request."""
 
@@ -25,13 +25,13 @@ class ClassifyUsage(BaseModel):
     r"""The number of input tokens processed."""
 
     output_tokens: int
-    r"""The number of output tokens generated. Not billed."""
+    r"""The number of output tokens generated. Free for typesafe/jev-latest, billed at the model rate for chat models."""
 
     input_cost: Optional[float] = None
     r"""Cost (USD) of input tokens. Present when billing was computed for this request."""
 
     output_cost: Optional[float] = None
-    r"""Cost (USD) of output tokens, always 0 for classify. Present when billing was computed for this request."""
+    r"""Cost (USD) of output tokens. 0 for typesafe/jev-latest. Present when billing was computed for this request."""
 
     total_cost: Optional[float] = None
     r"""Total cost (USD) of the request. Present when billing was computed for this request."""

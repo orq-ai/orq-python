@@ -6,6 +6,7 @@ from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
 from .classifyretryconfig import ClassifyRetryConfig, ClassifyRetryConfigTypedDict
 from .classifyusage import ClassifyUsage, ClassifyUsageTypedDict
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
+from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -199,7 +200,7 @@ r"""The content to evaluate. A string, an object or an array."""
 
 class CreateClassifyRequestBodyTypedDict(TypedDict):
     model: str
-    r"""ID of the classify model to use, for example typesafe/jev-latest."""
+    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
     questions: Dict[str, QuestionsTypedDict]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
     state: StateTypedDict
@@ -214,7 +215,7 @@ class CreateClassifyRequestBodyTypedDict(TypedDict):
 
 class CreateClassifyRequestBody(BaseModel):
     model: str
-    r"""ID of the classify model to use, for example typesafe/jev-latest."""
+    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
 
     questions: Dict[str, Questions]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
@@ -321,8 +322,9 @@ class CreateClassifyResponseBodyTypedDict(TypedDict):
     answers: Dict[str, ClassifyAnswerTypedDict]
     r"""Answers keyed by the question identifiers from the request."""
     model: str
-    r"""The model that served the request, for example typesafe/jev-latest."""
+    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
     usage: ClassifyUsageTypedDict
+    telemetry: NotRequired[ResponseTelemetryTypedDict]
 
 
 class CreateClassifyResponseBody(BaseModel):
@@ -332,6 +334,24 @@ class CreateClassifyResponseBody(BaseModel):
     r"""Answers keyed by the question identifiers from the request."""
 
     model: str
-    r"""The model that served the request, for example typesafe/jev-latest."""
+    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
 
     usage: ClassifyUsage
+
+    telemetry: Optional[ResponseTelemetry] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["telemetry"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

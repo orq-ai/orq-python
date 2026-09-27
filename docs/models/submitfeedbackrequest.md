@@ -1,0 +1,11 @@
+# SubmitFeedbackRequest
+
+
+## Fields
+
+| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `message`                                                                         | *str*                                                                             | :heavy_check_mark:                                                                | What happened, what was expected, and steps to reproduce. Do not include secrets. |
+| `category`                                                                        | *str*                                                                             | :heavy_check_mark:                                                                | N/A                                                                               |
+| `request_id`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `url`                                                                             | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
