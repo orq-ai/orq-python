@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.mcpservers import McpServers
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.modelcatalog import ModelCatalog
+    from orq_ai_sdk.modelfusions import ModelFusions
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
@@ -103,6 +104,7 @@ class Orq(BaseSDK):
     mcp_gateways: "McpGateways"
     mcp_servers: "McpServers"
     model_catalog: "ModelCatalog"
+    model_fusions: "ModelFusions"
     notifiers: "Notifiers"
     projects: "Projects"
     routing_rules: "RoutingRules"
@@ -151,6 +153,7 @@ class Orq(BaseSDK):
         "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
         "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
         "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
+        "model_fusions": ("orq_ai_sdk.modelfusions", "ModelFusions"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),

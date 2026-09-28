@@ -260,6 +260,7 @@ if TYPE_CHECKING:
     )
     from .alerttriggerevent import AlertTriggerEvent, AlertTriggerEventTypedDict
     from .alertupdateop import AlertUpdateRequest, AlertUpdateRequestTypedDict
+    from .annotationfilter import AnnotationFilter, AnnotationFilterTypedDict
     from .annotationqueue import AnnotationQueue, AnnotationQueueTypedDict
     from .annotationqueueitem import AnnotationQueueItem, AnnotationQueueItemTypedDict
     from .annotationqueueitemref import (
@@ -1807,6 +1808,14 @@ if TYPE_CHECKING:
         CreateMemoryStoreRequest,
         CreateMemoryStoreRequestTypedDict,
     )
+    from .createmodelfusionrequest import (
+        CreateModelFusionRequest,
+        CreateModelFusionRequestTypedDict,
+    )
+    from .createmodelfusionresponse import (
+        CreateModelFusionResponse,
+        CreateModelFusionResponseTypedDict,
+    )
     from .createmodelparameter import (
         CreateModelParameter,
         CreateModelParameterTypedDict,
@@ -2648,6 +2657,10 @@ if TYPE_CHECKING:
         DeleteMemoryStoreRequest,
         DeleteMemoryStoreRequestTypedDict,
     )
+    from .deletemodelfusionresponse import (
+        DeleteModelFusionResponse,
+        DeleteModelFusionResponseTypedDict,
+    )
     from .deletenotifierresponse import (
         DeleteNotifierResponse,
         DeleteNotifierResponseTypedDict,
@@ -3366,6 +3379,7 @@ if TYPE_CHECKING:
     )
     from .evaluationcontext import EvaluationContext, EvaluationContextTypedDict
     from .evaluationresult import EvaluationResult, EvaluationResultTypedDict
+    from .evaluatorfilter import EvaluatorFilter, EvaluatorFilterTypedDict
     from .evaluatorref import EvaluatorRef, EvaluatorRefTypedDict, ExecuteOn
     from .evaluatorresponsefunction import (
         Eight,
@@ -4178,6 +4192,10 @@ if TYPE_CHECKING:
     from .getmodelcatalogmodelresponse import (
         GetModelCatalogModelResponse,
         GetModelCatalogModelResponseTypedDict,
+    )
+    from .getmodelfusionresponse import (
+        GetModelFusionResponse,
+        GetModelFusionResponseTypedDict,
     )
     from .getnotifierresponse import GetNotifierResponse, GetNotifierResponseTypedDict
     from .getonechunkop import GetOneChunkRequest, GetOneChunkRequestTypedDict
@@ -5357,6 +5375,10 @@ if TYPE_CHECKING:
         ListModelCatalogResponse,
         ListModelCatalogResponseTypedDict,
     )
+    from .listmodelfusionsresponse import (
+        ListModelFusionsResponse,
+        ListModelFusionsResponseTypedDict,
+    )
     from .listnotifiersresponse import (
         ListNotifiersResponse,
         ListNotifiersResponseTypedDict,
@@ -5587,6 +5609,10 @@ if TYPE_CHECKING:
         ListTraceFieldsResponse,
         ListTraceFieldsResponseTypedDict,
     )
+    from .listtracefiltersresponse import (
+        ListTraceFiltersResponse,
+        ListTraceFiltersResponseTypedDict,
+    )
     from .listtracelogsop import ListTraceLogsRequest, ListTraceLogsRequestTypedDict
     from .listtracelogsresponse import (
         ListTraceLogsResponse,
@@ -5727,6 +5753,7 @@ if TYPE_CHECKING:
         MemoryStoreEmbeddingConfig,
         MemoryStoreEmbeddingConfigTypedDict,
     )
+    from .metadatafilter import MetadataFilter, MetadataFilterTypedDict
     from .model import (
         ArtificialIntelligence,
         ArtificialIntelligenceTypedDict,
@@ -5790,6 +5817,27 @@ if TYPE_CHECKING:
     from .modeldisableop import ModelDisableRequest, ModelDisableRequestTypedDict
     from .modeldocument import ModelDocument, ModelDocumentTypedDict
     from .modelenableop import ModelEnableRequestBody, ModelEnableRequestBodyTypedDict
+    from .modelfusion import ModelFusion, ModelFusionTypedDict
+    from .modelfusionconfig import ModelFusionConfig, ModelFusionConfigTypedDict
+    from .modelfusiondeleteop import (
+        ModelFusionDeleteRequest,
+        ModelFusionDeleteRequestTypedDict,
+    )
+    from .modelfusiongetop import ModelFusionGetRequest, ModelFusionGetRequestTypedDict
+    from .modelfusionlistop import (
+        ModelFusionListRequest,
+        ModelFusionListRequestTypedDict,
+    )
+    from .modelfusionpreset import ModelFusionPreset
+    from .modelfusionsetenabledop import (
+        ModelFusionSetEnabledRequest,
+        ModelFusionSetEnabledRequestTypedDict,
+    )
+    from .modelfusionsynthesismode import ModelFusionSynthesisMode
+    from .modelfusionupdateop import (
+        ModelFusionUpdateRequest,
+        ModelFusionUpdateRequestTypedDict,
+    )
     from .modelmetadata import ModelMetadata, ModelMetadataTypedDict
     from .modelmodalities import ModelModalities, ModelModalitiesTypedDict
     from .modelparameterdocument import (
@@ -7298,6 +7346,14 @@ if TYPE_CHECKING:
         ServerToolUseDetailsTypedDict,
     )
     from .sessioninterval import SessionInterval
+    from .setmodelfusionenabledrequest import (
+        SetModelFusionEnabledRequest,
+        SetModelFusionEnabledRequestTypedDict,
+    )
+    from .setmodelfusionenabledresponse import (
+        SetModelFusionEnabledResponse,
+        SetModelFusionEnabledResponseTypedDict,
+    )
     from .sharing import Sharing, SharingTypedDict
     from .sharingallprojects import SharingAllProjects, SharingAllProjectsTypedDict
     from .sharingselectedprojects import (
@@ -7595,6 +7651,14 @@ if TYPE_CHECKING:
     from .structuredinput import StructuredInput, StructuredInputTypedDict
     from .structuredoutput import StructuredOutput, StructuredOutputTypedDict
     from .structuredtoolcall import StructuredToolCall, StructuredToolCallTypedDict
+    from .submitfeedbackrequest import (
+        SubmitFeedbackRequest,
+        SubmitFeedbackRequestTypedDict,
+    )
+    from .submitfeedbackresponse import (
+        SubmitFeedbackResponse,
+        SubmitFeedbackResponseTypedDict,
+    )
     from .syncmcpserverrequest import (
         SyncMcpServerRequest,
         SyncMcpServerRequestTypedDict,
@@ -7781,6 +7845,10 @@ if TYPE_CHECKING:
     from .traceslistfacetvaluesop import (
         TracesListFacetValuesRequest,
         TracesListFacetValuesRequestTypedDict,
+    )
+    from .traceslistfiltersop import (
+        TracesListFiltersRequest,
+        TracesListFiltersRequestTypedDict,
     )
     from .traceslistspansop import (
         TracesListSpansRequest,
@@ -8269,6 +8337,14 @@ if TYPE_CHECKING:
     from .updatememorystorerequest import (
         UpdateMemoryStoreRequest,
         UpdateMemoryStoreRequestTypedDict,
+    )
+    from .updatemodelfusionrequest import (
+        UpdateModelFusionRequest,
+        UpdateModelFusionRequestTypedDict,
+    )
+    from .updatemodelfusionresponse import (
+        UpdateModelFusionResponse,
+        UpdateModelFusionResponseTypedDict,
     )
     from .updatemodelparameter import (
         UpdateModelParameter,
@@ -9134,6 +9210,8 @@ __all__ = [
     "AndNin",
     "AndNinTypedDict",
     "AndTypedDict",
+    "AnnotationFilter",
+    "AnnotationFilterTypedDict",
     "AnnotationQueue",
     "AnnotationQueueItem",
     "AnnotationQueueItemRef",
@@ -10340,6 +10418,10 @@ __all__ = [
     "CreateMemoryRequestTypedDict",
     "CreateMemoryStoreRequest",
     "CreateMemoryStoreRequestTypedDict",
+    "CreateModelFusionRequest",
+    "CreateModelFusionRequestTypedDict",
+    "CreateModelFusionResponse",
+    "CreateModelFusionResponseTypedDict",
     "CreateModelParameter",
     "CreateModelParameterTypedDict",
     "CreateModerationError",
@@ -11085,6 +11167,8 @@ __all__ = [
     "DeleteMemoryRequestTypedDict",
     "DeleteMemoryStoreRequest",
     "DeleteMemoryStoreRequestTypedDict",
+    "DeleteModelFusionResponse",
+    "DeleteModelFusionResponseTypedDict",
     "DeleteNotifierResponse",
     "DeleteNotifierResponseTypedDict",
     "DeleteProjectResponse",
@@ -11764,6 +11848,8 @@ __all__ = [
     "EvaluationResultTypedDict",
     "EvaluationType",
     "Evaluator",
+    "EvaluatorFilter",
+    "EvaluatorFilterTypedDict",
     "EvaluatorRef",
     "EvaluatorRefTypedDict",
     "EvaluatorResponseFunction",
@@ -12424,6 +12510,8 @@ __all__ = [
     "GetMcpServerResponseTypedDict",
     "GetModelCatalogModelResponse",
     "GetModelCatalogModelResponseTypedDict",
+    "GetModelFusionResponse",
+    "GetModelFusionResponseTypedDict",
     "GetNotifierResponse",
     "GetNotifierResponseTypedDict",
     "GetOneChunkRequest",
@@ -13449,6 +13537,8 @@ __all__ = [
     "ListModelCatalogOfferingsResponseTypedDict",
     "ListModelCatalogResponse",
     "ListModelCatalogResponseTypedDict",
+    "ListModelFusionsResponse",
+    "ListModelFusionsResponseTypedDict",
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
@@ -13661,6 +13751,8 @@ __all__ = [
     "ListTraceFacetsResponseTypedDict",
     "ListTraceFieldsResponse",
     "ListTraceFieldsResponseTypedDict",
+    "ListTraceFiltersResponse",
+    "ListTraceFiltersResponseTypedDict",
     "ListTraceLogsRequest",
     "ListTraceLogsRequestTypedDict",
     "ListTraceLogsResponse",
@@ -13851,6 +13943,8 @@ __all__ = [
     "MessagesUserMessage",
     "MessagesUserMessageTypedDict",
     "Metadata",
+    "MetadataFilter",
+    "MetadataFilterTypedDict",
     "MetadataTypedDict",
     "Method",
     "Metric",
@@ -13936,6 +14030,22 @@ __all__ = [
     "ModelDocumentTypedDict",
     "ModelEnableRequestBody",
     "ModelEnableRequestBodyTypedDict",
+    "ModelFusion",
+    "ModelFusionConfig",
+    "ModelFusionConfigTypedDict",
+    "ModelFusionDeleteRequest",
+    "ModelFusionDeleteRequestTypedDict",
+    "ModelFusionGetRequest",
+    "ModelFusionGetRequestTypedDict",
+    "ModelFusionListRequest",
+    "ModelFusionListRequestTypedDict",
+    "ModelFusionPreset",
+    "ModelFusionSetEnabledRequest",
+    "ModelFusionSetEnabledRequestTypedDict",
+    "ModelFusionSynthesisMode",
+    "ModelFusionTypedDict",
+    "ModelFusionUpdateRequest",
+    "ModelFusionUpdateRequestTypedDict",
     "ModelGardenSettings",
     "ModelGardenSettingsTypedDict",
     "ModelMetadata",
@@ -15398,6 +15508,10 @@ __all__ = [
     "ServerToolUseDetailsTypedDict",
     "ServiceTier",
     "SessionInterval",
+    "SetModelFusionEnabledRequest",
+    "SetModelFusionEnabledRequestTypedDict",
+    "SetModelFusionEnabledResponse",
+    "SetModelFusionEnabledResponseTypedDict",
     "Settings",
     "SettingsTypedDict",
     "Seven",
@@ -15693,6 +15807,10 @@ __all__ = [
     "StructuredToolCall",
     "StructuredToolCallTypedDict",
     "Style",
+    "SubmitFeedbackRequest",
+    "SubmitFeedbackRequestTypedDict",
+    "SubmitFeedbackResponse",
+    "SubmitFeedbackResponseTypedDict",
     "Summary",
     "SyncMcpServerRequest",
     "SyncMcpServerRequestTypedDict",
@@ -15922,6 +16040,8 @@ __all__ = [
     "TracesGetSpanRequestTypedDict",
     "TracesListFacetValuesRequest",
     "TracesListFacetValuesRequestTypedDict",
+    "TracesListFiltersRequest",
+    "TracesListFiltersRequestTypedDict",
     "TracesListSpansRequest",
     "TracesListSpansRequestTypedDict",
     "TriggerAgentScheduleRequest",
@@ -16369,6 +16489,10 @@ __all__ = [
     "UpdateMemoryStoreRequest1",
     "UpdateMemoryStoreRequest1TypedDict",
     "UpdateMemoryStoreRequestTypedDict",
+    "UpdateModelFusionRequest",
+    "UpdateModelFusionRequestTypedDict",
+    "UpdateModelFusionResponse",
+    "UpdateModelFusionResponseTypedDict",
     "UpdateModelParameter",
     "UpdateModelParameterTypedDict",
     "UpdateNotifierRequest",
@@ -17150,6 +17274,8 @@ _dynamic_imports: dict[str, str] = {
     "AlertTriggerEventTypedDict": ".alerttriggerevent",
     "AlertUpdateRequest": ".alertupdateop",
     "AlertUpdateRequestTypedDict": ".alertupdateop",
+    "AnnotationFilter": ".annotationfilter",
+    "AnnotationFilterTypedDict": ".annotationfilter",
     "AnnotationQueue": ".annotationqueue",
     "AnnotationQueueTypedDict": ".annotationqueue",
     "AnnotationQueueItem": ".annotationqueueitem",
@@ -18585,6 +18711,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateMemoryRequestTypedDict": ".creatememoryrequest",
     "CreateMemoryStoreRequest": ".creatememorystorerequest",
     "CreateMemoryStoreRequestTypedDict": ".creatememorystorerequest",
+    "CreateModelFusionRequest": ".createmodelfusionrequest",
+    "CreateModelFusionRequestTypedDict": ".createmodelfusionrequest",
+    "CreateModelFusionResponse": ".createmodelfusionresponse",
+    "CreateModelFusionResponseTypedDict": ".createmodelfusionresponse",
     "CreateModelParameter": ".createmodelparameter",
     "CreateModelParameterTypedDict": ".createmodelparameter",
     "Categories": ".createmoderationop",
@@ -19346,6 +19476,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryRequestTypedDict": ".deletememoryop",
     "DeleteMemoryStoreRequest": ".deletememorystoreop",
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
+    "DeleteModelFusionResponse": ".deletemodelfusionresponse",
+    "DeleteModelFusionResponseTypedDict": ".deletemodelfusionresponse",
     "DeleteNotifierResponse": ".deletenotifierresponse",
     "DeleteNotifierResponseTypedDict": ".deletenotifierresponse",
     "DeleteProjectResponse": ".deleteprojectresponse",
@@ -20041,6 +20173,8 @@ _dynamic_imports: dict[str, str] = {
     "EvaluationContextTypedDict": ".evaluationcontext",
     "EvaluationResult": ".evaluationresult",
     "EvaluationResultTypedDict": ".evaluationresult",
+    "EvaluatorFilter": ".evaluatorfilter",
+    "EvaluatorFilterTypedDict": ".evaluatorfilter",
     "EvaluatorRef": ".evaluatorref",
     "EvaluatorRefTypedDict": ".evaluatorref",
     "ExecuteOn": ".evaluatorref",
@@ -20801,6 +20935,8 @@ _dynamic_imports: dict[str, str] = {
     "GetMcpServerResponseTypedDict": ".getmcpserverresponse",
     "GetModelCatalogModelResponse": ".getmodelcatalogmodelresponse",
     "GetModelCatalogModelResponseTypedDict": ".getmodelcatalogmodelresponse",
+    "GetModelFusionResponse": ".getmodelfusionresponse",
+    "GetModelFusionResponseTypedDict": ".getmodelfusionresponse",
     "GetNotifierResponse": ".getnotifierresponse",
     "GetNotifierResponseTypedDict": ".getnotifierresponse",
     "GetOneChunkRequest": ".getonechunkop",
@@ -21869,6 +22005,8 @@ _dynamic_imports: dict[str, str] = {
     "ListModelCatalogOfferingsResponseTypedDict": ".listmodelcatalogofferingsresponse",
     "ListModelCatalogResponse": ".listmodelcatalogresponse",
     "ListModelCatalogResponseTypedDict": ".listmodelcatalogresponse",
+    "ListModelFusionsResponse": ".listmodelfusionsresponse",
+    "ListModelFusionsResponseTypedDict": ".listmodelfusionsresponse",
     "ListNotifiersResponse": ".listnotifiersresponse",
     "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
     "ListProjectsResponse": ".listprojectsresponse",
@@ -22078,6 +22216,8 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceFacetValuesResponseTypedDict": ".listtracefacetvaluesresponse",
     "ListTraceFieldsResponse": ".listtracefieldsresponse",
     "ListTraceFieldsResponseTypedDict": ".listtracefieldsresponse",
+    "ListTraceFiltersResponse": ".listtracefiltersresponse",
+    "ListTraceFiltersResponseTypedDict": ".listtracefiltersresponse",
     "ListTraceLogsRequest": ".listtracelogsop",
     "ListTraceLogsRequestTypedDict": ".listtracelogsop",
     "ListTraceLogsResponse": ".listtracelogsresponse",
@@ -22206,6 +22346,8 @@ _dynamic_imports: dict[str, str] = {
     "MemoryStoreTypedDict": ".memorystore",
     "MemoryStoreEmbeddingConfig": ".memorystoreembeddingconfig",
     "MemoryStoreEmbeddingConfigTypedDict": ".memorystoreembeddingconfig",
+    "MetadataFilter": ".metadatafilter",
+    "MetadataFilterTypedDict": ".metadatafilter",
     "ArtificialIntelligence": ".model",
     "ArtificialIntelligenceTypedDict": ".model",
     "Model": ".model",
@@ -22252,6 +22394,22 @@ _dynamic_imports: dict[str, str] = {
     "ModelDocumentTypedDict": ".modeldocument",
     "ModelEnableRequestBody": ".modelenableop",
     "ModelEnableRequestBodyTypedDict": ".modelenableop",
+    "ModelFusion": ".modelfusion",
+    "ModelFusionTypedDict": ".modelfusion",
+    "ModelFusionConfig": ".modelfusionconfig",
+    "ModelFusionConfigTypedDict": ".modelfusionconfig",
+    "ModelFusionDeleteRequest": ".modelfusiondeleteop",
+    "ModelFusionDeleteRequestTypedDict": ".modelfusiondeleteop",
+    "ModelFusionGetRequest": ".modelfusiongetop",
+    "ModelFusionGetRequestTypedDict": ".modelfusiongetop",
+    "ModelFusionListRequest": ".modelfusionlistop",
+    "ModelFusionListRequestTypedDict": ".modelfusionlistop",
+    "ModelFusionPreset": ".modelfusionpreset",
+    "ModelFusionSetEnabledRequest": ".modelfusionsetenabledop",
+    "ModelFusionSetEnabledRequestTypedDict": ".modelfusionsetenabledop",
+    "ModelFusionSynthesisMode": ".modelfusionsynthesismode",
+    "ModelFusionUpdateRequest": ".modelfusionupdateop",
+    "ModelFusionUpdateRequestTypedDict": ".modelfusionupdateop",
     "ModelMetadata": ".modelmetadata",
     "ModelMetadataTypedDict": ".modelmetadata",
     "ModelModalities": ".modelmodalities",
@@ -23543,6 +23701,10 @@ _dynamic_imports: dict[str, str] = {
     "ServerToolUseDetails": ".servertoolusedetails",
     "ServerToolUseDetailsTypedDict": ".servertoolusedetails",
     "SessionInterval": ".sessioninterval",
+    "SetModelFusionEnabledRequest": ".setmodelfusionenabledrequest",
+    "SetModelFusionEnabledRequestTypedDict": ".setmodelfusionenabledrequest",
+    "SetModelFusionEnabledResponse": ".setmodelfusionenabledresponse",
+    "SetModelFusionEnabledResponseTypedDict": ".setmodelfusionenabledresponse",
     "Sharing": ".sharing",
     "SharingTypedDict": ".sharing",
     "SharingAllProjects": ".sharingallprojects",
@@ -23837,6 +23999,10 @@ _dynamic_imports: dict[str, str] = {
     "StructuredOutputTypedDict": ".structuredoutput",
     "StructuredToolCall": ".structuredtoolcall",
     "StructuredToolCallTypedDict": ".structuredtoolcall",
+    "SubmitFeedbackRequest": ".submitfeedbackrequest",
+    "SubmitFeedbackRequestTypedDict": ".submitfeedbackrequest",
+    "SubmitFeedbackResponse": ".submitfeedbackresponse",
+    "SubmitFeedbackResponseTypedDict": ".submitfeedbackresponse",
     "SyncMcpServerRequest": ".syncmcpserverrequest",
     "SyncMcpServerRequestTypedDict": ".syncmcpserverrequest",
     "SyncMcpServerResponse": ".syncmcpserverresponse",
@@ -24000,6 +24166,8 @@ _dynamic_imports: dict[str, str] = {
     "TracesGetSpanRequestTypedDict": ".tracesgetspanop",
     "TracesListFacetValuesRequest": ".traceslistfacetvaluesop",
     "TracesListFacetValuesRequestTypedDict": ".traceslistfacetvaluesop",
+    "TracesListFiltersRequest": ".traceslistfiltersop",
+    "TracesListFiltersRequestTypedDict": ".traceslistfiltersop",
     "TracesListSpansRequest": ".traceslistspansop",
     "TracesListSpansRequestTypedDict": ".traceslistspansop",
     "TraceSort": ".tracesort",
@@ -24427,6 +24595,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateMemoryStoreRequest1TypedDict": ".updatememorystoreop",
     "UpdateMemoryStoreRequest": ".updatememorystorerequest",
     "UpdateMemoryStoreRequestTypedDict": ".updatememorystorerequest",
+    "UpdateModelFusionRequest": ".updatemodelfusionrequest",
+    "UpdateModelFusionRequestTypedDict": ".updatemodelfusionrequest",
+    "UpdateModelFusionResponse": ".updatemodelfusionresponse",
+    "UpdateModelFusionResponseTypedDict": ".updatemodelfusionresponse",
     "UpdateModelParameter": ".updatemodelparameter",
     "UpdateModelParameterTypedDict": ".updatemodelparameter",
     "Headers": ".updatenotifierrequest",

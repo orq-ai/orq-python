@@ -8,6 +8,7 @@
 * [create_evaluation](#create_evaluation)
 * [remove](#remove)
 * [create](#create)
+* [submit](#submit) - Submit feedback
 
 ## remove_evaluation
 
@@ -153,3 +154,46 @@ with Orq(
 | models.PostV2FeedbackFeedbackResponseBody         | 400                                               | application/json                                  |
 | models.PostV2FeedbackFeedbackResponseResponseBody | 404                                               | application/json                                  |
 | models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |
+
+## submit
+
+Report problems or request features for Orq.ai APIs, MCP tools, SDKs, and documentation.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="SubmitFeedback" method="post" path="/v3/submit-feedback" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.feedback.submit(message="<value>", category="<value>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `message`                                                                         | *str*                                                                             | :heavy_check_mark:                                                                | What happened, what was expected, and steps to reproduce. Do not include secrets. |
+| `category`                                                                        | *str*                                                                             | :heavy_check_mark:                                                                | N/A                                                                               |
+| `request_id`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `url`                                                                             | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
+
+### Response
+
+**[models.SubmitFeedbackResponse](../../models/submitfeedbackresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

@@ -8,6 +8,7 @@
 * [list_facets](#list_facets) - List trace facets
 * [list_facet_values](#list_facet_values) - List trace facet values
 * [list_fields](#list_fields) - List trace fields
+* [list_filters](#list_filters) - List trace filters
 * [query](#query) - Query traces with OQL
 * [search](#search) - Search traces
 * [get](#get) - Get trace
@@ -175,6 +176,46 @@ with Orq(
 ### Response
 
 **[models.ListTraceFieldsResponse](../../models/listtracefieldsresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## list_filters
+
+List the evaluators, human reviews and metadata keys a trace filter can address.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="TracesListFilters" method="get" path="/v3/traces/filters" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.traces.list_filters()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `include_all`                                                            | *Optional[bool]*                                                         | :heavy_minus_sign:                                                       | Every evaluator and human review in the workspace, not only recent ones. |
+| `retries`                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)         | :heavy_minus_sign:                                                       | Configuration to override the default retry behavior of the client.      |
+
+### Response
+
+**[models.ListTraceFiltersResponse](../../models/listtracefiltersresponse.md)**
 
 ### Errors
 

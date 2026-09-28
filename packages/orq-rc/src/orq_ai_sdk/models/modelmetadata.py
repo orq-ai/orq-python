@@ -6,6 +6,7 @@ from .embeddingdimensionsupport import (
     EmbeddingDimensionSupport,
     EmbeddingDimensionSupportTypedDict,
 )
+from .modelfusionconfig import ModelFusionConfig, ModelFusionConfigTypedDict
 from .pricing import Pricing, PricingTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -36,6 +37,7 @@ class ModelMetadataTypedDict(TypedDict):
     extended_context_pricing_mode: NotRequired[str]
     extended_context_threshold: NotRequired[int]
     function_tools_require_effort_none: NotRequired[bool]
+    fusion: NotRequired[ModelFusionConfigTypedDict]
     generate_audio: NotRequired[bool]
     image_input_cost: NotRequired[float]
     image_output_cost: NotRequired[float]
@@ -179,6 +181,8 @@ class ModelMetadata(BaseModel):
     extended_context_threshold: Optional[int] = None
 
     function_tools_require_effort_none: Optional[bool] = None
+
+    fusion: Optional[ModelFusionConfig] = None
 
     generate_audio: Optional[bool] = None
 
@@ -417,6 +421,7 @@ class ModelMetadata(BaseModel):
                 "extended_context_pricing_mode",
                 "extended_context_threshold",
                 "function_tools_require_effort_none",
+                "fusion",
                 "generate_audio",
                 "image_input_cost",
                 "image_output_cost",
