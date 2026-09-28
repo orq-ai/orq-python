@@ -4695,10 +4695,6 @@ if TYPE_CHECKING:
         InspectRepositoryWikiResponse,
         InspectRepositoryWikiResponseTypedDict,
     )
-    from .internalretrievalconfig import (
-        InternalRetrievalConfig,
-        InternalRetrievalConfigTypedDict,
-    )
     from .invokeagentop import (
         InvokeAgentA2AInvokeRequest,
         InvokeAgentA2AInvokeRequestTypedDict,
@@ -6656,6 +6652,7 @@ if TYPE_CHECKING:
     )
     from .restorerequest import RestoreRequest, RestoreRequestTypedDict
     from .restoreresponse import RestoreResponse, RestoreResponseTypedDict
+    from .retrievalconfig import RetrievalConfig, RetrievalConfigTypedDict
     from .retrieve_agent_scheduleop import (
         RetrieveAgentScheduleRequest,
         RetrieveAgentScheduleRequestTypedDict,
@@ -13066,8 +13063,6 @@ __all__ = [
     "InspectRepositoryWikiResponseTypedDict",
     "Instructions",
     "InstructionsTypedDict",
-    "InternalRetrievalConfig",
-    "InternalRetrievalConfigTypedDict",
     "Interval",
     "InvokeAgentA2AInvokeRequest",
     "InvokeAgentA2AInvokeRequestTypedDict",
@@ -14923,6 +14918,8 @@ __all__ = [
     "ResultsCategoryScores",
     "ResultsCategoryScoresTypedDict",
     "ResultsTypedDict",
+    "RetrievalConfig",
+    "RetrievalConfigTypedDict",
     "RetrievalSettings",
     "RetrievalSettingsTypedDict",
     "RetrievalType",
@@ -21413,8 +21410,6 @@ _dynamic_imports: dict[str, str] = {
     "InspectRepositoryWikiRequestTypedDict": ".inspectrepositorywikirequest",
     "InspectRepositoryWikiResponse": ".inspectrepositorywikiresponse",
     "InspectRepositoryWikiResponseTypedDict": ".inspectrepositorywikiresponse",
-    "InternalRetrievalConfig": ".internalretrievalconfig",
-    "InternalRetrievalConfigTypedDict": ".internalretrievalconfig",
     "InvokeAgentA2AInvokeRequest": ".invokeagentop",
     "InvokeAgentA2AInvokeRequestTypedDict": ".invokeagentop",
     "InvokeAgentA2AMessage": ".invokeagentop",
@@ -23065,6 +23060,8 @@ _dynamic_imports: dict[str, str] = {
     "RestoreRequestTypedDict": ".restorerequest",
     "RestoreResponse": ".restoreresponse",
     "RestoreResponseTypedDict": ".restoreresponse",
+    "RetrievalConfig": ".retrievalconfig",
+    "RetrievalConfigTypedDict": ".retrievalconfig",
     "RetrieveAgentScheduleRequest": ".retrieve_agent_scheduleop",
     "RetrieveAgentScheduleRequestTypedDict": ".retrieve_agent_scheduleop",
     "RetrieveAgentScheduleResponseBody": ".retrieve_agent_scheduleop",

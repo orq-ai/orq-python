@@ -36,22 +36,21 @@ class BudgetRestResponseTypedDict(TypedDict):
     created_at: datetime
     updated_at: datetime
     scope: NotRequired[BudgetScopeRestResponseTypedDict]
-    r"""Denormalized metadata for UI rendering, list filters, and the
-    resolver's prefilter index. Never consulted for matching — the
-    `match` expression is the single source of matching semantics.
-    Unset for budgets created from a raw CEL expression (\"custom\").
+    r"""Scope the budget was created for, used to group and filter budgets in
+    the console. Not used for matching: the `match` expression decides
+    which requests a budget applies to. Unset for budgets created from a
+    raw CEL expression (\"custom\").
     """
     match: NotRequired[BudgetMatchTypedDict]
-    r"""The matching semantics of the budget. The enforcement resolver
-    evaluates `match.cel` against the request context; a budget
-    applies to a request if and only if the expression evaluates to
-    true. Scoped creates derive a canonical expression (e.g.
-    `provider == \"openai\"`); an empty expression always matches
-    (workspace-wide).
+    r"""The matching semantics of the budget. A budget applies to a request
+    when `match.cel` evaluates to true against the request context.
+    Creating a budget for a scope derives the expression for that scope
+    (e.g. `provider == \"openai\"`); an empty expression matches every
+    request in the workspace.
     """
     rate_limit: NotRequired[RateLimitRestResponseTypedDict]
-    r"""RateLimit is the per-minute request ceiling. Enforced via atomic
-    increment-first semantics in the enforcement middleware.
+    r"""Per-minute request ceiling applied to the requests this budget
+    matches.
     """
     is_active: NotRequired[bool]
     expires_at: NotRequired[datetime]
@@ -82,26 +81,25 @@ class BudgetRestResponse(BaseModel):
     updated_at: Annotated[datetime, pydantic.Field(alias="updatedAt")]
 
     scope: Optional[BudgetScopeRestResponse] = None
-    r"""Denormalized metadata for UI rendering, list filters, and the
-    resolver's prefilter index. Never consulted for matching — the
-    `match` expression is the single source of matching semantics.
-    Unset for budgets created from a raw CEL expression (\"custom\").
+    r"""Scope the budget was created for, used to group and filter budgets in
+    the console. Not used for matching: the `match` expression decides
+    which requests a budget applies to. Unset for budgets created from a
+    raw CEL expression (\"custom\").
     """
 
     match: Optional[BudgetMatch] = None
-    r"""The matching semantics of the budget. The enforcement resolver
-    evaluates `match.cel` against the request context; a budget
-    applies to a request if and only if the expression evaluates to
-    true. Scoped creates derive a canonical expression (e.g.
-    `provider == \"openai\"`); an empty expression always matches
-    (workspace-wide).
+    r"""The matching semantics of the budget. A budget applies to a request
+    when `match.cel` evaluates to true against the request context.
+    Creating a budget for a scope derives the expression for that scope
+    (e.g. `provider == \"openai\"`); an empty expression matches every
+    request in the workspace.
     """
 
     rate_limit: Annotated[
         Optional[RateLimitRestResponse], pydantic.Field(alias="rateLimit")
     ] = None
-    r"""RateLimit is the per-minute request ceiling. Enforced via atomic
-    increment-first semantics in the enforcement middleware.
+    r"""Per-minute request ceiling applied to the requests this budget
+    matches.
     """
 
     is_active: Annotated[Optional[bool], pydantic.Field(alias="isActive")] = False

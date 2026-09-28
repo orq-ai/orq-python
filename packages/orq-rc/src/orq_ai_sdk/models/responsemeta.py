@@ -12,7 +12,7 @@ EffectiveGrain = Literal[
     "hour",
     "day",
 ]
-r"""Bucket grain actually applied by the planner."""
+r"""Bucket grain actually applied. Differs from the requested value when `grain=auto`."""
 
 
 Currency = Literal["USD",]
@@ -21,7 +21,7 @@ r"""ISO 4217 currency code for cost fields. Always `USD` today."""
 
 class ResponseMetaTypedDict(TypedDict):
     effective_grain: NotRequired[EffectiveGrain]
-    r"""Bucket grain actually applied by the planner."""
+    r"""Bucket grain actually applied. Differs from the requested value when `grain=auto`."""
     row_count: NotRequired[int]
     r"""Number of rows in `data`. Cheap hint for clients that paginate
     client-side; mirrors `len(data)`.
@@ -39,7 +39,7 @@ class ResponseMetaTypedDict(TypedDict):
 
 class ResponseMeta(BaseModel):
     effective_grain: Optional[EffectiveGrain] = None
-    r"""Bucket grain actually applied by the planner."""
+    r"""Bucket grain actually applied. Differs from the requested value when `grain=auto`."""
 
     row_count: Optional[int] = None
     r"""Number of rows in `data`. Cheap hint for clients that paginate

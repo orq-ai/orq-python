@@ -16,9 +16,7 @@ class ProjectTypedDict(TypedDict):
     name: str
     r"""Human-readable project name."""
     key: str
-    r"""Stable project key generated from the name and used by internal
-    workspace navigation.
-    """
+    r"""Stable project key generated from the name."""
     is_archived: bool
     r"""Whether the project is archived and hidden from normal active
     project lists.
@@ -51,9 +49,7 @@ class Project(BaseModel):
     r"""Human-readable project name."""
 
     key: str
-    r"""Stable project key generated from the name and used by internal
-    workspace navigation.
-    """
+    r"""Stable project key generated from the name."""
 
     is_archived: bool
     r"""Whether the project is archived and hidden from normal active

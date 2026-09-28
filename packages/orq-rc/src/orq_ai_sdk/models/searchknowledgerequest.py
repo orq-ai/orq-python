@@ -574,7 +574,7 @@ FilterByTypedDict = TypeAliasType(
         Dict[str, FilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 FilterBy = TypeAliasType(
@@ -585,7 +585,7 @@ FilterBy = TypeAliasType(
         Dict[str, FilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 class TwoTypedDict(TypedDict):
@@ -594,7 +594,7 @@ class TwoTypedDict(TypedDict):
     provider: str
     r"""Provider identifier for the stored model configuration."""
     model: NotRequired[str]
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration identifier for the stored model configuration."""
 
@@ -607,7 +607,7 @@ class Two(BaseModel):
     r"""Provider identifier for the stored model configuration."""
 
     model: Optional[str] = None
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration identifier for the stored model configuration."""
@@ -640,7 +640,7 @@ class Two(BaseModel):
 
 class AgenticRagConfig1TypedDict(TypedDict):
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
     model_db_id: NotRequired[str]
     r"""Identifier of the stored model configuration to use."""
     provider: NotRequired[str]
@@ -651,7 +651,7 @@ class AgenticRagConfig1TypedDict(TypedDict):
 
 class AgenticRagConfig1(BaseModel):
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
     model_db_id: Optional[str] = None
     r"""Identifier of the stored model configuration to use."""
@@ -714,7 +714,7 @@ class SearchKnowledgeRequestTypedDict(TypedDict):
     r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
     search_type: NotRequired[SearchType]
     filter_by: NotRequired[FilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
     search_options: NotRequired[SearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[SearchRerankConfigTypedDict]
@@ -744,7 +744,7 @@ class SearchKnowledgeRequest(BaseModel):
     search_type: Optional[SearchType] = None
 
     filter_by: Optional[FilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
     search_options: Optional[SearchOptions] = None
     r"""Additional search options"""

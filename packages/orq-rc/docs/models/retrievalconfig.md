@@ -1,4 +1,4 @@
-# InternalRetrievalConfig
+# RetrievalConfig
 
 
 ## Fields

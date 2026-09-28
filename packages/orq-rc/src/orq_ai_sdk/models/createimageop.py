@@ -443,7 +443,7 @@ class CreateImageOrq(BaseModel):
 
 
 class CreateImageRequestBodyTypedDict(TypedDict):
-    r"""input"""
+    r"""The image generation request: the prompt plus optional size, quality, style and format settings."""
 
     prompt: str
     r"""A text description of the desired image(s)."""
@@ -487,7 +487,7 @@ class CreateImageRequestBodyTypedDict(TypedDict):
 
 
 class CreateImageRequestBody(BaseModel):
-    r"""input"""
+    r"""The image generation request: the prompt plus optional size, quality, style and format settings."""
 
     prompt: str
     r"""A text description of the desired image(s)."""

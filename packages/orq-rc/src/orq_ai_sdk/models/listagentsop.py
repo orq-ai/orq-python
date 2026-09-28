@@ -2008,7 +2008,7 @@ r"""Fallback model for automatic failover when primary model request fails. Supp
 
 class ListAgentsModelTypedDict(TypedDict):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[Nullable[ListAgentsParametersTypedDict]]
@@ -2023,7 +2023,7 @@ class ListAgentsModelTypedDict(TypedDict):
 
 class ListAgentsModel(BaseModel):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""

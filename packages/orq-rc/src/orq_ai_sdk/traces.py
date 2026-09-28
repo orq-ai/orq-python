@@ -974,7 +974,7 @@ class Traces(BaseSDK):
     ) -> models.QueryTracesResponse:
         r"""Query traces with OQL
 
-        Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+        Run an OQL trace query over a time range. OQL selects the traces to return.
 
         :param from_:
         :param to:
@@ -1078,7 +1078,7 @@ class Traces(BaseSDK):
     ) -> models.QueryTracesResponse:
         r"""Query traces with OQL
 
-        Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+        Run an OQL trace query over a time range. OQL selects the traces to return.
 
         :param from_:
         :param to:

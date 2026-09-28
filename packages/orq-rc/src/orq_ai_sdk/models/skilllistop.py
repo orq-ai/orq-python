@@ -10,8 +10,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class SkillListRequestTypedDict(TypedDict):
     limit: NotRequired[int]
-    r"""Page size, 1–200. Unset uses the server default (25); explicit 0
-    (or anything outside the range) is rejected by buf.validate.
+    r"""Page size, 1–200. Unset uses the server default (25). Values outside
+    the range, including 0, are rejected.
     """
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `skill_id` of the last
@@ -28,8 +28,8 @@ class SkillListRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Page size, 1–200. Unset uses the server default (25); explicit 0
-    (or anything outside the range) is rejected by buf.validate.
+    r"""Page size, 1–200. Unset uses the server default (25). Values outside
+    the range, including 0, are rejected.
     """
 
     starting_after: Annotated[

@@ -260,7 +260,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Create a knowledge
+        r"""Create a knowledge base
 
         Creates an internal or external knowledge base. Internal knowledge bases embed and index uploaded content; external knowledge bases query the configured external retrieval API.
 
@@ -367,7 +367,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Create a knowledge
+        r"""Create a knowledge base
 
         Creates an internal or external knowledge base. Internal knowledge bases embed and index uploaded content; external knowledge bases query the configured external retrieval API.
 
@@ -471,7 +471,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Retrieves a knowledge base
+        r"""Retrieve a knowledge base
 
         Retrieve a knowledge base with the settings.
 
@@ -570,7 +570,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Retrieves a knowledge base
+        r"""Retrieve a knowledge base
 
         Retrieve a knowledge base with the settings.
 
@@ -669,7 +669,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a knowledge
+        r"""Delete a knowledge base
 
         Deletes a knowledge base. Deleting a knowledge base will delete all the datasources and chunks associated with it.
 
@@ -768,7 +768,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a knowledge
+        r"""Delete a knowledge base
 
         Deletes a knowledge base. Deleting a knowledge base will delete all the datasources and chunks associated with it.
 
@@ -871,7 +871,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Updates a knowledge
+        r"""Update a knowledge base
 
         Updates a knowledge base. Omitted optional fields retain their current values.
 
@@ -986,7 +986,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Updates a knowledge
+        r"""Update a knowledge base
 
         Updates a knowledge base. Omitted optional fields retain their current values.
 
@@ -2058,7 +2058,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a datasource
+        r"""Delete a datasource
 
         Deletes a datasource from a knowledge base. Deleting a datasource will remove it from the knowledge base and all associated chunks. This action is irreversible and cannot be undone.
 
@@ -2160,7 +2160,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a datasource
+        r"""Delete a datasource
 
         Deletes a datasource from a knowledge base. Deleting a datasource will remove it from the knowledge base and all associated chunks. This action is irreversible and cannot be undone.
 
@@ -4844,7 +4844,7 @@ class KnowledgeSDK(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type:
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
@@ -5011,7 +5011,7 @@ class KnowledgeSDK(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type:
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.

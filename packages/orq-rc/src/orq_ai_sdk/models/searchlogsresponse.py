@@ -18,8 +18,8 @@ class SearchLogsResponseTypedDict(TypedDict):
     r"""Keyset cursor for the next page; empty when has_more is false."""
     meta: NotRequired[TraceSearchMetaTypedDict]
     total_count: NotRequired[str]
-    r"""Exact match count for the full time range (cursor-independent, constant
-    across pages). int64 serializes as a JSON string per protojson.
+    r"""Exact match count for the full time range. Constant across pages.
+    Serialized as a JSON string.
     """
 
 
@@ -37,8 +37,8 @@ class SearchLogsResponse(BaseModel):
     meta: Optional[TraceSearchMeta] = None
 
     total_count: Optional[str] = None
-    r"""Exact match count for the full time range (cursor-independent, constant
-    across pages). int64 serializes as a JSON string per protojson.
+    r"""Exact match count for the full time range. Constant across pages.
+    Serialized as a JSON string.
     """
 
     @model_serializer(mode="wrap")

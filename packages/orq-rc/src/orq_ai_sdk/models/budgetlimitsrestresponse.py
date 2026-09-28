@@ -18,10 +18,8 @@ class BudgetLimitsRestResponseTypedDict(TypedDict):
     period: NotRequired[BudgetPeriod]
     amount: NotRequired[float]
     token_limit: NotRequired[float]
-    r"""Token ceiling. Carried as a double so it serializes as a JSON number
-    (proto int64 would serialize as a quoted string); token counts are
-    whole and well within double's exact-integer range (2^53). Stored as
-    an integer server-side.
+    r"""Token ceiling for the budget period. Token counts are whole numbers
+    and stored as integers.
     """
 
 
@@ -36,10 +34,8 @@ class BudgetLimitsRestResponse(BaseModel):
     amount: Optional[float] = None
 
     token_limit: Annotated[Optional[float], pydantic.Field(alias="tokenLimit")] = None
-    r"""Token ceiling. Carried as a double so it serializes as a JSON number
-    (proto int64 would serialize as a quoted string); token counts are
-    whole and well within double's exact-integer range (2^53). Stored as
-    an integer server-side.
+    r"""Token ceiling for the budget period. Token counts are whole numbers
+    and stored as integers.
     """
 
     @model_serializer(mode="wrap")

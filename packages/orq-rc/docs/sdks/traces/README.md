@@ -225,7 +225,7 @@ with Orq(
 
 ## query
 
-Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+Run an OQL trace query over a time range. OQL selects the traces to return.
 
 ### Example Usage
 

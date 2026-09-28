@@ -8,14 +8,14 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class InternalRetrievalConfigTypedDict(TypedDict):
+class RetrievalConfigTypedDict(TypedDict):
     type: NotRequired[str]
     top_k: NotRequired[int]
     threshold: NotRequired[float]
     rerank_config: NotRequired[RerankConfigTypedDict]
 
 
-class InternalRetrievalConfig(BaseModel):
+class RetrievalConfig(BaseModel):
     type: Optional[str] = None
 
     top_k: Optional[int] = None

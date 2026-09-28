@@ -468,15 +468,15 @@ with Orq(
 ### [Knowledge](docs/sdks/knowledgesdk/README.md)
 
 * [list](docs/sdks/knowledgesdk/README.md#list) - List all knowledge bases
-* [create](docs/sdks/knowledgesdk/README.md#create) - Create a knowledge
-* [retrieve](docs/sdks/knowledgesdk/README.md#retrieve) - Retrieves a knowledge base
-* [delete](docs/sdks/knowledgesdk/README.md#delete) - Deletes a knowledge
-* [update](docs/sdks/knowledgesdk/README.md#update) - Updates a knowledge
+* [create](docs/sdks/knowledgesdk/README.md#create) - Create a knowledge base
+* [retrieve](docs/sdks/knowledgesdk/README.md#retrieve) - Retrieve a knowledge base
+* [delete](docs/sdks/knowledgesdk/README.md#delete) - Delete a knowledge base
+* [update](docs/sdks/knowledgesdk/README.md#update) - Update a knowledge base
 * [list_datasources](docs/sdks/knowledgesdk/README.md#list_datasources) - List all datasources
 * [create_datasource](docs/sdks/knowledgesdk/README.md#create_datasource) - Create a new datasource
 * [preview_chunks](docs/sdks/knowledgesdk/README.md#preview_chunks) - Preview datasource chunks
 * [retrieve_datasource](docs/sdks/knowledgesdk/README.md#retrieve_datasource) - Retrieve a datasource
-* [delete_datasource](docs/sdks/knowledgesdk/README.md#delete_datasource) - Deletes a datasource
+* [delete_datasource](docs/sdks/knowledgesdk/README.md#delete_datasource) - Delete a datasource
 * [update_datasource](docs/sdks/knowledgesdk/README.md#update_datasource) - Update a datasource
 * [list_chunks](docs/sdks/knowledgesdk/README.md#list_chunks) - List all chunks for a datasource
 * [create_chunks](docs/sdks/knowledgesdk/README.md#create_chunks) - Create chunks for a datasource

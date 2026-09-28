@@ -8,7 +8,7 @@ from typing_extensions import TypedDict
 class ModelBudgetScopeTypedDict(TypedDict):
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models), rather than an internal identifier.
+    models).
     """
 
     model_id: str
@@ -17,7 +17,7 @@ class ModelBudgetScopeTypedDict(TypedDict):
 class ModelBudgetScope(BaseModel):
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models), rather than an internal identifier.
+    models).
     """
 
     model_id: str
