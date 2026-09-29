@@ -4,13 +4,15 @@
 
 ### Available Operations
 
-* [remove_evaluation](#remove_evaluation)
-* [create_evaluation](#create_evaluation)
-* [remove](#remove)
+* [~~remove_evaluation~~](#remove_evaluation) - :warning: **Deprecated**
+* [~~create_evaluation~~](#create_evaluation) - :warning: **Deprecated**
 * [create](#create)
+* [remove](#remove)
 * [submit](#submit) - Submit feedback
 
-## remove_evaluation
+## ~~remove_evaluation~~
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -43,7 +45,9 @@ with Orq(
 | ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
-## create_evaluation
+## ~~create_evaluation~~
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -75,45 +79,6 @@ with Orq(
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
-
-## remove
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="post_/v2/feedback/remove" method="post" path="/v2/feedback/remove" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.feedback.remove()
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `request`                                                                                 | [models.PostV2FeedbackRemoveRequestBody](../../models/postv2feedbackremoverequestbody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
-| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |
-
-### Response
-
-**[models.PostV2FeedbackRemoveResponseBody](../../models/postv2feedbackremoveresponsebody.md)**
-
-### Errors
-
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| models.PostV2FeedbackRemoveFeedbackResponseBody | 404                                             | application/json                                |
-| models.APIDefaultError                          | 4XX, 5XX                                        | \*/\*                                           |
 
 ## create
 
@@ -154,6 +119,45 @@ with Orq(
 | models.PostV2FeedbackFeedbackResponseBody         | 400                                               | application/json                                  |
 | models.PostV2FeedbackFeedbackResponseResponseBody | 404                                               | application/json                                  |
 | models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |
+
+## remove
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="post_/v2/feedback/remove" method="post" path="/v2/feedback/remove" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.feedback.remove()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [models.PostV2FeedbackRemoveRequestBody](../../models/postv2feedbackremoverequestbody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
+| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |
+
+### Response
+
+**[models.PostV2FeedbackRemoveResponseBody](../../models/postv2feedbackremoveresponsebody.md)**
+
+### Errors
+
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| models.PostV2FeedbackRemoveFeedbackResponseBody | 404                                             | application/json                                |
+| models.APIDefaultError                          | 4XX, 5XX                                        | \*/\*                                           |
 
 ## submit
 

@@ -407,10 +407,10 @@ with Orq(
 
 ### [Feedback](docs/sdks/feedback/README.md)
 
-* [remove_evaluation](docs/sdks/feedback/README.md#remove_evaluation)
-* [create_evaluation](docs/sdks/feedback/README.md#create_evaluation)
-* [remove](docs/sdks/feedback/README.md#remove)
+* [~~remove_evaluation~~](docs/sdks/feedback/README.md#remove_evaluation) - :warning: **Deprecated**
+* [~~create_evaluation~~](docs/sdks/feedback/README.md#create_evaluation) - :warning: **Deprecated**
 * [create](docs/sdks/feedback/README.md#create)
+* [remove](docs/sdks/feedback/README.md#remove)
 * [submit](docs/sdks/feedback/README.md#submit) - Submit feedback
 
 ### [Files](docs/sdks/files/README.md)
@@ -1162,8 +1162,8 @@ with Orq(
 * [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 329 methods.*
 * [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 329 methods.*
 * [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 329 methods.*
-* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 329 methods.*
 * [`PostV2FeedbackFeedbackResponseResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponseresponsebody.py): Workspace, trace, or feedback property was not found. Status code `404`. Applicable to 1 of 329 methods.*
+* [`PostV2FeedbackRemoveFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackremovefeedbackresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 329 methods.*
 * [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 329 methods.*
 * [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 329 methods.*
 * [`GetEvalEvalsResponseBody`](./src/orq_ai_sdk/models/getevalevalsresponsebody.py): No evaluator with this id exists in the authenticated workspace, or the request carries no workspace. Status code `404`. Applicable to 1 of 329 methods.*
