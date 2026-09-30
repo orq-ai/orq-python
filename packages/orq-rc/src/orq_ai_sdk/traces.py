@@ -25,6 +25,7 @@ class Traces(BaseSDK):
         ] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        query: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -41,6 +42,7 @@ class Traces(BaseSDK):
         :param compute:
         :param limit:
         :param filter_operator:
+        :param query: Free-text search with the same matching as SearchTracesRequest.query.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -71,6 +73,7 @@ class Traces(BaseSDK):
             ),
             limit=limit,
             filter_operator=filter_operator,
+            query=query,
         )
 
         req = self._build_request(
@@ -143,6 +146,7 @@ class Traces(BaseSDK):
         ] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        query: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -159,6 +163,7 @@ class Traces(BaseSDK):
         :param compute:
         :param limit:
         :param filter_operator:
+        :param query: Free-text search with the same matching as SearchTracesRequest.query.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -189,6 +194,7 @@ class Traces(BaseSDK):
             ),
             limit=limit,
             filter_operator=filter_operator,
+            query=query,
         )
 
         req = self._build_request_async(

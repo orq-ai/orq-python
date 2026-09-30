@@ -454,6 +454,8 @@ class TelemetrySDK(BaseSDK):
         interval_seconds: Optional[int] = None,
         selected_range_seconds: Optional[int] = None,
         project_id: Optional[str] = None,
+        query: Optional[str] = None,
+        oql: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -481,6 +483,8 @@ class TelemetrySDK(BaseSDK):
         :param selected_range_seconds: The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown.
         :param project_id: Pins the read to one project the caller can reach. Omit to keep the
             caller's token scope.
+        :param query: Free-text trace search, matched like the trace list search. Only for source `TRACES` with trace aggregate metrics.
+        :param oql: OQL trace selection (`fetch traces | ...`), compiled to filters like the OQL trace query. Only for source `TRACES` with trace aggregate metrics; cannot be combined with `filters` or `query`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -520,6 +524,8 @@ class TelemetrySDK(BaseSDK):
             interval_seconds=interval_seconds,
             selected_range_seconds=selected_range_seconds,
             project_id=project_id,
+            query=query,
+            oql=oql,
         )
 
         req = self._build_request(
@@ -601,6 +607,8 @@ class TelemetrySDK(BaseSDK):
         interval_seconds: Optional[int] = None,
         selected_range_seconds: Optional[int] = None,
         project_id: Optional[str] = None,
+        query: Optional[str] = None,
+        oql: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -628,6 +636,8 @@ class TelemetrySDK(BaseSDK):
         :param selected_range_seconds: The span originally selected, before live extended [from, to). `grain:\"auto\"` resolves bucket width from this span, independent of how far [from, to) has since grown.
         :param project_id: Pins the read to one project the caller can reach. Omit to keep the
             caller's token scope.
+        :param query: Free-text trace search, matched like the trace list search. Only for source `TRACES` with trace aggregate metrics.
+        :param oql: OQL trace selection (`fetch traces | ...`), compiled to filters like the OQL trace query. Only for source `TRACES` with trace aggregate metrics; cannot be combined with `filters` or `query`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -667,6 +677,8 @@ class TelemetrySDK(BaseSDK):
             interval_seconds=interval_seconds,
             selected_range_seconds=selected_range_seconds,
             project_id=project_id,
+            query=query,
+            oql=oql,
         )
 
         req = self._build_request_async(

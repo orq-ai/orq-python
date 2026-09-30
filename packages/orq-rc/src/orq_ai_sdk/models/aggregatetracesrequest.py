@@ -19,6 +19,8 @@ class AggregateTracesRequestTypedDict(TypedDict):
     compute: NotRequired[List[TraceComputeTypedDict]]
     limit: NotRequired[int]
     filter_operator: NotRequired[str]
+    query: NotRequired[str]
+    r"""Free-text search with the same matching as SearchTracesRequest.query."""
 
 
 class AggregateTracesRequest(BaseModel):
@@ -36,10 +38,22 @@ class AggregateTracesRequest(BaseModel):
 
     filter_operator: Optional[str] = None
 
+    query: Optional[str] = None
+    r"""Free-text search with the same matching as SearchTracesRequest.query."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["from", "to", "filters", "group_by", "compute", "limit", "filter_operator"]
+            [
+                "from",
+                "to",
+                "filters",
+                "group_by",
+                "compute",
+                "limit",
+                "filter_operator",
+                "query",
+            ]
         )
         serialized = handler(self)
         m = {}

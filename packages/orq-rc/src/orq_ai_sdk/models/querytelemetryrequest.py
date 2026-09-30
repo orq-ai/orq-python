@@ -54,6 +54,10 @@ class QueryTelemetryRequestTypedDict(TypedDict):
     r"""Pins the read to one project the caller can reach. Omit to keep the
     caller's token scope.
     """
+    query: NotRequired[str]
+    r"""Free-text trace search, matched like the trace list search. Only for source `TRACES` with trace aggregate metrics."""
+    oql: NotRequired[str]
+    r"""OQL trace selection (`fetch traces | ...`), compiled to filters like the OQL trace query. Only for source `TRACES` with trace aggregate metrics; cannot be combined with `filters` or `query`."""
 
 
 class QueryTelemetryRequest(BaseModel):
@@ -100,6 +104,12 @@ class QueryTelemetryRequest(BaseModel):
     caller's token scope.
     """
 
+    query: Optional[str] = None
+    r"""Free-text trace search, matched like the trace list search. Only for source `TRACES` with trace aggregate metrics."""
+
+    oql: Optional[str] = None
+    r"""OQL trace selection (`fetch traces | ...`), compiled to filters like the OQL trace query. Only for source `TRACES` with trace aggregate metrics; cannot be combined with `filters` or `query`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -120,6 +130,8 @@ class QueryTelemetryRequest(BaseModel):
                 "interval_seconds",
                 "selected_range_seconds",
                 "project_id",
+                "query",
+                "oql",
             ]
         )
         serialized = handler(self)

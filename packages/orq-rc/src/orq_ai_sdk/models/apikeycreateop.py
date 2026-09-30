@@ -3,7 +3,7 @@
 from __future__ import annotations
 from .constraints import Constraints, ConstraintsTypedDict
 from .owner import Owner, OwnerTypedDict
-from .projectscope import ProjectScope, ProjectScopeTypedDict
+from .requestprojectscope import RequestProjectScope, RequestProjectScopeTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -21,15 +21,11 @@ PermissionMode = Literal[
     "all",
     "restricted",
     "read_only",
+    "PERMISSION_MODE_ALL",
+    "PERMISSION_MODE_RESTRICTED",
+    "PERMISSION_MODE_READ_ONLY",
 ]
 r"""Permission preset; restricted keys hold only the domains granted in access."""
-
-
-APIKeyCreateSource = Literal[
-    "workspace",
-    "router",
-]
-r"""Origin of the key; router keys are minted for the AI router."""
 
 
 class APIKeyCreateRequestBodyTypedDict(TypedDict):
@@ -43,11 +39,9 @@ class APIKeyCreateRequestBodyTypedDict(TypedDict):
     owner: NotRequired[OwnerTypedDict]
     permission_mode: NotRequired[PermissionMode]
     r"""Permission preset; restricted keys hold only the domains granted in access."""
-    project_scope: NotRequired[ProjectScopeTypedDict]
+    project_scope: NotRequired[RequestProjectScopeTypedDict]
     projects: NotRequired[Nullable[List[str]]]
     r"""Legacy single-project binding; prefer project_scope."""
-    source: NotRequired[APIKeyCreateSource]
-    r"""Origin of the key; router keys are minted for the AI router."""
 
 
 class APIKeyCreateRequestBody(BaseModel):
@@ -67,13 +61,10 @@ class APIKeyCreateRequestBody(BaseModel):
     permission_mode: Optional[PermissionMode] = None
     r"""Permission preset; restricted keys hold only the domains granted in access."""
 
-    project_scope: Optional[ProjectScope] = None
+    project_scope: Optional[RequestProjectScope] = None
 
     projects: OptionalNullable[List[str]] = UNSET
     r"""Legacy single-project binding; prefer project_scope."""
-
-    source: Optional[APIKeyCreateSource] = None
-    r"""Origin of the key; router keys are minted for the AI router."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -86,7 +77,6 @@ class APIKeyCreateRequestBody(BaseModel):
                 "permission_mode",
                 "project_scope",
                 "projects",
-                "source",
             ]
         )
         nullable_fields = set(["projects"])

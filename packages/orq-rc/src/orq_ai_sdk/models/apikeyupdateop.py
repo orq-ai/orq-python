@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .constraints import Constraints, ConstraintsTypedDict
-from .projectscope import ProjectScope, ProjectScopeTypedDict
+from .requestprojectscope import RequestProjectScope, RequestProjectScopeTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 from pydantic import model_serializer
@@ -14,6 +14,9 @@ APIKeyUpdatePermissionMode = Literal[
     "all",
     "restricted",
     "read_only",
+    "PERMISSION_MODE_ALL",
+    "PERMISSION_MODE_RESTRICTED",
+    "PERMISSION_MODE_READ_ONLY",
 ]
 r"""Permission preset; a restricted key must keep at least one granted domain."""
 
@@ -36,7 +39,7 @@ class APIKeyUpdateRequestBodyTypedDict(TypedDict):
     r"""New display name."""
     permission_mode: NotRequired[APIKeyUpdatePermissionMode]
     r"""Permission preset; a restricted key must keep at least one granted domain."""
-    project_scope: NotRequired[ProjectScopeTypedDict]
+    project_scope: NotRequired[RequestProjectScopeTypedDict]
     status: NotRequired[APIKeyUpdateStatus]
     r"""Lifecycle status; revoked is terminal."""
 
@@ -56,7 +59,7 @@ class APIKeyUpdateRequestBody(BaseModel):
     permission_mode: Optional[APIKeyUpdatePermissionMode] = None
     r"""Permission preset; a restricted key must keep at least one granted domain."""
 
-    project_scope: Optional[ProjectScope] = None
+    project_scope: Optional[RequestProjectScope] = None
 
     status: Optional[APIKeyUpdateStatus] = None
     r"""Lifecycle status; revoked is terminal."""

@@ -1,0 +1,11 @@
+# RequestProjectScope
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `all`                                                                            | [Optional[models.AllProjectsScope]](../models/allprojectsscope.md)               | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `mode`                                                                           | [Optional[models.RequestProjectScopeMode]](../models/requestprojectscopemode.md) | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `project_id`                                                                     | *Optional[str]*                                                                  | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `single`                                                                         | [Optional[models.SingleProjectScope]](../models/singleprojectscope.md)           | :heavy_minus_sign:                                                               | N/A                                                                              |

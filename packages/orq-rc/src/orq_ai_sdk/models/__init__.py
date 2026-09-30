@@ -260,6 +260,7 @@ if TYPE_CHECKING:
     )
     from .alerttriggerevent import AlertTriggerEvent, AlertTriggerEventTypedDict
     from .alertupdateop import AlertUpdateRequest, AlertUpdateRequestTypedDict
+    from .allprojectsscope import AllProjectsScope, AllProjectsScopeTypedDict
     from .annotationfilter import AnnotationFilter, AnnotationFilterTypedDict
     from .annotationqueue import AnnotationQueue, AnnotationQueueTypedDict
     from .annotationqueueitem import AnnotationQueueItem, AnnotationQueueItemTypedDict
@@ -281,7 +282,6 @@ if TYPE_CHECKING:
     from .apikeycreateop import (
         APIKeyCreateRequestBody,
         APIKeyCreateRequestBodyTypedDict,
-        APIKeyCreateSource,
         PermissionMode,
     )
     from .apikeydeleteop import APIKeyDeleteRequest, APIKeyDeleteRequestTypedDict
@@ -6185,7 +6185,6 @@ if TYPE_CHECKING:
     from .projectdeleteop import ProjectDeleteRequest, ProjectDeleteRequestTypedDict
     from .projectgetop import ProjectGetRequest, ProjectGetRequestTypedDict
     from .projectlistop import ProjectListRequest, ProjectListRequestTypedDict
-    from .projectscope import ProjectScope, ProjectScopeTypedDict
     from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
     from .providerbudgetscope import ProviderBudgetScope, ProviderBudgetScopeTypedDict
     from .providertoolinput import ProviderToolInput, ProviderToolInputTypedDict
@@ -6336,6 +6335,11 @@ if TYPE_CHECKING:
         RemoveAnnotationQueueItemsRequestTypedDict,
     )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
+    from .requestprojectscope import (
+        RequestProjectScope,
+        RequestProjectScopeMode,
+        RequestProjectScopeTypedDict,
+    )
     from .rerankconfig import RerankConfig, RerankConfigTypedDict
     from .rerankmodelparameters import (
         RerankModelParameters,
@@ -7375,6 +7379,7 @@ if TYPE_CHECKING:
         SidekickToolInputType,
         SidekickToolInputTypedDict,
     )
+    from .singleprojectscope import SingleProjectScope, SingleProjectScopeTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
     from .skillgetop import SkillGetRequest, SkillGetRequestTypedDict
@@ -8969,7 +8974,6 @@ __all__ = [
     "APIKeyBudgetScopeTypedDict",
     "APIKeyCreateRequestBody",
     "APIKeyCreateRequestBodyTypedDict",
-    "APIKeyCreateSource",
     "APIKeyDeleteRequest",
     "APIKeyDeleteRequestTypedDict",
     "APIKeyGetRequest",
@@ -9202,6 +9206,8 @@ __all__ = [
     "AlertTypedDict",
     "AlertUpdateRequest",
     "AlertUpdateRequestTypedDict",
+    "AllProjectsScope",
+    "AllProjectsScopeTypedDict",
     "AllowedTools",
     "AllowedToolsTypedDict",
     "And",
@@ -14439,8 +14445,6 @@ __all__ = [
     "ProjectGetRequestTypedDict",
     "ProjectListRequest",
     "ProjectListRequestTypedDict",
-    "ProjectScope",
-    "ProjectScopeTypedDict",
     "ProjectTypedDict",
     "ProjectUpdateRequest",
     "ProjectUpdateRequestTypedDict",
@@ -14633,6 +14637,9 @@ __all__ = [
     "RequestLimit",
     "RequestLimitPeriod",
     "RequestLimitTypedDict",
+    "RequestProjectScope",
+    "RequestProjectScopeMode",
+    "RequestProjectScopeTypedDict",
     "RerankConfig",
     "RerankConfigTypedDict",
     "RerankModelParameters",
@@ -15555,6 +15562,8 @@ __all__ = [
     "SidekickToolInputType",
     "SidekickToolInputTypedDict",
     "Signal",
+    "SingleProjectScope",
+    "SingleProjectScopeTypedDict",
     "Six",
     "SixTypedDict",
     "Sixteen",
@@ -17301,6 +17310,8 @@ _dynamic_imports: dict[str, str] = {
     "AlertTriggerEventTypedDict": ".alerttriggerevent",
     "AlertUpdateRequest": ".alertupdateop",
     "AlertUpdateRequestTypedDict": ".alertupdateop",
+    "AllProjectsScope": ".allprojectsscope",
+    "AllProjectsScopeTypedDict": ".allprojectsscope",
     "AnnotationFilter": ".annotationfilter",
     "AnnotationFilterTypedDict": ".annotationfilter",
     "AnnotationQueue": ".annotationqueue",
@@ -17320,7 +17331,6 @@ _dynamic_imports: dict[str, str] = {
     "APIKeyBudgetScopeRestResponseTypedDict": ".apikeybudgetscoperestresponse",
     "APIKeyCreateRequestBody": ".apikeycreateop",
     "APIKeyCreateRequestBodyTypedDict": ".apikeycreateop",
-    "APIKeyCreateSource": ".apikeycreateop",
     "PermissionMode": ".apikeycreateop",
     "APIKeyDeleteRequest": ".apikeydeleteop",
     "APIKeyDeleteRequestTypedDict": ".apikeydeleteop",
@@ -22758,8 +22768,6 @@ _dynamic_imports: dict[str, str] = {
     "ProjectGetRequestTypedDict": ".projectgetop",
     "ProjectListRequest": ".projectlistop",
     "ProjectListRequestTypedDict": ".projectlistop",
-    "ProjectScope": ".projectscope",
-    "ProjectScopeTypedDict": ".projectscope",
     "ProjectUpdateRequest": ".projectupdateop",
     "ProjectUpdateRequestTypedDict": ".projectupdateop",
     "ProviderBudgetScope": ".providerbudgetscope",
@@ -22885,6 +22893,9 @@ _dynamic_imports: dict[str, str] = {
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",
+    "RequestProjectScope": ".requestprojectscope",
+    "RequestProjectScopeMode": ".requestprojectscope",
+    "RequestProjectScopeTypedDict": ".requestprojectscope",
     "RerankConfig": ".rerankconfig",
     "RerankConfigTypedDict": ".rerankconfig",
     "RerankModelParameters": ".rerankmodelparameters",
@@ -23752,6 +23763,8 @@ _dynamic_imports: dict[str, str] = {
     "SidekickToolInput": ".sidekicktoolinput",
     "SidekickToolInputType": ".sidekicktoolinput",
     "SidekickToolInputTypedDict": ".sidekicktoolinput",
+    "SingleProjectScope": ".singleprojectscope",
+    "SingleProjectScopeTypedDict": ".singleprojectscope",
     "Skill": ".skill",
     "SkillTypedDict": ".skill",
     "SkillDeleteRequest": ".skilldeleteop",

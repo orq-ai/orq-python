@@ -15,3 +15,6 @@ value: APIKeyUpdatePermissionMode = "all"
 - `"all"`
 - `"restricted"`
 - `"read_only"`
+- `"PERMISSION_MODE_ALL"`
+- `"PERMISSION_MODE_RESTRICTED"`
+- `"PERMISSION_MODE_READ_ONLY"`
