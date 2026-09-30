@@ -12,6 +12,7 @@
 * [query](#query) - Query traces with OQL
 * [search](#search) - Search traces
 * [get](#get) - Get trace
+* [get_conversation](#get_conversation) - Get trace conversation
 * [list_spans](#list_spans) - List trace spans
 * [get_span](#get_span) - Get trace span
 
@@ -349,6 +350,47 @@ with Orq(
 ### Response
 
 **[models.GetTraceResponse](../../models/gettraceresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## get_conversation
+
+Return ordered OpenResponses items from the selected model-call span. Prefers spans with output outside evaluator subtrees unless `span_id` is given.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="TracesGetConversation" method="get" path="/v3/traces/{trace_id}/conversation" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.traces.get_conversation(trace_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `trace_id`                                                                      | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
+| `span_id`                                                                       | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Read the conversation from this span instead of the automatically selected one. |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
+
+### Response
+
+**[models.GetTraceConversationResponse](../../models/gettraceconversationresponse.md)**
 
 ### Errors
 

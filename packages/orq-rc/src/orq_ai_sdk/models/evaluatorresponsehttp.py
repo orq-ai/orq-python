@@ -17,6 +17,15 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 EvaluatorResponseHTTPType = Literal["http_eval",]
 
 
+EvaluatorResponseHTTPOutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 Method = Literal[
     "GET",
     "POST",
@@ -27,6 +36,8 @@ class EvaluatorResponseHTTPTypedDict(TypedDict):
     id: str
     description: str
     type: EvaluatorResponseHTTPType
+    output_type: EvaluatorResponseHTTPOutputType
+    r"""The type of output expected from the evaluator"""
     url: str
     method: Method
     headers: Dict[str, str]
@@ -46,6 +57,9 @@ class EvaluatorResponseHTTP(BaseModel):
     description: str
 
     type: EvaluatorResponseHTTPType
+
+    output_type: EvaluatorResponseHTTPOutputType
+    r"""The type of output expected from the evaluator"""
 
     url: str
 

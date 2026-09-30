@@ -382,7 +382,6 @@ class Responses(BaseSDK):
         stream_options: Optional[
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
-        tags: OptionalNullable[Iterable[str]] = UNSET,
         temperature: Optional[float] = None,
         template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
@@ -456,7 +455,6 @@ class Responses(BaseSDK):
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
-        :param tags: Tags attached to the request trace.
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
@@ -547,7 +545,6 @@ class Responses(BaseSDK):
             stream_options=utils.get_pydantic_model(
                 stream_options, Optional[models.StreamOptions]
             ),
-            tags=utils.unmarshal(tags, OptionalNullable[List[str]]),
             temperature=temperature,
             template_engine=template_engine,
             text=utils.get_pydantic_model(
@@ -724,7 +721,6 @@ class Responses(BaseSDK):
         stream_options: Optional[
             Union[models.StreamOptions, models.StreamOptionsTypedDict]
         ] = None,
-        tags: OptionalNullable[Iterable[str]] = UNSET,
         temperature: Optional[float] = None,
         template_engine: Optional[models.TemplateEngine] = None,
         text: Optional[
@@ -798,7 +794,6 @@ class Responses(BaseSDK):
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
         :param stream_options:
-        :param tags: Tags attached to the request trace.
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
@@ -889,7 +884,6 @@ class Responses(BaseSDK):
             stream_options=utils.get_pydantic_model(
                 stream_options, Optional[models.StreamOptions]
             ),
-            tags=utils.unmarshal(tags, OptionalNullable[List[str]]),
             temperature=temperature,
             template_engine=template_engine,
             text=utils.get_pydantic_model(

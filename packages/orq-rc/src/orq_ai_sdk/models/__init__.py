@@ -1572,9 +1572,9 @@ if TYPE_CHECKING:
         OneRetryTypedDict,
         OneTieValue,
         OneType,
-        OutputType,
         Python,
         PythonTypedDict,
+        RequestBodyOutputType,
     )
     from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
     from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
@@ -3420,6 +3420,7 @@ if TYPE_CHECKING:
         EvaluatorResponseFunctionFunctionParams8Type,
         EvaluatorResponseFunctionFunctionParams9Type,
         EvaluatorResponseFunctionFunctionParamsType,
+        EvaluatorResponseFunctionOutputType,
         EvaluatorResponseFunctionType,
         EvaluatorResponseFunctionTypedDict,
         Fifteen,
@@ -3486,12 +3487,14 @@ if TYPE_CHECKING:
     )
     from .evaluatorresponsehttp import (
         EvaluatorResponseHTTP,
+        EvaluatorResponseHTTPOutputType,
         EvaluatorResponseHTTPType,
         EvaluatorResponseHTTPTypedDict,
         Method,
     )
     from .evaluatorresponsejsonschema import (
         EvaluatorResponseJSONSchema,
+        EvaluatorResponseJSONSchemaOutputType,
         EvaluatorResponseJSONSchemaType,
         EvaluatorResponseJSONSchemaTypedDict,
     )
@@ -3512,6 +3515,7 @@ if TYPE_CHECKING:
         Jury,
         JuryTypedDict,
         Mode,
+        OutputType,
         ReplacementJudges,
         ReplacementJudgesTypedDict,
         Retry,
@@ -3520,17 +3524,20 @@ if TYPE_CHECKING:
     )
     from .evaluatorresponsepython import (
         EvaluatorResponsePython,
+        EvaluatorResponsePythonOutputType,
         EvaluatorResponsePythonType,
         EvaluatorResponsePythonTypedDict,
     )
     from .evaluatorresponseragas import (
         EvaluatorResponseRagas,
+        EvaluatorResponseRagasOutputType,
         EvaluatorResponseRagasType,
         EvaluatorResponseRagasTypedDict,
         RagasMetric,
     )
     from .evaluatorresponsetypescript import (
         EvaluatorResponseTypescript,
+        EvaluatorResponseTypescriptOutputType,
         EvaluatorResponseTypescriptType,
         EvaluatorResponseTypescriptTypedDict,
     )
@@ -4588,6 +4595,12 @@ if TYPE_CHECKING:
     from .getthreadcountresponse import (
         GetThreadCountResponse,
         GetThreadCountResponseTypedDict,
+    )
+    from .gettraceconversationresponse import (
+        GetTraceConversationResponse,
+        GetTraceConversationResponseTypedDict,
+        Items,
+        ItemsTypedDict,
     )
     from .gettraceresponse import GetTraceResponse, GetTraceResponseTypedDict
     from .gettracespanresponse import (
@@ -7837,6 +7850,10 @@ if TYPE_CHECKING:
         TraceScrubbingPluginTypedDict,
     )
     from .tracesearchmeta import TraceSearchMeta, TraceSearchMetaTypedDict
+    from .tracesgetconversationop import (
+        TracesGetConversationRequest,
+        TracesGetConversationRequestTypedDict,
+    )
     from .tracesgetop import TracesGetRequest, TracesGetRequestTypedDict
     from .tracesgetspanop import TracesGetSpanRequest, TracesGetSpanRequestTypedDict
     from .traceslistfacetvaluesop import (
@@ -11879,12 +11896,15 @@ __all__ = [
     "EvaluatorResponseFunctionFunctionParams8Type",
     "EvaluatorResponseFunctionFunctionParams9Type",
     "EvaluatorResponseFunctionFunctionParamsType",
+    "EvaluatorResponseFunctionOutputType",
     "EvaluatorResponseFunctionType",
     "EvaluatorResponseFunctionTypedDict",
     "EvaluatorResponseHTTP",
+    "EvaluatorResponseHTTPOutputType",
     "EvaluatorResponseHTTPType",
     "EvaluatorResponseHTTPTypedDict",
     "EvaluatorResponseJSONSchema",
+    "EvaluatorResponseJSONSchemaOutputType",
     "EvaluatorResponseJSONSchemaType",
     "EvaluatorResponseJSONSchemaTypedDict",
     "EvaluatorResponseLlm",
@@ -11895,12 +11915,15 @@ __all__ = [
     "EvaluatorResponseLlmType",
     "EvaluatorResponseLlmTypedDict",
     "EvaluatorResponsePython",
+    "EvaluatorResponsePythonOutputType",
     "EvaluatorResponsePythonType",
     "EvaluatorResponsePythonTypedDict",
     "EvaluatorResponseRagas",
+    "EvaluatorResponseRagasOutputType",
     "EvaluatorResponseRagasType",
     "EvaluatorResponseRagasTypedDict",
     "EvaluatorResponseTypescript",
+    "EvaluatorResponseTypescriptOutputType",
     "EvaluatorResponseTypescriptType",
     "EvaluatorResponseTypescriptTypedDict",
     "EvaluatorTypedDict",
@@ -12888,6 +12911,8 @@ __all__ = [
     "GetThreadCountRequestTypedDict",
     "GetThreadCountResponse",
     "GetThreadCountResponseTypedDict",
+    "GetTraceConversationResponse",
+    "GetTraceConversationResponseTypedDict",
     "GetTraceResponse",
     "GetTraceResponseTypedDict",
     "GetTraceSpanResponse",
@@ -13170,6 +13195,8 @@ __all__ = [
     "InvokeEvaluatorRequestTypedDict",
     "InvokeOptions",
     "InvokeOptionsTypedDict",
+    "Items",
+    "ItemsTypedDict",
     "JSON",
     "JSONObject",
     "JSONObjectTypedDict",
@@ -14594,6 +14621,7 @@ __all__ = [
     "RequestBodyJSONSchemaTypedDict",
     "RequestBodyLanguage",
     "RequestBodyMethod",
+    "RequestBodyOutputType",
     "RequestBodyParameters",
     "RequestBodyParametersTypedDict",
     "RequestBodySchema",
@@ -16031,6 +16059,8 @@ __all__ = [
     "TraceSummaryTypedDict",
     "TraceUsage",
     "TraceUsageTypedDict",
+    "TracesGetConversationRequest",
+    "TracesGetConversationRequestTypedDict",
     "TracesGetRequest",
     "TracesGetRequestTypedDict",
     "TracesGetSpanRequest",
@@ -18508,9 +18538,9 @@ _dynamic_imports: dict[str, str] = {
     "OneRetryTypedDict": ".createevalop",
     "OneTieValue": ".createevalop",
     "OneType": ".createevalop",
-    "OutputType": ".createevalop",
     "Python": ".createevalop",
     "PythonTypedDict": ".createevalop",
+    "RequestBodyOutputType": ".createevalop",
     "CreateFileRequest": ".createfilerequest",
     "CreateFileRequestTypedDict": ".createfilerequest",
     "CreateFileResponse": ".createfileresponse",
@@ -20213,6 +20243,7 @@ _dynamic_imports: dict[str, str] = {
     "EvaluatorResponseFunctionFunctionParams8Type": ".evaluatorresponsefunction",
     "EvaluatorResponseFunctionFunctionParams9Type": ".evaluatorresponsefunction",
     "EvaluatorResponseFunctionFunctionParamsType": ".evaluatorresponsefunction",
+    "EvaluatorResponseFunctionOutputType": ".evaluatorresponsefunction",
     "EvaluatorResponseFunctionType": ".evaluatorresponsefunction",
     "EvaluatorResponseFunctionTypedDict": ".evaluatorresponsefunction",
     "Fifteen": ".evaluatorresponsefunction",
@@ -20277,10 +20308,12 @@ _dynamic_imports: dict[str, str] = {
     "TwentyTwoTypedDict": ".evaluatorresponsefunction",
     "TwentyTypedDict": ".evaluatorresponsefunction",
     "EvaluatorResponseHTTP": ".evaluatorresponsehttp",
+    "EvaluatorResponseHTTPOutputType": ".evaluatorresponsehttp",
     "EvaluatorResponseHTTPType": ".evaluatorresponsehttp",
     "EvaluatorResponseHTTPTypedDict": ".evaluatorresponsehttp",
     "Method": ".evaluatorresponsehttp",
     "EvaluatorResponseJSONSchema": ".evaluatorresponsejsonschema",
+    "EvaluatorResponseJSONSchemaOutputType": ".evaluatorresponsejsonschema",
     "EvaluatorResponseJSONSchemaType": ".evaluatorresponsejsonschema",
     "EvaluatorResponseJSONSchemaTypedDict": ".evaluatorresponsejsonschema",
     "CategoricalLabels": ".evaluatorresponsellm",
@@ -20299,19 +20332,23 @@ _dynamic_imports: dict[str, str] = {
     "Jury": ".evaluatorresponsellm",
     "JuryTypedDict": ".evaluatorresponsellm",
     "Mode": ".evaluatorresponsellm",
+    "OutputType": ".evaluatorresponsellm",
     "ReplacementJudges": ".evaluatorresponsellm",
     "ReplacementJudgesTypedDict": ".evaluatorresponsellm",
     "Retry": ".evaluatorresponsellm",
     "RetryTypedDict": ".evaluatorresponsellm",
     "TieValue": ".evaluatorresponsellm",
     "EvaluatorResponsePython": ".evaluatorresponsepython",
+    "EvaluatorResponsePythonOutputType": ".evaluatorresponsepython",
     "EvaluatorResponsePythonType": ".evaluatorresponsepython",
     "EvaluatorResponsePythonTypedDict": ".evaluatorresponsepython",
     "EvaluatorResponseRagas": ".evaluatorresponseragas",
+    "EvaluatorResponseRagasOutputType": ".evaluatorresponseragas",
     "EvaluatorResponseRagasType": ".evaluatorresponseragas",
     "EvaluatorResponseRagasTypedDict": ".evaluatorresponseragas",
     "RagasMetric": ".evaluatorresponseragas",
     "EvaluatorResponseTypescript": ".evaluatorresponsetypescript",
+    "EvaluatorResponseTypescriptOutputType": ".evaluatorresponsetypescript",
     "EvaluatorResponseTypescriptType": ".evaluatorresponsetypescript",
     "EvaluatorResponseTypescriptTypedDict": ".evaluatorresponsetypescript",
     "ExecutionNamedStreamingEvent": ".executionnamedstreamingevent",
@@ -21315,6 +21352,10 @@ _dynamic_imports: dict[str, str] = {
     "GetThreadCountRequestTypedDict": ".getthreadcountrequest",
     "GetThreadCountResponse": ".getthreadcountresponse",
     "GetThreadCountResponseTypedDict": ".getthreadcountresponse",
+    "GetTraceConversationResponse": ".gettraceconversationresponse",
+    "GetTraceConversationResponseTypedDict": ".gettraceconversationresponse",
+    "Items": ".gettraceconversationresponse",
+    "ItemsTypedDict": ".gettraceconversationresponse",
     "GetTraceResponse": ".gettraceresponse",
     "GetTraceResponseTypedDict": ".gettraceresponse",
     "GetTraceSpanResponse": ".gettracespanresponse",
@@ -24157,6 +24198,8 @@ _dynamic_imports: dict[str, str] = {
     "TraceScrubbingPluginTypedDict": ".tracescrubbingplugin",
     "TraceSearchMeta": ".tracesearchmeta",
     "TraceSearchMetaTypedDict": ".tracesearchmeta",
+    "TracesGetConversationRequest": ".tracesgetconversationop",
+    "TracesGetConversationRequestTypedDict": ".tracesgetconversationop",
     "TracesGetRequest": ".tracesgetop",
     "TracesGetRequestTypedDict": ".tracesgetop",
     "TracesGetSpanRequest": ".tracesgetspanop",

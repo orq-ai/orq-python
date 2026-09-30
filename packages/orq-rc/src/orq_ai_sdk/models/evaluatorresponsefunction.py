@@ -18,6 +18,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 EvaluatorResponseFunctionType = Literal["function_eval",]
 
 
+EvaluatorResponseFunctionOutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 EvaluatorResponseFunctionFunctionParams32Type = Literal["grammar_diversity",]
 
 
@@ -488,6 +497,8 @@ class EvaluatorResponseFunctionTypedDict(TypedDict):
     id: str
     description: str
     type: EvaluatorResponseFunctionType
+    output_type: EvaluatorResponseFunctionOutputType
+    r"""The type of output expected from the evaluator"""
     function_params: FunctionParamsTypedDict
     key: str
     created: NotRequired[str]
@@ -504,6 +515,9 @@ class EvaluatorResponseFunction(BaseModel):
     description: str
 
     type: EvaluatorResponseFunctionType
+
+    output_type: EvaluatorResponseFunctionOutputType
+    r"""The type of output expected from the evaluator"""
 
     function_params: FunctionParams
 

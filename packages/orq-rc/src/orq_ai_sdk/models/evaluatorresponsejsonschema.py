@@ -17,10 +17,21 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 EvaluatorResponseJSONSchemaType = Literal["json_schema",]
 
 
+EvaluatorResponseJSONSchemaOutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 class EvaluatorResponseJSONSchemaTypedDict(TypedDict):
     id: str
     description: str
     type: EvaluatorResponseJSONSchemaType
+    output_type: EvaluatorResponseJSONSchemaOutputType
+    r"""The type of output expected from the evaluator"""
     schema_: str
     key: str
     created: NotRequired[str]
@@ -37,6 +48,9 @@ class EvaluatorResponseJSONSchema(BaseModel):
     description: str
 
     type: EvaluatorResponseJSONSchemaType
+
+    output_type: EvaluatorResponseJSONSchemaOutputType
+    r"""The type of output expected from the evaluator"""
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 

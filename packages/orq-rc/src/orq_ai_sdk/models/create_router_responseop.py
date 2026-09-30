@@ -1352,8 +1352,6 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     stream: NotRequired[bool]
     r"""If true, returns a stream of server-sent events."""
     stream_options: NotRequired[StreamOptionsTypedDict]
-    tags: NotRequired[Nullable[List[str]]]
-    r"""Tags attached to the request trace."""
     temperature: NotRequired[float]
     r"""Sampling temperature between 0 and 2."""
     template_engine: NotRequired[TemplateEngine]
@@ -1465,9 +1463,6 @@ class CreateRouterResponseRequestBody(BaseModel):
 
     stream_options: Optional[StreamOptions] = None
 
-    tags: OptionalNullable[List[str]] = UNSET
-    r"""Tags attached to the request trace."""
-
     temperature: Optional[float] = None
     r"""Sampling temperature between 0 and 2."""
 
@@ -1536,7 +1531,6 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "store",
                 "stream",
                 "stream_options",
-                "tags",
                 "temperature",
                 "template_engine",
                 "text",
@@ -1550,7 +1544,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallbacks", "plugins", "tags"])
+        nullable_fields = set(["fallbacks", "plugins"])
         serialized = handler(self)
         m = {}
 
