@@ -130,6 +130,17 @@ class ListAgentsTeamOfAgents(BaseModel):
         return m
 
 
+class ListAgentsAgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class ListAgentsAgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 class ListAgentsMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
@@ -2097,6 +2108,7 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[List[str]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[List[ListAgentsAgentPluginsTypedDict]]
     metrics: NotRequired[ListAgentsMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -2157,6 +2169,8 @@ class ListAgentsData(BaseModel):
     skills: Optional[List[str]] = None
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: Optional[List[ListAgentsAgentPlugins]] = None
+
     metrics: Optional[ListAgentsMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
@@ -2189,6 +2203,7 @@ class ListAgentsData(BaseModel):
                 "memory_stores",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "metrics",
                 "variables",
                 "knowledge_bases",

@@ -450,7 +450,7 @@ class Responses(BaseSDK):
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
         :param security:
-        :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param service_tier: Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
         :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.
@@ -789,7 +789,7 @@ class Responses(BaseSDK):
         :param retry:
         :param safety_identifier: Safety identifier for content filtering.
         :param security:
-        :param service_tier: Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
+        :param service_tier: Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias.
         :param stop_sequences: Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise.
         :param store: Whether to persist the response (default: true). When false, the response cannot be retrieved later and previous_response_id will not work for follow-up requests.
         :param stream: If true, returns a stream of server-sent events.

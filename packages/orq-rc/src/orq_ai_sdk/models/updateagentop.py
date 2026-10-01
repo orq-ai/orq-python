@@ -1864,6 +1864,17 @@ class UpdateAgentTeamOfAgents(BaseModel):
         return m
 
 
+class AgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class AgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 UpdateAgentEngine = Literal[
     "text",
     "jinja",
@@ -1908,6 +1919,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[Nullable[List[str]]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[Nullable[List[AgentPluginsTypedDict]]]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
@@ -1961,6 +1973,8 @@ class UpdateAgentRequestBody(BaseModel):
     skills: OptionalNullable[List[str]] = UNSET
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: OptionalNullable[List[AgentPlugins]] = UNSET
+
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
@@ -1995,13 +2009,14 @@ class UpdateAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "variables",
                 "engine",
                 "versionIncrement",
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["system_prompt", "skills"])
+        nullable_fields = set(["system_prompt", "skills", "agent_plugins"])
         serialized = handler(self)
         m = {}
 
@@ -2102,6 +2117,17 @@ class UpdateAgentAgentsTeamOfAgents(BaseModel):
                     m[k] = val
 
         return m
+
+
+class UpdateAgentAgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class UpdateAgentAgentPlugins(BaseModel):
+    id: str
+
+    version: str
 
 
 class UpdateAgentMetricsTypedDict(TypedDict):
@@ -4130,6 +4156,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[List[str]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[List[UpdateAgentAgentPluginsTypedDict]]
     metrics: NotRequired[UpdateAgentMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -4194,6 +4221,8 @@ class UpdateAgentResponseBody(BaseModel):
     skills: Optional[List[str]] = None
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: Optional[List[UpdateAgentAgentPlugins]] = None
+
     metrics: Optional[UpdateAgentMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
@@ -4226,6 +4255,7 @@ class UpdateAgentResponseBody(BaseModel):
                 "memory_stores",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "metrics",
                 "variables",
                 "knowledge_bases",

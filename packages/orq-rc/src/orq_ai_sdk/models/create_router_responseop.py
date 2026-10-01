@@ -684,10 +684,11 @@ CreateRouterResponseServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "ultrafast",
     "scale",
     "priority",
 ]
-r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
 
 
 TemplateEngine = Literal[
@@ -1017,6 +1018,7 @@ CreateRouterResponseToolsResponsesRequestType = Literal[
     "orq:web_fetch",
     "orq:datetime",
     "orq:search_models",
+    "orq:tool_search",
     "orq:image_generation",
     "orq:apply_patch",
     "orq:fusion",
@@ -1041,6 +1043,8 @@ class OrqAiToolTypedDict(TypedDict):
     r"""The orq.ai tool type. orq:web_search, orq:web_fetch, and orq:datetime are the canonical names for orq:google_search, orq:web_scraper, and orq:current_date."""
     files: NotRequired[List[ToolsFilesTypedDict]]
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
+    max_results: NotRequired[int]
+    r"""Maximum results per call for orq:search_models (1-20, default 5) and orq:tool_search (1-50, default 5)."""
     network: NotRequired[NetworkTypedDict]
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
     timezone: NotRequired[str]
@@ -1058,6 +1062,9 @@ class OrqAiTool(BaseModel):
     files: Optional[List[ToolsFiles]] = None
     r"""Files to stage in /workspace for orq:code_interpreter. Maximum 10 files."""
 
+    max_results: Optional[int] = None
+    r"""Maximum results per call for orq:search_models (1-20, default 5) and orq:tool_search (1-50, default 5)."""
+
     network: Optional[Network] = None
     r"""Network access intent for orq:code_interpreter. Stored and validated today; runtime enforcement by the sandbox egress layer is rolling out and until then sandbox executions retain default public internet egress."""
 
@@ -1069,7 +1076,9 @@ class OrqAiTool(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["files", "network", "timezone", "tool_id"])
+        optional_fields = set(
+            ["files", "max_results", "network", "timezone", "tool_id"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -1202,6 +1211,8 @@ class ToolsFunctionTypedDict(TypedDict):
     async_: NotRequired[bool]
     r"""Whether the tool response can be returned asynchronously."""
     cache_control: NotRequired[ToolsCacheControlTypedDict]
+    defer_loading: NotRequired[bool]
+    r"""Hide this tool from the model until an orq:tool_search call reveals it. Requires an orq:tool_search tool in the same request."""
     description: NotRequired[str]
     r"""A description of what the function does."""
     parameters: NotRequired[Dict[str, Any]]
@@ -1223,6 +1234,9 @@ class ToolsFunction(BaseModel):
 
     cache_control: Optional[ToolsCacheControl] = None
 
+    defer_loading: Optional[bool] = None
+    r"""Hide this tool from the model until an orq:tool_search call reveals it. Requires an orq:tool_search tool in the same request."""
+
     description: Optional[str] = None
     r"""A description of what the function does."""
 
@@ -1235,7 +1249,14 @@ class ToolsFunction(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["async", "cache_control", "description", "parameters", "strict"]
+            [
+                "async",
+                "cache_control",
+                "defer_loading",
+                "description",
+                "parameters",
+                "strict",
+            ]
         )
         serialized = handler(self)
         m = {}
@@ -1257,8 +1278,8 @@ CreateRouterResponseToolsTypedDict = TypeAliasType(
         CustomTypedDict,
         OrqAiToolTypedDict,
         ToolsMCPToolTypedDict,
-        ToolsFunctionTypedDict,
         OrqAdvisorToolTypedDict,
+        ToolsFunctionTypedDict,
         OrqSidekickToolTypedDict,
     ],
 )
@@ -1276,6 +1297,7 @@ CreateRouterResponseTools = Annotated[
         Annotated[OrqAiTool, Tag("orq:web_fetch")],
         Annotated[OrqAiTool, Tag("orq:datetime")],
         Annotated[OrqAiTool, Tag("orq:search_models")],
+        Annotated[OrqAiTool, Tag("orq:tool_search")],
         Annotated[OrqAiTool, Tag("orq:image_generation")],
         Annotated[OrqAiTool, Tag("orq:apply_patch")],
         Annotated[OrqAiTool, Tag("orq:fusion")],
@@ -1344,7 +1366,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Safety identifier for content filtering."""
     security: NotRequired[SecurityConfigTypedDict]
     service_tier: NotRequired[CreateRouterResponseServiceTier]
-    r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+    r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
     stop_sequences: NotRequired[List[str]]
     r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
     store: NotRequired[bool]
@@ -1450,7 +1472,7 @@ class CreateRouterResponseRequestBody(BaseModel):
     security: Optional[SecurityConfig] = None
 
     service_tier: Optional[CreateRouterResponseServiceTier] = None
-    r"""Processing mode for the request. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+    r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
 
     stop_sequences: Optional[List[str]] = None
     r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
@@ -1602,6 +1624,7 @@ CreateRouterResponseResponsesServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "ultrafast",
     "scale",
     "priority",
 ]

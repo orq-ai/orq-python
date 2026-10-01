@@ -2025,6 +2025,17 @@ class CreateAgentRequestTeamOfAgents(BaseModel):
         return m
 
 
+class CreateAgentRequestAgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class CreateAgentRequestAgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 class MetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
@@ -4059,6 +4070,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[List[str]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[List[CreateAgentRequestAgentPluginsTypedDict]]
     metrics: NotRequired[MetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -4123,6 +4135,8 @@ class CreateAgentRequestResponseBody(BaseModel):
     skills: Optional[List[str]] = None
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: Optional[List[CreateAgentRequestAgentPlugins]] = None
+
     metrics: Optional[Metrics] = None
 
     variables: Optional[Dict[str, Any]] = None
@@ -4155,6 +4169,7 @@ class CreateAgentRequestResponseBody(BaseModel):
                 "memory_stores",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "metrics",
                 "variables",
                 "knowledge_bases",
