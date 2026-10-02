@@ -427,32 +427,32 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_MANAGEMENT_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_MANAGEMENT_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create service account key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
                         },
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_MANAGEMENT_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_MANAGEMENT_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
@@ -601,32 +601,32 @@ class APIKeys(BaseSDK):
                         {
                             "label": "Core - Create service account key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_MANAGEMENT_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Production service key",\n    "owner": {\n      "service_account": {}\n    },\n    "project_scope": {\n      "all": {}\n    },\n    "permission_mode": "PERMISSION_MODE_ALL"\n  }\'\n',
                         },
                         {
                             "label": "Python - Create service account key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_MANAGEMENT_KEY"])\n\nresult = client.api_keys.create(\n    name="Production service key",\n    owner={"service_account": {}},\n    project_scope={"all": {}},\n    permission_mode="PERMISSION_MODE_ALL",\n)\n\n# Store the token immediately. It is only returned once.\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create service account key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Production service key',\n  owner: {\n    serviceAccount: {},\n  },\n  projectScope: {\n    all: {},\n  },\n  permissionMode: 'PERMISSION_MODE_ALL',\n});\n\n// Store the token immediately. It is only returned once.\nconsole.log(result.token);\n",
                         },
                         {
                             "label": "Core - Create restricted project key",
                             "lang": "curl",
-                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
+                            "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/api-keys\' \\\n  --header "Authorization: Bearer $ORQ_MANAGEMENT_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "name": "Support automation key",\n    "project_scope": {\n      "single": {\n        "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V"\n      }\n    },\n    "permission_mode": "PERMISSION_MODE_RESTRICTED",\n    "access": {\n      "agents": "ACCESS_LEVEL_WRITE",\n      "deployments": "ACCESS_LEVEL_READ"\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Create restricted project key",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_MANAGEMENT_KEY"])\n\nresult = client.api_keys.create(\n    name="Support automation key",\n    project_scope={\n        "single": {\n            "project_id": "proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n        },\n    },\n    permission_mode="PERMISSION_MODE_RESTRICTED",\n    access={\n        "agents": "ACCESS_LEVEL_WRITE",\n        "deployments": "ACCESS_LEVEL_READ",\n    },\n)\n\nprint(result.id)\nprint(result.token)\n',
                         },
                         {
                             "label": "Node.js - Create restricted project key",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    single: {\n      projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n    },\n  },\n  permissionMode: 'PERMISSION_MODE_RESTRICTED',\n  access: {\n    agents: 'ACCESS_LEVEL_WRITE',\n    deployments: 'ACCESS_LEVEL_READ',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
                     ]
                 },
