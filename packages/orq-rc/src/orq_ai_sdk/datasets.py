@@ -258,6 +258,7 @@ class Datasets(BaseSDK):
         self,
         *,
         display_name: str,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -268,6 +269,7 @@ class Datasets(BaseSDK):
         Creates a new dataset in the project bound to the API key, or in the workspace default project.
 
         :param display_name: Human-readable dataset name.
+        :param path: Project path where the dataset should be stored, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Omit to use the API key project or the workspace default project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -288,6 +290,7 @@ class Datasets(BaseSDK):
 
         request = models.CreateDatasetRequest(
             display_name=display_name,
+            path=path,
         )
 
         req = self._build_request(
@@ -368,6 +371,7 @@ class Datasets(BaseSDK):
         self,
         *,
         display_name: str,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -378,6 +382,7 @@ class Datasets(BaseSDK):
         Creates a new dataset in the project bound to the API key, or in the workspace default project.
 
         :param display_name: Human-readable dataset name.
+        :param path: Project path where the dataset should be stored, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Omit to use the API key project or the workspace default project.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -398,6 +403,7 @@ class Datasets(BaseSDK):
 
         request = models.CreateDatasetRequest(
             display_name=display_name,
+            path=path,
         )
 
         req = self._build_request_async(

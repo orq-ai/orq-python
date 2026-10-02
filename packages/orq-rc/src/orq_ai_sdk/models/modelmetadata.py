@@ -49,6 +49,7 @@ class ModelMetadataTypedDict(TypedDict):
     max_input_tokens: NotRequired[int]
     max_output_tokens: NotRequired[int]
     max_temperature: NotRequired[float]
+    million_fetches_cost: NotRequired[float]
     million_searches_cost: NotRequired[float]
     million_tokens_above_128k_cache_read_cost: NotRequired[float]
     million_tokens_above_128k_cache_write_cost: NotRequired[float]
@@ -205,6 +206,8 @@ class ModelMetadata(BaseModel):
     max_output_tokens: Optional[int] = None
 
     max_temperature: Optional[float] = None
+
+    million_fetches_cost: Optional[float] = None
 
     million_searches_cost: Optional[float] = None
 
@@ -433,6 +436,7 @@ class ModelMetadata(BaseModel):
                 "max_input_tokens",
                 "max_output_tokens",
                 "max_temperature",
+                "million_fetches_cost",
                 "million_searches_cost",
                 "million_tokens_above_128k_cache_read_cost",
                 "million_tokens_above_128k_cache_write_cost",
