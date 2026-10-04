@@ -2484,6 +2484,8 @@ if TYPE_CHECKING:
         ResponseBodyWords,
         ResponseBodyWordsTypedDict,
     )
+    from .createviewrequest import CreateViewRequest, CreateViewRequestTypedDict
+    from .createviewresponse import CreateViewResponse, CreateViewResponseTypedDict
     from .createwebhookrequest import (
         CreateWebhookRequest,
         CreateWebhookRequestContentType,
@@ -2684,6 +2686,7 @@ if TYPE_CHECKING:
         DeleteSmartRouterResponseTypedDict,
     )
     from .deletetoolop import DeleteToolRequest, DeleteToolRequestTypedDict
+    from .deleteviewresponse import DeleteViewResponse, DeleteViewResponseTypedDict
     from .deletewebhookresponse import (
         DeleteWebhookResponse,
         DeleteWebhookResponseTypedDict,
@@ -4613,6 +4616,7 @@ if TYPE_CHECKING:
         GetUploadFileURLResponse,
         GetUploadFileURLResponseTypedDict,
     )
+    from .getviewresponse import GetViewResponse, GetViewResponseTypedDict
     from .getwikiop import GetWikiRequest, GetWikiRequestTypedDict
     from .getwikipageop import GetWikiPageRequest, GetWikiPageRequestTypedDict
     from .getwikipageresponse import GetWikiPageResponse, GetWikiPageResponseTypedDict
@@ -5635,6 +5639,7 @@ if TYPE_CHECKING:
         ListTraceSpansResponse,
         ListTraceSpansResponseTypedDict,
     )
+    from .listviewsresponse import ListViewsResponse, ListViewsResponseTypedDict
     from .listwebhooksresponse import (
         ListWebhooksResponse,
         ListWebhooksResponseTypedDict,
@@ -8821,6 +8826,8 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
+    from .updateviewrequest import UpdateViewRequest, UpdateViewRequestTypedDict
+    from .updateviewresponse import UpdateViewResponse, UpdateViewResponseTypedDict
     from .updatewikiop import UpdateWikiRequest1, UpdateWikiRequest1TypedDict
     from .updatewikipageop import (
         UpdateWikiPageRequest1,
@@ -8874,6 +8881,11 @@ if TYPE_CHECKING:
     from .vertexparameters import VertexParameters, VertexParametersTypedDict
     from .vertexparamrange import VertexParamRange, VertexParamRangeTypedDict
     from .vertexparamrangeint import VertexParamRangeInt, VertexParamRangeIntTypedDict
+    from .view import View, ViewTypedDict
+    from .viewdeleteop import ViewDeleteRequest, ViewDeleteRequestTypedDict
+    from .viewgetop import ViewGetRequest, ViewGetRequestTypedDict
+    from .viewlistop import ViewListRequest, ViewListRequestTypedDict
+    from .viewupdateop import ViewUpdateRequest, ViewUpdateRequestTypedDict
     from .webhook import ContentType, Webhook, WebhookTypedDict
     from .webhookdeleteop import WebhookDeleteRequest, WebhookDeleteRequestTypedDict
     from .webhookgetop import WebhookGetRequest, WebhookGetRequestTypedDict
@@ -11034,6 +11046,10 @@ __all__ = [
     "CreateTranslationTimeout",
     "CreateTranslationTimeoutTypedDict",
     "CreateTranslationTimestampsGranularity",
+    "CreateViewRequest",
+    "CreateViewRequestTypedDict",
+    "CreateViewResponse",
+    "CreateViewResponseTypedDict",
     "CreateWebhookRequest",
     "CreateWebhookRequestContentType",
     "CreateWebhookRequestTypedDict",
@@ -11219,6 +11235,8 @@ __all__ = [
     "DeleteToolRequestTypedDict",
     "DeleteV2HumanEvalSetsIDRequest",
     "DeleteV2HumanEvalSetsIDRequestTypedDict",
+    "DeleteViewResponse",
+    "DeleteViewResponseTypedDict",
     "DeleteWebhookResponse",
     "DeleteWebhookResponseTypedDict",
     "DeleteWikiRequest",
@@ -12971,6 +12989,8 @@ __all__ = [
     "GetV2ToolsToolIDVersionsVersionIDResponseBodyTypedDict",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBody",
     "GetV2ToolsToolIDVersionsVersionIDToolsResponseBodyData",
+    "GetViewResponse",
+    "GetViewResponseTypedDict",
     "GetWikiPageRequest",
     "GetWikiPageRequestTypedDict",
     "GetWikiPageResponse",
@@ -13801,6 +13821,8 @@ __all__ = [
     "ListTraceLogsResponseTypedDict",
     "ListTraceSpansResponse",
     "ListTraceSpansResponseTypedDict",
+    "ListViewsResponse",
+    "ListViewsResponseTypedDict",
     "ListWebhooksResponse",
     "ListWebhooksResponseTypedDict",
     "ListWikiRunsRequest",
@@ -16968,6 +16990,10 @@ __all__ = [
     "UpdateToolResponseBodyTypedDict",
     "UpdateToolToolsResponseBody",
     "UpdateToolToolsResponseBodyData",
+    "UpdateViewRequest",
+    "UpdateViewRequestTypedDict",
+    "UpdateViewResponse",
+    "UpdateViewResponseTypedDict",
     "UpdateWikiPageRequest",
     "UpdateWikiPageRequest1",
     "UpdateWikiPageRequest1TypedDict",
@@ -17025,6 +17051,16 @@ __all__ = [
     "VertexParamRangeTypedDict",
     "VertexParameters",
     "VertexParametersTypedDict",
+    "View",
+    "ViewDeleteRequest",
+    "ViewDeleteRequestTypedDict",
+    "ViewGetRequest",
+    "ViewGetRequestTypedDict",
+    "ViewListRequest",
+    "ViewListRequestTypedDict",
+    "ViewTypedDict",
+    "ViewUpdateRequest",
+    "ViewUpdateRequestTypedDict",
     "Visualization",
     "Voice",
     "WebScraperToolInput",
@@ -19410,6 +19446,10 @@ _dynamic_imports: dict[str, str] = {
     "ResponseBodySegmentsTypedDict": ".createtranslationop",
     "ResponseBodyWords": ".createtranslationop",
     "ResponseBodyWordsTypedDict": ".createtranslationop",
+    "CreateViewRequest": ".createviewrequest",
+    "CreateViewRequestTypedDict": ".createviewrequest",
+    "CreateViewResponse": ".createviewresponse",
+    "CreateViewResponseTypedDict": ".createviewresponse",
     "CreateWebhookRequest": ".createwebhookrequest",
     "CreateWebhookRequestContentType": ".createwebhookrequest",
     "CreateWebhookRequestTypedDict": ".createwebhookrequest",
@@ -19553,6 +19593,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteSmartRouterResponseTypedDict": ".deletesmartrouterresponse",
     "DeleteToolRequest": ".deletetoolop",
     "DeleteToolRequestTypedDict": ".deletetoolop",
+    "DeleteViewResponse": ".deleteviewresponse",
+    "DeleteViewResponseTypedDict": ".deleteviewresponse",
     "DeleteWebhookResponse": ".deletewebhookresponse",
     "DeleteWebhookResponseTypedDict": ".deletewebhookresponse",
     "DeleteWikiRequest": ".deletewikiop",
@@ -21394,6 +21436,8 @@ _dynamic_imports: dict[str, str] = {
     "GetTraceSpanResponseTypedDict": ".gettracespanresponse",
     "GetUploadFileURLResponse": ".getuploadfileurlresponse",
     "GetUploadFileURLResponseTypedDict": ".getuploadfileurlresponse",
+    "GetViewResponse": ".getviewresponse",
+    "GetViewResponseTypedDict": ".getviewresponse",
     "GetWikiRequest": ".getwikiop",
     "GetWikiRequestTypedDict": ".getwikiop",
     "GetWikiPageRequest": ".getwikipageop",
@@ -22294,6 +22338,8 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceLogsResponseTypedDict": ".listtracelogsresponse",
     "ListTraceSpansResponse": ".listtracespansresponse",
     "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
+    "ListViewsResponse": ".listviewsresponse",
+    "ListViewsResponseTypedDict": ".listviewsresponse",
     "ListWebhooksResponse": ".listwebhooksresponse",
     "ListWebhooksResponseTypedDict": ".listwebhooksresponse",
     "ListWikiRunsRequest": ".listwikirunsop",
@@ -25112,6 +25158,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
+    "UpdateViewRequest": ".updateviewrequest",
+    "UpdateViewRequestTypedDict": ".updateviewrequest",
+    "UpdateViewResponse": ".updateviewresponse",
+    "UpdateViewResponseTypedDict": ".updateviewresponse",
     "UpdateWikiRequest1": ".updatewikiop",
     "UpdateWikiRequest1TypedDict": ".updatewikiop",
     "UpdateWikiPageRequest1": ".updatewikipageop",
@@ -25154,6 +25204,16 @@ _dynamic_imports: dict[str, str] = {
     "VertexParamRangeTypedDict": ".vertexparamrange",
     "VertexParamRangeInt": ".vertexparamrangeint",
     "VertexParamRangeIntTypedDict": ".vertexparamrangeint",
+    "View": ".view",
+    "ViewTypedDict": ".view",
+    "ViewDeleteRequest": ".viewdeleteop",
+    "ViewDeleteRequestTypedDict": ".viewdeleteop",
+    "ViewGetRequest": ".viewgetop",
+    "ViewGetRequestTypedDict": ".viewgetop",
+    "ViewListRequest": ".viewlistop",
+    "ViewListRequestTypedDict": ".viewlistop",
+    "ViewUpdateRequest": ".viewupdateop",
+    "ViewUpdateRequestTypedDict": ".viewupdateop",
     "ContentType": ".webhook",
     "Webhook": ".webhook",
     "WebhookTypedDict": ".webhook",

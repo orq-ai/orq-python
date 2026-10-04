@@ -58,6 +58,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
+    from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
     from orq_ai_sdk.wikis import Wikis
     from orq_ai_sdk.workspaces import Workspaces
@@ -89,6 +90,7 @@ class Orq(BaseSDK):
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
     traces: "Traces"
+    views: "Views"
     datasets: "Datasets"
     models: "Models"
     policies: "Policies"
@@ -138,6 +140,7 @@ class Orq(BaseSDK):
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),
+        "views": ("orq_ai_sdk.views", "Views"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
