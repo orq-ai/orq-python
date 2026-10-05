@@ -272,7 +272,7 @@ with Orq(
 
 ## search
 
-Search trace summaries using the structured trace filter contract.
+Search trace summaries using the structured trace filter contract. See the [filter grammar](/ai-studio/observability/traces#filter-grammar) for the field and operator reference.
 
 ### Example Usage
 
