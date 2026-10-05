@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .modelmodalities import ModelModalities, ModelModalitiesTypedDict
 from .modelprovider import ModelProvider, ModelProviderTypedDict
+from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import List, Optional
@@ -44,10 +45,8 @@ class ArtificialIntelligence(BaseModel):
 class ModelTypedDict(TypedDict):
     id: str
     r"""Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`)."""
-    created: str
-    r"""When orq listed this offering, Unix seconds (string-encoded int64 in
-    JSON).
-    """
+    created: datetime
+    r"""When orq listed this offering, as an RFC 3339 UTC timestamp."""
     name: str
     r"""Display name shown in the orq model garden."""
     description: str
@@ -74,10 +73,10 @@ class ModelTypedDict(TypedDict):
     r"""True when this offering is deprecated, whether or not a deprecation
     date is known. `deprecation` carries the date when one is announced.
     """
-    deprecation: NotRequired[str]
-    r"""When this offering stops being served, Unix seconds (string-encoded
-    int64 in JSON): orq's own sunset date if one is set, otherwise the
-    developer's announced deprecation date. Absent when neither is set.
+    deprecation: NotRequired[datetime]
+    r"""When this offering stops being served, as an RFC 3339 UTC timestamp:
+    orq's own sunset date if one is set, otherwise the developer's announced
+    deprecation date. Absent when neither is set.
     """
     pricing: NotRequired[ModelPricingTypedDict]
     r"""Resolved commercial pricing, including service-tier variants. Each
@@ -101,10 +100,8 @@ class Model(BaseModel):
     id: str
     r"""Catalog identifier, `<provider>/<model>` (for example `openai/gpt-4o`)."""
 
-    created: str
-    r"""When orq listed this offering, Unix seconds (string-encoded int64 in
-    JSON).
-    """
+    created: datetime
+    r"""When orq listed this offering, as an RFC 3339 UTC timestamp."""
 
     name: str
     r"""Display name shown in the orq model garden."""
@@ -143,10 +140,10 @@ class Model(BaseModel):
     date is known. `deprecation` carries the date when one is announced.
     """
 
-    deprecation: Optional[str] = None
-    r"""When this offering stops being served, Unix seconds (string-encoded
-    int64 in JSON): orq's own sunset date if one is set, otherwise the
-    developer's announced deprecation date. Absent when neither is set.
+    deprecation: Optional[datetime] = None
+    r"""When this offering stops being served, as an RFC 3339 UTC timestamp:
+    orq's own sunset date if one is set, otherwise the developer's announced
+    deprecation date. Absent when neither is set.
     """
 
     pricing: Optional[ModelPricing] = None

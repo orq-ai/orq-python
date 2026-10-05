@@ -1,0 +1,10 @@
+# SearchWebItems
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `description`                                                                            | *str*                                                                                    | :heavy_check_mark:                                                                       | Provider-supplied excerpt or description. May be empty.                                  |
+| `title`                                                                                  | *str*                                                                                    | :heavy_check_mark:                                                                       | Page title. May be empty if the provider supplies no title.                              |
+| `url`                                                                                    | *str*                                                                                    | :heavy_check_mark:                                                                       | Page URL returned by the provider. PII redaction can replace sensitive parts of the URL. |

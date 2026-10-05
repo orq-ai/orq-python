@@ -60,6 +60,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.traces import Traces
     from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
+    from orq_ai_sdk.websearch import Websearch
     from orq_ai_sdk.wikis import Wikis
     from orq_ai_sdk.workspaces import Workspaces
     from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
@@ -120,6 +121,7 @@ class Orq(BaseSDK):
     workspace_settings: "WorkspaceSettingsSDK"
     responses: "Responses"
     schedules: "Schedules"
+    websearch: "Websearch"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
@@ -173,6 +175,7 @@ class Orq(BaseSDK):
         ),
         "responses": ("orq_ai_sdk.responses", "Responses"),
         "schedules": ("orq_ai_sdk.schedules", "Schedules"),
+        "websearch": ("orq_ai_sdk.websearch", "Websearch"),
     }
 
     def __init__(
