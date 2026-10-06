@@ -4,16 +4,8 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class InputsTypedDict(TypedDict):
-    r"""Structured variables passed to the prompt or workflow."""
-
-
-class Inputs(BaseModel):
-    r"""Structured variables passed to the prompt or workflow."""
 
 
 class Datapoint1TypedDict(TypedDict):
@@ -27,7 +19,7 @@ class Datapoint1TypedDict(TypedDict):
     r"""Account that last updated the datapoint."""
     id: str
     r"""Unique datapoint identifier."""
-    inputs: NotRequired[InputsTypedDict]
+    inputs: NotRequired[Dict[str, Any]]
     r"""Structured variables passed to the prompt or workflow."""
     messages: NotRequired[List[Any]]
     r"""A JSON array containing dynamically typed values."""
@@ -60,7 +52,7 @@ class Datapoint1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique datapoint identifier."""
 
-    inputs: Optional[Inputs] = None
+    inputs: Optional[Dict[str, Any]] = None
     r"""Structured variables passed to the prompt or workflow."""
 
     messages: Optional[List[Any]] = None

@@ -3,27 +3,21 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class UpdateDatapointRequestInputsTypedDict(TypedDict):
-    pass
-
-
-class UpdateDatapointRequestInputs(BaseModel):
-    pass
-
-
 class UpdateDatapointRequestTypedDict(TypedDict):
-    inputs: NotRequired[UpdateDatapointRequestInputsTypedDict]
+    inputs: NotRequired[Dict[str, Any]]
+    r"""Structured variables passed to the prompt or workflow."""
     messages: NotRequired[List[Any]]
     r"""A JSON array containing dynamically typed values."""
     expected_output: NotRequired[str]
 
 
 class UpdateDatapointRequest(BaseModel):
-    inputs: Optional[UpdateDatapointRequestInputs] = None
+    inputs: Optional[Dict[str, Any]] = None
+    r"""Structured variables passed to the prompt or workflow."""
 
     messages: Optional[List[Any]] = None
     r"""A JSON array containing dynamically typed values."""

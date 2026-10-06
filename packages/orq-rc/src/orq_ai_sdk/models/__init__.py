@@ -1072,8 +1072,6 @@ if TYPE_CHECKING:
         CreateChatCompletionID,
         CreateChatCompletionID1,
         CreateChatCompletionIDTypedDict,
-        CreateChatCompletionInputs,
-        CreateChatCompletionInputsTypedDict,
         CreateChatCompletionKnowledgeBases,
         CreateChatCompletionKnowledgeBasesTypedDict,
         CreateChatCompletionLoadBalancer,
@@ -1286,8 +1284,10 @@ if TYPE_CHECKING:
         CreateChatCompletionVoice,
         Delta,
         DeltaTypedDict,
+        Inputs,
         Inputs2,
         Inputs2TypedDict,
+        InputsTypedDict,
         Version,
     )
     from .createchunkop import CreateChunkRequest, CreateChunkRequestTypedDict
@@ -2500,13 +2500,8 @@ if TYPE_CHECKING:
     )
     from .datapart import DataPart, DataPartKind, DataPartTypedDict
     from .datapoint import DataPoint, DataPointTypedDict
-    from .datapoint1 import Datapoint1, Datapoint1TypedDict, Inputs, InputsTypedDict
-    from .datapointinput import (
-        DatapointInput,
-        DatapointInputInputs,
-        DatapointInputInputsTypedDict,
-        DatapointInputTypedDict,
-    )
+    from .datapoint1 import Datapoint1, Datapoint1TypedDict
+    from .datapointinput import DatapointInput, DatapointInputTypedDict
     from .dataset import Dataset, DatasetTypedDict
     from .datasetmetadata import DatasetMetadata, DatasetMetadataTypedDict
     from .datasource import Datasource, DatasourceStatus, DatasourceTypedDict
@@ -8278,8 +8273,6 @@ if TYPE_CHECKING:
     )
     from .updatedatapointrequest import (
         UpdateDatapointRequest,
-        UpdateDatapointRequestInputs,
-        UpdateDatapointRequestInputsTypedDict,
         UpdateDatapointRequestTypedDict,
     )
     from .updatedatasetop import UpdateDatasetRequest1, UpdateDatasetRequest1TypedDict
@@ -9876,8 +9869,6 @@ __all__ = [
     "CreateChatCompletionID",
     "CreateChatCompletionID1",
     "CreateChatCompletionIDTypedDict",
-    "CreateChatCompletionInputs",
-    "CreateChatCompletionInputsTypedDict",
     "CreateChatCompletionKnowledgeBases",
     "CreateChatCompletionKnowledgeBasesTypedDict",
     "CreateChatCompletionLoadBalancer",
@@ -11150,8 +11141,6 @@ __all__ = [
     "Datapoint1",
     "Datapoint1TypedDict",
     "DatapointInput",
-    "DatapointInputInputs",
-    "DatapointInputInputsTypedDict",
     "DatapointInputTypedDict",
     "Dataset",
     "DatasetMetadata",
@@ -16552,8 +16541,6 @@ __all__ = [
     "UpdateDatapointRequest",
     "UpdateDatapointRequest1",
     "UpdateDatapointRequest1TypedDict",
-    "UpdateDatapointRequestInputs",
-    "UpdateDatapointRequestInputsTypedDict",
     "UpdateDatapointRequestTypedDict",
     "UpdateDatasetRequest",
     "UpdateDatasetRequest1",
@@ -18202,8 +18189,6 @@ _dynamic_imports: dict[str, str] = {
     "CreateChatCompletionID": ".createchatcompletionop",
     "CreateChatCompletionID1": ".createchatcompletionop",
     "CreateChatCompletionIDTypedDict": ".createchatcompletionop",
-    "CreateChatCompletionInputs": ".createchatcompletionop",
-    "CreateChatCompletionInputsTypedDict": ".createchatcompletionop",
     "CreateChatCompletionKnowledgeBases": ".createchatcompletionop",
     "CreateChatCompletionKnowledgeBasesTypedDict": ".createchatcompletionop",
     "CreateChatCompletionLoadBalancer": ".createchatcompletionop",
@@ -18416,8 +18401,10 @@ _dynamic_imports: dict[str, str] = {
     "CreateChatCompletionVoice": ".createchatcompletionop",
     "Delta": ".createchatcompletionop",
     "DeltaTypedDict": ".createchatcompletionop",
+    "Inputs": ".createchatcompletionop",
     "Inputs2": ".createchatcompletionop",
     "Inputs2TypedDict": ".createchatcompletionop",
+    "InputsTypedDict": ".createchatcompletionop",
     "Version": ".createchatcompletionop",
     "CreateChunkRequest": ".createchunkop",
     "CreateChunkRequestTypedDict": ".createchunkop",
@@ -19547,11 +19534,7 @@ _dynamic_imports: dict[str, str] = {
     "DataPointTypedDict": ".datapoint",
     "Datapoint1": ".datapoint1",
     "Datapoint1TypedDict": ".datapoint1",
-    "Inputs": ".datapoint1",
-    "InputsTypedDict": ".datapoint1",
     "DatapointInput": ".datapointinput",
-    "DatapointInputInputs": ".datapointinput",
-    "DatapointInputInputsTypedDict": ".datapointinput",
     "DatapointInputTypedDict": ".datapointinput",
     "Dataset": ".dataset",
     "DatasetTypedDict": ".dataset",
@@ -24754,8 +24737,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateDatapointRequest1": ".updatedatapointop",
     "UpdateDatapointRequest1TypedDict": ".updatedatapointop",
     "UpdateDatapointRequest": ".updatedatapointrequest",
-    "UpdateDatapointRequestInputs": ".updatedatapointrequest",
-    "UpdateDatapointRequestInputsTypedDict": ".updatedatapointrequest",
     "UpdateDatapointRequestTypedDict": ".updatedatapointrequest",
     "UpdateDatasetRequest1": ".updatedatasetop",
     "UpdateDatasetRequest1TypedDict": ".updatedatasetop",

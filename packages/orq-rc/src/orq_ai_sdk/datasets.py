@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Datasets(BaseSDK):
@@ -2577,12 +2577,7 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[
-            Union[
-                models.UpdateDatapointRequestInputs,
-                models.UpdateDatapointRequestInputsTypedDict,
-            ]
-        ] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
         messages: Optional[Iterable[Any]] = None,
         expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2596,7 +2591,7 @@ class Datasets(BaseSDK):
 
         :param dataset_id:
         :param datapoint_id:
-        :param inputs:
+        :param inputs: Structured variables passed to the prompt or workflow.
         :param messages: A JSON array containing dynamically typed values.
         :param expected_output:
         :param retries: Override the default retry configuration for this method
@@ -2621,9 +2616,7 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             update_datapoint_request=models.UpdateDatapointRequest(
-                inputs=utils.get_pydantic_model(
-                    inputs, Optional[models.UpdateDatapointRequestInputs]
-                ),
+                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
                 messages=utils.unmarshal(messages, Optional[List[Any]]),
                 expected_output=expected_output,
             ),
@@ -2702,12 +2695,7 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         datapoint_id: str,
-        inputs: Optional[
-            Union[
-                models.UpdateDatapointRequestInputs,
-                models.UpdateDatapointRequestInputsTypedDict,
-            ]
-        ] = None,
+        inputs: Optional[Mapping[str, Any]] = None,
         messages: Optional[Iterable[Any]] = None,
         expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2721,7 +2709,7 @@ class Datasets(BaseSDK):
 
         :param dataset_id:
         :param datapoint_id:
-        :param inputs:
+        :param inputs: Structured variables passed to the prompt or workflow.
         :param messages: A JSON array containing dynamically typed values.
         :param expected_output:
         :param retries: Override the default retry configuration for this method
@@ -2746,9 +2734,7 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             datapoint_id=datapoint_id,
             update_datapoint_request=models.UpdateDatapointRequest(
-                inputs=utils.get_pydantic_model(
-                    inputs, Optional[models.UpdateDatapointRequestInputs]
-                ),
+                inputs=utils.unmarshal(inputs, Optional[Dict[str, Any]]),
                 messages=utils.unmarshal(messages, Optional[List[Any]]),
                 expected_output=expected_output,
             ),
