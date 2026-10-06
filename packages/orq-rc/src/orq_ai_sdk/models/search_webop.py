@@ -120,15 +120,17 @@ Provider = Literal[
     "linkup",
     "tavily",
     "serper",
+    "openai",
+    "perplexity",
 ]
-r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, and Tavily uses basic depth. Workspace credentials are selected automatically for this provider."""
+r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, Tavily uses basic depth, and OpenAI runs one web_search tool call on gpt-5.6-luna. Workspace credentials are selected automatically for this provider."""
 
 
 class SearchWebRequestBodyTypedDict(TypedDict):
     r"""Search query and provider, with optional result limit, customer identity, and PII settings."""
 
     provider: Provider
-    r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, and Tavily uses basic depth. Workspace credentials are selected automatically for this provider."""
+    r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, Tavily uses basic depth, and OpenAI runs one web_search tool call on gpt-5.6-luna. Workspace credentials are selected automatically for this provider."""
     query: str
     r"""Search text. Must not be blank or exceed 10,000 characters. Ceramic accepts at most 50 words."""
     identity: NotRequired[SearchWebIdentityTypedDict]
@@ -143,7 +145,7 @@ class SearchWebRequestBody(BaseModel):
     r"""Search query and provider, with optional result limit, customer identity, and PII settings."""
 
     provider: Provider
-    r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, and Tavily uses basic depth. Workspace credentials are selected automatically for this provider."""
+    r"""Provider to run this search. Exa uses auto, Linkup uses standard depth, Tavily uses basic depth, and OpenAI runs one web_search tool call on gpt-5.6-luna. Workspace credentials are selected automatically for this provider."""
 
     query: str
     r"""Search text. Must not be blank or exceed 10,000 characters. Ceramic accepts at most 50 words."""
@@ -442,6 +444,8 @@ SearchWebProvider = Literal[
     "linkup",
     "tavily",
     "serper",
+    "openai",
+    "perplexity",
 ]
 r"""Provider that executed the search."""
 

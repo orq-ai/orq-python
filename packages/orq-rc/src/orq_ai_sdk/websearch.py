@@ -32,11 +32,11 @@ class Websearch(BaseSDK):
     ) -> models.SearchWebResponse:
         r"""Search the web with a selected provider
 
-        Search with Exa, Ceramic, Linkup, Tavily, or Serper and return page URLs, titles, and descriptions in one response format. Authenticate with an API key that grants **websearch.execute** and send **Content-Type: application/json**.
+        Search with Exa, Ceramic, Linkup, Tavily, Serper, OpenAI, or Perplexity and return page URLs, titles, and descriptions in one response format. Authenticate with an API key that grants **websearch.execute** and send **Content-Type: application/json**.
 
         ### Provider and credentials
 
-        Each request uses the selected provider. Exa uses **auto** search, Linkup uses **standard** depth, and Tavily uses **basic** depth.
+        Each request uses the selected provider. Exa uses **auto** search, Linkup uses **standard** depth, Tavily uses **basic** depth, and Perplexity uses its standard Search API. OpenAI runs one forced **web_search** tool call on gpt-5.6-luna through the Responses API and returns the raw search results.
 
         Credentials are selected from the authenticated workspace. A configured provider integration takes precedence over ORQ-managed credentials: the default integration is used, or the first configured integration if no default is set. Configure BYOK in the workspace integrations settings. Invalid integration credentials cause an error.
 
@@ -46,6 +46,8 @@ class Websearch(BaseSDK):
 
         Exa's published auto rate is **US$7 per 1,000 requests** for up to 10 results, or **US$8 per 1,000** including the ORQ markup. Exa charges use the actual cost reported by the provider.
 
+        Perplexity's published Search API rate is **US$5 per 1,000 requests**. OpenAI web search costs **US$10 per 1,000 tool calls** plus the gpt-5.6-luna tokens of the Responses call, computed from the usage reported by OpenAI, so each search is typically US$0.012 to US$0.015 before the ORQ markup.
+
         A successful managed search is billable even if an output guardrail or output redaction failure prevents the results from being returned.
 
         ### Policies and observability
@@ -54,7 +56,7 @@ class Websearch(BaseSDK):
 
         Search spans and metrics record the provider, latency, result count, and cost. Use the **x-orq-trace-id** response header to find the trace.
 
-        :param provider: Provider to run this search. Exa uses auto, Linkup uses standard depth, and Tavily uses basic depth. Workspace credentials are selected automatically for this provider.
+        :param provider: Provider to run this search. Exa uses auto, Linkup uses standard depth, Tavily uses basic depth, and OpenAI runs one web_search tool call on gpt-5.6-luna. Workspace credentials are selected automatically for this provider.
         :param query: Search text. Must not be blank or exceed 10,000 characters. Ceramic accepts at most 50 words.
         :param identity: Customer or end-user identity for attributing this search and its usage.
         :param limit: Maximum number of results to return, from 1 to 10. Defaults to 10. The provider may return fewer results.
@@ -255,11 +257,11 @@ class Websearch(BaseSDK):
     ) -> models.SearchWebResponse:
         r"""Search the web with a selected provider
 
-        Search with Exa, Ceramic, Linkup, Tavily, or Serper and return page URLs, titles, and descriptions in one response format. Authenticate with an API key that grants **websearch.execute** and send **Content-Type: application/json**.
+        Search with Exa, Ceramic, Linkup, Tavily, Serper, OpenAI, or Perplexity and return page URLs, titles, and descriptions in one response format. Authenticate with an API key that grants **websearch.execute** and send **Content-Type: application/json**.
 
         ### Provider and credentials
 
-        Each request uses the selected provider. Exa uses **auto** search, Linkup uses **standard** depth, and Tavily uses **basic** depth.
+        Each request uses the selected provider. Exa uses **auto** search, Linkup uses **standard** depth, Tavily uses **basic** depth, and Perplexity uses its standard Search API. OpenAI runs one forced **web_search** tool call on gpt-5.6-luna through the Responses API and returns the raw search results.
 
         Credentials are selected from the authenticated workspace. A configured provider integration takes precedence over ORQ-managed credentials: the default integration is used, or the first configured integration if no default is set. Configure BYOK in the workspace integrations settings. Invalid integration credentials cause an error.
 
@@ -269,6 +271,8 @@ class Websearch(BaseSDK):
 
         Exa's published auto rate is **US$7 per 1,000 requests** for up to 10 results, or **US$8 per 1,000** including the ORQ markup. Exa charges use the actual cost reported by the provider.
 
+        Perplexity's published Search API rate is **US$5 per 1,000 requests**. OpenAI web search costs **US$10 per 1,000 tool calls** plus the gpt-5.6-luna tokens of the Responses call, computed from the usage reported by OpenAI, so each search is typically US$0.012 to US$0.015 before the ORQ markup.
+
         A successful managed search is billable even if an output guardrail or output redaction failure prevents the results from being returned.
 
         ### Policies and observability
@@ -277,7 +281,7 @@ class Websearch(BaseSDK):
 
         Search spans and metrics record the provider, latency, result count, and cost. Use the **x-orq-trace-id** response header to find the trace.
 
-        :param provider: Provider to run this search. Exa uses auto, Linkup uses standard depth, and Tavily uses basic depth. Workspace credentials are selected automatically for this provider.
+        :param provider: Provider to run this search. Exa uses auto, Linkup uses standard depth, Tavily uses basic depth, and OpenAI runs one web_search tool call on gpt-5.6-luna. Workspace credentials are selected automatically for this provider.
         :param query: Search text. Must not be blank or exceed 10,000 characters. Ceramic accepts at most 50 words.
         :param identity: Customer or end-user identity for attributing this search and its usage.
         :param limit: Maximum number of results to return, from 1 to 10. Defaults to 10. The provider may return fewer results.

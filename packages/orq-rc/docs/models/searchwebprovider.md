@@ -17,3 +17,5 @@ value: SearchWebProvider = "exa"
 - `"linkup"`
 - `"tavily"`
 - `"serper"`
+- `"openai"`
+- `"perplexity"`
