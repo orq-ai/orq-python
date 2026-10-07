@@ -51,5 +51,6 @@ value: GetPromptVersionProvider = "openai"
 - `"meta"`
 - `"greenpt"`
 - `"typesafe"`
+- `"berget"`
 - `"slack"`
 - `"orq"`

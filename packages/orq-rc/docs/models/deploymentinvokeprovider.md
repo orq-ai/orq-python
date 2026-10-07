@@ -53,5 +53,6 @@ value: DeploymentInvokeProvider = "openai"
 - `"meta"`
 - `"greenpt"`
 - `"typesafe"`
+- `"berget"`
 - `"slack"`
 - `"orq"`

@@ -51,5 +51,6 @@ value: UpdatePromptProvider = "openai"
 - `"meta"`
 - `"greenpt"`
 - `"typesafe"`
+- `"berget"`
 - `"slack"`
 - `"orq"`
