@@ -73,6 +73,8 @@ class ModelTypedDict(TypedDict):
     r"""True when this offering is deprecated, whether or not a deprecation
     date is known. `deprecation` carries the date when one is announced.
     """
+    zdr: bool
+    r"""True when this offering guarantees zero data retention."""
     deprecation: NotRequired[datetime]
     r"""When this offering stops being served, as an RFC 3339 UTC timestamp:
     orq's own sunset date if one is set, otherwise the developer's announced
@@ -139,6 +141,9 @@ class Model(BaseModel):
     r"""True when this offering is deprecated, whether or not a deprecation
     date is known. `deprecation` carries the date when one is announced.
     """
+
+    zdr: bool
+    r"""True when this offering guarantees zero data retention."""
 
     deprecation: Optional[datetime] = None
     r"""When this offering stops being served, as an RFC 3339 UTC timestamp:

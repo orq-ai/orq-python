@@ -1,6 +1,6 @@
 # CreateClassifyRouterClassifyResponseResponseBody
 
-The state or a question violates the classification contract.
+Missing, invalid, expired or revoked API key.
 
 
 ## Fields

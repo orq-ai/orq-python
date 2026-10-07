@@ -1,6 +1,6 @@
 # CreateClassifyRouterClassifyResponse429ResponseBody
 
-Rate limited by the provider.
+A plan rate limit, budget or provider rate limit was exceeded.
 
 
 ## Fields
