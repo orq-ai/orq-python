@@ -19,7 +19,7 @@ Lists domain-verification records for the workspace.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityListDomains" method="get" path="/v2/{workspace_key}/domains" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityListDomains" method="get" path="/v2/workspaces/{workspace_key}/domains" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -59,7 +59,7 @@ Creates a domain-verification challenge and returns the TXT record to add to DNS
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityCreateDomain" method="post" path="/v2/{workspace_key}/domains" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityCreateDomain" method="post" path="/v2/workspaces/{workspace_key}/domains" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -100,7 +100,7 @@ Permanently removes a domain-verification record.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityDeleteDomain" method="delete" path="/v2/{workspace_key}/domains/{domain_id}" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityDeleteDomain" method="delete" path="/v2/workspaces/{workspace_key}/domains/{domain_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -136,7 +136,7 @@ Checks DNS for the expected TXT record and marks the domain as verified when it 
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityVerifyDomain" method="post" path="/v2/{workspace_key}/domains/{domain_id}/verify" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityVerifyDomain" method="post" path="/v2/workspaces/{workspace_key}/domains/{domain_id}/verify" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -177,7 +177,7 @@ Returns the workspace IP allowlist and the current caller IP when available.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityGetIPAllowlist" method="get" path="/v2/{workspace_key}/ip-allowlist" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityGetIPAllowlist" method="get" path="/v2/workspaces/{workspace_key}/ip-allowlist" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -217,7 +217,7 @@ Updates the workspace-level allowlist switch. Every listed range applies while t
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityUpdateIPAllowlist" method="patch" path="/v2/{workspace_key}/ip-allowlist" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityUpdateIPAllowlist" method="patch" path="/v2/workspaces/{workspace_key}/ip-allowlist" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -258,7 +258,7 @@ Adds an IPv4 or IPv6 CIDR range to the workspace allowlist.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityAddIPRange" method="post" path="/v2/{workspace_key}/ip-allowlist/entries" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityAddIPRange" method="post" path="/v2/workspaces/{workspace_key}/ip-allowlist/entries" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -300,7 +300,7 @@ Permanently removes a CIDR range from the workspace allowlist.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="WorkspaceSecurityDeleteIPRange" method="delete" path="/v2/{workspace_key}/ip-allowlist/entries/{range_id}" -->
+<!-- UsageSnippet language="python" operationID="WorkspaceSecurityDeleteIPRange" method="delete" path="/v2/workspaces/{workspace_key}/ip-allowlist/entries/{range_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os

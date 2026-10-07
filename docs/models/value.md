@@ -1,21 +1,31 @@
 # Value
 
-## Example Usage
+The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string.
+
+
+## Supported Types
+
+### `str`
 
 ```python
-from orq_ai_sdk.models import Value
-value: Value = "ORIGIN_UNSPECIFIED"
+value: str = /* values here */
 ```
 
+### `float`
 
-## Values
+```python
+value: float = /* values here */
+```
 
-- `"ORIGIN_UNSPECIFIED"`
-- `"ui"`
-- `"api"`
-- `"scim"`
-- `"system"`
-- `"router"`
-- `"mcp"`
-- `"automation"`
-- `"internal"`
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+
+### `List[str]`
+
+```python
+value: List[str] = /* values here */
+```
+

@@ -378,8 +378,8 @@ class Agents(BaseSDK):
         List all agents in the workspace with full configuration details. Supports pagination and sorts agents newest first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param type: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -476,8 +476,8 @@ class Agents(BaseSDK):
         List all agents in the workspace with full configuration details. Supports pagination and sorts agents newest first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination.
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param type: Filter agents by type
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -982,6 +982,9 @@ class Agents(BaseSDK):
             ]
         ] = None,
         skills: OptionalNullable[Iterable[str]] = UNSET,
+        agent_plugins: OptionalNullable[
+            Union[Iterable[models.AgentPlugins], Iterable[models.AgentPluginsTypedDict]]
+        ] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         version_increment: Optional[models.VersionIncrement] = None,
@@ -1015,6 +1018,7 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
+        :param agent_plugins:
         :param variables: Extracted variables from agent instructions
         :param engine:
         :param version_increment: Optional semantic version bump to create after a successful publish.
@@ -1066,6 +1070,9 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+                agent_plugins=utils.get_pydantic_model(
+                    agent_plugins, OptionalNullable[List[models.AgentPlugins]]
+                ),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 engine=engine,
                 version_increment=version_increment,
@@ -1180,6 +1187,9 @@ class Agents(BaseSDK):
             ]
         ] = None,
         skills: OptionalNullable[Iterable[str]] = UNSET,
+        agent_plugins: OptionalNullable[
+            Union[Iterable[models.AgentPlugins], Iterable[models.AgentPluginsTypedDict]]
+        ] = UNSET,
         variables: Optional[Mapping[str, Any]] = None,
         engine: Optional[models.UpdateAgentEngine] = None,
         version_increment: Optional[models.VersionIncrement] = None,
@@ -1213,6 +1223,7 @@ class Agents(BaseSDK):
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param skills: List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior.
+        :param agent_plugins:
         :param variables: Extracted variables from agent instructions
         :param engine:
         :param version_increment: Optional semantic version bump to create after a successful publish.
@@ -1264,6 +1275,9 @@ class Agents(BaseSDK):
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
                 skills=utils.unmarshal(skills, OptionalNullable[List[str]]),
+                agent_plugins=utils.get_pydantic_model(
+                    agent_plugins, OptionalNullable[List[models.AgentPlugins]]
+                ),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
                 engine=engine,
                 version_increment=version_increment,

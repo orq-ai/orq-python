@@ -48,7 +48,7 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     model: NotRequired[ModelBudgetScopeRestResponseTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models), rather than an internal identifier.
+    models).
     """
 
 
@@ -81,7 +81,7 @@ class BudgetScopeRestResponse(BaseModel):
     model: Optional[ModelBudgetScopeRestResponse] = None
     r"""Per-model cap. The value is the FULL model reference as callers send
     it (\"openai/gpt-4o\", or \"workspaceKey@openai/gpt-4o\" for private
-    models), rather than an internal identifier.
+    models).
     """
 
     @model_serializer(mode="wrap")

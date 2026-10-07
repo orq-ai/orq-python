@@ -5,12 +5,19 @@ from .apierror import APIError
 from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
 from .classifyretryconfig import ClassifyRetryConfig, ClassifyRetryConfigTypedDict
 from .classifyusage import ClassifyUsage, ClassifyUsageTypedDict
+from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .responseidentity import ResponseIdentity, ResponseIdentityTypedDict
 from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import get_discriminator
 from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
@@ -191,20 +198,22 @@ Questions = Annotated[
 
 
 StateTypedDict = TypeAliasType("StateTypedDict", Union[str, Dict[str, Any], List[Any]])
-r"""The content to evaluate. A string, an object or an array."""
+r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
 
 
 State = TypeAliasType("State", Union[str, Dict[str, Any], List[Any]])
-r"""The content to evaluate. A string, an object or an array."""
+r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
 
 
 class CreateClassifyRequestBodyTypedDict(TypedDict):
     model: str
-    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
+    r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
     questions: Dict[str, QuestionsTypedDict]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
     state: StateTypedDict
-    r"""The content to evaluate. A string, an object or an array."""
+    r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
     metadata: NotRequired[Dict[str, str]]
     r"""Key-value metadata attached to the trace."""
@@ -215,13 +224,16 @@ class CreateClassifyRequestBodyTypedDict(TypedDict):
 
 class CreateClassifyRequestBody(BaseModel):
     model: str
-    r"""ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash."""
+    r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
 
     questions: Dict[str, Questions]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
 
     state: State
-    r"""The content to evaluate. A string, an object or an array."""
+    r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+
+    fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
 
     identity: Optional[ResponseIdentity] = None
 
@@ -235,19 +247,72 @@ class CreateClassifyRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["identity", "metadata", "name", "retry"])
+        optional_fields = set(["fallbacks", "identity", "metadata", "name", "retry"])
+        nullable_fields = set(["fallbacks"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
+
+
+class CreateClassifyRouterClassifyResponse502ResponseBodyData(BaseModel):
+    error: APIError
+
+
+@dataclass(unsafe_hash=True)
+class CreateClassifyRouterClassifyResponse502ResponseBody(OrqError):
+    r"""The upstream provider failed or returned an invalid classification response."""
+
+    data: CreateClassifyRouterClassifyResponse502ResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: CreateClassifyRouterClassifyResponse502ResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.error.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
+class CreateClassifyRouterClassifyResponse500ResponseBodyData(BaseModel):
+    error: APIError
+
+
+@dataclass(unsafe_hash=True)
+class CreateClassifyRouterClassifyResponse500ResponseBody(OrqError):
+    r"""An internal model-resolution error occurred."""
+
+    data: CreateClassifyRouterClassifyResponse500ResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: CreateClassifyRouterClassifyResponse500ResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.error.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
 
 
 class CreateClassifyRouterClassifyResponse429ResponseBodyData(BaseModel):
@@ -256,7 +321,7 @@ class CreateClassifyRouterClassifyResponse429ResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class CreateClassifyRouterClassifyResponse429ResponseBody(OrqError):
-    r"""Rate limited by the provider."""
+    r"""A plan rate limit, budget or provider rate limit was exceeded."""
 
     data: CreateClassifyRouterClassifyResponse429ResponseBodyData = field(hash=False)
 
@@ -272,13 +337,57 @@ class CreateClassifyRouterClassifyResponse429ResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
+class CreateClassifyRouterClassifyResponse422ResponseBodyData(BaseModel):
+    error: APIError
+
+
+@dataclass(unsafe_hash=True)
+class CreateClassifyRouterClassifyResponse422ResponseBody(OrqError):
+    r"""The state or a question violates the classification contract."""
+
+    data: CreateClassifyRouterClassifyResponse422ResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: CreateClassifyRouterClassifyResponse422ResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.error.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
+class CreateClassifyRouterClassifyResponse403ResponseBodyData(BaseModel):
+    error: APIError
+
+
+@dataclass(unsafe_hash=True)
+class CreateClassifyRouterClassifyResponse403ResponseBody(OrqError):
+    r"""The API key lacks classify permission, or the workspace or project cannot access the model."""
+
+    data: CreateClassifyRouterClassifyResponse403ResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: CreateClassifyRouterClassifyResponse403ResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.error.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
 class CreateClassifyRouterClassifyResponseResponseBodyData(BaseModel):
     error: APIError
 
 
 @dataclass(unsafe_hash=True)
 class CreateClassifyRouterClassifyResponseResponseBody(OrqError):
-    r"""The state or a question violates the classification contract."""
+    r"""Missing, invalid, expired or revoked API key."""
 
     data: CreateClassifyRouterClassifyResponseResponseBodyData = field(hash=False)
 
@@ -300,7 +409,7 @@ class CreateClassifyRouterClassifyResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class CreateClassifyRouterClassifyResponseBody(OrqError):
-    r"""Malformed JSON or missing model."""
+    r"""Malformed JSON, missing or unsupported model, or invalid retry/fallback fields."""
 
     data: CreateClassifyRouterClassifyResponseBodyData = field(hash=False)
 
@@ -322,7 +431,7 @@ class CreateClassifyResponseBodyTypedDict(TypedDict):
     answers: Dict[str, ClassifyAnswerTypedDict]
     r"""Answers keyed by the question identifiers from the request."""
     model: str
-    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
+    r"""The requested ID of the model that answered. This can be a fallback model."""
     usage: ClassifyUsageTypedDict
     telemetry: NotRequired[ResponseTelemetryTypedDict]
 
@@ -334,7 +443,7 @@ class CreateClassifyResponseBody(BaseModel):
     r"""Answers keyed by the question identifiers from the request."""
 
     model: str
-    r"""The model ID from the request, for example typesafe/jev-latest or google/gemini-3.8-flash."""
+    r"""The requested ID of the model that answered. This can be a fallback model."""
 
     usage: ClassifyUsage
 

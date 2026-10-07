@@ -349,6 +349,60 @@ class CreatePromptMessagesFunction(BaseModel):
         return m
 
 
+class CreatePromptMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class CreatePromptMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreatePromptMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreatePromptMessagesGoogleTypedDict]
+
+
+class CreatePromptMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreatePromptMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreatePromptMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -357,6 +411,8 @@ class CreatePromptMessagesToolCallsTypedDict(TypedDict):
     function: CreatePromptMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreatePromptMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreatePromptMessagesToolCalls(BaseModel):
@@ -371,9 +427,12 @@ class CreatePromptMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreatePromptMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -527,7 +586,7 @@ class CreatePrompt24TypedDict(TypedDict):
     type: CreatePrompt2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[CreatePrompt2CacheControlTypedDict]
 
 
@@ -536,7 +595,7 @@ class CreatePrompt24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[CreatePrompt2CacheControl] = None
 
@@ -1300,7 +1359,7 @@ class PromptInputTypedDict(TypedDict):
     messages: List[CreatePromptMessagesTypedDict]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[str]
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/ai-gateway/supported-models. Only chat models are supported."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[CreatePromptAudioTypedDict]]
@@ -1382,7 +1441,7 @@ class PromptInput(BaseModel):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
     model: Optional[str] = None
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/ai-gateway/supported-models. Only chat models are supported."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2181,6 +2240,7 @@ CreatePromptProvider = Literal[
     "meta",
     "greenpt",
     "typesafe",
+    "berget",
     "slack",
     "orq",
 ]
@@ -3374,6 +3434,60 @@ class CreatePromptMessagesPromptsFunction(BaseModel):
         return m
 
 
+class CreatePromptMessagesPromptsGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class CreatePromptMessagesPromptsGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreatePromptMessagesPromptsExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreatePromptMessagesPromptsGoogleTypedDict]
+
+
+class CreatePromptMessagesPromptsExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreatePromptMessagesPromptsGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreatePromptMessagesPromptsToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -3382,6 +3496,8 @@ class CreatePromptMessagesPromptsToolCallsTypedDict(TypedDict):
     function: CreatePromptMessagesPromptsFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreatePromptMessagesPromptsExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreatePromptMessagesPromptsToolCalls(BaseModel):
@@ -3396,9 +3512,12 @@ class CreatePromptMessagesPromptsToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreatePromptMessagesPromptsExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -3558,7 +3677,7 @@ class CreatePrompt2Prompts4TypedDict(TypedDict):
     type: CreatePrompt2PromptsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[CreatePrompt2PromptsCacheControlTypedDict]
 
 
@@ -3567,7 +3686,7 @@ class CreatePrompt2Prompts4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[CreatePrompt2PromptsCacheControl] = None
 

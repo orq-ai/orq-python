@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -50,8 +56,8 @@ class AlertTriggerTypedDict(TypedDict):
     r"""Current tier of the incident."""
     peak_severity: NotRequired[PeakSeverity]
     r"""Worst tier reached while the trigger was open."""
-    resolved_at: NotRequired[datetime]
-    r"""Time when the value recovered. Unset while the trigger is open."""
+    resolved_at: NotRequired[Nullable[datetime]]
+    r"""Time when the value recovered. `null` while the trigger is open."""
 
 
 class AlertTrigger(BaseModel):
@@ -85,21 +91,30 @@ class AlertTrigger(BaseModel):
     peak_severity: Optional[PeakSeverity] = None
     r"""Worst tier reached while the trigger was open."""
 
-    resolved_at: Optional[datetime] = None
-    r"""Time when the value recovered. Unset while the trigger is open."""
+    resolved_at: OptionalNullable[datetime] = UNSET
+    r"""Time when the value recovered. `null` while the trigger is open."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["severity", "peak_severity", "resolved_at"])
+        nullable_fields = set(["resolved_at"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

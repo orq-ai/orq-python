@@ -6,6 +6,7 @@ from .embeddingdimensionsupport import (
     EmbeddingDimensionSupport,
     EmbeddingDimensionSupportTypedDict,
 )
+from .modelfusionconfig import ModelFusionConfig, ModelFusionConfigTypedDict
 from .pricing import Pricing, PricingTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -36,6 +37,7 @@ class ModelMetadataTypedDict(TypedDict):
     extended_context_pricing_mode: NotRequired[str]
     extended_context_threshold: NotRequired[int]
     function_tools_require_effort_none: NotRequired[bool]
+    fusion: NotRequired[ModelFusionConfigTypedDict]
     generate_audio: NotRequired[bool]
     image_input_cost: NotRequired[float]
     image_output_cost: NotRequired[float]
@@ -47,6 +49,7 @@ class ModelMetadataTypedDict(TypedDict):
     max_input_tokens: NotRequired[int]
     max_output_tokens: NotRequired[int]
     max_temperature: NotRequired[float]
+    million_fetches_cost: NotRequired[float]
     million_searches_cost: NotRequired[float]
     million_tokens_above_128k_cache_read_cost: NotRequired[float]
     million_tokens_above_128k_cache_write_cost: NotRequired[float]
@@ -106,6 +109,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
+    supports_native_classify: NotRequired[bool]
     supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
     supports_parallel_tool_calls: NotRequired[bool]
@@ -180,6 +184,8 @@ class ModelMetadata(BaseModel):
 
     function_tools_require_effort_none: Optional[bool] = None
 
+    fusion: Optional[ModelFusionConfig] = None
+
     generate_audio: Optional[bool] = None
 
     image_input_cost: Optional[float] = None
@@ -201,6 +207,8 @@ class ModelMetadata(BaseModel):
     max_output_tokens: Optional[int] = None
 
     max_temperature: Optional[float] = None
+
+    million_fetches_cost: Optional[float] = None
 
     million_searches_cost: Optional[float] = None
 
@@ -320,6 +328,8 @@ class ModelMetadata(BaseModel):
 
     supports_max_completion_tokens: Optional[bool] = None
 
+    supports_native_classify: Optional[bool] = None
+
     supports_openai_realtime_api: Optional[bool] = None
 
     supports_openai_sdk: Optional[bool] = None
@@ -417,6 +427,7 @@ class ModelMetadata(BaseModel):
                 "extended_context_pricing_mode",
                 "extended_context_threshold",
                 "function_tools_require_effort_none",
+                "fusion",
                 "generate_audio",
                 "image_input_cost",
                 "image_output_cost",
@@ -428,6 +439,7 @@ class ModelMetadata(BaseModel):
                 "max_input_tokens",
                 "max_output_tokens",
                 "max_temperature",
+                "million_fetches_cost",
                 "million_searches_cost",
                 "million_tokens_above_128k_cache_read_cost",
                 "million_tokens_above_128k_cache_write_cost",
@@ -487,6 +499,7 @@ class ModelMetadata(BaseModel):
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
+                "supports_native_classify",
                 "supports_openai_realtime_api",
                 "supports_openai_sdk",
                 "supports_parallel_tool_calls",

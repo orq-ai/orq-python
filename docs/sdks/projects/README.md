@@ -12,7 +12,7 @@
 
 ## list
 
-Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections.
+Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections; the two cursors are mutually exclusive.
 
 ### Example Usage
 
@@ -35,12 +35,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                            | *Optional[int]*                                                                                    | :heavy_minus_sign:                                                                                 | Page size, 1-200. Unset uses the server default.                                                   |
-| `starting_after`                                                                                   | *Optional[str]*                                                                                    | :heavy_minus_sign:                                                                                 | Cursor for forward pagination. Set to the `project_id` of the last<br/> item from the previous page. |
-| `ending_before`                                                                                    | *Optional[str]*                                                                                    | :heavy_minus_sign:                                                                                 | Cursor for backward pagination. Set to the `project_id` of the first<br/> item from the previous page. |
-| `retries`                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                   | :heavy_minus_sign:                                                                                 | Configuration to override the default retry behavior of the client.                                |
+| Parameter                                                                                                                                    | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                                                                      | *Optional[int]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Page size, 1-200. Unset uses the server default.                                                                                             |
+| `starting_after`                                                                                                                             | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Cursor for forward pagination. Set to the `project_id` of the last<br/> item from the previous page. Mutually exclusive with `ending_before`. |
+| `ending_before`                                                                                                                              | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Cursor for backward pagination. Set to the `project_id` of the first<br/> item from the previous page. Mutually exclusive with `starting_after`. |
+| `retries`                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                             | :heavy_minus_sign:                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                          |
 
 ### Response
 
@@ -54,7 +54,7 @@ with Orq(
 
 ## create
 
-Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
 ### Example Usage
 
@@ -136,7 +136,7 @@ with Orq(
 
 ## delete
 
-Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
 ### Example Usage
 
@@ -176,7 +176,7 @@ with Orq(
 
 ## update
 
-Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+Updates the specified project by setting the values of the parameters passed. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
 ### Example Usage
 

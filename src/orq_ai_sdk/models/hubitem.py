@@ -24,6 +24,8 @@ class Prompt(BaseModel):
 
 
 class HubItemTypedDict(TypedDict):
+    id: str
+    r"""Unique hub item ID."""
     entity_id: str
     r"""ID of the workspace entity represented by this hub item."""
     display_name: str
@@ -32,8 +34,6 @@ class HubItemTypedDict(TypedDict):
     r"""Hub item description."""
     type: str
     r"""Hub item type."""
-    id: NotRequired[str]
-    r"""Unique hub item ID."""
     is_active: NotRequired[bool]
     r"""Whether a vendor hub item is active."""
     is_private: NotRequired[bool]
@@ -51,6 +51,9 @@ class HubItemTypedDict(TypedDict):
 
 
 class HubItem(BaseModel):
+    id: str
+    r"""Unique hub item ID."""
+
     entity_id: str
     r"""ID of the workspace entity represented by this hub item."""
 
@@ -62,9 +65,6 @@ class HubItem(BaseModel):
 
     type: str
     r"""Hub item type."""
-
-    id: Optional[str] = None
-    r"""Unique hub item ID."""
 
     is_active: Optional[bool] = None
     r"""Whether a vendor hub item is active."""
@@ -91,7 +91,6 @@ class HubItem(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "id",
                 "is_active",
                 "is_private",
                 "is_provided_by_orq",

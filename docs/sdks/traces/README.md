@@ -8,9 +8,11 @@
 * [list_facets](#list_facets) - List trace facets
 * [list_facet_values](#list_facet_values) - List trace facet values
 * [list_fields](#list_fields) - List trace fields
+* [list_filters](#list_filters) - List trace filters
 * [query](#query) - Query traces with OQL
 * [search](#search) - Search traces
 * [get](#get) - Get trace
+* [get_conversation](#get_conversation) - Get trace conversation
 * [list_spans](#list_spans) - List trace spans
 * [get_span](#get_span) - Get trace span
 
@@ -39,16 +41,17 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `from_`                                                              | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `to`                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `filters`                                                            | List[[models.TraceFilter](../../models/tracefilter.md)]              | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `group_by`                                                           | List[*str*]                                                          | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `compute`                                                            | List[[models.TraceCompute](../../models/tracecompute.md)]            | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `limit`                                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `filter_operator`                                                    | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `retries`                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)     | :heavy_minus_sign:                                                   | Configuration to override the default retry behavior of the client.  |
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `from_`                                                               | [date](https://docs.python.org/3/library/datetime.html#date-objects)  | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `to`                                                                  | [date](https://docs.python.org/3/library/datetime.html#date-objects)  | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `filters`                                                             | List[[models.TraceFilter](../../models/tracefilter.md)]               | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `group_by`                                                            | List[*str*]                                                           | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `compute`                                                             | List[[models.TraceCompute](../../models/tracecompute.md)]             | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `limit`                                                               | *Optional[int]*                                                       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `filter_operator`                                                     | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `query`                                                               | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | Free-text search with the same matching as SearchTracesRequest.query. |
+| `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
 
 ### Response
 
@@ -182,9 +185,49 @@ with Orq(
 | ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
+## list_filters
+
+List the evaluators, human reviews and metadata keys a trace filter can address.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="TracesListFilters" method="get" path="/v3/traces/filters" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.traces.list_filters()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `include_all`                                                            | *Optional[bool]*                                                         | :heavy_minus_sign:                                                       | Every evaluator and human review in the workspace, not only recent ones. |
+| `retries`                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)         | :heavy_minus_sign:                                                       | Configuration to override the default retry behavior of the client.      |
+
+### Response
+
+**[models.ListTraceFiltersResponse](../../models/listtracefiltersresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
 ## query
 
-Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+Run an OQL trace query over a time range. OQL selects the traces to return.
 
 ### Example Usage
 
@@ -229,7 +272,7 @@ with Orq(
 
 ## search
 
-Search trace summaries using the structured trace filter contract.
+Search trace summaries using the structured trace filter contract. See the [filter grammar](/ai-studio/observability/traces#filter-grammar) for the field and operator reference.
 
 ### Example Usage
 
@@ -308,6 +351,47 @@ with Orq(
 ### Response
 
 **[models.GetTraceResponse](../../models/gettraceresponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## get_conversation
+
+Return ordered OpenResponses items from the selected model-call span. Prefers spans with output outside evaluator subtrees unless `span_id` is given.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="TracesGetConversation" method="get" path="/v3/traces/{trace_id}/conversation" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.traces.get_conversation(trace_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `trace_id`                                                                      | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
+| `span_id`                                                                       | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Read the conversation from this span instead of the automatically selected one. |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
+
+### Response
+
+**[models.GetTraceConversationResponse](../../models/gettraceconversationresponse.md)**
 
 ### Errors
 

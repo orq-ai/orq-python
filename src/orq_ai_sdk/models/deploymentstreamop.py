@@ -260,6 +260,60 @@ class DeploymentStreamPrefixMessagesFunction(BaseModel):
         return m
 
 
+class PrefixMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class PrefixMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class PrefixMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[PrefixMessagesGoogleTypedDict]
+
+
+class PrefixMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[PrefixMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class PrefixMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -268,6 +322,8 @@ class PrefixMessagesToolCallsTypedDict(TypedDict):
     function: DeploymentStreamPrefixMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[PrefixMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class PrefixMessagesToolCalls(BaseModel):
@@ -282,9 +338,12 @@ class PrefixMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[PrefixMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -444,7 +503,7 @@ class DeploymentStream24TypedDict(TypedDict):
     type: DeploymentStream2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[DeploymentStream2CacheControlTypedDict]
 
 
@@ -453,7 +512,7 @@ class DeploymentStream24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[DeploymentStream2CacheControl] = None
 
@@ -910,6 +969,60 @@ class DeploymentStreamMessagesFunction(BaseModel):
         return m
 
 
+class DeploymentStreamMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class DeploymentStreamMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class DeploymentStreamMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[DeploymentStreamMessagesGoogleTypedDict]
+
+
+class DeploymentStreamMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[DeploymentStreamMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class DeploymentStreamMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -918,6 +1031,8 @@ class DeploymentStreamMessagesToolCallsTypedDict(TypedDict):
     function: DeploymentStreamMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[DeploymentStreamMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class DeploymentStreamMessagesToolCalls(BaseModel):
@@ -932,9 +1047,12 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[DeploymentStreamMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -1092,7 +1210,7 @@ class DeploymentStream2Deployments4TypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[DeploymentStream2DeploymentsCacheControlTypedDict]
 
 
@@ -1101,7 +1219,7 @@ class DeploymentStream2Deployments4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[DeploymentStream2DeploymentsCacheControl] = None
 
@@ -2164,6 +2282,7 @@ DeploymentStreamProvider = Literal[
     "meta",
     "greenpt",
     "typesafe",
+    "berget",
     "slack",
     "orq",
 ]

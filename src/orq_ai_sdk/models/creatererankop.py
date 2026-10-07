@@ -294,11 +294,11 @@ class CreateRerankLoadBalancerRouterRerank1(BaseModel):
 CreateRerankRouterRerankLoadBalancerTypedDict = (
     CreateRerankLoadBalancerRouterRerank1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateRerankRouterRerankLoadBalancer = CreateRerankLoadBalancerRouterRerank1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateRerankRouterRerankTimeoutTypedDict(TypedDict):
@@ -329,7 +329,7 @@ class CreateRerankOrqTypedDict(TypedDict):
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
     load_balancer: NotRequired[CreateRerankRouterRerankLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateRerankRouterRerankTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -359,7 +359,7 @@ class CreateRerankOrq(BaseModel):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     load_balancer: Optional[CreateRerankRouterRerankLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateRerankRouterRerankTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

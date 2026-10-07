@@ -10,14 +10,14 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class FileListRequestTypedDict(TypedDict):
     limit: NotRequired[int]
-    r"""Page size. Unset uses the server default."""
+    r"""Page size, 1-200. Unset uses the server default."""
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `file_id` of the last item
-    from the previous page.
+    from the previous page. Mutually exclusive with `ending_before`.
     """
     ending_before: NotRequired[str]
     r"""Cursor for backward pagination. Set to the `file_id` of the first item
-    from the previous page.
+    from the previous page. Mutually exclusive with `starting_after`.
     """
     project_id: NotRequired[str]
     purpose: NotRequired[str]
@@ -33,14 +33,14 @@ class FileListRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Page size. Unset uses the server default."""
+    r"""Page size, 1-200. Unset uses the server default."""
 
     starting_after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for forward pagination. Set to the `file_id` of the last item
-    from the previous page.
+    from the previous page. Mutually exclusive with `ending_before`.
     """
 
     ending_before: Annotated[
@@ -48,7 +48,7 @@ class FileListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for backward pagination. Set to the `file_id` of the first item
-    from the previous page.
+    from the previous page. Mutually exclusive with `starting_after`.
     """
 
     project_id: Annotated[

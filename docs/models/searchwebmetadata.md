@@ -1,0 +1,13 @@
+# SearchWebMetadata
+
+Details about this search request.
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `latency_ms`                                                                                          | *int*                                                                                                 | :heavy_check_mark:                                                                                    | Elapsed search processing time in milliseconds, including applied policies.                           |
+| `provider`                                                                                            | [models.SearchWebProvider](../models/searchwebprovider.md)                                            | :heavy_check_mark:                                                                                    | Provider that executed the search.                                                                    |
+| `query`                                                                                               | *str*                                                                                                 | :heavy_check_mark:                                                                                    | Query sent to the provider after any required PII redaction.                                          |
+| `request_id`                                                                                          | *str*                                                                                                 | :heavy_check_mark:                                                                                    | ORQ-generated identifier for this search request. Distinct from the trace ID in the response headers. |

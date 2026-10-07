@@ -285,6 +285,60 @@ class CreateChatCompletionMessagesFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class CreateChatCompletionMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionMessagesGoogleTypedDict]
+
+
+class CreateChatCompletionMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -293,6 +347,8 @@ class CreateChatCompletionMessagesToolCallsTypedDict(TypedDict):
     function: CreateChatCompletionMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreateChatCompletionMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionMessagesToolCalls(BaseModel):
@@ -307,9 +363,12 @@ class CreateChatCompletionMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreateChatCompletionMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -469,7 +528,7 @@ class CreateChatCompletion24TypedDict(TypedDict):
     type: CreateChatCompletion2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[CreateChatCompletion2CacheControlTypedDict]
 
 
@@ -478,7 +537,7 @@ class CreateChatCompletion24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[CreateChatCompletion2CacheControl] = None
 
@@ -1555,15 +1614,13 @@ class Inputs2(BaseModel):
         return m
 
 
-CreateChatCompletionInputsTypedDict = TypeAliasType(
-    "CreateChatCompletionInputsTypedDict", Union[Dict[str, Any], List[Inputs2TypedDict]]
+InputsTypedDict = TypeAliasType(
+    "InputsTypedDict", Union[Dict[str, Any], List[Inputs2TypedDict]]
 )
 r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
-CreateChatCompletionInputs = TypeAliasType(
-    "CreateChatCompletionInputs", Union[Dict[str, Any], List[Inputs2]]
-)
+Inputs = TypeAliasType("Inputs", Union[Dict[str, Any], List[Inputs2]])
 r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
@@ -2153,7 +2210,7 @@ CreateChatCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 CreateChatCompletionFilterBy = TypeAliasType(
@@ -2164,7 +2221,7 @@ CreateChatCompletionFilterBy = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 class CreateChatCompletionSearchOptionsTypedDict(TypedDict):
@@ -2211,7 +2268,7 @@ class CreateChatCompletionRerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#rerank-models)."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
@@ -2222,7 +2279,7 @@ class CreateChatCompletionRerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#rerank-models)."""
 
     threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -2251,14 +2308,14 @@ class CreateChatCompletionAgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateChatCompletionAgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
@@ -2271,7 +2328,7 @@ class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[Nullable[CreateChatCompletionSearchType]]
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateChatCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
     search_options: NotRequired[CreateChatCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateChatCompletionRerankConfigTypedDict]
@@ -2296,7 +2353,7 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateChatCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
     search_options: Optional[CreateChatCompletionSearchOptions] = None
     r"""Additional search options"""
@@ -2395,13 +2452,13 @@ class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
 CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateChatCompletionRouterChatCompletionsLoadBalancer = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateChatCompletionRouterChatCompletionsTimeoutTypedDict(TypedDict):
@@ -2440,7 +2497,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[CreateChatCompletionThreadTypedDict]
     r"""Thread information to group related requests"""
-    inputs: NotRequired[CreateChatCompletionInputsTypedDict]
+    inputs: NotRequired[InputsTypedDict]
     r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
     cache: NotRequired[CreateChatCompletionRouterChatCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
@@ -2448,7 +2505,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     load_balancer: NotRequired[
         CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateChatCompletionRouterChatCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -2486,7 +2543,7 @@ class CreateChatCompletionOrq(BaseModel):
     r"""Thread information to group related requests"""
 
     inputs: Annotated[
-        Optional[CreateChatCompletionInputs],
+        Optional[Inputs],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
@@ -2501,7 +2558,7 @@ class CreateChatCompletionOrq(BaseModel):
     load_balancer: Optional[CreateChatCompletionRouterChatCompletionsLoadBalancer] = (
         None
     )
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateChatCompletionRouterChatCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -2542,7 +2599,7 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     messages: List[CreateChatCompletionMessagesTypedDict]
     r"""A list of messages comprising the conversation so far."""
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/ai-gateway/supported-models) to browse available models."""
     metadata: NotRequired[Dict[str, str]]
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
     name: NotRequired[str]
@@ -2631,7 +2688,7 @@ class CreateChatCompletionRequestBody(BaseModel):
     r"""A list of messages comprising the conversation so far."""
 
     model: str
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/docs/ai-gateway/supported-models) to browse available models."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [Supported models](/ai-gateway/supported-models) to browse available models."""
 
     metadata: Optional[Dict[str, str]] = None
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
@@ -3068,6 +3125,60 @@ class CreateChatCompletionRouterChatCompletionsResponseFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionRouterChatCompletionsGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+
+
+class CreateChatCompletionRouterChatCompletionsGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionRouterChatCompletionsExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionRouterChatCompletionsGoogleTypedDict]
+
+
+class CreateChatCompletionRouterChatCompletionsExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionRouterChatCompletionsGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionRouterChatCompletionsToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     r"""The index of the tool call."""
@@ -3080,6 +3191,10 @@ class CreateChatCompletionRouterChatCompletionsToolCallsTypedDict(TypedDict):
     ]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
+    extra_content: NotRequired[
+        CreateChatCompletionRouterChatCompletionsExtraContentTypedDict
+    ]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionRouterChatCompletionsToolCalls(BaseModel):
@@ -3097,9 +3212,16 @@ class CreateChatCompletionRouterChatCompletionsToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
 
+    extra_content: Optional[CreateChatCompletionRouterChatCompletionsExtraContent] = (
+        None
+    )
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["index", "id", "type", "function", "thought_signature"])
+        optional_fields = set(
+            ["index", "id", "type", "function", "thought_signature", "extra_content"]
+        )
         serialized = handler(self)
         m = {}
 
@@ -3619,6 +3741,60 @@ class CreateChatCompletionRouterChatCompletionsFunction(BaseModel):
         return m
 
 
+class CreateChatCompletionGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+
+class CreateChatCompletionGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[CreateChatCompletionGoogleTypedDict]
+
+
+class CreateChatCompletionExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[CreateChatCompletionGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     id: NotRequired[str]
@@ -3626,6 +3802,8 @@ class CreateChatCompletionToolCallsTypedDict(TypedDict):
     function: NotRequired[CreateChatCompletionRouterChatCompletionsFunctionTypedDict]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[CreateChatCompletionExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class CreateChatCompletionToolCalls(BaseModel):
@@ -3640,9 +3818,14 @@ class CreateChatCompletionToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[CreateChatCompletionExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["index", "id", "type", "function", "thought_signature"])
+        optional_fields = set(
+            ["index", "id", "type", "function", "thought_signature", "extra_content"]
+        )
         serialized = handler(self)
         m = {}
 

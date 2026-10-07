@@ -13,5 +13,6 @@
 | `search_models_requests`    | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |
 | `shell_commands`            | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |
 | `subagent_requests`         | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |
+| `tool_search_requests`      | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |
 | `web_fetch_requests`        | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |
 | `web_search_requests`       | *Optional[int]*             | :heavy_minus_sign:          | N/A                         |

@@ -62,9 +62,9 @@ class ListPromptVersionsRequestTypedDict(TypedDict):
     limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10"""
     starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
 class ListPromptVersionsRequest(BaseModel):
@@ -82,13 +82,13 @@ class ListPromptVersionsRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -648,6 +648,7 @@ ListPromptVersionsProvider = Literal[
     "meta",
     "greenpt",
     "typesafe",
+    "berget",
     "slack",
     "orq",
 ]
@@ -1824,6 +1825,60 @@ class ListPromptVersionsMessagesFunction(BaseModel):
         return m
 
 
+class ListPromptVersionsMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class ListPromptVersionsMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListPromptVersionsMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[ListPromptVersionsMessagesGoogleTypedDict]
+
+
+class ListPromptVersionsMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[ListPromptVersionsMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class ListPromptVersionsMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -1832,6 +1887,8 @@ class ListPromptVersionsMessagesToolCallsTypedDict(TypedDict):
     function: ListPromptVersionsMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[ListPromptVersionsMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class ListPromptVersionsMessagesToolCalls(BaseModel):
@@ -1846,9 +1903,12 @@ class ListPromptVersionsMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[ListPromptVersionsMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -2004,7 +2064,7 @@ class ListPromptVersions24TypedDict(TypedDict):
     type: ListPromptVersions2PromptsResponse200Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[ListPromptVersions2CacheControlTypedDict]
 
 
@@ -2013,7 +2073,7 @@ class ListPromptVersions24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[ListPromptVersions2CacheControl] = None
 

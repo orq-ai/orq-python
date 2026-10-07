@@ -9,36 +9,41 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FileContentPartSchemaTypedDict(TypedDict):
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
-    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    r"""URL of the file. Supported for PDFs on Anthropic Claude models and for `https://` and Google Cloud Storage `gs://` URIs on Vertex AI Gemini models."""
     mime_type: NotRequired[str]
-    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    r"""MIME type of the file (e.g., application/pdf, image/png). Inferred from `filename` or the URI extension when omitted."""
+    file_id: NotRequired[str]
+    r"""A provider file reference: a Google Cloud Storage `gs://` URI for Vertex AI Gemini models, or an OpenAI file ID (`file-...`) for OpenAI models."""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class FileContentPartSchema(BaseModel):
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
     uri: Optional[str] = None
-    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    r"""URL of the file. Supported for PDFs on Anthropic Claude models and for `https://` and Google Cloud Storage `gs://` URIs on Vertex AI Gemini models."""
 
     mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    r"""MIME type of the file (e.g., application/pdf, image/png). Inferred from `filename` or the URI extension when omitted."""
+
+    file_id: Optional[str] = None
+    r"""A provider file reference: a Google Cloud Storage `gs://` URI for Vertex AI Gemini models, or an OpenAI file ID (`file-...`) for OpenAI models."""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["file_data", "uri", "mimeType", "filename"])
+        optional_fields = set(["file_data", "uri", "mimeType", "file_id", "filename"])
         serialized = handler(self)
         m = {}
 

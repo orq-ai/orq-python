@@ -19,9 +19,9 @@ class GetAllToolsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
     r"""Maximum number of tools per page (1-200). Omit to return all tools."""
     starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
 class GetAllToolsRequest(BaseModel):
@@ -35,13 +35,13 @@ class GetAllToolsRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -214,7 +214,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M461HF0AKT9HWN5ZRNKV4MRW"
+        "tool_01M4C67Z592A39MZQW43SM2KMD"
     )
 
     display_name: Optional[str] = None
@@ -514,7 +514,7 @@ class DataHTTPTool(BaseModel):
     http: DataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M461HF09BNJ904EKYHTNVK8D"
+        "tool_01M4C67Z588H22W736F5BT3TNC"
     )
 
     display_name: Optional[str] = None
@@ -708,7 +708,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M461HF08MYBKZC5JYEZSYN1T"
+        "tool_01M4C67Z58QRAQEMSH22NRTTWJ"
     )
 
     display_name: Optional[str] = None
@@ -906,7 +906,7 @@ class DataFunctionTool(BaseModel):
     function: DataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M461HF08VRHJF1B7TH5RRBWK"
+        "tool_01M4C67Z57DCCG1XS5JY2RVFZA"
     )
 
     display_name: Optional[str] = None

@@ -13,11 +13,11 @@ class ProjectListRequestTypedDict(TypedDict):
     r"""Page size, 1-200. Unset uses the server default."""
     starting_after: NotRequired[str]
     r"""Cursor for forward pagination. Set to the `project_id` of the last
-    item from the previous page.
+    item from the previous page. Mutually exclusive with `ending_before`.
     """
     ending_before: NotRequired[str]
     r"""Cursor for backward pagination. Set to the `project_id` of the first
-    item from the previous page.
+    item from the previous page. Mutually exclusive with `starting_after`.
     """
 
 
@@ -33,7 +33,7 @@ class ProjectListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for forward pagination. Set to the `project_id` of the last
-    item from the previous page.
+    item from the previous page. Mutually exclusive with `ending_before`.
     """
 
     ending_before: Annotated[
@@ -41,7 +41,7 @@ class ProjectListRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Cursor for backward pagination. Set to the `project_id` of the first
-    item from the previous page.
+    item from the previous page. Mutually exclusive with `starting_after`.
     """
 
     @model_serializer(mode="wrap")

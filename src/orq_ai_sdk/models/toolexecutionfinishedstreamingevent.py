@@ -33,7 +33,7 @@ ToolExecutionFinishedStreamingEventProduct = Literal[
     "ai-chat",
     "mcp_gateway",
 ]
-r"""Orquesta product"""
+r"""orq.ai product"""
 
 
 class ToolExecutionFinishedStreamingEventMemoryTypedDict(TypedDict):
@@ -51,7 +51,7 @@ class ToolExecutionFinishedStreamingEventToolExecutionContextTypedDict(TypedDict
     agent_manifest_id: str
     agent_execution_id: str
     product: ToolExecutionFinishedStreamingEventProduct
-    r"""Orquesta product"""
+    r"""orq.ai product"""
     memory: NotRequired[ToolExecutionFinishedStreamingEventMemoryTypedDict]
     parent_id: NotRequired[str]
     variables: NotRequired[Dict[str, Any]]
@@ -70,7 +70,7 @@ class ToolExecutionFinishedStreamingEventToolExecutionContext(BaseModel):
     agent_execution_id: str
 
     product: ToolExecutionFinishedStreamingEventProduct
-    r"""Orquesta product"""
+    r"""orq.ai product"""
 
     memory: Optional[ToolExecutionFinishedStreamingEventMemory] = None
 

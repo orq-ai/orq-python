@@ -1,6 +1,6 @@
 # CreateClassifyRouterClassifyResponseBody
 
-Malformed JSON or missing model.
+Malformed JSON, missing or unsupported model, or invalid retry/fallback fields.
 
 
 ## Fields

@@ -171,7 +171,7 @@ class Knowledge2TypedDict(TypedDict):
     retrieval_settings: NotRequired[KnowledgeRetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base."""
     settings: NotRequired[KnowledgeSettingsTypedDict]
-    r"""Additive compatibility fields formerly available only from private internal endpoints."""
+    r"""Settings for the knowledge base: embedding model, retrieval configuration, and agentic RAG configuration."""
     metadata: NotRequired[KnowledgeMetadataTypedDict]
 
 
@@ -214,7 +214,7 @@ class Knowledge2(BaseModel):
     r"""The retrieval settings for the knowledge base."""
 
     settings: Optional[KnowledgeSettings] = None
-    r"""Additive compatibility fields formerly available only from private internal endpoints."""
+    r"""Settings for the knowledge base: embedding model, retrieval configuration, and agentic RAG configuration."""
 
     metadata: Optional[KnowledgeMetadata] = None
 
@@ -415,7 +415,7 @@ class Knowledge1TypedDict(TypedDict):
     retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
     settings: NotRequired[KnowledgeSettingsTypedDict]
-    r"""Additive compatibility fields formerly available only from private internal endpoints."""
+    r"""Settings for the knowledge base: embedding model, retrieval configuration, and agentic RAG configuration."""
     metadata: NotRequired[KnowledgeMetadataTypedDict]
 
 
@@ -459,7 +459,7 @@ class Knowledge1(BaseModel):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
     settings: Optional[KnowledgeSettings] = None
-    r"""Additive compatibility fields formerly available only from private internal endpoints."""
+    r"""Settings for the knowledge base: embedding model, retrieval configuration, and agentic RAG configuration."""
 
     metadata: Optional[KnowledgeMetadata] = None
 

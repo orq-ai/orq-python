@@ -46,7 +46,7 @@ class PublicPluginTypedDict(TypedDict):
     entity_thresholds: NotRequired[Dict[str, float]]
     r"""pii_redaction only. Per-entity confidence cutoff overrides in [0,1], keyed by entity type. An override replaces threshold for that type and may sit above or below it. Every key must also appear in entities."""
     language: NotRequired[str]
-    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to en. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
+    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to auto. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
     mask: NotRequired[Nullable[List[PublicPluginMask]]]
     r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""
     on_failure: NotRequired[PublicPluginOnFailure]
@@ -68,7 +68,7 @@ class PublicPlugin(BaseModel):
     r"""pii_redaction only. Per-entity confidence cutoff overrides in [0,1], keyed by entity type. An override replaces threshold for that type and may sit above or below it. Every key must also appear in entities."""
 
     language: Optional[str] = None
-    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to en. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
+    r"""pii_redaction only. Detector language, or \"auto\" to detect it per request. Defaults to auto. The accepted values are whatever GET /v2/pii/capabilities lists, so they are not enumerated here: a fixed enum would reject a language the detector has since added."""
 
     mask: OptionalNullable[List[PublicPluginMask]] = UNSET
     r"""trace_scrubbing only. Trace surfaces to scrub. At least one value required."""

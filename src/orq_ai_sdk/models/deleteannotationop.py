@@ -71,7 +71,7 @@ class DeleteAnnotationRequestTypedDict(TypedDict):
     r"""Unique identifier of the trace"""
     span_id: str
     r"""Unique identifier of the span"""
-    request_body: NotRequired[DeleteAnnotationRequestBodyTypedDict]
+    request_body: DeleteAnnotationRequestBodyTypedDict
 
 
 class DeleteAnnotationRequest(BaseModel):
@@ -86,22 +86,6 @@ class DeleteAnnotationRequest(BaseModel):
     r"""Unique identifier of the span"""
 
     request_body: Annotated[
-        Optional[DeleteAnnotationRequestBody],
+        DeleteAnnotationRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["RequestBody"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
+    ]

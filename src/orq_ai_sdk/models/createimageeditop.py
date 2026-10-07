@@ -375,13 +375,13 @@ class CreateImageEditLoadBalancerRouterImagesEdits1(BaseModel):
 CreateImageEditRouterImagesEditsLoadBalancerTypedDict = (
     CreateImageEditLoadBalancerRouterImagesEdits1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageEditRouterImagesEditsLoadBalancer = (
     CreateImageEditLoadBalancerRouterImagesEdits1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageEditRouterImagesEditsTimeoutTypedDict(TypedDict):
@@ -414,7 +414,7 @@ class CreateImageEditOrqTypedDict(TypedDict):
     cache: NotRequired[CreateImageEditRouterImagesEditsCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[CreateImageEditRouterImagesEditsLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateImageEditRouterImagesEditsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -447,7 +447,7 @@ class CreateImageEditOrq(BaseModel):
     r"""Cache configuration for the request."""
 
     load_balancer: Optional[CreateImageEditRouterImagesEditsLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateImageEditRouterImagesEditsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -483,7 +483,7 @@ class CreateImageEditOrq(BaseModel):
 
 class CreateImageEditRequestBodyTypedDict(TypedDict):
     model: str
-    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)"""
+    r"""The model to use for image edit. [Check models](https://docs.orq.ai/ai-gateway/supported-models#image-models)"""
     prompt: str
     r"""A text description of the desired image(s)."""
     image: NotRequired[ImageTypedDict]
@@ -515,7 +515,7 @@ class CreateImageEditRequestBodyTypedDict(TypedDict):
 
 class CreateImageEditRequestBody(BaseModel):
     model: Annotated[str, FieldMetadata(multipart=True)]
-    r"""The model to use for image edit. [Check models](https://docs.orq.ai/docs/ai-gateway/supported-models#image-models)"""
+    r"""The model to use for image edit. [Check models](https://docs.orq.ai/ai-gateway/supported-models#image-models)"""
 
     prompt: Annotated[str, FieldMetadata(multipart=True)]
     r"""A text description of the desired image(s)."""

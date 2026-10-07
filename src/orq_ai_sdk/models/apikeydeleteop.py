@@ -8,11 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class APIKeyDeleteRequestTypedDict(TypedDict):
     api_key_id: str
-    r"""API key id to delete."""
+    r"""Unique identifier of the API key."""
 
 
 class APIKeyDeleteRequest(BaseModel):
     api_key_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""API key id to delete."""
+    r"""Unique identifier of the API key."""

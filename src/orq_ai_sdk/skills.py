@@ -25,8 +25,8 @@ class Skills(BaseSDK):
 
         Returns the skills visible to the current workspace, ordered by creation time with the newest skill first. Use `starting_after` or `ending_before` to page through large collections.
 
-        :param limit: Page size, 1–200. Unset uses the server default (25); explicit 0
-            (or anything outside the range) is rejected by buf.validate.
+        :param limit: Page size, 1–200. Unset uses the server default (25). Values outside
+            the range, including 0, are rejected.
         :param starting_after: Cursor for forward pagination. Set to the `skill_id` of the last
             item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first
@@ -141,8 +141,8 @@ class Skills(BaseSDK):
 
         Returns the skills visible to the current workspace, ordered by creation time with the newest skill first. Use `starting_after` or `ending_before` to page through large collections.
 
-        :param limit: Page size, 1–200. Unset uses the server default (25); explicit 0
-            (or anything outside the range) is rejected by buf.validate.
+        :param limit: Page size, 1–200. Unset uses the server default (25). Values outside
+            the range, including 0, are rejected.
         :param starting_after: Cursor for forward pagination. Set to the `skill_id` of the last
             item from the previous page.
         :param ending_before: Cursor for backward pagination. Set to the `skill_id` of the first

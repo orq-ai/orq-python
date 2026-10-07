@@ -15,9 +15,11 @@ class PricingVariantTypedDict(TypedDict):
     cache_read: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
+    fetch: NotRequired[PriceTypedDict]
     input: NotRequired[PriceTypedDict]
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
+    search: NotRequired[PriceTypedDict]
 
 
 class PricingVariant(BaseModel):
@@ -33,11 +35,15 @@ class PricingVariant(BaseModel):
 
     cache_write_5m: Optional[Price] = None
 
+    fetch: Optional[Price] = None
+
     input: Optional[Price] = None
 
     output: Optional[Price] = None
 
     reasoning: Optional[Price] = None
+
+    search: Optional[Price] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -48,9 +54,11 @@ class PricingVariant(BaseModel):
                 "cache_read",
                 "cache_write_1h",
                 "cache_write_5m",
+                "fetch",
                 "input",
                 "output",
                 "reasoning",
+                "search",
             ]
         )
         serialized = handler(self)

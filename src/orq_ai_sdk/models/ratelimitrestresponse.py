@@ -9,16 +9,16 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class RateLimitRestResponseTypedDict(TypedDict):
-    r"""RateLimit is the per-minute request ceiling. Enforced via atomic
-    increment-first semantics in the enforcement middleware.
+    r"""Per-minute request ceiling applied to the requests this budget
+    matches.
     """
 
     requests_per_minute: NotRequired[int]
 
 
 class RateLimitRestResponse(BaseModel):
-    r"""RateLimit is the per-minute request ceiling. Enforced via atomic
-    increment-first semantics in the enforcement middleware.
+    r"""Per-minute request ceiling applied to the requests this budget
+    matches.
     """
 
     requests_per_minute: Annotated[

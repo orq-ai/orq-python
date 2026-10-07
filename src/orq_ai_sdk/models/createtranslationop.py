@@ -238,13 +238,13 @@ class CreateTranslationLoadBalancerRouterAudioTranslations1(BaseModel):
 CreateTranslationRouterAudioTranslationsLoadBalancerTypedDict = (
     CreateTranslationLoadBalancerRouterAudioTranslations1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateTranslationRouterAudioTranslationsLoadBalancer = (
     CreateTranslationLoadBalancerRouterAudioTranslations1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateTranslationRouterAudioTranslationsTimeoutTypedDict(TypedDict):
@@ -277,7 +277,7 @@ class CreateTranslationOrqTypedDict(TypedDict):
     load_balancer: NotRequired[
         CreateTranslationRouterAudioTranslationsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateTranslationRouterAudioTranslationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -304,7 +304,7 @@ class CreateTranslationOrq(BaseModel):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     load_balancer: Optional[CreateTranslationRouterAudioTranslationsLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateTranslationRouterAudioTranslationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

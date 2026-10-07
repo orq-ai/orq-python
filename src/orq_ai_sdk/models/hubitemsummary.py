@@ -17,7 +17,7 @@ class HubItemSummaryTypedDict(TypedDict):
     type: str
     r"""Hub item type."""
     entity_id: NotRequired[str]
-    r"""ID of the workspace entity represented by this hub item. Empty on search results: the field is not part of the Typesense index."""
+    r"""ID of the workspace entity represented by this hub item. Empty on search results: the field is not part of the search index."""
 
 
 class HubItemSummary(BaseModel):
@@ -34,7 +34,7 @@ class HubItemSummary(BaseModel):
     r"""Hub item type."""
 
     entity_id: Optional[str] = None
-    r"""ID of the workspace entity represented by this hub item. Empty on search results: the field is not part of the Typesense index."""
+    r"""ID of the workspace entity represented by this hub item. Empty on search results: the field is not part of the search index."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

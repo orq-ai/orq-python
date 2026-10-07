@@ -51,5 +51,6 @@ value: DeploymentsProvider = "openai"
 - `"meta"`
 - `"greenpt"`
 - `"typesafe"`
+- `"berget"`
 - `"slack"`
 - `"orq"`

@@ -5,7 +5,7 @@
 
 | Field                                                    | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `id`                                                     | *Optional[str]*                                          | :heavy_minus_sign:                                       | Unique hub item ID.                                      |
+| `id`                                                     | *str*                                                    | :heavy_check_mark:                                       | Unique hub item ID.                                      |
 | `entity_id`                                              | *str*                                                    | :heavy_check_mark:                                       | ID of the workspace entity represented by this hub item. |
 | `display_name`                                           | *str*                                                    | :heavy_check_mark:                                       | Human-readable hub item name.                            |
 | `description`                                            | *str*                                                    | :heavy_check_mark:                                       | Hub item description.                                    |

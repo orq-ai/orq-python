@@ -18,7 +18,7 @@ class HumanReviewSets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2HumanEvalSetsResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Get all human review sets
 
         :param project_id: Optional project ID to filter human review sets by project
@@ -91,9 +91,7 @@ class HumanReviewSets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.GetV2HumanEvalSetsResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -111,7 +109,7 @@ class HumanReviewSets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2HumanEvalSetsResponseBody]:
+    ) -> List[models.ResponseBody]:
         r"""Get all human review sets
 
         :param project_id: Optional project ID to filter human review sets by project
@@ -184,9 +182,7 @@ class HumanReviewSets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                List[models.GetV2HumanEvalSetsResponseBody], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

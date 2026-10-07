@@ -6,10 +6,14 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
+from typing_extensions import deprecated
 
 
 class Classify(BaseSDK):
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def create(
         self,
         *,
@@ -18,6 +22,12 @@ class Classify(BaseSDK):
             Mapping[str, models.Questions], Mapping[str, models.QuestionsTypedDict]
         ],
         state: Union[models.State, models.StateTypedDict],
+        fallbacks: OptionalNullable[
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
+        ] = UNSET,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
@@ -33,11 +43,14 @@ class Classify(BaseSDK):
     ) -> models.CreateClassifyResponseBody:
         r"""Classify
 
-        **Beta.** Runs typed classification questions (`noul`, `choice`, `score`) against the native classify model `typesafe/jev-latest` or a chat model that supports classify, such as `anthropic/claude-haiku-4-5`, `google-ai/gemini-3.8-flash` or `zai/glm-5.3-flash`. Chat models answer through one structured-output call and their probabilities are model-reported rather than calibrated. The request and response follow the TypeSafe classification contract; `model` in the response echoes the request and `usage` carries the computed cost like the Responses API. This endpoint currently does not apply PII plugins or guardrails.
+        **Deprecated.** Use `POST /v3/router/decisions` and `orq.router.decisions.create()` for new integrations. This endpoint remains available for backward compatibility with the same request and response contract.
 
-        :param model: ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash.
+        **Beta.** Runs typed classification questions (`noul`, `choice`, `score`) against a native classify provider, including OpenAI Decisions with `openai/gpt-6-luna`, or a chat model that supports classify emulation. Emulated models answer through one structured-output call and their probabilities are model-reported rather than calibrated. Native providers can return `refusal` for individual questions; refused answers contain only `type`. The request and response follow the TypeSafe classification contract; `model` in the response identifies the primary or fallback model that answered and `usage` carries the computed cost like the Responses API. Both `/v3/router/classify` and `/v3/router/decisions` use this contract, including ordered `fallbacks`, request-level `retry`, and `identity` attribution. Both require `classify.execute`. This endpoint currently does not apply PII plugins or guardrails.
+
+        :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array.
+        :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -61,6 +74,9 @@ class Classify(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateClassifyRequestBody(
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),
@@ -124,6 +140,51 @@ class Classify(BaseSDK):
                             "lang": "python",
                             "source": 'result = client.router.classify.create(\n    model="typesafe/jev-latest",\n    state="The parcel arrived two days late and the box was crushed.",\n    questions={\n        "is_complaint": {"type": "noul", "instructions": "Is the customer complaining?"},\n        "topic": {\n            "type": "choice",\n            "instructions": "What is the message mainly about?",\n            "criteria": {"delivery": "Shipping or delivery issues", "product": "Product quality", "other": None},\n        },\n        "severity": {"type": "score", "instructions": "How severe is the issue?", "criteria": ["Minor", "Moderate", "Severe"]},\n    },\n)',
                         },
+                        {
+                            "label": "Node.js: OpenAI text",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: OpenAI text",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"positive\\": {\\n      \\"criteria\\": {\\n        \\"false\\": \\"The customer is unhappy.\\",\\n        \\"true\\": \\"The customer is happy.\\"\\n      },\\n      \\"instructions\\": \\"Is the sentiment positive?\\",\\n      \\"type\\": \\"noul\\"\\n    },\\n    \\"rating\\": {\\n      \\"criteria\\": [\\n        \\"Negative\\",\\n        \\"Neutral\\",\\n        \\"Positive\\"\\n      ],\\n      \\"instructions\\": \\"Rate sentiment.\\",\\n      \\"type\\": \\"score\\"\\n    },\\n    \\"sentiment\\": {\\n      \\"criteria\\": {\\n        \\"negative\\": \\"Negative sentiment\\",\\n        \\"neutral\\": null,\\n        \\"positive\\": \\"Positive sentiment\\"\\n      },\\n      \\"instructions\\": \\"Classify sentiment.\\",\\n      \\"type\\": \\"choice\\"\\n    }\\n  },\\n  \\"state\\": \\"The customer says: I love this product. It is wonderful!\\"\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: OpenAI text",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n}\nJSON',
+                        },
+                        {
+                            "label": "Node.js: OpenAI inline image",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "contains_text": {\n      "instructions": "Does the image contain text?",\n      "type": "noul"\n    }\n  },\n  "state": [\n    {\n      "content": [\n        {\n          "text": "Evaluate this image.",\n          "type": "input_text"\n        },\n        {\n          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC",\n          "type": "input_image"\n        }\n      ],\n      "role": "user"\n    }\n  ]\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: OpenAI inline image",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"contains_text\\": {\\n      \\"instructions\\": \\"Does the image contain text?\\",\\n      \\"type\\": \\"noul\\"\\n    }\\n  },\\n  \\"state\\": [\\n    {\\n      \\"content\\": [\\n        {\\n          \\"text\\": \\"Evaluate this image.\\",\\n          \\"type\\": \\"input_text\\"\\n        },\\n        {\\n          \\"image_url\\": \\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC\\",\\n          \\"type\\": \\"input_image\\"\\n        }\\n      ],\\n      \\"role\\": \\"user\\"\\n    }\\n  ]\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: OpenAI inline image",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "contains_text": {\n      "instructions": "Does the image contain text?",\n      "type": "noul"\n    }\n  },\n  "state": [\n    {\n      "content": [\n        {\n          "text": "Evaluate this image.",\n          "type": "input_text"\n        },\n        {\n          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC",\n          "type": "input_image"\n        }\n      ],\n      "role": "user"\n    }\n  ]\n}\nJSON',
+                        },
+                        {
+                            "label": "Node.js: Fallbacks, retries and identity",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "fallbacks": [\n    {\n      "model": "openai/gpt-5.6-luna"\n    }\n  ],\n  "identity": {\n    "displayName": "Sample customer",\n    "id": "customer-demo"\n  },\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "retry": {\n    "count": 2,\n    "onCodes": [\n      429,\n      502,\n      503,\n      504\n    ]\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: Fallbacks, retries and identity",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"fallbacks\\": [\\n    {\\n      \\"model\\": \\"openai/gpt-5.6-luna\\"\\n    }\\n  ],\\n  \\"identity\\": {\\n    \\"id\\": \\"customer-demo\\",\\n    \\"display_name\\": \\"Sample customer\\"\\n  },\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"positive\\": {\\n      \\"criteria\\": {\\n        \\"false\\": \\"The customer is unhappy.\\",\\n        \\"true\\": \\"The customer is happy.\\"\\n      },\\n      \\"instructions\\": \\"Is the sentiment positive?\\",\\n      \\"type\\": \\"noul\\"\\n    },\\n    \\"rating\\": {\\n      \\"criteria\\": [\\n        \\"Negative\\",\\n        \\"Neutral\\",\\n        \\"Positive\\"\\n      ],\\n      \\"instructions\\": \\"Rate sentiment.\\",\\n      \\"type\\": \\"score\\"\\n    },\\n    \\"sentiment\\": {\\n      \\"criteria\\": {\\n        \\"negative\\": \\"Negative sentiment\\",\\n        \\"neutral\\": null,\\n        \\"positive\\": \\"Positive sentiment\\"\\n      },\\n      \\"instructions\\": \\"Classify sentiment.\\",\\n      \\"type\\": \\"choice\\"\\n    }\\n  },\\n  \\"retry\\": {\\n    \\"count\\": 2,\\n    \\"on_codes\\": [\\n      429,\\n      502,\\n      503,\\n      504\\n    ]\\n  },\\n  \\"state\\": \\"The customer says: I love this product. It is wonderful!\\"\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: Fallbacks, retries and identity",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "fallbacks": [\n    {\n      "model": "openai/gpt-5.6-luna"\n    }\n  ],\n  "identity": {\n    "id": "customer-demo",\n    "display_name": "Sample customer"\n  },\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "retry": {\n    "count": 2,\n    "on_codes": [\n      429,\n      502,\n      503,\n      504\n    ]\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n}\nJSON',
+                        },
                     ],
                     "x-orq-gateway-group": True,
                 },
@@ -143,11 +204,25 @@ class Classify(BaseSDK):
             raise models.CreateClassifyRouterClassifyResponseBody(
                 response_data, http_res
             )
-        if utils.match_response(http_res, "422", "application/json"):
+        if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateClassifyRouterClassifyResponseResponseBodyData, http_res
             )
             raise models.CreateClassifyRouterClassifyResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "403", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse403ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse403ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse422ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse422ResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "429", "application/json"):
@@ -155,6 +230,20 @@ class Classify(BaseSDK):
                 models.CreateClassifyRouterClassifyResponse429ResponseBodyData, http_res
             )
             raise models.CreateClassifyRouterClassifyResponse429ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse500ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse500ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "502", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse502ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse502ResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -166,6 +255,9 @@ class Classify(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def create_async(
         self,
         *,
@@ -174,6 +266,12 @@ class Classify(BaseSDK):
             Mapping[str, models.Questions], Mapping[str, models.QuestionsTypedDict]
         ],
         state: Union[models.State, models.StateTypedDict],
+        fallbacks: OptionalNullable[
+            Union[
+                Iterable[models.FallbackConfig],
+                Iterable[models.FallbackConfigTypedDict],
+            ]
+        ] = UNSET,
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
@@ -189,11 +287,14 @@ class Classify(BaseSDK):
     ) -> models.CreateClassifyResponseBody:
         r"""Classify
 
-        **Beta.** Runs typed classification questions (`noul`, `choice`, `score`) against the native classify model `typesafe/jev-latest` or a chat model that supports classify, such as `anthropic/claude-haiku-4-5`, `google-ai/gemini-3.8-flash` or `zai/glm-5.3-flash`. Chat models answer through one structured-output call and their probabilities are model-reported rather than calibrated. The request and response follow the TypeSafe classification contract; `model` in the response echoes the request and `usage` carries the computed cost like the Responses API. This endpoint currently does not apply PII plugins or guardrails.
+        **Deprecated.** Use `POST /v3/router/decisions` and `orq.router.decisions.create()` for new integrations. This endpoint remains available for backward compatibility with the same request and response contract.
 
-        :param model: ID of the model to use: the native classify model typesafe/jev-latest, or a chat model that supports classify such as anthropic/claude-haiku-4-5, google-ai/gemini-3.8-flash or zai/glm-5.3-flash.
+        **Beta.** Runs typed classification questions (`noul`, `choice`, `score`) against a native classify provider, including OpenAI Decisions with `openai/gpt-6-luna`, or a chat model that supports classify emulation. Emulated models answer through one structured-output call and their probabilities are model-reported rather than calibrated. Native providers can return `refusal` for individual questions; refused answers contain only `type`. The request and response follow the TypeSafe classification contract; `model` in the response identifies the primary or fallback model that answered and `usage` carries the computed cost like the Responses API. Both `/v3/router/classify` and `/v3/router/decisions` use this contract, including ordered `fallbacks`, request-level `retry`, and `identity` attribution. Both require `classify.execute`. This endpoint currently does not apply PII plugins or guardrails.
+
+        :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array.
+        :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -217,6 +318,9 @@ class Classify(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateClassifyRequestBody(
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, OptionalNullable[List[models.FallbackConfig]]
+            ),
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),
@@ -280,6 +384,51 @@ class Classify(BaseSDK):
                             "lang": "python",
                             "source": 'result = client.router.classify.create(\n    model="typesafe/jev-latest",\n    state="The parcel arrived two days late and the box was crushed.",\n    questions={\n        "is_complaint": {"type": "noul", "instructions": "Is the customer complaining?"},\n        "topic": {\n            "type": "choice",\n            "instructions": "What is the message mainly about?",\n            "criteria": {"delivery": "Shipping or delivery issues", "product": "Product quality", "other": None},\n        },\n        "severity": {"type": "score", "instructions": "How severe is the issue?", "criteria": ["Minor", "Moderate", "Severe"]},\n    },\n)',
                         },
+                        {
+                            "label": "Node.js: OpenAI text",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: OpenAI text",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"positive\\": {\\n      \\"criteria\\": {\\n        \\"false\\": \\"The customer is unhappy.\\",\\n        \\"true\\": \\"The customer is happy.\\"\\n      },\\n      \\"instructions\\": \\"Is the sentiment positive?\\",\\n      \\"type\\": \\"noul\\"\\n    },\\n    \\"rating\\": {\\n      \\"criteria\\": [\\n        \\"Negative\\",\\n        \\"Neutral\\",\\n        \\"Positive\\"\\n      ],\\n      \\"instructions\\": \\"Rate sentiment.\\",\\n      \\"type\\": \\"score\\"\\n    },\\n    \\"sentiment\\": {\\n      \\"criteria\\": {\\n        \\"negative\\": \\"Negative sentiment\\",\\n        \\"neutral\\": null,\\n        \\"positive\\": \\"Positive sentiment\\"\\n      },\\n      \\"instructions\\": \\"Classify sentiment.\\",\\n      \\"type\\": \\"choice\\"\\n    }\\n  },\\n  \\"state\\": \\"The customer says: I love this product. It is wonderful!\\"\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: OpenAI text",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n}\nJSON',
+                        },
+                        {
+                            "label": "Node.js: OpenAI inline image",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "contains_text": {\n      "instructions": "Does the image contain text?",\n      "type": "noul"\n    }\n  },\n  "state": [\n    {\n      "content": [\n        {\n          "text": "Evaluate this image.",\n          "type": "input_text"\n        },\n        {\n          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC",\n          "type": "input_image"\n        }\n      ],\n      "role": "user"\n    }\n  ]\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: OpenAI inline image",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"contains_text\\": {\\n      \\"instructions\\": \\"Does the image contain text?\\",\\n      \\"type\\": \\"noul\\"\\n    }\\n  },\\n  \\"state\\": [\\n    {\\n      \\"content\\": [\\n        {\\n          \\"text\\": \\"Evaluate this image.\\",\\n          \\"type\\": \\"input_text\\"\\n        },\\n        {\\n          \\"image_url\\": \\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC\\",\\n          \\"type\\": \\"input_image\\"\\n        }\\n      ],\\n      \\"role\\": \\"user\\"\\n    }\\n  ]\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: OpenAI inline image",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "contains_text": {\n      "instructions": "Does the image contain text?",\n      "type": "noul"\n    }\n  },\n  "state": [\n    {\n      "content": [\n        {\n          "text": "Evaluate this image.",\n          "type": "input_text"\n        },\n        {\n          "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACLSURBVHgBdY8NDYAgEIXBBEQgAhG0gRGMYBNtoA2M4EygDYygDfCxvdMbk7d9A453f8ZQMcYAWuBVzIHujeGyxE8nYz7dJWYl01p749zxDKABEzhYfDNaMPZSAUymJLZLuvSsSVUhx4G7VM2xpSzQ5YYhLUHDCGoad47ixXjxY84qi1a9QPgZpdYLPVkbtsfywz3jAAAAAElFTkSuQmCC",\n          "type": "input_image"\n        }\n      ],\n      "role": "user"\n    }\n  ]\n}\nJSON',
+                        },
+                        {
+                            "label": "Node.js: Fallbacks, retries and identity",
+                            "lang": "typescript",
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({ apiKey: process.env["ORQ_API_KEY"] ?? "" });\nconst result = await orq.router.classify.create({\n  "fallbacks": [\n    {\n      "model": "openai/gpt-5.6-luna"\n    }\n  ],\n  "identity": {\n    "displayName": "Sample customer",\n    "id": "customer-demo"\n  },\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "retry": {\n    "count": 2,\n    "onCodes": [\n      429,\n      502,\n      503,\n      504\n    ]\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n});\n\nfor (const [name, answer] of Object.entries(result.answers)) {\n  if (answer.type === "refusal") {\n    console.log(name, "refused");\n    continue;\n  }\n  console.log(name, answer);\n}',
+                        },
+                        {
+                            "label": "Python: Fallbacks, retries and identity",
+                            "lang": "python",
+                            "source": 'import json\nimport os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrequest = json.loads("{\\n  \\"fallbacks\\": [\\n    {\\n      \\"model\\": \\"openai/gpt-5.6-luna\\"\\n    }\\n  ],\\n  \\"identity\\": {\\n    \\"id\\": \\"customer-demo\\",\\n    \\"display_name\\": \\"Sample customer\\"\\n  },\\n  \\"model\\": \\"openai/gpt-6-luna\\",\\n  \\"questions\\": {\\n    \\"positive\\": {\\n      \\"criteria\\": {\\n        \\"false\\": \\"The customer is unhappy.\\",\\n        \\"true\\": \\"The customer is happy.\\"\\n      },\\n      \\"instructions\\": \\"Is the sentiment positive?\\",\\n      \\"type\\": \\"noul\\"\\n    },\\n    \\"rating\\": {\\n      \\"criteria\\": [\\n        \\"Negative\\",\\n        \\"Neutral\\",\\n        \\"Positive\\"\\n      ],\\n      \\"instructions\\": \\"Rate sentiment.\\",\\n      \\"type\\": \\"score\\"\\n    },\\n    \\"sentiment\\": {\\n      \\"criteria\\": {\\n        \\"negative\\": \\"Negative sentiment\\",\\n        \\"neutral\\": null,\\n        \\"positive\\": \\"Positive sentiment\\"\\n      },\\n      \\"instructions\\": \\"Classify sentiment.\\",\\n      \\"type\\": \\"choice\\"\\n    }\\n  },\\n  \\"retry\\": {\\n    \\"count\\": 2,\\n    \\"on_codes\\": [\\n      429,\\n      502,\\n      503,\\n      504\\n    ]\\n  },\\n  \\"state\\": \\"The customer says: I love this product. It is wonderful!\\"\\n}")\nresult = client.router.classify.create(**request)\n\nfor name, answer in result.answers.items():\n    if answer.type == "refusal":\n        print(name, "refused")\n        continue\n    print(name, answer)',
+                        },
+                        {
+                            "label": "cURL: Fallbacks, retries and identity",
+                            "lang": "bash",
+                            "source": 'curl https://my.orq.ai/v3/router/classify \\\n  -H "Authorization: Bearer $ORQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  --data-binary @- <<\'JSON\'\n{\n  "fallbacks": [\n    {\n      "model": "openai/gpt-5.6-luna"\n    }\n  ],\n  "identity": {\n    "id": "customer-demo",\n    "display_name": "Sample customer"\n  },\n  "model": "openai/gpt-6-luna",\n  "questions": {\n    "positive": {\n      "criteria": {\n        "false": "The customer is unhappy.",\n        "true": "The customer is happy."\n      },\n      "instructions": "Is the sentiment positive?",\n      "type": "noul"\n    },\n    "rating": {\n      "criteria": [\n        "Negative",\n        "Neutral",\n        "Positive"\n      ],\n      "instructions": "Rate sentiment.",\n      "type": "score"\n    },\n    "sentiment": {\n      "criteria": {\n        "negative": "Negative sentiment",\n        "neutral": null,\n        "positive": "Positive sentiment"\n      },\n      "instructions": "Classify sentiment.",\n      "type": "choice"\n    }\n  },\n  "retry": {\n    "count": 2,\n    "on_codes": [\n      429,\n      502,\n      503,\n      504\n    ]\n  },\n  "state": "The customer says: I love this product. It is wonderful!"\n}\nJSON',
+                        },
                     ],
                     "x-orq-gateway-group": True,
                 },
@@ -299,11 +448,25 @@ class Classify(BaseSDK):
             raise models.CreateClassifyRouterClassifyResponseBody(
                 response_data, http_res
             )
-        if utils.match_response(http_res, "422", "application/json"):
+        if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateClassifyRouterClassifyResponseResponseBodyData, http_res
             )
             raise models.CreateClassifyRouterClassifyResponseResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "403", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse403ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse403ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse422ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse422ResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "429", "application/json"):
@@ -311,6 +474,20 @@ class Classify(BaseSDK):
                 models.CreateClassifyRouterClassifyResponse429ResponseBodyData, http_res
             )
             raise models.CreateClassifyRouterClassifyResponse429ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse500ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse500ResponseBody(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "502", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateClassifyRouterClassifyResponse502ResponseBodyData, http_res
+            )
+            raise models.CreateClassifyRouterClassifyResponse502ResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):

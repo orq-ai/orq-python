@@ -14,5 +14,6 @@ value: CreateRouterResponseResponsesServiceTier = "auto"
 - `"default"`
 - `"flex"`
 - `"fast"`
+- `"ultrafast"`
 - `"scale"`
 - `"priority"`

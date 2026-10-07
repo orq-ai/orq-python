@@ -21,9 +21,11 @@ class PricingTypedDict(TypedDict):
     cache_read: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
+    fetch: NotRequired[PriceTypedDict]
     input: NotRequired[PriceTypedDict]
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
+    search: NotRequired[PriceTypedDict]
     variants: NotRequired[Nullable[List[PricingVariantTypedDict]]]
 
 
@@ -38,11 +40,15 @@ class Pricing(BaseModel):
 
     cache_write_5m: Optional[Price] = None
 
+    fetch: Optional[Price] = None
+
     input: Optional[Price] = None
 
     output: Optional[Price] = None
 
     reasoning: Optional[Price] = None
+
+    search: Optional[Price] = None
 
     variants: OptionalNullable[List[PricingVariant]] = UNSET
 
@@ -55,9 +61,11 @@ class Pricing(BaseModel):
                 "cache_read",
                 "cache_write_1h",
                 "cache_write_5m",
+                "fetch",
                 "input",
                 "output",
                 "reasoning",
+                "search",
                 "variants",
             ]
         )

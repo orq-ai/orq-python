@@ -34,19 +34,23 @@ EncodingFormat = Literal[
 r"""The format to return the embeddings in. Can be either float or base64."""
 
 
-Input2TypedDict = TypeAliasType("Input2TypedDict", Union[str, List[int]])
+CreateEmbeddingInput2TypedDict = TypeAliasType(
+    "CreateEmbeddingInput2TypedDict", Union[str, List[int]]
+)
 
 
-Input2 = TypeAliasType("Input2", Union[str, List[int]])
+CreateEmbeddingInput2 = TypeAliasType("CreateEmbeddingInput2", Union[str, List[int]])
 
 
 CreateEmbeddingInputTypedDict = TypeAliasType(
-    "CreateEmbeddingInputTypedDict", Union[str, List[Input2TypedDict]]
+    "CreateEmbeddingInputTypedDict", Union[str, List[CreateEmbeddingInput2TypedDict]]
 )
 r"""Input text to embed, encoded as a string or array of tokens."""
 
 
-CreateEmbeddingInput = TypeAliasType("CreateEmbeddingInput", Union[str, List[Input2]])
+CreateEmbeddingInput = TypeAliasType(
+    "CreateEmbeddingInput", Union[str, List[CreateEmbeddingInput2]]
+)
 r"""Input text to embed, encoded as a string or array of tokens."""
 
 

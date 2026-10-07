@@ -36,7 +36,7 @@ class Identities(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from
             the previous page.
         :param search: Case-insensitive search text matched against identity profile fields.
-        :param filter_by_tags: Return only identities that have at least one of these tags.
+        :param filter_by_tags: Return only identities that have all of these tags.
         :param include_metrics: Include aggregate usage metrics on each returned identity.
         :param sort_by: Field used to order the list.
         :param include_budget: When true, embed each identity's identity-scoped budget (config and
@@ -170,7 +170,7 @@ class Identities(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from
             the previous page.
         :param search: Case-insensitive search text matched against identity profile fields.
-        :param filter_by_tags: Return only identities that have at least one of these tags.
+        :param filter_by_tags: Return only identities that have all of these tags.
         :param include_metrics: Include aggregate usage metrics on each returned identity.
         :param sort_by: Field used to order the list.
         :param include_budget: When true, embed each identity's identity-scoped budget (config and

@@ -144,6 +144,60 @@ class AgentThoughtStreamingEventFunction(BaseModel):
         return m
 
 
+class AgentThoughtStreamingEventGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+
+class AgentThoughtStreamingEventGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class AgentThoughtStreamingEventExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[AgentThoughtStreamingEventGoogleTypedDict]
+
+
+class AgentThoughtStreamingEventExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[AgentThoughtStreamingEventGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class AgentThoughtStreamingEventToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     id: NotRequired[str]
@@ -151,6 +205,8 @@ class AgentThoughtStreamingEventToolCallsTypedDict(TypedDict):
     function: NotRequired[AgentThoughtStreamingEventFunctionTypedDict]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[AgentThoughtStreamingEventExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class AgentThoughtStreamingEventToolCalls(BaseModel):
@@ -165,9 +221,14 @@ class AgentThoughtStreamingEventToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[AgentThoughtStreamingEventExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["index", "id", "type", "function", "thought_signature"])
+        optional_fields = set(
+            ["index", "id", "type", "function", "thought_signature", "extra_content"]
+        )
         serialized = handler(self)
         m = {}
 

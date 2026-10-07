@@ -248,13 +248,13 @@ class CreateTranscriptionLoadBalancerRouterAudioTranscriptions1(BaseModel):
 CreateTranscriptionRouterAudioTranscriptionsLoadBalancerTypedDict = (
     CreateTranscriptionLoadBalancerRouterAudioTranscriptions1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateTranscriptionRouterAudioTranscriptionsLoadBalancer = (
     CreateTranscriptionLoadBalancerRouterAudioTranscriptions1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateTranscriptionRouterAudioTranscriptionsTimeoutTypedDict(TypedDict):
@@ -287,7 +287,7 @@ class CreateTranscriptionOrqTypedDict(TypedDict):
     load_balancer: NotRequired[
         CreateTranscriptionRouterAudioTranscriptionsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateTranscriptionRouterAudioTranscriptionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -318,7 +318,7 @@ class CreateTranscriptionOrq(BaseModel):
     load_balancer: Optional[
         CreateTranscriptionRouterAudioTranscriptionsLoadBalancer
     ] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateTranscriptionRouterAudioTranscriptionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

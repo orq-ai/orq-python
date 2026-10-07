@@ -525,7 +525,7 @@ class UpdateAgentModelConfigurationCacheControl(BaseModel):
 
 
 class ModelConfigurationParametersTypedDict(TypedDict):
-    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -590,7 +590,7 @@ class ModelConfigurationParametersTypedDict(TypedDict):
 
 
 class ModelConfigurationParameters(BaseModel):
-    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -788,7 +788,7 @@ class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     id: str
     r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
-    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
     retry: NotRequired[ModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
@@ -803,7 +803,7 @@ class UpdateAgentModelConfiguration2(BaseModel):
     r"""A model ID string (e.g., `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`). Only models that support tool calling can be used with agents."""
 
     parameters: Optional[ModelConfigurationParameters] = None
-    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-2, randomness; the selected model may impose a lower maximum), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
     retry: Optional[ModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
@@ -1864,6 +1864,17 @@ class UpdateAgentTeamOfAgents(BaseModel):
         return m
 
 
+class AgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class AgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 UpdateAgentEngine = Literal[
     "text",
     "jinja",
@@ -1908,6 +1919,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[Nullable[List[str]]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[Nullable[List[AgentPluginsTypedDict]]]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
     engine: NotRequired[UpdateAgentEngine]
@@ -1961,6 +1973,8 @@ class UpdateAgentRequestBody(BaseModel):
     skills: OptionalNullable[List[str]] = UNSET
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: OptionalNullable[List[AgentPlugins]] = UNSET
+
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
@@ -1995,13 +2009,14 @@ class UpdateAgentRequestBody(BaseModel):
                 "knowledge_bases",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "variables",
                 "engine",
                 "versionIncrement",
                 "versionDescription",
             ]
         )
-        nullable_fields = set(["system_prompt", "skills"])
+        nullable_fields = set(["system_prompt", "skills", "agent_plugins"])
         serialized = handler(self)
         m = {}
 
@@ -2104,6 +2119,17 @@ class UpdateAgentAgentsTeamOfAgents(BaseModel):
         return m
 
 
+class UpdateAgentAgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class UpdateAgentAgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 class UpdateAgentMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
@@ -2156,7 +2182,7 @@ UpdateAgentType = Literal[
     "internal",
     "a2a",
 ]
-r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
 
 UpdateAgentAgentsToolApprovalRequired = Literal[
@@ -2920,7 +2946,7 @@ class UpdateAgentCacheControl(BaseModel):
 
 
 class UpdateAgentParametersTypedDict(TypedDict):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2985,7 +3011,7 @@ class UpdateAgentParametersTypedDict(TypedDict):
 
 
 class UpdateAgentParameters(BaseModel):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -4038,11 +4064,11 @@ r"""Fallback model for automatic failover when primary model request fails. Supp
 
 class UpdateAgentModelTypedDict(TypedDict):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[Nullable[UpdateAgentParametersTypedDict]]
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[UpdateAgentRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
@@ -4053,13 +4079,13 @@ class UpdateAgentModelTypedDict(TypedDict):
 
 class UpdateAgentModel(BaseModel):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
     parameters: OptionalNullable[UpdateAgentParameters] = UNSET
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[UpdateAgentRetry] = None
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
@@ -4130,6 +4156,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[List[str]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[List[UpdateAgentAgentPluginsTypedDict]]
     metrics: NotRequired[UpdateAgentMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -4138,7 +4165,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     source: NotRequired[UpdateAgentSource]
     engine: NotRequired[UpdateAgentAgentsEngine]
     type: NotRequired[UpdateAgentType]
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[UpdateAgentAgentsSettingsTypedDict]
 
@@ -4194,6 +4221,8 @@ class UpdateAgentResponseBody(BaseModel):
     skills: Optional[List[str]] = None
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: Optional[List[UpdateAgentAgentPlugins]] = None
+
     metrics: Optional[UpdateAgentMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
@@ -4207,7 +4236,7 @@ class UpdateAgentResponseBody(BaseModel):
     engine: Optional[UpdateAgentAgentsEngine] = "text"
 
     type: Optional[UpdateAgentType] = "internal"
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
     system_prompt: OptionalNullable[str] = UNSET
 
@@ -4226,6 +4255,7 @@ class UpdateAgentResponseBody(BaseModel):
                 "memory_stores",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "metrics",
                 "variables",
                 "knowledge_bases",

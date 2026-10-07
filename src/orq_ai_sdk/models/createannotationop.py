@@ -54,22 +54,18 @@ class Annotations2(BaseModel):
         return m
 
 
-CreateAnnotationAnnotationsValueTypedDict = TypeAliasType(
-    "CreateAnnotationAnnotationsValueTypedDict", Union[str, float, bool, List[str]]
-)
+ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, float, bool, List[str]])
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
-CreateAnnotationAnnotationsValue = TypeAliasType(
-    "CreateAnnotationAnnotationsValue", Union[str, float, bool, List[str]]
-)
+Value = TypeAliasType("Value", Union[str, float, bool, List[str]])
 r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
 class Annotations1TypedDict(TypedDict):
     key: str
     r"""Unique key of the review."""
-    value: CreateAnnotationAnnotationsValueTypedDict
+    value: ValueTypedDict
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
@@ -77,7 +73,7 @@ class Annotations1(BaseModel):
     key: str
     r"""Unique key of the review."""
 
-    value: CreateAnnotationAnnotationsValue
+    value: Value
     r"""The feedback value. For single-select, provide a string or single-element array. For multi-select, provide an array of strings. For range evaluations, provide a number. For boolean, provide a boolean. For text/correction, provide a string."""
 
 
@@ -148,7 +144,7 @@ class CreateAnnotationRequestTypedDict(TypedDict):
     r"""Unique identifier of the trace"""
     span_id: str
     r"""Unique identifier of the span"""
-    request_body: NotRequired[CreateAnnotationRequestBodyTypedDict]
+    request_body: CreateAnnotationRequestBodyTypedDict
 
 
 class CreateAnnotationRequest(BaseModel):
@@ -163,22 +159,6 @@ class CreateAnnotationRequest(BaseModel):
     r"""Unique identifier of the span"""
 
     request_body: Annotated[
-        Optional[CreateAnnotationRequestBody],
+        CreateAnnotationRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["RequestBody"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
+    ]

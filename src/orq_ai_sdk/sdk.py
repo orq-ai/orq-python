@@ -20,11 +20,11 @@ if TYPE_CHECKING:
     from orq_ai_sdk.annotationqueues import AnnotationQueues
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
-    from orq_ai_sdk.auditlogs import AuditLogs
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
+    from orq_ai_sdk.environments import Environments
     from orq_ai_sdk.evals import Evals
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.mcpservers import McpServers
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.modelcatalog import ModelCatalog
+    from orq_ai_sdk.modelfusions import ModelFusions
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
@@ -54,9 +55,13 @@ if TYPE_CHECKING:
     from orq_ai_sdk.sessions import Sessions
     from orq_ai_sdk.skills import Skills
     from orq_ai_sdk.smartrouters import SmartRouters
+    from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
+    from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
+    from orq_ai_sdk.websearch import Websearch
+    from orq_ai_sdk.wikis import Wikis
     from orq_ai_sdk.workspaces import Workspaces
     from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
     from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
@@ -71,9 +76,7 @@ class Orq(BaseSDK):
     agents: "Agents"
     prompts: "Prompts"
     tools: "Tools"
-    datasets: "Datasets"
     router: "Router"
-    annotations: "Annotations"
     feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     chunking: "Chunking"
@@ -82,16 +85,20 @@ class Orq(BaseSDK):
     memory_stores: "MemoryStores"
     evals: "Evals"
     pii: "Pii"
+    api_keys: "APIKeys"
+    annotations: "Annotations"
     logs: "Logs"
     reporting: "Reporting"
+    telemetry: "TelemetrySDK"
     traces: "Traces"
+    views: "Views"
+    datasets: "Datasets"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
-    api_keys: "APIKeys"
-    audit_logs: "AuditLogs"
     budgets: "Budgets"
+    environments: "Environments"
     files: "Files"
     guardrail_rules: "GuardrailRules"
     hub: "Hub"
@@ -100,6 +107,7 @@ class Orq(BaseSDK):
     mcp_gateways: "McpGateways"
     mcp_servers: "McpServers"
     model_catalog: "ModelCatalog"
+    model_fusions: "ModelFusions"
     notifiers: "Notifiers"
     projects: "Projects"
     routing_rules: "RoutingRules"
@@ -107,19 +115,19 @@ class Orq(BaseSDK):
     skills: "Skills"
     smart_routers: "SmartRouters"
     webhooks: "Webhooks"
+    wikis: "Wikis"
     workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
-    schedules: "Schedules"
     responses: "Responses"
+    schedules: "Schedules"
+    websearch: "Websearch"
     _sub_sdk_map = {
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
-        "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
@@ -128,16 +136,20 @@ class Orq(BaseSDK):
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "pii": ("orq_ai_sdk.pii", "Pii"),
+        "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
+        "annotations": ("orq_ai_sdk.annotations", "Annotations"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
+        "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
         "traces": ("orq_ai_sdk.traces", "Traces"),
+        "views": ("orq_ai_sdk.views", "Views"),
+        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
-        "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
-        "audit_logs": ("orq_ai_sdk.auditlogs", "AuditLogs"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
+        "environments": ("orq_ai_sdk.environments", "Environments"),
         "files": ("orq_ai_sdk.files", "Files"),
         "guardrail_rules": ("orq_ai_sdk.guardrailrules", "GuardrailRules"),
         "hub": ("orq_ai_sdk.hub", "Hub"),
@@ -146,6 +158,7 @@ class Orq(BaseSDK):
         "mcp_gateways": ("orq_ai_sdk.mcpgateways", "McpGateways"),
         "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
         "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
+        "model_fusions": ("orq_ai_sdk.modelfusions", "ModelFusions"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
@@ -153,14 +166,16 @@ class Orq(BaseSDK):
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
+        "wikis": ("orq_ai_sdk.wikis", "Wikis"),
         "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),
         "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
         "workspace_settings": (
             "orq_ai_sdk.workspacesettings_sdk",
             "WorkspaceSettingsSDK",
         ),
-        "schedules": ("orq_ai_sdk.schedules", "Schedules"),
         "responses": ("orq_ai_sdk.responses", "Responses"),
+        "schedules": ("orq_ai_sdk.schedules", "Schedules"),
+        "websearch": ("orq_ai_sdk.websearch", "Websearch"),
     }
 
     def __init__(

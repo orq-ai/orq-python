@@ -3,10 +3,7 @@
 from __future__ import annotations
 from .agenticragconfig import AgenticRagConfig, AgenticRagConfigTypedDict
 from .embeddingsconfig import EmbeddingsConfig, EmbeddingsConfigTypedDict
-from .internalretrievalconfig import (
-    InternalRetrievalConfig,
-    InternalRetrievalConfigTypedDict,
-)
+from .retrievalconfig import RetrievalConfig, RetrievalConfigTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import Optional
@@ -15,14 +12,14 @@ from typing_extensions import NotRequired, TypedDict
 
 class KnowledgeSettingsTypedDict(TypedDict):
     embeddings_config: NotRequired[EmbeddingsConfigTypedDict]
-    retrieval_config: NotRequired[InternalRetrievalConfigTypedDict]
+    retrieval_config: NotRequired[RetrievalConfigTypedDict]
     agentic_rag_config: NotRequired[AgenticRagConfigTypedDict]
 
 
 class KnowledgeSettings(BaseModel):
     embeddings_config: Optional[EmbeddingsConfig] = None
 
-    retrieval_config: Optional[InternalRetrievalConfig] = None
+    retrieval_config: Optional[RetrievalConfig] = None
 
     agentic_rag_config: Optional[AgenticRagConfig] = None
 

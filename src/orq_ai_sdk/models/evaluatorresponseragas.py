@@ -17,6 +17,15 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 EvaluatorResponseRagasType = Literal["ragas",]
 
 
+EvaluatorResponseRagasOutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 RagasMetric = Literal[
     "context_precision",
     "context_recall",
@@ -37,6 +46,8 @@ class EvaluatorResponseRagasTypedDict(TypedDict):
     id: str
     description: str
     type: EvaluatorResponseRagasType
+    output_type: EvaluatorResponseRagasOutputType
+    r"""The type of output expected from the evaluator"""
     ragas_metric: RagasMetric
     key: str
     model: str
@@ -54,6 +65,9 @@ class EvaluatorResponseRagas(BaseModel):
     description: str
 
     type: EvaluatorResponseRagasType
+
+    output_type: EvaluatorResponseRagasOutputType
+    r"""The type of output expected from the evaluator"""
 
     ragas_metric: RagasMetric
 

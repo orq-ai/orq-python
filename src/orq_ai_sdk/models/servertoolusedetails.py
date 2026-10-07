@@ -16,6 +16,7 @@ class ServerToolUseDetailsTypedDict(TypedDict):
     search_models_requests: NotRequired[int]
     shell_commands: NotRequired[int]
     subagent_requests: NotRequired[int]
+    tool_search_requests: NotRequired[int]
     web_fetch_requests: NotRequired[int]
     web_search_requests: NotRequired[int]
 
@@ -37,6 +38,8 @@ class ServerToolUseDetails(BaseModel):
 
     subagent_requests: Optional[int] = None
 
+    tool_search_requests: Optional[int] = None
+
     web_fetch_requests: Optional[int] = None
 
     web_search_requests: Optional[int] = None
@@ -53,6 +56,7 @@ class ServerToolUseDetails(BaseModel):
                 "search_models_requests",
                 "shell_commands",
                 "subagent_requests",
+                "tool_search_requests",
                 "web_fetch_requests",
                 "web_search_requests",
             ]

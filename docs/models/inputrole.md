@@ -15,4 +15,3 @@ value: InputRole = "user"
 - `"user"`
 - `"assistant"`
 - `"system"`
-- `"developer"`

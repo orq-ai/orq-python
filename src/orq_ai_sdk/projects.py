@@ -23,13 +23,13 @@ class Projects(BaseSDK):
     ) -> models.ListProjectsResponse:
         r"""List all projects
 
-        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections.
+        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections; the two cursors are mutually exclusive.
 
         :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `project_id` of the last
-            item from the previous page.
+            item from the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `project_id` of the first
-            item from the previous page.
+            item from the previous page. Mutually exclusive with `starting_after`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -138,13 +138,13 @@ class Projects(BaseSDK):
     ) -> models.ListProjectsResponse:
         r"""List all projects
 
-        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections.
+        Returns projects visible to the current workspace, ordered by creation time with the newest project first. Use `starting_after` or `ending_before` to page through large collections; the two cursors are mutually exclusive.
 
         :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `project_id` of the last
-            item from the previous page.
+            item from the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `project_id` of the first
-            item from the previous page.
+            item from the previous page. Mutually exclusive with `starting_after`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -253,7 +253,7 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
@@ -369,7 +369,7 @@ class Projects(BaseSDK):
     ) -> models.CreateProjectResponse:
         r"""Create a new project
 
-        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Creates a project in the current workspace. Projects are workspace-level containers for resources such as skills, deployments, datasets, rules, and related team access. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param name: Project name. Names must be non-empty and at most 128 characters.
         :param teams: Team identifiers to associate with the project.
@@ -697,7 +697,7 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
@@ -804,7 +804,7 @@ class Projects(BaseSDK):
     ) -> models.DeleteProjectResponse:
         r"""Delete a project
 
-        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Deletes a project from the workspace. The response body is empty when the delete succeeds. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param project_id: Project ID to delete.
         :param retries: Override the default retry configuration for this method
@@ -914,7 +914,7 @@ class Projects(BaseSDK):
     ) -> models.UpdateProjectResponse:
         r"""Update a project
 
-        Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Updates the specified project by setting the values of the parameters passed. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.
@@ -1040,7 +1040,7 @@ class Projects(BaseSDK):
     ) -> models.UpdateProjectResponse:
         r"""Update a project
 
-        Updates the specified project by setting the values of the parameters passed. Requires a key with write access to Projects (management key or API key), or an admin session. Project-scoped API keys are rejected.
+        Updates the specified project by setting the values of the parameters passed. Requires a workspace-scoped management key or API key with Projects write access, or an admin session. Project-scoped API keys cannot be granted Projects access.
 
         :param project_id: Project ID to update.
         :param name: New project name. Omit to keep the current name.

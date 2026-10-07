@@ -51,5 +51,6 @@ value: GetAllPromptsProvider = "openai"
 - `"meta"`
 - `"greenpt"`
 - `"typesafe"`
+- `"berget"`
 - `"slack"`
 - `"orq"`

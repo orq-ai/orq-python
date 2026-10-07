@@ -7,3 +7,4 @@
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `name`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
 | `type`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `operators`        | List[*str*]        | :heavy_minus_sign: | N/A                |

@@ -39,9 +39,9 @@ class ModelCatalog(BaseSDK):
 
         :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
         :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
-            the previous page.
+            the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param provider: Filter by catalog provider key. Repeat to match any of several
             providers.
         :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
@@ -197,9 +197,9 @@ class ModelCatalog(BaseSDK):
 
         :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
         :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
-            the previous page.
+            the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param provider: Filter by catalog provider key. Repeat to match any of several
             providers.
         :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
@@ -357,9 +357,9 @@ class ModelCatalog(BaseSDK):
             `anthropic/claude-opus-4-7`).
         :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
         :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
-            the previous page.
+            the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param provider: Filter by catalog provider key. Repeat to match any of several
             providers.
         :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.
@@ -518,9 +518,9 @@ class ModelCatalog(BaseSDK):
             `anthropic/claude-opus-4-7`).
         :param limit: Page size, 1–1000. Unset returns every non-deprecated model in one response.
         :param starting_after: Cursor for forward pagination. Set to the `id` of the last item from
-            the previous page.
+            the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param provider: Filter by catalog provider key. Repeat to match any of several
             providers.
         :param endpoint: Filter by API endpoint. Repeat to match any of several endpoints.

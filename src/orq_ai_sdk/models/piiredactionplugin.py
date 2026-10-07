@@ -22,7 +22,7 @@ class PIIRedactionPluginTypedDict(TypedDict):
     id: ID
     r"""PII redaction plugin."""
     language: NotRequired[str]
-    r"""Detector language. Use \"auto\" to auto-detect; omitting the field falls back to en."""
+    r"""Detector language. Accepts \"auto\" to detect the language per request; GET /v2/pii/capabilities lists the concrete languages and does not include \"auto\". Omitting the field falls back to en."""
     regions: NotRequired[List[str]]
     r"""Region codes selecting whole regions of coverage (e.g. \"nl\", \"gb\"). Every entity type those regions cover is redacted, alongside the base catalog. [\"all\"] is exclusive, and leaving both this and entities empty also runs every region, so selecting nothing is the widest request rather than the narrowest. Combines with entities: the two selections are unioned, so entities adds types on top of the region coverage."""
     entities: NotRequired[List[str]]
@@ -40,7 +40,7 @@ class PIIRedactionPlugin(BaseModel):
     r"""PII redaction plugin."""
 
     language: Optional[str] = None
-    r"""Detector language. Use \"auto\" to auto-detect; omitting the field falls back to en."""
+    r"""Detector language. Accepts \"auto\" to detect the language per request; GET /v2/pii/capabilities lists the concrete languages and does not include \"auto\". Omitting the field falls back to en."""
 
     regions: Optional[List[str]] = None
     r"""Region codes selecting whole regions of coverage (e.g. \"nl\", \"gb\"). Every entity type those regions cover is redacted, alongside the base catalog. [\"all\"] is exclusive, and leaving both this and entities empty also runs every region, so selecting nothing is the widest request rather than the narrowest. Combines with entities: the two selections are unioned, so entities adds types on top of the region coverage."""

@@ -281,6 +281,60 @@ class UpdatePromptMessagesFunction(BaseModel):
         return m
 
 
+class UpdatePromptMessagesGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class UpdatePromptMessagesGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdatePromptMessagesExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[UpdatePromptMessagesGoogleTypedDict]
+
+
+class UpdatePromptMessagesExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[UpdatePromptMessagesGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class UpdatePromptMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -289,6 +343,8 @@ class UpdatePromptMessagesToolCallsTypedDict(TypedDict):
     function: UpdatePromptMessagesFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[UpdatePromptMessagesExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class UpdatePromptMessagesToolCalls(BaseModel):
@@ -303,9 +359,12 @@ class UpdatePromptMessagesToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[UpdatePromptMessagesExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -459,7 +518,7 @@ class UpdatePrompt24TypedDict(TypedDict):
     type: UpdatePrompt2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[UpdatePrompt2CacheControlTypedDict]
 
 
@@ -468,7 +527,7 @@ class UpdatePrompt24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[UpdatePrompt2CacheControl] = None
 
@@ -1232,7 +1291,7 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     messages: NotRequired[List[UpdatePromptMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/ai-gateway/supported-models. Only chat models are supported."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdatePromptAudioTypedDict]]
@@ -1314,7 +1373,7 @@ class UpdatePromptPromptInput(BaseModel):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
     model: OptionalNullable[str] = UNSET
-    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway/supported-models. Only chat models are supported."""
+    r"""Model ID used to generate the response, like `openai/gpt-5.6-sol` or `anthropic/claude-sonnet-5`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/ai-gateway/supported-models. Only chat models are supported."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2279,6 +2338,7 @@ UpdatePromptProvider = Literal[
     "meta",
     "greenpt",
     "typesafe",
+    "berget",
     "slack",
     "orq",
 ]
@@ -3472,6 +3532,60 @@ class UpdatePromptMessagesPromptsFunction(BaseModel):
         return m
 
 
+class UpdatePromptMessagesPromptsGoogleTypedDict(TypedDict):
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+
+class UpdatePromptMessagesPromptsGoogle(BaseModel):
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call. Takes precedence over the top-level `thought_signature` when both are set."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdatePromptMessagesPromptsExtraContentTypedDict(TypedDict):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: NotRequired[UpdatePromptMessagesPromptsGoogleTypedDict]
+
+
+class UpdatePromptMessagesPromptsExtraContent(BaseModel):
+    r"""Provider-specific extra content for the tool call."""
+
+    google: Optional[UpdatePromptMessagesPromptsGoogle] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["google"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class UpdatePromptMessagesPromptsToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
@@ -3480,6 +3594,8 @@ class UpdatePromptMessagesPromptsToolCallsTypedDict(TypedDict):
     function: UpdatePromptMessagesPromptsFunctionTypedDict
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+    extra_content: NotRequired[UpdatePromptMessagesPromptsExtraContentTypedDict]
+    r"""Provider-specific extra content for the tool call."""
 
 
 class UpdatePromptMessagesPromptsToolCalls(BaseModel):
@@ -3494,9 +3610,12 @@ class UpdatePromptMessagesPromptsToolCalls(BaseModel):
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
+    extra_content: Optional[UpdatePromptMessagesPromptsExtraContent] = None
+    r"""Provider-specific extra content for the tool call."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["thought_signature"])
+        optional_fields = set(["thought_signature", "extra_content"])
         serialized = handler(self)
         m = {}
 
@@ -3656,7 +3775,7 @@ class UpdatePrompt2Prompts4TypedDict(TypedDict):
     type: UpdatePrompt2PromptsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[UpdatePrompt2PromptsCacheControlTypedDict]
 
 
@@ -3665,7 +3784,7 @@ class UpdatePrompt2Prompts4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[UpdatePrompt2PromptsCacheControl] = None
 

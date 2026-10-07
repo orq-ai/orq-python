@@ -16,6 +16,7 @@ value: CreateRouterResponseToolsResponsesRequestType = "orq:web_search"
 - `"orq:web_fetch"`
 - `"orq:datetime"`
 - `"orq:search_models"`
+- `"orq:tool_search"`
 - `"orq:image_generation"`
 - `"orq:apply_patch"`
 - `"orq:fusion"`

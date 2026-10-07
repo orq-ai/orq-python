@@ -39,7 +39,7 @@ from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-OutputType = Literal[
+RequestBodyOutputType = Literal[
     "boolean",
     "number",
 ]
@@ -53,7 +53,7 @@ class PythonTypedDict(TypedDict):
     type: CreateEvalRequestBodyType
     key: str
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[OutputType]
+    output_type: NotRequired[RequestBodyOutputType]
     path: NotRequired[str]
     r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
     project_id: NotRequired[str]
@@ -70,7 +70,7 @@ class Python(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[OutputType] = None
+    output_type: Optional[RequestBodyOutputType] = None
 
     path: Optional[str] = None
     r"""Legacy alternative to `project_id`. Storage path whose first segment names the project that owns the evaluator. Mutually exclusive with `project_id`."""
@@ -99,7 +99,7 @@ class Python(BaseModel):
         return m
 
 
-OneOutputType = Literal[
+CreateEval1OutputType = Literal[
     "boolean",
     "categorical",
     "number",
@@ -316,7 +316,7 @@ class LLMJuryTypedDict(TypedDict):
     mode: CreateEval1Mode
     jury: OneJuryTypedDict
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[OneOutputType]
+    output_type: NotRequired[CreateEval1OutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
@@ -344,7 +344,7 @@ class LLMJury(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[OneOutputType] = None
+    output_type: Optional[CreateEval1OutputType] = None
     r"""The type of output expected from the evaluator"""
 
     repetitions: OptionalNullable[int] = UNSET
@@ -403,7 +403,7 @@ class LLMJury(BaseModel):
         return m
 
 
-CreateEval1OutputType = Literal[
+OneOutputType = Literal[
     "boolean",
     "categorical",
     "number",
@@ -452,7 +452,7 @@ class LlmTypedDict(TypedDict):
     mode: OneMode
     model: str
     guardrail_config: NotRequired[Any]
-    output_type: NotRequired[CreateEval1OutputType]
+    output_type: NotRequired[OneOutputType]
     r"""The type of output expected from the evaluator"""
     repetitions: NotRequired[Nullable[int]]
     categories: NotRequired[Nullable[List[str]]]
@@ -478,7 +478,7 @@ class Llm(BaseModel):
 
     guardrail_config: Optional[Any] = None
 
-    output_type: Optional[CreateEval1OutputType] = None
+    output_type: Optional[OneOutputType] = None
     r"""The type of output expected from the evaluator"""
 
     repetitions: OptionalNullable[int] = UNSET

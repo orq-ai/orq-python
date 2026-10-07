@@ -1,0 +1,18 @@
+# Dataset
+
+A dataset groups datapoints used for evaluation and optimization workflows.
+
+
+## Fields
+
+| Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `display_name`                                                            | *str*                                                                     | :heavy_check_mark:                                                        | Human-readable dataset name.                                              |
+| `project_id`                                                              | *str*                                                                     | :heavy_check_mark:                                                        | Project that owns the dataset.                                            |
+| `metadata`                                                                | [models.DatasetMetadata](../models/datasetmetadata.md)                    | :heavy_check_mark:                                                        | Dataset counters maintained by the API.                                   |
+| `created_by_id`                                                           | *str*                                                                     | :heavy_check_mark:                                                        | Account that created the dataset.                                         |
+| `updated_by_id`                                                           | *str*                                                                     | :heavy_check_mark:                                                        | Account that last updated the dataset.                                    |
+| `created`                                                                 | *str*                                                                     | :heavy_check_mark:                                                        | RFC3339 timestamp when the dataset was created.                           |
+| `updated`                                                                 | *str*                                                                     | :heavy_check_mark:                                                        | RFC3339 timestamp when the dataset was last updated.                      |
+| `workspace_id`                                                            | *str*                                                                     | :heavy_check_mark:                                                        | Workspace that owns the dataset, derived from the authentication context. |
+| `id`                                                                      | *str*                                                                     | :heavy_check_mark:                                                        | Unique dataset identifier.                                                |

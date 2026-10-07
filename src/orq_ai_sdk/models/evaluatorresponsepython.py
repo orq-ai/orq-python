@@ -17,11 +17,22 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 EvaluatorResponsePythonType = Literal["python_eval",]
 
 
+EvaluatorResponsePythonOutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 class EvaluatorResponsePythonTypedDict(TypedDict):
     id: str
     description: str
     code: str
     type: EvaluatorResponsePythonType
+    output_type: EvaluatorResponsePythonOutputType
+    r"""The type of output expected from the evaluator"""
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -39,6 +50,9 @@ class EvaluatorResponsePython(BaseModel):
     code: str
 
     type: EvaluatorResponsePythonType
+
+    output_type: EvaluatorResponsePythonOutputType
+    r"""The type of output expected from the evaluator"""
 
     key: str
 

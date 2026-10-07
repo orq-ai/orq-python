@@ -6,7 +6,13 @@ from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from .alertrun import AlertRun, AlertRunTypedDict
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import List, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -65,14 +71,14 @@ class AlertTypedDict(TypedDict):
     r"""User ID that created the alert."""
     updated_by_id: str
     r"""User ID that last updated the alert."""
-    last_triggered_at: NotRequired[datetime]
-    r"""Time when the alert last opened a trigger."""
+    last_triggered_at: NotRequired[Nullable[datetime]]
+    r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
     recent_runs: NotRequired[List[AlertRunTypedDict]]
     r"""Rolling window of the most recent evaluation ticks, oldest first.
     Maintained by the evaluation engine; read-only.
     """
-    display: NotRequired[AlertDisplayTypedDict]
-    r"""Display options for the alert activity chart."""
+    display: NotRequired[Nullable[AlertDisplayTypedDict]]
+    r"""Display options for the alert activity chart. `null` when none are saved."""
 
 
 class Alert(BaseModel):
@@ -124,29 +130,38 @@ class Alert(BaseModel):
     updated_by_id: str
     r"""User ID that last updated the alert."""
 
-    last_triggered_at: Optional[datetime] = None
-    r"""Time when the alert last opened a trigger."""
+    last_triggered_at: OptionalNullable[datetime] = UNSET
+    r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
 
     recent_runs: Optional[List[AlertRun]] = None
     r"""Rolling window of the most recent evaluation ticks, oldest first.
     Maintained by the evaluation engine; read-only.
     """
 
-    display: Optional[AlertDisplay] = None
-    r"""Display options for the alert activity chart."""
+    display: OptionalNullable[AlertDisplay] = UNSET
+    r"""Display options for the alert activity chart. `null` when none are saved."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["last_triggered_at", "recent_runs", "display"])
+        nullable_fields = set(["last_triggered_at", "display"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

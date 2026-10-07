@@ -62,6 +62,7 @@ RetrieveResponseServiceTier = Literal[
     "default",
     "flex",
     "fast",
+    "ultrafast",
     "scale",
     "priority",
 ]

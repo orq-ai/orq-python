@@ -25,6 +25,7 @@ class Traces(BaseSDK):
         ] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        query: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -41,6 +42,7 @@ class Traces(BaseSDK):
         :param compute:
         :param limit:
         :param filter_operator:
+        :param query: Free-text search with the same matching as SearchTracesRequest.query.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -71,6 +73,7 @@ class Traces(BaseSDK):
             ),
             limit=limit,
             filter_operator=filter_operator,
+            query=query,
         )
 
         req = self._build_request(
@@ -143,6 +146,7 @@ class Traces(BaseSDK):
         ] = None,
         limit: Optional[int] = None,
         filter_operator: Optional[str] = None,
+        query: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -159,6 +163,7 @@ class Traces(BaseSDK):
         :param compute:
         :param limit:
         :param filter_operator:
+        :param query: Free-text search with the same matching as SearchTracesRequest.query.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -189,6 +194,7 @@ class Traces(BaseSDK):
             ),
             limit=limit,
             filter_operator=filter_operator,
+            query=query,
         )
 
         req = self._build_request_async(
@@ -781,6 +787,184 @@ class Traces(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    def list_filters(
+        self,
+        *,
+        include_all: Optional[bool] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListTraceFiltersResponse:
+        r"""List trace filters
+
+        List the evaluators, human reviews and metadata keys a trace filter can address.
+
+        :param include_all: Every evaluator and human review in the workspace, not only recent ones.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesListFiltersRequest(
+            include_all=include_all,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v3/traces/filters",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="TracesListFilters",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Traces"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ListTraceFiltersResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def list_filters_async(
+        self,
+        *,
+        include_all: Optional[bool] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListTraceFiltersResponse:
+        r"""List trace filters
+
+        List the evaluators, human reviews and metadata keys a trace filter can address.
+
+        :param include_all: Every evaluator and human review in the workspace, not only recent ones.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesListFiltersRequest(
+            include_all=include_all,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v3/traces/filters",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="TracesListFilters",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Traces"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ListTraceFiltersResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def query(
         self,
         *,
@@ -796,7 +980,7 @@ class Traces(BaseSDK):
     ) -> models.QueryTracesResponse:
         r"""Query traces with OQL
 
-        Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+        Run an OQL trace query over a time range. OQL selects the traces to return.
 
         :param from_:
         :param to:
@@ -900,7 +1084,7 @@ class Traces(BaseSDK):
     ) -> models.QueryTracesResponse:
         r"""Query traces with OQL
 
-        Run an OQL trace query. OQL is validated against the trace field registry and compiled through the trace planner.
+        Run an OQL trace query over a time range. OQL selects the traces to return.
 
         :param from_:
         :param to:
@@ -1011,7 +1195,7 @@ class Traces(BaseSDK):
     ) -> models.SearchTracesResponse:
         r"""Search traces
 
-        Search trace summaries using the structured trace filter contract.
+        Search trace summaries using the structured trace filter contract. See the [filter grammar](/ai-studio/observability/traces#filter-grammar) for the field and operator reference.
 
         :param from_:
         :param to:
@@ -1130,7 +1314,7 @@ class Traces(BaseSDK):
     ) -> models.SearchTracesResponse:
         r"""Search traces
 
-        Search trace summaries using the structured trace filter contract.
+        Search trace summaries using the structured trace filter contract. See the [filter grammar](/ai-studio/observability/traces#filter-grammar) for the field and operator reference.
 
         :param from_:
         :param to:
@@ -1396,6 +1580,210 @@ class Traces(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    def get_conversation(
+        self,
+        *,
+        trace_id: str,
+        span_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetTraceConversationResponse:
+        r"""Get trace conversation
+
+        Return ordered OpenResponses items from the selected model-call span. Prefers spans with output outside evaluator subtrees unless `span_id` is given.
+
+        :param trace_id:
+        :param span_id: Read the conversation from this span instead of the automatically selected one.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesGetConversationRequest(
+            trace_id=trace_id,
+            span_id=span_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v3/traces/{trace_id}/conversation",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="TracesGetConversation",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Traces"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.GetTraceConversationResponse, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def get_conversation_async(
+        self,
+        *,
+        trace_id: str,
+        span_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetTraceConversationResponse:
+        r"""Get trace conversation
+
+        Return ordered OpenResponses items from the selected model-call span. Prefers spans with output outside evaluator subtrees unless `span_id` is given.
+
+        :param trace_id:
+        :param span_id: Read the conversation from this span instead of the automatically selected one.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.TracesGetConversationRequest(
+            trace_id=trace_id,
+            span_id=span_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v3/traces/{trace_id}/conversation",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="TracesGetConversation",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Traces"],
+                extensions={
+                    "x-code-samples": [
+                        {
+                            "label": "Node.js",
+                            "lang": "typescript",
+                            "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
+                        }
+                    ]
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.GetTraceConversationResponse, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

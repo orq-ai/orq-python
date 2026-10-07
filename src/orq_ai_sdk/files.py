@@ -27,11 +27,11 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param limit: Page size. Unset uses the server default.
+        :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
-            from the previous page.
+            from the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param project_id:
         :param purpose: Restrict results to files declared with this purpose. Accepts a purpose
             alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)
@@ -151,11 +151,11 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param limit: Page size. Unset uses the server default.
+        :param limit: Page size, 1-200. Unset uses the server default.
         :param starting_after: Cursor for forward pagination. Set to the `file_id` of the last item
-            from the previous page.
+            from the previous page. Mutually exclusive with `ending_before`.
         :param ending_before: Cursor for backward pagination. Set to the `file_id` of the first item
-            from the previous page.
+            from the previous page. Mutually exclusive with `starting_after`.
         :param project_id:
         :param purpose: Restrict results to files declared with this purpose. Accepts a purpose
             alias (`retrieval`, `knowledge_datasource`, `batch`, `code_interpreter`)

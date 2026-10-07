@@ -1,14 +1,31 @@
 # ClassifyAnswer
 
+One answer to a classification question. The type selects the answer fields. A refusal contains only type.
 
-## Fields
 
-| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `choice`                                                                                   | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | The selected option. Present for choice answers.                                           |
-| `confidence`                                                                               | *Optional[float]*                                                                          | :heavy_minus_sign:                                                                         | Probability of the selected option or level. Present for choice and score answers.         |
-| `legend`                                                                                   | Dict[str, *str*]                                                                           | :heavy_minus_sign:                                                                         | Level index to level description. Present for score answers.                               |
-| `noul`                                                                                     | *Optional[float]*                                                                          | :heavy_minus_sign:                                                                         | Probability between 0 and 1 that the statement holds. Present for noul answers.            |
-| `probabilities`                                                                            | Dict[str, *float*]                                                                         | :heavy_minus_sign:                                                                         | Probability distribution over the options or levels. Present for choice and score answers. |
-| `score`                                                                                    | *Optional[float]*                                                                          | :heavy_minus_sign:                                                                         | The selected level index. Present for score answers.                                       |
-| `type`                                                                                     | [models.ClassifyAnswerType](../models/classifyanswertype.md)                               | :heavy_check_mark:                                                                         | The question type this answer belongs to.                                                  |
+## Supported Types
+
+### `models.ClassifyChoiceAnswer`
+
+```python
+value: models.ClassifyChoiceAnswer = /* values here */
+```
+
+### `models.ClassifyNoulAnswer`
+
+```python
+value: models.ClassifyNoulAnswer = /* values here */
+```
+
+### `models.ClassifyRefusalAnswer`
+
+```python
+value: models.ClassifyRefusalAnswer = /* values here */
+```
+
+### `models.ClassifyScoreAnswer`
+
+```python
+value: models.ClassifyScoreAnswer = /* values here */
+```
+

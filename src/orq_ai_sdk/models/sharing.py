@@ -23,7 +23,7 @@ class SharingTypedDict(TypedDict):
     r"""Visible to the listed projects only."""
     allow_version_pin: NotRequired[bool]
     r"""Consuming projects may pin a specific version instead of tracking
-    latest. Enforcement lives with the consuming reference.
+    the latest version.
     """
     allow_fork: NotRequired[bool]
     r"""Projects may duplicate this entity into a detached project-owned
@@ -31,8 +31,7 @@ class SharingTypedDict(TypedDict):
     """
     auto_grant_new_projects: NotRequired[bool]
     r"""New projects created after this sharing config is applied should
-    receive access automatically. Enforcement lives with project
-    creation and entity-specific adoption code.
+    receive access automatically.
     """
 
 
@@ -49,7 +48,7 @@ class Sharing(BaseModel):
 
     allow_version_pin: Optional[bool] = None
     r"""Consuming projects may pin a specific version instead of tracking
-    latest. Enforcement lives with the consuming reference.
+    the latest version.
     """
 
     allow_fork: Optional[bool] = None
@@ -59,8 +58,7 @@ class Sharing(BaseModel):
 
     auto_grant_new_projects: Optional[bool] = None
     r"""New projects created after this sharing config is applied should
-    receive access automatically. Enforcement lives with project
-    creation and entity-specific adoption code.
+    receive access automatically.
     """
 
     @model_serializer(mode="wrap")

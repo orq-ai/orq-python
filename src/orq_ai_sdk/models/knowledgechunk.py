@@ -47,7 +47,7 @@ class KnowledgeChunkTypedDict(TypedDict):
     update_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who updated the chunk"""
     processing_attempts: NotRequired[List[ProcessingAttemptTypedDict]]
-    r"""Additive compatibility fields from the database document."""
+    r"""Processing attempts recorded for the chunk."""
     count_metadata: NotRequired[CountMetadataTypedDict]
 
 
@@ -75,7 +75,7 @@ class KnowledgeChunk(BaseModel):
     r"""The unique identifier of the user who updated the chunk"""
 
     processing_attempts: Optional[List[ProcessingAttempt]] = None
-    r"""Additive compatibility fields from the database document."""
+    r"""Processing attempts recorded for the chunk."""
 
     count_metadata: Optional[CountMetadata] = None
 

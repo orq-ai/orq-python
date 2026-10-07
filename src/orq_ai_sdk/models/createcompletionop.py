@@ -948,7 +948,7 @@ CreateCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 CreateCompletionFilterBy = TypeAliasType(
@@ -959,7 +959,7 @@ CreateCompletionFilterBy = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
 
 class CreateCompletionSearchOptionsTypedDict(TypedDict):
@@ -1006,7 +1006,7 @@ class CreateCompletionRerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#rerank-models)."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
@@ -1017,7 +1017,7 @@ class CreateCompletionRerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#rerank-models)."""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#rerank-models)."""
 
     threshold: Optional[float] = 0.0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -1046,14 +1046,14 @@ class CreateCompletionAgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateCompletionAgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/ai-gateway/supported-models#chat-models)."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/ai-gateway/supported-models#chat-models)."""
 
 
 class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
@@ -1066,7 +1066,7 @@ class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[Nullable[CreateCompletionSearchType]]
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
     search_options: NotRequired[CreateCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateCompletionRerankConfigTypedDict]
@@ -1091,7 +1091,7 @@ class CreateCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. Send `null` or omit to use the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information."""
 
     search_options: Optional[CreateCompletionSearchOptions] = None
     r"""Additional search options"""
@@ -1190,13 +1190,13 @@ class CreateCompletionLoadBalancerRouterCompletions1(BaseModel):
 CreateCompletionRouterCompletionsLoadBalancerTypedDict = (
     CreateCompletionLoadBalancerRouterCompletions1TypedDict
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateCompletionRouterCompletionsLoadBalancer = (
     CreateCompletionLoadBalancerRouterCompletions1
 )
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateCompletionRouterCompletionsTimeoutTypedDict(TypedDict):
@@ -1239,7 +1239,7 @@ class CreateCompletionOrqTypedDict(TypedDict):
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateCompletionKnowledgeBasesTypedDict]]
     load_balancer: NotRequired[CreateCompletionRouterCompletionsLoadBalancerTypedDict]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateCompletionRouterCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1290,7 +1290,7 @@ class CreateCompletionOrq(BaseModel):
     knowledge_bases: Optional[List[CreateCompletionKnowledgeBases]] = None
 
     load_balancer: Optional[CreateCompletionRouterCompletionsLoadBalancer] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateCompletionRouterCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1351,7 +1351,7 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     n: NotRequired[Nullable[int]]
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
     user: NotRequired[str]
-    r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
+    r"""A unique identifier representing your end-user, which can help monitor and detect abuse."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     fallbacks: NotRequired[List[CreateCompletionFallbacksTypedDict]]
@@ -1408,7 +1408,7 @@ class CreateCompletionRequestBody(BaseModel):
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
 
     user: Optional[str] = None
-    r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
+    r"""A unique identifier representing your end-user, which can help monitor and detect abuse."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""

@@ -38,9 +38,9 @@ class ListAgentsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination."""
     starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     type: NotRequired[QueryParamType]
     r"""Filter agents by type"""
 
@@ -56,13 +56,13 @@ class ListAgentsRequest(BaseModel):
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
 
     ending_before: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
     type: Annotated[
         Optional[QueryParamType],
@@ -130,6 +130,17 @@ class ListAgentsTeamOfAgents(BaseModel):
         return m
 
 
+class ListAgentsAgentPluginsTypedDict(TypedDict):
+    id: str
+    version: str
+
+
+class ListAgentsAgentPlugins(BaseModel):
+    id: str
+
+    version: str
+
+
 class ListAgentsMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
@@ -182,7 +193,7 @@ ListAgentsType = Literal[
     "internal",
     "a2a",
 ]
-r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
 
 ListAgentsToolApprovalRequired = Literal[
@@ -936,7 +947,7 @@ class ListAgentsCacheControl(BaseModel):
 
 
 class ListAgentsParametersTypedDict(TypedDict):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -1001,7 +1012,7 @@ class ListAgentsParametersTypedDict(TypedDict):
 
 
 class ListAgentsParameters(BaseModel):
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2008,11 +2019,11 @@ r"""Fallback model for automatic failover when primary model request fails. Supp
 
 class ListAgentsModelTypedDict(TypedDict):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[Nullable[ListAgentsParametersTypedDict]]
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
     retry: NotRequired[ListAgentsRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
@@ -2023,13 +2034,13 @@ class ListAgentsModelTypedDict(TypedDict):
 
 class ListAgentsModel(BaseModel):
     id: str
-    r"""The database ID of the primary model"""
+    r"""ID of the primary model, in provider/model-id format (for example `openai/gpt-5.6-sol`)"""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
     parameters: OptionalNullable[ListAgentsParameters] = UNSET
-    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-2, controls randomness; the selected model may impose a lower maximum), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     retry: Optional[ListAgentsRetry] = None
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
@@ -2097,6 +2108,7 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     skills: NotRequired[List[str]]
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
+    agent_plugins: NotRequired[List[ListAgentsAgentPluginsTypedDict]]
     metrics: NotRequired[ListAgentsMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
@@ -2105,7 +2117,7 @@ class ListAgentsDataTypedDict(TypedDict):
     source: NotRequired[ListAgentsSource]
     engine: NotRequired[ListAgentsEngine]
     type: NotRequired[ListAgentsType]
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[Nullable[str]]
     settings: NotRequired[ListAgentsSettingsTypedDict]
 
@@ -2157,6 +2169,8 @@ class ListAgentsData(BaseModel):
     skills: Optional[List[str]] = None
     r"""List of skills that the agent can utilize. This field allows you to specify which skills the agent has access to, enabling more complex and dynamic behavior."""
 
+    agent_plugins: Optional[List[ListAgentsAgentPlugins]] = None
+
     metrics: Optional[ListAgentsMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
@@ -2170,7 +2184,7 @@ class ListAgentsData(BaseModel):
     engine: Optional[ListAgentsEngine] = "text"
 
     type: Optional[ListAgentsType] = "internal"
-    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
+    r"""Agent type: internal (orq.ai-managed) or a2a (external A2A-compliant)"""
 
     system_prompt: OptionalNullable[str] = UNSET
 
@@ -2189,6 +2203,7 @@ class ListAgentsData(BaseModel):
                 "memory_stores",
                 "team_of_agents",
                 "skills",
+                "agent_plugins",
                 "metrics",
                 "variables",
                 "knowledge_bases",

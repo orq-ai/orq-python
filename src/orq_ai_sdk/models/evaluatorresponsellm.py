@@ -17,6 +17,15 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 EvaluatorResponseLlmType = Literal["llm_eval",]
 
 
+OutputType = Literal[
+    "boolean",
+    "categorical",
+    "number",
+    "string",
+]
+r"""The type of output expected from the evaluator"""
+
+
 class CategoricalLabelsTypedDict(TypedDict):
     value: str
     description: NotRequired[str]
@@ -222,6 +231,8 @@ class EvaluatorResponseLlmTypedDict(TypedDict):
     id: str
     description: str
     type: EvaluatorResponseLlmType
+    output_type: OutputType
+    r"""The type of output expected from the evaluator"""
     prompt: str
     key: str
     mode: Mode
@@ -245,6 +256,9 @@ class EvaluatorResponseLlm(BaseModel):
     description: str
 
     type: EvaluatorResponseLlmType
+
+    output_type: OutputType
+    r"""The type of output expected from the evaluator"""
 
     prompt: str
 

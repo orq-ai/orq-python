@@ -1,5 +1,7 @@
 # OutputType
 
+The type of output expected from the evaluator
+
 ## Example Usage
 
 ```python
@@ -11,4 +13,6 @@ value: OutputType = "boolean"
 ## Values
 
 - `"boolean"`
+- `"categorical"`
 - `"number"`
+- `"string"`

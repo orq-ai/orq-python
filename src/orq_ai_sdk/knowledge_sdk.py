@@ -29,8 +29,8 @@ class KnowledgeSDK(BaseSDK):
 
         Returns a list of your knowledge bases. The knowledge bases are returned sorted by creation date, with the most recent knowledge bases appearing first
 
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
@@ -148,8 +148,8 @@ class KnowledgeSDK(BaseSDK):
 
         Returns a list of your knowledge bases. The knowledge bases are returned sorted by creation date, with the most recent knowledge bases appearing first
 
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 25
         :param search: Filter knowledge bases by key (case-insensitive match)
         :param updated_by: Filter by the users who last updated the knowledge base. Accepts a comma-separated list of user IDs
@@ -260,7 +260,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Create a knowledge
+        r"""Create a knowledge base
 
         Creates an internal or external knowledge base. Internal knowledge bases embed and index uploaded content; external knowledge bases query the configured external retrieval API.
 
@@ -367,7 +367,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Create a knowledge
+        r"""Create a knowledge base
 
         Creates an internal or external knowledge base. Internal knowledge bases embed and index uploaded content; external knowledge bases query the configured external retrieval API.
 
@@ -471,7 +471,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Retrieves a knowledge base
+        r"""Retrieve a knowledge base
 
         Retrieve a knowledge base with the settings.
 
@@ -570,7 +570,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Retrieves a knowledge base
+        r"""Retrieve a knowledge base
 
         Retrieve a knowledge base with the settings.
 
@@ -669,7 +669,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a knowledge
+        r"""Delete a knowledge base
 
         Deletes a knowledge base. Deleting a knowledge base will delete all the datasources and chunks associated with it.
 
@@ -768,7 +768,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a knowledge
+        r"""Delete a knowledge base
 
         Deletes a knowledge base. Deleting a knowledge base will delete all the datasources and chunks associated with it.
 
@@ -871,7 +871,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Updates a knowledge
+        r"""Update a knowledge base
 
         Updates a knowledge base. Omitted optional fields retain their current values.
 
@@ -986,7 +986,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Knowledge:
-        r"""Updates a knowledge
+        r"""Update a knowledge base
 
         Updates a knowledge base. Omitted optional fields retain their current values.
 
@@ -1109,10 +1109,10 @@ class KnowledgeSDK(BaseSDK):
         Returns the datasources in a knowledge base. Use cursors to page through results and optional query or status filters to narrow the list.
 
         :param knowledge_id: Unique identifier of the knowledge base
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1227,10 +1227,10 @@ class KnowledgeSDK(BaseSDK):
         Returns the datasources in a knowledge base. Use cursors to page through results and optional query or status filters to narrow the list.
 
         :param knowledge_id: Unique identifier of the knowledge base
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 50
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1355,10 +1355,10 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id:
         :param display_name:
-        :param description: The description of the knowledge base
+        :param description: The description of the datasource
         :param file_id:
         :param chunking_options:
-        :param id: Compatibility fields used by the former datasource shell/legacy route.
+        :param id: Optional datasource ID. When omitted, the server generates one.
         :param attachment:
         :param metadata:
         :param retries: Override the default retry configuration for this method
@@ -1499,10 +1499,10 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id:
         :param display_name:
-        :param description: The description of the knowledge base
+        :param description: The description of the datasource
         :param file_id:
         :param chunking_options:
-        :param id: Compatibility fields used by the former datasource shell/legacy route.
+        :param id: Optional datasource ID. When omitted, the server generates one.
         :param attachment:
         :param metadata:
         :param retries: Override the default retry configuration for this method
@@ -2058,7 +2058,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a datasource
+        r"""Delete a datasource
 
         Deletes a datasource from a knowledge base. Deleting a datasource will remove it from the knowledge base and all associated chunks. This action is irreversible and cannot be undone.
 
@@ -2160,7 +2160,7 @@ class KnowledgeSDK(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Deletes a datasource
+        r"""Delete a datasource
 
         Deletes a datasource from a knowledge base. Deleting a datasource will remove it from the knowledge base and all associated chunks. This action is irreversible and cannot be undone.
 
@@ -2512,9 +2512,9 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
         :param status: Filter chunks by status.
         :param retries: Override the default retry configuration for this method
@@ -2634,9 +2634,9 @@ class KnowledgeSDK(BaseSDK):
 
         :param knowledge_id: The unique identifier of the knowledge base
         :param datasource_id: The unique identifier of the datasource.
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 200, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `starting_after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `ending_before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
         :param status: Filter chunks by status.
         :param retries: Override the default retry configuration for this method
@@ -4844,7 +4844,7 @@ class KnowledgeSDK(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type:
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
@@ -5011,7 +5011,7 @@ class KnowledgeSDK(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type:
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/ai-studio/ai-engineering/knowledge-bases#search-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.

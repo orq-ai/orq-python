@@ -10,9 +10,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+import pydantic
 from pydantic import model_serializer
 from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FileSystemTypedDict(TypedDict):
@@ -29,7 +30,7 @@ class FileSystemTypedDict(TypedDict):
     r"""The creation date of the file system"""
     updated: str
     r"""The last update date of the file system"""
-    id: NotRequired[str]
+    id: str
     r"""The unique identifier of the file system"""
     created_by_id: NotRequired[Nullable[str]]
     r"""The user ID of the creator"""
@@ -68,7 +69,7 @@ class FileSystem(BaseModel):
     updated: str
     r"""The last update date of the file system"""
 
-    id: Optional[str] = None
+    id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the file system"""
 
     created_by_id: OptionalNullable[str] = UNSET
@@ -95,7 +96,6 @@ class FileSystem(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
-                "id",
                 "created_by_id",
                 "updated_by_id",
                 "sharing",
@@ -133,3 +133,9 @@ class FileSystem(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FileSystem.model_rebuild()
+except NameError:
+    pass
