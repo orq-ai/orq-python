@@ -491,7 +491,7 @@ class InvokeDeploymentRequest24TypedDict(TypedDict):
     type: TwoType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[TwoCacheControlTypedDict]
 
 
@@ -500,7 +500,7 @@ class InvokeDeploymentRequest24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[TwoCacheControl] = None
 
@@ -1181,7 +1181,7 @@ class Two4TypedDict(TypedDict):
     type: InvokeDeploymentRequest2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[InvokeDeploymentRequest2CacheControlTypedDict]
 
 
@@ -1190,7 +1190,7 @@ class Two4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[InvokeDeploymentRequest2CacheControl] = None
 

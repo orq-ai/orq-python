@@ -586,7 +586,7 @@ class CreatePrompt24TypedDict(TypedDict):
     type: CreatePrompt2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[CreatePrompt2CacheControlTypedDict]
 
 
@@ -595,7 +595,7 @@ class CreatePrompt24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[CreatePrompt2CacheControl] = None
 
@@ -3677,7 +3677,7 @@ class CreatePrompt2Prompts4TypedDict(TypedDict):
     type: CreatePrompt2PromptsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[CreatePrompt2PromptsCacheControlTypedDict]
 
 
@@ -3686,7 +3686,7 @@ class CreatePrompt2Prompts4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[CreatePrompt2PromptsCacheControl] = None
 

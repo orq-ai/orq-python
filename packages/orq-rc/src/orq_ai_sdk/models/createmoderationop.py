@@ -24,7 +24,7 @@ class CreateModerationRequestBodyTypedDict(TypedDict):
 
     input: InputTypedDict
     r"""Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models."""
-    model: str
+    model: NotRequired[str]
     r"""The content moderation model you would like to use. Defaults to omni-moderation-latest"""
 
 
@@ -34,15 +34,31 @@ class CreateModerationRequestBody(BaseModel):
     input: Input
     r"""Input (or inputs) to classify. Can be a single string, an array of strings, or an array of multi-modal input objects similar to other models."""
 
-    model: str
+    model: Optional[str] = None
     r"""The content moderation model you would like to use. Defaults to omni-moderation-latest"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["model"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateModerationErrorTypedDict(TypedDict):
     message: str
     type: str
     param: Nullable[str]
-    code: str
+    code: Nullable[str]
 
 
 class CreateModerationError(BaseModel):
@@ -52,7 +68,7 @@ class CreateModerationError(BaseModel):
 
     param: Nullable[str]
 
-    code: str
+    code: Nullable[str]
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

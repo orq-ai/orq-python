@@ -500,7 +500,7 @@ class DeploymentGetConfig24TypedDict(TypedDict):
     type: DeploymentGetConfig2Type
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[DeploymentGetConfig2CacheControlTypedDict]
 
 
@@ -509,7 +509,7 @@ class DeploymentGetConfig24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[DeploymentGetConfig2CacheControl] = None
 
@@ -1215,7 +1215,7 @@ class DeploymentGetConfig2Deployments4TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsRequestType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
     cache_control: NotRequired[DeploymentGetConfig2DeploymentsCacheControlTypedDict]
 
 
@@ -1224,7 +1224,7 @@ class DeploymentGetConfig2Deployments4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+    r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     cache_control: Optional[DeploymentGetConfig2DeploymentsCacheControl] = None
 

@@ -655,9 +655,9 @@ with Orq(
 
 * [create](docs/sdks/orqcompletions/README.md#create) - Create chat completion
 
-#### [Router.Classify](docs/sdks/classify/README.md)
+#### [~~Router.Classify~~](docs/sdks/classify/README.md)
 
-* [create](docs/sdks/classify/README.md#create) - Classify
+* [~~create~~](docs/sdks/classify/README.md#create) - Classify :warning: **Deprecated**
 
 #### [Router.Completions](docs/sdks/completions/README.md)
 
@@ -1167,6 +1167,7 @@ with Orq(
 * [`UpdateAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/updateagentscheduleschedulesresponsebody.py): Invalid type, expression, or sub-hour cadence. Status code `400`. Applicable to 1 of 337 methods.*
 * [`TriggerAgentScheduleSchedulesResponseBody`](./src/orq_ai_sdk/models/triggeragentscheduleschedulesresponsebody.py): Schedule is inactive. Status code `400`. Applicable to 1 of 337 methods.*
 * [`SearchWebWebsearchResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponsebody.py): Invalid request, unusable workspace integration, or a blocking guardrail. Check the request fields and workspace integration settings. Status code `400`. Applicable to 1 of 337 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `400`. Applicable to 1 of 337 methods.*
 * [`CreateClassifyRouterClassifyResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry/fallback fields. Status code `400`. Applicable to 1 of 337 methods.*
 * [`CreateDecisionsRouterDecisionsResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponsebody.py): Malformed JSON, missing or unsupported model, or invalid retry/fallback fields. Status code `400`. Applicable to 1 of 337 methods.*
 * [`CompactResponseResponsesResponseResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponseresponsebody.py): Unauthorized. Status code `401`. Applicable to 1 of 337 methods.*
@@ -1204,7 +1205,6 @@ with Orq(
 * [`DeleteEvalEvalsResponseBody`](./src/orq_ai_sdk/models/deleteevalevalsresponsebody.py): The evaluator is still referenced as an evaluator or guardrail by one or more deployments. Status code `409`. Applicable to 1 of 337 methods.*
 * [`SearchWebWebsearchResponse415ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse415responsebody.py): Unsupported or missing Content-Type. Send application/json; an optional charset parameter is accepted. Status code `415`. Applicable to 1 of 337 methods.*
 * [`SearchWebWebsearchResponse422ResponseBody`](./src/orq_ai_sdk/models/searchwebwebsearchresponse422responsebody.py): A configured guardrail evaluator could not complete its evaluation. Status code `422`. Applicable to 1 of 337 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 337 methods.*
 * [`CreateClassifyRouterClassifyResponse422ResponseBody`](./src/orq_ai_sdk/models/createclassifyrouterclassifyresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 337 methods.*
 * [`CreateDecisionsRouterDecisionsResponse422ResponseBody`](./src/orq_ai_sdk/models/createdecisionsrouterdecisionsresponse422responsebody.py): The state or a question violates the classification contract. Status code `422`. Applicable to 1 of 337 methods.*
 * [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 337 methods.*
