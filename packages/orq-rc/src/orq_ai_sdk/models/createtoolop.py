@@ -926,7 +926,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M4DJCWM7SDPQ1RGT935SVCCT"
+        "tool_01M4DTFNZ18B9HR13SSNNPX451"
     )
 
     display_name: Optional[str] = None
@@ -1230,7 +1230,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: ResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M4DJCWM6DHSAQTNGEVM4DQ5T"
+        "tool_01M4DTFNZ0TM34STSY81SNAXAR"
     )
 
     display_name: Optional[str] = None
@@ -1424,7 +1424,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M4DJCWM6W8QS95EDR26KAZ6F"
+        "tool_01M4DTFNYZNM98PVWYA6MN2KYZ"
     )
 
     display_name: Optional[str] = None
@@ -1622,7 +1622,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: ResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M4DJCWM550S1YT18HYNYGQCT"
+        "tool_01M4DTFNYZQ7K9P1RY6MT71A9M"
     )
 
     display_name: Optional[str] = None
