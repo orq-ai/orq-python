@@ -50,6 +50,7 @@ value: GetOnePromptProvider = "openai"
 - `"reson8"`
 - `"meta"`
 - `"greenpt"`
+- `"liquid"`
 - `"typesafe"`
 - `"berget"`
 - `"slack"`
