@@ -10,7 +10,7 @@
 
 ## compact
 
-Compacts a conversation by summarizing older items to free up context window space. Returns a compaction item containing the generated summary.
+Compacts a conversation by summarizing older items to free up context window space. Returns the next context window: a compaction item containing the generated summary, followed by the most recent items verbatim.
 
 ### Example Usage
 
@@ -49,7 +49,7 @@ with Orq(
 | `input`                                                                                  | [Optional[models.CompactResponseInput]](../../models/compactresponseinput.md)            | :heavy_minus_sign:                                                                       | Input to compact: a string or an array of input items (messages, files, etc.).           |
 | `instructions`                                                                           | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | Custom instructions for the compaction summarization.                                    |
 | `model`                                                                                  | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required. |
-| `previous_response_id`                                                                   | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | The ID of a previous response to continue from.                                          |
+| `previous_response_id`                                                                   | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | The ID of a stored response whose conversation is compacted; input is appended after it. |
 | `prompt_cache_key`                                                                       | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | Key for prompt caching across requests.                                                  |
 | `retries`                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                         | :heavy_minus_sign:                                                                       | Configuration to override the default retry behavior of the client.                      |
 

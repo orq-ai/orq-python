@@ -33,12 +33,12 @@ class Responses(BaseSDK):
     ) -> models.CompactResponseResponseBody:
         r"""Compact response
 
-        Compacts a conversation by summarizing older items to free up context window space. Returns a compaction item containing the generated summary.
+        Compacts a conversation by summarizing older items to free up context window space. Returns the next context window: a compaction item containing the generated summary, followed by the most recent items verbatim.
 
         :param input: Input to compact: a string or an array of input items (messages, files, etc.).
         :param instructions: Custom instructions for the compaction summarization.
         :param model: The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required.
-        :param previous_response_id: The ID of a previous response to continue from.
+        :param previous_response_id: The ID of a stored response whose conversation is compacted; input is appended after it.
         :param prompt_cache_key: Key for prompt caching across requests.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -177,12 +177,12 @@ class Responses(BaseSDK):
     ) -> models.CompactResponseResponseBody:
         r"""Compact response
 
-        Compacts a conversation by summarizing older items to free up context window space. Returns a compaction item containing the generated summary.
+        Compacts a conversation by summarizing older items to free up context window space. Returns the next context window: a compaction item containing the generated summary, followed by the most recent items verbatim.
 
         :param input: Input to compact: a string or an array of input items (messages, files, etc.).
         :param instructions: Custom instructions for the compaction summarization.
         :param model: The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required.
-        :param previous_response_id: The ID of a previous response to continue from.
+        :param previous_response_id: The ID of a stored response whose conversation is compacted; input is appended after it.
         :param prompt_cache_key: Key for prompt caching across requests.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

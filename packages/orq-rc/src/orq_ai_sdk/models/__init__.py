@@ -6261,11 +6261,6 @@ if TYPE_CHECKING:
     from .projectupdateop import ProjectUpdateRequest, ProjectUpdateRequestTypedDict
     from .providerbudgetscope import ProviderBudgetScope, ProviderBudgetScopeTypedDict
     from .providertoolinput import ProviderToolInput, ProviderToolInputTypedDict
-    from .publiccompactionitem import (
-        PublicCompactionItem,
-        PublicCompactionItemType,
-        PublicCompactionItemTypedDict,
-    )
     from .publiccontact import PublicContact, PublicContactTypedDict
     from .publicembeddingdata import (
         PublicEmbeddingData,
@@ -14653,9 +14648,6 @@ __all__ = [
     "ProviderBudgetScopeTypedDict",
     "ProviderToolInput",
     "ProviderToolInputTypedDict",
-    "PublicCompactionItem",
-    "PublicCompactionItemType",
-    "PublicCompactionItemTypedDict",
     "PublicContact",
     "PublicContactTypedDict",
     "PublicEmbeddingData",
@@ -23096,9 +23088,6 @@ _dynamic_imports: dict[str, str] = {
     "ProviderBudgetScopeTypedDict": ".providerbudgetscope",
     "ProviderToolInput": ".providertoolinput",
     "ProviderToolInputTypedDict": ".providertoolinput",
-    "PublicCompactionItem": ".publiccompactionitem",
-    "PublicCompactionItemType": ".publiccompactionitem",
-    "PublicCompactionItemTypedDict": ".publiccompactionitem",
     "PublicContact": ".publiccontact",
     "PublicContactTypedDict": ".publiccontact",
     "PublicEmbeddingData": ".publicembeddingdata",
