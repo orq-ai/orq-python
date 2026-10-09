@@ -1997,7 +1997,7 @@ class Traces(BaseSDK):
 
         Retrieve one hydrated span.
 
-        :param trace_id:
+        :param trace_id: Optional: queue items predating trace_id capture only have the span.
         :param span_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2089,7 +2089,7 @@ class Traces(BaseSDK):
 
         Retrieve one hydrated span.
 
-        :param trace_id:
+        :param trace_id: Optional: queue items predating trace_id capture only have the span.
         :param span_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

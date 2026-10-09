@@ -8,6 +8,7 @@ from typing_extensions import Annotated, TypedDict
 
 class TracesGetSpanRequestTypedDict(TypedDict):
     trace_id: str
+    r"""Optional: queue items predating trace_id capture only have the span."""
     span_id: str
 
 
@@ -15,6 +16,7 @@ class TracesGetSpanRequest(BaseModel):
     trace_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Optional: queue items predating trace_id capture only have the span."""
 
     span_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))

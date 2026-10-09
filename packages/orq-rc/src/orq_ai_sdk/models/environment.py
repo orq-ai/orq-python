@@ -13,7 +13,7 @@ class EnvironmentTypedDict(TypedDict):
     id: str
     r"""Unique environment ID in env_<ulid> form."""
     slug: str
-    r"""Immutable workspace-unique environment slug."""
+    r"""Immutable environment slug, unique among the environments a project can see."""
     display_name: str
     r"""Workspace-unique display name."""
     description: str
@@ -34,7 +34,7 @@ class Environment(BaseModel):
     r"""Unique environment ID in env_<ulid> form."""
 
     slug: str
-    r"""Immutable workspace-unique environment slug."""
+    r"""Immutable environment slug, unique among the environments a project can see."""
 
     display_name: str
     r"""Workspace-unique display name."""
