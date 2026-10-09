@@ -8,59 +8,54 @@ from typing import Any, Dict, Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-ResponseReasoningSummaryPartDoneStreamEventType = Literal[
-    "response.reasoning_summary_part.done",
+ResponseShellCallCommandDeltaStreamEventType = Literal[
+    "response.shell_call_command.delta",
 ]
 r"""The event type. Discriminates the payload."""
 
 
-class ResponseReasoningSummaryPartDoneStreamEventTypedDict(TypedDict):
-    r"""A `response.reasoning_summary_part.done` server-sent event."""
+class ResponseShellCallCommandDeltaStreamEventTypedDict(TypedDict):
+    r"""A `response.shell_call_command.delta` server-sent event."""
 
-    item_id: str
-    r"""ID of the output item this event refers to."""
+    command_index: int
+    r"""Index of the shell command."""
+    delta: str
+    r"""Incremental text or argument chunk."""
     output_index: int
     r"""Index of the output item in the response output array."""
-    part: Dict[str, Any]
-    r"""The reasoning summary part."""
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
-    summary_index: int
-    r"""Index of the reasoning summary part."""
-    type: ResponseReasoningSummaryPartDoneStreamEventType
+    type: ResponseShellCallCommandDeltaStreamEventType
     r"""The event type. Discriminates the payload."""
-    status: NotRequired[str]
-    r"""The completed summary part status, when supplied."""
+    obfuscation: NotRequired[str]
+    r"""Obfuscation padding accompanying the delta, when present."""
 
 
-class ResponseReasoningSummaryPartDoneStreamEvent(BaseModel):
-    r"""A `response.reasoning_summary_part.done` server-sent event."""
+class ResponseShellCallCommandDeltaStreamEvent(BaseModel):
+    r"""A `response.shell_call_command.delta` server-sent event."""
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    item_id: str
-    r"""ID of the output item this event refers to."""
+    command_index: int
+    r"""Index of the shell command."""
+
+    delta: str
+    r"""Incremental text or argument chunk."""
 
     output_index: int
     r"""Index of the output item in the response output array."""
 
-    part: Dict[str, Any]
-    r"""The reasoning summary part."""
-
     sequence_number: int
     r"""Monotonically increasing sequence number for ordering events."""
 
-    summary_index: int
-    r"""Index of the reasoning summary part."""
-
-    type: ResponseReasoningSummaryPartDoneStreamEventType
+    type: ResponseShellCallCommandDeltaStreamEventType
     r"""The event type. Discriminates the payload."""
 
-    status: Optional[str] = None
-    r"""The completed summary part status, when supplied."""
+    obfuscation: Optional[str] = None
+    r"""Obfuscation padding accompanying the delta, when present."""
 
     @property
     def additional_properties(self):
@@ -72,7 +67,7 @@ class ResponseReasoningSummaryPartDoneStreamEvent(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["status"])
+        optional_fields = set(["obfuscation"])
         serialized = handler(self)
         m = {}
 

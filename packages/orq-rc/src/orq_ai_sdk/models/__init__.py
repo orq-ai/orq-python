@@ -6705,6 +6705,31 @@ if TYPE_CHECKING:
         ResponseRefusalDoneStreamEventTypedDict,
     )
     from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
+    from .responseshellcallcommandaddedstreamevent import (
+        ResponseShellCallCommandAddedStreamEvent,
+        ResponseShellCallCommandAddedStreamEventType,
+        ResponseShellCallCommandAddedStreamEventTypedDict,
+    )
+    from .responseshellcallcommanddeltastreamevent import (
+        ResponseShellCallCommandDeltaStreamEvent,
+        ResponseShellCallCommandDeltaStreamEventType,
+        ResponseShellCallCommandDeltaStreamEventTypedDict,
+    )
+    from .responseshellcallcommanddonestreamevent import (
+        ResponseShellCallCommandDoneStreamEvent,
+        ResponseShellCallCommandDoneStreamEventType,
+        ResponseShellCallCommandDoneStreamEventTypedDict,
+    )
+    from .responseshellcalloutputcontentdeltastreamevent import (
+        ResponseShellCallOutputContentDeltaStreamEvent,
+        ResponseShellCallOutputContentDeltaStreamEventType,
+        ResponseShellCallOutputContentDeltaStreamEventTypedDict,
+    )
+    from .responseshellcalloutputcontentdonestreamevent import (
+        ResponseShellCallOutputContentDoneStreamEvent,
+        ResponseShellCallOutputContentDoneStreamEventType,
+        ResponseShellCallOutputContentDoneStreamEventTypedDict,
+    )
     from .responsestartedevent import (
         Data,
         DataTypedDict,
@@ -15106,6 +15131,21 @@ __all__ = [
     "ResponseRefusalDoneStreamEventTypedDict",
     "ResponseRetryConfig",
     "ResponseRetryConfigTypedDict",
+    "ResponseShellCallCommandAddedStreamEvent",
+    "ResponseShellCallCommandAddedStreamEventType",
+    "ResponseShellCallCommandAddedStreamEventTypedDict",
+    "ResponseShellCallCommandDeltaStreamEvent",
+    "ResponseShellCallCommandDeltaStreamEventType",
+    "ResponseShellCallCommandDeltaStreamEventTypedDict",
+    "ResponseShellCallCommandDoneStreamEvent",
+    "ResponseShellCallCommandDoneStreamEventType",
+    "ResponseShellCallCommandDoneStreamEventTypedDict",
+    "ResponseShellCallOutputContentDeltaStreamEvent",
+    "ResponseShellCallOutputContentDeltaStreamEventType",
+    "ResponseShellCallOutputContentDeltaStreamEventTypedDict",
+    "ResponseShellCallOutputContentDoneStreamEvent",
+    "ResponseShellCallOutputContentDoneStreamEventType",
+    "ResponseShellCallOutputContentDoneStreamEventTypedDict",
     "ResponseStartedEvent",
     "ResponseStartedEventType",
     "ResponseStartedEventTypedDict",
@@ -23396,6 +23436,21 @@ _dynamic_imports: dict[str, str] = {
     "ResponseRefusalDoneStreamEventTypedDict": ".responserefusaldonestreamevent",
     "ResponseRetryConfig": ".responseretryconfig",
     "ResponseRetryConfigTypedDict": ".responseretryconfig",
+    "ResponseShellCallCommandAddedStreamEvent": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandAddedStreamEventType": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandAddedStreamEventTypedDict": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandDeltaStreamEvent": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDeltaStreamEventType": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDeltaStreamEventTypedDict": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDoneStreamEvent": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallCommandDoneStreamEventType": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallCommandDoneStreamEventTypedDict": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEvent": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEventType": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEventTypedDict": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDoneStreamEvent": ".responseshellcalloutputcontentdonestreamevent",
+    "ResponseShellCallOutputContentDoneStreamEventType": ".responseshellcalloutputcontentdonestreamevent",
+    "ResponseShellCallOutputContentDoneStreamEventTypedDict": ".responseshellcalloutputcontentdonestreamevent",
     "Data": ".responsestartedevent",
     "DataTypedDict": ".responsestartedevent",
     "ResponseStartedEvent": ".responsestartedevent",

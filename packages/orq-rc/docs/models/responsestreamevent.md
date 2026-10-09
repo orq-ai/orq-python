@@ -293,6 +293,36 @@ value: models.ResponseRefusalDeltaStreamEvent = /* values here */
 value: models.ResponseRefusalDoneStreamEvent = /* values here */
 ```
 
+### `models.ResponseShellCallCommandAddedStreamEvent`
+
+```python
+value: models.ResponseShellCallCommandAddedStreamEvent = /* values here */
+```
+
+### `models.ResponseShellCallCommandDeltaStreamEvent`
+
+```python
+value: models.ResponseShellCallCommandDeltaStreamEvent = /* values here */
+```
+
+### `models.ResponseShellCallCommandDoneStreamEvent`
+
+```python
+value: models.ResponseShellCallCommandDoneStreamEvent = /* values here */
+```
+
+### `models.ResponseShellCallOutputContentDeltaStreamEvent`
+
+```python
+value: models.ResponseShellCallOutputContentDeltaStreamEvent = /* values here */
+```
+
+### `models.ResponseShellCallOutputContentDoneStreamEvent`
+
+```python
+value: models.ResponseShellCallOutputContentDoneStreamEvent = /* values here */
+```
+
 ### `models.ResponseWebSearchCallCompletedStreamEvent`
 
 ```python
