@@ -1,20 +1,20 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: b9691cf2e3c19ab42cb320cbf3a775ee
+  docChecksum: add7c818f58ff99b7e73d30c8607160e
   docVersion: "2.0"
   speakeasyVersion: 1.801.0
   generationVersion: 2.946.0
-  releaseVersion: 4.17.0-rc.7
-  configChecksum: 2a33842a2f12ac441e126cedbf98e264
+  releaseVersion: 4.17.0-rc.8
+  configChecksum: ae3ecde387409d978c70511bb71a8141
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
   published: true
 persistentEdits:
-  generation_id: 562f49fd-0d92-4740-8e0f-6bd6045438d2
-  pristine_commit_hash: 306736559061077d2803d21b6171a6df3cb915b0
-  pristine_tree_hash: c5af3cd20f2c28d716902f66f9614db5a298bd55
+  generation_id: 12523d4b-e6eb-43fd-9cdc-1702face07dc
+  pristine_commit_hash: 0904714ebfb915933914d54914cd710f0ae44804
+  pristine_tree_hash: 1083d0213b83f28c040f9db42444454d74fd35c1
 features:
   python:
     acceptHeaders: 3.0.0
@@ -1125,6 +1125,10 @@ trackedFiles:
     id: ee12fb6350f1
     last_write_checksum: sha1:de6a5739a77b82cc14d8b9a8194ea51aa0293421
     pristine_git_object: 99bd85d6eb4daccd2361ddf6b521dc010479810e
+  docs/models/classifytimeoutconfig.md:
+    id: 0926968b200c
+    last_write_checksum: sha1:b183b8de3a903c5c40c2659d78bd53fb1f32f4f0
+    pristine_git_object: f5d4a4924aaf7da341cd8c08cd5667d546288cda
   docs/models/classifyusage.md:
     id: fac412e3cf7f
     last_write_checksum: sha1:bc1ec91c78b48dc1713af24cec680608e44c2876
@@ -2543,8 +2547,8 @@ trackedFiles:
     pristine_git_object: f4672dca277d3dcdbe83d83624ac60f9abf45674
   docs/models/createclassifyrequestbody.md:
     id: be31ec664d8e
-    last_write_checksum: sha1:60354e2bcc6fd14a4e054f3d4a5fe74382ec1df1
-    pristine_git_object: 5c17c912cb4e45729471d5d151e125a80370e17a
+    last_write_checksum: sha1:d6ec76e4b2a8d19801245ac4d118948fe96ec44c
+    pristine_git_object: 2bf93d6838df0aa0e9f8dcfccd9e1ca88dca5a48
   docs/models/createclassifyresponsebody.md:
     id: 750e44b0ec8c
     last_write_checksum: sha1:4dc3b24694ba1c6aaef160f7636cf3d5d6999960
@@ -2553,6 +2557,10 @@ trackedFiles:
     id: c4c18b0a3650
     last_write_checksum: sha1:359550b7d5b66106f1280db0c2b146d841b30660
     pristine_git_object: 2d38b933a3863aa62b204f8a41cafbfdc7bdbb98
+  docs/models/createclassifyrouterclassifyresponse408responsebody.md:
+    id: 4d4f02482138
+    last_write_checksum: sha1:868ce7795ed7dd18c8537b1c3f6d6730d0c1d7b8
+    pristine_git_object: b6aa73f34753bf7cc6fbaac7c8b04262f7f5ffc9
   docs/models/createclassifyrouterclassifyresponse422responsebody.md:
     id: 6ed5f9edcf1f
     last_write_checksum: sha1:f97db8fd2529b7f28ee87a03b2841a55f6eb745f
@@ -2571,8 +2579,8 @@ trackedFiles:
     pristine_git_object: c851b5b8fc404e132f63a95b3cf47ce675a3dda2
   docs/models/createclassifyrouterclassifyresponsebody.md:
     id: fceead6e01c1
-    last_write_checksum: sha1:0e4660b35e23a2c3414d3dfccfed1faad17a9d63
-    pristine_git_object: 52b7f4cfab03623848141b89999842e71fd2b92c
+    last_write_checksum: sha1:c029e13311ca7ee18ecf4d1993a884d6edbeab6c
+    pristine_git_object: bf848c0e0aa5eaa2b64cc3a0274ef2e3f76aff21
   docs/models/createclassifyrouterclassifyresponseresponsebody.md:
     id: 61933fe168e5
     last_write_checksum: sha1:43650fe4c2600e28806e09d5deb97c6b89cef296
@@ -2979,8 +2987,8 @@ trackedFiles:
     pristine_git_object: 240d9cbc29df0c3021387f154ebf7cb7ed99ce17
   docs/models/createdecisionsrequestbody.md:
     id: e2956585f98b
-    last_write_checksum: sha1:3494a1c29e467aa4af0a78099282621f48b7958a
-    pristine_git_object: 48cc3cfa0e417a17c81c0a7401f2dd0807369d56
+    last_write_checksum: sha1:f764cc97b186d613802b724c984a048c8181d412
+    pristine_git_object: 96d8d569e349e50434b3e3cf5dd0a4cecf5cec70
   docs/models/createdecisionsresponsebody.md:
     id: 5be7c9c066ad
     last_write_checksum: sha1:c52e1a8091feb2198aa6e233f49ae2590599fc74
@@ -2989,6 +2997,10 @@ trackedFiles:
     id: e26895554940
     last_write_checksum: sha1:88eb8bafc1f132659343660b2198d50853ebcb3d
     pristine_git_object: 4a4a0aec6bb0bb65237e1c6aba4fce2311a19aaf
+  docs/models/createdecisionsrouterdecisionsresponse408responsebody.md:
+    id: 2c95491c8ee7
+    last_write_checksum: sha1:c7ab2f0ca5e1815a6fad8ae3c1a3290e6f7be53f
+    pristine_git_object: 6546ec2c35f20ef3ffabc6e3019ea320ad5f1ee2
   docs/models/createdecisionsrouterdecisionsresponse422responsebody.md:
     id: 3471904a01fb
     last_write_checksum: sha1:284de1245935270f36b214a614d1b089284cef9e
@@ -3007,8 +3019,8 @@ trackedFiles:
     pristine_git_object: 78a3ddd2fb76986bfe32b7508905666a90d490a3
   docs/models/createdecisionsrouterdecisionsresponsebody.md:
     id: 4c093af3045b
-    last_write_checksum: sha1:1bffe9c72bbaf719998436f213f3654a46a21453
-    pristine_git_object: e97cbf7ef74b82d71f1c5561dbbc45f192f2cbad
+    last_write_checksum: sha1:04b0220be5dc27eba614357228d4f62756a43581
+    pristine_git_object: d9d586d1c1f5937ade1c0193879da873c8f71b44
   docs/models/createdecisionsrouterdecisionsresponseresponsebody.md:
     id: f9c70290c57e
     last_write_checksum: sha1:197adf6c545f9225d98d460e56a5d0a83f6c0bb3
@@ -19539,8 +19551,8 @@ trackedFiles:
     pristine_git_object: 8205c0df09ff2f88b46e31d04d0a8eee00363f03
   docs/sdks/classify/README.md:
     id: 7c7df6e9ebe2
-    last_write_checksum: sha1:7039de680928c65188ed633af653750f8b229888
-    pristine_git_object: 49a9104212709654ba2e117e6bba1f8de40725cc
+    last_write_checksum: sha1:7a578d06604e4ae90a2beea5b57b4790c4de366a
+    pristine_git_object: 4e4a3844c9df993b327eb196f96b3e22702843d0
   docs/sdks/completions/README.md:
     id: bfc4f87accdb
     last_write_checksum: sha1:542b40a6289afac79ade196279af1fa24bcd693d
@@ -19551,8 +19563,8 @@ trackedFiles:
     pristine_git_object: 54d5fa71971851b7116480356a76bd87bf67c929
   docs/sdks/decisions/README.md:
     id: ff338046c642
-    last_write_checksum: sha1:8ebd93f3233cf04421c09a3739e441087cc7f3c8
-    pristine_git_object: 909a8fd2e899a1146aaddc2fc1e71de4ebf19089
+    last_write_checksum: sha1:eb3f2ba6e88e85a015630b98c907baab93cd31d2
+    pristine_git_object: a789fd9b5c35344e8de0e9df1227bc1842af5935
   docs/sdks/deployments/README.md:
     id: e7c5559ab768
     last_write_checksum: sha1:cd6320cbd110a37f0d77eeecaf15524891d17c12
@@ -19775,8 +19787,8 @@ trackedFiles:
     pristine_git_object: cf16da66ef5154cb91d94962261cd12bd937cef8
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:fac61b242b3f1eb4f301e7abddbab1e917871b37
-    pristine_git_object: dc392f81a763f07f6e9ca07de73fcd00ee409bec
+    last_write_checksum: sha1:6577ba161d852cee3a6ffaf568883b82c357b5a7
+    pristine_git_object: 66ab514b696689384da752ad3d885675d2f2125e
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:30f41b7d73fd74c428cb4ad396f9aa5c05bc3834
@@ -19803,8 +19815,8 @@ trackedFiles:
     pristine_git_object: 49cd4b6f26e476b46eeaa59590a4a7a90a831143
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:8b3a0cc29ddc2513db4f453dbe635084cf03ebc4
-    pristine_git_object: f3070f56f13438cca813a686572ad9747b16d127
+    last_write_checksum: sha1:5106482253a30a16ebc3538e3a26600c1009473e
+    pristine_git_object: bac5ed6d316f654ed11c52ebc2b28334ff56054c
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
     last_write_checksum: sha1:8a0f9314d73f251a5bb98e328e80e2df0107bd61
@@ -19847,8 +19859,8 @@ trackedFiles:
     pristine_git_object: 85973cb9998e0bdf8d2438f487cf606d0089371d
   src/orq_ai_sdk/classify.py:
     id: db5175c6eaae
-    last_write_checksum: sha1:89cf9ff23c37a6264dbac443128c57e376b41da2
-    pristine_git_object: 37c1c5cdd7ca67417864bc0c0541a96b04ea4596
+    last_write_checksum: sha1:6f71a6b329318ef3071cb60faa7d2f0d69394aaa
+    pristine_git_object: 9b144515072ee14a45aecf7bb461986c5445bd8d
   src/orq_ai_sdk/completions.py:
     id: b5bea148ca6b
     last_write_checksum: sha1:25edbad2c1f5e3d7f645688f3cfb4eee08df29db
@@ -19859,8 +19871,8 @@ trackedFiles:
     pristine_git_object: 43a28e8a700694a2bb20270bfe6103b41210ac1d
   src/orq_ai_sdk/decisions.py:
     id: f9d0b9214cdf
-    last_write_checksum: sha1:782f8655f91110a2f46b66b755f5f5d960cbbe78
-    pristine_git_object: 88db51c579baa9d389a3a1fe3d9dab15e60606ee
+    last_write_checksum: sha1:3eece1c73f5a29b8fe8e4253a2b8b13725a574a7
+    pristine_git_object: a41f570b7e29e48aa12acf592ea1992aad0850d1
   src/orq_ai_sdk/deployments.py:
     id: 0a45cd45a63c
     last_write_checksum: sha1:ca577cca9c580c4672e638ef343aa69696c76ba1
@@ -19955,8 +19967,8 @@ trackedFiles:
     pristine_git_object: d990e11e30b27bf01bb5582161dc316111c2aa00
   src/orq_ai_sdk/models/__init__.py:
     id: ee0a74817059
-    last_write_checksum: sha1:715bd71fc721e2bfa59e090f23af81901bcad632
-    pristine_git_object: d3b28d2b979afcc8dee67041dee66074ea50203f
+    last_write_checksum: sha1:952d374922d6d89de94e7986be0a52d5485998a8
+    pristine_git_object: 3630d491888fc796f3a8d6321d9ddada96f4d459
   src/orq_ai_sdk/models/accesslevel.py:
     id: 81812a8d9140
     last_write_checksum: sha1:228fe4491e1cb3829a56f464689d762efc2cf342
@@ -20393,6 +20405,10 @@ trackedFiles:
     id: f07d622bad35
     last_write_checksum: sha1:3b7dcc1e50af14796ffe96676897a2fe66529616
     pristine_git_object: e753617f149d1355e1cc3eb4dfa616e24740be8f
+  src/orq_ai_sdk/models/classifytimeoutconfig.py:
+    id: 9360590f69c8
+    last_write_checksum: sha1:57d25bd60d90cb4d7d01485a0c864f356a87a67f
+    pristine_git_object: e9ecdea61c4d92ff90196fb733236aee18ab2456
   src/orq_ai_sdk/models/classifyusage.py:
     id: 59edef361698
     last_write_checksum: sha1:3a1352a00675ddd867f08e739adf2a03d4c2846c
@@ -20487,8 +20503,8 @@ trackedFiles:
     pristine_git_object: 499f142260e548ff3aa3cff527a5da4d558ec758
   src/orq_ai_sdk/models/createclassifyop.py:
     id: ac4b2a047de6
-    last_write_checksum: sha1:edff1ef84a98686ad069239e72956560cf7b4521
-    pristine_git_object: 6d9c988d01bd4c946033e9d4abe61a82f25b8138
+    last_write_checksum: sha1:6d27d6a9edaf9e3dbfa75a11f689796ca095e1dc
+    pristine_git_object: b4cccd3cf8a7d685975d8530a6bb672c82385d26
   src/orq_ai_sdk/models/createcompletionop.py:
     id: c7b339edb06c
     last_write_checksum: sha1:e7b224b38023457cbd7a3f89d23340e616c5b1d1
@@ -20507,8 +20523,8 @@ trackedFiles:
     pristine_git_object: e61871d900a51f6aadf663fc3a88fb4ca30d4dd7
   src/orq_ai_sdk/models/createdecisionsop.py:
     id: 359a482eda0c
-    last_write_checksum: sha1:8f48fbf997f68e8d82fa9c0fbb7f6f36c0ecc6c6
-    pristine_git_object: d21e77af3363fb79812c0bdbdc263a04a7314424
+    last_write_checksum: sha1:fa7261f25beb8097f058b98680fad733ffd29bf5
+    pristine_git_object: a99ee16ba534bc687b6f9d7ac558eceef5767f01
   src/orq_ai_sdk/models/createdomainrequest.py:
     id: 398ba006a0f7
     last_write_checksum: sha1:8888f8b1fa97c1ef7a70eb718aaf4959877d983b
@@ -20703,8 +20719,8 @@ trackedFiles:
     pristine_git_object: 2bdf8006be5e182c8f59802a59a94fb92003c01a
   src/orq_ai_sdk/models/createtoolop.py:
     id: c86dfe2f6afb
-    last_write_checksum: sha1:122f07e561b75eb19e6a58261a2a60973fd63af5
-    pristine_git_object: 4e3da892285d90cff8f8cd6de707de356c3c9918
+    last_write_checksum: sha1:0dc0a08856831f52fbd0d94139f2d0dd40abd1b4
+    pristine_git_object: 82a4bf3522ecaa12dd9a40fbade9d0ce297db24e
   src/orq_ai_sdk/models/createtranscriptionop.py:
     id: 493418b3b79f
     last_write_checksum: sha1:40abe6dbd89582a783039857c98b17b17741a431
@@ -21239,12 +21255,12 @@ trackedFiles:
     pristine_git_object: 6775d282ea3a051e0beb28be696d596dc6561510
   src/orq_ai_sdk/models/get_v2_human_eval_sets_id_op.py:
     id: a18a48c53bb9
-    last_write_checksum: sha1:eee34231265e85a32b221795fe6d280a0074dfdb
-    pristine_git_object: 8eb6703cf15f51b748bd556c2c5c67c720b68354
+    last_write_checksum: sha1:de50346dab2053f6f830633e44ddb909d8d14e67
+    pristine_git_object: e531422fb14c9b83d3c929dc60b4dd3c1ea13701
   src/orq_ai_sdk/models/get_v2_human_eval_setsop.py:
     id: 6f3364de5cbe
-    last_write_checksum: sha1:f51b9d99de6ab9e036108aaa684412a2b84618c2
-    pristine_git_object: 51170c6d80b6c0d1c8eddcf46f2584fd7a0da39f
+    last_write_checksum: sha1:2aee9ea081fe27a95fce6a5cb76483ef3ecbeb76
+    pristine_git_object: 520ffef4d79ed705958e42cf9f566b62a563b46c
   src/orq_ai_sdk/models/get_v2_tools_tool_id_versions_version_id_op.py:
     id: 831be13a915d
     last_write_checksum: sha1:b700a0deccb4b65057ba05692766ac393bfc10b6
@@ -21283,8 +21299,8 @@ trackedFiles:
     pristine_git_object: 3c5712eb72ab88f42a4d62b8d394f0bbf468505d
   src/orq_ai_sdk/models/getalltoolsop.py:
     id: 3beb36083a1b
-    last_write_checksum: sha1:997134227179ecc618f929284d3cb5a19fc8ae27
-    pristine_git_object: 892ff274556c45b2b72a4f048439b520b83648ca
+    last_write_checksum: sha1:dbb7cb53f8871e9e806700150033b12287676e74
+    pristine_git_object: 217fcd63c5638c0eed6968a34f4326a41a3bafe4
   src/orq_ai_sdk/models/getbudgetresponse.py:
     id: d4ae40e01474
     last_write_checksum: sha1:ea5c923046c8f1fc33db01d0c9be0eb221349e83
@@ -22411,8 +22427,8 @@ trackedFiles:
     pristine_git_object: dcc46fed8aae9b275ec87758748cd2fea809efea
   src/orq_ai_sdk/models/patch_v2_human_eval_sets_id_op.py:
     id: ee26707518f9
-    last_write_checksum: sha1:5815472f864b54b679bf1e1cf32e78f111f813cb
-    pristine_git_object: cd0762021c9dc8d340c7a1823fc5bedc73e1b98c
+    last_write_checksum: sha1:90ae6efdc23f94216ea0d90b090a0857215469f7
+    pristine_git_object: 41b3b7876629d14b27f9229b39e05a69f225a1bb
   src/orq_ai_sdk/models/piiredaction.py:
     id: 722facb0703f
     last_write_checksum: sha1:230213ff7f4ae70346055cc3ea5e9b35522ba9c8
@@ -22459,8 +22475,8 @@ trackedFiles:
     pristine_git_object: 2661de4e06de6cc389a48ae0e7e505a5ef879af5
   src/orq_ai_sdk/models/post_v2_feedback_evaluationop.py:
     id: 2942459cde6c
-    last_write_checksum: sha1:b056430644b23e1998ad5160791584862d71347a
-    pristine_git_object: 8c1399822c8efe62622a2735fecfef629faeb17a
+    last_write_checksum: sha1:558a36465d593bfc3ad214b82f03f5032af8474a
+    pristine_git_object: a53835cadd0e05094e68379e3b098a79c0058afd
   src/orq_ai_sdk/models/post_v2_feedback_removeop.py:
     id: fa99b9185c28
     last_write_checksum: sha1:59324503030ecfd3ac95ad4da80f40eb5e9e3d5d
@@ -22471,8 +22487,8 @@ trackedFiles:
     pristine_git_object: e436f93fc47710cd131a4cbc6f00e04b0219c04a
   src/orq_ai_sdk/models/post_v2_human_eval_setsop.py:
     id: 62d9f62e9d4d
-    last_write_checksum: sha1:af7be6a89ef516861746b35c7141524644dabe4c
-    pristine_git_object: 7aeb5e3a56f90950547197f4067a6af4c4fb4e9a
+    last_write_checksum: sha1:0e040988b2cf793693fc78737aea656c84f82e09
+    pristine_git_object: 26ecc8771feeea18cd7d970eb974fa67d9086ef5
   src/orq_ai_sdk/models/post_v2_router_ocrop.py:
     id: 8dce9efed110
     last_write_checksum: sha1:1ceb115e35662faaf0e7f0cbc088aea8375e3c33
@@ -22667,8 +22683,8 @@ trackedFiles:
     pristine_git_object: 5c4574d301394e3a82fdeb14389a350d64664cb0
   src/orq_ai_sdk/models/reasoningpart.py:
     id: d26c94bac9d8
-    last_write_checksum: sha1:60de9ee59b25ad11be7bbfeb3b2cfbfd0c95012c
-    pristine_git_object: 8e376d437370bb5cfff7c2136bd01c54063e3996
+    last_write_checksum: sha1:bc16b85c304d0fb620d8ae036d9d68143e2e8764
+    pristine_git_object: ecfd8be0dccf3cf4b132fe33772ab885a90b9a58
   src/orq_ai_sdk/models/reasoningpartschema.py:
     id: f17894686338
     last_write_checksum: sha1:8868765590fad28a390b581ef46af3bd35959149
@@ -23095,8 +23111,8 @@ trackedFiles:
     pristine_git_object: c0d6105ac08f48a7a170ea06ab32921155cbe5d3
   src/orq_ai_sdk/models/retrievetoolop.py:
     id: d297b1989cab
-    last_write_checksum: sha1:31aeb5cfa2d69a62d9b353d2a6facf2f05417138
-    pristine_git_object: 8c1eeaaa0266f5f69a1f12a52ad8968d7ab37edd
+    last_write_checksum: sha1:790f50ea63dd5091b2a2540946f48c5a864a8879
+    pristine_git_object: e9c81fb4c2e0f27b1d1d2c1c9814f67e48393a15
   src/orq_ai_sdk/models/reviewoutcome.py:
     id: f0c99a404b06
     last_write_checksum: sha1:3d1f8415a9712cf19803c7ea5c602a6eb6f94dc1
@@ -23147,8 +23163,8 @@ trackedFiles:
     pristine_git_object: 917a3d925c6b6787567ef68f0f434e524f5a8621
   src/orq_ai_sdk/models/runagentop.py:
     id: f40d45b6bd36
-    last_write_checksum: sha1:8b4883803ed7bb8f5f8f80c45c885b4fcd2b928e
-    pristine_git_object: 9de77ab1e75233be8b93e37df77d3875c403c2bb
+    last_write_checksum: sha1:252b912956812a89afe6ce006874c06f0492afc1
+    pristine_git_object: 3bc3d2b4611f8b9f3a912041a1f971c1107aecdc
   src/orq_ai_sdk/models/search_webop.py:
     id: 26418fbd858a
     last_write_checksum: sha1:a0a1036da2556a7f97f1d8a0fadd36e803f89bdb
@@ -23331,8 +23347,8 @@ trackedFiles:
     pristine_git_object: c79320a97f223bf87fccbc5269d865ccc430037e
   src/orq_ai_sdk/models/streamrunagentop.py:
     id: 1c0108f5e738
-    last_write_checksum: sha1:b5678ec3cbbe1324a0310be1e338e05a5c9ea824
-    pristine_git_object: f568cfa3541f596f27f68b7dbdf9312e54dd7cbf
+    last_write_checksum: sha1:228aa0beeff3b4ca44fe234bac4fd568c29c66c3
+    pristine_git_object: 5f91bbd1a237fa08d6a1078b09b59fb9252513bf
   src/orq_ai_sdk/models/structuredinput.py:
     id: ab3008de70c6
     last_write_checksum: sha1:909b8e7a35e8c3a99028394d86074f82bcf4ae74
@@ -23827,8 +23843,8 @@ trackedFiles:
     pristine_git_object: b8a3ff1607bc9bd1e2604151f0dd144d8099bba4
   src/orq_ai_sdk/models/updatetoolop.py:
     id: 783fd367d349
-    last_write_checksum: sha1:a0464ac74b29459bb2978740cd6a045b4e29b5cf
-    pristine_git_object: 8d78f9e559e7f4522bac3d51f619f1e2c9b4034d
+    last_write_checksum: sha1:ed761abca6f3341ea81e3887356c2c819e3c2e36
+    pristine_git_object: 7d0964d05362828a2fd80c8fd15dc39bce3d83aa
   src/orq_ai_sdk/models/updateviewrequest.py:
     id: 2a817042681a
     last_write_checksum: sha1:556776cf8ccd40f289afa6f34dd5e0de8852eb6b
@@ -28079,6 +28095,8 @@ examples:
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     speakeasy-default-create-classify:
       requestBody:
         application/json: {"model": "LeBaron", "questions": {}, "state": {}}
@@ -28093,7 +28111,7 @@ examples:
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     fallback_retry_identity:
       requestBody:
-        application/json: {"fallbacks": [{"model": "openai/gpt-5.6-luna"}], "identity": {"display_name": "Sample customer", "id": "customer-demo"}, "model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "retry": {"count": 2, "on_codes": [429, 502, 503, 504]}, "state": "The customer says: I love this product. It is wonderful!"}
+        application/json: {"fallbacks": [{"model": "openai/gpt-5.6-luna"}], "identity": {"display_name": "Sample customer", "id": "customer-demo"}, "model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "retry": {"count": 2, "on_codes": [429, 502, 503, 504]}, "state": "The customer says: I love this product. It is wonderful!", "timeout": {"call_timeout": 2000}}
       responses:
         "200":
           application/json: {"answers": {}, "model": "Jetta", "usage": {"input_tokens": 225719, "output_tokens": 209640}}
@@ -28110,6 +28128,8 @@ examples:
         "500":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_inline_image:
       requestBody:
@@ -28131,6 +28151,8 @@ examples:
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_text:
       requestBody:
         application/json: {"model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "state": "The customer says: I love this product. It is wonderful!"}
@@ -28150,6 +28172,8 @@ examples:
         "500":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_answers:
       requestBody:
@@ -28548,7 +28572,7 @@ examples:
   CreateDecisions:
     fallback_retry_identity:
       requestBody:
-        application/json: {"fallbacks": [{"model": "openai/gpt-5.6-luna"}], "identity": {"display_name": "Sample customer", "id": "customer-demo"}, "model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "retry": {"count": 2, "on_codes": [429, 502, 503, 504]}, "state": "The customer says: I love this product. It is wonderful!"}
+        application/json: {"fallbacks": [{"model": "openai/gpt-5.6-luna"}], "identity": {"display_name": "Sample customer", "id": "customer-demo"}, "model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "retry": {"count": 2, "on_codes": [429, 502, 503, 504]}, "state": "The customer says: I love this product. It is wonderful!", "timeout": {"call_timeout": 2000}}
       responses:
         "200":
           application/json: {"answers": {"key": {"noul": 1483.74, "type": "noul"}}, "model": "Taurus", "usage": {"input_tokens": 863618, "output_tokens": 912451}}
@@ -28565,6 +28589,8 @@ examples:
         "500":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_inline_image:
       requestBody:
@@ -28586,6 +28612,8 @@ examples:
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_text:
       requestBody:
         application/json: {"model": "openai/gpt-6-luna", "questions": {"positive": {"criteria": {"false": "The customer is unhappy.", "true": "The customer is happy."}, "instructions": "Is the sentiment positive?", "type": "noul"}, "rating": {"criteria": ["Negative", "Neutral", "Positive"], "instructions": "Rate sentiment.", "type": "score"}, "sentiment": {"criteria": {"negative": "Negative sentiment", "neutral": "<value>", "positive": "Positive sentiment"}, "instructions": "Classify sentiment.", "type": "choice"}}, "state": "The customer says: I love this product. It is wonderful!"}
@@ -28605,6 +28633,8 @@ examples:
         "500":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     support_ticket:
       requestBody:
@@ -28626,6 +28656,8 @@ examples:
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
         "502":
           application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
+        "408":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     openai_answers:
       requestBody:
         application/json: {"model": "Impala", "questions": {"key": {"instructions": {}, "type": "noul"}}, "state": "California"}
@@ -28640,6 +28672,7 @@ examples:
           application/json: {"answers": {"positive": {"type": "refusal"}, "rating": {"confidence": 1, "legend": {"0": "Negative", "1": "Neutral", "2": "Positive"}, "probabilities": {"0": 0, "1": 0, "2": 1}, "score": 2, "type": "score"}, "sentiment": {"choice": "positive", "confidence": 1, "probabilities": {"negative": 0, "neutral": 0, "positive": 1}, "type": "choice"}}, "model": "openai/gpt-6-luna", "usage": {"input_cost": 0.0000408, "input_tokens": 408, "input_tokens_details": {"cache_write_tokens": 0, "cached_tokens": 0}, "output_cost": 0, "output_tokens": 0, "total_cost": 0.0000408}}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Python SDK Changes:\n* `orq.router.classify.create()`: \n  *  `request.timeout` **Added**\n  *  `error.status[408]` **Added**\n* `orq.router.decisions.create()`: \n  *  `request.timeout` **Added**\n  *  `error.status[408]` **Added**\n"
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
