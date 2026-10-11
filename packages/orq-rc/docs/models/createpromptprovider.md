@@ -53,5 +53,6 @@ value: CreatePromptProvider = "openai"
 - `"liquid"`
 - `"typesafe"`
 - `"berget"`
+- `"cloudflare"`
 - `"slack"`
 - `"orq"`

@@ -53,5 +53,6 @@ value: GetAllPromptsProvider = "openai"
 - `"liquid"`
 - `"typesafe"`
 - `"berget"`
+- `"cloudflare"`
 - `"slack"`
 - `"orq"`

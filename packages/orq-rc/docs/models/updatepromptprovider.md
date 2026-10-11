@@ -53,5 +53,6 @@ value: UpdatePromptProvider = "openai"
 - `"liquid"`
 - `"typesafe"`
 - `"berget"`
+- `"cloudflare"`
 - `"slack"`
 - `"orq"`

@@ -471,6 +471,11 @@ if TYPE_CHECKING:
         ChunksServiceUpdateRequestTypedDict,
     )
     from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
+    from .classifycacheconfig import (
+        ClassifyCacheConfig,
+        ClassifyCacheConfigType,
+        ClassifyCacheConfigTypedDict,
+    )
     from .classifychoiceanswer import (
         ClassifyChoiceAnswer,
         ClassifyChoiceAnswerType,
@@ -7523,6 +7528,7 @@ if TYPE_CHECKING:
         SidekickToolInputType,
         SidekickToolInputTypedDict,
     )
+    from .signalscheck import SignalsCheck, SignalsCheckTypedDict
     from .singleprojectscope import SingleProjectScope, SingleProjectScopeTypedDict
     from .skill import Skill, SkillTypedDict
     from .skilldeleteop import SkillDeleteRequest, SkillDeleteRequestTypedDict
@@ -9571,6 +9577,9 @@ __all__ = [
     "ChunksServiceUpdateRequestTypedDict",
     "ClassifyAnswer",
     "ClassifyAnswerTypedDict",
+    "ClassifyCacheConfig",
+    "ClassifyCacheConfigType",
+    "ClassifyCacheConfigTypedDict",
     "ClassifyChoiceAnswer",
     "ClassifyChoiceAnswerType",
     "ClassifyChoiceAnswerTypedDict",
@@ -15846,6 +15855,8 @@ __all__ = [
     "SidekickToolInputType",
     "SidekickToolInputTypedDict",
     "Signal",
+    "SignalsCheck",
+    "SignalsCheckTypedDict",
     "SingleProjectScope",
     "SingleProjectScopeTypedDict",
     "Six",
@@ -17780,6 +17791,9 @@ _dynamic_imports: dict[str, str] = {
     "ChunksServiceUpdateRequestTypedDict": ".chunksserviceupdaterequest",
     "ClassifyAnswer": ".classifyanswer",
     "ClassifyAnswerTypedDict": ".classifyanswer",
+    "ClassifyCacheConfig": ".classifycacheconfig",
+    "ClassifyCacheConfigType": ".classifycacheconfig",
+    "ClassifyCacheConfigTypedDict": ".classifycacheconfig",
     "ClassifyChoiceAnswer": ".classifychoiceanswer",
     "ClassifyChoiceAnswerType": ".classifychoiceanswer",
     "ClassifyChoiceAnswerTypedDict": ".classifychoiceanswer",
@@ -24190,6 +24204,8 @@ _dynamic_imports: dict[str, str] = {
     "SidekickToolInput": ".sidekicktoolinput",
     "SidekickToolInputType": ".sidekicktoolinput",
     "SidekickToolInputTypedDict": ".sidekicktoolinput",
+    "SignalsCheck": ".signalscheck",
+    "SignalsCheckTypedDict": ".signalscheck",
     "SingleProjectScope": ".singleprojectscope",
     "SingleProjectScopeTypedDict": ".singleprojectscope",
     "Skill": ".skill",

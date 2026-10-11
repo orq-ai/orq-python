@@ -53,5 +53,6 @@ value: ListPromptVersionsProvider = "openai"
 - `"liquid"`
 - `"typesafe"`
 - `"berget"`
+- `"cloudflare"`
 - `"slack"`
 - `"orq"`

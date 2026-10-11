@@ -733,6 +733,7 @@ DeploymentsProvider = Literal[
     "liquid",
     "typesafe",
     "berget",
+    "cloudflare",
     "slack",
     "orq",
 ]

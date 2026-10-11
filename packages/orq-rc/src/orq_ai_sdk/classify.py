@@ -22,6 +22,9 @@ class Classify(BaseSDK):
             Mapping[str, models.Questions], Mapping[str, models.QuestionsTypedDict]
         ],
         state: Union[models.State, models.StateTypedDict],
+        cache: Optional[
+            Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
+        ] = None,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -54,13 +57,14 @@ class Classify(BaseSDK):
         - `choice`: select an option from a set.
         - `score`: rate the content on an ordered scale.
 
-        Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, and `timeout.call_timeout` in milliseconds. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
+        Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, `timeout.call_timeout` in milliseconds, and an exact-match `cache`. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
 
         Requires the `classify` API-key permission. PII plugins and guardrails are not applied. See the [Decisions guide](/ai-gateway/features/decisions) for supported models, probability interpretation, and refusals.
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
         :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param cache:
         :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
@@ -86,6 +90,7 @@ class Classify(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateClassifyRequestBody(
+            cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
@@ -288,6 +293,9 @@ class Classify(BaseSDK):
             Mapping[str, models.Questions], Mapping[str, models.QuestionsTypedDict]
         ],
         state: Union[models.State, models.StateTypedDict],
+        cache: Optional[
+            Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
+        ] = None,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -320,13 +328,14 @@ class Classify(BaseSDK):
         - `choice`: select an option from a set.
         - `score`: rate the content on an ordered scale.
 
-        Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, and `timeout.call_timeout` in milliseconds. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
+        Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, `timeout.call_timeout` in milliseconds, and an exact-match `cache`. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
 
         Requires the `classify` API-key permission. PII plugins and guardrails are not applied. See the [Decisions guide](/ai-gateway/features/decisions) for supported models, probability interpretation, and refusals.
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
         :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param cache:
         :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
@@ -352,6 +361,7 @@ class Classify(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateClassifyRequestBody(
+            cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),

@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .apierror import APIError
 from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
+from .classifycacheconfig import ClassifyCacheConfig, ClassifyCacheConfigTypedDict
 from .classifyretryconfig import ClassifyRetryConfig, ClassifyRetryConfigTypedDict
 from .classifytimeoutconfig import ClassifyTimeoutConfig, ClassifyTimeoutConfigTypedDict
 from .classifyusage import ClassifyUsage, ClassifyUsageTypedDict
@@ -227,6 +228,7 @@ class CreateDecisionsRequestBodyTypedDict(TypedDict):
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
     state: CreateDecisionsStateTypedDict
     r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    cache: NotRequired[ClassifyCacheConfigTypedDict]
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
@@ -248,6 +250,8 @@ class CreateDecisionsRequestBody(BaseModel):
     state: CreateDecisionsState
     r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
 
+    cache: Optional[ClassifyCacheConfig] = None
+
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
 
@@ -266,7 +270,7 @@ class CreateDecisionsRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["fallbacks", "identity", "metadata", "name", "retry", "timeout"]
+            ["cache", "fallbacks", "identity", "metadata", "name", "retry", "timeout"]
         )
         nullable_fields = set(["fallbacks"])
         serialized = handler(self)

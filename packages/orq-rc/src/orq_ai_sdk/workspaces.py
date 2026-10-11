@@ -400,6 +400,7 @@ class Workspaces(BaseSDK):
         chat_kit: Optional[
             Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
         ] = None,
+        tracing_enabled: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -417,6 +418,7 @@ class Workspaces(BaseSDK):
         :param metadata:
         :param enforce_enabled_models:
         :param chat_kit:
+        :param tracing_enabled:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -451,6 +453,7 @@ class Workspaces(BaseSDK):
                 chat_kit=utils.get_pydantic_model(
                     chat_kit, Optional[models.ChatKitResources]
                 ),
+                tracing_enabled=tracing_enabled,
             ),
         )
 
@@ -536,6 +539,7 @@ class Workspaces(BaseSDK):
         chat_kit: Optional[
             Union[models.ChatKitResources, models.ChatKitResourcesTypedDict]
         ] = None,
+        tracing_enabled: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -553,6 +557,7 @@ class Workspaces(BaseSDK):
         :param metadata:
         :param enforce_enabled_models:
         :param chat_kit:
+        :param tracing_enabled:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -587,6 +592,7 @@ class Workspaces(BaseSDK):
                 chat_kit=utils.get_pydantic_model(
                     chat_kit, Optional[models.ChatKitResources]
                 ),
+                tracing_enabled=tracing_enabled,
             ),
         )
 
