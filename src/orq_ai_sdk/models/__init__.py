@@ -471,6 +471,11 @@ if TYPE_CHECKING:
         ChunksServiceUpdateRequestTypedDict,
     )
     from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
+    from .classifycacheconfig import (
+        ClassifyCacheConfig,
+        ClassifyCacheConfigType,
+        ClassifyCacheConfigTypedDict,
+    )
     from .classifychoiceanswer import (
         ClassifyChoiceAnswer,
         ClassifyChoiceAnswerType,
@@ -495,6 +500,10 @@ if TYPE_CHECKING:
         ClassifyScoreAnswer,
         ClassifyScoreAnswerType,
         ClassifyScoreAnswerTypedDict,
+    )
+    from .classifytimeoutconfig import (
+        ClassifyTimeoutConfig,
+        ClassifyTimeoutConfigTypedDict,
     )
     from .classifyusage import ClassifyUsage, ClassifyUsageTypedDict
     from .clearannotationqueueop import (
@@ -1324,6 +1333,8 @@ if TYPE_CHECKING:
         CreateClassifyResponseBodyTypedDict,
         CreateClassifyRouterClassifyResponse403ResponseBody,
         CreateClassifyRouterClassifyResponse403ResponseBodyData,
+        CreateClassifyRouterClassifyResponse408ResponseBody,
+        CreateClassifyRouterClassifyResponse408ResponseBodyData,
         CreateClassifyRouterClassifyResponse422ResponseBody,
         CreateClassifyRouterClassifyResponse422ResponseBodyData,
         CreateClassifyRouterClassifyResponse429ResponseBody,
@@ -1556,6 +1567,8 @@ if TYPE_CHECKING:
         CreateDecisionsResponseBodyTypedDict,
         CreateDecisionsRouterDecisionsResponse403ResponseBody,
         CreateDecisionsRouterDecisionsResponse403ResponseBodyData,
+        CreateDecisionsRouterDecisionsResponse408ResponseBody,
+        CreateDecisionsRouterDecisionsResponse408ResponseBodyData,
         CreateDecisionsRouterDecisionsResponse422ResponseBody,
         CreateDecisionsRouterDecisionsResponse422ResponseBodyData,
         CreateDecisionsRouterDecisionsResponse429ResponseBody,
@@ -6710,6 +6723,31 @@ if TYPE_CHECKING:
         ResponseRefusalDoneStreamEventTypedDict,
     )
     from .responseretryconfig import ResponseRetryConfig, ResponseRetryConfigTypedDict
+    from .responseshellcallcommandaddedstreamevent import (
+        ResponseShellCallCommandAddedStreamEvent,
+        ResponseShellCallCommandAddedStreamEventType,
+        ResponseShellCallCommandAddedStreamEventTypedDict,
+    )
+    from .responseshellcallcommanddeltastreamevent import (
+        ResponseShellCallCommandDeltaStreamEvent,
+        ResponseShellCallCommandDeltaStreamEventType,
+        ResponseShellCallCommandDeltaStreamEventTypedDict,
+    )
+    from .responseshellcallcommanddonestreamevent import (
+        ResponseShellCallCommandDoneStreamEvent,
+        ResponseShellCallCommandDoneStreamEventType,
+        ResponseShellCallCommandDoneStreamEventTypedDict,
+    )
+    from .responseshellcalloutputcontentdeltastreamevent import (
+        ResponseShellCallOutputContentDeltaStreamEvent,
+        ResponseShellCallOutputContentDeltaStreamEventType,
+        ResponseShellCallOutputContentDeltaStreamEventTypedDict,
+    )
+    from .responseshellcalloutputcontentdonestreamevent import (
+        ResponseShellCallOutputContentDoneStreamEvent,
+        ResponseShellCallOutputContentDoneStreamEventType,
+        ResponseShellCallOutputContentDoneStreamEventTypedDict,
+    )
     from .responsestartedevent import (
         Data,
         DataTypedDict,
@@ -9543,6 +9581,9 @@ __all__ = [
     "ChunksServiceUpdateRequestTypedDict",
     "ClassifyAnswer",
     "ClassifyAnswerTypedDict",
+    "ClassifyCacheConfig",
+    "ClassifyCacheConfigType",
+    "ClassifyCacheConfigTypedDict",
     "ClassifyChoiceAnswer",
     "ClassifyChoiceAnswerType",
     "ClassifyChoiceAnswerTypedDict",
@@ -9559,6 +9600,8 @@ __all__ = [
     "ClassifyScoreAnswer",
     "ClassifyScoreAnswerType",
     "ClassifyScoreAnswerTypedDict",
+    "ClassifyTimeoutConfig",
+    "ClassifyTimeoutConfigTypedDict",
     "ClassifyUsage",
     "ClassifyUsageTypedDict",
     "ClearAnnotationQueueRequest",
@@ -10173,6 +10216,8 @@ __all__ = [
     "CreateClassifyResponseBodyTypedDict",
     "CreateClassifyRouterClassifyResponse403ResponseBody",
     "CreateClassifyRouterClassifyResponse403ResponseBodyData",
+    "CreateClassifyRouterClassifyResponse408ResponseBody",
+    "CreateClassifyRouterClassifyResponse408ResponseBodyData",
     "CreateClassifyRouterClassifyResponse422ResponseBody",
     "CreateClassifyRouterClassifyResponse422ResponseBodyData",
     "CreateClassifyRouterClassifyResponse429ResponseBody",
@@ -10378,6 +10423,8 @@ __all__ = [
     "CreateDecisionsResponseBodyTypedDict",
     "CreateDecisionsRouterDecisionsResponse403ResponseBody",
     "CreateDecisionsRouterDecisionsResponse403ResponseBodyData",
+    "CreateDecisionsRouterDecisionsResponse408ResponseBody",
+    "CreateDecisionsRouterDecisionsResponse408ResponseBodyData",
     "CreateDecisionsRouterDecisionsResponse422ResponseBody",
     "CreateDecisionsRouterDecisionsResponse422ResponseBodyData",
     "CreateDecisionsRouterDecisionsResponse429ResponseBody",
@@ -15114,6 +15161,21 @@ __all__ = [
     "ResponseRefusalDoneStreamEventTypedDict",
     "ResponseRetryConfig",
     "ResponseRetryConfigTypedDict",
+    "ResponseShellCallCommandAddedStreamEvent",
+    "ResponseShellCallCommandAddedStreamEventType",
+    "ResponseShellCallCommandAddedStreamEventTypedDict",
+    "ResponseShellCallCommandDeltaStreamEvent",
+    "ResponseShellCallCommandDeltaStreamEventType",
+    "ResponseShellCallCommandDeltaStreamEventTypedDict",
+    "ResponseShellCallCommandDoneStreamEvent",
+    "ResponseShellCallCommandDoneStreamEventType",
+    "ResponseShellCallCommandDoneStreamEventTypedDict",
+    "ResponseShellCallOutputContentDeltaStreamEvent",
+    "ResponseShellCallOutputContentDeltaStreamEventType",
+    "ResponseShellCallOutputContentDeltaStreamEventTypedDict",
+    "ResponseShellCallOutputContentDoneStreamEvent",
+    "ResponseShellCallOutputContentDoneStreamEventType",
+    "ResponseShellCallOutputContentDoneStreamEventTypedDict",
     "ResponseStartedEvent",
     "ResponseStartedEventType",
     "ResponseStartedEventTypedDict",
@@ -17734,6 +17796,9 @@ _dynamic_imports: dict[str, str] = {
     "ChunksServiceUpdateRequestTypedDict": ".chunksserviceupdaterequest",
     "ClassifyAnswer": ".classifyanswer",
     "ClassifyAnswerTypedDict": ".classifyanswer",
+    "ClassifyCacheConfig": ".classifycacheconfig",
+    "ClassifyCacheConfigType": ".classifycacheconfig",
+    "ClassifyCacheConfigTypedDict": ".classifycacheconfig",
     "ClassifyChoiceAnswer": ".classifychoiceanswer",
     "ClassifyChoiceAnswerType": ".classifychoiceanswer",
     "ClassifyChoiceAnswerTypedDict": ".classifychoiceanswer",
@@ -17750,6 +17815,8 @@ _dynamic_imports: dict[str, str] = {
     "ClassifyScoreAnswer": ".classifyscoreanswer",
     "ClassifyScoreAnswerType": ".classifyscoreanswer",
     "ClassifyScoreAnswerTypedDict": ".classifyscoreanswer",
+    "ClassifyTimeoutConfig": ".classifytimeoutconfig",
+    "ClassifyTimeoutConfigTypedDict": ".classifytimeoutconfig",
     "ClassifyUsage": ".classifyusage",
     "ClassifyUsageTypedDict": ".classifyusage",
     "ClearAnnotationQueueRequest": ".clearannotationqueueop",
@@ -18562,6 +18629,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateClassifyResponseBodyTypedDict": ".createclassifyop",
     "CreateClassifyRouterClassifyResponse403ResponseBody": ".createclassifyop",
     "CreateClassifyRouterClassifyResponse403ResponseBodyData": ".createclassifyop",
+    "CreateClassifyRouterClassifyResponse408ResponseBody": ".createclassifyop",
+    "CreateClassifyRouterClassifyResponse408ResponseBodyData": ".createclassifyop",
     "CreateClassifyRouterClassifyResponse422ResponseBody": ".createclassifyop",
     "CreateClassifyRouterClassifyResponse422ResponseBodyData": ".createclassifyop",
     "CreateClassifyRouterClassifyResponse429ResponseBody": ".createclassifyop",
@@ -18784,6 +18853,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateDecisionsResponseBodyTypedDict": ".createdecisionsop",
     "CreateDecisionsRouterDecisionsResponse403ResponseBody": ".createdecisionsop",
     "CreateDecisionsRouterDecisionsResponse403ResponseBodyData": ".createdecisionsop",
+    "CreateDecisionsRouterDecisionsResponse408ResponseBody": ".createdecisionsop",
+    "CreateDecisionsRouterDecisionsResponse408ResponseBodyData": ".createdecisionsop",
     "CreateDecisionsRouterDecisionsResponse422ResponseBody": ".createdecisionsop",
     "CreateDecisionsRouterDecisionsResponse422ResponseBodyData": ".createdecisionsop",
     "CreateDecisionsRouterDecisionsResponse429ResponseBody": ".createdecisionsop",
@@ -23407,6 +23478,21 @@ _dynamic_imports: dict[str, str] = {
     "ResponseRefusalDoneStreamEventTypedDict": ".responserefusaldonestreamevent",
     "ResponseRetryConfig": ".responseretryconfig",
     "ResponseRetryConfigTypedDict": ".responseretryconfig",
+    "ResponseShellCallCommandAddedStreamEvent": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandAddedStreamEventType": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandAddedStreamEventTypedDict": ".responseshellcallcommandaddedstreamevent",
+    "ResponseShellCallCommandDeltaStreamEvent": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDeltaStreamEventType": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDeltaStreamEventTypedDict": ".responseshellcallcommanddeltastreamevent",
+    "ResponseShellCallCommandDoneStreamEvent": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallCommandDoneStreamEventType": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallCommandDoneStreamEventTypedDict": ".responseshellcallcommanddonestreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEvent": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEventType": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDeltaStreamEventTypedDict": ".responseshellcalloutputcontentdeltastreamevent",
+    "ResponseShellCallOutputContentDoneStreamEvent": ".responseshellcalloutputcontentdonestreamevent",
+    "ResponseShellCallOutputContentDoneStreamEventType": ".responseshellcalloutputcontentdonestreamevent",
+    "ResponseShellCallOutputContentDoneStreamEventTypedDict": ".responseshellcalloutputcontentdonestreamevent",
     "Data": ".responsestartedevent",
     "DataTypedDict": ".responsestartedevent",
     "ResponseStartedEvent": ".responsestartedevent",
