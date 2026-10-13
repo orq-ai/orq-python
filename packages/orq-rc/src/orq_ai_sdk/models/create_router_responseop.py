@@ -8,6 +8,10 @@ from .fallbackconfig import FallbackConfig, FallbackConfigTypedDict
 from .incompletedetails import IncompleteDetails, IncompleteDetailsTypedDict
 from .loadbalancerconfig import LoadBalancerConfig, LoadBalancerConfigTypedDict
 from .memoryparam import MemoryParam, MemoryParamTypedDict
+from .openaicontextmanagement import (
+    OpenAIContextManagement,
+    OpenAIContextManagementTypedDict,
+)
 from .openaipromptcacheoptions import (
     OpenAIPromptCacheOptions,
     OpenAIPromptCacheOptionsTypedDict,
@@ -30,6 +34,7 @@ from .responsetelemetry import ResponseTelemetry, ResponseTelemetryTypedDict
 from .responsethread import ResponseThread, ResponseThreadTypedDict
 from .securityconfig import SecurityConfig, SecurityConfigTypedDict
 from .streamoptions import StreamOptions, StreamOptionsTypedDict
+from .thinkingparam import ThinkingParam, ThinkingParamTypedDict
 from .timeoutconfig import TimeoutConfig, TimeoutConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
@@ -1324,6 +1329,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     cache: NotRequired[CacheConfigTypedDict]
     cache_control: NotRequired[CreateRouterResponseCacheControlTypedDict]
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
+    context_management: NotRequired[Nullable[List[OpenAIContextManagementTypedDict]]]
+    r"""Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide."""
     conversation: NotRequired[ConversationParamTypedDict]
     fallback_on_codes: NotRequired[Nullable[List[int]]]
     r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
@@ -1334,6 +1341,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     guardrails: NotRequired[List[EvaluatorRefTypedDict]]
     r"""Guardrails to evaluate the request against."""
     identity: NotRequired[ResponseIdentityTypedDict]
+    include: NotRequired[List[str]]
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
     input: NotRequired[CreateRouterResponseInputTypedDict]
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
     instructions: NotRequired[str]
@@ -1382,6 +1391,7 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text."""
     text: NotRequired[CreateRouterResponseTextTypedDict]
     r"""Configuration for text output."""
+    thinking: NotRequired[ThinkingParamTypedDict]
     thread: NotRequired[ResponseThreadTypedDict]
     timeout: NotRequired[TimeoutConfigTypedDict]
     tool_choice: NotRequired[CreateRouterResponseToolChoiceTypedDict]
@@ -1407,6 +1417,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     cache_control: Optional[CreateRouterResponseCacheControl] = None
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
 
+    context_management: OptionalNullable[List[OpenAIContextManagement]] = UNSET
+    r"""Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide."""
+
     conversation: Optional[ConversationParam] = None
 
     fallback_on_codes: OptionalNullable[List[int]] = UNSET
@@ -1422,6 +1435,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Guardrails to evaluate the request against."""
 
     identity: Optional[ResponseIdentity] = None
+
+    include: Optional[List[str]] = None
+    r"""Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values."""
 
     input: Optional[CreateRouterResponseInput] = None
     r"""Input to the model: a string or an array of input items (messages, files, etc.)."""
@@ -1499,6 +1515,8 @@ class CreateRouterResponseRequestBody(BaseModel):
     text: Optional[CreateRouterResponseText] = None
     r"""Configuration for text output."""
 
+    thinking: Optional[ThinkingParam] = None
+
     thread: Optional[ResponseThread] = None
 
     timeout: Optional[TimeoutConfig] = None
@@ -1528,12 +1546,14 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "background",
                 "cache",
                 "cache_control",
+                "context_management",
                 "conversation",
                 "fallback_on_codes",
                 "fallbacks",
                 "frequency_penalty",
                 "guardrails",
                 "identity",
+                "include",
                 "input",
                 "instructions",
                 "integration_id",
@@ -1562,6 +1582,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "temperature",
                 "template_engine",
                 "text",
+                "thinking",
                 "thread",
                 "timeout",
                 "tool_choice",
@@ -1572,7 +1593,9 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallback_on_codes", "fallbacks", "plugins"])
+        nullable_fields = set(
+            ["context_management", "fallback_on_codes", "fallbacks", "plugins"]
+        )
         serialized = handler(self)
         m = {}
 

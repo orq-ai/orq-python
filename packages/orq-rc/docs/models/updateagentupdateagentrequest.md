@@ -1,4 +1,6 @@
-# UpdateAgentRequestBody
+# UpdateAgentUpdateAgentRequest
+
+Request body for updating an existing agent via the API. Uses simplified tool input format.
 
 
 ## Fields

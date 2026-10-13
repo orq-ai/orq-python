@@ -315,6 +315,12 @@ class Responses(BaseSDK):
                 models.CreateRouterResponseCacheControlTypedDict,
             ]
         ] = None,
+        context_management: OptionalNullable[
+            Union[
+                Iterable[models.OpenAIContextManagement],
+                Iterable[models.OpenAIContextManagementTypedDict],
+            ]
+        ] = UNSET,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -332,6 +338,7 @@ class Responses(BaseSDK):
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
+        include: Optional[Iterable[str]] = None,
         input: Optional[
             Union[
                 models.CreateRouterResponseInput,
@@ -391,6 +398,9 @@ class Responses(BaseSDK):
                 models.CreateRouterResponseTextTypedDict,
             ]
         ] = None,
+        thinking: Optional[
+            Union[models.ThinkingParam, models.ThinkingParamTypedDict]
+        ] = None,
         thread: Optional[
             Union[models.ResponseThread, models.ResponseThreadTypedDict]
         ] = None,
@@ -426,12 +436,14 @@ class Responses(BaseSDK):
         :param background: If true, the response runs asynchronously in the background.
         :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+        :param context_management: Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide.
         :param conversation:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
         :param identity:
+        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values.
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
         :param integration_id: Integration ID used to resolve provider credentials for this request.
@@ -460,6 +472,7 @@ class Responses(BaseSDK):
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
+        :param thinking:
         :param thread:
         :param timeout:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
@@ -493,6 +506,10 @@ class Responses(BaseSDK):
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),
+            context_management=utils.get_pydantic_model(
+                context_management,
+                OptionalNullable[List[models.OpenAIContextManagement]],
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),
@@ -509,6 +526,7 @@ class Responses(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),
+            include=utils.unmarshal(include, Optional[List[str]]),
             input=utils.get_pydantic_model(
                 input, Optional[models.CreateRouterResponseInput]
             ),
@@ -555,6 +573,7 @@ class Responses(BaseSDK):
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),
+            thinking=utils.get_pydantic_model(thinking, Optional[models.ThinkingParam]),
             thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
             timeout=utils.get_pydantic_model(timeout, Optional[models.TimeoutConfig]),
             tool_choice=utils.get_pydantic_model(
@@ -659,6 +678,12 @@ class Responses(BaseSDK):
                 models.CreateRouterResponseCacheControlTypedDict,
             ]
         ] = None,
+        context_management: OptionalNullable[
+            Union[
+                Iterable[models.OpenAIContextManagement],
+                Iterable[models.OpenAIContextManagementTypedDict],
+            ]
+        ] = UNSET,
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
@@ -676,6 +701,7 @@ class Responses(BaseSDK):
         identity: Optional[
             Union[models.ResponseIdentity, models.ResponseIdentityTypedDict]
         ] = None,
+        include: Optional[Iterable[str]] = None,
         input: Optional[
             Union[
                 models.CreateRouterResponseInput,
@@ -735,6 +761,9 @@ class Responses(BaseSDK):
                 models.CreateRouterResponseTextTypedDict,
             ]
         ] = None,
+        thinking: Optional[
+            Union[models.ThinkingParam, models.ThinkingParamTypedDict]
+        ] = None,
         thread: Optional[
             Union[models.ResponseThread, models.ResponseThreadTypedDict]
         ] = None,
@@ -770,12 +799,14 @@ class Responses(BaseSDK):
         :param background: If true, the response runs asynchronously in the background.
         :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+        :param context_management: Context management entries. One compaction entry summarizes history older than compact_threshold into a single item. See the [Context Compaction](https://docs.orq.ai/ai-gateway/features/context-compaction) guide.
         :param conversation:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
         :param identity:
+        :param include: Additional fields to include in the response. Use web_search_call.action.sources to add source URLs and titles to a web search action, or web_search_call.results for detailed results. See the [Web search](https://docs.orq.ai/ai-gateway/features/web-search) guide for the supported values.
         :param input: Input to the model: a string or an array of input items (messages, files, etc.).
         :param instructions: System prompt / instructions for the model.
         :param integration_id: Integration ID used to resolve provider credentials for this request.
@@ -804,6 +835,7 @@ class Responses(BaseSDK):
         :param temperature: Sampling temperature between 0 and 2.
         :param template_engine: Template engine for variable substitution in instructions. Defaults to the agent manifest's engine when invoking an agent, otherwise text.
         :param text: Configuration for text output.
+        :param thinking:
         :param thread:
         :param timeout:
         :param tool_choice: How the model should use the provided tools. Can be a string shorthand or a specific function selector.
@@ -837,6 +869,10 @@ class Responses(BaseSDK):
             cache_control=utils.get_pydantic_model(
                 cache_control, Optional[models.CreateRouterResponseCacheControl]
             ),
+            context_management=utils.get_pydantic_model(
+                context_management,
+                OptionalNullable[List[models.OpenAIContextManagement]],
+            ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
             ),
@@ -853,6 +889,7 @@ class Responses(BaseSDK):
             identity=utils.get_pydantic_model(
                 identity, Optional[models.ResponseIdentity]
             ),
+            include=utils.unmarshal(include, Optional[List[str]]),
             input=utils.get_pydantic_model(
                 input, Optional[models.CreateRouterResponseInput]
             ),
@@ -899,6 +936,7 @@ class Responses(BaseSDK):
             text=utils.get_pydantic_model(
                 text, Optional[models.CreateRouterResponseText]
             ),
+            thinking=utils.get_pydantic_model(thinking, Optional[models.ThinkingParam]),
             thread=utils.get_pydantic_model(thread, Optional[models.ResponseThread]),
             timeout=utils.get_pydantic_model(timeout, Optional[models.TimeoutConfig]),
             tool_choice=utils.get_pydantic_model(

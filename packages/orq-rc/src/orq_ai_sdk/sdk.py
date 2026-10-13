@@ -42,6 +42,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.modelcatalog import ModelCatalog
     from orq_ai_sdk.modelfusions import ModelFusions
     from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.monitors import Monitors
     from orq_ai_sdk.notifiers import Notifiers
     from orq_ai_sdk.pii import Pii
     from orq_ai_sdk.policies import Policies
@@ -58,6 +59,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.telemetry_sdk import TelemetrySDK
     from orq_ai_sdk.tools import Tools
     from orq_ai_sdk.traces import Traces
+    from orq_ai_sdk.users import Users
     from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
     from orq_ai_sdk.websearch import Websearch
@@ -108,12 +110,14 @@ class Orq(BaseSDK):
     mcp_servers: "McpServers"
     model_catalog: "ModelCatalog"
     model_fusions: "ModelFusions"
+    monitors: "Monitors"
     notifiers: "Notifiers"
     projects: "Projects"
     routing_rules: "RoutingRules"
     sessions: "Sessions"
     skills: "Skills"
     smart_routers: "SmartRouters"
+    users: "Users"
     webhooks: "Webhooks"
     wikis: "Wikis"
     workspaces: "Workspaces"
@@ -159,12 +163,14 @@ class Orq(BaseSDK):
         "mcp_servers": ("orq_ai_sdk.mcpservers", "McpServers"),
         "model_catalog": ("orq_ai_sdk.modelcatalog", "ModelCatalog"),
         "model_fusions": ("orq_ai_sdk.modelfusions", "ModelFusions"),
+        "monitors": ("orq_ai_sdk.monitors", "Monitors"),
         "notifiers": ("orq_ai_sdk.notifiers", "Notifiers"),
         "projects": ("orq_ai_sdk.projects", "Projects"),
         "routing_rules": ("orq_ai_sdk.routingrules", "RoutingRules"),
         "sessions": ("orq_ai_sdk.sessions", "Sessions"),
         "skills": ("orq_ai_sdk.skills", "Skills"),
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
+        "users": ("orq_ai_sdk.users", "Users"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
         "wikis": ("orq_ai_sdk.wikis", "Wikis"),
         "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),

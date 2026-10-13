@@ -1902,7 +1902,9 @@ VersionIncrement = Literal[
 r"""Optional semantic version bump to create after a successful publish."""
 
 
-class UpdateAgentRequestBodyTypedDict(TypedDict):
+class UpdateAgentUpdateAgentRequestTypedDict(TypedDict):
+    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
+
     key: NotRequired[str]
     display_name: NotRequired[str]
     project_id: NotRequired[str]
@@ -1941,7 +1943,9 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""Optional description stored with the created version."""
 
 
-class UpdateAgentRequestBody(BaseModel):
+class UpdateAgentUpdateAgentRequest(BaseModel):
+    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
+
     key: Optional[str] = None
 
     display_name: Optional[str] = None
@@ -2054,7 +2058,7 @@ class UpdateAgentRequestBody(BaseModel):
 class UpdateAgentRequestTypedDict(TypedDict):
     agent_key: str
     r"""The unique key of the agent to update"""
-    request_body: UpdateAgentRequestBodyTypedDict
+    request_body: UpdateAgentUpdateAgentRequestTypedDict
 
 
 class UpdateAgentRequest(BaseModel):
@@ -2064,7 +2068,7 @@ class UpdateAgentRequest(BaseModel):
     r"""The unique key of the agent to update"""
 
     request_body: Annotated[
-        UpdateAgentRequestBody,
+        UpdateAgentUpdateAgentRequest,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
 
@@ -4322,7 +4326,7 @@ try:
 except NameError:
     pass
 try:
-    UpdateAgentRequestBody.model_rebuild()
+    UpdateAgentUpdateAgentRequest.model_rebuild()
 except NameError:
     pass
 try:

@@ -1660,6 +1660,14 @@ if TYPE_CHECKING:
         PythonTypedDict,
         RequestBodyOutputType,
     )
+    from .createexternalagentrequest import (
+        CreateExternalAgentRequest,
+        CreateExternalAgentRequestTypedDict,
+    )
+    from .createexternalagentresponse import (
+        CreateExternalAgentResponse,
+        CreateExternalAgentResponseTypedDict,
+    )
     from .createfilerequest import CreateFileRequest, CreateFileRequestTypedDict
     from .createfileresponse import CreateFileResponse, CreateFileResponseTypedDict
     from .createfilesystemfolderrequest import (
@@ -1931,6 +1939,15 @@ if TYPE_CHECKING:
         ResultsCategoryScores,
         ResultsCategoryScoresTypedDict,
         ResultsTypedDict,
+    )
+    from .createmonitorrequest import (
+        CreateMonitorRequest,
+        CreateMonitorRequestTypedDict,
+        PresetKey,
+    )
+    from .createmonitorresponse import (
+        CreateMonitorResponse,
+        CreateMonitorResponseTypedDict,
     )
     from .createnotifierrequest import (
         CreateNotifierRequest,
@@ -2566,6 +2583,8 @@ if TYPE_CHECKING:
         ResponseBodyWords,
         ResponseBodyWordsTypedDict,
     )
+    from .createusersrequest import CreateUsersRequest, CreateUsersRequestTypedDict
+    from .createusersresponse import CreateUsersResponse, CreateUsersResponseTypedDict
     from .createviewrequest import CreateViewRequest, CreateViewRequestTypedDict
     from .createviewresponse import CreateViewResponse, CreateViewResponseTypedDict
     from .createwebhookrequest import (
@@ -2684,6 +2703,10 @@ if TYPE_CHECKING:
         DeleteEvalResponseBody,
         DeleteEvalResponseBodyData,
     )
+    from .deleteexternalagentresponse import (
+        DeleteExternalAgentResponse,
+        DeleteExternalAgentResponseTypedDict,
+    )
     from .deletefileop import DeleteFileRequest, DeleteFileRequestTypedDict
     from .deletefileresponse import DeleteFileResponse, DeleteFileResponseTypedDict
     from .deletefilesystemfileresponse import (
@@ -2742,6 +2765,10 @@ if TYPE_CHECKING:
         DeleteModelFusionResponse,
         DeleteModelFusionResponseTypedDict,
     )
+    from .deletemonitorresponse import (
+        DeleteMonitorResponse,
+        DeleteMonitorResponseTypedDict,
+    )
     from .deletenotifierresponse import (
         DeleteNotifierResponse,
         DeleteNotifierResponseTypedDict,
@@ -2763,6 +2790,7 @@ if TYPE_CHECKING:
         DeleteSmartRouterResponseTypedDict,
     )
     from .deletetoolop import DeleteToolRequest, DeleteToolRequestTypedDict
+    from .deleteuserresponse import DeleteUserResponse, DeleteUserResponseTypedDict
     from .deleteviewresponse import DeleteViewResponse, DeleteViewResponseTypedDict
     from .deletewebhookresponse import (
         DeleteWebhookResponse,
@@ -3652,6 +3680,37 @@ if TYPE_CHECKING:
         ExtendedMessageRole,
         ExtendedMessageTypedDict,
     )
+    from .externalagent import (
+        CachedCard,
+        CachedCardTypedDict,
+        ExternalAgent,
+        ExternalAgentTypedDict,
+    )
+    from .externalagentdeleteop import (
+        ExternalAgentDeleteRequest,
+        ExternalAgentDeleteRequestTypedDict,
+    )
+    from .externalagentgetop import (
+        ExternalAgentGetRequest,
+        ExternalAgentGetRequestTypedDict,
+    )
+    from .externalagentheader import ExternalAgentHeader, ExternalAgentHeaderTypedDict
+    from .externalagentlistop import (
+        ExternalAgentListRequest,
+        ExternalAgentListRequestTypedDict,
+    )
+    from .externalagentrefreshcardop import (
+        ExternalAgentRefreshCardRequest,
+        ExternalAgentRefreshCardRequestTypedDict,
+    )
+    from .externalagenttestconnectionop import (
+        ExternalAgentTestConnectionRequest,
+        ExternalAgentTestConnectionRequestTypedDict,
+    )
+    from .externalagentupdateop import (
+        ExternalAgentUpdateRequest,
+        ExternalAgentUpdateRequestTypedDict,
+    )
     from .facetgroup import FacetGroup, FacetGroupTypedDict
     from .facetkey import FacetKey, FacetKeyTypedDict
     from .facetvalue import FacetValue, FacetValueTypedDict
@@ -4241,6 +4300,10 @@ if TYPE_CHECKING:
         GetEvalVersionResponseBody,
         GetEvalVersionResponseBodyTypedDict,
     )
+    from .getexternalagentresponse import (
+        GetExternalAgentResponse,
+        GetExternalAgentResponseTypedDict,
+    )
     from .getfilecontentresponse import (
         GetFileContentResponse,
         GetFileContentResponseTypedDict,
@@ -4286,6 +4349,7 @@ if TYPE_CHECKING:
         GetModelFusionResponse,
         GetModelFusionResponseTypedDict,
     )
+    from .getmonitorresponse import GetMonitorResponse, GetMonitorResponseTypedDict
     from .getnotifierresponse import GetNotifierResponse, GetNotifierResponseTypedDict
     from .getonechunkop import GetOneChunkRequest, GetOneChunkRequestTypedDict
     from .getonedatasourceprocessingstatusop import (
@@ -4693,6 +4757,7 @@ if TYPE_CHECKING:
         GetUploadFileURLResponse,
         GetUploadFileURLResponseTypedDict,
     )
+    from .getuserresponse import GetUserResponse, GetUserResponseTypedDict
     from .getviewresponse import GetViewResponse, GetViewResponseTypedDict
     from .getwikiop import GetWikiRequest, GetWikiRequestTypedDict
     from .getwikipageop import GetWikiPageRequest, GetWikiPageRequestTypedDict
@@ -5373,6 +5438,10 @@ if TYPE_CHECKING:
         ListEvalVersionsRequest,
         ListEvalVersionsRequestTypedDict,
     )
+    from .listexternalagentsresponse import (
+        ListExternalAgentsResponse,
+        ListExternalAgentsResponseTypedDict,
+    )
     from .listfilesop import ListFilesRequest, ListFilesRequestTypedDict
     from .listfilesresponse import ListFilesResponse, ListFilesResponseTypedDict
     from .listfilesystemfilesresponse import (
@@ -5472,6 +5541,14 @@ if TYPE_CHECKING:
     from .listmodelfusionsresponse import (
         ListModelFusionsResponse,
         ListModelFusionsResponseTypedDict,
+    )
+    from .listmonitorpresetsresponse import (
+        ListMonitorPresetsResponse,
+        ListMonitorPresetsResponseTypedDict,
+    )
+    from .listmonitorsresponse import (
+        ListMonitorsResponse,
+        ListMonitorsResponseTypedDict,
     )
     from .listnotifiersresponse import (
         ListNotifiersResponse,
@@ -5716,6 +5793,7 @@ if TYPE_CHECKING:
         ListTraceSpansResponse,
         ListTraceSpansResponseTypedDict,
     )
+    from .listusersresponse import ListUsersResponse, ListUsersResponseTypedDict
     from .listviewsresponse import ListViewsResponse, ListViewsResponseTypedDict
     from .listwebhooksresponse import (
         ListWebhooksResponse,
@@ -5975,7 +6053,37 @@ if TYPE_CHECKING:
         ModelValidateRequestBody,
         ModelValidateRequestBodyTypedDict,
     )
+    from .monitor import DefaultRange, Monitor, MonitorTypedDict
+    from .monitordeleteop import MonitorDeleteRequest, MonitorDeleteRequestTypedDict
     from .monitorfilter import MonitorFilter, MonitorFilterOp, MonitorFilterTypedDict
+    from .monitorgetop import MonitorGetRequest, MonitorGetRequestTypedDict
+    from .monitorlistop import MonitorListRequest, MonitorListRequestTypedDict
+    from .monitorpreset import (
+        MonitorPreset,
+        MonitorPresetDefaultRange,
+        MonitorPresetKind,
+        MonitorPresetTypedDict,
+    )
+    from .monitortelemetrysource import MonitorTelemetrySource
+    from .monitorupdateop import MonitorUpdateRequest, MonitorUpdateRequestTypedDict
+    from .monitorwidget import MonitorWidget, MonitorWidgetType, MonitorWidgetTypedDict
+    from .monitorwidgetcompute import (
+        MonitorWidgetCompute,
+        MonitorWidgetComputeTypedDict,
+    )
+    from .monitorwidgetdisplay import (
+        MonitorWidgetDisplay,
+        MonitorWidgetDisplaySort,
+        MonitorWidgetDisplayTypedDict,
+        MonitorWidgetDisplayVisualization,
+        Unit,
+    )
+    from .monitorwidgetlayout import MonitorWidgetLayout, MonitorWidgetLayoutTypedDict
+    from .monitorwidgetquery import (
+        MonitorWidgetQuery,
+        MonitorWidgetQueryGrain,
+        MonitorWidgetQueryTypedDict,
+    )
     from .movefileop import MoveFileRequest, MoveFileRequestTypedDict
     from .movefilesystemfilerequest import (
         MoveFileSystemFileRequest,
@@ -6013,6 +6121,10 @@ if TYPE_CHECKING:
     from .notifierlistop import NotifierListRequest, NotifierListRequestTypedDict
     from .notifiertype import NotifierType
     from .notifierupdateop import NotifierUpdateRequest, NotifierUpdateRequestTypedDict
+    from .openaicontextmanagement import (
+        OpenAIContextManagement,
+        OpenAIContextManagementTypedDict,
+    )
     from .openaipromptcacheoptions import (
         OpenAIPromptCacheOptions,
         OpenAIPromptCacheOptionsMode,
@@ -6399,6 +6511,14 @@ if TYPE_CHECKING:
     )
     from .redactrequest import RedactRequest, RedactRequestTypedDict
     from .redactresponse import RedactResponse, RedactResponseTypedDict
+    from .refreshexternalagentcardrequest import (
+        RefreshExternalAgentCardRequest,
+        RefreshExternalAgentCardRequestTypedDict,
+    )
+    from .refreshexternalagentcardresponse import (
+        RefreshExternalAgentCardResponse,
+        RefreshExternalAgentCardResponseTypedDict,
+    )
     from .refreshwikiop import RefreshWikiRequest1, RefreshWikiRequest1TypedDict
     from .refreshwikirequest import RefreshWikiRequest, RefreshWikiRequestTypedDict
     from .refreshwikiresponse import RefreshWikiResponse, RefreshWikiResponseTypedDict
@@ -7867,6 +7987,16 @@ if TYPE_CHECKING:
         TelemetrySourceCapabilityTypedDict,
     )
     from .telemetryvaluecardinality import TelemetryValueCardinality
+    from .testexternalagentconnectionrequest import (
+        TestExternalAgentConnectionRequest,
+        TestExternalAgentConnectionRequestTypedDict,
+    )
+    from .testexternalagentconnectionresponse import (
+        Card,
+        CardTypedDict,
+        TestExternalAgentConnectionResponse,
+        TestExternalAgentConnectionResponseTypedDict,
+    )
     from .testmcpservertoolrequest import (
         Arguments,
         ArgumentsTypedDict,
@@ -7902,6 +8032,13 @@ if TYPE_CHECKING:
         ThinkingConfigEnabledSchemaType,
         ThinkingConfigEnabledSchemaTypedDict,
         ThinkingLevel,
+    )
+    from .thinkingparam import (
+        Display,
+        ThinkingParam,
+        ThinkingParamThinkingLevel,
+        ThinkingParamType,
+        ThinkingParamTypedDict,
     )
     from .thread import Thread, ThreadTypedDict
     from .threadbilling import ThreadBilling, ThreadBillingTypedDict
@@ -8260,8 +8397,6 @@ if TYPE_CHECKING:
         UpdateAgentPluginsTypedDict,
         UpdateAgentReasoningEffort,
         UpdateAgentRequest,
-        UpdateAgentRequestBody,
-        UpdateAgentRequestBodyTypedDict,
         UpdateAgentRequestTypedDict,
         UpdateAgentResponseBody,
         UpdateAgentResponseBodyTypedDict,
@@ -8356,6 +8491,8 @@ if TYPE_CHECKING:
         UpdateAgentTools,
         UpdateAgentToolsTypedDict,
         UpdateAgentType,
+        UpdateAgentUpdateAgentRequest,
+        UpdateAgentUpdateAgentRequestTypedDict,
         VersionIncrement,
     )
     from .updatealertrequest import UpdateAlertRequest, UpdateAlertRequestTypedDict
@@ -8431,6 +8568,14 @@ if TYPE_CHECKING:
         UpdateEvalRetryTypedDict,
         UpdateEvalTieValue,
         UpdateEvalVersionIncrement,
+    )
+    from .updateexternalagentrequest import (
+        UpdateExternalAgentRequest,
+        UpdateExternalAgentRequestTypedDict,
+    )
+    from .updateexternalagentresponse import (
+        UpdateExternalAgentResponse,
+        UpdateExternalAgentResponseTypedDict,
     )
     from .updatefilerequest import UpdateFileRequest, UpdateFileRequestTypedDict
     from .updatefileresponse import UpdateFileResponse, UpdateFileResponseTypedDict
@@ -8528,6 +8673,14 @@ if TYPE_CHECKING:
     from .updatemodelparameter import (
         UpdateModelParameter,
         UpdateModelParameterTypedDict,
+    )
+    from .updatemonitorrequest import (
+        UpdateMonitorRequest,
+        UpdateMonitorRequestTypedDict,
+    )
+    from .updatemonitorresponse import (
+        UpdateMonitorResponse,
+        UpdateMonitorResponseTypedDict,
     )
     from .updatenotifierrequest import (
         Headers,
@@ -8971,6 +9124,8 @@ if TYPE_CHECKING:
         UpdateToolToolsResponseBody,
         UpdateToolToolsResponseBodyData,
     )
+    from .updateuserrequest import UpdateUserRequest, UpdateUserRequestTypedDict
+    from .updateuserresponse import UpdateUserResponse, UpdateUserResponseTypedDict
     from .updateviewrequest import UpdateViewRequest, UpdateViewRequestTypedDict
     from .updateviewresponse import UpdateViewResponse, UpdateViewResponseTypedDict
     from .updatewikiop import UpdateWikiRequest1, UpdateWikiRequest1TypedDict
@@ -9013,6 +9168,12 @@ if TYPE_CHECKING:
         UpsertChunkMetadataTypedDict,
         UpsertChunkTypedDict,
     )
+    from .user import User, UserTypedDict
+    from .usercreateop import UserCreateRequest, UserCreateRequestTypedDict
+    from .userdeleteop import UserDeleteRequest, UserDeleteRequestTypedDict
+    from .usergetop import UserGetRequest, UserGetRequestTypedDict
+    from .userinvitationdata import UserInvitationData, UserInvitationDataTypedDict
+    from .userupdateop import UserUpdateRequest, UserUpdateRequestTypedDict
     from .verifydomainresponse import (
         VerifyDomainResponse,
         VerifyDomainResponseTypedDict,
@@ -9496,11 +9657,15 @@ __all__ = [
     "CacheControl",
     "CacheControlTypedDict",
     "CacheTypedDict",
+    "CachedCard",
+    "CachedCardTypedDict",
     "CallSubAgentToolInput",
     "CallSubAgentToolInputType",
     "CallSubAgentToolInputTypedDict",
     "CapabilitiesResponse",
     "CapabilitiesResponseTypedDict",
+    "Card",
+    "CardTypedDict",
     "CategoricalLabels",
     "CategoricalLabelsTypedDict",
     "Categories",
@@ -10478,6 +10643,10 @@ __all__ = [
     "CreateEvalRequestBodyTypedDict",
     "CreateEvalResponseBody",
     "CreateEvalResponseBodyTypedDict",
+    "CreateExternalAgentRequest",
+    "CreateExternalAgentRequestTypedDict",
+    "CreateExternalAgentResponse",
+    "CreateExternalAgentResponseTypedDict",
     "CreateFileRequest",
     "CreateFileRequestTypedDict",
     "CreateFileResponse",
@@ -10680,6 +10849,10 @@ __all__ = [
     "CreateModerationResponseBodyTypedDict",
     "CreateModerationRouterModerationsResponseBody",
     "CreateModerationRouterModerationsResponseBodyData",
+    "CreateMonitorRequest",
+    "CreateMonitorRequestTypedDict",
+    "CreateMonitorResponse",
+    "CreateMonitorResponseTypedDict",
     "CreateNotifierRequest",
     "CreateNotifierRequest2Headers",
     "CreateNotifierRequest2HeadersTypedDict",
@@ -11250,6 +11423,10 @@ __all__ = [
     "CreateTranslationTimeout",
     "CreateTranslationTimeoutTypedDict",
     "CreateTranslationTimestampsGranularity",
+    "CreateUsersRequest",
+    "CreateUsersRequestTypedDict",
+    "CreateUsersResponse",
+    "CreateUsersResponseTypedDict",
     "CreateViewRequest",
     "CreateViewRequestTypedDict",
     "CreateViewResponse",
@@ -11338,6 +11515,7 @@ __all__ = [
     "DatasourcesServicePreviewChunksResponseTypedDict",
     "DatasourcesServiceUpdateRequest",
     "DatasourcesServiceUpdateRequestTypedDict",
+    "DefaultRange",
     "DefaultValue",
     "DefaultValueTypedDict",
     "Delay",
@@ -11383,6 +11561,8 @@ __all__ = [
     "DeleteEvalRequestTypedDict",
     "DeleteEvalResponseBody",
     "DeleteEvalResponseBodyData",
+    "DeleteExternalAgentResponse",
+    "DeleteExternalAgentResponseTypedDict",
     "DeleteFileRequest",
     "DeleteFileRequestTypedDict",
     "DeleteFileResponse",
@@ -11419,6 +11599,8 @@ __all__ = [
     "DeleteMemoryStoreRequestTypedDict",
     "DeleteModelFusionResponse",
     "DeleteModelFusionResponseTypedDict",
+    "DeleteMonitorResponse",
+    "DeleteMonitorResponseTypedDict",
     "DeleteNotifierResponse",
     "DeleteNotifierResponseTypedDict",
     "DeleteProjectResponse",
@@ -11435,6 +11617,8 @@ __all__ = [
     "DeleteSmartRouterResponseTypedDict",
     "DeleteToolRequest",
     "DeleteToolRequestTypedDict",
+    "DeleteUserResponse",
+    "DeleteUserResponseTypedDict",
     "DeleteV2HumanEvalSetsIDRequest",
     "DeleteV2HumanEvalSetsIDRequestTypedDict",
     "DeleteViewResponse",
@@ -12019,6 +12203,7 @@ __all__ = [
     "DeveloperMessageTypedDict",
     "Dimensions",
     "DimensionsTypedDict",
+    "Display",
     "Document",
     "Document1",
     "Document1TypedDict",
@@ -12195,6 +12380,22 @@ __all__ = [
     "ExtendedMessageRole",
     "ExtendedMessageTypedDict",
     "ExternalAccess",
+    "ExternalAgent",
+    "ExternalAgentDeleteRequest",
+    "ExternalAgentDeleteRequestTypedDict",
+    "ExternalAgentGetRequest",
+    "ExternalAgentGetRequestTypedDict",
+    "ExternalAgentHeader",
+    "ExternalAgentHeaderTypedDict",
+    "ExternalAgentListRequest",
+    "ExternalAgentListRequestTypedDict",
+    "ExternalAgentRefreshCardRequest",
+    "ExternalAgentRefreshCardRequestTypedDict",
+    "ExternalAgentTestConnectionRequest",
+    "ExternalAgentTestConnectionRequestTypedDict",
+    "ExternalAgentTypedDict",
+    "ExternalAgentUpdateRequest",
+    "ExternalAgentUpdateRequestTypedDict",
     "ExternalConfig",
     "ExternalConfigTypedDict",
     "ExtraContent",
@@ -12741,6 +12942,8 @@ __all__ = [
     "GetEvalsRequestTypedDict",
     "GetEvalsResponseBody",
     "GetEvalsResponseBodyTypedDict",
+    "GetExternalAgentResponse",
+    "GetExternalAgentResponseTypedDict",
     "GetFileContentResponse",
     "GetFileContentResponseTypedDict",
     "GetFileResponse",
@@ -12771,6 +12974,8 @@ __all__ = [
     "GetModelCatalogModelResponseTypedDict",
     "GetModelFusionResponse",
     "GetModelFusionResponseTypedDict",
+    "GetMonitorResponse",
+    "GetMonitorResponseTypedDict",
     "GetNotifierResponse",
     "GetNotifierResponseTypedDict",
     "GetOneChunkRequest",
@@ -13160,6 +13365,8 @@ __all__ = [
     "GetTraceSpanResponseTypedDict",
     "GetUploadFileURLResponse",
     "GetUploadFileURLResponseTypedDict",
+    "GetUserResponse",
+    "GetUserResponseTypedDict",
     "GetV2HumanEvalSetsIDRequest",
     "GetV2HumanEvalSetsIDRequestTypedDict",
     "GetV2HumanEvalSetsIDResponseBody",
@@ -13748,6 +13955,8 @@ __all__ = [
     "ListEvaluatorVersionsResponseData",
     "ListEvaluatorVersionsResponseDataTypedDict",
     "ListEvaluatorVersionsResponseTypedDict",
+    "ListExternalAgentsResponse",
+    "ListExternalAgentsResponseTypedDict",
     "ListFileSystemFilesResponse",
     "ListFileSystemFilesResponseTypedDict",
     "ListFileSystemsRequest",
@@ -13807,6 +14016,10 @@ __all__ = [
     "ListModelsObject",
     "ListModelsResponseBody",
     "ListModelsResponseBodyTypedDict",
+    "ListMonitorPresetsResponse",
+    "ListMonitorPresetsResponseTypedDict",
+    "ListMonitorsResponse",
+    "ListMonitorsResponseTypedDict",
     "ListNotifiersResponse",
     "ListNotifiersResponseTypedDict",
     "ListProjectsResponse",
@@ -14024,6 +14237,8 @@ __all__ = [
     "ListTraceLogsResponseTypedDict",
     "ListTraceSpansResponse",
     "ListTraceSpansResponseTypedDict",
+    "ListUsersResponse",
+    "ListUsersResponseTypedDict",
     "ListViewsResponse",
     "ListViewsResponseTypedDict",
     "ListWebhooksResponse",
@@ -14359,9 +14574,38 @@ __all__ = [
     "ModelsConfigMode",
     "ModelsConfigTypedDict",
     "Moderation",
+    "Monitor",
+    "MonitorDeleteRequest",
+    "MonitorDeleteRequestTypedDict",
     "MonitorFilter",
     "MonitorFilterOp",
     "MonitorFilterTypedDict",
+    "MonitorGetRequest",
+    "MonitorGetRequestTypedDict",
+    "MonitorListRequest",
+    "MonitorListRequestTypedDict",
+    "MonitorPreset",
+    "MonitorPresetDefaultRange",
+    "MonitorPresetKind",
+    "MonitorPresetTypedDict",
+    "MonitorTelemetrySource",
+    "MonitorTypedDict",
+    "MonitorUpdateRequest",
+    "MonitorUpdateRequestTypedDict",
+    "MonitorWidget",
+    "MonitorWidgetCompute",
+    "MonitorWidgetComputeTypedDict",
+    "MonitorWidgetDisplay",
+    "MonitorWidgetDisplaySort",
+    "MonitorWidgetDisplayTypedDict",
+    "MonitorWidgetDisplayVisualization",
+    "MonitorWidgetLayout",
+    "MonitorWidgetLayoutTypedDict",
+    "MonitorWidgetQuery",
+    "MonitorWidgetQueryGrain",
+    "MonitorWidgetQueryTypedDict",
+    "MonitorWidgetType",
+    "MonitorWidgetTypedDict",
     "MoveFileRequest",
     "MoveFileRequestTypedDict",
     "MoveFileSystemFileRequest",
@@ -14443,6 +14687,8 @@ __all__ = [
     "OneType",
     "OneTypedDict",
     "Op",
+    "OpenAIContextManagement",
+    "OpenAIContextManagementTypedDict",
     "OpenAIPromptCacheOptions",
     "OpenAIPromptCacheOptionsMode",
     "OpenAIPromptCacheOptionsTypedDict",
@@ -14657,6 +14903,7 @@ __all__ = [
     "PrefixMessagesTypedDict",
     "PrefixMessagesUserMessage",
     "PrefixMessagesUserMessageTypedDict",
+    "PresetKey",
     "PreviewChunk",
     "PreviewChunkTypedDict",
     "PreviewChunksMetadata",
@@ -14826,6 +15073,10 @@ __all__ = [
     "RedactedReasoningPartSchema",
     "RedactedReasoningPartSchemaType",
     "RedactedReasoningPartSchemaTypedDict",
+    "RefreshExternalAgentCardRequest",
+    "RefreshExternalAgentCardRequestTypedDict",
+    "RefreshExternalAgentCardResponse",
+    "RefreshExternalAgentCardResponseTypedDict",
     "RefreshWikiRequest",
     "RefreshWikiRequest1",
     "RefreshWikiRequest1TypedDict",
@@ -16189,6 +16440,10 @@ __all__ = [
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
+    "TestExternalAgentConnectionRequest",
+    "TestExternalAgentConnectionRequestTypedDict",
+    "TestExternalAgentConnectionResponse",
+    "TestExternalAgentConnectionResponseTypedDict",
     "TestMcpServerToolRequest",
     "TestMcpServerToolRequestTypedDict",
     "TestMcpServerToolResponse",
@@ -16212,6 +16467,10 @@ __all__ = [
     "ThinkingConfigEnabledSchemaType",
     "ThinkingConfigEnabledSchemaTypedDict",
     "ThinkingLevel",
+    "ThinkingParam",
+    "ThinkingParamThinkingLevel",
+    "ThinkingParamType",
+    "ThinkingParamTypedDict",
     "ThinkingTypedDict",
     "Thirteen",
     "ThirteenTypedDict",
@@ -16444,6 +16703,7 @@ __all__ = [
     "Type",
     "Typescript",
     "TypescriptTypedDict",
+    "Unit",
     "UpdateAgentAgentPlugins",
     "UpdateAgentAgentPluginsTypedDict",
     "UpdateAgentAgentsEngine",
@@ -16610,8 +16870,6 @@ __all__ = [
     "UpdateAgentPluginsTypedDict",
     "UpdateAgentReasoningEffort",
     "UpdateAgentRequest",
-    "UpdateAgentRequestBody",
-    "UpdateAgentRequestBodyTypedDict",
     "UpdateAgentRequestTypedDict",
     "UpdateAgentResponseBody",
     "UpdateAgentResponseBodyTypedDict",
@@ -16718,6 +16976,8 @@ __all__ = [
     "UpdateAgentTools",
     "UpdateAgentToolsTypedDict",
     "UpdateAgentType",
+    "UpdateAgentUpdateAgentRequest",
+    "UpdateAgentUpdateAgentRequestTypedDict",
     "UpdateAlertRequest",
     "UpdateAlertRequestTypedDict",
     "UpdateAlertResponse",
@@ -16777,6 +17037,10 @@ __all__ = [
     "UpdateEvalRetryTypedDict",
     "UpdateEvalTieValue",
     "UpdateEvalVersionIncrement",
+    "UpdateExternalAgentRequest",
+    "UpdateExternalAgentRequestTypedDict",
+    "UpdateExternalAgentResponse",
+    "UpdateExternalAgentResponseTypedDict",
     "UpdateFileRequest",
     "UpdateFileRequestTypedDict",
     "UpdateFileResponse",
@@ -16838,6 +17102,10 @@ __all__ = [
     "UpdateModelFusionResponseTypedDict",
     "UpdateModelParameter",
     "UpdateModelParameterTypedDict",
+    "UpdateMonitorRequest",
+    "UpdateMonitorRequestTypedDict",
+    "UpdateMonitorResponse",
+    "UpdateMonitorResponseTypedDict",
     "UpdateNotifierRequest",
     "UpdateNotifierRequestMetadata",
     "UpdateNotifierRequestMetadataTypedDict",
@@ -17255,6 +17523,10 @@ __all__ = [
     "UpdateToolResponseBodyTypedDict",
     "UpdateToolToolsResponseBody",
     "UpdateToolToolsResponseBodyData",
+    "UpdateUserRequest",
+    "UpdateUserRequestTypedDict",
+    "UpdateUserResponse",
+    "UpdateUserResponseTypedDict",
     "UpdateViewRequest",
     "UpdateViewRequestTypedDict",
     "UpdateViewResponse",
@@ -17295,8 +17567,20 @@ __all__ = [
     "UsageType",
     "UsageTypedDict",
     "UseCases",
+    "User",
+    "UserCreateRequest",
+    "UserCreateRequestTypedDict",
+    "UserDeleteRequest",
+    "UserDeleteRequestTypedDict",
+    "UserGetRequest",
+    "UserGetRequestTypedDict",
+    "UserInvitationData",
+    "UserInvitationDataTypedDict",
     "UserMessage",
     "UserMessageTypedDict",
+    "UserTypedDict",
+    "UserUpdateRequest",
+    "UserUpdateRequestTypedDict",
     "Value",
     "ValueTypedDict",
     "Verbosity",
@@ -18943,6 +19227,10 @@ _dynamic_imports: dict[str, str] = {
     "Python": ".createevalop",
     "PythonTypedDict": ".createevalop",
     "RequestBodyOutputType": ".createevalop",
+    "CreateExternalAgentRequest": ".createexternalagentrequest",
+    "CreateExternalAgentRequestTypedDict": ".createexternalagentrequest",
+    "CreateExternalAgentResponse": ".createexternalagentresponse",
+    "CreateExternalAgentResponseTypedDict": ".createexternalagentresponse",
     "CreateFileRequest": ".createfilerequest",
     "CreateFileRequestTypedDict": ".createfilerequest",
     "CreateFileResponse": ".createfileresponse",
@@ -19172,6 +19460,11 @@ _dynamic_imports: dict[str, str] = {
     "ResultsCategoryScores": ".createmoderationop",
     "ResultsCategoryScoresTypedDict": ".createmoderationop",
     "ResultsTypedDict": ".createmoderationop",
+    "CreateMonitorRequest": ".createmonitorrequest",
+    "CreateMonitorRequestTypedDict": ".createmonitorrequest",
+    "PresetKey": ".createmonitorrequest",
+    "CreateMonitorResponse": ".createmonitorresponse",
+    "CreateMonitorResponseTypedDict": ".createmonitorresponse",
     "CreateNotifierRequest": ".createnotifierrequest",
     "CreateNotifierRequest2Headers": ".createnotifierrequest",
     "CreateNotifierRequest2HeadersTypedDict": ".createnotifierrequest",
@@ -19780,6 +20073,10 @@ _dynamic_imports: dict[str, str] = {
     "ResponseBodySegmentsTypedDict": ".createtranslationop",
     "ResponseBodyWords": ".createtranslationop",
     "ResponseBodyWordsTypedDict": ".createtranslationop",
+    "CreateUsersRequest": ".createusersrequest",
+    "CreateUsersRequestTypedDict": ".createusersrequest",
+    "CreateUsersResponse": ".createusersresponse",
+    "CreateUsersResponseTypedDict": ".createusersresponse",
     "CreateViewRequest": ".createviewrequest",
     "CreateViewRequestTypedDict": ".createviewrequest",
     "CreateViewResponse": ".createviewresponse",
@@ -19871,6 +20168,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteEvalRequestTypedDict": ".deleteevalop",
     "DeleteEvalResponseBody": ".deleteevalop",
     "DeleteEvalResponseBodyData": ".deleteevalop",
+    "DeleteExternalAgentResponse": ".deleteexternalagentresponse",
+    "DeleteExternalAgentResponseTypedDict": ".deleteexternalagentresponse",
     "DeleteFileRequest": ".deletefileop",
     "DeleteFileRequestTypedDict": ".deletefileop",
     "DeleteFileResponse": ".deletefileresponse",
@@ -19907,6 +20206,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteMemoryStoreRequestTypedDict": ".deletememorystoreop",
     "DeleteModelFusionResponse": ".deletemodelfusionresponse",
     "DeleteModelFusionResponseTypedDict": ".deletemodelfusionresponse",
+    "DeleteMonitorResponse": ".deletemonitorresponse",
+    "DeleteMonitorResponseTypedDict": ".deletemonitorresponse",
     "DeleteNotifierResponse": ".deletenotifierresponse",
     "DeleteNotifierResponseTypedDict": ".deletenotifierresponse",
     "DeleteProjectResponse": ".deleteprojectresponse",
@@ -19923,6 +20224,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteSmartRouterResponseTypedDict": ".deletesmartrouterresponse",
     "DeleteToolRequest": ".deletetoolop",
     "DeleteToolRequestTypedDict": ".deletetoolop",
+    "DeleteUserResponse": ".deleteuserresponse",
+    "DeleteUserResponseTypedDict": ".deleteuserresponse",
     "DeleteViewResponse": ".deleteviewresponse",
     "DeleteViewResponseTypedDict": ".deleteviewresponse",
     "DeleteWebhookResponse": ".deletewebhookresponse",
@@ -20776,6 +21079,24 @@ _dynamic_imports: dict[str, str] = {
     "ExtendedMessagePartsTypedDict": ".extendedmessage",
     "ExtendedMessageRole": ".extendedmessage",
     "ExtendedMessageTypedDict": ".extendedmessage",
+    "CachedCard": ".externalagent",
+    "CachedCardTypedDict": ".externalagent",
+    "ExternalAgent": ".externalagent",
+    "ExternalAgentTypedDict": ".externalagent",
+    "ExternalAgentDeleteRequest": ".externalagentdeleteop",
+    "ExternalAgentDeleteRequestTypedDict": ".externalagentdeleteop",
+    "ExternalAgentGetRequest": ".externalagentgetop",
+    "ExternalAgentGetRequestTypedDict": ".externalagentgetop",
+    "ExternalAgentHeader": ".externalagentheader",
+    "ExternalAgentHeaderTypedDict": ".externalagentheader",
+    "ExternalAgentListRequest": ".externalagentlistop",
+    "ExternalAgentListRequestTypedDict": ".externalagentlistop",
+    "ExternalAgentRefreshCardRequest": ".externalagentrefreshcardop",
+    "ExternalAgentRefreshCardRequestTypedDict": ".externalagentrefreshcardop",
+    "ExternalAgentTestConnectionRequest": ".externalagenttestconnectionop",
+    "ExternalAgentTestConnectionRequestTypedDict": ".externalagenttestconnectionop",
+    "ExternalAgentUpdateRequest": ".externalagentupdateop",
+    "ExternalAgentUpdateRequestTypedDict": ".externalagentupdateop",
     "FacetGroup": ".facetgroup",
     "FacetGroupTypedDict": ".facetgroup",
     "FacetKey": ".facetkey",
@@ -21345,6 +21666,8 @@ _dynamic_imports: dict[str, str] = {
     "GetEvalVersionRequestTypedDict": ".getevalversionop",
     "GetEvalVersionResponseBody": ".getevalversionop",
     "GetEvalVersionResponseBodyTypedDict": ".getevalversionop",
+    "GetExternalAgentResponse": ".getexternalagentresponse",
+    "GetExternalAgentResponseTypedDict": ".getexternalagentresponse",
     "GetFileContentResponse": ".getfilecontentresponse",
     "GetFileContentResponseTypedDict": ".getfilecontentresponse",
     "GetFileResponse": ".getfileresponse",
@@ -21375,6 +21698,8 @@ _dynamic_imports: dict[str, str] = {
     "GetModelCatalogModelResponseTypedDict": ".getmodelcatalogmodelresponse",
     "GetModelFusionResponse": ".getmodelfusionresponse",
     "GetModelFusionResponseTypedDict": ".getmodelfusionresponse",
+    "GetMonitorResponse": ".getmonitorresponse",
+    "GetMonitorResponseTypedDict": ".getmonitorresponse",
     "GetNotifierResponse": ".getnotifierresponse",
     "GetNotifierResponseTypedDict": ".getnotifierresponse",
     "GetOneChunkRequest": ".getonechunkop",
@@ -21766,6 +22091,8 @@ _dynamic_imports: dict[str, str] = {
     "GetTraceSpanResponseTypedDict": ".gettracespanresponse",
     "GetUploadFileURLResponse": ".getuploadfileurlresponse",
     "GetUploadFileURLResponseTypedDict": ".getuploadfileurlresponse",
+    "GetUserResponse": ".getuserresponse",
+    "GetUserResponseTypedDict": ".getuserresponse",
     "GetViewResponse": ".getviewresponse",
     "GetViewResponseTypedDict": ".getviewresponse",
     "GetWikiRequest": ".getwikiop",
@@ -22394,6 +22721,8 @@ _dynamic_imports: dict[str, str] = {
     "ListEvaluatorVersionsResponseTypedDict": ".listevaluatorversionsresponse",
     "ListEvalVersionsRequest": ".listevalversionsop",
     "ListEvalVersionsRequestTypedDict": ".listevalversionsop",
+    "ListExternalAgentsResponse": ".listexternalagentsresponse",
+    "ListExternalAgentsResponseTypedDict": ".listexternalagentsresponse",
     "ListFilesRequest": ".listfilesop",
     "ListFilesRequestTypedDict": ".listfilesop",
     "ListFilesResponse": ".listfilesresponse",
@@ -22451,6 +22780,10 @@ _dynamic_imports: dict[str, str] = {
     "ListModelCatalogResponseTypedDict": ".listmodelcatalogresponse",
     "ListModelFusionsResponse": ".listmodelfusionsresponse",
     "ListModelFusionsResponseTypedDict": ".listmodelfusionsresponse",
+    "ListMonitorPresetsResponse": ".listmonitorpresetsresponse",
+    "ListMonitorPresetsResponseTypedDict": ".listmonitorpresetsresponse",
+    "ListMonitorsResponse": ".listmonitorsresponse",
+    "ListMonitorsResponseTypedDict": ".listmonitorsresponse",
     "ListNotifiersResponse": ".listnotifiersresponse",
     "ListNotifiersResponseTypedDict": ".listnotifiersresponse",
     "ListProjectsResponse": ".listprojectsresponse",
@@ -22668,6 +23001,8 @@ _dynamic_imports: dict[str, str] = {
     "ListTraceLogsResponseTypedDict": ".listtracelogsresponse",
     "ListTraceSpansResponse": ".listtracespansresponse",
     "ListTraceSpansResponseTypedDict": ".listtracespansresponse",
+    "ListUsersResponse": ".listusersresponse",
+    "ListUsersResponseTypedDict": ".listusersresponse",
     "ListViewsResponse": ".listviewsresponse",
     "ListViewsResponseTypedDict": ".listviewsresponse",
     "ListWebhooksResponse": ".listwebhooksresponse",
@@ -22893,9 +23228,40 @@ _dynamic_imports: dict[str, str] = {
     "ModelValidateAwsBedrockRequestBodyTypedDict": ".modelvalidateawsbedrockop",
     "ModelValidateRequestBody": ".modelvalidateop",
     "ModelValidateRequestBodyTypedDict": ".modelvalidateop",
+    "DefaultRange": ".monitor",
+    "Monitor": ".monitor",
+    "MonitorTypedDict": ".monitor",
+    "MonitorDeleteRequest": ".monitordeleteop",
+    "MonitorDeleteRequestTypedDict": ".monitordeleteop",
     "MonitorFilter": ".monitorfilter",
     "MonitorFilterOp": ".monitorfilter",
     "MonitorFilterTypedDict": ".monitorfilter",
+    "MonitorGetRequest": ".monitorgetop",
+    "MonitorGetRequestTypedDict": ".monitorgetop",
+    "MonitorListRequest": ".monitorlistop",
+    "MonitorListRequestTypedDict": ".monitorlistop",
+    "MonitorPreset": ".monitorpreset",
+    "MonitorPresetDefaultRange": ".monitorpreset",
+    "MonitorPresetKind": ".monitorpreset",
+    "MonitorPresetTypedDict": ".monitorpreset",
+    "MonitorTelemetrySource": ".monitortelemetrysource",
+    "MonitorUpdateRequest": ".monitorupdateop",
+    "MonitorUpdateRequestTypedDict": ".monitorupdateop",
+    "MonitorWidget": ".monitorwidget",
+    "MonitorWidgetType": ".monitorwidget",
+    "MonitorWidgetTypedDict": ".monitorwidget",
+    "MonitorWidgetCompute": ".monitorwidgetcompute",
+    "MonitorWidgetComputeTypedDict": ".monitorwidgetcompute",
+    "MonitorWidgetDisplay": ".monitorwidgetdisplay",
+    "MonitorWidgetDisplaySort": ".monitorwidgetdisplay",
+    "MonitorWidgetDisplayTypedDict": ".monitorwidgetdisplay",
+    "MonitorWidgetDisplayVisualization": ".monitorwidgetdisplay",
+    "Unit": ".monitorwidgetdisplay",
+    "MonitorWidgetLayout": ".monitorwidgetlayout",
+    "MonitorWidgetLayoutTypedDict": ".monitorwidgetlayout",
+    "MonitorWidgetQuery": ".monitorwidgetquery",
+    "MonitorWidgetQueryGrain": ".monitorwidgetquery",
+    "MonitorWidgetQueryTypedDict": ".monitorwidgetquery",
     "MoveFileRequest": ".movefileop",
     "MoveFileRequestTypedDict": ".movefileop",
     "MoveFileSystemFileRequest": ".movefilesystemfilerequest",
@@ -22932,6 +23298,8 @@ _dynamic_imports: dict[str, str] = {
     "NotifierType": ".notifiertype",
     "NotifierUpdateRequest": ".notifierupdateop",
     "NotifierUpdateRequestTypedDict": ".notifierupdateop",
+    "OpenAIContextManagement": ".openaicontextmanagement",
+    "OpenAIContextManagementTypedDict": ".openaicontextmanagement",
     "OpenAIPromptCacheOptions": ".openaipromptcacheoptions",
     "OpenAIPromptCacheOptionsMode": ".openaipromptcacheoptions",
     "OpenAIPromptCacheOptionsTypedDict": ".openaipromptcacheoptions",
@@ -23274,6 +23642,10 @@ _dynamic_imports: dict[str, str] = {
     "RedactRequestTypedDict": ".redactrequest",
     "RedactResponse": ".redactresponse",
     "RedactResponseTypedDict": ".redactresponse",
+    "RefreshExternalAgentCardRequest": ".refreshexternalagentcardrequest",
+    "RefreshExternalAgentCardRequestTypedDict": ".refreshexternalagentcardrequest",
+    "RefreshExternalAgentCardResponse": ".refreshexternalagentcardresponse",
+    "RefreshExternalAgentCardResponseTypedDict": ".refreshexternalagentcardresponse",
     "RefreshWikiRequest1": ".refreshwikiop",
     "RefreshWikiRequest1TypedDict": ".refreshwikiop",
     "RefreshWikiRequest": ".refreshwikirequest",
@@ -24536,6 +24908,12 @@ _dynamic_imports: dict[str, str] = {
     "TelemetrySourceCapability": ".telemetrysourcecapability",
     "TelemetrySourceCapabilityTypedDict": ".telemetrysourcecapability",
     "TelemetryValueCardinality": ".telemetryvaluecardinality",
+    "TestExternalAgentConnectionRequest": ".testexternalagentconnectionrequest",
+    "TestExternalAgentConnectionRequestTypedDict": ".testexternalagentconnectionrequest",
+    "Card": ".testexternalagentconnectionresponse",
+    "CardTypedDict": ".testexternalagentconnectionresponse",
+    "TestExternalAgentConnectionResponse": ".testexternalagentconnectionresponse",
+    "TestExternalAgentConnectionResponseTypedDict": ".testexternalagentconnectionresponse",
     "Arguments": ".testmcpservertoolrequest",
     "ArgumentsTypedDict": ".testmcpservertoolrequest",
     "TestMcpServerToolRequest": ".testmcpservertoolrequest",
@@ -24562,6 +24940,11 @@ _dynamic_imports: dict[str, str] = {
     "ThinkingConfigEnabledSchemaType": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchemaTypedDict": ".thinkingconfigenabledschema",
     "ThinkingLevel": ".thinkingconfigenabledschema",
+    "Display": ".thinkingparam",
+    "ThinkingParam": ".thinkingparam",
+    "ThinkingParamThinkingLevel": ".thinkingparam",
+    "ThinkingParamType": ".thinkingparam",
+    "ThinkingParamTypedDict": ".thinkingparam",
     "Thread": ".thread",
     "ThreadTypedDict": ".thread",
     "ThreadBilling": ".threadbilling",
@@ -24906,8 +25289,6 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAgentPluginsTypedDict": ".updateagentop",
     "UpdateAgentReasoningEffort": ".updateagentop",
     "UpdateAgentRequest": ".updateagentop",
-    "UpdateAgentRequestBody": ".updateagentop",
-    "UpdateAgentRequestBodyTypedDict": ".updateagentop",
     "UpdateAgentRequestTypedDict": ".updateagentop",
     "UpdateAgentResponseBody": ".updateagentop",
     "UpdateAgentResponseBodyTypedDict": ".updateagentop",
@@ -25002,6 +25383,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAgentTools": ".updateagentop",
     "UpdateAgentToolsTypedDict": ".updateagentop",
     "UpdateAgentType": ".updateagentop",
+    "UpdateAgentUpdateAgentRequest": ".updateagentop",
+    "UpdateAgentUpdateAgentRequestTypedDict": ".updateagentop",
     "VersionIncrement": ".updateagentop",
     "UpdateAlertRequest": ".updatealertrequest",
     "UpdateAlertRequestTypedDict": ".updatealertrequest",
@@ -25060,6 +25443,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateEvalRetryTypedDict": ".updateevalop",
     "UpdateEvalTieValue": ".updateevalop",
     "UpdateEvalVersionIncrement": ".updateevalop",
+    "UpdateExternalAgentRequest": ".updateexternalagentrequest",
+    "UpdateExternalAgentRequestTypedDict": ".updateexternalagentrequest",
+    "UpdateExternalAgentResponse": ".updateexternalagentresponse",
+    "UpdateExternalAgentResponseTypedDict": ".updateexternalagentresponse",
     "UpdateFileRequest": ".updatefilerequest",
     "UpdateFileRequestTypedDict": ".updatefilerequest",
     "UpdateFileResponse": ".updatefileresponse",
@@ -25115,6 +25502,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateModelFusionResponseTypedDict": ".updatemodelfusionresponse",
     "UpdateModelParameter": ".updatemodelparameter",
     "UpdateModelParameterTypedDict": ".updatemodelparameter",
+    "UpdateMonitorRequest": ".updatemonitorrequest",
+    "UpdateMonitorRequestTypedDict": ".updatemonitorrequest",
+    "UpdateMonitorResponse": ".updatemonitorresponse",
+    "UpdateMonitorResponseTypedDict": ".updatemonitorresponse",
     "Headers": ".updatenotifierrequest",
     "HeadersTypedDict": ".updatenotifierrequest",
     "UpdateNotifierRequest": ".updatenotifierrequest",
@@ -25543,6 +25934,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateToolResponseBodyTypedDict": ".updatetoolop",
     "UpdateToolToolsResponseBody": ".updatetoolop",
     "UpdateToolToolsResponseBodyData": ".updatetoolop",
+    "UpdateUserRequest": ".updateuserrequest",
+    "UpdateUserRequestTypedDict": ".updateuserrequest",
+    "UpdateUserResponse": ".updateuserresponse",
+    "UpdateUserResponseTypedDict": ".updateuserresponse",
     "UpdateViewRequest": ".updateviewrequest",
     "UpdateViewRequestTypedDict": ".updateviewrequest",
     "UpdateViewResponse": ".updateviewresponse",
@@ -25575,6 +25970,18 @@ _dynamic_imports: dict[str, str] = {
     "UpsertChunkMetadata": ".upsertchunk",
     "UpsertChunkMetadataTypedDict": ".upsertchunk",
     "UpsertChunkTypedDict": ".upsertchunk",
+    "User": ".user",
+    "UserTypedDict": ".user",
+    "UserCreateRequest": ".usercreateop",
+    "UserCreateRequestTypedDict": ".usercreateop",
+    "UserDeleteRequest": ".userdeleteop",
+    "UserDeleteRequestTypedDict": ".userdeleteop",
+    "UserGetRequest": ".usergetop",
+    "UserGetRequestTypedDict": ".usergetop",
+    "UserInvitationData": ".userinvitationdata",
+    "UserInvitationDataTypedDict": ".userinvitationdata",
+    "UserUpdateRequest": ".userupdateop",
+    "UserUpdateRequestTypedDict": ".userupdateop",
     "VerifyDomainResponse": ".verifydomainresponse",
     "VerifyDomainResponseTypedDict": ".verifydomainresponse",
     "VertexCapabilities": ".vertexcapabilities",

@@ -9,17 +9,37 @@ from typing_extensions import NotRequired, TypedDict
 
 class AutoRouterV2EffortConfigTypedDict(TypedDict):
     intelligence_index: float
+    aa_index_is_estimated: NotRequired[bool]
+    aa_index_version: NotRequired[str]
+    aa_is_reasoning: NotRequired[bool]
+    aa_reasoning_effort: NotRequired[str]
     aa_slug: NotRequired[str]
 
 
 class AutoRouterV2EffortConfig(BaseModel):
     intelligence_index: float
 
+    aa_index_is_estimated: Optional[bool] = None
+
+    aa_index_version: Optional[str] = None
+
+    aa_is_reasoning: Optional[bool] = None
+
+    aa_reasoning_effort: Optional[str] = None
+
     aa_slug: Optional[str] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["aa_slug"])
+        optional_fields = set(
+            [
+                "aa_index_is_estimated",
+                "aa_index_version",
+                "aa_is_reasoning",
+                "aa_reasoning_effort",
+                "aa_slug",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
