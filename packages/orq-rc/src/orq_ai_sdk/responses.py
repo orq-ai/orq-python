@@ -318,6 +318,7 @@ class Responses(BaseSDK):
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -426,6 +427,7 @@ class Responses(BaseSDK):
         :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
@@ -493,6 +495,9 @@ class Responses(BaseSDK):
             ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
+            ),
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
             ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
@@ -657,6 +662,7 @@ class Responses(BaseSDK):
         conversation: Optional[
             Union[models.ConversationParam, models.ConversationParamTypedDict]
         ] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -765,6 +771,7 @@ class Responses(BaseSDK):
         :param cache:
         :param cache_control: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
         :param conversation:
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format.
         :param frequency_penalty: Penalize new tokens based on their frequency in the text so far. Between -2.0 and 2.0.
         :param guardrails: Guardrails to evaluate the request against.
@@ -832,6 +839,9 @@ class Responses(BaseSDK):
             ),
             conversation=utils.get_pydantic_model(
                 conversation, Optional[models.ConversationParam]
+            ),
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
             ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]

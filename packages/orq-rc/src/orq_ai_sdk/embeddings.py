@@ -20,6 +20,7 @@ class Embeddings(BaseSDK):
         ] = None,
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -57,6 +58,7 @@ class Embeddings(BaseSDK):
         :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Array of fallback models to use if primary model fails.
         :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -88,6 +90,9 @@ class Embeddings(BaseSDK):
             ),
             dimensions=dimensions,
             encoding_format=encoding_format,
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
@@ -177,6 +182,7 @@ class Embeddings(BaseSDK):
         ] = None,
         dimensions: Optional[int] = None,
         encoding_format: Optional[models.EncodingFormat] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -214,6 +220,7 @@ class Embeddings(BaseSDK):
         :param cache:
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Array of fallback models to use if primary model fails.
         :param load_balancer:
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -245,6 +252,9 @@ class Embeddings(BaseSDK):
             ),
             dimensions=dimensions,
             encoding_format=encoding_format,
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),

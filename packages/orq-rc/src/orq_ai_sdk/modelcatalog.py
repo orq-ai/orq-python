@@ -132,6 +132,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List the model catalog",
@@ -290,6 +292,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List the model catalog",
@@ -449,6 +453,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "listOfferings",
                     "x-code-samples": [
                         {
                             "label": "Core - List model catalog offerings",
@@ -610,6 +616,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "listOfferings",
                     "x-code-samples": [
                         {
                             "label": "Core - List model catalog offerings",
@@ -720,6 +728,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a model catalog entry",
@@ -830,6 +840,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a model catalog entry",

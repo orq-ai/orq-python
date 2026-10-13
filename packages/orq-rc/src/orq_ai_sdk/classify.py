@@ -25,6 +25,7 @@ class Classify(BaseSDK):
         cache: Optional[
             Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
         ] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -65,6 +66,7 @@ class Classify(BaseSDK):
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
         :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
         :param cache:
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
@@ -91,6 +93,9 @@ class Classify(BaseSDK):
 
         request = models.CreateClassifyRequestBody(
             cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),
@@ -296,6 +301,7 @@ class Classify(BaseSDK):
         cache: Optional[
             Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
         ] = None,
+        fallback_on_codes: OptionalNullable[Iterable[int]] = UNSET,
         fallbacks: OptionalNullable[
             Union[
                 Iterable[models.FallbackConfig],
@@ -336,6 +342,7 @@ class Classify(BaseSDK):
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
         :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
         :param cache:
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
         :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
@@ -362,6 +369,9 @@ class Classify(BaseSDK):
 
         request = models.CreateClassifyRequestBody(
             cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
+            fallback_on_codes=utils.unmarshal(
+                fallback_on_codes, OptionalNullable[List[int]]
+            ),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, OptionalNullable[List[models.FallbackConfig]]
             ),

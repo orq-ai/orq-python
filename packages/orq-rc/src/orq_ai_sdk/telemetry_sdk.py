@@ -82,7 +82,10 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-name": "listCapabilities",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -173,7 +176,10 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-name": "listCapabilities",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -292,7 +298,10 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-name": "listFacetValues",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -411,7 +420,10 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "telemetry",
+                    "x-cli-name": "listFacetValues",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -566,7 +578,7 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -719,7 +731,7 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions=None,
+                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -18,6 +18,7 @@ class Speech(BaseSDK):
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1.0,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateSpeechFallbacks],
@@ -62,6 +63,7 @@ class Speech(BaseSDK):
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -92,6 +94,7 @@ class Speech(BaseSDK):
             response_format=response_format,
             speed=speed,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateSpeechFallbacks]]
             ),
@@ -174,6 +177,7 @@ class Speech(BaseSDK):
         response_format: Optional[models.CreateSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1.0,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateSpeechFallbacks],
@@ -218,6 +222,7 @@ class Speech(BaseSDK):
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -248,6 +253,7 @@ class Speech(BaseSDK):
             response_format=response_format,
             speed=speed,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateSpeechFallbacks]]
             ),

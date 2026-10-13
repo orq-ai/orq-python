@@ -22,6 +22,7 @@ class Edits(BaseSDK):
         response_format: Optional[models.CreateImageEditResponseFormat] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageEditFallbacks],
@@ -64,6 +65,7 @@ class Edits(BaseSDK):
         :param response_format: The format in which the generated images are returned. Some of the models only return the image in base64 format.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -98,6 +100,7 @@ class Edits(BaseSDK):
             response_format=response_format,
             user=user,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageEditFallbacks]]
             ),
@@ -188,6 +191,7 @@ class Edits(BaseSDK):
         response_format: Optional[models.CreateImageEditResponseFormat] = None,
         user: Optional[str] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageEditFallbacks],
@@ -230,6 +234,7 @@ class Edits(BaseSDK):
         :param response_format: The format in which the generated images are returned. Some of the models only return the image in base64 format.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -264,6 +269,7 @@ class Edits(BaseSDK):
             response_format=response_format,
             user=user,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageEditFallbacks]]
             ),

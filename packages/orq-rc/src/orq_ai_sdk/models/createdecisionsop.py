@@ -229,6 +229,8 @@ class CreateDecisionsRequestBodyTypedDict(TypedDict):
     state: CreateDecisionsStateTypedDict
     r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
     cache: NotRequired[ClassifyCacheConfigTypedDict]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
@@ -252,6 +254,9 @@ class CreateDecisionsRequestBody(BaseModel):
 
     cache: Optional[ClassifyCacheConfig] = None
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
+
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
 
@@ -270,9 +275,18 @@ class CreateDecisionsRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["cache", "fallbacks", "identity", "metadata", "name", "retry", "timeout"]
+            [
+                "cache",
+                "fallback_on_codes",
+                "fallbacks",
+                "identity",
+                "metadata",
+                "name",
+                "retry",
+                "timeout",
+            ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallback_on_codes", "fallbacks"])
         serialized = handler(self)
         m = {}
 

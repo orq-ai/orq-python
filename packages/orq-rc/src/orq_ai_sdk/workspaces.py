@@ -87,7 +87,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -182,7 +182,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -271,7 +271,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -360,7 +360,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -499,7 +499,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -638,7 +638,7 @@ class Workspaces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspaces"],
-                extensions=None,
+                extensions={"x-cli-group": "workspaces", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

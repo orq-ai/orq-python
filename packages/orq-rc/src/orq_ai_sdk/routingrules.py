@@ -1379,17 +1379,17 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}],\n      "fallback_on_codes": [429, 503]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n        "fallback_on_codes": [429, 503],\n    },\n)\n\nprint(rule.updated_at)\n',
                         },
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },
@@ -1543,17 +1543,17 @@ class RoutingRules(BaseSDK):
                         {
                             "label": "Core - Configure routing rule",
                             "lang": "curl",
-                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}]\n    }\n  }\'\n',
+                            "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/routing-rules/rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "enabled": true,\n    "priority": 10,\n    "models_config": {\n      "mode": "fallback",\n      "models": [{"model": "openai/gpt-5"}],\n      "fallback_on_codes": [429, 503]\n    }\n  }\'\n',
                         },
                         {
                             "label": "Python - Configure routing rule",
                             "lang": "python",
-                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n    },\n)\n\nprint(rule.updated_at)\n',
+                            "source": 'import os\nfrom orq_ai_sdk import Orq\n\nclient = Orq(api_key=os.environ["ORQ_API_KEY"])\nrule = client.routing_rules.update(\n    routing_rule_id="rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    enabled=True,\n    priority=10,\n    models_config={\n        "mode": "fallback",\n        "models": [{"model": "openai/gpt-5"}],\n        "fallback_on_codes": [429, 503],\n    },\n)\n\nprint(rule.updated_at)\n',
                         },
                         {
                             "label": "Node.js - Configure routing rule",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst rule = await client.routingRules.update({\n  routingRuleId: 'rrl_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  enabled: true,\n  priority: 10,\n  modelsConfig: {\n    mode: 'fallback',\n    models: [{ model: 'openai/gpt-5' }],\n    fallbackOnCodes: [429, 503],\n  },\n});\n\nconsole.log(rule.updatedAt);\n",
                         },
                     ],
                 },

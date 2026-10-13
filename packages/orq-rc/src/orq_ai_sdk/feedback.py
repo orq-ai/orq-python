@@ -98,7 +98,10 @@ class Feedback(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Feedback"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "feedback",
+                    "x-cli-name": "evaluationRemove",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -203,7 +206,10 @@ class Feedback(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Feedback"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "feedback",
+                    "x-cli-name": "evaluationRemove",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -306,7 +312,7 @@ class Feedback(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Feedback"],
-                extensions=None,
+                extensions={"x-cli-group": "feedback", "x-cli-name": "evaluation"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -409,7 +415,7 @@ class Feedback(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Feedback"],
-                extensions=None,
+                extensions={"x-cli-group": "feedback", "x-cli-name": "evaluation"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -949,12 +955,14 @@ class Feedback(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "feedback",
+                    "x-cli-name": "submit",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.feedback.submit({ category: 'bug', message: 'The MCP tool returned an unexpected error.', requestId: 'req_example' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1057,12 +1065,14 @@ class Feedback(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "feedback",
+                    "x-cli-name": "submit",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.feedback.submit({ category: 'bug', message: 'The MCP tool returned an unexpected error.', requestId: 'req_example' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,

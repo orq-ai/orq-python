@@ -74,7 +74,7 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -158,7 +158,7 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={"x-cli-group": "workspace-settings", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -265,7 +265,10 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -372,7 +375,10 @@ class WorkspaceSettingsSDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Settings"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-settings",
+                    "x-cli-name": "update",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

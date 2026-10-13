@@ -89,13 +89,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.list({ page: 'traces-studio', limit: 100 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -193,13 +195,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.list({ page: 'traces-studio', limit: 100 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -315,13 +319,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.create({ displayName: 'Errors', page: 'traces-studio', filterBy: '', columns: [] });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -437,13 +443,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.create({ displayName: 'Errors', page: 'traces-studio', filterBy: '', columns: [] });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -532,13 +540,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.get({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -627,13 +637,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.get({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -722,13 +734,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.delete({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -817,13 +831,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.delete({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -948,13 +964,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', displayName: 'Production errors' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1079,13 +1097,15 @@ class Views(BaseSDK):
                 ),
                 tags=["Views"],
                 extensions={
+                    "x-cli-group": "views",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await orq.views.update({ viewId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V', displayName: 'Production errors' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,

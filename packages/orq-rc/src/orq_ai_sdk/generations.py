@@ -26,6 +26,7 @@ class Generations(BaseSDK):
         style: OptionalNullable[models.Style] = UNSET,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageFallbacks],
@@ -77,6 +78,7 @@ class Generations(BaseSDK):
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
         :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -116,6 +118,7 @@ class Generations(BaseSDK):
             style=style,
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
             ),
@@ -209,6 +212,7 @@ class Generations(BaseSDK):
         style: OptionalNullable[models.Style] = UNSET,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageFallbacks],
@@ -260,6 +264,7 @@ class Generations(BaseSDK):
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
         :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -299,6 +304,7 @@ class Generations(BaseSDK):
             style=style,
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
             ),

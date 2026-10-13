@@ -85,6 +85,8 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
+                    "x-cli-group": "hub",
+                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "label": "Core - Search hub items",
@@ -101,7 +103,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.search({\n  q: 'summarize',\n  types: ['prompt'],\n});\n\nfor (const hit of result.hits) {\n  console.log(hit.document.id, hit.document.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -195,6 +197,8 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
+                    "x-cli-group": "hub",
+                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "label": "Core - Search hub items",
@@ -211,7 +215,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.search({\n  q: 'summarize',\n  types: ['prompt'],\n});\n\nfor (const hit of result.hits) {\n  console.log(hit.document.id, hit.document.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -302,6 +306,8 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
+                    "x-cli-group": "hub",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve hub item",
@@ -318,7 +324,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.get({\n  id: 'hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.hubItem.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -409,6 +415,8 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
+                    "x-cli-group": "hub",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve hub item",
@@ -425,7 +433,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.get({\n  id: 'hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.hubItem.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

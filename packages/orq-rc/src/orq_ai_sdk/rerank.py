@@ -20,6 +20,7 @@ class Rerank(BaseSDK):
         return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateRerankFallbacks],
@@ -66,6 +67,7 @@ class Rerank(BaseSDK):
         :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -99,6 +101,7 @@ class Rerank(BaseSDK):
             return_documents=return_documents,
             filename=filename,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateRerankFallbacks]]
             ),
@@ -186,6 +189,7 @@ class Rerank(BaseSDK):
         return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateRerankFallbacks],
@@ -232,6 +236,7 @@ class Rerank(BaseSDK):
         :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -265,6 +270,7 @@ class Rerank(BaseSDK):
             return_documents=return_documents,
             filename=filename,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateRerankFallbacks]]
             ),

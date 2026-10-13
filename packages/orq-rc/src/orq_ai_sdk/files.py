@@ -99,6 +99,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project files",
@@ -115,7 +117,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.files.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const file of page.data) {\n  console.log(file.fileId, file.fileName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -223,6 +225,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project files",
@@ -239,7 +243,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.files.list({\n  limit: 25,\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const file of page.data) {\n  console.log(file.fileId, file.fileName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -345,6 +349,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "upload",
                     "x-code-samples": [
                         {
                             "label": "Core - Upload retrieval file",
@@ -361,7 +367,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst content = Buffer.from(\n  '# Support FAQ\\n\\nCommon resolutions and escalation paths.',\n).toString('base64');\n\nconst result = await client.files.create({\n  filename: 'support-faq.md',\n  content,\n  contentType: 'text/markdown',\n  purpose: 'FILE_PURPOSE_RETRIEVAL',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -467,6 +473,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "upload",
                     "x-code-samples": [
                         {
                             "label": "Core - Upload retrieval file",
@@ -483,7 +491,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst content = Buffer.from(\n  '# Support FAQ\\n\\nCommon resolutions and escalation paths.',\n).toString('base64');\n\nconst result = await client.files.create({\n  filename: 'support-faq.md',\n  content,\n  contentType: 'text/markdown',\n  purpose: 'FILE_PURPOSE_RETRIEVAL',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -574,6 +582,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "content",
                     "x-code-samples": [
                         {
                             "label": "Core - Get download URL",
@@ -590,7 +600,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.getContent({\n  fileIdOrPath: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.downloadUrl);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -681,6 +691,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "content",
                     "x-code-samples": [
                         {
                             "label": "Core - Get download URL",
@@ -697,7 +709,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.getContent({\n  fileIdOrPath: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.downloadUrl);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -788,6 +800,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve file metadata",
@@ -804,7 +818,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.get({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -895,6 +909,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve file metadata",
@@ -911,7 +927,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.get({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.file.fileName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1002,6 +1018,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete file",
@@ -1018,7 +1036,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.files.delete({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1109,6 +1127,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete file",
@@ -1125,7 +1145,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.files.delete({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1228,6 +1248,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Rename file",
@@ -1244,7 +1266,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1347,6 +1369,8 @@ class Files(BaseSDK):
                 ),
                 tags=["Files"],
                 extensions={
+                    "x-cli-group": "files",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Rename file",
@@ -1363,7 +1387,7 @@ class Files(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.files.update({\n  fileId: 'file_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  fileName: 'support-faq-v2.md',\n});\n\nconsole.log(result.file.fileName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

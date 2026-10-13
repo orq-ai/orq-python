@@ -64,6 +64,8 @@ class CreateEmbeddingRequestBodyTypedDict(TypedDict):
     r"""The number of dimensions the resulting output embeddings should have."""
     encoding_format: NotRequired[EncodingFormat]
     r"""The format to return the embeddings in. Can be either float or base64."""
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Array of fallback models to use if primary model fails."""
     load_balancer: NotRequired[EmbeddingLoadBalancerConfigTypedDict]
@@ -91,6 +93,9 @@ class CreateEmbeddingRequestBody(BaseModel):
     encoding_format: Optional[EncodingFormat] = None
     r"""The format to return the embeddings in. Can be either float or base64."""
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
+
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Array of fallback models to use if primary model fails."""
 
@@ -115,6 +120,7 @@ class CreateEmbeddingRequestBody(BaseModel):
                 "cache",
                 "dimensions",
                 "encoding_format",
+                "fallback_on_codes",
                 "fallbacks",
                 "load_balancer",
                 "name",
@@ -124,7 +130,7 @@ class CreateEmbeddingRequestBody(BaseModel):
                 "user",
             ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallback_on_codes", "fallbacks"])
         serialized = handler(self)
         m = {}
 

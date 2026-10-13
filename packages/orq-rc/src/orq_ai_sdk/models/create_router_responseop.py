@@ -1325,6 +1325,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     cache_control: NotRequired[CreateRouterResponseCacheControlTypedDict]
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
     conversation: NotRequired[ConversationParamTypedDict]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
     frequency_penalty: NotRequired[float]
@@ -1406,6 +1408,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     r"""Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request."""
 
     conversation: Optional[ConversationParam] = None
+
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
 
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Fallback models to try if the primary model fails. Each entry specifies a model in provider/model format."""
@@ -1524,6 +1529,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "cache",
                 "cache_control",
                 "conversation",
+                "fallback_on_codes",
                 "fallbacks",
                 "frequency_penalty",
                 "guardrails",
@@ -1566,7 +1572,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "variables",
             ]
         )
-        nullable_fields = set(["fallbacks", "plugins"])
+        nullable_fields = set(["fallback_on_codes", "fallbacks", "plugins"])
         serialized = handler(self)
         m = {}
 

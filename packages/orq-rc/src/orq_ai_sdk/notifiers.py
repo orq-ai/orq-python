@@ -97,6 +97,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List notifiers",
@@ -113,7 +115,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.notifiers.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\n\nfor (const notifier of page.data) {\n  console.log(notifier._id, notifier.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -219,6 +221,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List notifiers",
@@ -235,7 +239,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.notifiers.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\n\nfor (const notifier of page.data) {\n  console.log(notifier._id, notifier.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -331,6 +335,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create email notifier",
@@ -347,7 +353,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.create({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production alerts',\n  type: 'NOTIFIER_TYPE_EMAIL',\n  emails: ['ops@example.com', 'alerts@example.com'],\n  metadata: { environment: 'production' },\n});\n\nconsole.log(result.notifier._id);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -443,6 +449,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create email notifier",
@@ -459,7 +467,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.create({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production alerts',\n  type: 'NOTIFIER_TYPE_EMAIL',\n  emails: ['ops@example.com', 'alerts@example.com'],\n  metadata: { environment: 'production' },\n});\n\nconsole.log(result.notifier._id);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -550,6 +558,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve notifier",
@@ -566,7 +576,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.get({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -657,6 +667,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve notifier",
@@ -673,7 +685,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.get({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -764,6 +776,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete notifier",
@@ -780,7 +794,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.notifiers.delete({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -871,6 +885,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete notifier",
@@ -887,7 +903,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.notifiers.delete({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1018,6 +1034,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update notifier",
@@ -1034,7 +1052,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.update({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production incident alerts',\n  emails: ['incidents@example.com'],\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1165,6 +1183,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update notifier",
@@ -1181,7 +1201,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.update({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production incident alerts',\n  emails: ['incidents@example.com'],\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

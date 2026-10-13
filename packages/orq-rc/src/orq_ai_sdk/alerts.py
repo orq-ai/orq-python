@@ -92,7 +92,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -192,7 +192,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -311,7 +311,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -430,7 +430,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "create"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -519,7 +519,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -608,7 +608,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -697,7 +697,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -786,7 +786,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -916,7 +916,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1046,7 +1046,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1146,7 +1146,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "listTriggers"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1246,7 +1246,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "listTriggers"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1349,7 +1349,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "listTriggerEvents"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1454,7 +1454,7 @@ class Alerts(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Alerts"],
-                extensions=None,
+                extensions={"x-cli-group": "alerts", "x-cli-name": "listTriggerEvents"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

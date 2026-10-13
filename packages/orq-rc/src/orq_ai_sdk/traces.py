@@ -114,7 +114,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -235,7 +235,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -317,7 +317,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -399,7 +399,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -500,7 +500,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -603,7 +603,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -687,7 +687,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -769,7 +769,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -858,7 +858,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFilters"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -947,7 +947,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listFilters"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1051,7 +1051,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "queryOql"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1155,7 +1155,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "queryOql"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1274,7 +1274,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1393,7 +1393,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1482,7 +1482,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1571,7 +1571,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1664,13 +1664,15 @@ class Traces(BaseSDK):
                 ),
                 tags=["Traces"],
                 extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-name": "getConversation",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1766,13 +1768,15 @@ class Traces(BaseSDK):
                 ),
                 tags=["Traces"],
                 extensions={
+                    "x-cli-group": "traces",
+                    "x-cli-name": "getConversation",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1870,7 +1874,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1965,7 +1969,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2057,7 +2061,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "getSpan"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2149,7 +2153,7 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions=None,
+                extensions={"x-cli-group": "traces", "x-cli-name": "getSpan"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

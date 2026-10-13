@@ -74,7 +74,7 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={"x-cli-group": "pii", "x-cli-name": "capabilities"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -156,7 +156,7 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={"x-cli-group": "pii", "x-cli-name": "capabilities"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -292,13 +292,15 @@ class Pii(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-name": "detect",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.pii.detect({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -435,13 +437,15 @@ class Pii(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-name": "detect",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.pii.detect({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -575,13 +579,15 @@ class Pii(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-name": "redact",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.pii.redact({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -715,13 +721,15 @@ class Pii(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "pii",
+                    "x-cli-name": "redact",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.pii.redact({ text: "Jane Doe, BSN 123456782", entities: ["PERSON", "BSN"] });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -817,7 +825,7 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={"x-cli-group": "pii", "x-cli-name": "restore"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -912,7 +920,7 @@ class Pii(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=None,
-                extensions=None,
+                extensions={"x-cli-group": "pii", "x-cli-name": "restore"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

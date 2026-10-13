@@ -94,6 +94,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project environments",
@@ -110,7 +112,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result.data);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -213,6 +215,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project environments",
@@ -229,7 +233,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result.data);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -336,6 +340,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a project environment",
@@ -352,7 +358,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.create({\n  slug: 'production',\n  displayName: 'Production',\n  description: 'Customer-facing production workloads',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result.environment.environmentId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -459,6 +465,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a project environment",
@@ -475,7 +483,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.create({\n  slug: 'production',\n  displayName: 'Production',\n  description: 'Customer-facing production workloads',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result.environment.environmentId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -566,6 +574,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an environment",
@@ -582,7 +592,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.get({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\nconsole.log(result.environment);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -673,6 +683,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an environment",
@@ -689,7 +701,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.get({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\nconsole.log(result.environment);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -780,6 +792,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an environment",
@@ -796,7 +810,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.environments.delete({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -887,6 +901,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an environment",
@@ -903,7 +919,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.environments.delete({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1013,6 +1029,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update an environment",
@@ -1029,7 +1047,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.update({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n  displayName: 'Production EU',\n});\nconsole.log(result.environment);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1139,6 +1157,8 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
+                    "x-cli-group": "environments",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update an environment",
@@ -1155,7 +1175,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.update({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n  displayName: 'Production EU',\n});\nconsole.log(result.environment);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

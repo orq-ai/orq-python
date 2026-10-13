@@ -99,6 +99,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List Smart Routers",
@@ -110,7 +112,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.smartRouters.list({ limit: 25 });\n\nfor (const router of page.data) {\n  console.log(router.key, router.profile);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -218,6 +220,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List Smart Routers",
@@ -229,7 +233,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst page = await client.smartRouters.list({ limit: 25 });\n\nfor (const router of page.data) {\n  console.log(router.key, router.profile);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -329,6 +333,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a Smart Router",
@@ -340,7 +346,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -440,6 +446,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a Smart Router",
@@ -451,7 +459,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.create({\n  key: 'production-assistant',\n  models: ['anthropic/claude-opus-5', 'openai/gpt-5.4-mini'],\n  profile: 'SMART_ROUTER_PROFILE_QUALITY',\n});\n\nconsole.log(result.smartRouter.modelRef);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -542,6 +550,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a Smart Router",
@@ -553,7 +563,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.get({\n  smartRouterId: '019d-smart-router-id',\n});\n\nconsole.log(result.smartRouter.key);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -644,6 +654,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a Smart Router",
@@ -655,7 +667,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.smartRouters.get({\n  smartRouterId: '019d-smart-router-id',\n});\n\nconsole.log(result.smartRouter.key);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -746,6 +758,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a Smart Router",
@@ -757,7 +771,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.delete({\n  smartRouterId: '019d-smart-router-id',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -848,6 +862,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a Smart Router",
@@ -859,7 +875,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.delete({\n  smartRouterId: '019d-smart-router-id',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -965,6 +981,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update a Smart Router",
@@ -976,7 +994,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1082,6 +1100,8 @@ class SmartRouters(BaseSDK):
                 ),
                 tags=["Smart Routers"],
                 extensions={
+                    "x-cli-group": "smart-routers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update a Smart Router",
@@ -1093,7 +1113,7 @@ class SmartRouters(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.smartRouters.update(\n  { profile: 'SMART_ROUTER_PROFILE_COST' },\n  '019d-smart-router-id',\n);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

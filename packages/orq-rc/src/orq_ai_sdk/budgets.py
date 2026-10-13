@@ -113,7 +113,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -233,7 +233,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "list"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -357,13 +357,15 @@ class Budgets(BaseSDK):
                 ),
                 tags=["Budgets"],
                 extensions={
+                    "x-cli-group": "budgets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -488,13 +490,15 @@ class Budgets(BaseSDK):
                 ),
                 tags=["Budgets"],
                 extensions={
+                    "x-cli-group": "budgets",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -584,7 +588,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -673,7 +677,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -762,7 +766,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -851,7 +855,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "delete"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -985,7 +989,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1119,7 +1123,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "update"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1223,7 +1227,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "resetConsumption"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1329,7 +1333,7 @@ class Budgets(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Budgets"],
-                extensions=None,
+                extensions={"x-cli-group": "budgets", "x-cli-name": "resetConsumption"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

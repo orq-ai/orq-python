@@ -91,6 +91,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List skills",
@@ -107,7 +109,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.skills.list({\n  limit: 25,\n});\n\nfor (const skill of page.data) {\n  console.log(skill.skillId, skill.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -207,6 +209,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List skills",
@@ -223,7 +227,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.skills.list({\n  limit: 25,\n});\n\nfor (const skill of page.data) {\n  console.log(skill.skillId, skill.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -317,6 +321,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project skill",
@@ -333,7 +339,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.create({\n  displayName: 'summarize_support_ticket',\n  description: 'Summarize support tickets into concise resolution notes.',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: '/customer-success/skills/summarize-support-ticket',\n  tags: ['support', 'summarization'],\n  instructions:\n    'Read the ticket conversation and return the problem, customer sentiment, and proposed next step.',\n});\n\nconsole.log(result.skill.skillId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -427,6 +433,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project skill",
@@ -443,7 +451,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.create({\n  displayName: 'summarize_support_ticket',\n  description: 'Summarize support tickets into concise resolution notes.',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  path: '/customer-success/skills/summarize-support-ticket',\n  tags: ['support', 'summarization'],\n  instructions:\n    'Read the ticket conversation and return the problem, customer sentiment, and proposed next step.',\n});\n\nconsole.log(result.skill.skillId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -535,6 +543,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve skill",
@@ -551,7 +561,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.get({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.skill.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -643,6 +653,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve skill",
@@ -659,7 +671,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.get({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.skill.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -750,6 +762,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete skill",
@@ -766,7 +780,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.skills.delete({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -857,6 +871,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete skill",
@@ -873,7 +889,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.skills.delete({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -991,6 +1007,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update skill instructions",
@@ -1007,7 +1025,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.update({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  description: 'Summarize support tickets for escalation handoff.',\n  tags: ['support', 'handoff'],\n  instructions:\n    'Return the issue summary, urgency, attempted fixes, and recommended owner.',\n});\n\nconsole.log(result.skill.version);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1125,6 +1143,8 @@ class Skills(BaseSDK):
                 ),
                 tags=["Skills"],
                 extensions={
+                    "x-cli-group": "skills",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update skill instructions",
@@ -1141,7 +1161,7 @@ class Skills(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.skills.update({\n  skillId: 'skill_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  description: 'Summarize support tickets for escalation handoff.',\n  tags: ['support', 'handoff'],\n  instructions:\n    'Return the issue summary, urgency, attempted fixes, and recommended owner.',\n});\n\nconsole.log(result.skill.version);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

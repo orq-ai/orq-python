@@ -31,7 +31,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.filesystems import FileSystems
     from orq_ai_sdk.guardrailrules import GuardrailRules
     from orq_ai_sdk.hub import Hub
-    from orq_ai_sdk.human_review_sets import HumanReviewSets
+    from orq_ai_sdk.humanreviewsets import HumanReviewSets
     from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.knowledge_sdk import KnowledgeSDK
     from orq_ai_sdk.logs import Logs
@@ -129,7 +129,7 @@ class Orq(BaseSDK):
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "router": ("orq_ai_sdk.router", "Router"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
-        "human_review_sets": ("orq_ai_sdk.human_review_sets", "HumanReviewSets"),
+        "human_review_sets": ("orq_ai_sdk.humanreviewsets", "HumanReviewSets"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "file_systems": ("orq_ai_sdk.filesystems", "FileSystems"),
         "knowledge": ("orq_ai_sdk.knowledge_sdk", "KnowledgeSDK"),

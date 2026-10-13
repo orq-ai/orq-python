@@ -90,6 +90,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List projects",
@@ -106,7 +108,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -205,6 +207,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List projects",
@@ -221,7 +225,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.projects.list({\n  limit: 25,\n});\n\nfor (const project of page.data) {\n  console.log(project.projectId, project.name);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -321,6 +325,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project",
@@ -337,7 +343,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -437,6 +443,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create project",
@@ -453,7 +461,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.create({\n  name: 'Customer Success',\n  description: 'Production automations for customer success workflows',\n  teams: ['team_support', 'team_growth'],\n});\n\nconsole.log(result.project.projectId);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -544,6 +552,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve project",
@@ -560,7 +570,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -651,6 +661,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve project",
@@ -667,7 +679,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.get({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -758,6 +770,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete project",
@@ -774,7 +788,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -865,6 +879,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete project",
@@ -881,7 +897,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.projects.delete({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -991,6 +1007,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update project",
@@ -1007,7 +1025,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1117,6 +1135,8 @@ class Projects(BaseSDK):
                 ),
                 tags=["Projects"],
                 extensions={
+                    "x-cli-group": "projects",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update project",
@@ -1133,7 +1153,7 @@ class Projects(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.projects.update({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  name: 'Customer Success Production',\n  description: 'Production support and retention automations',\n  teams: ['team_support'],\n});\n\nconsole.log(result.project.name);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,

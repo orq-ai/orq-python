@@ -100,7 +100,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -207,7 +207,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -321,7 +321,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -435,7 +435,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -536,7 +536,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -637,7 +637,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -719,7 +719,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -801,7 +801,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -912,7 +912,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getPatterns"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1023,7 +1023,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getPatterns"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1128,7 +1128,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1233,7 +1233,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1353,7 +1353,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1473,7 +1473,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1562,7 +1562,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1651,7 +1651,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1777,7 +1777,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getContext"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1903,7 +1903,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getContext"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1998,7 +1998,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2093,7 +2093,7 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

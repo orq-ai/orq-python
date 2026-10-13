@@ -94,12 +94,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.list({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -202,12 +204,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.list({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -322,12 +326,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.create({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB', displayName: 'Example repository', repository: { provider: 'github', owner: 'octocat', name: 'Hello-World', url: 'https://github.com/octocat/Hello-World', defaultBranch: 'main' }, branch: 'main', scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', settings: { depth: 'concise', refreshCadence: 'manual', publishToRepository: false } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -442,12 +448,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.create({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB', displayName: 'Example repository', repository: { provider: 'github', owner: 'octocat', name: 'Hello-World', url: 'https://github.com/octocat/Hello-World', defaultBranch: 'main' }, branch: 'main', scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', settings: { depth: 'concise', refreshCadence: 'manual', publishToRepository: false } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -544,12 +552,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "inspectRepository",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.inspectRepository({ scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', repositoryUrl: 'https://github.com/octocat/Hello-World', branch: 'main' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -648,12 +658,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "inspectRepository",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.inspectRepository({ scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', repositoryUrl: 'https://github.com/octocat/Hello-World', branch: 'main' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -743,12 +755,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.get({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -836,12 +850,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.get({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -929,12 +945,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.delete({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1022,12 +1040,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.delete({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1137,12 +1157,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.update({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', settings: { depth: 'extensive', refreshCadence: 'weekly', publishToRepository: false } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1252,12 +1274,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.update({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', settings: { depth: 'extensive', refreshCadence: 'weekly', publishToRepository: false } });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1351,12 +1375,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "getPage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1450,12 +1476,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "getPage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1561,12 +1589,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "updatePage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst { page } = await orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\nawait orq.wikis.updatePage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md', markdown: '# Overview\\nUpdated documentation.', expectedContentHash: page.contentHash });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1672,12 +1702,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "updatePage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst { page } = await orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\nawait orq.wikis.updatePage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md', markdown: '# Overview\\nUpdated documentation.', expectedContentHash: page.contentHash });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1777,12 +1809,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "refresh",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.refresh({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', full: false });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1882,12 +1916,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "refresh",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.refresh({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', full: false });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1978,12 +2014,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.listRuns({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', limit: 20 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2074,12 +2112,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.listRuns({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', limit: 20 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2173,12 +2213,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.search({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', query: 'installation', limit: 20 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2272,12 +2314,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.search({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', query: 'installation', limit: 20 });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2365,12 +2409,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "getTree",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getTree({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -2458,12 +2504,14 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
+                    "x-cli-group": "wikis",
+                    "x-cli-name": "getTree",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getTree({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,

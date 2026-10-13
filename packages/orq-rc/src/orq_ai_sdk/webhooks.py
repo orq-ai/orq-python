@@ -112,6 +112,8 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List filtered webhooks",
@@ -128,7 +130,7 @@ class Webhooks(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook._id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -248,6 +250,8 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List filtered webhooks",
@@ -264,7 +268,7 @@ class Webhooks(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.webhooks.list({\n  search: 'production',\n  event: 'llm.response',\n  contentType: 'application/json',\n  enabled: true,\n  page: 1,\n  limit: 20,\n  sort: 'created',\n  direction: 'desc',\n});\n\nconsole.log(`${page.count} matching webhooks`);\nfor (const webhook of page.items) {\n  console.log(webhook._id, webhook.displayName);\n}\nconsole.log(`Has more: ${page.hasMore}`);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -376,13 +380,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create webhook",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/webhooks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "_id": "webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "url": "https://example.com/orq-webhook",\n    "content_type": "application/json",\n    "display_name": "Production alerts",\n    "events": ["deployment.invoked"],\n    "secret": "orq_wh_example",\n    "enabled": true\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -494,13 +500,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create webhook",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/webhooks\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "_id": "webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V",\n    "url": "https://example.com/orq-webhook",\n    "content_type": "application/json",\n    "display_name": "Production alerts",\n    "events": ["deployment.invoked"],\n    "secret": "orq_wh_example",\n    "enabled": true\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -584,13 +592,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "count",
                     "x-code-samples": [
                         {
                             "label": "Core - Count webhooks",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/count' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -674,13 +684,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "count",
                     "x-code-samples": [
                         {
                             "label": "Core - Count webhooks",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/count' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -802,13 +814,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "query",
                     "x-code-samples": [
                         {
                             "label": "Core - Query webhooks",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/webhooks/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "sortingProps": [{"key": "created", "direction": "desc"}],\n    "filters": []\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -930,13 +944,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "query",
                     "x-code-samples": [
                         {
                             "label": "Core - Query webhooks",
                             "lang": "curl",
                             "source": 'curl --request POST \\\n  --url \'https://my.orq.ai/v2/webhooks/query\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "sortingProps": [{"key": "created", "direction": "desc"}],\n    "filters": []\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1020,13 +1036,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "generateSecret",
                     "x-code-samples": [
                         {
                             "label": "Core - Generate webhook secret",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/secret' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1112,13 +1130,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "generateSecret",
                     "x-code-samples": [
                         {
                             "label": "Core - Generate webhook secret",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/secret' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1211,13 +1231,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve webhook",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1308,13 +1330,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve webhook",
                             "lang": "curl",
                             "source": "curl --request GET \\\n  --url 'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1405,13 +1429,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete webhook",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1502,13 +1528,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete webhook",
                             "lang": "curl",
                             "source": "curl --request DELETE \\\n  --url 'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V' \\\n  --header \"Authorization: Bearer $ORQ_API_KEY\"\n",
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1613,13 +1641,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update webhook",
                             "lang": "curl",
                             "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Updated alerts",\n    "enabled": false\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1724,13 +1754,15 @@ class Webhooks(BaseSDK):
                 ),
                 tags=["Webhooks"],
                 extensions={
+                    "x-cli-group": "webhooks",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update webhook",
                             "lang": "curl",
                             "source": 'curl --request PATCH \\\n  --url \'https://my.orq.ai/v2/webhooks/webhook_01HZXW2K7Y8Q9M0N1P2R3S4T5V\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "display_name": "Updated alerts",\n    "enabled": false\n  }\'\n',
                         }
-                    ]
+                    ],
                 },
             ),
             request=req,

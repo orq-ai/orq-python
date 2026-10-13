@@ -81,7 +81,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "listDomains",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -170,7 +173,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "listDomains",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -271,7 +277,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "createDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -372,7 +381,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "createDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -464,7 +476,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "deleteDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -556,7 +571,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "deleteDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -648,7 +666,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "verifyDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -740,7 +761,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "verifyDomain",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -829,7 +853,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "getIpAllowlist",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -918,7 +945,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "getIpAllowlist",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1019,7 +1049,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "updateIpAllowlist",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1120,7 +1153,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "updateIpAllowlist",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1224,7 +1260,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "addIpRange",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1328,7 +1367,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "addIpRange",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1420,7 +1462,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "deleteIpRange",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1512,7 +1557,10 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions=None,
+                extensions={
+                    "x-cli-group": "workspace-security",
+                    "x-cli-name": "deleteIpRange",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

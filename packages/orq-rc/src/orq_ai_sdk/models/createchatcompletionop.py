@@ -2485,6 +2485,8 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     retry: NotRequired[CreateChatCompletionRouterChatCompletionsRetryTypedDict]
     r"""Retry configuration for the request"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[
         List[CreateChatCompletionRouterChatCompletionsFallbacksTypedDict]
     ]
@@ -2521,6 +2523,9 @@ class CreateChatCompletionOrq(BaseModel):
 
     retry: Optional[CreateChatCompletionRouterChatCompletionsRetry] = None
     r"""Retry configuration for the request"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     fallbacks: Optional[List[CreateChatCompletionRouterChatCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -2569,6 +2574,7 @@ class CreateChatCompletionOrq(BaseModel):
             [
                 "name",
                 "retry",
+                "fallback_on_codes",
                 "fallbacks",
                 "prompt",
                 "identity",
@@ -2662,6 +2668,8 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     plugins: NotRequired[List[CreateChatCompletionPluginsTypedDict]]
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateChatCompletionFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateChatCompletionRetryTypedDict]
@@ -2778,6 +2786,9 @@ class CreateChatCompletionRequestBody(BaseModel):
     plugins: Optional[List[CreateChatCompletionPlugins]] = None
     r"""Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output."""
 
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Optional[List[CreateChatCompletionFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -2842,6 +2853,7 @@ class CreateChatCompletionRequestBody(BaseModel):
                 "modalities",
                 "guardrails",
                 "plugins",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "cache",
