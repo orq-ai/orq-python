@@ -24,7 +24,7 @@ class ModelFusionTypedDict(TypedDict):
     synthesis_mode: ModelFusionSynthesisMode
     preset: ModelFusionPreset
     web_tools: bool
-    r"""Whether the Fusion-managed ORQ web tools are available to panel and judge phases."""
+    r"""Whether panel and judge phases get the provider-native web search tool. Models without native web search run without it."""
     max_tool_calls: int
     r"""Maximum Fusion-managed web tool calls per participating phase. Zero disables Fusion-managed tool calls."""
     feed_raw_to_synth: bool
@@ -58,7 +58,7 @@ class ModelFusion(BaseModel):
     preset: ModelFusionPreset
 
     web_tools: bool
-    r"""Whether the Fusion-managed ORQ web tools are available to panel and judge phases."""
+    r"""Whether panel and judge phases get the provider-native web search tool. Models without native web search run without it."""
 
     max_tool_calls: int
     r"""Maximum Fusion-managed web tool calls per participating phase. Zero disables Fusion-managed tool calls."""
