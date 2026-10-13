@@ -9,6 +9,7 @@
 | `assume_role_external_id`     | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `autorouter_id`               | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `autorouter_version`          | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
+| `benchmark_model`             | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |
 | `cache_read_cost`             | *Optional[float]*             | :heavy_minus_sign:            | N/A                           |
 | `cache_write_cost`            | *Optional[float]*             | :heavy_minus_sign:            | N/A                           |
 | `description`                 | *Optional[str]*               | :heavy_minus_sign:            | N/A                           |

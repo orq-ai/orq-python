@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class SmartRouters(BaseSDK):
@@ -258,6 +258,12 @@ class SmartRouters(BaseSDK):
         key: str,
         models: Iterable[str],
         profile: models_.SmartRouterProfile,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -270,6 +276,7 @@ class SmartRouters(BaseSDK):
         :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
         :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -292,6 +299,9 @@ class SmartRouters(BaseSDK):
             key=key,
             models=utils.unmarshal(models, List[str]),
             profile=profile,
+            session_affinity=utils.get_pydantic_model(
+                session_affinity, Optional[models_.SmartRouterSessionAffinity]
+            ),
         )
 
         req = self._build_request(
@@ -371,6 +381,12 @@ class SmartRouters(BaseSDK):
         key: str,
         models: Iterable[str],
         profile: models_.SmartRouterProfile,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -383,6 +399,7 @@ class SmartRouters(BaseSDK):
         :param key: Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens.
         :param models: Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -405,6 +422,9 @@ class SmartRouters(BaseSDK):
             key=key,
             models=utils.unmarshal(models, List[str]),
             profile=profile,
+            session_affinity=utils.get_pydantic_model(
+                session_affinity, Optional[models_.SmartRouterSessionAffinity]
+            ),
         )
 
         req = self._build_request_async(
@@ -900,6 +920,12 @@ class SmartRouters(BaseSDK):
         smart_router_id: str,
         models: Optional[Iterable[str]] = None,
         profile: Optional[models_.SmartRouterProfile] = None,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -907,11 +933,12 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
+        Updates the model pool, routing profile, session affinity, or any combination. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
         :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -935,6 +962,9 @@ class SmartRouters(BaseSDK):
             update_smart_router_request=models_.UpdateSmartRouterRequest(
                 models=utils.unmarshal(models, Optional[List[str]]),
                 profile=profile,
+                session_affinity=utils.get_pydantic_model(
+                    session_affinity, Optional[models_.SmartRouterSessionAffinity]
+                ),
             ),
         )
 
@@ -1019,6 +1049,12 @@ class SmartRouters(BaseSDK):
         smart_router_id: str,
         models: Optional[Iterable[str]] = None,
         profile: Optional[models_.SmartRouterProfile] = None,
+        session_affinity: Optional[
+            Union[
+                models_.SmartRouterSessionAffinity,
+                models_.SmartRouterSessionAffinityTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1026,11 +1062,12 @@ class SmartRouters(BaseSDK):
     ) -> models_.UpdateSmartRouterResponse:
         r"""Update a Smart Router
 
-        Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
+        Updates the model pool, routing profile, session affinity, or any combination. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
         :param smart_router_id:
         :param models: Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool.
         :param profile:
+        :param session_affinity:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1054,6 +1091,9 @@ class SmartRouters(BaseSDK):
             update_smart_router_request=models_.UpdateSmartRouterRequest(
                 models=utils.unmarshal(models, Optional[List[str]]),
                 profile=profile,
+                session_affinity=utils.get_pydantic_model(
+                    session_affinity, Optional[models_.SmartRouterSessionAffinity]
+                ),
             ),
         )
 

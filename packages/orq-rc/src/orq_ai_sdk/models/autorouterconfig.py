@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
+from .sessionaffinityconfig import SessionAffinityConfig, SessionAffinityConfigTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -15,16 +16,20 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class AutoRouterConfigTypedDict(TypedDict):
+    benchmark_model: NotRequired[str]
     economical_model: NotRequired[str]
     id: NotRequired[str]
     models: NotRequired[Nullable[List[str]]]
     profile: NotRequired[str]
+    session_affinity: NotRequired[SessionAffinityConfigTypedDict]
     strong_model: NotRequired[str]
     v2: NotRequired[AutoRouterV2ConfigTypedDict]
     version: NotRequired[str]
 
 
 class AutoRouterConfig(BaseModel):
+    benchmark_model: Optional[str] = None
+
     economical_model: Optional[str] = None
 
     id: Optional[str] = None
@@ -32,6 +37,8 @@ class AutoRouterConfig(BaseModel):
     models: OptionalNullable[List[str]] = UNSET
 
     profile: Optional[str] = None
+
+    session_affinity: Optional[SessionAffinityConfig] = None
 
     strong_model: Optional[str] = None
 
@@ -43,10 +50,12 @@ class AutoRouterConfig(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "economical_model",
                 "id",
                 "models",
                 "profile",
+                "session_affinity",
                 "strong_model",
                 "v2",
                 "version",

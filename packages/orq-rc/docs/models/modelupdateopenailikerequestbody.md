@@ -6,6 +6,7 @@
 | Field                   | Type                    | Required                | Description             |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
 | `base_url`              | *Optional[str]*         | :heavy_minus_sign:      | N/A                     |
+| `benchmark_model`       | *Optional[str]*         | :heavy_minus_sign:      | N/A                     |
 | `cache_read_cost`       | *Optional[float]*       | :heavy_minus_sign:      | N/A                     |
 | `cache_write_cost`      | *Optional[float]*       | :heavy_minus_sign:      | N/A                     |
 | `cost_per_image`        | *Optional[float]*       | :heavy_minus_sign:      | N/A                     |

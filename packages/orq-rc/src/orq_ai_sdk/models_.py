@@ -31,6 +31,7 @@ class Models(BaseSDK):
             ]
         ],
         provider: str,
+        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -53,6 +54,7 @@ class Models(BaseSDK):
         :param output_cost:
         :param parameters:
         :param provider:
+        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -72,6 +74,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
+            benchmark_model=benchmark_model,
             configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
@@ -176,6 +179,7 @@ class Models(BaseSDK):
             ]
         ],
         provider: str,
+        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -198,6 +202,7 @@ class Models(BaseSDK):
         :param output_cost:
         :param parameters:
         :param provider:
+        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -217,6 +222,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
+            benchmark_model=benchmark_model,
             configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
@@ -312,6 +318,7 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
@@ -348,6 +355,7 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param description:
@@ -390,6 +398,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
             description=description,
@@ -494,6 +503,7 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
@@ -530,6 +540,7 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param description:
@@ -572,6 +583,7 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
+            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
             description=description,
@@ -912,6 +924,7 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
@@ -946,6 +959,7 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param description:
@@ -991,6 +1005,7 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
                 description=description,
@@ -1094,6 +1109,7 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         description: Optional[str] = None,
@@ -1128,6 +1144,7 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param description:
@@ -1173,6 +1190,7 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
+                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
                 description=description,
@@ -1903,6 +1921,7 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
@@ -1931,6 +1950,7 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param cost_per_image:
@@ -1965,6 +1985,7 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
@@ -2061,6 +2082,7 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
@@ -2089,6 +2111,7 @@ class Models(BaseSDK):
         :param model_id:
         :param model_type:
         :param region:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param cost_per_image:
@@ -2123,6 +2146,7 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
+            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
             cost_per_image=cost_per_image,
@@ -2218,6 +2242,7 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
@@ -2246,6 +2271,7 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param cost_per_image:
@@ -2282,6 +2308,7 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
@@ -2382,6 +2409,7 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
+        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
         cost_per_image: Optional[float] = None,
@@ -2410,6 +2438,7 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
+        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
         :param cost_per_image:
@@ -2446,6 +2475,7 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
+                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
                 cost_per_image=cost_per_image,
@@ -2785,6 +2815,7 @@ class Models(BaseSDK):
             models.VertexConfiguration, models.VertexConfigurationTypedDict
         ],
         display_name: str,
+        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2796,6 +2827,7 @@ class Models(BaseSDK):
 
         :param configuration:
         :param display_name:
+        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2815,6 +2847,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateVertexRequestBody(
+            benchmark_model=benchmark_model,
             configuration=utils.get_pydantic_model(
                 configuration, models.VertexConfiguration
             ),
@@ -2896,6 +2929,7 @@ class Models(BaseSDK):
             models.VertexConfiguration, models.VertexConfigurationTypedDict
         ],
         display_name: str,
+        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2907,6 +2941,7 @@ class Models(BaseSDK):
 
         :param configuration:
         :param display_name:
+        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2926,6 +2961,7 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateVertexRequestBody(
+            benchmark_model=benchmark_model,
             configuration=utils.get_pydantic_model(
                 configuration, models.VertexConfiguration
             ),
@@ -3202,6 +3238,7 @@ class Models(BaseSDK):
         self,
         *,
         id: str,
+        benchmark_model: Optional[str] = None,
         display_name: Optional[str] = None,
         has_functions: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -3226,6 +3263,7 @@ class Models(BaseSDK):
         Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
 
         :param id: The ID of the model
+        :param benchmark_model:
         :param display_name:
         :param has_functions:
         :param input_cost:
@@ -3254,6 +3292,7 @@ class Models(BaseSDK):
         request = models.ModelUpdateRequest(
             id=id,
             request_body=models.ModelUpdateRequestBody(
+                benchmark_model=benchmark_model,
                 display_name=display_name,
                 has_functions=has_functions,
                 input_cost=input_cost,
@@ -3342,6 +3381,7 @@ class Models(BaseSDK):
         self,
         *,
         id: str,
+        benchmark_model: Optional[str] = None,
         display_name: Optional[str] = None,
         has_functions: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -3366,6 +3406,7 @@ class Models(BaseSDK):
         Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
 
         :param id: The ID of the model
+        :param benchmark_model:
         :param display_name:
         :param has_functions:
         :param input_cost:
@@ -3394,6 +3435,7 @@ class Models(BaseSDK):
         request = models.ModelUpdateRequest(
             id=id,
             request_body=models.ModelUpdateRequestBody(
+                benchmark_model=benchmark_model,
                 display_name=display_name,
                 has_functions=has_functions,
                 input_cost=input_cost,

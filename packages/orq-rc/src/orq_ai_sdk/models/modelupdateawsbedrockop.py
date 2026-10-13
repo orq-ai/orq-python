@@ -24,6 +24,7 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
     autorouter_version: NotRequired[str]
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
     description: NotRequired[str]
@@ -54,6 +55,8 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
     autorouter_id: Optional[str] = None
 
     autorouter_version: Optional[str] = None
+
+    benchmark_model: Optional[str] = None
 
     cache_read_cost: Optional[float] = None
 
@@ -103,6 +106,7 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "assume_role_external_id",
                 "autorouter_id",
                 "autorouter_version",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
                 "description",

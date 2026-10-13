@@ -33,6 +33,7 @@ class ModelCreateRequestBodyTypedDict(TypedDict):
     output_cost: float
     parameters: Nullable[List[CreateModelParameterTypedDict]]
     provider: str
+    benchmark_model: NotRequired[str]
 
 
 class ModelCreateRequestBody(BaseModel):
@@ -62,17 +63,30 @@ class ModelCreateRequestBody(BaseModel):
 
     provider: str
 
+    benchmark_model: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
+        optional_fields = set(["benchmark_model"])
+        nullable_fields = set(["parameters"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 

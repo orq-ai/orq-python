@@ -21,6 +21,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ModelUpdateRequestBodyTypedDict(TypedDict):
+    benchmark_model: NotRequired[str]
     display_name: NotRequired[str]
     has_functions: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -31,6 +32,8 @@ class ModelUpdateRequestBodyTypedDict(TypedDict):
 
 
 class ModelUpdateRequestBody(BaseModel):
+    benchmark_model: Optional[str] = None
+
     display_name: Optional[str] = None
 
     has_functions: Optional[bool] = None
@@ -49,6 +52,7 @@ class ModelUpdateRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "display_name",
                 "has_functions",
                 "input_cost",

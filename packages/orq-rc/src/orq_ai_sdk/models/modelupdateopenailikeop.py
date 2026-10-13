@@ -24,6 +24,7 @@ class ModelUpdateOpenAILikeRequestBodyTypedDict(TypedDict):
     model_type: str
     region: str
     base_url: NotRequired[str]
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
     cost_per_image: NotRequired[float]
@@ -48,6 +49,8 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
     region: str
 
     base_url: Optional[str] = None
+
+    benchmark_model: Optional[str] = None
 
     cache_read_cost: Optional[float] = None
 
@@ -82,6 +85,7 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
         optional_fields = set(
             [
                 "base_url",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
                 "cost_per_image",

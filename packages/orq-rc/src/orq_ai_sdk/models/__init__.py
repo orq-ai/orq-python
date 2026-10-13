@@ -7508,6 +7508,10 @@ if TYPE_CHECKING:
         ServerToolUseDetails,
         ServerToolUseDetailsTypedDict,
     )
+    from .sessionaffinityconfig import (
+        SessionAffinityConfig,
+        SessionAffinityConfigTypedDict,
+    )
     from .sessioninterval import SessionInterval
     from .setmodelfusionenabledrequest import (
         SetModelFusionEnabledRequest,
@@ -7546,6 +7550,10 @@ if TYPE_CHECKING:
         SmartRouterListRequestTypedDict,
     )
     from .smartrouterprofile import SmartRouterProfile
+    from .smartroutersessionaffinity import (
+        SmartRouterSessionAffinity,
+        SmartRouterSessionAffinityTypedDict,
+    )
     from .smartrouterupdateop import (
         SmartRouterUpdateRequest,
         SmartRouterUpdateRequestTypedDict,
@@ -15832,6 +15840,8 @@ __all__ = [
     "ServerToolUseDetails",
     "ServerToolUseDetailsTypedDict",
     "ServiceTier",
+    "SessionAffinityConfig",
+    "SessionAffinityConfigTypedDict",
     "SessionInterval",
     "SetModelFusionEnabledRequest",
     "SetModelFusionEnabledRequestTypedDict",
@@ -15886,6 +15896,8 @@ __all__ = [
     "SmartRouterListRequest",
     "SmartRouterListRequestTypedDict",
     "SmartRouterProfile",
+    "SmartRouterSessionAffinity",
+    "SmartRouterSessionAffinityTypedDict",
     "SmartRouterTypedDict",
     "SmartRouterUpdateRequest",
     "SmartRouterUpdateRequestTypedDict",
@@ -24190,6 +24202,8 @@ _dynamic_imports: dict[str, str] = {
     "SecurityConfigTypedDict": ".securityconfig",
     "ServerToolUseDetails": ".servertoolusedetails",
     "ServerToolUseDetailsTypedDict": ".servertoolusedetails",
+    "SessionAffinityConfig": ".sessionaffinityconfig",
+    "SessionAffinityConfigTypedDict": ".sessionaffinityconfig",
     "SessionInterval": ".sessioninterval",
     "SetModelFusionEnabledRequest": ".setmodelfusionenabledrequest",
     "SetModelFusionEnabledRequestTypedDict": ".setmodelfusionenabledrequest",
@@ -24227,6 +24241,8 @@ _dynamic_imports: dict[str, str] = {
     "SmartRouterListRequest": ".smartrouterlistop",
     "SmartRouterListRequestTypedDict": ".smartrouterlistop",
     "SmartRouterProfile": ".smartrouterprofile",
+    "SmartRouterSessionAffinity": ".smartroutersessionaffinity",
+    "SmartRouterSessionAffinityTypedDict": ".smartroutersessionaffinity",
     "SmartRouterUpdateRequest": ".smartrouterupdateop",
     "SmartRouterUpdateRequestTypedDict": ".smartrouterupdateop",
     "SpanDetail": ".spandetail",

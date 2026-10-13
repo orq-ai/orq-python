@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .smartrouterprofile import SmartRouterProfile
+from .smartroutersessionaffinity import (
+    SmartRouterSessionAffinity,
+    SmartRouterSessionAffinityTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import List, Optional
@@ -12,6 +16,7 @@ class UpdateSmartRouterRequestTypedDict(TypedDict):
     models: NotRequired[List[str]]
     r"""Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool."""
     profile: NotRequired[SmartRouterProfile]
+    session_affinity: NotRequired[SmartRouterSessionAffinityTypedDict]
 
 
 class UpdateSmartRouterRequest(BaseModel):
@@ -20,9 +25,11 @@ class UpdateSmartRouterRequest(BaseModel):
 
     profile: Optional[SmartRouterProfile] = None
 
+    session_affinity: Optional[SmartRouterSessionAffinity] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["models", "profile"])
+        optional_fields = set(["models", "profile", "session_affinity"])
         serialized = handler(self)
         m = {}
 
