@@ -46,7 +46,7 @@ class SearchWebPluginsTypedDict(TypedDict):
     entity_thresholds: NotRequired[Dict[str, float]]
     r"""Per-entity confidence cutoffs from 0 to 1, applied in addition to threshold. Each key must also appear in entities."""
     language: NotRequired[str]
-    r"""Language used by the PII detector. Defaults to en; supported languages depend on the detector capabilities."""
+    r"""Language used by the PII detector. Omitting the field defaults to auto, which detects the language per request; supported languages depend on the detector capabilities."""
     on_failure: NotRequired[str]
     r"""Behavior when the PII detector fails: block rejects the request (default); passthrough continues with the original text. Workspace and rule requirements can enforce blocking."""
     regions: NotRequired[Nullable[List[str]]]
@@ -68,7 +68,7 @@ class SearchWebPlugins(BaseModel):
     r"""Per-entity confidence cutoffs from 0 to 1, applied in addition to threshold. Each key must also appear in entities."""
 
     language: Optional[str] = None
-    r"""Language used by the PII detector. Defaults to en; supported languages depend on the detector capabilities."""
+    r"""Language used by the PII detector. Omitting the field defaults to auto, which detects the language per request; supported languages depend on the detector capabilities."""
 
     on_failure: Optional[str] = None
     r"""Behavior when the PII detector fails: block rejects the request (default); passthrough continues with the original text. Workspace and rule requirements can enforce blocking."""
