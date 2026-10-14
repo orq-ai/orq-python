@@ -12,6 +12,7 @@ class PricingVariantTypedDict(TypedDict):
     when: str
     audio_input: NotRequired[PriceTypedDict]
     audio_output: NotRequired[PriceTypedDict]
+    audio_session: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
@@ -20,6 +21,7 @@ class PricingVariantTypedDict(TypedDict):
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
     search: NotRequired[PriceTypedDict]
+    text_input: NotRequired[PriceTypedDict]
 
 
 class PricingVariant(BaseModel):
@@ -28,6 +30,8 @@ class PricingVariant(BaseModel):
     audio_input: Optional[Price] = None
 
     audio_output: Optional[Price] = None
+
+    audio_session: Optional[Price] = None
 
     cache_read: Optional[Price] = None
 
@@ -45,12 +49,15 @@ class PricingVariant(BaseModel):
 
     search: Optional[Price] = None
 
+    text_input: Optional[Price] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             [
                 "audio_input",
                 "audio_output",
+                "audio_session",
                 "cache_read",
                 "cache_write_1h",
                 "cache_write_5m",
@@ -59,6 +66,7 @@ class PricingVariant(BaseModel):
                 "output",
                 "reasoning",
                 "search",
+                "text_input",
             ]
         )
         serialized = handler(self)

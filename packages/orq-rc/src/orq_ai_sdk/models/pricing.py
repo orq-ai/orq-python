@@ -18,6 +18,7 @@ from typing_extensions import NotRequired, TypedDict
 class PricingTypedDict(TypedDict):
     audio_input: NotRequired[PriceTypedDict]
     audio_output: NotRequired[PriceTypedDict]
+    audio_session: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
@@ -26,6 +27,7 @@ class PricingTypedDict(TypedDict):
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
     search: NotRequired[PriceTypedDict]
+    text_input: NotRequired[PriceTypedDict]
     variants: NotRequired[Nullable[List[PricingVariantTypedDict]]]
 
 
@@ -33,6 +35,8 @@ class Pricing(BaseModel):
     audio_input: Optional[Price] = None
 
     audio_output: Optional[Price] = None
+
+    audio_session: Optional[Price] = None
 
     cache_read: Optional[Price] = None
 
@@ -50,6 +54,8 @@ class Pricing(BaseModel):
 
     search: Optional[Price] = None
 
+    text_input: Optional[Price] = None
+
     variants: OptionalNullable[List[PricingVariant]] = UNSET
 
     @model_serializer(mode="wrap")
@@ -58,6 +64,7 @@ class Pricing(BaseModel):
             [
                 "audio_input",
                 "audio_output",
+                "audio_session",
                 "cache_read",
                 "cache_write_1h",
                 "cache_write_5m",
@@ -66,6 +73,7 @@ class Pricing(BaseModel):
                 "output",
                 "reasoning",
                 "search",
+                "text_input",
                 "variants",
             ]
         )
