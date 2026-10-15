@@ -1,0 +1,11 @@
+# ClassifyBox
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `bottom`                                                                                  | *float*                                                                                   | :heavy_check_mark:                                                                        | Distance of the bottom edge from the top of the image, as a fraction of the image height. |
+| `left`                                                                                    | *float*                                                                                   | :heavy_check_mark:                                                                        | Distance of the left edge from the left of the image, as a fraction of the image width.   |
+| `right`                                                                                   | *float*                                                                                   | :heavy_check_mark:                                                                        | Distance of the right edge from the left of the image, as a fraction of the image width.  |
+| `top`                                                                                     | *float*                                                                                   | :heavy_check_mark:                                                                        | Distance of the top edge from the top of the image, as a fraction of the image height.    |

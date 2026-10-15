@@ -21,3 +21,9 @@ value: models.QuestionsChoiceQuestion = /* values here */
 value: models.QuestionsScoreQuestion = /* values here */
 ```
 
+### `models.QuestionsBoxQuestion`
+
+```python
+value: models.QuestionsBoxQuestion = /* values here */
+```
+

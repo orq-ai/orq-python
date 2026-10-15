@@ -15,7 +15,7 @@ class ClassifyScoreAnswerTypedDict(TypedDict):
     r"""Position on the scale, not an index: on emulated chat models and OpenAI Decisions the weighted index, each level index multiplied by that level probability and summed, so the value is usually fractional; typesafe/jev-latest returns its own score. Present for score answers."""
     type: ClassifyScoreAnswerType
     confidence: NotRequired[float]
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
     legend: NotRequired[Dict[str, str]]
     r"""Level index to level description. Present for score answers."""
     probabilities: NotRequired[Dict[str, float]]
@@ -29,7 +29,7 @@ class ClassifyScoreAnswer(BaseModel):
     type: ClassifyScoreAnswerType
 
     confidence: Optional[float] = None
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
 
     legend: Optional[Dict[str, str]] = None
     r"""Level index to level description. Present for score answers."""

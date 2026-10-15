@@ -6,8 +6,15 @@ from .outputtokensdetails import OutputTokensDetails, OutputTokensDetailsTypedDi
 from .servertoolusedetails import ServerToolUseDetails, ServerToolUseDetailsTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Optional
+from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
+
+
+Speed = Literal[
+    "standard",
+    "fast",
+]
+r"""Inference speed reported by Anthropic and used for billing."""
 
 
 class PublicUsageTypedDict(TypedDict):
@@ -21,6 +28,8 @@ class PublicUsageTypedDict(TypedDict):
     output_cost: NotRequired[float]
     r"""Cost (USD) of output tokens. Present when billing was computed for this response."""
     server_tool_use: NotRequired[ServerToolUseDetailsTypedDict]
+    speed: NotRequired[Speed]
+    r"""Inference speed reported by Anthropic and used for billing."""
     total_cost: NotRequired[float]
     r"""Total cost (USD) of the response. Present when billing was computed for this response."""
     web_search_requests: NotRequired[int]
@@ -45,6 +54,9 @@ class PublicUsage(BaseModel):
 
     server_tool_use: Optional[ServerToolUseDetails] = None
 
+    speed: Optional[Speed] = None
+    r"""Inference speed reported by Anthropic and used for billing."""
+
     total_cost: Optional[float] = None
     r"""Total cost (USD) of the response. Present when billing was computed for this response."""
 
@@ -57,6 +69,7 @@ class PublicUsage(BaseModel):
                 "input_cost",
                 "output_cost",
                 "server_tool_use",
+                "speed",
                 "total_cost",
                 "web_search_requests",
             ]

@@ -10,7 +10,7 @@ from typing_extensions import Annotated, TypedDict
 AudioContentPartSchemaType = Literal["input_audio",]
 
 
-Format = Literal[
+AudioContentPartSchemaFormat = Literal[
     "mp3",
     "wav",
 ]
@@ -20,7 +20,7 @@ r"""The format of the encoded audio data. Currently supports `wav` and `mp3`."""
 class InputAudioTypedDict(TypedDict):
     data: str
     r"""Base64 encoded audio data."""
-    format_: Format
+    format_: AudioContentPartSchemaFormat
     r"""The format of the encoded audio data. Currently supports `wav` and `mp3`."""
 
 
@@ -28,7 +28,7 @@ class InputAudio(BaseModel):
     data: str
     r"""Base64 encoded audio data."""
 
-    format_: Annotated[Format, pydantic.Field(alias="format")]
+    format_: Annotated[AudioContentPartSchemaFormat, pydantic.Field(alias="format")]
     r"""The format of the encoded audio data. Currently supports `wav` and `mp3`."""
 
 

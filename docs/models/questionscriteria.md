@@ -1,11 +1,25 @@
 # QuestionsCriteria
 
-Optional descriptions of what true and false mean.
+The option description, or null.
 
 
-## Fields
+## Supported Types
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `false`            | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `true`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+### `str`
+
+```python
+value: str = /* values here */
+```
+
+### `Dict[str, Any]`
+
+```python
+value: Dict[str, Any] = /* values here */
+```
+
+### `List[Any]`
+
+```python
+value: List[Any] = /* values here */
+```
+

@@ -1,0 +1,9 @@
+# ListDeploymentVersions23
+
+
+## Fields
+
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                               | [models.ListDeploymentVersions2DeploymentsResponseType](../models/listdeploymentversions2deploymentsresponsetype.md) | :heavy_check_mark:                                                                                                   | The type of the content part. Always `file`.                                                                         |
+| `file`                                                                                                               | [models.ListDeploymentVersions2File](../models/listdeploymentversions2file.md)                                       | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |

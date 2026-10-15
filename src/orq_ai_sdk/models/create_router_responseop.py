@@ -691,6 +691,13 @@ CreateRouterResponseServiceTier = Literal[
 r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
 
 
+CreateRouterResponseSpeed = Literal[
+    "standard",
+    "fast",
+]
+r"""Inference speed for direct Anthropic models. Fast mode is available on Claude Opus 4.8, Opus 5, and Opus 5.5 at premium pricing, and cannot be combined with batch or priority processing."""
+
+
 TemplateEngine = Literal[
     "text",
     "jinja",
@@ -1367,6 +1374,8 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     security: NotRequired[SecurityConfigTypedDict]
     service_tier: NotRequired[CreateRouterResponseServiceTier]
     r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
+    speed: NotRequired[CreateRouterResponseSpeed]
+    r"""Inference speed for direct Anthropic models. Fast mode is available on Claude Opus 4.8, Opus 5, and Opus 5.5 at premium pricing, and cannot be combined with batch or priority processing."""
     stop_sequences: NotRequired[List[str]]
     r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
     store: NotRequired[bool]
@@ -1474,6 +1483,9 @@ class CreateRouterResponseRequestBody(BaseModel):
     service_tier: Optional[CreateRouterResponseServiceTier] = None
     r"""Processing mode for the request. Ultrafast is available for GPT-6 Astra on US/global processing. Fast uses premium low-latency processing; priority remains a backward-compatible alias."""
 
+    speed: Optional[CreateRouterResponseSpeed] = None
+    r"""Inference speed for direct Anthropic models. Fast mode is available on Claude Opus 4.8, Opus 5, and Opus 5.5 at premium pricing, and cannot be combined with batch or priority processing."""
+
     stop_sequences: Optional[List[str]] = None
     r"""Custom text sequences that cause the model to stop generating. Forwarded to providers that support it (e.g. Anthropic); ignored otherwise."""
 
@@ -1549,6 +1561,7 @@ class CreateRouterResponseRequestBody(BaseModel):
                 "safety_identifier",
                 "security",
                 "service_tier",
+                "speed",
                 "stop_sequences",
                 "store",
                 "stream",

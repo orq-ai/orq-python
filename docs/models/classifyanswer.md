@@ -5,6 +5,12 @@ One answer to a classification question. The type selects the answer fields. A r
 
 ## Supported Types
 
+### `models.ClassifyBoxAnswer`
+
+```python
+value: models.ClassifyBoxAnswer = /* values here */
+```
+
 ### `models.ClassifyChoiceAnswer`
 
 ```python

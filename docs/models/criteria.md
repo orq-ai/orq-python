@@ -5,7 +5,7 @@ Optional descriptions of what true and false mean.
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `false`            | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `true`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                              | Type                                               | Required                                           | Description                                        |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| `false`                                            | [Optional[models.FalseT]](../models/falset.md)     | :heavy_minus_sign:                                 | What false means. A string, an object or an array. |
+| `true`                                             | [Optional[models.TrueT]](../models/truet.md)       | :heavy_minus_sign:                                 | What true means. A string, an object or an array.  |

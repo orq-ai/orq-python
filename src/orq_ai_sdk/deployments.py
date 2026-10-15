@@ -948,6 +948,232 @@ class Deployments(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    def list_versions(
+        self,
+        *,
+        key_or_id: str,
+        limit: Optional[int] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        variant_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListDeploymentVersionsResponseBody:
+        r"""List deployment versions
+
+        List saved versions across deployment variants, including drafts, newest first. Resolve the deployment by key or ID. Optionally filter by variant_id. Use the version _id with starting_after or ending_before to paginate.
+
+        :param key_or_id: Deployment key or ID.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: Version _id after which to fetch the next page.
+        :param ending_before: Version _id before which to fetch the previous page.
+        :param variant_id: Return versions of this variant only.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListDeploymentVersionsRequest(
+            key_or_id=key_or_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            variant_id=variant_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/deployments/{keyOrID}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListDeploymentVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Deployments"],
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-name": "listVersions",
+                    "x-code-samples": [
+                        {
+                            "label": "TypeScript",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY ?? '' });\nconst versions = await orq.deployments.listVersions({\n  keyOrID: 'customer-support',\n  limit: 10,\n});",
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListDeploymentVersionsResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
+    async def list_versions_async(
+        self,
+        *,
+        key_or_id: str,
+        limit: Optional[int] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        variant_id: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ListDeploymentVersionsResponseBody:
+        r"""List deployment versions
+
+        List saved versions across deployment variants, including drafts, newest first. Resolve the deployment by key or ID. Optionally filter by variant_id. Use the version _id with starting_after or ending_before to paginate.
+
+        :param key_or_id: Deployment key or ID.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: Version _id after which to fetch the next page.
+        :param ending_before: Version _id before which to fetch the previous page.
+        :param variant_id: Return versions of this variant only.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListDeploymentVersionsRequest(
+            key_or_id=key_or_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+            variant_id=variant_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/deployments/{keyOrID}/versions",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListDeploymentVersions",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Deployments"],
+                extensions={
+                    "x-cli-group": "deployments",
+                    "x-cli-name": "listVersions",
+                    "x-code-samples": [
+                        {
+                            "label": "TypeScript",
+                            "lang": "typescript",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY ?? '' });\nconst versions = await orq.deployments.listVersions({\n  keyOrID: 'customer-support',\n  limit: 10,\n});",
+                        }
+                    ],
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ListDeploymentVersionsResponseBody, http_res
+            )
+        if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIDefaultError("API error occurred", http_res, http_res_text)
+
+        raise models.APIDefaultError("Unexpected response received", http_res)
+
     def get_config(
         self,
         *,

@@ -7,6 +7,7 @@
 * [invoke](#invoke) - Invoke
 * [stream](#stream) - Stream
 * [list](#list) - List all deployments
+* [list_versions](#list_versions) - List deployment versions
 * [get_config](#get_config) - Get config
 
 ## invoke
@@ -221,6 +222,50 @@ with Orq(
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models.HonoAPIError    | 500                    | application/json       |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+
+## list_versions
+
+List saved versions across deployment variants, including drafts, newest first. Resolve the deployment by key or ID. Optionally filter by variant_id. Use the version _id with starting_after or ending_before to paginate.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListDeploymentVersions" method="get" path="/v2/deployments/{keyOrID}/versions" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.deployments.list_versions(key_or_id="<id>", limit=10)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `key_or_id`                                                                                              | *str*                                                                                                    | :heavy_check_mark:                                                                                       | Deployment key or ID.                                                                                    |
+| `limit`                                                                                                  | *Optional[int]*                                                                                          | :heavy_minus_sign:                                                                                       | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10 |
+| `starting_after`                                                                                         | *Optional[str]*                                                                                          | :heavy_minus_sign:                                                                                       | Version _id after which to fetch the next page.                                                          |
+| `ending_before`                                                                                          | *Optional[str]*                                                                                          | :heavy_minus_sign:                                                                                       | Version _id before which to fetch the previous page.                                                     |
+| `variant_id`                                                                                             | *Optional[str]*                                                                                          | :heavy_minus_sign:                                                                                       | Return versions of this variant only.                                                                    |
+| `retries`                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                         | :heavy_minus_sign:                                                                                       | Configuration to override the default retry behavior of the client.                                      |
+
+### Response
+
+**[models.ListDeploymentVersionsResponseBody](../../models/listdeploymentversionsresponsebody.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get_config

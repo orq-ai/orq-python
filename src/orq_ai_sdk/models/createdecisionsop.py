@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .apierror import APIError
 from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
+from .classifyasset import ClassifyAsset, ClassifyAssetTypedDict
 from .classifycacheconfig import ClassifyCacheConfig, ClassifyCacheConfigTypedDict
 from .classifyretryconfig import ClassifyRetryConfig, ClassifyRetryConfigTypedDict
 from .classifytimeoutconfig import ClassifyTimeoutConfig, ClassifyTimeoutConfigTypedDict
@@ -26,6 +27,42 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict = TypeAliasType(
+    "CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict",
+    Union[str, Dict[str, Any], List[Any]],
+)
+r"""The evaluation prompt for this question. A string, an object or an array."""
+
+
+CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions = TypeAliasType(
+    "CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions",
+    Union[str, Dict[str, Any], List[Any]],
+)
+r"""The evaluation prompt for this question. A string, an object or an array."""
+
+
+CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType = Literal["box",]
+
+
+class QuestionsBoxQuestionTypedDict(TypedDict):
+    r"""Beta, TypeSafe jev-preview only. Locates one target in an image from assets and returns its bounding box. Always returns a box; pair it with a noul question to check presence."""
+
+    instructions: (
+        CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict
+    )
+    r"""The evaluation prompt for this question. A string, an object or an array."""
+    type: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType
+
+
+class QuestionsBoxQuestion(BaseModel):
+    r"""Beta, TypeSafe jev-preview only. Locates one target in an image from assets and returns its bounding box. Always returns a box; pair it with a noul question to check presence."""
+
+    instructions: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions
+    r"""The evaluation prompt for this question. A string, an object or an array."""
+
+    type: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType
+
+
 CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict = TypeAliasType(
     "CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict",
     Union[str, Dict[str, Any], List[Any]],
@@ -46,8 +83,8 @@ CreateDecisionsQuestionsRouterDecisionsRequestType = Literal["score",]
 class QuestionsScoreQuestionTypedDict(TypedDict):
     r"""Places the state on an ordered scale and returns the probability of each level."""
 
-    criteria: List[str]
-    r"""Ordered level descriptions from lowest to highest. At least two levels."""
+    criteria: List[Any]
+    r"""Ordered level descriptions from lowest to highest. At least two levels. Each level can be a string, an object or an array."""
     instructions: CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict
     r"""The evaluation prompt for this question. A string, an object or an array."""
     type: CreateDecisionsQuestionsRouterDecisionsRequestType
@@ -56,13 +93,27 @@ class QuestionsScoreQuestionTypedDict(TypedDict):
 class QuestionsScoreQuestion(BaseModel):
     r"""Places the state on an ordered scale and returns the probability of each level."""
 
-    criteria: List[str]
-    r"""Ordered level descriptions from lowest to highest. At least two levels."""
+    criteria: List[Any]
+    r"""Ordered level descriptions from lowest to highest. At least two levels. Each level can be a string, an object or an array."""
 
     instructions: CreateDecisionsQuestionsRouterDecisionsRequestInstructions
     r"""The evaluation prompt for this question. A string, an object or an array."""
 
     type: CreateDecisionsQuestionsRouterDecisionsRequestType
+
+
+CreateDecisionsQuestionsRouterDecisionsCriteriaTypedDict = TypeAliasType(
+    "CreateDecisionsQuestionsRouterDecisionsCriteriaTypedDict",
+    Union[str, Dict[str, Any], List[Any]],
+)
+r"""The option description, or null."""
+
+
+CreateDecisionsQuestionsRouterDecisionsCriteria = TypeAliasType(
+    "CreateDecisionsQuestionsRouterDecisionsCriteria",
+    Union[str, Dict[str, Any], List[Any]],
+)
+r"""The option description, or null."""
 
 
 CreateDecisionsQuestionsRouterDecisionsInstructionsTypedDict = TypeAliasType(
@@ -85,8 +136,10 @@ CreateDecisionsQuestionsRouterDecisionsType = Literal["choice",]
 class QuestionsChoiceQuestionTypedDict(TypedDict):
     r"""Picks one of the given options and returns the probability of each."""
 
-    criteria: Dict[str, Nullable[str]]
-    r"""Options keyed by name, each mapped to a description or null."""
+    criteria: Dict[
+        str, Nullable[CreateDecisionsQuestionsRouterDecisionsCriteriaTypedDict]
+    ]
+    r"""Options keyed by name, each mapped to a description or null. A description can be a string, an object or an array."""
     instructions: CreateDecisionsQuestionsRouterDecisionsInstructionsTypedDict
     r"""The evaluation prompt for this question. A string, an object or an array."""
     type: CreateDecisionsQuestionsRouterDecisionsType
@@ -95,8 +148,8 @@ class QuestionsChoiceQuestionTypedDict(TypedDict):
 class QuestionsChoiceQuestion(BaseModel):
     r"""Picks one of the given options and returns the probability of each."""
 
-    criteria: Dict[str, Nullable[str]]
-    r"""Options keyed by name, each mapped to a description or null."""
+    criteria: Dict[str, Nullable[CreateDecisionsQuestionsRouterDecisionsCriteria]]
+    r"""Options keyed by name, each mapped to a description or null. A description can be a string, an object or an array."""
 
     instructions: CreateDecisionsQuestionsRouterDecisionsInstructions
     r"""The evaluation prompt for this question. A string, an object or an array."""
@@ -104,19 +157,43 @@ class QuestionsChoiceQuestion(BaseModel):
     type: CreateDecisionsQuestionsRouterDecisionsType
 
 
-class QuestionsCriteriaTypedDict(TypedDict):
+QuestionsFalseTypedDict = TypeAliasType(
+    "QuestionsFalseTypedDict", Union[str, Dict[str, Any], List[Any]]
+)
+r"""What false means. A string, an object or an array."""
+
+
+QuestionsFalse = TypeAliasType("QuestionsFalse", Union[str, Dict[str, Any], List[Any]])
+r"""What false means. A string, an object or an array."""
+
+
+QuestionsTrueTypedDict = TypeAliasType(
+    "QuestionsTrueTypedDict", Union[str, Dict[str, Any], List[Any]]
+)
+r"""What true means. A string, an object or an array."""
+
+
+QuestionsTrue = TypeAliasType("QuestionsTrue", Union[str, Dict[str, Any], List[Any]])
+r"""What true means. A string, an object or an array."""
+
+
+class CreateDecisionsQuestionsCriteriaTypedDict(TypedDict):
     r"""Optional descriptions of what true and false mean."""
 
-    false: NotRequired[str]
-    true: NotRequired[str]
+    false: NotRequired[QuestionsFalseTypedDict]
+    r"""What false means. A string, an object or an array."""
+    true: NotRequired[QuestionsTrueTypedDict]
+    r"""What true means. A string, an object or an array."""
 
 
-class QuestionsCriteria(BaseModel):
+class CreateDecisionsQuestionsCriteria(BaseModel):
     r"""Optional descriptions of what true and false mean."""
 
-    false: Optional[str] = None
+    false: Optional[QuestionsFalse] = None
+    r"""What false means. A string, an object or an array."""
 
-    true: Optional[str] = None
+    true: Optional[QuestionsTrue] = None
+    r"""What true means. A string, an object or an array."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -157,7 +234,7 @@ class QuestionsNoulQuestionTypedDict(TypedDict):
     instructions: CreateDecisionsQuestionsInstructionsTypedDict
     r"""The evaluation prompt for this question. A string, an object or an array."""
     type: CreateDecisionsQuestionsType
-    criteria: NotRequired[QuestionsCriteriaTypedDict]
+    criteria: NotRequired[CreateDecisionsQuestionsCriteriaTypedDict]
     r"""Optional descriptions of what true and false mean."""
 
 
@@ -169,7 +246,7 @@ class QuestionsNoulQuestion(BaseModel):
 
     type: CreateDecisionsQuestionsType
 
-    criteria: Optional[QuestionsCriteria] = None
+    criteria: Optional[CreateDecisionsQuestionsCriteria] = None
     r"""Optional descriptions of what true and false mean."""
 
     @model_serializer(mode="wrap")
@@ -192,6 +269,7 @@ class QuestionsNoulQuestion(BaseModel):
 CreateDecisionsQuestionsTypedDict = TypeAliasType(
     "CreateDecisionsQuestionsTypedDict",
     Union[
+        QuestionsBoxQuestionTypedDict,
         QuestionsNoulQuestionTypedDict,
         QuestionsChoiceQuestionTypedDict,
         QuestionsScoreQuestionTypedDict,
@@ -204,6 +282,7 @@ CreateDecisionsQuestions = Annotated[
         Annotated[QuestionsNoulQuestion, Tag("noul")],
         Annotated[QuestionsChoiceQuestion, Tag("choice")],
         Annotated[QuestionsScoreQuestion, Tag("score")],
+        Annotated[QuestionsBoxQuestion, Tag("box")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -212,13 +291,13 @@ CreateDecisionsQuestions = Annotated[
 CreateDecisionsStateTypedDict = TypeAliasType(
     "CreateDecisionsStateTypedDict", Union[str, Dict[str, Any], List[Any]]
 )
-r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
 
 
 CreateDecisionsState = TypeAliasType(
     "CreateDecisionsState", Union[str, Dict[str, Any], List[Any]]
 )
-r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
 
 
 class CreateDecisionsRequestBodyTypedDict(TypedDict):
@@ -227,10 +306,12 @@ class CreateDecisionsRequestBodyTypedDict(TypedDict):
     questions: Dict[str, CreateDecisionsQuestionsTypedDict]
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
     state: CreateDecisionsStateTypedDict
-    r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    assets: NotRequired[Dict[str, ClassifyAssetTypedDict]]
+    r"""Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions."""
     cache: NotRequired[ClassifyCacheConfigTypedDict]
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
-    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
     metadata: NotRequired[Dict[str, str]]
     r"""Key-value metadata attached to the trace."""
@@ -248,12 +329,15 @@ class CreateDecisionsRequestBody(BaseModel):
     r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
 
     state: CreateDecisionsState
-    r"""The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+
+    assets: Optional[Dict[str, ClassifyAsset]] = None
+    r"""Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions."""
 
     cache: Optional[ClassifyCacheConfig] = None
 
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
-    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks."""
+    r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
 
     identity: Optional[ResponseIdentity] = None
 
@@ -270,7 +354,16 @@ class CreateDecisionsRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["cache", "fallbacks", "identity", "metadata", "name", "retry", "timeout"]
+            [
+                "assets",
+                "cache",
+                "fallbacks",
+                "identity",
+                "metadata",
+                "name",
+                "retry",
+                "timeout",
+            ]
         )
         nullable_fields = set(["fallbacks"])
         serialized = handler(self)

@@ -15,7 +15,7 @@ class ClassifyChoiceAnswerTypedDict(TypedDict):
     r"""The selected option. Present for choice answers."""
     type: ClassifyChoiceAnswerType
     confidence: NotRequired[float]
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
     probabilities: NotRequired[Dict[str, float]]
     r"""Probability distribution over the options or levels. Present for choice and score answers."""
 
@@ -27,7 +27,7 @@ class ClassifyChoiceAnswer(BaseModel):
     type: ClassifyChoiceAnswerType
 
     confidence: Optional[float] = None
-    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice and score answers."""
+    r"""How sure the model is of the answer it selected: on emulated chat models the largest value in probabilities, so it adds nothing the distribution does not; native providers return their own confidence value, which can sit below the largest probability. Present for choice, score and box answers."""
 
     probabilities: Optional[Dict[str, float]] = None
     r"""Probability distribution over the options or levels. Present for choice and score answers."""
