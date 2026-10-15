@@ -15,6 +15,8 @@ class TelemetrySDK(BaseSDK):
         self,
         *,
         source: Optional[models.TelemetrySource] = None,
+        project_id: Optional[str] = None,
+        workspace_wide: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -25,6 +27,10 @@ class TelemetrySDK(BaseSDK):
         Lists the caller-scoped metrics, operations, units, query modes, result kinds, dimensions, and filter operators supported by the unified telemetry query service.
 
         :param source:
+        :param project_id: Restricts discovered runtime metrics to records attributed to this exact
+            project. Projectless workspace metrics are excluded.
+        :param workspace_wide: Discovers runtime metrics across the complete workspace, including
+            project-attributed and projectless records. Workspace-admin only.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -45,6 +51,8 @@ class TelemetrySDK(BaseSDK):
 
         request = models.TelemetryListCapabilitiesRequest(
             source=source,
+            project_id=project_id,
+            workspace_wide=workspace_wide,
         )
 
         req = self._build_request(
@@ -113,6 +121,8 @@ class TelemetrySDK(BaseSDK):
         self,
         *,
         source: Optional[models.TelemetrySource] = None,
+        project_id: Optional[str] = None,
+        workspace_wide: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -123,6 +133,10 @@ class TelemetrySDK(BaseSDK):
         Lists the caller-scoped metrics, operations, units, query modes, result kinds, dimensions, and filter operators supported by the unified telemetry query service.
 
         :param source:
+        :param project_id: Restricts discovered runtime metrics to records attributed to this exact
+            project. Projectless workspace metrics are excluded.
+        :param workspace_wide: Discovers runtime metrics across the complete workspace, including
+            project-attributed and projectless records. Workspace-admin only.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -143,6 +157,8 @@ class TelemetrySDK(BaseSDK):
 
         request = models.TelemetryListCapabilitiesRequest(
             source=source,
+            project_id=project_id,
+            workspace_wide=workspace_wide,
         )
 
         req = self._build_request_async(

@@ -1,0 +1,11 @@
+# BoxQuestion
+
+Beta, TypeSafe jev-preview only. Locates one target in an image from assets and returns its bounding box. Always returns a box; pair it with a noul question to check presence.
+
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `instructions`                                                                                                             | [models.CreateClassifyQuestionsRouterClassifyInstructions](../models/createclassifyquestionsrouterclassifyinstructions.md) | :heavy_check_mark:                                                                                                         | The evaluation prompt for this question. A string, an object or an array.                                                  |
+| `type`                                                                                                                     | [models.CreateClassifyQuestionsRouterClassifyRequestType](../models/createclassifyquestionsrouterclassifyrequesttype.md)   | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |

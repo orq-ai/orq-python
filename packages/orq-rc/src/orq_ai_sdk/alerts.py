@@ -17,6 +17,7 @@ class Alerts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        scope: Optional[models.AlertScope] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -32,6 +33,8 @@ class Alerts(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `alert_id` of the first
             item from the previous page.
         :param project_id: Restrict results to one project.
+        :param scope: Restrict results by ownership boundary. Unspecified returns all alerts
+            visible to the caller; non-admin callers never see workspace alerts.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -55,6 +58,7 @@ class Alerts(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            scope=scope,
         )
 
         req = self._build_request(
@@ -121,6 +125,7 @@ class Alerts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         project_id: Optional[str] = None,
+        scope: Optional[models.AlertScope] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -136,6 +141,8 @@ class Alerts(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `alert_id` of the first
             item from the previous page.
         :param project_id: Restrict results to one project.
+        :param scope: Restrict results by ownership boundary. Unspecified returns all alerts
+            visible to the caller; non-admin callers never see workspace alerts.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -159,6 +166,7 @@ class Alerts(BaseSDK):
             starting_after=starting_after,
             ending_before=ending_before,
             project_id=project_id,
+            scope=scope,
         )
 
         req = self._build_request_async(
@@ -222,16 +230,17 @@ class Alerts(BaseSDK):
         self,
         *,
         display_name: str,
-        project_id: str,
         query: Union[models.AlertQuery, models.AlertQueryTypedDict],
         condition: Union[models.AlertCondition, models.AlertConditionTypedDict],
         description: Optional[str] = None,
+        project_id: Optional[str] = None,
         signal: Optional[str] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
         display: Optional[
             Union[models.AlertDisplay, models.AlertDisplayTypedDict]
         ] = None,
+        scope: Optional[models.AlertScope] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -239,18 +248,19 @@ class Alerts(BaseSDK):
     ) -> models.CreateAlertResponse:
         r"""Create an alert
 
-        Creates a threshold alert in a project. The alert's query is validated against the Reporting API metric catalogue and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
+        Creates a project- or workspace-scoped threshold alert. The alert's query is validated against the selected telemetry source and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
 
         :param display_name: Workspace-unique display name.
-        :param project_id: Project that owns the alert. Required.
         :param query: Metric query evaluated on each tick.
         :param condition: Threshold condition applied to the query result.
         :param description: Short human-readable summary of what the alert watches.
+        :param project_id: Project that owns a project alert. Empty for a workspace alert.
         :param signal: UI signal preset the alert is created from. Defaults to `custom`.
         :param notifier_ids: Notifiers that receive trigger-open and trigger-resolve
             notifications.
         :param enabled: Whether the alert starts evaluating immediately. Defaults to true.
         :param display: Display options for the alert activity chart.
+        :param scope:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -279,6 +289,7 @@ class Alerts(BaseSDK):
             notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
             enabled=enabled,
             display=utils.get_pydantic_model(display, Optional[models.AlertDisplay]),
+            scope=scope,
         )
 
         req = self._build_request(
@@ -345,16 +356,17 @@ class Alerts(BaseSDK):
         self,
         *,
         display_name: str,
-        project_id: str,
         query: Union[models.AlertQuery, models.AlertQueryTypedDict],
         condition: Union[models.AlertCondition, models.AlertConditionTypedDict],
         description: Optional[str] = None,
+        project_id: Optional[str] = None,
         signal: Optional[str] = None,
         notifier_ids: Optional[Iterable[str]] = None,
         enabled: Optional[bool] = None,
         display: Optional[
             Union[models.AlertDisplay, models.AlertDisplayTypedDict]
         ] = None,
+        scope: Optional[models.AlertScope] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -362,18 +374,19 @@ class Alerts(BaseSDK):
     ) -> models.CreateAlertResponse:
         r"""Create an alert
 
-        Creates a threshold alert in a project. The alert's query is validated against the Reporting API metric catalogue and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
+        Creates a project- or workspace-scoped threshold alert. The alert's query is validated against the selected telemetry source and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
 
         :param display_name: Workspace-unique display name.
-        :param project_id: Project that owns the alert. Required.
         :param query: Metric query evaluated on each tick.
         :param condition: Threshold condition applied to the query result.
         :param description: Short human-readable summary of what the alert watches.
+        :param project_id: Project that owns a project alert. Empty for a workspace alert.
         :param signal: UI signal preset the alert is created from. Defaults to `custom`.
         :param notifier_ids: Notifiers that receive trigger-open and trigger-resolve
             notifications.
         :param enabled: Whether the alert starts evaluating immediately. Defaults to true.
         :param display: Display options for the alert activity chart.
+        :param scope:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -402,6 +415,7 @@ class Alerts(BaseSDK):
             notifier_ids=utils.unmarshal(notifier_ids, Optional[List[str]]),
             enabled=enabled,
             display=utils.get_pydantic_model(display, Optional[models.AlertDisplay]),
+            scope=scope,
         )
 
         req = self._build_request_async(
@@ -859,13 +873,14 @@ class Alerts(BaseSDK):
     ) -> models.UpdateAlertResponse:
         r"""Update an alert
 
-        Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. `project_id` is immutable.
+        Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. Alert scope, `project_id`, and telemetry source are immutable.
 
         :param alert_id: Alert ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
         :param description: New description. Omit to keep the current description.
         :param signal: New UI signal preset. Omit to keep the current value.
-        :param query: Replacement query. Omit to keep the current query.
+        :param query: Replacement query. Metric, operation, and filters may change within the
+            current telemetry source. Source changes require creating a new alert.
         :param condition: Replacement condition. Omit to keep the current condition.
         :param notifier_ids: Replacement notifier set. Omit to keep the current notifiers.
         :param enabled: New enabled state. Omit to keep the current state.
@@ -993,13 +1008,14 @@ class Alerts(BaseSDK):
     ) -> models.UpdateAlertResponse:
         r"""Update an alert
 
-        Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. `project_id` is immutable.
+        Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. Alert scope, `project_id`, and telemetry source are immutable.
 
         :param alert_id: Alert ID to update.
         :param display_name: New workspace-unique display name. Omit to keep the current name.
         :param description: New description. Omit to keep the current description.
         :param signal: New UI signal preset. Omit to keep the current value.
-        :param query: Replacement query. Omit to keep the current query.
+        :param query: Replacement query. Metric, operation, and filters may change within the
+            current telemetry source. Source changes require creating a new alert.
         :param condition: Replacement condition. Omit to keep the current condition.
         :param notifier_ids: Replacement notifier set. Omit to keep the current notifiers.
         :param enabled: New enabled state. Omit to keep the current state.

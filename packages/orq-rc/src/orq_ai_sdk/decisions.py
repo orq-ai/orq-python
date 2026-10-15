@@ -19,6 +19,12 @@ class Decisions(BaseSDK):
             Mapping[str, models.CreateDecisionsQuestionsTypedDict],
         ],
         state: Union[models.CreateDecisionsState, models.CreateDecisionsStateTypedDict],
+        assets: Optional[
+            Union[
+                Mapping[str, models.ClassifyAsset],
+                Mapping[str, models.ClassifyAssetTypedDict],
+            ]
+        ] = None,
         cache: Optional[
             Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
         ] = None,
@@ -52,6 +58,9 @@ class Decisions(BaseSDK):
         - `noul`: estimate the probability that a statement is true.
         - `choice`: select an option from a set.
         - `score`: rate the content on an ordered scale.
+        - `box`: locate one target in an image and return its bounding box. Beta, TypeSafe `jev-preview` only.
+
+        Instructions and criteria accept strings or structured JSON. TypeSafe models also accept inline images through `assets` (beta).
 
         Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, `timeout.call_timeout` in milliseconds, and an exact-match `cache`. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
 
@@ -59,10 +68,11 @@ class Decisions(BaseSDK):
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param assets: Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions.
         :param cache:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
-        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
+        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -87,6 +97,9 @@ class Decisions(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateDecisionsRequestBody(
+            assets=utils.get_pydantic_model(
+                assets, Optional[Dict[str, models.ClassifyAsset]]
+            ),
             cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
             fallback_on_codes=utils.unmarshal(
                 fallback_on_codes, OptionalNullable[List[int]]
@@ -299,6 +312,12 @@ class Decisions(BaseSDK):
             Mapping[str, models.CreateDecisionsQuestionsTypedDict],
         ],
         state: Union[models.CreateDecisionsState, models.CreateDecisionsStateTypedDict],
+        assets: Optional[
+            Union[
+                Mapping[str, models.ClassifyAsset],
+                Mapping[str, models.ClassifyAssetTypedDict],
+            ]
+        ] = None,
         cache: Optional[
             Union[models.ClassifyCacheConfig, models.ClassifyCacheConfigTypedDict]
         ] = None,
@@ -332,6 +351,9 @@ class Decisions(BaseSDK):
         - `noul`: estimate the probability that a statement is true.
         - `choice`: select an option from a set.
         - `score`: rate the content on an ordered scale.
+        - `box`: locate one target in an image and return its bounding box. Beta, TypeSafe `jev-preview` only.
+
+        Instructions and criteria accept strings or structured JSON. TypeSafe models also accept inline images through `assets` (beta).
 
         Use a native decision model or a supported chat model. Configure ordered `fallbacks`, optional `retry`, `timeout.call_timeout` in milliseconds, and an exact-match `cache`. Each retry and fallback gets a fresh timeout; omit `retry` to move directly to the next fallback on timeout. The response identifies the model that answered.
 
@@ -339,10 +361,11 @@ class Decisions(BaseSDK):
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
         :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param assets: Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions.
         :param cache:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
-        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Image requests require native OpenAI image-capable fallbacks.
+        :param fallbacks: Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks.
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
@@ -367,6 +390,9 @@ class Decisions(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreateDecisionsRequestBody(
+            assets=utils.get_pydantic_model(
+                assets, Optional[Dict[str, models.ClassifyAsset]]
+            ),
             cache=utils.get_pydantic_model(cache, Optional[models.ClassifyCacheConfig]),
             fallback_on_codes=utils.unmarshal(
                 fallback_on_codes, OptionalNullable[List[int]]

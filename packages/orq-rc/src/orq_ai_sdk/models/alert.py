@@ -5,6 +5,7 @@ from .alertcondition import AlertCondition, AlertConditionTypedDict
 from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
 from .alertrun import AlertRun, AlertRunTypedDict
+from .alertscope import AlertScope
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -46,7 +47,7 @@ class AlertTypedDict(TypedDict):
     description: str
     r"""Short human-readable summary of what the alert watches."""
     project_id: str
-    r"""Project that owns the alert. Immutable after creation."""
+    r"""Project that owns a project-scoped alert. Empty for workspace alerts. Immutable after creation."""
     signal: Signal
     r"""UI signal preset the alert was created from."""
     query: AlertQueryTypedDict
@@ -71,6 +72,7 @@ class AlertTypedDict(TypedDict):
     r"""User ID that created the alert."""
     updated_by_id: str
     r"""User ID that last updated the alert."""
+    scope: AlertScope
     last_triggered_at: NotRequired[Nullable[datetime]]
     r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
     recent_runs: NotRequired[List[AlertRunTypedDict]]
@@ -94,7 +96,7 @@ class Alert(BaseModel):
     r"""Short human-readable summary of what the alert watches."""
 
     project_id: str
-    r"""Project that owns the alert. Immutable after creation."""
+    r"""Project that owns a project-scoped alert. Empty for workspace alerts. Immutable after creation."""
 
     signal: Signal
     r"""UI signal preset the alert was created from."""
@@ -129,6 +131,8 @@ class Alert(BaseModel):
 
     updated_by_id: str
     r"""User ID that last updated the alert."""
+
+    scope: AlertScope
 
     last_triggered_at: OptionalNullable[datetime] = UNSET
     r"""Time when the alert last opened a trigger. `null` until the alert first triggers."""
