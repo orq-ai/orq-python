@@ -613,6 +613,7 @@ if TYPE_CHECKING:
         CreateRouterResponseResponsesResponseBodyTypedDict,
         CreateRouterResponseResponsesServiceTier,
         CreateRouterResponseServiceTier,
+        CreateRouterResponseSpeed,
         CreateRouterResponseStatus,
         CreateRouterResponseTTL,
         CreateRouterResponseText,
@@ -6020,6 +6021,14 @@ if TYPE_CHECKING:
     from .mcpauthtype import McpAuthType
     from .mcpconnection import McpConnection, McpConnectionTypedDict
     from .mcpconnectiontype import McpConnectionType
+    from .mcpenterpriseauthconfig import (
+        McpEnterpriseAuthConfig,
+        McpEnterpriseAuthConfigTypedDict,
+    )
+    from .mcpenterpriseauthconfig_output import (
+        McpEnterpriseAuthConfigOutput,
+        McpEnterpriseAuthConfigOutputTypedDict,
+    )
     from .mcpgateway import McpGateway, McpGatewayTypedDict
     from .mcpgatewaydeleteop import (
         McpGatewayDeleteRequest,
@@ -6603,7 +6612,7 @@ if TYPE_CHECKING:
         PublicSchedulePayload,
         PublicSchedulePayloadTypedDict,
     )
-    from .publicusage import PublicUsage, PublicUsageTypedDict
+    from .publicusage import PublicUsage, PublicUsageTypedDict, Speed
     from .queryknowledgebasetoolinput import (
         QueryKnowledgeBaseToolInput,
         QueryKnowledgeBaseToolInputType,
@@ -11449,6 +11458,7 @@ __all__ = [
     "CreateRouterResponseResponsesResponseBodyTypedDict",
     "CreateRouterResponseResponsesServiceTier",
     "CreateRouterResponseServiceTier",
+    "CreateRouterResponseSpeed",
     "CreateRouterResponseStatus",
     "CreateRouterResponseTTL",
     "CreateRouterResponseText",
@@ -14644,6 +14654,10 @@ __all__ = [
     "McpConnection",
     "McpConnectionType",
     "McpConnectionTypedDict",
+    "McpEnterpriseAuthConfig",
+    "McpEnterpriseAuthConfigOutput",
+    "McpEnterpriseAuthConfigOutputTypedDict",
+    "McpEnterpriseAuthConfigTypedDict",
     "McpGateway",
     "McpGatewayDeleteRequest",
     "McpGatewayDeleteRequestTypedDict",
@@ -16503,6 +16517,7 @@ __all__ = [
     "SpanSummaryTypedDict",
     "SpecificFunction",
     "SpecificFunctionTypedDict",
+    "Speed",
     "StatFileRequest",
     "StatFileRequestTypedDict",
     "StatFileSystemFileResponse",
@@ -18555,6 +18570,7 @@ _dynamic_imports: dict[str, str] = {
     "CreateRouterResponseResponsesResponseBodyTypedDict": ".create_router_responseop",
     "CreateRouterResponseResponsesServiceTier": ".create_router_responseop",
     "CreateRouterResponseServiceTier": ".create_router_responseop",
+    "CreateRouterResponseSpeed": ".create_router_responseop",
     "CreateRouterResponseStatus": ".create_router_responseop",
     "CreateRouterResponseTTL": ".create_router_responseop",
     "CreateRouterResponseText": ".create_router_responseop",
@@ -23570,6 +23586,10 @@ _dynamic_imports: dict[str, str] = {
     "McpConnection": ".mcpconnection",
     "McpConnectionTypedDict": ".mcpconnection",
     "McpConnectionType": ".mcpconnectiontype",
+    "McpEnterpriseAuthConfig": ".mcpenterpriseauthconfig",
+    "McpEnterpriseAuthConfigTypedDict": ".mcpenterpriseauthconfig",
+    "McpEnterpriseAuthConfigOutput": ".mcpenterpriseauthconfig_output",
+    "McpEnterpriseAuthConfigOutputTypedDict": ".mcpenterpriseauthconfig_output",
     "McpGateway": ".mcpgateway",
     "McpGatewayTypedDict": ".mcpgateway",
     "McpGatewayDeleteRequest": ".mcpgatewaydeleteop",
@@ -24089,6 +24109,7 @@ _dynamic_imports: dict[str, str] = {
     "PublicSchedulePayloadTypedDict": ".publicschedulepayload",
     "PublicUsage": ".publicusage",
     "PublicUsageTypedDict": ".publicusage",
+    "Speed": ".publicusage",
     "QueryKnowledgeBaseToolInput": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputType": ".queryknowledgebasetoolinput",
     "QueryKnowledgeBaseToolInputTypedDict": ".queryknowledgebasetoolinput",
