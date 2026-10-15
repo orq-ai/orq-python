@@ -349,6 +349,7 @@ class OrqCompletions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
             return unmarshal_json_response(
@@ -366,6 +367,12 @@ class OrqCompletions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
+            http_res_text = utils.stream_to_text(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -711,6 +718,7 @@ class OrqCompletions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
             return unmarshal_json_response(
@@ -728,6 +736,12 @@ class OrqCompletions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

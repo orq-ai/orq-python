@@ -274,6 +274,7 @@ if TYPE_CHECKING:
     )
     from .apidefaulterror import APIDefaultError
     from .apierror import APIError, APIErrorTypedDict
+    from .apierrorresponse import APIErrorResponse, APIErrorResponseData
     from .apikeybudgetscope import APIKeyBudgetScope, APIKeyBudgetScopeTypedDict
     from .apikeybudgetscoperestresponse import (
         APIKeyBudgetScopeRestResponse,
@@ -3480,6 +3481,7 @@ if TYPE_CHECKING:
         EnvironmentUpdateRequestTypedDict,
     )
     from .errorpart import ErrorPart, ErrorPartKind, ErrorPartTypedDict
+    from .errorresponse import ErrorResponse, ErrorResponseData
     from .errorstreamingevent import (
         ErrorStreamingEvent,
         ErrorStreamingEventData,
@@ -9431,6 +9433,8 @@ __all__ = [
     "A2AMessageTypedDict",
     "APIDefaultError",
     "APIError",
+    "APIErrorResponse",
+    "APIErrorResponseData",
     "APIErrorTypedDict",
     "APIKeyBudgetScope",
     "APIKeyBudgetScopeRestResponse",
@@ -12415,6 +12419,8 @@ __all__ = [
     "ErrorPart",
     "ErrorPartKind",
     "ErrorPartTypedDict",
+    "ErrorResponse",
+    "ErrorResponseData",
     "ErrorStreamingEvent",
     "ErrorStreamingEventData",
     "ErrorStreamingEventDataTypedDict",
@@ -18200,6 +18206,8 @@ _dynamic_imports: dict[str, str] = {
     "APIDefaultError": ".apidefaulterror",
     "APIError": ".apierror",
     "APIErrorTypedDict": ".apierror",
+    "APIErrorResponse": ".apierrorresponse",
+    "APIErrorResponseData": ".apierrorresponse",
     "APIKeyBudgetScope": ".apikeybudgetscope",
     "APIKeyBudgetScopeTypedDict": ".apikeybudgetscope",
     "APIKeyBudgetScopeRestResponse": ".apikeybudgetscoperestresponse",
@@ -21168,6 +21176,8 @@ _dynamic_imports: dict[str, str] = {
     "ErrorPart": ".errorpart",
     "ErrorPartKind": ".errorpart",
     "ErrorPartTypedDict": ".errorpart",
+    "ErrorResponse": ".errorresponse",
+    "ErrorResponseData": ".errorresponse",
     "ErrorStreamingEvent": ".errorstreamingevent",
     "ErrorStreamingEventData": ".errorstreamingevent",
     "ErrorStreamingEventDataTypedDict": ".errorstreamingevent",

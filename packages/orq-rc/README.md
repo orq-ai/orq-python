@@ -1153,7 +1153,40 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list(limit=10)
+        res = orq.deployments.invoke(key="<key>", stream=False, identity={
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        }, documents=[
+            {
+                "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+                "metadata": {
+                    "file_name": "refund_policy.pdf",
+                    "file_type": "application/pdf",
+                    "page_number": 1.0,
+                },
+            },
+            {
+                "text": "Premium members receive free shipping on all orders over $50.",
+                "metadata": {
+                    "file_name": "membership_benefits.md",
+                    "file_type": "text/markdown",
+                },
+            },
+        ])
+
+        assert res is not None
 
         # Handle response
         print(res)
@@ -1168,16 +1201,17 @@ with Orq(
         print(e.raw_response)
 
         # Depending on the method different errors may be thrown
-        if isinstance(e, models.HonoAPIError):
-            print(e.data.code)  # Optional[str]
+        if isinstance(e, models.ErrorResponse):
             print(e.data.message)  # str
+            print(e.data.code)  # Optional[int]
+            print(e.data.details)  # Optional[List[Any]]
 ```
 
 ### Error Classes
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (69)</summary>
+<details><summary>Less common errors (71)</summary>
 
 <br />
 
@@ -1188,6 +1222,8 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
+* [`ErrorResponse`](./src/orq_ai_sdk/models/errorresponse.py): Applicable to 258 of 356 methods.*
+* [`APIErrorResponse`](./src/orq_ai_sdk/models/apierrorresponse.py): Applicable to 12 of 356 methods.*
 * [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 5 of 356 methods.*
 * [`PostV2FeedbackFeedbackResponseBody`](./src/orq_ai_sdk/models/postv2feedbackfeedbackresponsebody.py): Bad Request. Status code `400`. Applicable to 1 of 356 methods.*
 * [`CompactResponseResponsesResponseBody`](./src/orq_ai_sdk/models/compactresponseresponsesresponsebody.py): Model is required or request is invalid. Status code `400`. Applicable to 1 of 356 methods.*

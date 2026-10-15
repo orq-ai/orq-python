@@ -114,6 +114,7 @@ with Orq(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type              | Status Code             | Content Type            |
+| ----------------------- | ----------------------- | ----------------------- |
+| models.APIErrorResponse | 400, 401, 404           | application/json        |
+| models.APIDefaultError  | 4XX, 5XX                | \*/\*                   |

@@ -1,20 +1,20 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 192e9d700c9a34344446e27708800912
+  docChecksum: 0a27a8c30efb8353b89a07f2195265ef
   docVersion: "2.0"
   speakeasyVersion: 1.802.0
   generationVersion: 2.948.4
-  releaseVersion: 4.17.0-rc.25
-  configChecksum: 89692d650e8f979b14c6f32f576a9623
+  releaseVersion: 4.17.0-rc.26
+  configChecksum: 0fa52c5ea0da1aea47876bf77ec9ab3b
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
   published: true
 persistentEdits:
-  generation_id: f8ba8cde-908e-4e0f-81b0-b21062253950
-  pristine_commit_hash: f3844eb024a4470f5a8be30c939a3d17574b797c
-  pristine_tree_hash: b2ed835fbad70ac56ec2a6355a399501def0a154
+  generation_id: e233a9a4-c033-4262-857a-75390da1bcde
+  pristine_commit_hash: 57f18118214bacc3552a406951a79745b8a794d5
+  pristine_tree_hash: c0cee32cb81ccaf32f196251690ebb313f5ef9a3
 features:
   python:
     acceptHeaders: 3.0.0
@@ -649,6 +649,10 @@ trackedFiles:
     id: ca69c4f48c67
     last_write_checksum: sha1:8ed5e07a595245869fe0ba9199e40e0ef1f854ca
     pristine_git_object: 33d89a0b5b71c58b876b426261797fa62da9157f
+  docs/models/apierrorresponse.md:
+    id: f17693223b29
+    last_write_checksum: sha1:6359a5b5348dfbf5e628cedaceb447fb2a5350c0
+    pristine_git_object: c6388aadec0156d87b22f27bb546243f5b3c06a3
   docs/models/apikeybudgetscope.md:
     id: 6eb437515030
     last_write_checksum: sha1:c68745821fb00bf6d748ddc1ea8d82c82c1cbf84
@@ -6949,6 +6953,10 @@ trackedFiles:
     id: 12fb4942da0a
     last_write_checksum: sha1:873aff8d1a53629c239916e455f4f3c10ef2b09c
     pristine_git_object: 8bc39b73b28ea419c052fa67463427fdaa2cb703
+  docs/models/errorresponse.md:
+    id: afa90dba4f7e
+    last_write_checksum: sha1:7e9f31de81717953b0b3c9515bc1beb5218f0d28
+    pristine_git_object: 13eafdf6f56e32b55aa351aa9a5c364b57f4a090
   docs/models/errorstreamingevent.md:
     id: 7d1325860e24
     last_write_checksum: sha1:01ac062958680186eb0c0b2a906e2324fafc9141
@@ -20179,228 +20187,228 @@ trackedFiles:
     pristine_git_object: 05d75b05ebbb70184cba3be330bbbbb1ee460c23
   docs/sdks/agents/README.md:
     id: 5965d8232fd8
-    last_write_checksum: sha1:76aa025d55b5690c788fe3f0b5ef5dae1d5c75c1
-    pristine_git_object: 8d39af06fe40c6848ecde608312f61ca21662613
+    last_write_checksum: sha1:9eb4164fdea035b5529ca354c7bd4ee1252a921c
+    pristine_git_object: 681e176619f6896ae96c5d3334ca97c4f6d55575
   docs/sdks/alerts/README.md:
     id: f110632e2843
-    last_write_checksum: sha1:d806841b9921051e5697939d6ba43fce1c28ab6c
-    pristine_git_object: 865bc5f4e40fa5fbd332121771466676e1d58061
+    last_write_checksum: sha1:dac18f5d434648d2d4dcaf1d7221aca0063ee52d
+    pristine_git_object: 79af41eb9c14304264a315d738481121b4c0012d
   docs/sdks/annotationqueues/README.md:
     id: f0edbc3a7d02
-    last_write_checksum: sha1:54dc54432cb2debd59124efc9dc659fb8d09e3ef
-    pristine_git_object: 0b2c4f9547371c68d9444959fa7660e477e30798
+    last_write_checksum: sha1:fa4f735003f33f51efbd81b7329935d7dd6deba3
+    pristine_git_object: 31f7a9ad29e7210a488c5b408b89ecdf054a3aea
   docs/sdks/annotations/README.md:
     id: a4d3254c9f21
-    last_write_checksum: sha1:e1bdac85de5d8b6a37c66fdc70fdeb867d2c14aa
-    pristine_git_object: d6a631719f70aca0272c88be076134162c2ae2ad
+    last_write_checksum: sha1:38171f1054cc85dba93af8a58240685841d50802
+    pristine_git_object: 7e9604cf54aa08be0a21e30f0be77edfa5e8b97b
   docs/sdks/apikeys/README.md:
     id: e2bd25998427
-    last_write_checksum: sha1:89a5d599f1d287df84e0fd8d7dd8598e5df9e552
-    pristine_git_object: 9677b26133c868f6889fc0626040005de52e1999
+    last_write_checksum: sha1:abdbd7df405d9486998f90dbbce2e1f61dda327b
+    pristine_git_object: 195610ce71dc3c0952b5ae4d17cda6c802271e67
   docs/sdks/budgets/README.md:
     id: b5446f1b88f7
-    last_write_checksum: sha1:b660774d991c3615ce4fab44dd8c77f9bf8e11b9
-    pristine_git_object: 26c96b3644066b5e5bed3cb98a432c1400339d4b
+    last_write_checksum: sha1:c000c8d51ad9aa58205fefa6f91f586bf9c0cdb8
+    pristine_git_object: abc1aa723621c251555c31bc9332bd49ec3050de
   docs/sdks/chunking/README.md:
     id: 28d2d61d5926
-    last_write_checksum: sha1:3fee25d055cac762091fbb57fc478abbc029ac6d
-    pristine_git_object: 8205c0df09ff2f88b46e31d04d0a8eee00363f03
+    last_write_checksum: sha1:e3f12aa1b158763bf38d504ceed6060bb5b93270
+    pristine_git_object: 323216f60ba3d09b3f89670dfa6b12b50f58f430
   docs/sdks/classify/README.md:
     id: 7c7df6e9ebe2
     last_write_checksum: sha1:9191b5ba81df4718d1e756688190284837c2af1d
     pristine_git_object: c960552104feeeaa16297c511df2ea67592a910b
   docs/sdks/completions/README.md:
     id: bfc4f87accdb
-    last_write_checksum: sha1:ecb0908f03aa42ebe20a19cb1c02928afd17f41d
-    pristine_git_object: bce12fe3435ffada9227b5073929f5ebaa7730e7
+    last_write_checksum: sha1:e795b131337ab9f01eab8ec290212cc90e971930
+    pristine_git_object: aae2342fb017e0a5d9d5e06d3b87ced824b61077
   docs/sdks/datasets/README.md:
     id: deb5d90f4faf
-    last_write_checksum: sha1:4cecc7c0f5b814c8b23d0a66d3d2c478390c68ce
-    pristine_git_object: 54d5fa71971851b7116480356a76bd87bf67c929
+    last_write_checksum: sha1:4ba4e6d4b6f0f18dfcbab012f1d1e398c0e1ea75
+    pristine_git_object: 02462f8d14bedb9e6439f4b7ffbbcd9f7c42b030
   docs/sdks/decisions/README.md:
     id: ff338046c642
     last_write_checksum: sha1:3eb0aedcc4bdd6eefa1f199a6f07813046e07265
     pristine_git_object: eb9cbd1dfc3bd23775754fcaa1750e6657a77cbc
   docs/sdks/deployments/README.md:
     id: e7c5559ab768
-    last_write_checksum: sha1:01a49c1940edf038467c767dce1889bdf46cde51
-    pristine_git_object: cf8ed51a9e2ba77d55c94e398118173a3c0e80e5
+    last_write_checksum: sha1:9163e9b6c78ead0a6a8e24f19d31493adbfc0be9
+    pristine_git_object: 569b46bbf91d1b1f8680f5f3db73e15a5a31b79a
   docs/sdks/edits/README.md:
     id: 67dbe1ca1700
-    last_write_checksum: sha1:0dc39947f01ab8d748728c3d07bc205875d2f170
-    pristine_git_object: 9772796cd813aac0c9475e7d44c10fc020574780
+    last_write_checksum: sha1:04d99e13f15b2ca174bcea0545a7d02a13438ef6
+    pristine_git_object: 0a561f98466f27c7014f022bdafc9a83d995b1cd
   docs/sdks/embeddings/README.md:
     id: 15b5b04486c1
-    last_write_checksum: sha1:673a2eaaa7e4f66ecd84585d28e6f217c4d2ce6e
-    pristine_git_object: 916eaf6a926de8a255189edf933d748a190e79c8
+    last_write_checksum: sha1:3f80bbb3cf22b59eb0fd60231ba454e182fe96aa
+    pristine_git_object: 0c97ea09ffa9fe13ffe611f6118915a6127b3d92
   docs/sdks/environments/README.md:
     id: d15fc95481b6
-    last_write_checksum: sha1:d022ce2061af668bdafbaf35859a6f97eeedde6b
-    pristine_git_object: 3e4dfa7e8463c2e1f0753e5f956077d5101b30f5
+    last_write_checksum: sha1:775f6aaa5456d6d42472a8706e18aa9f4ef3dd3f
+    pristine_git_object: 7a44e8c4c38c45aa32d61aa380bd4b50028b438f
   docs/sdks/evals/README.md:
     id: cc25bab9f83e
-    last_write_checksum: sha1:a8d7f18bb59293efac828a2eb910b2c1fb73495b
-    pristine_git_object: 6994e4aedbd598e36f222b3b6652cc49cce0d160
+    last_write_checksum: sha1:c73ba82e0b22e31fbf4e394770c95d5ca5f61341
+    pristine_git_object: 783bc47e2c52e29d5d8359457aa43e5610761373
   docs/sdks/external/README.md:
     id: 9c752f723c45
-    last_write_checksum: sha1:57c42b77421ff08532c4845bdd3bafb7ff442785
-    pristine_git_object: 19b8156e5344f9e46daa4c3bd202750bdba8b34b
+    last_write_checksum: sha1:3576807e1dc98658988283dc7db185efa42ef011
+    pristine_git_object: 0b08cc77252faeba4f8349826098b1b6140ada67
   docs/sdks/feedback/README.md:
     id: dabdea6b331e
-    last_write_checksum: sha1:2d5a6cecd3a195079f7665b60c2070efc67c63cb
-    pristine_git_object: 469ee46bcbc0deefa796f13a4d214ead3616156a
+    last_write_checksum: sha1:2154bd0cd5426c560b04c87d1640d204f5527eb5
+    pristine_git_object: 1753f0a09e2392c9fe79fad48d0db1883cf04b87
   docs/sdks/files/README.md:
     id: e576d7a117f0
-    last_write_checksum: sha1:daaad2f6ed390861a0972c183dd10efdb93c4d56
-    pristine_git_object: d6e91772a547ca2afd21b1e54f0002245879b44c
+    last_write_checksum: sha1:79b47f8ec500751c662f253d337d5af19c02af80
+    pristine_git_object: 562b007ee8bb2b34cd1872394869383fe26f90a2
   docs/sdks/filesystems/README.md:
     id: 56bb20b79f63
-    last_write_checksum: sha1:7c0ef27b1da3643e9ffab7afd75e2b6febdadd9b
-    pristine_git_object: 3b61d74c53729ec6162d832898363ae8c4a6abe6
+    last_write_checksum: sha1:fed19937190f1dcd6f6d4a7e103bdb65f82f9a91
+    pristine_git_object: 91ff7716d7c90fa951a0a4d41577de03018152e4
   docs/sdks/generations/README.md:
     id: a7d12ae95fb1
-    last_write_checksum: sha1:7ed3ac9e51b83e8f92d8de12521ca27a91b6d807
-    pristine_git_object: 7ef87684a677699b381f7be4a06908068dc7b6c5
+    last_write_checksum: sha1:465b57890d1ef39c1ac38886e88a4a6c537bf0ee
+    pristine_git_object: 76d9ee62113a990e77faa36f20f0de7b792b8064
   docs/sdks/guardrailrules/README.md:
     id: 20fc695f64c4
-    last_write_checksum: sha1:62cfb7f50f4d09119d5c41aaa50ae733ddb3629b
-    pristine_git_object: 058aedfab72df7d942060718a68b593719e90c23
+    last_write_checksum: sha1:06f8ba812ef7192570b3d3821ceaf18a8d7ff884
+    pristine_git_object: d3a4c44c61e0454fe32304d39d9c90e8e05637bb
   docs/sdks/hub/README.md:
     id: e8de39d7eed0
-    last_write_checksum: sha1:ad4344b92d6fa81d152ce5aa23451dc45351aba9
-    pristine_git_object: b7c6d87e8c32ff323a29ed3d49b92134caab56de
+    last_write_checksum: sha1:93e0711291144de52a279e4809a1bf3b1e5c6a39
+    pristine_git_object: f9efcf8f446ec456e778585e5ea9172ff67368f4
   docs/sdks/humanreviewsets/README.md:
     id: 67641f19f000
-    last_write_checksum: sha1:3d9d09ce8c7eb4dabcdde0c4aa59b38d184334dd
-    pristine_git_object: 8b89a38e70bc2168de72f94830461b2f5a12715d
+    last_write_checksum: sha1:4766dfa8b2724323b4d962712996f5d13233c435
+    pristine_git_object: 9a14d781d00cd303ad66900767a29189a425ce9c
   docs/sdks/identities/README.md:
     id: 751b50358a28
-    last_write_checksum: sha1:ca5bc1553c950df976c5068413368c438d0e4f71
-    pristine_git_object: 8519220ec32724d4574b0eff618f3dacc28feecf
+    last_write_checksum: sha1:bc13140c1bd942f99a86bc5553ca5f81e540d07b
+    pristine_git_object: 83a2ff8af577617c2f91b66e2588de5a7a331698
   docs/sdks/knowledgesdk/README.md:
     id: 1c38ea13b974
-    last_write_checksum: sha1:0b2b0f42eb5a153c5d51c82019c167b7efc1ecdf
-    pristine_git_object: c21c7754cdfb0db005a66c457b559a5b007b249b
+    last_write_checksum: sha1:2f7cc3d9ec6999573dc5250a85991fbc6e4bdd6e
+    pristine_git_object: 1113751ae5356fc676ca3e0f585f6b93f75ef4da
   docs/sdks/logs/README.md:
     id: 5adacd63da21
-    last_write_checksum: sha1:0ff3188f2279aafb18531ecd7bb53ee499ea9ce9
-    pristine_git_object: 76436f7aec6391cd683e64da84a2d598156c7bc2
+    last_write_checksum: sha1:e59784d58afc7cb183309df34300b9a885454146
+    pristine_git_object: 6c3fcefd942dd3ce00c2b02850f76f989668a641
   docs/sdks/managementkeys/README.md:
     id: 18eab06f9ba7
-    last_write_checksum: sha1:1f7a5b3b528b70d744fbbdee3c91d67427009878
-    pristine_git_object: 65fd607deec717dc104ec0546eb7e4c4869f1fc5
+    last_write_checksum: sha1:d05962a2f0c13064cbed4e980ac62ce1d9a0e704
+    pristine_git_object: 5911670d2c9bf224b1a48bf7f158b546238c15ce
   docs/sdks/mcpgateways/README.md:
     id: d9bc34951e0c
-    last_write_checksum: sha1:df746ce69142917142e505e4b228934d10d3d6b9
-    pristine_git_object: 45e0da69faf746b1308e2de6d88d746ee7b02dd4
+    last_write_checksum: sha1:a69b415d96eb0938956765f7fec760f7d6903e00
+    pristine_git_object: 8f7a66d4c9033d6e88dd82e4c9473212f9b854dc
   docs/sdks/mcpservers/README.md:
     id: 62795e24b6e9
-    last_write_checksum: sha1:bebc01278bc86365e76ccdc9ff8ca3e84794d365
-    pristine_git_object: c541b0d8ecf308a4126043a1b4713589ab8770ea
+    last_write_checksum: sha1:3bf2a8ef76f5dc063c8ae5fa2af7d4c604814cf8
+    pristine_git_object: ab8e47eb4d372c3ce36707e5d339cfb76fbd6369
   docs/sdks/memorystores/README.md:
     id: 237e4f95b08b
-    last_write_checksum: sha1:5827cc28798831c5d5994ed689c78ba8a01f9f43
-    pristine_git_object: b95a2212e818caf3bd822d5a93cd3caa09e3cb05
+    last_write_checksum: sha1:0e82e4d3e536e087eed56e1fd6d3c4481c43e76c
+    pristine_git_object: 762168cb83cd7c7ccaafbea881bb2144f9483a32
   docs/sdks/modelcatalog/README.md:
     id: e09c6e612c8e
-    last_write_checksum: sha1:33f16c1ccc88d59cc1a6a90506f89565ec189e6e
-    pristine_git_object: c751084512933b2f8eb6d1689b74c0c32b08ff5a
+    last_write_checksum: sha1:efc3fb246cd3e11b91ddcdfdbaf4dcf9718e123a
+    pristine_git_object: 473ca0ea4d93590110b91ad54f20aab86376bad4
   docs/sdks/modelfusions/README.md:
     id: ac9b186fda87
-    last_write_checksum: sha1:d50e87ffa5d7ad7e629d379b23906cd925b4751a
-    pristine_git_object: eb3774c8c3081fe9a0ddb343289a7d798887e51f
+    last_write_checksum: sha1:0954069e96412baf80fb1ae0e66c113a379244d4
+    pristine_git_object: 0361933d985f66ce953fcffdb5d2229f704448bb
   docs/sdks/models/README.md:
     id: b35bdf4bc7ed
-    last_write_checksum: sha1:acf0329c2bbe58e0cebb4d5c489222da3f4c69a3
-    pristine_git_object: e642d4f6b6b97c94a59535282eb77ce38de55a07
+    last_write_checksum: sha1:756169dc152014b4a8bf54f079b93d33f1ea7a5b
+    pristine_git_object: 6f0590dfa9f75111c9865a6a0cd445ec4dab71c7
   docs/sdks/moderations/README.md:
     id: 5b77a7923e2c
     last_write_checksum: sha1:38b3afe4aa2c5394c741d609d9239b61744a3e4d
     pristine_git_object: 60eb7ec2a79873de6b0ce4e0c122bc6f9a53cdda
   docs/sdks/monitors/README.md:
     id: 96e008d30d8c
-    last_write_checksum: sha1:feec418d3f4a7fbda34cd752cf964e4c019128c2
-    pristine_git_object: 40970a878221aa3ba7ad1b9db487d2d3a239504d
+    last_write_checksum: sha1:42277a5ab8fa6d5b4a6d3ffb083fad44926335d5
+    pristine_git_object: d4d03479b50b430869a026211fef9dc9fdf90713
   docs/sdks/notifiers/README.md:
     id: eda462dfb40b
-    last_write_checksum: sha1:02825c0dbc7a8caea68b1d9e808929354fade3db
-    pristine_git_object: f86ea4f6cd572752d642af22bfc803dc65f0d490
+    last_write_checksum: sha1:76de229d92fa87345cc30140365cab3a96be2a23
+    pristine_git_object: 7c72d36a3fcf1e2da3298d55e36320d97b2da9a7
   docs/sdks/orqcompletions/README.md:
     id: 898fbf693ae0
-    last_write_checksum: sha1:8748ab5386614f74ac8d833dc81a47c72348ecf9
-    pristine_git_object: 5e7151ea8c24f828fb698e96294dc91df4c4795b
+    last_write_checksum: sha1:1f8f000732716c98496b214aef8b3bff817050eb
+    pristine_git_object: 58cdb7beca23d1d06c534cc168b63968887a14cc
   docs/sdks/orqresponses/README.md:
     id: 789c9a094480
-    last_write_checksum: sha1:b0c4e3594768acc23bb709418f0daf7367d0fc95
-    pristine_git_object: 6d842ffa01b6f4646759a7fdeb96aa926216a2f7
+    last_write_checksum: sha1:efd2519871dc949b01da6f75160c735c9ce326f4
+    pristine_git_object: 84208525b36813649258f890fc829f9c126ad954
   docs/sdks/pii/README.md:
     id: 814656ca8dc1
-    last_write_checksum: sha1:aec6f9659ce829c8f4b7f8dc5fd49147527fd88b
-    pristine_git_object: a2d852042ed11c95aa92a244c15e829f9b41f4a3
+    last_write_checksum: sha1:e668b59d99e375986ea1880f2e1b4637c693790a
+    pristine_git_object: d1423fb28d4ee549901bf0bfef87ee40102ca5e4
   docs/sdks/policies/README.md:
     id: 636269b04e57
-    last_write_checksum: sha1:66ce547a34fd3f3070cf02140c751e8582d5370a
-    pristine_git_object: af773e4d6c0f136deba9de4f50d39cce60215f3e
+    last_write_checksum: sha1:99969cecbe8c2424aebfe37acb559996ff6dc117
+    pristine_git_object: ec42f206f4caea854444c07d59282ac367e17d7c
   docs/sdks/projects/README.md:
     id: 1c5f71754e17
-    last_write_checksum: sha1:bbd5c3bbd24e826696881ec2799457711af2e254
-    pristine_git_object: 9ca227c2819f5f9eeb65a0f9dc06835753cef15c
+    last_write_checksum: sha1:3295fd1a068a7ccd626e8c07e140d816c53ae433
+    pristine_git_object: 1438d38f9a5f939473f2b0b5660985dfb276bf09
   docs/sdks/prompts/README.md:
     id: b32ccd6b7936
-    last_write_checksum: sha1:406aa57de6cca6f734e8f922bf1f088f49dafb60
-    pristine_git_object: 09f621ea2b9a3b541f72ed1ba618e2369eb24352
+    last_write_checksum: sha1:33d1d324aa2b4af95cfc6f11e638686d79d795ab
+    pristine_git_object: 3577c2a6f3c7de83e998ef49d01f971fedb84bfd
   docs/sdks/reporting/README.md:
     id: bcf996960be3
-    last_write_checksum: sha1:326251a0116db7e61acd5ffabcb54ac82c4686a5
-    pristine_git_object: 9b529e8d8871c6e354e5b75fbdb818d7240130c3
+    last_write_checksum: sha1:bc19426c20046bd01cf7043f565bfbd17a194057
+    pristine_git_object: 4394df1ba5fc15c42bb24f1db6bdf8e785870e7d
   docs/sdks/rerank/README.md:
     id: e2b361cec1dd
-    last_write_checksum: sha1:9b84983e74e537a3b78bef744fd9c0a131352d3e
-    pristine_git_object: 463c6e0e38fc251d083d2f0174d241fa0f253c51
+    last_write_checksum: sha1:bf91b2a075e9d40cc81dccb0d4b119f3006c5339
+    pristine_git_object: 5af2bada67ba56b3897c554cb5f3b52f39601086
   docs/sdks/responses/README.md:
     id: e717bad14f63
-    last_write_checksum: sha1:c305024d2e52a0d5e04c8213eb9d7aaa9ef0a722
-    pristine_git_object: 304319370dee3e2dfce77f9278da5276a8db067b
+    last_write_checksum: sha1:982463ddddc017bcd02dbb8549bacaf1b46eae9d
+    pristine_git_object: 6ca9bdff534d95ccadae89982ae92e97f21d8804
   docs/sdks/router/README.md:
     id: 39a318e95bb7
-    last_write_checksum: sha1:f93cec2809e689fab2a856b2e379466a479f047e
-    pristine_git_object: a7aa8cf1d497db6eaf4e5fc3b14ca6dc3019089f
+    last_write_checksum: sha1:ff85c5f6d807db378ff18d2a4ee252913e55da73
+    pristine_git_object: a0c93c6843173ede886e94c64cfd75cf0ae03141
   docs/sdks/routingrules/README.md:
     id: 98af604c06e4
-    last_write_checksum: sha1:d9751f635e7f15be308c41a673460a4fce70f4db
-    pristine_git_object: 980487517722f944fd6321a482ddfa3a9865478b
+    last_write_checksum: sha1:d2260ba61d1a9e94dadf5f2617cd2dd9742e2641
+    pristine_git_object: 8cac0ef44fb551349673edec78345fbc0f5ede4c
   docs/sdks/schedules/README.md:
     id: 2f28c809a225
-    last_write_checksum: sha1:57391cb7aebd05ce9d6116587d33d30166c88db7
-    pristine_git_object: 6f28e7329d8d5de082c6c519618427f0f8ff2815
+    last_write_checksum: sha1:5775ec6469d74de09113eec6d5bbfbff2902d7ea
+    pristine_git_object: 3cdfbd36b1d2a57c27b68eba4b75af5e1be2d6a8
   docs/sdks/sessions/README.md:
     id: 57ad62844f79
-    last_write_checksum: sha1:a256098620ee963ff79efa3e96f5b26e7b594bc2
-    pristine_git_object: 415277c24ea053b9c42dcfef99731de780703c75
+    last_write_checksum: sha1:2d64bb66bbcc3fd39d4112d7819d3037565df637
+    pristine_git_object: cddcd1a08d5304f9ee3a53a46ffbfcb320c9ce23
   docs/sdks/skills/README.md:
     id: 3a14a5c90791
-    last_write_checksum: sha1:8182d8c13dccebb4f1230b45eceae918a1df1d97
-    pristine_git_object: 64e17e229476ba6a3f9a27ce859ef3b263a1c3ad
+    last_write_checksum: sha1:4d79f2cc7741758fc493e56e03b9cd39592d86d7
+    pristine_git_object: c4b0e7c435573bfc084041cf12feeed22f4615fa
   docs/sdks/smartrouters/README.md:
     id: 651617ec2a72
-    last_write_checksum: sha1:7226c091ad905be9a38226976382858d062ff0c1
-    pristine_git_object: a6e0a70261ce6e35e26d0ec148d4567b201aeaac
+    last_write_checksum: sha1:8c3a6aefbc2f1be02782db48a2048916944c7d33
+    pristine_git_object: bbc629a094d5bde39d052312e27b424ea3de2b7b
   docs/sdks/speech/README.md:
     id: d5924688d48c
-    last_write_checksum: sha1:8638176510860d9f637c9b4f047ef5bb1a9a2901
-    pristine_git_object: dccbba946601dd08c8d54918aa87b0d36545d2c7
+    last_write_checksum: sha1:6d34dcda6db70c6b48ff3a3aa61bdb93e070c3d4
+    pristine_git_object: 6a3f4e4c15afd3669491ed383ddd5e5e34b59c3d
   docs/sdks/telemetrysdk/README.md:
     id: edb32945b68a
-    last_write_checksum: sha1:8b3c042ef02124c6bf7c856d4d6a33b2536b30b7
-    pristine_git_object: 9a9fd8982b59bce472940174726f2e51c5d50ae6
+    last_write_checksum: sha1:10babe0febd112f128e035d1add053cc663a5043
+    pristine_git_object: b18e8dd637930e73fc1b32a98482d4fbfc4809b5
   docs/sdks/tools/README.md:
     id: 044286549bac
-    last_write_checksum: sha1:473abe73cf9009231fa9a879870ec52680affa68
-    pristine_git_object: 37466556548c766baa0a7fee1b2cc36aa659dc12
+    last_write_checksum: sha1:0295bf6530e1c38aafa8a9e1a1d64d973ef76c76
+    pristine_git_object: 6a04a9f2410ab1c7c55f77c6a2532a96fc9085fc
   docs/sdks/traces/README.md:
     id: f3d9b8dc85fd
-    last_write_checksum: sha1:25fb3331948d717523e6ff0488e8fca257291c6a
-    pristine_git_object: 24dce86286522c2e8e6bb0cc5baf1fbd19d9c0bc
+    last_write_checksum: sha1:50c4b0ece26e1ec6e2b061cf28e76c7a164030ec
+    pristine_git_object: eb8a4e4212a109a2b43e370976fe4344d684e7c6
   docs/sdks/transcriptions/README.md:
     id: 089cf94ecf47
     last_write_checksum: sha1:8d5f1656442e02c3c9f422559f99adca5bf12665
@@ -20411,40 +20419,40 @@ trackedFiles:
     pristine_git_object: 3e8f4a6939dd7b21673011f64a92a787eeb7d414
   docs/sdks/users/README.md:
     id: 5d80027045fe
-    last_write_checksum: sha1:7afbba53615715526ce692f25d1bc78b84d9473a
-    pristine_git_object: aefecb8257aa9f2b1b8330cd345be63bdd16e00a
+    last_write_checksum: sha1:5878ebc5e05195722114b5b43e6383a523568f58
+    pristine_git_object: 59968739c51ba43ef8594985792d332c1caf00ad
   docs/sdks/variations/README.md:
     id: 7567e472ee2c
-    last_write_checksum: sha1:cb556d61a73b1b079b8d28933b4c408a6b4f9430
-    pristine_git_object: f28e317f475292a4a111b59de7d2b7aabe930157
+    last_write_checksum: sha1:ee2e3ec6ab831e29f95e38492a176ccb1cf78c3d
+    pristine_git_object: f3ac1248e47ba7c6d9d71b1addcffc0ac38ff82a
   docs/sdks/views/README.md:
     id: 6e11f29fc843
-    last_write_checksum: sha1:ffa5fd046762eb8e025c80b297dc9755f6efa2c6
-    pristine_git_object: d2e06ba38abf6a74b881713cf0cdd62387239de5
+    last_write_checksum: sha1:6f0814d4deebc7dc01dd97eb02966946448a82aa
+    pristine_git_object: daef485590548e6f9dbac0ed1d6c6ac43a975834
   docs/sdks/webhooks/README.md:
     id: e21b32d786a4
-    last_write_checksum: sha1:61482ea485f5117937eafc9bcfebb65a17cc2513
-    pristine_git_object: 81b859a6b2cbf7356379762b640c2d8310f05cf0
+    last_write_checksum: sha1:208bc2905388de5b129f34347659dd708fb5e4e7
+    pristine_git_object: d707fb48a6dd3e43f5ca0fd2895d85313ccf4469
   docs/sdks/websearch/README.md:
     id: 285aa2e95076
     last_write_checksum: sha1:557e89bc61d4bbc966503cd3d8e3e1cf6490ec88
     pristine_git_object: 7cd4b2e40ac34d8561157ad737c1e38559879764
   docs/sdks/wikis/README.md:
     id: 54d09c73fa9d
-    last_write_checksum: sha1:3aae17c8db0131546af56eed3b5ed611f7be9984
-    pristine_git_object: 196233ac3add07f5362ad2209c3b06effc476f85
+    last_write_checksum: sha1:825cbef10be6e2e6a84a8eac8463a4a0bc47293b
+    pristine_git_object: 7f5ad4060d002e2d85c15829187e24df05b03573
   docs/sdks/workspaces/README.md:
     id: 1f5b051a6380
-    last_write_checksum: sha1:6c4acff8780fac3ab0604a2b4d013b12a2dd4f94
-    pristine_git_object: d98fa0d700250929f4badaf52db52575c4d6f352
+    last_write_checksum: sha1:074a36667b18c486776d4400d3d84fc48a362830
+    pristine_git_object: 0c499ca32b0b8bda71191d5d4210859535d6ed5a
   docs/sdks/workspacesecurity/README.md:
     id: 41ea9ac23ea2
-    last_write_checksum: sha1:33e097e2b2276ac63db88e4eb559f6a64a3e7f1b
-    pristine_git_object: 1cb91b37bfbf0b105f191b1aff83f48b41461f75
+    last_write_checksum: sha1:56e533e5bb7f2d45c1cecd86d8177b3fd3952948
+    pristine_git_object: 3a30a1431e439d2fe65cbd6112fb2e13ecd9f825
   docs/sdks/workspacesettingssdk/README.md:
     id: a4044069a136
-    last_write_checksum: sha1:bd9219f25b4f7409b83cd74272a349408ce3067d
-    pristine_git_object: 3c63bc2866452f3efa9058a178de97f0c246c652
+    last_write_checksum: sha1:2ff535b09ff0f69de48266529856899e5c5fa769
+    pristine_git_object: 0479eefc7e0dd39aa37f99e45a8eac8118e982e6
   py.typed:
     id: 258c3ed47ae4
     last_write_checksum: sha1:8efc425ffe830805ffcc0f3055871bdcdc542c60
@@ -20455,8 +20463,8 @@ trackedFiles:
     pristine_git_object: 5658741017ec3cb2a079571223fcacac202d2cf1
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:e68fe40155260fed87b3c91d784f2eda2604bc2f
-    pristine_git_object: 0c0317f0c77aa075f073a9656d02d35013731624
+    last_write_checksum: sha1:20a7a6aec6c8d6d7fa3d0a5202a38426703de116
+    pristine_git_object: 8f1a84ff639f596bae77e8658b1472abdf9c7ded
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:30f41b7d73fd74c428cb4ad396f9aa5c05bc3834
@@ -20483,28 +20491,28 @@ trackedFiles:
     pristine_git_object: 49cd4b6f26e476b46eeaa59590a4a7a90a831143
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:07039f2a837bd9fa35f0401b6a28c3d72de76441
-    pristine_git_object: da50ca7e802f1f6268002a166964e8be4bbc9d7c
+    last_write_checksum: sha1:2e3d69c198b854234936251140f71fc0fc7fc063
+    pristine_git_object: 57bd217ced7ab4e7fd44ec05b87272c249cf8f15
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
-    last_write_checksum: sha1:9c78821278866cce7561c9bc0977b38c4275381a
-    pristine_git_object: 031ed512c8ceb3031027386f28838ee013a45d9a
+    last_write_checksum: sha1:442deec1a4f549f24fe590c554897e859ada5a64
+    pristine_git_object: cee969b6eaed5f5146996816fe4e8062566a5ad5
   src/orq_ai_sdk/alerts.py:
     id: a01ca77c03ba
-    last_write_checksum: sha1:ce61bafbe2581eaac5aecd39defc44d29679dd0b
-    pristine_git_object: 158eab4894b14447f4650519344a0ab06c3e62c7
+    last_write_checksum: sha1:967aac6865d6bf42c1c0f27bad7407b150a57706
+    pristine_git_object: bfbe6472ee1b036959428bfce70f678045670390
   src/orq_ai_sdk/annotationqueues.py:
     id: 04adfc6ba957
-    last_write_checksum: sha1:3a8d2e9908653616e2a313ad530679e09cab064a
-    pristine_git_object: 9d3fbb8159407d7bdbab5c0d47c8119aa83dbcc4
+    last_write_checksum: sha1:311f0c9f98787e3d37114c9c66f397c00d76c6a6
+    pristine_git_object: a2a8fc9ae946cdaed73ab63d11231cfde48eefec
   src/orq_ai_sdk/annotations.py:
     id: 0e7ab65439e6
-    last_write_checksum: sha1:4978192502de02cfdfe8cb1062fcf5f1fac7bdd9
-    pristine_git_object: 68a919da68e762a370772f98c3b690260ff7df19
+    last_write_checksum: sha1:bd82dea6efc835e952586f5e6e960f124ee14bdc
+    pristine_git_object: 4dd21d71ac26f31697fd1c042a81dccb5b082d52
   src/orq_ai_sdk/apikeys.py:
     id: 43a93555fb90
-    last_write_checksum: sha1:30d18cc3d37eae7d537a5c2235ef39bdfad0fb41
-    pristine_git_object: eca7a43e2eae3dda08fa8272547f99b65dea0415
+    last_write_checksum: sha1:82e547489c27538df6491f8b72b13e71bc21a26e
+    pristine_git_object: 37a032c0eaad693fade5064f908cf998b7d556a0
   src/orq_ai_sdk/audio.py:
     id: 4e463843cbaf
     last_write_checksum: sha1:39529d62c96c63f4bb7cbde96f5995bb5b7b7c15
@@ -20515,132 +20523,132 @@ trackedFiles:
     pristine_git_object: 12d0bb4a2d6e690ae5a431b919f30d5cba07f11b
   src/orq_ai_sdk/budgets.py:
     id: 527540d85807
-    last_write_checksum: sha1:e6d63223549fd1fb0e34cd1a441c2a6e8eea6ff9
-    pristine_git_object: e01c42e0a868ec43e3ac27c7b510d7b428928f61
+    last_write_checksum: sha1:cab8a706699a6367cbd6c26f4719c0ca72580a02
+    pristine_git_object: 249e65f2b1d41239a489298a358f717035305e17
   src/orq_ai_sdk/chat.py:
     id: 64e4375b873e
     last_write_checksum: sha1:d6eff232ea04f515b0ecbaa55b3b9ef5aafa078f
     pristine_git_object: 72a7fa32bf23df010bccfc921365fdf5584736e4
   src/orq_ai_sdk/chunking.py:
     id: 50698040d835
-    last_write_checksum: sha1:3c3a1e2cafe53cd846c1de55296d33491ad2e2ce
-    pristine_git_object: 85973cb9998e0bdf8d2438f487cf606d0089371d
+    last_write_checksum: sha1:646af44673589923f05c8f055512db5c105a369a
+    pristine_git_object: c98f9c56fe020c513b076cc1b85db15bce55ae81
   src/orq_ai_sdk/classify.py:
     id: db5175c6eaae
     last_write_checksum: sha1:92d00aba6df1c14f24d6be691d6881dbe07aa311
     pristine_git_object: 590f8ebd88729b0a0a3342c55fc6752b7eb60065
   src/orq_ai_sdk/completions.py:
     id: b5bea148ca6b
-    last_write_checksum: sha1:86e1588e8d75766f877be7e8891f90184ff74895
-    pristine_git_object: 71281dac11c18bd38ca8725523b9359963da2b21
+    last_write_checksum: sha1:14524c1521efaf90f73cdb7b92f183fcfee2686a
+    pristine_git_object: 254d846f1687a5611d94654311070c53b165479c
   src/orq_ai_sdk/datasets.py:
     id: cbc287f35001
-    last_write_checksum: sha1:2d42481c145de526f32f894d17ccbbf571a43abe
-    pristine_git_object: eada649ba51660b9ed995a67c82609afd0e78d9e
+    last_write_checksum: sha1:0da2bd999d21118d54e80383a5585ed364b71f93
+    pristine_git_object: 9036b134b13d5e2ae16acaed970cd5ee445bace1
   src/orq_ai_sdk/decisions.py:
     id: f9d0b9214cdf
     last_write_checksum: sha1:60c3bd4d7e2466e0048360073149e688d27f5ee7
     pristine_git_object: 510daec2edee57ad6b6e13f5a3e5113f3bd9100e
   src/orq_ai_sdk/deployments.py:
     id: 0a45cd45a63c
-    last_write_checksum: sha1:5062bddee8ecf23e5de9b3a25dde44eac4a16993
-    pristine_git_object: 372344f629618b921e657671eb25882ec815e5a8
+    last_write_checksum: sha1:acc64bc2825b4cd57926154c6b4afb7be35a14b4
+    pristine_git_object: dc462f377bbff3d3cebd52668d8e55e1ef6b63c6
   src/orq_ai_sdk/edits.py:
     id: 1798745f2ca4
-    last_write_checksum: sha1:21b86eda1fc1bcb1138a8b1469b342d618f41c52
-    pristine_git_object: 035976321b4821d7fb3537575204b9d506c748c7
+    last_write_checksum: sha1:14eaccfe8bb8d5a68ea4fa6ea748b05f714e46e8
+    pristine_git_object: d33e06be02a2a1662ecc537b340f58185f5ed486
   src/orq_ai_sdk/embeddings.py:
     id: e1033bdc6007
-    last_write_checksum: sha1:8b0e9f9b9759c57f3ae6773a8e0017eb96d3457a
-    pristine_git_object: ea0d6f36d16e80cb7fb2206d3cba402914d02416
+    last_write_checksum: sha1:79eac7d83cc7bb9417f4620e9cebcd6731230f35
+    pristine_git_object: c0ecf8294470a5cf6dc1a3c95ecf5aee1beda8ab
   src/orq_ai_sdk/environments.py:
     id: 537358a06264
-    last_write_checksum: sha1:26f25730d200384ae70c0bf9c238fd7eceac8432
-    pristine_git_object: 384b38e3365199dcd0ebb595284e2e0d8e025f0b
+    last_write_checksum: sha1:dbfe8258b6d4202b24e5a2bb9a035c54be8efa30
+    pristine_git_object: fb5725690fd9f78bd3261c28f1a695d674e67ec8
   src/orq_ai_sdk/evals.py:
     id: a1c09bb3e0a2
-    last_write_checksum: sha1:cc22eef97c456b770eed47b560f5ca0388132320
-    pristine_git_object: 04273741eb876551c24a051e3bdb6ce0d0db23e7
+    last_write_checksum: sha1:bd8b9ccbdc22cc0785e945ced885bc513ccd29fe
+    pristine_git_object: 8c423b5f71e30e0d5368d78f0fd58a7973a4e530
   src/orq_ai_sdk/external.py:
     id: 56fd2d451761
-    last_write_checksum: sha1:0d98c403d11a291c56a1c7c8f9bb39be7a4be073
-    pristine_git_object: b45301276bf1994647c546bac46fcdf7b9c3949c
+    last_write_checksum: sha1:3020be2cc173f006b65b604756174b062cfd0a53
+    pristine_git_object: d1aa0199eea0f5630615c11cf9441cb23a5773b6
   src/orq_ai_sdk/feedback.py:
     id: 2e86d93d020e
-    last_write_checksum: sha1:375501842aba97aede134fc5bd40cbbe58fcc746
-    pristine_git_object: 90bcb76d53ac22b8727e1f4d7058c7c24e95827d
+    last_write_checksum: sha1:2096939f0be793c877cda6054f2ac6cb876212b2
+    pristine_git_object: 5b71a6c0122da9863384cb46b0938be4efb11659
   src/orq_ai_sdk/files.py:
     id: 72c1db1369eb
-    last_write_checksum: sha1:89e27aaa4dca0cf61f5051aafe1330485d3c1a1b
-    pristine_git_object: 842b7609d6ba69cdfe87d5fad015170d76a2bc09
+    last_write_checksum: sha1:310b76d13cb26afa6db2498b25416821aba66a4d
+    pristine_git_object: a18c5d7ccb82abed847b9b0fe9aac5af731814bb
   src/orq_ai_sdk/filesystems.py:
     id: 8fb06c3aca61
-    last_write_checksum: sha1:84b933b68c8e93b4ddd8085530a8617284d8d891
-    pristine_git_object: 075644cc91dc68fdd0f7105c9062d9fc180a06f3
+    last_write_checksum: sha1:b6fdbd71df9c67fddda12fded3c07947de5142c4
+    pristine_git_object: ce40c99fd2fc2ac1478259c5847a711625985994
   src/orq_ai_sdk/generations.py:
     id: 65a0367de5ef
-    last_write_checksum: sha1:3fe712e734d18d2238a755a7171fc074b1bfd5dd
-    pristine_git_object: 9cd782f22afa2fcee3d1c9b221957530d0b2484c
+    last_write_checksum: sha1:e3fa180584ad1c7b3ae903c05fb73369ee256b28
+    pristine_git_object: ed3bd2fb18916840ec551ea4bdd512d72bfca43f
   src/orq_ai_sdk/guardrailrules.py:
     id: 8c46be2f487e
-    last_write_checksum: sha1:2456123c6268dda66cebab41d1df941de581d8a2
-    pristine_git_object: 7504b31787c637dc52d94dbb7a898aa444d8f6ab
+    last_write_checksum: sha1:28af57c64e5423ed50a74fe40211cfe99af2d277
+    pristine_git_object: c0c27a824443df73d453418cf91313e6f5f48144
   src/orq_ai_sdk/httpclient.py:
     id: 7cb6af1a8777
     last_write_checksum: sha1:5e55338d6ee9f01ab648cad4380201a8a3da7dd7
     pristine_git_object: 89560b566073785535643e694c112bedbd3db13d
   src/orq_ai_sdk/hub.py:
     id: c15c071be734
-    last_write_checksum: sha1:781942c761639ea61ca81ff06b079647acdaeae2
-    pristine_git_object: b2a0045b3b6b27503a1f76c04290d3566a94e0f0
+    last_write_checksum: sha1:92bc5c4e0b9e557d3d86abf129be9d9c5cc356f0
+    pristine_git_object: 98af33fb029f5bde39cce56d0531f232bbc54b04
   src/orq_ai_sdk/humanreviewsets.py:
     id: 5e18b17bbbaa
-    last_write_checksum: sha1:7725d74ef07600802709fdd4b4636533a8118ae5
-    pristine_git_object: 7f4428dc18d6413e6ac5ffacf339dfb98936fd67
+    last_write_checksum: sha1:3d2cfa6a431aaa6b08dc43e6795980ab635d8929
+    pristine_git_object: ad017724a206486d5d4078071324d41557128fbe
   src/orq_ai_sdk/identities.py:
     id: 9d326f9f3a41
-    last_write_checksum: sha1:e6128a143be47f094853fa3ab943450d48dd9635
-    pristine_git_object: 8d70c927d9f6b30c51d2ef5b11e004c0b7d77ecf
+    last_write_checksum: sha1:486dcf8ac9472e49e39fd1b550632ca5bf6d4bdf
+    pristine_git_object: 4e6ede496f6e12c79c39f44fcdc8bbf583d9bcd1
   src/orq_ai_sdk/images.py:
     id: 0a6cff6b1ac5
     last_write_checksum: sha1:93a5e396bf2d7af94a19245372063f9a008a8627
     pristine_git_object: c93b76e64d6943a329e820771aa12a1f0f6f08ee
   src/orq_ai_sdk/knowledge_sdk.py:
     id: ab03b9afd239
-    last_write_checksum: sha1:4848064fce648a6102914bc69fb15ddff5eb8180
-    pristine_git_object: b822663435ade04937a11c2f176298105d6167f6
+    last_write_checksum: sha1:68e790b9106d7c5028941dd70ab6f145bb2e46aa
+    pristine_git_object: b95ebcdce41512996867f3738ee643ca50671fe2
   src/orq_ai_sdk/logs.py:
     id: ab44bcaef96b
-    last_write_checksum: sha1:ac1094a35d16432e56d722dca49b63b7739ebc44
-    pristine_git_object: 8f13a1747a5d6a1347aa2857ec116da80b9ac4a6
+    last_write_checksum: sha1:bbb415d52e69bf7f65da817dbe2c2b39ea1b6b8c
+    pristine_git_object: 916dc1a80c03ede4ecd914d7a5e51a3c54ce9d0f
   src/orq_ai_sdk/managementkeys.py:
     id: acab0f9da0b2
-    last_write_checksum: sha1:47d3b6469571ce050b32a804bbaef776da10cd32
-    pristine_git_object: 088d9de7923feb297afaa4e12da2ad35449084b5
+    last_write_checksum: sha1:b74f152b8f32b402f49d5576e798103955fc418b
+    pristine_git_object: 9dacee1b7bad783fa60b53b018c1479ddd45bc1d
   src/orq_ai_sdk/mcpgateways.py:
     id: afd85b13382e
-    last_write_checksum: sha1:93e34ea8f7e164a430bb1cdf11579d444f3c6290
-    pristine_git_object: f5d81b2b30022579676af8da134b573b3ae8e48c
+    last_write_checksum: sha1:d275ddbfc0b99eec86bd6ba547399dbae8807862
+    pristine_git_object: 10346f2fb95948266964e9c98a8ffd79fe87d07f
   src/orq_ai_sdk/mcpservers.py:
     id: fd82a3b246ae
-    last_write_checksum: sha1:0960cac331df12f671c419c71e1f1775db02dad3
-    pristine_git_object: 3aaba7e9787147c1e556a75b95358b72c1170e20
+    last_write_checksum: sha1:681ab5c623923b209a7ceecfb6833195cb2752d0
+    pristine_git_object: dd4f66c9d65f01533272d248364aaa60fc11b11d
   src/orq_ai_sdk/memorystores.py:
     id: dfff08ee08bc
-    last_write_checksum: sha1:729ca9dcdfd097b3d6db736c55d41a8be65376f1
-    pristine_git_object: 59ae693c430cdf902326be026e9f3721936221b7
+    last_write_checksum: sha1:76ecc425b7e437a073b234e755a9fed8bf9e0ab5
+    pristine_git_object: 2fbaae71b3da6da9913db9a1e6f4f3637c25ee5a
   src/orq_ai_sdk/modelcatalog.py:
     id: 8946b32b3edf
-    last_write_checksum: sha1:ef1271132a3901fb95370337b6245f10c4fab4c4
-    pristine_git_object: 0f78f47c0b9ab76cb7cafd938d07200117d64e05
+    last_write_checksum: sha1:71b873aac025ca74f0609a5a9363c2769a493137
+    pristine_git_object: d575788dbde9ca10ea67b0429fb8b14def30df05
   src/orq_ai_sdk/modelfusions.py:
     id: 57b16bd43942
-    last_write_checksum: sha1:425d0d9358b7ffc681473738a46778637134a3c3
-    pristine_git_object: 27fad90d4b7c59b2d20f5fb8c3d68ec01d5587b4
+    last_write_checksum: sha1:bec260b31cec8ff3599964b8eea9f9ced4d82128
+    pristine_git_object: f8bfd355fe594267ad2196b9136bc2bfcd2532a3
   src/orq_ai_sdk/models/__init__.py:
     id: ee0a74817059
-    last_write_checksum: sha1:d01f58030b0745bfd3b7897681560a78f2ed9d7a
-    pristine_git_object: f53cf498d8be68318a781f949f0f47c504dae058
+    last_write_checksum: sha1:13e8ecf9e863a96b08d2d9cca8574030218c2e65
+    pristine_git_object: e6beb99d260058659079126b8dcf491af0025e26
   src/orq_ai_sdk/models/accesslevel.py:
     id: 81812a8d9140
     last_write_checksum: sha1:228fe4491e1cb3829a56f464689d762efc2cf342
@@ -20825,6 +20833,10 @@ trackedFiles:
     id: 64ccd29da2ab
     last_write_checksum: sha1:a5aa499c542aca7b398a1a0e5808e9f3d6c67146
     pristine_git_object: eca6309279b49479c98a73a1e0079aa7e4331058
+  src/orq_ai_sdk/models/apierrorresponse.py:
+    id: 9f6ea28cdc32
+    last_write_checksum: sha1:fc840786d1713a33b04e42b7aefaba3b8e950956
+    pristine_git_object: 6914a8e0ca9b7c896f1aec33d81a5e941d757bd6
   src/orq_ai_sdk/models/apikeybudgetscope.py:
     id: 81ae1358b7e2
     last_write_checksum: sha1:38d1a2aa863617f6adabc4fbed1525d284dea375
@@ -21411,8 +21423,8 @@ trackedFiles:
     pristine_git_object: 2bdf8006be5e182c8f59802a59a94fb92003c01a
   src/orq_ai_sdk/models/createtoolop.py:
     id: c86dfe2f6afb
-    last_write_checksum: sha1:b4f0313f9b1aa06a430940f26cea470dcb9bc084
-    pristine_git_object: 5a64affd392c19c0114bbbc0cc02337495939517
+    last_write_checksum: sha1:fb770bfed604cf4c0df43b5cd53d5f4136921b1e
+    pristine_git_object: 16d9a8fd9a56a15c3882a28aa368b38fbdc6f571
   src/orq_ai_sdk/models/createtranscriptionop.py:
     id: 493418b3b79f
     last_write_checksum: sha1:591f45af44ebad1bc7b1b1881a2fd1f5574ff366
@@ -21805,6 +21817,10 @@ trackedFiles:
     id: f6c7673c1ab7
     last_write_checksum: sha1:3d1b2a79572da86dfa8fae32c3a206e3f3511c1c
     pristine_git_object: 136e358e0c9da2cedff188722675b948cc393f30
+  src/orq_ai_sdk/models/errorresponse.py:
+    id: 10ec9abda871
+    last_write_checksum: sha1:e648c1a80c1bb8f01029cd0f8f9f2d8eaaab0cea
+    pristine_git_object: ebb437a4e6730a70747877fb6aff1e05e271e16c
   src/orq_ai_sdk/models/errorstreamingevent.py:
     id: f0e8cfce5ede
     last_write_checksum: sha1:d49dcf9124c4123ea8f380d610b1d06e93ca3142
@@ -21999,12 +22015,12 @@ trackedFiles:
     pristine_git_object: 6775d282ea3a051e0beb28be696d596dc6561510
   src/orq_ai_sdk/models/get_v2_human_eval_sets_id_op.py:
     id: a18a48c53bb9
-    last_write_checksum: sha1:af4436e1bb5016b664c90fd802e4fc6ca71b756f
-    pristine_git_object: 121a3bc0468badb46b12eb8c19fb310fb1b20d3a
+    last_write_checksum: sha1:ac6ed90c831fd5ef06328c03c5579ed65a394ff9
+    pristine_git_object: 910a5a7d6044ca45a0958151df3a96f9f2b898a4
   src/orq_ai_sdk/models/get_v2_human_eval_setsop.py:
     id: 6f3364de5cbe
-    last_write_checksum: sha1:ce0b1a76702ca58b36821760b29d707c6313d4d5
-    pristine_git_object: 05de35ec8b399257e38bbd81f4b4bc9b1558ef69
+    last_write_checksum: sha1:60185e4e231f03b5dd4f77ca02119df9589a5149
+    pristine_git_object: ccf7736a1dbe7e8c03862c463da3557e197f8963
   src/orq_ai_sdk/models/get_v2_tools_tool_id_versions_version_id_op.py:
     id: 831be13a915d
     last_write_checksum: sha1:b700a0deccb4b65057ba05692766ac393bfc10b6
@@ -22043,8 +22059,8 @@ trackedFiles:
     pristine_git_object: dcfeeb5708849127510ee1ad39e41e5e26fff7fc
   src/orq_ai_sdk/models/getalltoolsop.py:
     id: 3beb36083a1b
-    last_write_checksum: sha1:1ab8aa1934c863aecf3361a52f8b3e405b1fab00
-    pristine_git_object: 108e83a6098eb5f4818f2b7bad805a66b54479a5
+    last_write_checksum: sha1:11981de44c5a1d8cb88a89e37ff02b7e8dbfebc1
+    pristine_git_object: 2fad3bcf431fa52d99a42bc4e82bd8e0d467a6e5
   src/orq_ai_sdk/models/getbudgetresponse.py:
     id: d4ae40e01474
     last_write_checksum: sha1:ea5c923046c8f1fc33db01d0c9be0eb221349e83
@@ -22495,8 +22511,8 @@ trackedFiles:
     pristine_git_object: 1af6049e4748e30aa7b2e13be674d6e80b06559c
   src/orq_ai_sdk/models/listdeploymentversionsop.py:
     id: 934404dbac9f
-    last_write_checksum: sha1:90fe04cd5f3aa8702966e60fbadda0a822b0eee2
-    pristine_git_object: f12dcd71106bd598ca0d767aa7fe283011ab4f90
+    last_write_checksum: sha1:7ae52866cc48cfa0f0b52c509904e51dc53f2a2e
+    pristine_git_object: 169e11037303d814d0b1d6dcb7b95740b7d57d15
   src/orq_ai_sdk/models/listdomainsresponse.py:
     id: 48876f937c29
     last_write_checksum: sha1:11063e92b89ecd1ab467644f9f3f2113cfaf7bcf
@@ -23255,8 +23271,8 @@ trackedFiles:
     pristine_git_object: dcc46fed8aae9b275ec87758748cd2fea809efea
   src/orq_ai_sdk/models/patch_v2_human_eval_sets_id_op.py:
     id: ee26707518f9
-    last_write_checksum: sha1:37159bb0dc604c290e911238c19a1dfa1b75fdaa
-    pristine_git_object: 5ba7768c3957f1f96d96300cac2154f0ccfabc3c
+    last_write_checksum: sha1:948263ba94f29507b10fbe9b40d7772613365e9c
+    pristine_git_object: 16d9e27fc0171e9e0c3bc1e6cf4266053ef5dcea
   src/orq_ai_sdk/models/piiredaction.py:
     id: 722facb0703f
     last_write_checksum: sha1:230213ff7f4ae70346055cc3ea5e9b35522ba9c8
@@ -23303,8 +23319,8 @@ trackedFiles:
     pristine_git_object: 2661de4e06de6cc389a48ae0e7e505a5ef879af5
   src/orq_ai_sdk/models/post_v2_feedback_evaluationop.py:
     id: 2942459cde6c
-    last_write_checksum: sha1:251452e987a9172cd28b693840b385e7ebaf50be
-    pristine_git_object: ec17cb48beec70f4836bce63e4cbda5fe6327c0c
+    last_write_checksum: sha1:aef335d6e237b97ea48e691fe554d1a4d443c4b3
+    pristine_git_object: 9308486ff840f8f3f563e4d0f8d0328f651087e2
   src/orq_ai_sdk/models/post_v2_feedback_removeop.py:
     id: fa99b9185c28
     last_write_checksum: sha1:59324503030ecfd3ac95ad4da80f40eb5e9e3d5d
@@ -23315,8 +23331,8 @@ trackedFiles:
     pristine_git_object: e436f93fc47710cd131a4cbc6f00e04b0219c04a
   src/orq_ai_sdk/models/post_v2_human_eval_setsop.py:
     id: 62d9f62e9d4d
-    last_write_checksum: sha1:3ffe76c122d37d204e1b4ed82bece6f59666d95e
-    pristine_git_object: 1239e903d6bea4ff318aae82a8ebb8f35c6f6984
+    last_write_checksum: sha1:8e4ac41957267a135fb39a052e655c8bbf0e4d03
+    pristine_git_object: 580b4e0eeda2ce5c580912f7811cc8540f480228
   src/orq_ai_sdk/models/post_v2_router_ocrop.py:
     id: 8dce9efed110
     last_write_checksum: sha1:1ceb115e35662faaf0e7f0cbc088aea8375e3c33
@@ -23511,8 +23527,8 @@ trackedFiles:
     pristine_git_object: 5c4574d301394e3a82fdeb14389a350d64664cb0
   src/orq_ai_sdk/models/reasoningpart.py:
     id: d26c94bac9d8
-    last_write_checksum: sha1:9ff9f8249080df886751ed9e9cd75a156feae717
-    pristine_git_object: 5b643fe13659feaf7b6ae3e27ed0a37066cb93bb
+    last_write_checksum: sha1:035116bdf3999ba50b3a1f4efb307f289de6d360
+    pristine_git_object: cb1f11023409edbf085dafdccd4ab27e02df79f4
   src/orq_ai_sdk/models/reasoningpartschema.py:
     id: f17894686338
     last_write_checksum: sha1:8868765590fad28a390b581ef46af3bd35959149
@@ -23947,8 +23963,8 @@ trackedFiles:
     pristine_git_object: c0d6105ac08f48a7a170ea06ab32921155cbe5d3
   src/orq_ai_sdk/models/retrievetoolop.py:
     id: d297b1989cab
-    last_write_checksum: sha1:e5dc1b26f58e99ec55a41e522c9e1dd6cec46086
-    pristine_git_object: 2fba80d38f9e4107fc528d21c8b144590653166b
+    last_write_checksum: sha1:4950c7c93a2c1bafc810485a0d3c3ee41fb018b4
+    pristine_git_object: d1d051a5b15e930914aac0abc5755078bf0a1c60
   src/orq_ai_sdk/models/reviewoutcome.py:
     id: f0c99a404b06
     last_write_checksum: sha1:3d1f8415a9712cf19803c7ea5c602a6eb6f94dc1
@@ -23999,8 +24015,8 @@ trackedFiles:
     pristine_git_object: 917a3d925c6b6787567ef68f0f434e524f5a8621
   src/orq_ai_sdk/models/runagentop.py:
     id: f40d45b6bd36
-    last_write_checksum: sha1:71ababce1f75a34e6c20bf402c49a19256205f71
-    pristine_git_object: c97268b276bfc6cc86dcb4a6a5ae8604c1ae2c7b
+    last_write_checksum: sha1:49eb6b6183a17d10b8125c061f547ecaceef7697
+    pristine_git_object: 185b9c56f292df25038d66060e88a3ce8685ceca
   src/orq_ai_sdk/models/search_webop.py:
     id: 26418fbd858a
     last_write_checksum: sha1:88068f9a255585541f53391c8dbcd639046e493b
@@ -24195,8 +24211,8 @@ trackedFiles:
     pristine_git_object: c79320a97f223bf87fccbc5269d865ccc430037e
   src/orq_ai_sdk/models/streamrunagentop.py:
     id: 1c0108f5e738
-    last_write_checksum: sha1:316b6a3436c2a9d682e12c22c706451e3cf87061
-    pristine_git_object: f31d23bd10545eafb3a53177c1e9103b15d879f0
+    last_write_checksum: sha1:56e64a6ab086453adf10d93bd370219190804b93
+    pristine_git_object: 687a0b0d1b94d58b666e963f47a64a4fd6d2c83e
   src/orq_ai_sdk/models/structuredinput.py:
     id: ab3008de70c6
     last_write_checksum: sha1:909b8e7a35e8c3a99028394d86074f82bcf4ae74
@@ -24719,8 +24735,8 @@ trackedFiles:
     pristine_git_object: b8a3ff1607bc9bd1e2604151f0dd144d8099bba4
   src/orq_ai_sdk/models/updatetoolop.py:
     id: 783fd367d349
-    last_write_checksum: sha1:acb2dd40b16a541d930181115e107e2904f91462
-    pristine_git_object: dc7a8e8fc60bc31d197d6821645ee2ef3463c199
+    last_write_checksum: sha1:4b1d9f9093c0a74cd98a65face2e098dea72425f
+    pristine_git_object: 636f834fd81953be3db11afa71999ded334e7ae6
   src/orq_ai_sdk/models/updateuserrequest.py:
     id: 8d8c05ed4650
     last_write_checksum: sha1:b90451a94b240ac46ea019cfa08a3a522eae39bd
@@ -24987,72 +25003,72 @@ trackedFiles:
     pristine_git_object: 59386354695388e4907927e2349a45b84c26de49
   src/orq_ai_sdk/models_.py:
     id: 1c31929cbe0f
-    last_write_checksum: sha1:1656868e20de12727f68f537935077fa6a7b8d3f
-    pristine_git_object: f30129813296f511b65a0dd4b0d2dc485e2ee19a
+    last_write_checksum: sha1:386601658a8d65ada184bdbfef38ceb67dd00c82
+    pristine_git_object: 763a11e37c8b764231cc692f5a1cb613736bf29f
   src/orq_ai_sdk/moderations.py:
     id: 83b72ffc30cb
     last_write_checksum: sha1:35cbe5fe7344f10199c3fc66eb5bed73178d1eb1
     pristine_git_object: 59d8e6020fc099298e392e6805c9f1808e1c8d47
   src/orq_ai_sdk/monitors.py:
     id: 1012cf49548a
-    last_write_checksum: sha1:09cf78674f3d933326c01eb2a5dfb95d25e9eb14
-    pristine_git_object: ba7ddf8af55bd0c3b58ac4a7a74219e4a2fffb36
+    last_write_checksum: sha1:bd50eb832007fd7a16ba51098f848725c86005e1
+    pristine_git_object: fdc976b9099240b63370bfdb3b89732ac081120a
   src/orq_ai_sdk/notifiers.py:
     id: a9b0539e5b5b
-    last_write_checksum: sha1:d5bf279c728f5df1e8200efd6012b730a0acd3fe
-    pristine_git_object: 0fbfdd7b4839e0274c4f1a4f76c488f6ff0d6df7
+    last_write_checksum: sha1:6e2b443b1652bb477cf3714493f5c2217412738a
+    pristine_git_object: 5a113d81e024ab67a55ca06473dc7e90065d9c61
   src/orq_ai_sdk/orq_completions.py:
     id: f6910edc34a4
-    last_write_checksum: sha1:a84a42ad4df87e1aa51bcf2d669190c67de6192d
-    pristine_git_object: 189a93f96e80381e61c746e15b17a7afaebcd8a3
+    last_write_checksum: sha1:ebff67b60ed3f23c520392e98265227064a289da
+    pristine_git_object: af20073cffa81d47f731cf37ab86c53004062c92
   src/orq_ai_sdk/orq_responses.py:
     id: 65ea33c2b587
-    last_write_checksum: sha1:99106e88a021ca70e34d65558a4d0ca991d72667
-    pristine_git_object: 2e8af959013107cea994386eb3da6744e38ee848
+    last_write_checksum: sha1:22eb3c3404a37af4f756c2fd40665db35889cc38
+    pristine_git_object: 8c7fb680a12ab68477b5a4f4fc3632fc883549df
   src/orq_ai_sdk/pii.py:
     id: 5ce1b36fd777
-    last_write_checksum: sha1:1bec5ed29a9555ddc8707e7e4081153d1a595f42
-    pristine_git_object: b53b6cfb866384fe1e1795a4435bbdbdf30b6291
+    last_write_checksum: sha1:cb8435de6a37b315fb253c1e294d325898ce5eec
+    pristine_git_object: 9ff33035bdaa8260aed49f0696ba77810f7c9a77
   src/orq_ai_sdk/policies.py:
     id: e5b23b222eda
-    last_write_checksum: sha1:bcfe758a0cfaf1634dfefc3649052275520e68be
-    pristine_git_object: 17b1078ebc30a9f5f8a696e5c323065a245ccd6b
+    last_write_checksum: sha1:b22ec22b28fee09dc80c69483b587923f40403fd
+    pristine_git_object: 124c0eab166baaec6f50c17135b4c088b6924db0
   src/orq_ai_sdk/projects.py:
     id: c2c069c33439
-    last_write_checksum: sha1:49a08519d68bffd5f6be1e11f6e10e48f8326573
-    pristine_git_object: f37f093bb4b618a288c36e2a1f7c22f18fc91963
+    last_write_checksum: sha1:710eb3a68217af51df489573a5a2cb095826fe68
+    pristine_git_object: 8fcd9f5c21871f1fb1ae876b7f57010edb82f670
   src/orq_ai_sdk/prompts.py:
     id: 80b5537e208d
-    last_write_checksum: sha1:bf4328e7b30432ad272b3567efd90782b7199cbe
-    pristine_git_object: 60adc87e0b376fa1c80c3fbb2d0ede32a84ae009
+    last_write_checksum: sha1:7d9ce7b2a055436298df23e3e7adcb4722e04292
+    pristine_git_object: aea71e4d49e408c33c8f0d5975b98cf17b552964
   src/orq_ai_sdk/py.typed:
     id: 443075ad5e54
     last_write_checksum: sha1:8efc425ffe830805ffcc0f3055871bdcdc542c60
     pristine_git_object: 3e38f1a929f7d6b1d6de74604aa87e3d8f010544
   src/orq_ai_sdk/reporting.py:
     id: e8c2c6b64853
-    last_write_checksum: sha1:bfe81d94c99b44dc0851803782262d9c7bea173b
-    pristine_git_object: aed7e8cd701eac3bf0290b08aee15eab67476840
+    last_write_checksum: sha1:9534f558b27d7408a0748657700db97aa5f4f592
+    pristine_git_object: 2ca7f57c357c211d8fbe45b7151a4fda54bbb098
   src/orq_ai_sdk/rerank.py:
     id: e10662d9a8e8
-    last_write_checksum: sha1:60bf934f947114c1460f9524531cad812b175859
-    pristine_git_object: d09ee49863b2cb4f17109cbf85b7b126cd5b2b2e
+    last_write_checksum: sha1:ea8fae8c5e2b7d4e14d3fe8cf9bac3da7664fd83
+    pristine_git_object: 8391dd4a25f43f96a06e3a941619fdf64d6056aa
   src/orq_ai_sdk/responses.py:
     id: acce99125427
-    last_write_checksum: sha1:fe83702759ea67716718dbbfeff12ecb1a76ebfc
-    pristine_git_object: 619d66c65d3bcc460c816419a8d77ded6802601e
+    last_write_checksum: sha1:6b8c3f12519c2caa3ae0a040c09bf5ed4f2e64f9
+    pristine_git_object: 612dd0970df80a423fdd5512d14bc4304768551d
   src/orq_ai_sdk/router.py:
     id: db653c495246
-    last_write_checksum: sha1:fb6c068547656d76a2fb1a45a9a65dddc7effe9a
-    pristine_git_object: 6306a583ab346741c188e6300e41a841161fd01a
+    last_write_checksum: sha1:ef547c09c25a3bbcadf188b4f5b03ccc7e39c3b8
+    pristine_git_object: 1e9421648749da9c69704fbf7c0bc64953b81bd5
   src/orq_ai_sdk/routingrules.py:
     id: 6e1b85c409a2
-    last_write_checksum: sha1:7e2c337636e0cb41894c14eae22c7217d5028008
-    pristine_git_object: d9864430f6101ec91326f57a62ef1380562d7911
+    last_write_checksum: sha1:11d0555ac2a5742ba5a353ce31bb83f0470bfff3
+    pristine_git_object: efe9fdf4415216a099eca0174f4cc657c9baf151
   src/orq_ai_sdk/schedules.py:
     id: 764122f25e4d
-    last_write_checksum: sha1:1a31755bdb59503be6d5e966fcce34e155e13acc
-    pristine_git_object: 51ce014887a01e50b94cefbd99cedd9e6f907c3b
+    last_write_checksum: sha1:54822ef5204e90811af421c9963e35e670abab31
+    pristine_git_object: 7da124d7f5cc4998a7c422214de2f3732cb12754
   src/orq_ai_sdk/sdk.py:
     id: b2cc039d2207
     last_write_checksum: sha1:1dec0fe5024a7809f06ab66056978512b087c500
@@ -25063,32 +25079,32 @@ trackedFiles:
     pristine_git_object: cc6f7e94aa2bc9ed5777a67732fc03583d1d4b76
   src/orq_ai_sdk/sessions.py:
     id: 90763f993ad3
-    last_write_checksum: sha1:cb03c0edde240702833b3bdc75507d434f809f79
-    pristine_git_object: 8bbb07f8b23bd522170fcd1e99aa7607683b1daa
+    last_write_checksum: sha1:fda2ba636458e3e63ec6fb7a68f13a2cfc9b24a1
+    pristine_git_object: 28c719b5c5663087022f1d884c39a109d6a698a0
   src/orq_ai_sdk/skills.py:
     id: "719674744774"
-    last_write_checksum: sha1:4b406a3594eb00772e60a1d6973c8f959066f87d
-    pristine_git_object: 98ae1a21c9f9ec76acfebb455ed12f66ecb2e824
+    last_write_checksum: sha1:b8c261e0de6fd297fcd4359b7c15024518bb758d
+    pristine_git_object: 886bd18a368374fde6c6e767a4cb52d423466f4a
   src/orq_ai_sdk/smartrouters.py:
     id: 1fc08c9701e3
-    last_write_checksum: sha1:14bfa27f78b8c9fb7bb0562a5925c11e6d162f81
-    pristine_git_object: 5836970479b097a0ac5223d35c20544c4bf5acaf
+    last_write_checksum: sha1:6018f7af6e76b5d54aabe0d7239a09685a1151d4
+    pristine_git_object: 2516610e015e49c231e24308b241a9f20aca13e3
   src/orq_ai_sdk/speech.py:
     id: fa73d33ea2d1
-    last_write_checksum: sha1:3a2a81497d126c0d12135f2529673696e9ba7177
-    pristine_git_object: 1aa8157afd56c7f9e8de1f06ef159945dfe520a6
+    last_write_checksum: sha1:9bec9946fbe05b174fcf10a3023d83c8467b91e2
+    pristine_git_object: d80cf2dc7e059aa61c9e851830c9577c64fdfe28
   src/orq_ai_sdk/telemetry_sdk.py:
     id: fcc486001c7b
-    last_write_checksum: sha1:14a762b5e666702eea7c171918db9bc173ffb508
-    pristine_git_object: 836da8fa43faa8736d42bcc0770e3dd327e9f5a1
+    last_write_checksum: sha1:79ba600eb202578a4b9e5f1ae3331f49f02d59c2
+    pristine_git_object: e5712e1a0305f42ebb2a5fc71e9be9e4f8bb4d5b
   src/orq_ai_sdk/tools.py:
     id: 732ea55fdfca
-    last_write_checksum: sha1:61e5240ff21b6d32c97d4e2266561fa18fb774d5
-    pristine_git_object: 7eb753b94ed445f1d4c9fdc398a297f7c5f0db1a
+    last_write_checksum: sha1:7c42f3b3fdccb5bb8aee59ea9e07e26835421e35
+    pristine_git_object: 8fdafbc598dd606219bd733f13f93ae54300a09c
   src/orq_ai_sdk/traces.py:
     id: e023437c2e1f
-    last_write_checksum: sha1:e5d36f93466530d0e4da39313323d6d6b4bec5ca
-    pristine_git_object: 60f4146c198b53d19a2f3e318649cfed678180bc
+    last_write_checksum: sha1:d32fdc62aae4ba68e0aeea9b0db3949ef98b8f70
+    pristine_git_object: 960f9e32640e83c04944a65bba4933cc4cd66e57
   src/orq_ai_sdk/transcriptions.py:
     id: e3d5454ad802
     last_write_checksum: sha1:2ff051f2e9e5fc0f56f4e380c024a10ad005dd2c
@@ -25111,8 +25127,8 @@ trackedFiles:
     pristine_git_object: a9a640a1a7048736383f96c67c6290c86bf536ee
   src/orq_ai_sdk/users.py:
     id: 9b7dcd39ba59
-    last_write_checksum: sha1:844d82ffcfaa247f62b18ab5f880d9cc21bc6a5d
-    pristine_git_object: e5c74e1282e70d00009bdf53bcea8698167ecf0c
+    last_write_checksum: sha1:86d38c480c258e7ded7ecf3ccb3ea7f6e37561b3
+    pristine_git_object: 5e183be26f6fecd780b854531a1c888a075e7fdd
   src/orq_ai_sdk/utils/__init__.py:
     id: 0ebf6c249cdf
     last_write_checksum: sha1:e6fb1146e02dbccdc147eb3724b57e71568b8391
@@ -25187,36 +25203,36 @@ trackedFiles:
     pristine_git_object: 094755b73f7f9382d8df997602080c82a55896fd
   src/orq_ai_sdk/variations.py:
     id: 569418ecf1f3
-    last_write_checksum: sha1:71bf2995c2009cfd8742701b4c31465215190111
-    pristine_git_object: 6f40bef3baa6a7860d3a3c2f6d780a22e20f53c8
+    last_write_checksum: sha1:6bf6d40477ade3dfb9d5c4716a8fa4fd173ffeeb
+    pristine_git_object: 670b595cb20cab3cba374ec0da60a259807dd590
   src/orq_ai_sdk/views.py:
     id: d54c82e8fda0
-    last_write_checksum: sha1:4409835b9b5b92af4884ec13951299f43fa7b934
-    pristine_git_object: 49d5cfa2fe1a009299456c6b49767d321f595056
+    last_write_checksum: sha1:9be150056be293cce728f65ae908b2d76ead9aae
+    pristine_git_object: 8695c6c204966d06fda54530c055dc036b8bf8b2
   src/orq_ai_sdk/webhooks.py:
     id: cb7a4ee8cd32
-    last_write_checksum: sha1:717e3c0f498060f4f6f7b6d2e69f757bc38ff7d7
-    pristine_git_object: a264a6726adbce05a441d901e2a4fafa4fac2e9c
+    last_write_checksum: sha1:2a35972df13d0de878c5a7734a2e35016b4c359d
+    pristine_git_object: 7882a513a73f0c724110ba09f9d2b9f6458df6fd
   src/orq_ai_sdk/websearch.py:
     id: 3bd16dda3c93
     last_write_checksum: sha1:e2cd362c9c77efdbb7ab521f082e995ab0005beb
     pristine_git_object: 364a96f694dda91c11a2b11507a7e3dd33716d43
   src/orq_ai_sdk/wikis.py:
     id: b62a5dab098d
-    last_write_checksum: sha1:9a84cbb92e52e6dc00b5204e655ddafa5c96fff9
-    pristine_git_object: 00c3c17f8c061ee888a29aae32c76d15e12be8dd
+    last_write_checksum: sha1:96a928e3e72690e44c0e29febb2a7cdad39d643b
+    pristine_git_object: 21125e2c97670ba31e20b1d7e3a8867773ee3db1
   src/orq_ai_sdk/workspaces.py:
     id: 0e69717a2588
-    last_write_checksum: sha1:6ea9304d1c4a23404c2872cc3d9534c8fcca0672
-    pristine_git_object: 7a17c69c6138e7f26f6cc59ffe9da3cf10e0873f
+    last_write_checksum: sha1:69a94865262247a46d050cb583c1f00ef83dbc46
+    pristine_git_object: 371339f19e4cb8024f0414c7a46c352754be1f01
   src/orq_ai_sdk/workspacesecurity.py:
     id: f49b8c108fba
-    last_write_checksum: sha1:cd4a40b466bd3a6e26a08ee5c7a0ea2e94ca3ae8
-    pristine_git_object: 7c7a2ecbbdb3256374e9f954cb4d78f85e2f07f8
+    last_write_checksum: sha1:326832eb098114449611e81d32e7e2fa8ee47dc5
+    pristine_git_object: ebdd250b0d347750da89eacddf5e5964cb358147
   src/orq_ai_sdk/workspacesettings_sdk.py:
     id: 2e67c4c99c62
-    last_write_checksum: sha1:65496b9f28918cc273865ff28c1ab520328a7c91
-    pristine_git_object: e2b6dcac8a98ca2f96b2e5fa2de3bfaac4af2e7c
+    last_write_checksum: sha1:6e9e0a438aacf59f7bb8ffbecec501e677087304
+    pristine_git_object: 953c2a1391c7bfda14613415f08d80bc577ebc39
 examples:
   CreateContact:
     speakeasy-default-create-contact:
@@ -25256,6 +25272,8 @@ examples:
           application/json: {"object": "list", "data": [], "has_more": false}
         "500":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   DeploymentGetConfig:
     speakeasy-default-deployment-get-config:
       requestBody:
@@ -25270,10 +25288,15 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>", "created": "2024-04-18T18:48:22.476Z", "object": "image", "model": "2", "provider": "groq", "is_final": true, "telemetry": {"trace_id": "<id>", "span_id": "<id>"}, "choices": []}
+        "401":
+          application/json: {"message": "<value>"}
   DeploymentStream:
     speakeasy-default-deployment-stream:
       requestBody:
         application/json: {"key": "<key>", "identity": {"id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "display_name": "Jane Doe", "email": "jane.doe@example.com", "metadata": [{"department": "Engineering", "role": "Senior Developer"}], "logo_url": "https://example.com/avatars/jane-doe.jpg", "tags": ["hr", "engineering"]}, "documents": [{"text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.", "metadata": {"file_name": "refund_policy.pdf", "file_type": "application/pdf", "page_number": 1}}, {"text": "Premium members receive free shipping on all orders over $50.", "metadata": {"file_name": "membership_benefits.md", "file_type": "text/markdown"}}]}
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   CreateDeploymentExperiment:
     speakeasy-default-create-deployment-experiment:
       parameters:
@@ -25302,6 +25325,8 @@ examples:
       responses:
         "200":
           application/json: {"file": {"file_id": "<id>", "purpose": "FILE_PURPOSE_RETRIEVAL", "file_name": "example.file", "bytes": "<value>", "created_at": "2025-03-10T08:13:56.334Z", "project_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -25310,6 +25335,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"file_id": "<id>", "purpose": "FILE_PURPOSE_BATCH", "file_name": "example.file", "bytes": "<value>", "created_at": "2026-08-25T13:50:45.715Z", "project_id": "<id>"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   FileGet:
     speakeasy-default-file-get:
       parameters:
@@ -25318,6 +25345,8 @@ examples:
       responses:
         "200":
           application/json: {"file": {"file_id": "<id>", "purpose": "FILE_PURPOSE_UNSPECIFIED", "file_name": "example.file", "bytes": "<value>", "created_at": "2026-09-21T04:55:47.033Z", "project_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -25326,6 +25355,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetAllPrompts:
     speakeasy-default-get-all-prompts:
       parameters:
@@ -25334,6 +25365,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "8356bc6b-4443-4737-84b6-f84cbf7e49a2", "created": "<value>", "updated": "<value>", "display_name": "Alicia83", "prompt_config": {"messages": [{"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}]}, "prompt": {"model": "openai/gpt-4o"}}, {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "8356bc6b-4443-4737-84b6-f84cbf7e49a2", "created": "<value>", "updated": "<value>", "display_name": "Alicia83", "prompt_config": {"messages": [{"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}]}, "prompt": {"model": "openai/gpt-4o"}}, {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "8356bc6b-4443-4737-84b6-f84cbf7e49a2", "created": "<value>", "updated": "<value>", "display_name": "Alicia83", "prompt_config": {"messages": [{"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://monumental-coal.biz"}}, {"type": "text", "text": "<value>"}]}]}, "prompt": {"model": "openai/gpt-4o"}}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   CreatePrompt:
     speakeasy-default-create-prompt:
       requestBody:
@@ -25341,6 +25374,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "a6f7f356-27b0-432e-b908-0fbcfbcd161b", "created": "<value>", "updated": "<value>", "display_name": "Palma13", "prompt": {"fallbacks": [{"model": "openai/gpt-4o-mini"}], "retry": {"count": 3, "on_codes": [429, 500, 502, 503, 504]}, "cache": {"ttl": 3600, "type": "exact_match"}, "load_balancer": {"type": "weight_based", "models": [{"model": "openai/gpt-4o", "weight": 0.7}, {"model": "anthropic/claude-3-5-sonnet", "weight": 0.3}]}, "timeout": {"call_timeout": 30000}, "model": "openai/gpt-4o"}}
+        "401":
+          application/json: {"message": "<value>"}
   GetOnePrompt:
     speakeasy-default-get-one-prompt:
       parameters:
@@ -25349,6 +25384,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "21281f77-4a8d-4e15-b7b8-2f8ceeefdd6c", "created": "<value>", "updated": "<value>", "display_name": "Julius_Robel64", "prompt": {"fallbacks": [{"model": "openai/gpt-4o-mini"}], "retry": {"count": 3, "on_codes": [429, 500, 502, 503, 504]}, "cache": {"ttl": 3600, "type": "exact_match"}, "load_balancer": {"type": "weight_based", "models": [{"model": "openai/gpt-4o", "weight": 0.7}, {"model": "anthropic/claude-3-5-sonnet", "weight": 0.3}]}, "timeout": {"call_timeout": 30000}, "model": "openai/gpt-4o"}}
+        "401":
+          application/json: {"message": "<value>"}
   UpdatePrompt:
     speakeasy-default-update-prompt:
       parameters:
@@ -25379,6 +25416,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "user", "content": "<value>"}]}, "prompt": {"model": "openai/gpt-4o"}, "timestamp": "<value>"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   GetPromptVersion:
     speakeasy-default-get-prompt-version:
       parameters:
@@ -25408,6 +25447,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   CreateDataset:
     speakeasy-default-create-dataset:
       requestBody:
@@ -25415,6 +25456,8 @@ examples:
       responses:
         "200":
           application/json: {"display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "created_by_id": "<id>", "updated_by_id": "<id>", "created": "<value>", "updated": "2026-09-21T07:21:34.711Z", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74"}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -25424,6 +25467,8 @@ examples:
         "200":
           application/json: {"display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "created_by_id": "<id>", "updated_by_id": "<id>", "created": "<value>", "updated": "2026-09-21T07:21:34.711Z", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "_id": "cec751ff-edcf-48f5-919c-5f9600880799"}
         "404":
+          application/json: {"message": "<value>"}
+        "401":
           application/json: {"message": "<value>"}
   UpdateDataset:
     speakeasy-default-update-dataset:
@@ -25437,11 +25482,16 @@ examples:
           application/json: {"display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "created_by_id": "<id>", "updated_by_id": "<id>", "created": "<value>", "updated": "2026-09-21T07:21:34.711Z", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202"}
         "404":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteDataset:
     speakeasy-default-delete-dataset:
       parameters:
         path:
           dataset_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   CreateDatasetExperiment:
     speakeasy-default-create-dataset-experiment:
       parameters:
@@ -25464,6 +25514,8 @@ examples:
           application/json: {"object": "list", "data": [], "has_more": true}
         "404":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   CreateDatasetItem:
     speakeasy-default-create-dataset-item:
       parameters:
@@ -25476,6 +25528,8 @@ examples:
           application/json: [{"dataset_id": "<id>", "created_by_id": "<id>", "updated_by_id": "<id>", "updated": "2025-08-08T08:03:31.826Z", "workspace_id": "<id>", "_id": "<id>"}]
         "404":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveDatapoint:
     speakeasy-default-retrieve-datapoint:
       parameters:
@@ -25486,6 +25540,8 @@ examples:
         "200":
           application/json: {"dataset_id": "<id>", "created_by_id": "<id>", "updated_by_id": "<id>", "_id": "<id>"}
         "404":
+          application/json: {"message": "<value>"}
+        "401":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
     speakeasy-default-update-datapoint:
@@ -25500,6 +25556,8 @@ examples:
           application/json: {"dataset_id": "<id>", "created_by_id": "<id>", "updated_by_id": "<id>", "_id": "<id>"}
         "404":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteDatapoint:
     speakeasy-default-delete-datapoint:
       parameters:
@@ -25508,6 +25566,8 @@ examples:
           datapoint_id: "<id>"
       responses:
         "404":
+          application/json: {"message": "<value>"}
+        "401":
           application/json: {"message": "<value>"}
   BulkCreateDatapoints:
     speakeasy-default-bulk-create-datapoints:
@@ -25519,6 +25579,8 @@ examples:
       responses:
         "200":
           application/json: [{"dataset_id": "<id>", "created_by_id": "<id>", "updated_by_id": "<id>", "updated": "2025-05-16T08:02:19.729Z", "workspace_id": "<id>", "_id": "<id>"}, {"dataset_id": "<id>", "created_by_id": "<id>", "updated_by_id": "<id>", "updated": "2025-05-16T08:02:19.729Z", "workspace_id": "<id>", "_id": "<id>"}]
+        "401":
+          application/json: {"message": "<value>"}
   ClearDataset:
     speakeasy-default-clear-dataset:
       parameters:
@@ -25526,6 +25588,8 @@ examples:
           dataset_id: "<id>"
       responses:
         "404":
+          application/json: {"message": "<value>"}
+        "401":
           application/json: {"message": "<value>"}
   ListKnowledgeBases:
     speakeasy-default-list-knowledge-bases:
@@ -25576,6 +25640,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"display_name": "Brenna_Jacobs53", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 7424.89, "metadata": {}, "_id": "01JVC1VC0EWNPEB2KHP6YV0S7X"}, {"display_name": "Brenna_Jacobs53", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 7424.89, "metadata": {}, "_id": "01JVC1VC0EWNPEB2KHP6YV0S7X"}, {"display_name": "Brenna_Jacobs53", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 7424.89, "metadata": {}, "_id": "01JVC1VC0EWNPEB2KHP6YV0S7X"}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   CreateDatasource:
     speakeasy-default-create-datasource:
       parameters:
@@ -25586,6 +25652,8 @@ examples:
       responses:
         "200":
           application/json: {"display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76, "_id": "01M06YQWREKCT6WHK61RAY7GXG"}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -25595,12 +25663,17 @@ examples:
       responses:
         "200":
           application/json: {"display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73, "_id": "01M06YQWRDAZQYV231EXKXR6GW"}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
         path:
           knowledge_id: "<id>"
           datasource_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   UpdateDatasource:
     speakeasy-default-update-datasource:
       parameters:
@@ -25612,6 +25685,8 @@ examples:
       responses:
         "200":
           application/json: {"display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25, "_id": "01M06YQWRHDWMBYBEZXCFPQP69"}
+        "401":
+          application/json: {"message": "<value>"}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -25623,6 +25698,8 @@ examples:
       responses:
         "200":
           application/json: [{"text": "<value>", "enabled": true, "status": "completed", "created": "<value>", "updated": "<value>", "_id": "<id>"}]
+        "401":
+          application/json: {"message": "<value>"}
   ListChunks:
     speakeasy-default-list-chunks:
       parameters:
@@ -25635,6 +25712,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>", "_id": "<id>"}, {"text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>", "_id": "<id>"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateChunk:
     speakeasy-default-update-chunk:
       parameters:
@@ -25647,6 +25726,8 @@ examples:
       responses:
         "200":
           application/json: {"text": "<value>", "enabled": false, "status": "completed", "created": "<value>", "updated": "<value>", "_id": "<id>"}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteChunk:
     speakeasy-default-delete-chunk:
       parameters:
@@ -25654,6 +25735,9 @@ examples:
           chunk_id: "<id>"
           datasource_id: "<id>"
           knowledge_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   GetOneChunk:
     speakeasy-default-get-one-chunk:
       parameters:
@@ -25664,6 +25748,8 @@ examples:
       responses:
         "200":
           application/json: {"text": "<value>", "enabled": false, "status": "completed", "created": "<value>", "updated": "<value>", "_id": "<id>"}
+        "401":
+          application/json: {"message": "<value>"}
   SearchKnowledge:
     speakeasy-default-search-knowledge:
       parameters:
@@ -26123,6 +26209,8 @@ examples:
           application/json: {"message": "<value>"}
         "400":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   ChunkText:
     speakeasy-default-chunk-text:
       requestBody:
@@ -26164,6 +26252,8 @@ examples:
       responses:
         "200":
           application/json: {"chunks": [{"id": "<id>", "text": "<value>", "index": 5956.23}]}
+        "401":
+          application/json: {"message": "<value>"}
   CreateChatCompletion:
     speakeasy-default-create-chat-completion:
       requestBody:
@@ -26374,6 +26464,8 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>", "contextId": "<id>", "kind": "task", "status": {"state": "working"}}
+        "401":
+          application/json: {"message": "<value>"}
   StreamRunAgent:
     speakeasy-default-stream-run-agent:
       requestBody:
@@ -26429,6 +26521,8 @@ examples:
           application/json: {"key": "<key>", "description": "responsibility round jovially scarification", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "cohere/embed-multilingual-light-v3.0"}, "_id": "<id>"}
         "400":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveMemoryStore:
     speakeasy-default-retrieve-memory-store:
       parameters:
@@ -26464,6 +26558,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [], "has_more": false}
+        "404":
+          application/json: {"message": "<value>"}
   CreateMemory:
     speakeasy-default-create-memory:
       parameters:
@@ -26578,6 +26674,8 @@ examples:
           application/json: {"_id": "01K5ZT3CY918P3S9AAW781FHVZ", "path": "Default", "key": "<key>", "display_name": "Jeanette55", "description": "but rough promptly twin triumphantly for chops acquire", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "live", "type": "http", "http": {"blueprint": {"url": "https://firm-numeric.com/", "method": "POST"}}}
         "400":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateTool:
     speakeasy-default-update-tool:
       parameters:
@@ -26597,6 +26695,9 @@ examples:
         path:
           tool_key: "<value>"
           tool_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveTool:
     speakeasy-default-retrieve-tool:
       parameters:
@@ -26606,6 +26707,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "01K5ZT3CYJRRYP8YYE165HXC5W", "path": "Default", "key": "<key>", "display_name": "Josephine_Braun", "description": "soupy bus uncommon unto wetly sniveling majestic", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "live", "type": "http", "http": {"blueprint": {"url": "https://advanced-sprinkles.net/", "method": "PUT"}}}
+        "401":
+          application/json: {"message": "<value>"}
   DuplicateTool:
     speakeasy-default-duplicate-tool:
       parameters:
@@ -26628,6 +26731,8 @@ examples:
       responses:
         "200":
           application/json: {"deleted_count": 5582.07}
+        "401":
+          application/json: {"message": "<value>"}
   ListChunksPaginated:
     speakeasy-default-list-chunks-paginated:
       parameters:
@@ -26639,6 +26744,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"text": "<value>", "enabled": true, "status": "queued", "created": "<value>", "updated": "<value>", "_id": "<id>"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   GetChunksCount:
     speakeasy-default-get-chunks-count:
       parameters:
@@ -26650,6 +26757,8 @@ examples:
       responses:
         "200":
           application/json: {"count": 2308.12}
+        "401":
+          application/json: {"message": "<value>"}
   InvokeAgent:
     speakeasy-default-invoke-agent:
       parameters:
@@ -26660,6 +26769,8 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>", "contextId": "<id>", "kind": "task", "status": {"state": "input-required"}}
+        "401":
+          application/json: {"message": "<value>"}
   StreamAgent:
     speakeasy-default-stream-agent:
       parameters:
@@ -26763,6 +26874,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "task_id": "<id>", "output": [], "created_at": "1709610768029", "model": "Charger"}
+        "401":
+          application/json: {"message": "<value>"}
   ListConversations:
     speakeasy-default-list-conversations:
       parameters:
@@ -26839,6 +26952,8 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>", "choices": [], "created": 4173.4, "model": "Sentra", "object": "chat.completion"}
+        "400":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createImage:
     speakeasy-default-create-image:
       requestBody:
@@ -26846,6 +26961,8 @@ examples:
       responses:
         "200":
           application/json: {"created": 8401.11, "data": []}
+        "401":
+          application/json: {"error": {"code": null, "message": "<value>", "param": "<value>", "type": "<value>"}}
   get_/v2/evaluators/{id}/versions:
     speakeasy-default-get-/v2-/evaluators/{id}/versions:
       parameters:
@@ -26910,6 +27027,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   CreateIdentity:
     speakeasy-default-create-identity:
       requestBody:
@@ -26919,6 +27038,8 @@ examples:
           application/json: {"identity": {"_id": "<id>", "external_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>"}}
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveIdentity:
     speakeasy-default-retrieve-identity:
       parameters:
@@ -26933,6 +27054,8 @@ examples:
           application/json: {"error": "<value>"}
         "500":
           application/json: {"error": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateIdentity:
     speakeasy-default-update-identity:
       parameters:
@@ -26945,6 +27068,8 @@ examples:
           application/json: {"identity": {"_id": "<id>", "external_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>"}}
         "404":
           application/json: {"message": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteIdentity:
     speakeasy-default-delete-identity:
       parameters:
@@ -26955,6 +27080,8 @@ examples:
           application/json: {"error": "<value>"}
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   createModeration:
     speakeasy-default-create-moderation:
       requestBody:
@@ -26973,18 +27100,24 @@ examples:
       responses:
         "200":
           application/json: {"data": [{"embedding": "<value>", "index": 924900, "object": "embedding"}], "model": "Corvette", "object": "list", "usage": {"prompt_tokens": 950941, "total_tokens": 700287}}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     array_of_strings:
       requestBody:
         application/json: {"input": ["The food was delicious", "And the waiter was friendly"], "model": "openai/text-embedding-3-small"}
       responses:
         "200":
           application/json: {"data": [{"embedding": "<value>", "index": 924900, "object": "embedding"}], "model": "Corvette", "object": "list", "usage": {"prompt_tokens": 950941, "total_tokens": 700287}}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
     single_string:
       requestBody:
         application/json: {"input": "The food was delicious and the waiter...", "model": "openai/text-embedding-3-small"}
       responses:
         "200":
           application/json: {"data": [{"embedding": "<value>", "index": 924900, "object": "embedding"}], "model": "Corvette", "object": "list", "usage": {"prompt_tokens": 950941, "total_tokens": 700287}}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createRerank:
     speakeasy-default-create-rerank:
       requestBody:
@@ -26992,10 +27125,15 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "results": [{"object": "rerank", "index": 2870.06, "relevance_score": 8891.89}]}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createSpeech:
     speakeasy-default-create-speech:
       requestBody:
         application/json: {"input": "<value>", "model": "Grand Caravan", "voice": "<value>", "response_format": "mp3", "speed": 1, "retry": {"count": 3, "on_codes": [429, 500, 502, 503, 504]}, "load_balancer": {"type": "weight_based", "models": [{"model": "openai/gpt-4o", "weight": 0.7}]}, "timeout": {"call_timeout": 30000}, "orq": {"retry": {"count": 3, "on_codes": [429, 500, 502, 503, 504]}, "fallbacks": [{"model": "openai/gpt-4o-mini"}], "identity": {"id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "display_name": "Jane Doe", "email": "jane.doe@example.com", "metadata": [{"department": "Engineering", "role": "Senior Developer"}], "logo_url": "https://example.com/avatars/jane-doe.jpg", "tags": ["hr", "engineering"]}, "thread": {"id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV", "tags": ["customer-support", "priority-high"]}, "load_balancer": {"type": "weight_based", "models": [{"model": "openai/gpt-4o", "weight": 0.7}, {"model": "anthropic/claude-3-5-sonnet", "weight": 0.3}]}, "timeout": {"call_timeout": 30000}}}
+      responses:
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createTranscription:
     speakeasy-default-create-transcription:
       requestBody:
@@ -27021,6 +27159,8 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>", "choices": [], "model": "F-150", "object": "<value>"}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": null, "type": "<value>"}}
   createImageEdit:
     speakeasy-default-create-image-edit:
       requestBody:
@@ -27028,6 +27168,8 @@ examples:
       responses:
         "200":
           application/json: {"created": 9818.03, "data": []}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createImageVariation:
     speakeasy-default-create-image-variation:
       requestBody:
@@ -27035,6 +27177,8 @@ examples:
       responses:
         "200":
           application/json: {"created": 2572.78, "data": [{}]}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   createResponse:
     speakeasy-default-create-response:
       requestBody:
@@ -27049,6 +27193,8 @@ examples:
       responses:
         "200":
           application/json: {"model": "Model Y", "pages": [], "usage": {"type": "tokens", "tokens_processed": 132234}}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   CreateAnnotation:
     speakeasy-default-create-annotation:
       parameters:
@@ -27057,6 +27203,9 @@ examples:
           span_id: "<id>"
       requestBody:
         application/json: {"annotations": []}
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   DeleteAnnotation:
     speakeasy-default-delete-annotation:
       parameters:
@@ -27065,6 +27214,9 @@ examples:
           span_id: "<id>"
       requestBody:
         application/json: {}
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   post_/v2/agents/a2a:
     speakeasy-default-post-/v2-/agents/a2a:
       responses:
@@ -27106,8 +27258,16 @@ examples:
           application/json: {"message": "<value>"}
         "404":
           application/json: {"message": "<value>"}
-  post_/v2/feedback/evaluation/remove: {}
-  post_/v2/feedback/evaluation: {}
+  post_/v2/feedback/evaluation/remove:
+    speakeasy-default-post-/v2-/feedback/evaluation/remove:
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
+  post_/v2/feedback/evaluation:
+    speakeasy-default-post-/v2-/feedback/evaluation:
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   post_/v2/feedback/remove:
     speakeasy-default-post-/v2-/feedback/remove:
       responses:
@@ -27164,11 +27324,15 @@ examples:
       responses:
         "200":
           application/json: [{"_id": "<id>", "display_name": "Freddie_Mueller", "human_eval_ids": ["<id 1>"], "workspace_id": "<id>", "updated": "2026-03-24T09:26:51.016Z", "filter_type": "span_type", "filter_values": ["<value 1>", "<value 2>", "<value 3>"]}]
+        "401":
+          application/json: {"message": "<value>"}
   post_/v2/human-eval-sets:
     speakeasy-default-post-/v2-/human-eval-sets:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Christophe15", "human_eval_ids": [], "workspace_id": "<id>", "updated": "2026-03-24T09:26:51.016Z", "filter_type": "span_type", "filter_values": ["<value 1>"]}
+        "401":
+          application/json: {"message": "<value>"}
   get_/v2/human-eval-sets/{id}:
     speakeasy-default-get-/v2-/human-eval-sets/{id}:
       parameters:
@@ -27177,6 +27341,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Okey8", "human_eval_ids": ["<id 1>", "<id 2>"], "workspace_id": "<id>", "updated": "2026-03-24T09:26:51.016Z", "filter_type": "span_type", "filter_values": []}
+        "401":
+          application/json: {"message": "<value>"}
   patch_/v2/human-eval-sets/{id}:
     speakeasy-default-patch-/v2-/human-eval-sets/{id}:
       parameters:
@@ -27185,11 +27351,16 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Prudence_Lakin57", "human_eval_ids": ["<id 1>"], "workspace_id": "<id>", "updated": "2026-03-24T09:26:51.016Z", "filter_type": "name", "filter_value": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   delete_/v2/human-eval-sets/{id}:
     speakeasy-default-delete-/v2-/human-eval-sets/{id}:
       parameters:
         path:
           id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   FileUpdate:
     speakeasy-default-file-update:
       parameters:
@@ -27200,6 +27371,8 @@ examples:
       responses:
         "200":
           application/json: {"file": {"file_id": "<id>", "purpose": "FILE_PURPOSE_RETRIEVAL", "file_name": "example.file", "bytes": "<value>", "created_at": "2026-12-16T11:24:08.516Z", "project_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   FileContent:
     speakeasy-default-file-content:
       parameters:
@@ -27209,6 +27382,8 @@ examples:
       responses:
         "200":
           application/json: {"download_url": "https://sinful-hygienic.net"}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleList:
     speakeasy-default-guardrail-rule-list:
       parameters:
@@ -27217,6 +27392,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleCreate:
     speakeasy-default-guardrail-rule-create:
       requestBody:
@@ -27226,6 +27403,8 @@ examples:
           application/json: {"_id": "<id>", "created_at": "2026-01-10T19:37:57.710Z", "created_by_id": "<id>", "display_name": "Cristina59", "enabled": false, "project_id": "<id>", "updated_at": "2025-07-10T10:42:34.283Z", "updated_by_id": "<id>"}
         "200":
           application/json: {"guardrail_rule": {"id": "<id>", "created_at": "2026-07-17T22:46:52.603Z", "updated_at": "2024-02-17T05:48:40.225Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Vivian.Steuber67", "description": "including and wry even puzzled hm council vivaciously meager", "enabled": false, "guardrails": [], "plugins": []}}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleDelete:
     speakeasy-default-guardrail-rule-delete:
       parameters:
@@ -27234,6 +27413,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleGet:
     speakeasy-default-guardrail-rule-get:
       parameters:
@@ -27242,6 +27423,8 @@ examples:
       responses:
         "200":
           application/json: {"guardrail_rule": {"id": "<id>", "created_at": "2024-01-01T08:15:22.668Z", "updated_at": "2026-09-10T01:21:24.255Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Sister.Bosco-Botsford47", "description": "culminate trusty posh", "enabled": true, "guardrails": [], "plugins": []}}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleUpdate:
     speakeasy-default-guardrail-rule-update:
       parameters:
@@ -27252,6 +27435,8 @@ examples:
       responses:
         "200":
           application/json: {"guardrail_rule": {"id": "<id>", "created_at": "2026-05-16T08:15:18.169Z", "updated_at": "2026-10-25T19:30:33.678Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Sage_Maggio14", "description": "normal stable tiny huzzah kissingly trust exotic biodegrade", "enabled": true, "guardrails": [], "plugins": [{}]}}
+        "401":
+          application/json: {"message": "<value>"}
   PolicyList:
     speakeasy-default-policy-list:
       parameters:
@@ -27260,6 +27445,8 @@ examples:
       responses:
         "200":
           application/json: {"data": [{"_id": "<id>", "created_at": "2024-05-18T21:49:46.154Z", "created_by_id": "<id>", "display_name": "Carlie_McGlynn", "enabled": true, "project_id": "<id>", "slug": "<value>", "timeout": 612209, "updated_at": "2024-04-03T06:08:01.065Z", "updated_by_id": "<id>"}], "has_more": true, "object": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   PolicyCreate:
     speakeasy-default-policy-create:
       requestBody:
@@ -27298,6 +27485,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   RoutingRuleCreate:
     speakeasy-default-routing-rule-create:
       requestBody:
@@ -27305,11 +27494,16 @@ examples:
       responses:
         "201":
           application/json: {"_id": "<id>", "created_at": "2026-03-21T08:48:50.980Z", "updated_at": "2024-03-23T13:01:11.701Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Brooke_Blanda", "description": "amongst tarry deck noisily wearily", "enabled": false, "plugins": [{}], "priority": 908379}
+        "401":
+          application/json: {"message": "<value>"}
   RoutingRuleDelete:
     speakeasy-default-routing-rule-delete:
       parameters:
         path:
           routing_rule_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   RoutingRuleGet:
     speakeasy-default-routing-rule-get:
       parameters:
@@ -27318,6 +27512,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "created_at": "2025-07-28T01:06:15.044Z", "updated_at": "2024-12-13T14:55:26.255Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Cleve.Witting90", "description": "psst investigate nutritious cleverly courteous oof cooperative", "enabled": false, "plugins": [{}], "priority": 658623}
+        "401":
+          application/json: {"message": "<value>"}
   RoutingRuleUpdate:
     speakeasy-default-routing-rule-update:
       parameters:
@@ -27328,6 +27524,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "created_at": "2025-08-28T09:08:42.701Z", "updated_at": "2024-08-05T18:58:41.235Z", "created_by_id": "<id>", "updated_by_id": "<id>", "project_id": "<id>", "display_name": "Camren_Runolfsson", "description": "or modulo pace scope consequently why yieldingly", "enabled": false, "plugins": [{}], "priority": 546534}
+        "401":
+          application/json: {"message": "<value>"}
   create-router-response:
     speakeasy-default-create-router-response:
       requestBody:
@@ -27335,6 +27533,8 @@ examples:
       responses:
         "200":
           application/json: {"background": false, "completed_at": 703277, "created_at": 378183, "error": {"code": "<value>", "message": "<value>"}, "frequency_penalty": 7185.97, "id": "<id>", "incomplete_details": {"reason": "<value>"}, "input": null, "instructions": "<value>", "max_output_tokens": 166593, "max_tool_calls": 304310, "metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "model": "CTS", "object": "<value>", "output": null, "parallel_tool_calls": true, "presence_penalty": 4997.14, "previous_response_id": "<id>", "prompt_cache_key": "<value>", "prompt_cache_options": {}, "prompt_cache_retention": "<value>", "reasoning": {}, "safety_identifier": "<value>", "service_tier": "default", "status": "incomplete", "store": true, "temperature": 3116, "text": "<value>", "tool_choice": "<value>", "tools": null, "top_logprobs": 906004, "top_p": 3997.69, "truncation": "auto", "usage": {"input_tokens": 587597, "input_tokens_details": {"cache_creation_tokens": 517418, "cache_write_tokens": 853172, "cached_tokens": 168314}, "output_tokens": 203965, "output_tokens_details": {"reasoning_tokens": 915627}, "total_tokens": 318317}, "user": "Ricky48"}
+        "400":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   retrieve-response:
     speakeasy-default-retrieve-response:
       parameters:
@@ -27353,6 +27553,10 @@ examples:
       responses:
         "200":
           application/json: {"schedules": []}
+        "401":
+          application/json: {"message": "<value>"}
+        "404":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   create-agent-schedule:
     daily_cron:
       parameters:
@@ -27541,6 +27745,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   SkillCreate:
     speakeasy-default-skill-create:
       requestBody:
@@ -27548,6 +27754,8 @@ examples:
       responses:
         "200":
           application/json: {"skill": {"skill_id": "<id>", "display_name": "Cassandre_Daugherty", "description": "as shout except", "tags": ["<value 1>", "<value 2>"], "project_id": "<id>", "path": "/mnt", "created_at": "2024-02-22T19:27:28.644Z", "updated_at": "2025-10-29T11:18:29.424Z", "created_by_id": "<id>", "updated_by_id": "<id>", "instructions": "<value>", "version": "<value>"}}
+        "401":
+          application/json: {"message": "<value>"}
   SkillGet:
     speakeasy-default-skill-get:
       parameters:
@@ -27556,6 +27764,8 @@ examples:
       responses:
         "200":
           application/json: {"skill": {"skill_id": "<id>", "display_name": "Joana_Kreiger70", "description": "jogging modulo until helpfully", "tags": [], "project_id": "<id>", "path": "/mnt", "created_at": "2024-07-15T07:05:54.972Z", "updated_at": "2026-11-20T15:45:53.994Z", "created_by_id": "<id>", "updated_by_id": "<id>", "instructions": "<value>", "version": "<value>"}}
+        "401":
+          application/json: {"message": "<value>"}
   SkillDelete:
     speakeasy-default-skill-delete:
       parameters:
@@ -27564,6 +27774,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   SkillUpdate:
     speakeasy-default-skill-update:
       parameters:
@@ -27574,11 +27786,15 @@ examples:
       responses:
         "200":
           application/json: {"skill": {"skill_id": "<id>", "display_name": "Arno_Abshire95", "description": "needily down word accidentally", "tags": ["<value 1>", "<value 2>", "<value 3>"], "project_id": "<id>", "path": "/lost+found", "created_at": "2024-09-21T04:13:55.977Z", "updated_at": "2026-10-21T05:52:12.124Z", "created_by_id": "<id>", "updated_by_id": "<id>", "instructions": "<value>", "version": "<value>"}}
+        "401":
+          application/json: {"message": "<value>"}
   ProjectList:
     speakeasy-default-project-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   ProjectCreate:
     speakeasy-default-project-create:
       requestBody:
@@ -27586,6 +27802,8 @@ examples:
       responses:
         "200":
           application/json: {"project": {"project_id": "<id>", "name": "<value>", "key": "<key>", "is_archived": false, "is_default": true, "teams": ["<value 1>", "<value 2>", "<value 3>"], "created_at": "2026-08-19T01:48:10.381Z", "updated_at": "2025-04-23T01:36:06.386Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ProjectGet:
     speakeasy-default-project-get:
       parameters:
@@ -27594,6 +27812,8 @@ examples:
       responses:
         "200":
           application/json: {"project": {"project_id": "<id>", "name": "<value>", "key": "<key>", "is_archived": false, "is_default": true, "teams": ["<value 1>"], "created_at": "2025-08-22T08:42:14.589Z", "updated_at": "2024-01-23T20:14:03.947Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ProjectDelete:
     speakeasy-default-project-delete:
       parameters:
@@ -27602,6 +27822,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ProjectUpdate:
     speakeasy-default-project-update:
       parameters:
@@ -27612,6 +27834,8 @@ examples:
       responses:
         "200":
           application/json: {"project": {"project_id": "<id>", "name": "<value>", "key": "<key>", "is_archived": false, "is_default": true, "teams": ["<value 1>"], "created_at": "2024-12-13T18:16:21.840Z", "updated_at": "2025-08-04T06:32:42.336Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ReportingQuery:
     speakeasy-default-reporting-query:
       requestBody:
@@ -27619,11 +27843,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   list-models:
     speakeasy-default-list-models:
       responses:
         "200":
           application/json: {"data": [{"created": 99420, "id": "<id>", "object": "model", "owned_by": "<value>"}], "object": "list"}
+        "401":
+          application/json: {"error": {"code": "<value>", "message": "<value>", "param": "<value>", "type": "<value>"}}
   ApiKeyList:
     speakeasy-default-api-key-list:
       responses:
@@ -27641,6 +27869,8 @@ examples:
       responses:
         "200":
           application/json: {"domains": [{"allowed_scopes": [], "display_name": "Margret.McGlynn26", "extra_write_verbs": ["<value 1>", "<value 2>"], "group": "DOMAIN_GROUP_PLATFORM", "id": "<id>", "readable": true, "writable": false}]}
+        "401":
+          application/json: {"message": "<value>"}
   ApiKeyGet:
     speakeasy-default-api-key-get:
       parameters:
@@ -27790,6 +28020,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   PIIRedact:
     speakeasy-default-PII-redact:
       requestBody:
@@ -27797,6 +28029,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   PIIRestore:
     speakeasy-default-PII-restore:
       requestBody:
@@ -27804,21 +28038,29 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GuardrailRuleListUsedGuardrails:
     speakeasy-default-guardrail-rule-list-used-guardrails:
       responses:
         "200":
           application/json: {"object": "<value>", "guardrail_ids": ["<value 1>"]}
+        "401":
+          application/json: {"message": "<value>"}
   RoutingRuleListUsedModels:
     speakeasy-default-routing-rule-list-used-models:
       responses:
         "200":
           application/json: {"object": "<value>", "models": ["<value 1>"]}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetList:
     speakeasy-default-budget-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"budgetId": "<id>", "limits": {}, "isActive": false, "createdAt": "2025-08-06T03:58:41.627Z", "updatedAt": "2026-11-14T06:20:49.515Z"}], "hasMore": false}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetCreate:
     speakeasy-default-budget-create:
       requestBody:
@@ -27826,6 +28068,8 @@ examples:
       responses:
         "200":
           application/json: {"budget": {"budgetId": "<id>", "limits": {}, "isActive": false, "createdAt": "2024-07-02T21:39:02.736Z", "updatedAt": "2026-03-28T13:27:06.548Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetCheck:
     speakeasy-default-budget-check:
       requestBody:
@@ -27841,6 +28085,8 @@ examples:
       responses:
         "200":
           application/json: {"budget": {"budgetId": "<id>", "limits": {}, "isActive": false, "createdAt": "2024-07-22T10:11:54.392Z", "updatedAt": "2026-02-13T18:46:15.753Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetDelete:
     speakeasy-default-budget-delete:
       parameters:
@@ -27849,6 +28095,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetUpdate:
     speakeasy-default-budget-update:
       parameters:
@@ -27859,6 +28107,8 @@ examples:
       responses:
         "200":
           application/json: {"budget": {"budgetId": "<id>", "limits": {}, "isActive": false, "createdAt": "2024-09-08T04:54:10.878Z", "updatedAt": "2025-05-08T21:18:32.608Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   BudgetGetConsumption:
     speakeasy-default-budget-get-consumption:
       parameters:
@@ -27877,11 +28127,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyList:
     speakeasy-default-management-key-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyCreate:
     speakeasy-default-management-key-create:
       requestBody:
@@ -27889,11 +28143,15 @@ examples:
       responses:
         "200":
           application/json: {"management_key": {"management_key_id": "<id>", "name": "<value>", "permission_mode": "MANAGEMENT_PERMISSION_MODE_UNSPECIFIED", "token_prefix": "<value>", "status": "MANAGEMENT_KEY_STATUS_REVOKED", "created_at": "2026-09-03T22:31:36.882Z", "updated_at": "2025-06-04T17:45:18.194Z"}, "token": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyListCapabilities:
     speakeasy-default-management-key-list-capabilities:
       responses:
         "200":
           application/json: {"domains": []}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyGet:
     speakeasy-default-management-key-get:
       parameters:
@@ -27902,6 +28160,8 @@ examples:
       responses:
         "200":
           application/json: {"management_key": {"management_key_id": "<id>", "name": "<value>", "permission_mode": "MANAGEMENT_PERMISSION_MODE_UNSPECIFIED", "token_prefix": "<value>", "status": "MANAGEMENT_KEY_STATUS_DISABLED", "created_at": "2025-10-16T21:44:59.957Z", "updated_at": "2024-05-05T02:30:24.441Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyDelete:
     speakeasy-default-management-key-delete:
       parameters:
@@ -27910,6 +28170,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ManagementKeyUpdate:
     speakeasy-default-management-key-update:
       parameters:
@@ -27920,11 +28182,15 @@ examples:
       responses:
         "200":
           application/json: {"management_key": {"management_key_id": "<id>", "name": "<value>", "permission_mode": "MANAGEMENT_PERMISSION_MODE_RESTRICTED", "token_prefix": "<value>", "status": "MANAGEMENT_KEY_STATUS_REVOKED", "created_at": "2025-08-03T18:54:12.127Z", "updated_at": "2026-07-05T10:48:17.458Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   NotifierList:
     speakeasy-default-notifier-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"type": "NOTIFIER_TYPE_WEBHOOK", "incoming_webhook_url": "https://digital-disposer.biz/", "_id": "<id>", "display_name": "Alva_OConner", "created_at": "2024-03-07T16:27:08.979Z", "updated_at": "2024-12-08T22:56:10.499Z"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   NotifierCreate:
     speakeasy-default-notifier-create:
       requestBody:
@@ -27932,6 +28198,8 @@ examples:
       responses:
         "200":
           application/json: {"notifier": {"type": "NOTIFIER_TYPE_EMAIL", "emails": ["<value 1>"], "_id": "<id>", "display_name": "Dixie.Hauck13", "created_at": "2024-11-24T09:42:50.836Z", "updated_at": "2026-02-06T23:26:09.479Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   NotifierGet:
     speakeasy-default-notifier-get:
       parameters:
@@ -27940,6 +28208,8 @@ examples:
       responses:
         "200":
           application/json: {"notifier": {"type": "NOTIFIER_TYPE_EMAIL", "emails": ["<value 1>", "<value 2>", "<value 3>"], "_id": "<id>", "display_name": "Tatyana59", "created_at": "2024-10-10T07:21:17.659Z", "updated_at": "2025-10-12T22:51:33.961Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   NotifierDelete:
     speakeasy-default-notifier-delete:
       parameters:
@@ -27948,6 +28218,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   NotifierUpdate:
     speakeasy-default-notifier-update:
       parameters:
@@ -27958,6 +28230,8 @@ examples:
       responses:
         "200":
           application/json: {"notifier": {"type": "NOTIFIER_TYPE_WEBHOOK", "emails": ["<value 1>"], "_id": "<id>", "display_name": "Callie61", "created_at": "2025-05-12T08:51:56.732Z", "updated_at": "2025-03-22T19:53:40.341Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   TracesAggregate:
     speakeasy-default-traces-aggregate:
       requestBody:
@@ -27965,11 +28239,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesListFacets:
     speakeasy-default-traces-list-facets:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesListFacetValues:
     speakeasy-default-traces-list-facet-values:
       parameters:
@@ -27978,11 +28256,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "400":
+          application/json: {"message": "<value>"}
   TracesListFields:
     speakeasy-default-traces-list-fields:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesQueryOql:
     speakeasy-default-traces-query-oql:
       requestBody:
@@ -27990,6 +28272,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesSearch:
     speakeasy-default-traces-search:
       requestBody:
@@ -27997,6 +28281,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesGet:
     speakeasy-default-traces-get:
       parameters:
@@ -28005,6 +28291,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesListSpans:
     speakeasy-default-traces-list-spans:
       parameters:
@@ -28013,6 +28301,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TracesGetSpan:
     speakeasy-default-traces-get-span:
       parameters:
@@ -28022,6 +28312,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TelemetryQuery:
     speakeasy-default-telemetry-query:
       requestBody:
@@ -28029,11 +28321,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookList:
     speakeasy-default-webhook-list:
       responses:
         "200":
           application/json: {"count": 231376, "items": [{"_id": "<id>", "url": "https://friendly-pepper.info", "content_type": "application/json", "display_name": "Emmy.Baumbach33", "events": ["<value 1>", "<value 2>", "<value 3>"], "secret": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>", "created": "2025-02-24T04:34:38.564Z", "updated": "2024-12-30T18:56:21.214Z"}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookCreate:
     speakeasy-default-webhook-create:
       requestBody:
@@ -28041,11 +28337,15 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "url": "https://admired-igloo.org", "content_type": "application/x-www-form-urlencoded", "display_name": "Lewis.Morar", "events": [], "secret": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>", "created": "2024-04-19T19:40:46.388Z", "updated": "2025-12-27T13:18:05.413Z"}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookCount:
     speakeasy-default-webhook-count:
       responses:
         "200":
           application/json: {"total": 856479}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookQuery:
     speakeasy-default-webhook-query:
       requestBody:
@@ -28053,11 +28353,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 412892, "items": []}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookGenerateSecret:
     speakeasy-default-webhook-generate-secret:
       responses:
         "200":
           application/json: {"secret": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookGet:
     speakeasy-default-webhook-get:
       parameters:
@@ -28066,6 +28370,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "url": "https://peaceful-legislature.net", "content_type": "application/x-www-form-urlencoded", "display_name": "Lucie.Stark", "events": [], "secret": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>", "created": "2026-06-21T06:28:12.413Z", "updated": "2026-10-22T09:50:44.248Z"}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookDelete:
     speakeasy-default-webhook-delete:
       parameters:
@@ -28074,6 +28380,8 @@ examples:
       responses:
         "200":
           application/json: {"id": "<id>"}
+        "401":
+          application/json: {"message": "<value>"}
   WebhookUpdate:
     speakeasy-default-webhook-update:
       parameters:
@@ -28084,11 +28392,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterList:
     speakeasy-default-smart-router-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"smart_router_id": "<id>", "key": "<key>", "model_ref": "<value>", "models": ["<value 1>", "<value 2>", "<value 3>"], "profile": "SMART_ROUTER_PROFILE_UNSPECIFIED", "enabled": true, "created_at": "2024-12-28T02:18:05.181Z", "updated_at": "2025-11-29T16:24:18.205Z"}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterCreate:
     speakeasy-default-smart-router-create:
       requestBody:
@@ -28096,6 +28408,8 @@ examples:
       responses:
         "200":
           application/json: {"smart_router": {"smart_router_id": "<id>", "key": "<key>", "model_ref": "<value>", "models": ["<value 1>"], "profile": "SMART_ROUTER_PROFILE_BALANCED", "enabled": false, "created_at": "2025-04-12T14:15:36.748Z", "updated_at": "2024-09-23T17:41:34.674Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterGet:
     speakeasy-default-smart-router-get:
       parameters:
@@ -28104,6 +28418,8 @@ examples:
       responses:
         "200":
           application/json: {"smart_router": {"smart_router_id": "<id>", "key": "<key>", "model_ref": "<value>", "models": ["<value 1>", "<value 2>"], "profile": "SMART_ROUTER_PROFILE_QUALITY", "enabled": true, "created_at": "2026-04-27T15:15:03.841Z", "updated_at": "2025-03-17T02:53:57.636Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterDelete:
     speakeasy-default-smart-router-delete:
       parameters:
@@ -28112,6 +28428,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterUpdate:
     speakeasy-default-smart-router-update:
       parameters:
@@ -28122,6 +28440,8 @@ examples:
       responses:
         "200":
           application/json: {"smart_router": {"smart_router_id": "<id>", "key": "<key>", "model_ref": "<value>", "models": ["<value 1>", "<value 2>", "<value 3>"], "profile": "SMART_ROUTER_PROFILE_QUALITY", "enabled": true, "created_at": "2026-12-10T17:39:55.817Z", "updated_at": "2026-11-28T15:29:20.011Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   SmartRouterSetEnabled:
     speakeasy-default-smart-router-set-enabled:
       parameters:
@@ -28137,6 +28457,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   AlertCreate:
     speakeasy-default-alert-create:
       requestBody:
@@ -28144,6 +28466,8 @@ examples:
       responses:
         "200":
           application/json: {"alert": {"alert_id": "<id>", "display_name": "Tracey_Gerhold-Ritchie43", "description": "sad triangular uh-huh dispose phooey rag whether", "project_id": "<id>", "signal": "cost", "query": {"metric": "<value>"}, "condition": {"comparator": "gte", "threshold": 7213.05, "window": "30m", "interval": "5m"}, "notifier_ids": [], "enabled": false, "status": "triggered", "created_at": "2026-05-07T12:52:09.635Z", "updated_at": "2025-04-27T05:39:38.725Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "400":
+          application/json: {"message": "<value>"}
   AlertGet:
     speakeasy-default-alert-get:
       parameters:
@@ -28152,6 +28476,8 @@ examples:
       responses:
         "200":
           application/json: {"alert": {"alert_id": "<id>", "display_name": "Helga.Rempel", "description": "fiercely harmful spanish how zebra gadzooks pish onto skeletal whoa", "project_id": "<id>", "signal": "cost", "query": {"metric": "<value>"}, "condition": {"comparator": "lt", "threshold": 6483.39, "window": "5m", "interval": "1h"}, "notifier_ids": [], "enabled": false, "status": "ok", "created_at": "2025-09-21T15:07:21.792Z", "updated_at": "2026-07-08T21:08:33.697Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   AlertDelete:
     speakeasy-default-alert-delete:
       parameters:
@@ -28160,6 +28486,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   AlertUpdate:
     speakeasy-default-alert-update:
       parameters:
@@ -28170,6 +28498,8 @@ examples:
       responses:
         "200":
           application/json: {"alert": {"alert_id": "<id>", "display_name": "Teresa_Prohaska", "description": "impact beneath hence lumpy ack duh upright even convalesce", "project_id": "<id>", "signal": "evals", "query": {"metric": "<value>"}, "condition": {"comparator": "lt", "threshold": 3422.8, "window": "5m", "interval": "1d"}, "notifier_ids": ["<value 1>", "<value 2>", "<value 3>"], "enabled": true, "status": "degraded", "created_at": "2025-07-22T11:10:52.495Z", "updated_at": "2025-01-19T07:18:16.334Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   AlertCheckNow:
     speakeasy-default-alert-check-now:
       parameters:
@@ -28188,6 +28518,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"trigger_id": "<id>", "alert_id": "<id>", "project_id": "<id>", "status": "open", "opened_at": "2025-03-02T10:18:15.499Z", "peak_value": 2550.73, "last_value": 635.87, "event_count": 823098}], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   AlertListTriggerEvents:
     speakeasy-default-alert-list-trigger-events:
       parameters:
@@ -28197,11 +28529,15 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"event_id": "<id>", "trigger_id": "<id>", "alert_id": "<id>", "at": "2024-12-02T01:32:58.289Z", "value": 7879.83}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorList:
     speakeasy-default-monitor-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorCreate:
     speakeasy-default-monitor-create:
       requestBody:
@@ -28209,11 +28545,15 @@ examples:
       responses:
         "200":
           application/json: {"monitor": {"monitor_id": "<id>", "display_name": "Arne_Mohr-Hane51", "description": "nicely lashes across battle physically eek kiddingly athwart around", "project_id": "<id>", "widgets": [{"widget_id": "<id>", "type": "timeseries", "title": "<value>", "queries": [], "layout": {"x": 539733, "y": 762456, "w": 177610, "h": 909093}}], "preset_key": "<value>", "created_at": "2026-03-23T03:24:56.091Z", "updated_at": "2026-07-09T02:33:44.032Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorListPresets:
     speakeasy-default-monitor-list-presets:
       responses:
         "200":
           application/json: {"object": "<value>", "data": []}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorGet:
     speakeasy-default-monitor-get:
       parameters:
@@ -28222,6 +28562,8 @@ examples:
       responses:
         "200":
           application/json: {"monitor": {"monitor_id": "<id>", "display_name": "Margot_Marquardt46", "description": "while lost naturally", "project_id": "<id>", "widgets": [{"widget_id": "<id>", "type": "bignumber", "title": "<value>", "queries": [{"metric": "<value>"}], "layout": {"x": 28817, "y": 491616, "w": 519201, "h": 263482}}], "preset_key": "<value>", "created_at": "2026-12-08T03:32:40.194Z", "updated_at": "2024-03-23T15:31:14.639Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorDelete:
     speakeasy-default-monitor-delete:
       parameters:
@@ -28230,6 +28572,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   MonitorUpdate:
     speakeasy-default-monitor-update:
       parameters:
@@ -28240,6 +28584,8 @@ examples:
       responses:
         "200":
           application/json: {"monitor": {"monitor_id": "<id>", "display_name": "Gerry.Ritchie54", "description": "made-up to entry secret pointed encouragement following provided tray", "project_id": "<id>", "widgets": [], "preset_key": "<value>", "created_at": "2026-09-27T11:31:15.623Z", "updated_at": "2024-02-06T05:03:04.424Z", "created_by_id": "<id>", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   PersonList:
     speakeasy-default-person-list:
       responses:
@@ -28298,6 +28644,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpGatewayCreate:
     speakeasy-default-mcp-gateway-create:
       requestBody:
@@ -28305,6 +28653,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpGatewayListTools:
     speakeasy-default-mcp-gateway-list-tools:
       parameters:
@@ -28313,6 +28663,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpGatewayTestTool:
     speakeasy-default-mcp-gateway-test-tool:
       parameters:
@@ -28331,6 +28683,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpGatewayDelete:
     speakeasy-default-mcp-gateway-delete:
       parameters:
@@ -28339,6 +28693,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpGatewayUpdate:
     speakeasy-default-mcp-gateway-update:
       parameters:
@@ -28349,11 +28705,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerList:
     speakeasy-default-mcp-server-list:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerCreate:
     speakeasy-default-mcp-server-create:
       requestBody:
@@ -28361,6 +28721,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerGet:
     speakeasy-default-mcp-server-get:
       parameters:
@@ -28369,6 +28731,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerDelete:
     speakeasy-default-mcp-server-delete:
       parameters:
@@ -28377,6 +28741,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerUpdate:
     speakeasy-default-mcp-server-update:
       parameters:
@@ -28387,6 +28753,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerTestTool:
     speakeasy-default-mcp-server-test-tool:
       parameters:
@@ -28397,6 +28765,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerSync:
     speakeasy-default-mcp-server-sync:
       parameters:
@@ -28407,6 +28777,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   McpServerTest:
     speakeasy-default-mcp-server-test:
       requestBody:
@@ -28473,6 +28845,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   AggregateLogs:
     speakeasy-default-aggregate-logs:
       requestBody:
@@ -28480,6 +28854,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ListLogFacets:
     speakeasy-default-list-log-facets:
       requestBody:
@@ -28487,6 +28863,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ListLogFacetValues:
     speakeasy-default-list-log-facet-values:
       parameters:
@@ -28495,11 +28873,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "400":
+          application/json: {"message": "<value>"}
   ListLogFields:
     speakeasy-default-list-log-fields:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   FindLogPatterns:
     speakeasy-default-find-log-patterns:
       requestBody:
@@ -28507,6 +28889,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "meta": {"request_id": "<id>", "from": "2026-03-22T12:03:05.962Z", "to": "2026-03-17T02:51:50.944Z", "total_count": "<value>", "sampled_count": "<value>", "truncated": true, "warnings": ["<value 1>", "<value 2>", "<value 3>"]}}
+        "401":
+          application/json: {"message": "<value>"}
   QueryLogs:
     speakeasy-default-query-logs:
       requestBody:
@@ -28514,6 +28898,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   SearchLogs:
     speakeasy-default-search-logs:
       requestBody:
@@ -28521,6 +28907,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetLog:
     speakeasy-default-get-log:
       parameters:
@@ -28529,6 +28917,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetLogContext:
     speakeasy-default-get-log-context:
       parameters:
@@ -28539,6 +28929,8 @@ examples:
       responses:
         "200":
           application/json: {"anchor": {}, "before": [], "after": [{}], "has_more_before": true, "has_more_after": false}
+        "401":
+          application/json: {"message": "<value>"}
   ListAnnotationQueues:
     speakeasy-default-list-annotation-queues:
       parameters:
@@ -28547,6 +28939,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   CreateAnnotationQueue:
     speakeasy-default-create-annotation-queue:
       requestBody:
@@ -28554,6 +28948,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Vernice_Fadel", "description": "categorise egg foolishly", "workspace_id": "<id>", "human_review_ids": ["<value 1>"], "metadata": {"items_count": 9039.24}}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveAnnotationQueue:
     speakeasy-default-retrieve-annotation-queue:
       parameters:
@@ -28562,6 +28958,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Hector.Kub", "description": "whenever by quintessential gee gah citizen", "workspace_id": "<id>", "human_review_ids": ["<value 1>"], "metadata": {"items_count": 4015.16}}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateAnnotationQueue:
     speakeasy-default-update-annotation-queue:
       parameters:
@@ -28572,6 +28970,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "display_name": "Nikolas.Buckridge", "description": "besides vanish busy thorough faint than triumphantly following anxiously", "workspace_id": "<id>", "human_review_ids": ["<value 1>", "<value 2>", "<value 3>"], "metadata": {"items_count": 794.86}}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteAnnotationQueue:
     speakeasy-default-delete-annotation-queue:
       parameters:
@@ -28580,6 +28980,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ClearAnnotationQueue:
     speakeasy-default-clear-annotation-queue:
       parameters:
@@ -28588,6 +28990,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ListAnnotationQueueItems:
     speakeasy-default-list-annotation-queue-items:
       parameters:
@@ -28598,6 +29002,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   AddAnnotationQueueItems:
     speakeasy-default-add-annotation-queue-items:
       parameters:
@@ -28608,6 +29014,8 @@ examples:
       responses:
         "200":
           application/json: [{"_id": "<id>", "annotation_queue_id": "<id>", "workspace_id": "<id>", "type": "<value>"}]
+        "401":
+          application/json: {"message": "<value>"}
   RemoveAnnotationQueueItems:
     speakeasy-default-remove-annotation-queue-items:
       parameters:
@@ -28618,6 +29026,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   RetrieveAnnotationQueueItem:
     speakeasy-default-retrieve-annotation-queue-item:
       parameters:
@@ -28627,6 +29037,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetEval:
     speakeasy-default-get-eval:
       parameters:
@@ -28642,6 +29054,8 @@ examples:
       responses:
         "200":
           application/json: {"settings": {"key": "<key>", "display_name": "Carlie78", "enforce_enabled_models": true}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSettingsUpdate:
     speakeasy-default-workspace-settings-update:
       requestBody:
@@ -28649,6 +29063,8 @@ examples:
       responses:
         "200":
           application/json: {"settings": {"key": "<key>", "display_name": "Asa70", "enforce_enabled_models": true}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityListDomains:
     speakeasy-default-workspace-security-list-domains:
       parameters:
@@ -28657,6 +29073,8 @@ examples:
       responses:
         "200":
           application/json: {"domains": [{"id": "<id>", "domain": "brilliant-nightlife.biz", "status": "DOMAIN_VERIFICATION_STATUS_VERIFIED", "txt_name": "<value>", "txt_value": "<value>", "created_at": "2025-04-15T10:28:04.209Z"}]}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityCreateDomain:
     speakeasy-default-workspace-security-create-domain:
       parameters:
@@ -28667,12 +29085,17 @@ examples:
       responses:
         "200":
           application/json: {"domain": {"id": "<id>", "domain": "delicious-someplace.com", "status": "DOMAIN_VERIFICATION_STATUS_VERIFIED", "txt_name": "<value>", "txt_value": "<value>", "created_at": "2024-11-23T14:01:12.051Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityDeleteDomain:
     speakeasy-default-workspace-security-delete-domain:
       parameters:
         path:
           workspace_key: "<value>"
           domain_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityVerifyDomain:
     speakeasy-default-workspace-security-verify-domain:
       parameters:
@@ -28682,6 +29105,8 @@ examples:
       responses:
         "200":
           application/json: {"domain": {"id": "<id>", "domain": "separate-thigh.com", "status": "DOMAIN_VERIFICATION_STATUS_PENDING", "txt_name": "<value>", "txt_value": "<value>", "created_at": "2026-01-14T20:30:01.254Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityGetIPAllowlist:
     speakeasy-default-workspace-security-get-IP-allowlist:
       parameters:
@@ -28690,6 +29115,8 @@ examples:
       responses:
         "200":
           application/json: {"ip_allowlist": {"enabled": false, "ranges": [{"id": "<id>", "cidr": "<value>", "description": "true jealously duh forenenst row than westernize parallel until", "created_at": "2024-12-03T16:41:56.040Z"}]}, "current_ip": "<value>"}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityUpdateIPAllowlist:
     speakeasy-default-workspace-security-update-IP-allowlist:
       parameters:
@@ -28700,6 +29127,8 @@ examples:
       responses:
         "200":
           application/json: {"ip_allowlist": {"enabled": true, "ranges": []}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityAddIPRange:
     speakeasy-default-workspace-security-add-IP-range:
       parameters:
@@ -28710,12 +29139,17 @@ examples:
       responses:
         "200":
           application/json: {"range": {"id": "<id>", "cidr": "<value>", "description": "peaceful bashfully resource aside gah optimistically bind monumental", "created_at": "2026-07-14T03:13:58.513Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceSecurityDeleteIPRange:
     speakeasy-default-workspace-security-delete-IP-range:
       parameters:
         path:
           workspace_key: "<value>"
           range_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   UpdateChunkEnabled:
     speakeasy-default-update-chunk-enabled:
       parameters:
@@ -28728,6 +29162,8 @@ examples:
       responses:
         "200":
           application/json: {"text": "<value>", "enabled": true, "status": "processing", "created": "<value>", "updated": "<value>", "_id": "<id>"}
+        "401":
+          application/json: {"message": "<value>"}
   GetOneDatasourceProcessingStatus:
     speakeasy-default-get-one-datasource-processing-status:
       parameters:
@@ -28737,6 +29173,8 @@ examples:
       responses:
         "200":
           application/json: {"total_queued": 4616.33, "total_completed": 6516.41, "total_passed": 7041.81, "total_failed": 7520.18, "overall_total_processing": 7581.09, "chunks_processing_attempts": [], "datasource_processing_attempts": []}
+        "401":
+          application/json: {"message": "<value>"}
   GetOneFileUploadUrl:
     speakeasy-default-get-one-file-upload-url:
       parameters:
@@ -28751,11 +29189,15 @@ examples:
           application/json: {"objectName": "<value>", "postPolicy": {"postURL": "https://amused-tuber.net/", "formData": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}, "fileId": "<id>"}
         "500":
           application/json: {"message": "<value>"}
+        "400":
+          application/json: {"message": "<value>"}
   ModelCatalogList:
     speakeasy-default-model-catalog-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   ModelCatalogListOfferings:
     speakeasy-default-model-catalog-list-offerings:
       parameters:
@@ -28764,6 +29206,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   ModelCatalogGet:
     speakeasy-default-model-catalog-get:
       parameters:
@@ -28772,6 +29216,8 @@ examples:
       responses:
         "200":
           application/json: {"model": {"id": "<id>", "created": "<value>", "name": "<value>", "description": "now diver upsell", "provider": {"id": "<id>", "logo": "<value>"}, "endpoints": ["<value 1>", "<value 2>"], "modalities": {"input": ["<value 1>"], "output": ["<value 1>", "<value 2>", "<value 3>"]}, "offering_of": "<value>", "supported_parameters": [], "supported_tiers": ["<value 1>", "<value 2>"], "location": ["<value 1>", "<value 2>"], "features": [], "deprecated": false, "zdr": true}}
+        "401":
+          application/json: {"message": "<value>"}
   ListFileSystems:
     speakeasy-default-list-file-systems:
       responses:
@@ -28792,6 +29238,8 @@ examples:
       responses:
         "200":
           application/json: {"key": "<key>", "display_name": "Noel_Wehner45", "description": "onto brr than morning happily uh-huh needily how hm oof", "project_id": "<id>", "external_access": "read_only", "created": "<value>", "updated": "<value>", "_id": "<id>"}
+        "403":
+          application/json: {"message": "<value>"}
   DeleteFileSystem:
     speakeasy-default-delete-file-system:
       parameters:
@@ -28818,6 +29266,8 @@ examples:
       responses:
         "200":
           application/json: {"path": "/etc/namedb", "depth": 613127, "entries": [{"path": "/root", "name": "<value>", "type": "symlink", "size_bytes": "<value>", "modified": "<value>"}], "entry_count": 621209, "truncated": true}
+        "403":
+          application/json: {"message": "<value>"}
   DeleteFile:
     speakeasy-default-delete-file:
       parameters:
@@ -28844,6 +29294,8 @@ examples:
       responses:
         "200":
           application/json: {"path": "/opt/share", "type": "file", "size_bytes": "<value>", "mode": "<value>", "modified": "<value>"}
+        "400":
+          application/json: {"message": "<value>"}
   CreateFolder:
     speakeasy-default-create-folder:
       parameters:
@@ -28862,6 +29314,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   GetEvalVersion:
     speakeasy-default-get-eval-version:
       parameters:
@@ -28871,6 +29325,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   AuditLogQuery:
     speakeasy-default-audit-log-query:
       requestBody:
@@ -28883,6 +29339,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceGet:
     speakeasy-default-workspace-get:
       parameters:
@@ -28891,6 +29349,8 @@ examples:
       responses:
         "200":
           application/json: {"workspace": {"id": "<id>", "key": "<key>", "display_name": "Cicero_Connelly95"}}
+        "401":
+          application/json: {"message": "<value>"}
   WorkspaceUpdate:
     speakeasy-default-workspace-update:
       parameters:
@@ -28901,6 +29361,8 @@ examples:
       responses:
         "200":
           application/json: {"workspace": {"id": "<id>", "key": "<key>", "display_name": "Narciso58"}}
+        "401":
+          application/json: {"message": "<value>"}
   PreviewDatasourceChunks:
     speakeasy-default-preview-datasource-chunks:
       parameters:
@@ -28911,16 +29373,22 @@ examples:
       responses:
         "200":
           application/json: {"chunks": [], "metadata": {"words_count": 30221, "sentences_count": 471384, "paragraphs_count": 949178, "tokens_count": 314521, "characters_count": 829266, "chunks_count": 76972}}
+        "401":
+          application/json: {"message": "<value>"}
   PIICapabilities:
     speakeasy-default-PII-capabilities:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   HubSearch:
     speakeasy-default-hub-search:
       responses:
         "200":
           application/json: {"hits": [{"document": {"id": "<id>", "display_name": "Darryl0", "description": "rough exterior whereas glow whack", "type": "<value>"}}]}
+        "401":
+          application/json: {"message": "<value>"}
   HubGet:
     speakeasy-default-hub-get:
       parameters:
@@ -28929,6 +29397,8 @@ examples:
       responses:
         "200":
           application/json: {"hub_item": {"id": "<id>", "entity_id": "<id>", "display_name": "Eldora.Bayer", "description": "fooey of whether as phooey till but failing lightly briskly", "type": "<value>"}}
+        "401":
+          application/json: {"message": "<value>"}
   CreateSession:
     speakeasy-default-create-session:
       requestBody:
@@ -28936,6 +29406,8 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "external_id": "<id>", "duration": 9342.42, "contact_ids": ["<value 1>", "<value 2>"], "billing": {"input_cost": 5975.95, "output_cost": 754.22, "total_cost": 2965.14}, "usage": {"prompt_tokens": 424835, "completion_tokens": 793505, "total_tokens": 726901}, "traces_count": 835002, "tags": ["<value 1>"]}
+        "401":
+          application/json: {"message": "<value>"}
   GetSessionCount:
     speakeasy-default-get-session-count:
       requestBody:
@@ -28943,6 +29415,8 @@ examples:
       responses:
         "200":
           application/json: {"count": 576223}
+        "401":
+          application/json: {"message": "<value>"}
   ListSessions:
     speakeasy-default-list-sessions:
       requestBody:
@@ -28950,11 +29424,15 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   ListSessionTags:
     speakeasy-default-list-session-tags:
       responses:
         "200":
           application/json: ["<value 1>"]
+        "401":
+          application/json: {"message": "<value>"}
   GetSession:
     speakeasy-default-get-session:
       parameters:
@@ -28963,11 +29441,16 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "external_id": "<id>", "duration": 2705.03, "contact_ids": ["<value 1>", "<value 2>"], "billing": {"input_cost": 5498.08, "output_cost": 1977.09, "total_cost": 3296.29}, "usage": {"prompt_tokens": 771871, "completion_tokens": 560933, "total_tokens": 896008}, "traces_count": 588094, "tags": ["<value 1>", "<value 2>", "<value 3>"]}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteSession:
     speakeasy-default-delete-session:
       parameters:
         path:
           session_id: "<id>"
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   UpdateSession:
     speakeasy-default-update-session:
       parameters:
@@ -28978,11 +29461,15 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "external_id": "<id>", "duration": 2733.43, "contact_ids": ["<value 1>", "<value 2>", "<value 3>"], "billing": {"input_cost": 1461.29, "output_cost": 4472.96, "total_cost": 7945.35}, "usage": {"prompt_tokens": 490323, "completion_tokens": 525667, "total_tokens": 821207}, "traces_count": 587818, "tags": ["<value 1>"]}
+        "401":
+          application/json: {"message": "<value>"}
   TelemetryListCapabilities:
     speakeasy-default-telemetry-list-capabilities:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   TelemetryListFacetValues:
     speakeasy-default-telemetry-list-facet-values:
       requestBody:
@@ -28990,6 +29477,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   CreateClassify:
     support_ticket:
       requestBody:
@@ -29108,6 +29597,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   CreateWiki:
     speakeasy-default-create-wiki:
       requestBody:
@@ -29115,6 +29606,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   InspectRepositoryWiki:
     speakeasy-default-inspect-repository-wiki:
       requestBody:
@@ -29122,6 +29615,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetWiki:
     speakeasy-default-get-wiki:
       parameters:
@@ -29130,6 +29625,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteWiki:
     speakeasy-default-delete-wiki:
       parameters:
@@ -29138,6 +29635,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateWiki:
     speakeasy-default-update-wiki:
       parameters:
@@ -29148,6 +29647,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetWikiPage:
     speakeasy-default-get-wiki-page:
       parameters:
@@ -29156,6 +29657,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UpdateWikiPage:
     speakeasy-default-update-wiki-page:
       parameters:
@@ -29166,6 +29669,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   RefreshWiki:
     speakeasy-default-refresh-wiki:
       parameters:
@@ -29176,6 +29681,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ListWikiRuns:
     speakeasy-default-list-wiki-runs:
       parameters:
@@ -29184,6 +29691,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   SearchWiki:
     speakeasy-default-search-wiki:
       parameters:
@@ -29192,6 +29701,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   GetWikiTree:
     speakeasy-default-get-wiki-tree:
       parameters:
@@ -29200,6 +29711,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   DeleteDatasetDatapoints:
     speakeasy-default-delete-dataset-datapoints:
       parameters:
@@ -29207,6 +29720,9 @@ examples:
           dataset_id: "<id>"
       requestBody:
         application/json: {"item_ids": ["<value 1>"]}
+      responses:
+        "401":
+          application/json: {"message": "<value>"}
   compact-response:
     compact_conversation:
       requestBody:
@@ -29237,6 +29753,8 @@ examples:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [{"id": "<id>", "slug": "<value>", "display_name": "Pearlie_Lemke", "description": "see cram bleakly sans consequently tectonics", "created_at": "2026-05-17T16:06:34.795Z", "created_by_id": "<id>", "updated_at": "2024-02-05T04:38:26.282Z", "updated_by_id": "<id>"}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
   EnvironmentCreate:
     speakeasy-default-environment-create:
       requestBody:
@@ -29244,6 +29762,8 @@ examples:
       responses:
         "200":
           application/json: {"environment": {"id": "<id>", "slug": "<value>", "display_name": "Tina49", "description": "beside even outdo institute digestive foolishly", "created_at": "2024-05-25T17:05:34.097Z", "created_by_id": "<id>", "updated_at": "2024-10-24T07:46:32.744Z", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   EnvironmentGet:
     speakeasy-default-environment-get:
       parameters:
@@ -29252,6 +29772,8 @@ examples:
       responses:
         "200":
           application/json: {"environment": {"id": "<id>", "slug": "<value>", "display_name": "Brandy_Witting", "description": "ravel legal carefully gradient", "created_at": "2025-01-20T14:05:31.543Z", "created_by_id": "<id>", "updated_at": "2025-05-07T21:55:04.974Z", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   EnvironmentDelete:
     speakeasy-default-environment-delete:
       parameters:
@@ -29260,6 +29782,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   EnvironmentUpdate:
     speakeasy-default-environment-update:
       parameters:
@@ -29270,6 +29794,8 @@ examples:
       responses:
         "200":
           application/json: {"environment": {"id": "<id>", "slug": "<value>", "display_name": "Lillie.Corkery39", "description": "monasticism sweatshop provision impish unto reasonable fund yippee even dreamily", "created_at": "2024-04-23T00:20:02.991Z", "created_by_id": "<id>", "updated_at": "2026-08-23T00:20:27.508Z", "updated_by_id": "<id>"}}
+        "401":
+          application/json: {"message": "<value>"}
   SubmitFeedback:
     speakeasy-default-submit-feedback:
       requestBody:
@@ -29277,16 +29803,22 @@ examples:
       responses:
         "200":
           application/json: {"feedback_id": "<id>"}
+        "401":
+          application/json: {"message": "<value>"}
   TracesListFilters:
     speakeasy-default-traces-list-filters:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionList:
     speakeasy-default-model-fusion-list:
       responses:
         "200":
           application/json: {"object": "<value>", "data": [], "has_more": false}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionCreate:
     speakeasy-default-model-fusion-create:
       requestBody:
@@ -29294,6 +29826,8 @@ examples:
       responses:
         "200":
           application/json: {"model_fusion": {"model_fusion_id": "<id>", "key": "<key>", "model_ref": "<value>", "panel_models": ["<value 1>", "<value 2>"], "judge_model": "<value>", "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_ANALYSIS", "preset": "MODEL_FUSION_PRESET_SAFETY", "web_tools": false, "max_tool_calls": 238762, "feed_raw_to_synth": true, "enabled": false, "created_at": "2024-12-07T14:33:28.110Z", "updated_at": "2024-03-30T04:44:31.713Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionGet:
     speakeasy-default-model-fusion-get:
       parameters:
@@ -29302,6 +29836,8 @@ examples:
       responses:
         "200":
           application/json: {"model_fusion": {"model_fusion_id": "<id>", "key": "<key>", "model_ref": "<value>", "panel_models": ["<value 1>"], "judge_model": "<value>", "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_UNSPECIFIED", "preset": "MODEL_FUSION_PRESET_QUALITY", "web_tools": true, "max_tool_calls": 9412, "feed_raw_to_synth": false, "enabled": true, "created_at": "2025-03-15T05:03:54.189Z", "updated_at": "2024-03-31T14:17:06.800Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionUpdate:
     speakeasy-default-model-fusion-update:
       parameters:
@@ -29312,6 +29848,8 @@ examples:
       responses:
         "200":
           application/json: {"model_fusion": {"model_fusion_id": "<id>", "key": "<key>", "model_ref": "<value>", "panel_models": ["<value 1>", "<value 2>", "<value 3>"], "judge_model": "<value>", "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_ANALYSIS", "preset": "MODEL_FUSION_PRESET_QUALITY", "web_tools": true, "max_tool_calls": 459103, "feed_raw_to_synth": false, "enabled": true, "created_at": "2026-11-27T08:45:06.159Z", "updated_at": "2025-06-08T11:17:20.451Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionDelete:
     speakeasy-default-model-fusion-delete:
       parameters:
@@ -29320,6 +29858,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ModelFusionSetEnabled:
     speakeasy-default-model-fusion-set-enabled:
       parameters:
@@ -29330,6 +29870,8 @@ examples:
       responses:
         "200":
           application/json: {"model_fusion": {"model_fusion_id": "<id>", "key": "<key>", "model_ref": "<value>", "panel_models": [], "judge_model": "<value>", "synthesis_mode": "MODEL_FUSION_SYNTHESIS_MODE_ANALYSIS", "preset": "MODEL_FUSION_PRESET_GENERAL", "web_tools": true, "max_tool_calls": 693675, "feed_raw_to_synth": false, "enabled": true, "created_at": "2024-11-29T04:32:53.025Z", "updated_at": "2025-07-02T16:49:39.366Z"}}
+        "401":
+          application/json: {"message": "<value>"}
   TracesGetConversation:
     speakeasy-default-traces-get-conversation:
       parameters:
@@ -29338,11 +29880,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ViewList:
     speakeasy-default-view-list:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ViewCreate:
     speakeasy-default-view-create:
       requestBody:
@@ -29350,6 +29896,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ViewGet:
     speakeasy-default-view-get:
       parameters:
@@ -29358,6 +29906,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ViewDelete:
     speakeasy-default-view-delete:
       parameters:
@@ -29366,6 +29916,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ViewUpdate:
     speakeasy-default-view-update:
       parameters:
@@ -29376,6 +29928,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   search-web:
     basic:
       requestBody:
@@ -29591,6 +30145,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentCreate:
     speakeasy-default-external-agent-create:
       requestBody:
@@ -29598,6 +30154,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentGet:
     speakeasy-default-external-agent-get:
       parameters:
@@ -29606,6 +30164,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentDelete:
     speakeasy-default-external-agent-delete:
       parameters:
@@ -29614,6 +30174,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentUpdate:
     speakeasy-default-external-agent-update:
       parameters:
@@ -29624,6 +30186,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentRefreshCard:
     speakeasy-default-external-agent-refresh-card:
       parameters:
@@ -29634,6 +30198,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ExternalAgentTestConnection:
     speakeasy-default-external-agent-test-connection:
       parameters:
@@ -29644,11 +30210,15 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UserList:
     speakeasy-default-user-list:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UserGet:
     speakeasy-default-user-get:
       parameters:
@@ -29657,6 +30227,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UserDelete:
     speakeasy-default-user-delete:
       parameters:
@@ -29665,6 +30237,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UserUpdate:
     speakeasy-default-user-update:
       parameters:
@@ -29675,6 +30249,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   UserCreate:
     speakeasy-default-user-create:
       parameters:
@@ -29685,6 +30261,8 @@ examples:
       responses:
         "200":
           application/json: {}
+        "401":
+          application/json: {"message": "<value>"}
   ListDeploymentVersions:
     speakeasy-default-list-deployment-versions:
       parameters:
@@ -29697,7 +30275,272 @@ examples:
           application/json: {"object": "list", "data": [], "has_more": false}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes:\n* `orq.deployments.list_versions()`: **Added**\n* `orq.models.create()`: \n  *  `request.metadata.pricing` **Changed**\n  *  `response.metadata.pricing` **Changed**\n* `orq.models.create_aws_bedrock()`:  `response.metadata.pricing` **Changed**\n* `orq.models.update_aws_bedrock()`:  `response.metadata.pricing` **Changed**\n* `orq.models.import_litellm()`:  `response.[].metadata.pricing` **Changed**\n* `orq.models.create_openai_like()`:  `response.metadata.pricing` **Changed**\n* `orq.models.update_openai_like()`:  `response.metadata.pricing` **Changed**\n* `orq.models.create_vertex()`:  `response.metadata.pricing` **Changed**\n* `orq.models.update()`: \n  *  `request.metadata.pricing` **Changed**\n  *  `response.metadata.pricing` **Changed**\n"
+releaseNotes: |
+  ## Python SDK Changes:
+  * `orq.deployments.invoke()`:  `error.status[401]` **Added**
+  * `orq.deployments.list()`:  `error.status[401]` **Added**
+  * `orq.agents.invoke()`:  `error.status[401]` **Added**
+  * `orq.agents.run()`:  `error.status[401]` **Added**
+  * `orq.agents.external.list()`:  `error.status[401]` **Added**
+  * `orq.agents.external.create()`:  `error.status[401]` **Added**
+  * `orq.agents.external.retrieve()`:  `error.status[401]` **Added**
+  * `orq.agents.external.delete()`:  `error.status[401]` **Added**
+  * `orq.agents.external.update()`:  `error.status[401]` **Added**
+  * `orq.agents.external.refresh_card()`:  `error.status[401]` **Added**
+  * `orq.agents.external.test_connection()`:  `error.status[401]` **Added**
+  * `orq.prompts.list()`:  `error.status[401]` **Added**
+  * `orq.prompts.create()`:  `error.status[401]` **Added**
+  * `orq.prompts.retrieve()`:  `error` **Changed**
+  * `orq.prompts.list_versions()`:  `error` **Changed**
+  * `orq.tools.create()`:  `error.status[401]` **Added**
+  * `orq.tools.delete()`:  `error.status[401]` **Added**
+  * `orq.tools.retrieve()`:  `error` **Changed**
+  * `orq.router.ocr()`:  `error.status[401]` **Added**
+  * `orq.router.rerank.create()`:  `error.status[401]` **Added**
+  * `orq.router.audio.speech.create()`:  `error.status[401]` **Added**
+  * `orq.router.images.generations.create()`:  `error.status[401]` **Added**
+  * `orq.router.images.edits.create()`:  `error.status[401]` **Added**
+  * `orq.router.images.variations.create()`:  `error.status[401]` **Added**
+  * `orq.router.embeddings.create()`:  `error.status[401]` **Added**
+  * `orq.feedback.remove_evaluation()`:  `error.status[401]` **Added**
+  * `orq.feedback.create_evaluation()`:  `error.status[401]` **Added**
+  * `orq.feedback.submit()`:  `error.status[401]` **Added**
+  * `orq.human_review_sets.list()`:  `error.status[401]` **Added**
+  * `orq.human_review_sets.create()`:  `error.status[401]` **Added**
+  * `orq.human_review_sets.get()`:  `error` **Changed**
+  * `orq.human_review_sets.update()`:  `error.status[401]` **Added**
+  * `orq.human_review_sets.delete()`:  `error.status[401]` **Added**
+  * `orq.chunking.parse()`:  `error.status[401]` **Added**
+  * `orq.file_systems.retrieve()`:  `error.status[403]` **Added**
+  * `orq.file_systems.list_files()`:  `error.status[403]` **Added**
+  * `orq.file_systems.stat_file()`:  `error.status[400]` **Added**
+  * `orq.knowledge.list_datasources()`:  `error` **Changed**
+  * `orq.knowledge.create_datasource()`:  `error.status[401]` **Added**
+  * `orq.knowledge.preview_chunks()`:  `error.status[401]` **Added**
+  * `orq.knowledge.retrieve_datasource()`:  `error` **Changed**
+  * `orq.knowledge.delete_datasource()`:  `error.status[401]` **Added**
+  * `orq.knowledge.update_datasource()`:  `error.status[401]` **Added**
+  * `orq.knowledge.list_chunks()`:  `error` **Changed**
+  * `orq.knowledge.create_chunks()`:  `error.status[401]` **Added**
+  * `orq.knowledge.delete_chunks()`:  `error.status[401]` **Added**
+  * `orq.knowledge.get_chunks_count()`:  `error.status[401]` **Added**
+  * `orq.knowledge.list_chunks_paginated()`:  `error.status[401]` **Added**
+  * `orq.knowledge.retrieve_chunk()`:  `error` **Changed**
+  * `orq.knowledge.delete_chunk()`:  `error.status[401]` **Added**
+  * `orq.knowledge.update_chunk()`:  `error.status[401]` **Added**
+  * `orq.knowledge.toggle_chunk()`:  `error.status[401]` **Added**
+  * `orq.knowledge.retrieve_processing_status()`:  `error` **Changed**
+  * `orq.knowledge.retrieve_file_url()`:  `error.status[400]` **Added**
+  * `orq.memory_stores.create()`:  `error.status[401]` **Added**
+  * `orq.memory_stores.list_memories()`:  `error.status[404]` **Added**
+  * `orq.evals.list_versions()`:  `error` **Changed**
+  * `orq.evals.get_version()`:  `error` **Changed**
+  * `orq.evals.invoke()`:  `error.status[401]` **Added**
+  * `orq.pii.capabilities()`:  `error.status[401]` **Added**
+  * `orq.pii.detect()`:  `error.status[401]` **Added**
+  * `orq.pii.redact()`:  `error.status[401]` **Added**
+  * `orq.pii.restore()`:  `error.status[401]` **Added**
+  * `orq.api_keys.list_capabilities()`:  `error.status[401]` **Added**
+  * `orq.annotations.create()`:  `error.status[401]` **Added**
+  * `orq.annotations.delete()`:  `error.status[401]` **Added**
+  * `orq.logs.aggregate()`:  `error.status[401]` **Added**
+  * `orq.logs.list_facets()`:  `error.status[401]` **Added**
+  * `orq.logs.list_facet_values()`:  `error` **Changed**
+  * `orq.logs.list_fields()`:  `error.status[401]` **Added**
+  * `orq.logs.find_patterns()`:  `error.status[401]` **Added**
+  * `orq.logs.query()`:  `error.status[401]` **Added**
+  * `orq.logs.search()`:  `error.status[401]` **Added**
+  * `orq.logs.get()`:  `error` **Changed**
+  * `orq.logs.context()`:  `error.status[401]` **Added**
+  * `orq.logs.list_trace_logs()`:  `error.status[401]` **Added**
+  * `orq.reporting.query()`:  `error.status[401]` **Added**
+  * `orq.telemetry.list_capabilities()`:  `error.status[401]` **Added**
+  * `orq.telemetry.list_facet_values()`:  `error.status[401]` **Added**
+  * `orq.telemetry.query()`:  `error.status[401]` **Added**
+  * `orq.traces.aggregate()`:  `error.status[401]` **Added**
+  * `orq.traces.list_facets()`:  `error.status[401]` **Added**
+  * `orq.traces.list_facet_values()`:  `error` **Changed**
+  * `orq.traces.list_fields()`:  `error.status[401]` **Added**
+  * `orq.traces.list_filters()`:  `error.status[401]` **Added**
+  * `orq.traces.query()`:  `error.status[401]` **Added**
+  * `orq.traces.search()`:  `error.status[401]` **Added**
+  * `orq.traces.get()`:  `error` **Changed**
+  * `orq.traces.get_conversation()`:  `error` **Changed**
+  * `orq.traces.list_spans()`:  `error.status[401]` **Added**
+  * `orq.traces.get_span()`:  `error` **Changed**
+  * `orq.views.list()`:  `error.status[401]` **Added**
+  * `orq.views.create()`:  `error.status[401]` **Added**
+  * `orq.views.get()`:  `error.status[401]` **Added**
+  * `orq.views.delete()`:  `error.status[401]` **Added**
+  * `orq.views.update()`:  `error.status[401]` **Added**
+  * `orq.datasets.list()`:  `error.status[401]` **Added**
+  * `orq.datasets.create()`:  `error.status[401]` **Added**
+  * `orq.datasets.retrieve()`:  `error` **Changed**
+  * `orq.datasets.delete()`:  `error.status[401]` **Added**
+  * `orq.datasets.update()`:  `error.status[401]` **Added**
+  * `orq.datasets.clear()`:  `error.status[401]` **Added**
+  * `orq.datasets.list_datapoints()`:  `error` **Changed**
+  * `orq.datasets.create_datapoint()`:  `error.status[401]` **Added**
+  * `orq.datasets.delete_datapoints()`:  `error.status[401]` **Added**
+  * `orq.datasets.create_datapoints()`:  `error.status[401]` **Added**
+  * `orq.datasets.retrieve_datapoint()`:  `error` **Changed**
+  * `orq.datasets.delete_datapoint()`:  `error.status[401]` **Added**
+  * `orq.datasets.update_datapoint()`:  `error.status[401]` **Added**
+  * `orq.models.list()`:  `error.status[401]` **Added**
+  * `orq.policies.list()`:  `error.status[401]` **Added**
+  * `orq.alerts.list()`:  `error.status[401]` **Added**
+  * `orq.alerts.create()`:  `error` **Changed**
+  * `orq.alerts.get()`:  `error` **Changed**
+  * `orq.alerts.delete()`:  `error.status[401]` **Added**
+  * `orq.alerts.update()`:  `error.status[401]` **Added**
+  * `orq.alerts.list_triggers()`:  `error` **Changed**
+  * `orq.alerts.list_trigger_events()`:  `error` **Changed**
+  * `orq.annotation_queues.list()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.create()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.retrieve()`:  `error` **Changed**
+  * `orq.annotation_queues.delete()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.update()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.clear()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.list_items()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.add_items()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.remove_items()`:  `error.status[401]` **Added**
+  * `orq.annotation_queues.retrieve_item()`:  `error` **Changed**
+  * `orq.budgets.list()`:  `error.status[401]` **Added**
+  * `orq.budgets.create()`:  `error.status[401]` **Added**
+  * `orq.budgets.get()`:  `error` **Changed**
+  * `orq.budgets.delete()`:  `error.status[401]` **Added**
+  * `orq.budgets.update()`:  `error.status[401]` **Added**
+  * `orq.budgets.reset_consumption()`:  `error.status[401]` **Added**
+  * `orq.environments.list()`:  `error.status[401]` **Added**
+  * `orq.environments.create()`:  `error.status[401]` **Added**
+  * `orq.environments.get()`:  `error.status[401]` **Added**
+  * `orq.environments.delete()`:  `error.status[401]` **Added**
+  * `orq.environments.update()`:  `error.status[401]` **Added**
+  * `orq.files.list()`:  `error.status[401]` **Added**
+  * `orq.files.create()`:  `error.status[401]` **Added**
+  * `orq.files.get_content()`:  `error` **Changed**
+  * `orq.files.get()`:  `error` **Changed**
+  * `orq.files.delete()`:  `error.status[401]` **Added**
+  * `orq.files.update()`:  `error.status[401]` **Added**
+  * `orq.guardrail_rules.list()`:  `error.status[401]` **Added**
+  * `orq.guardrail_rules.create()`:  `error.status[401]` **Added**
+  * `orq.guardrail_rules.list_used_guardrails()`:  `error.status[401]` **Added**
+  * `orq.guardrail_rules.retrieve()`:  `error` **Changed**
+  * `orq.guardrail_rules.delete()`:  `error.status[401]` **Added**
+  * `orq.guardrail_rules.update()`:  `error.status[401]` **Added**
+  * `orq.hub.search()`:  `error.status[401]` **Added**
+  * `orq.hub.get()`:  `error` **Changed**
+  * `orq.identities.list()`:  `error.status[401]` **Added**
+  * `orq.identities.create()`:  `error.status[401]` **Added**
+  * `orq.identities.retrieve()`:  `error` **Changed**
+  * `orq.identities.delete()`:  `error.status[401]` **Added**
+  * `orq.identities.update()`:  `error.status[401]` **Added**
+  * `orq.management_keys.list()`:  `error.status[401]` **Added**
+  * `orq.management_keys.create()`:  `error.status[401]` **Added**
+  * `orq.management_keys.list_capabilities()`:  `error.status[401]` **Added**
+  * `orq.management_keys.get()`:  `error` **Changed**
+  * `orq.management_keys.delete()`:  `error.status[401]` **Added**
+  * `orq.management_keys.update()`:  `error.status[401]` **Added**
+  * `orq.mcp_gateways.list()`:  `error.status[401]` **Added**
+  * `orq.mcp_gateways.create()`:  `error.status[401]` **Added**
+  * `orq.mcp_gateways.list_tools()`:  `error` **Changed**
+  * `orq.mcp_gateways.retrieve()`:  `error` **Changed**
+  * `orq.mcp_gateways.delete()`:  `error.status[401]` **Added**
+  * `orq.mcp_gateways.update()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.list()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.create()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.retrieve()`:  `error` **Changed**
+  * `orq.mcp_servers.delete()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.update()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.test_tool()`:  `error.status[401]` **Added**
+  * `orq.mcp_servers.sync()`:  `error.status[401]` **Added**
+  * `orq.model_catalog.list()`:  `error.status[401]` **Added**
+  * `orq.model_catalog.list_offerings()`:  `error.status[401]` **Added**
+  * `orq.model_catalog.get()`:  `error` **Changed**
+  * `orq.model_fusions.list()`:  `error.status[401]` **Added**
+  * `orq.model_fusions.create()`:  `error.status[401]` **Added**
+  * `orq.model_fusions.get()`:  `error.status[401]` **Added**
+  * `orq.model_fusions.update()`:  `error.status[401]` **Added**
+  * `orq.model_fusions.delete()`:  `error.status[401]` **Added**
+  * `orq.model_fusions.set_enabled()`:  `error.status[401]` **Added**
+  * `orq.monitors.list()`:  `error.status[401]` **Added**
+  * `orq.monitors.create()`:  `error.status[401]` **Added**
+  * `orq.monitors.list_presets()`:  `error.status[401]` **Added**
+  * `orq.monitors.get()`:  `error.status[401]` **Added**
+  * `orq.monitors.delete()`:  `error.status[401]` **Added**
+  * `orq.monitors.update()`:  `error.status[401]` **Added**
+  * `orq.notifiers.list()`:  `error.status[401]` **Added**
+  * `orq.notifiers.create()`:  `error.status[401]` **Added**
+  * `orq.notifiers.get()`:  `error` **Changed**
+  * `orq.notifiers.delete()`:  `error.status[401]` **Added**
+  * `orq.notifiers.update()`:  `error.status[401]` **Added**
+  * `orq.projects.list()`:  `error.status[401]` **Added**
+  * `orq.projects.create()`:  `error.status[401]` **Added**
+  * `orq.projects.get()`:  `error` **Changed**
+  * `orq.projects.delete()`:  `error.status[401]` **Added**
+  * `orq.projects.update()`:  `error.status[401]` **Added**
+  * `orq.routing_rules.list()`:  `error.status[401]` **Added**
+  * `orq.routing_rules.create()`:  `error.status[401]` **Added**
+  * `orq.routing_rules.list_used_models()`:  `error.status[401]` **Added**
+  * `orq.routing_rules.retrieve()`:  `error` **Changed**
+  * `orq.routing_rules.delete()`:  `error.status[401]` **Added**
+  * `orq.routing_rules.update()`:  `error.status[401]` **Added**
+  * `orq.sessions.create()`:  `error.status[401]` **Added**
+  * `orq.sessions.get_count()`:  `error.status[401]` **Added**
+  * `orq.sessions.list()`:  `error.status[401]` **Added**
+  * `orq.sessions.list_tags()`:  `error.status[401]` **Added**
+  * `orq.sessions.get()`:  `error` **Changed**
+  * `orq.sessions.delete()`:  `error.status[401]` **Added**
+  * `orq.sessions.update()`:  `error.status[401]` **Added**
+  * `orq.skills.list()`:  `error.status[401]` **Added**
+  * `orq.skills.create()`:  `error.status[401]` **Added**
+  * `orq.skills.get()`:  `error` **Changed**
+  * `orq.skills.delete()`:  `error.status[401]` **Added**
+  * `orq.skills.update()`:  `error.status[401]` **Added**
+  * `orq.smart_routers.list()`:  `error.status[401]` **Added**
+  * `orq.smart_routers.create()`:  `error.status[401]` **Added**
+  * `orq.smart_routers.get()`:  `error` **Changed**
+  * `orq.smart_routers.delete()`:  `error.status[401]` **Added**
+  * `orq.smart_routers.update()`:  `error.status[401]` **Added**
+  * `orq.users.list()`:  `error.status[401]` **Added**
+  * `orq.users.get()`:  `error.status[401]` **Added**
+  * `orq.users.delete()`:  `error.status[401]` **Added**
+  * `orq.users.update()`:  `error.status[401]` **Added**
+  * `orq.users.create()`:  `error.status[401]` **Added**
+  * `orq.webhooks.list()`:  `error.status[401]` **Added**
+  * `orq.webhooks.create()`:  `error.status[401]` **Added**
+  * `orq.webhooks.count()`:  `error.status[401]` **Added**
+  * `orq.webhooks.query()`:  `error.status[401]` **Added**
+  * `orq.webhooks.generate_secret()`:  `error.status[401]` **Added**
+  * `orq.webhooks.get()`:  `error` **Changed**
+  * `orq.webhooks.delete()`:  `error.status[401]` **Added**
+  * `orq.webhooks.update()`:  `error.status[401]` **Added**
+  * `orq.wikis.list()`:  `error.status[401]` **Added**
+  * `orq.wikis.create()`:  `error.status[401]` **Added**
+  * `orq.wikis.inspect_repository()`:  `error.status[401]` **Added**
+  * `orq.wikis.get()`:  `error.status[401]` **Added**
+  * `orq.wikis.delete()`:  `error.status[401]` **Added**
+  * `orq.wikis.update()`:  `error.status[401]` **Added**
+  * `orq.wikis.get_page()`:  `error.status[401]` **Added**
+  * `orq.wikis.update_page()`:  `error.status[401]` **Added**
+  * `orq.wikis.refresh()`:  `error.status[401]` **Added**
+  * `orq.wikis.list_runs()`:  `error.status[401]` **Added**
+  * `orq.wikis.search()`:  `error.status[401]` **Added**
+  * `orq.wikis.get_tree()`:  `error.status[401]` **Added**
+  * `orq.workspaces.list()`:  `error.status[401]` **Added**
+  * `orq.workspaces.get()`:  `error` **Changed**
+  * `orq.workspaces.update()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.list_domains()`:  `error` **Changed**
+  * `orq.workspace_security.create_domain()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.delete_domain()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.verify_domain()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.get_ip_allowlist()`:  `error` **Changed**
+  * `orq.workspace_security.update_ip_allowlist()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.add_ip_range()`:  `error.status[401]` **Added**
+  * `orq.workspace_security.delete_ip_range()`:  `error.status[401]` **Added**
+  * `orq.workspace_settings.get()`:  `error.status[401]` **Added**
+  * `orq.workspace_settings.update()`:  `error.status[401]` **Added**
+  * `orq.schedules.list()`:  `error` **Changed**
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
