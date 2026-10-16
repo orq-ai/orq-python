@@ -6,7 +6,7 @@ import json
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
 
-from .constants import SpanAttributes, SpanKind
+from .constants import GenAIOperation, SpanAttributes
 
 if TYPE_CHECKING:
     from openai.types.responses import (
@@ -114,10 +114,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     def on_trace_start(self, trace: Trace) -> None:
         """Called when a trace is started."""
         otel_span = self._tracer.start_span(
-            name=trace.name,
+            name=f"{GenAIOperation.INVOKE_WORKFLOW.value} {trace.name}",
             attributes={
-                SpanAttributes.KIND.value: SpanKind.WORKFLOW.value,
-                SpanAttributes.OPERATION_NAME.value: trace.name,
+                SpanAttributes.OPERATION_NAME.value: GenAIOperation.INVOKE_WORKFLOW.value,
                 SpanAttributes.WORKFLOW_NAME.value: trace.name,
             },
         )
@@ -159,18 +158,17 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             else self._root_spans.get(span.trace_id)
         )
         context = set_span_in_context(parent_span) if parent_span else None
-        span_name = self._get_span_name(span)
+        attributes: Dict[str, str] = self._get_provider_attributes(span.span_data)
+        operation = self._get_operation(span.span_data)
+        if operation:
+            attributes[SpanAttributes.OPERATION_NAME.value] = operation.value
 
         otel_span = self._tracer.start_span(
-            name=span_name,
+            name=self._get_span_name(span),
             context=context,
             kind=self._get_otel_span_kind(span.span_data),
             start_time=self._as_utc_nano(span.started_at),
-            attributes={
-                SpanAttributes.KIND.value: self._get_span_kind(span.span_data),
-                SpanAttributes.OPERATION_NAME.value: span_name,
-                **self._get_provider_attributes(span.span_data),
-            },
+            attributes=attributes,
         )
         
         self._otel_spans[span.span_id] = otel_span
@@ -205,9 +203,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if not (otel_span := self._otel_spans.pop(span.span_id, None)):
             return
 
-        span_name = self._get_span_name(span)
-        otel_span.update_name(span_name)
-        otel_span.set_attribute(SpanAttributes.OPERATION_NAME.value, span_name)
+        # Response spans only learn their model at the end.
+        otel_span.update_name(self._get_span_name(span))
         data = span.span_data
 
         # Handle different span types and collect input/output for agent spans
@@ -237,28 +234,19 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _handle_agent_span(self, otel_span: OtelSpan, data: AgentSpanData, span_id: str) -> None:
         """Handle agent span with enhanced input/output collection."""
-        otel_span.set_attribute(SpanAttributes.AGENT_NAME.value, data.name)
         otel_span.set_attribute(SpanAttributes.GEN_AI_AGENT_NAME.value, data.name)
-        
+
         # Add first LLM input and last LLM output as JSON strings
         input_messages = self._agent_inputs.get(span_id)
         if input_messages:
             self._set_json_attribute(otel_span, SpanAttributes.INPUT_MESSAGES.value, input_messages)
 
-        if span_id in self._agent_outputs:
-            output = self._agent_outputs[span_id]
-            if output is not None:
-                try:
-                    # Transform the output to the required format
-                    formatted_output = self._format_llm_output(output)
-                    json_output = json.dumps(formatted_output)
-                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
-                except (TypeError, ValueError):
-                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(output))
-                output_messages = self._output_messages(output, self._finish_reason(output))
-                if output_messages:
-                    self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
-        
+        output = self._agent_outputs.get(span_id)
+        if output is not None:
+            output_messages = self._output_messages(output, self._finish_reason(output))
+            if output_messages:
+                self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
+
         # Clean up tracking data
         self._agent_spans.pop(span_id, None)
         self._agent_inputs.pop(span_id, None)
@@ -293,18 +281,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 self._apply_metadata_attributes(otel_span, metadata)
                 if trace_id:
                     self._trace_metadata.setdefault(trace_id, {}).update(metadata)
-            
-            # Extract and format output from response
-            if hasattr(response, "output") and response.output:
-                try:
-                    formatted_output = self._format_llm_output(cast(SpanOutputData, response.output))
-                    json_output = json.dumps(formatted_output)
-                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
-                except (TypeError, ValueError):
-                    text_content = self._extract_text_from_output(cast(SpanOutputData, response.output))
-                    if text_content:
-                        otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
-            
+
             # Extract usage information
             if hasattr(response, "usage") and response.usage:
                 self._set_usage_attributes(otel_span, response.usage)
@@ -327,18 +304,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             output_messages = self._output_messages(response_output, finish_reason)
             if output_messages:
                 self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
-
-        # Also check for output directly on data (not just in data.response)
-        data_output = getattr(data, "output", None)
-        if data_output:
-            try:
-                formatted_output = self._format_llm_output(cast(SpanOutputData, data_output))
-                json_output = json.dumps(formatted_output)
-                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
-            except (TypeError, ValueError):
-                text_content = self._extract_text_from_output(cast(SpanOutputData, data_output))
-                if text_content:
-                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
 
         input_messages = self._messages(getattr(data, "input", None))
         if input_messages:
@@ -369,15 +334,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if output_messages:
                 self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
 
-            # Set structured output messages for LLM spans
-            try:
-                # Also set formatted output for orq.output.value
-                formatted_output = self._format_llm_output(cast(SpanOutputData, data.output))
-                formatted_json = json.dumps(formatted_output)
-                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, formatted_json)
-            except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
-        
         # Extract usage information if available
         if hasattr(data, "usage") and data.usage:
             self._set_usage_attributes(otel_span, data.usage)
@@ -400,7 +356,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if data.output is not None:
             result = str(data.output)
             otel_span.set_attribute(SpanAttributes.TOOL_CALL_RESULT.value, result)
-            otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, result)
 
     def _handle_handoff_span(self, otel_span: OtelSpan, data: HandoffSpanData) -> None:
         """Handle handoff span."""
@@ -489,25 +444,33 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                     return f"handoff to {to_agent}"
             return "handoff"
 
+        operation = self._get_operation(data)
+        if operation is GenAIOperation.CHAT:
+            model = (
+                getattr(data.response, "model", None)
+                if isinstance(data, ResponseSpanData) and data.response
+                else getattr(data, "model", None)
+            )
+            return f"{operation.value} {model}" if isinstance(model, str) and model else operation.value
+        if operation is not None:
+            return f"{operation.value} {getattr(data, 'name', '')}".rstrip()
+
         # Handle other span types with name attribute
         name = getattr(data, "name", None)
         if isinstance(name, str):
             return name
         return getattr(data, "type", "unknown")
 
-    def _get_span_kind(self, data: SpanData) -> str:
-        """Get span kind based on span data type."""
+    @staticmethod
+    def _get_operation(data: SpanData) -> Optional[GenAIOperation]:
+        """Handoffs, guardrails and custom spans have no semconv operation."""
         if isinstance(data, AgentSpanData):
-            return SpanKind.AGENT.value
+            return GenAIOperation.INVOKE_AGENT
         if isinstance(data, FunctionSpanData):
-            return SpanKind.TOOL.value
-        if isinstance(data, GenerationSpanData):
-            return SpanKind.LLM.value
-        if isinstance(data, ResponseSpanData):
-            return SpanKind.LLM.value
-        if isinstance(data, HandoffSpanData):
-            return SpanKind.TOOL.value
-        return SpanKind.GENERIC.value
+            return GenAIOperation.EXECUTE_TOOL
+        if isinstance(data, (ResponseSpanData, GenerationSpanData)):
+            return GenAIOperation.CHAT
+        return None
 
     def _get_span_status(self, span: Span[SpanData]) -> Status:
         """Get span status from span error information."""
@@ -520,116 +483,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 description=f"{message}: {data}"
             )
         return Status(StatusCode.OK)
-
-    def _format_llm_output(self, output_data: SpanOutputData) -> List[Dict[str, object]]:
-        """Format output data to match the required structure."""
-        formatted_output = []
-        
-        if isinstance(output_data, str):
-            formatted_output.append({
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": output_data
-                },
-                "finish_reason": "stop"
-            })
-        elif isinstance(output_data, list):
-            for index, item in enumerate(output_data):
-                item_content = getattr(item, "content", None)
-                if item_content:
-                    # Extract text from content items
-                    content_texts = []
-                    for content_item in item_content:
-                        text = getattr(content_item, "text", None)
-                        if text:
-                            content_texts.append(text)
-                    content = " ".join(content_texts) if content_texts else ""
-                    
-                    # Get role from item if available, default to "assistant"
-                    role = getattr(item, "role", "assistant")
-                    
-                    formatted_output.append({
-                        "index": index,
-                        "message": {
-                            "role": role,
-                            "content": content
-                        },
-                        "finish_reason": "stop"
-                    })
-                elif hasattr(item, "type") and getattr(item, "type", None) == "function_call":
-                    # Handle tool calls (ResponseFunctionToolCall)
-                    tool_call_data = {
-                        "role": "assistant",
-                        "tool_calls": [{
-                            "id": getattr(item, "call_id", None) or "",
-                            "type": "function",
-                            "function": {
-                                "name": getattr(item, "name", ""),
-                                "arguments": getattr(item, "arguments", "")
-                            }
-                        }]
-                    }
-                    formatted_output.append({
-                        "index": index,
-                        "message": tool_call_data,
-                        "finish_reason": "tool_calls"
-                    })
-                elif isinstance(item, dict):
-                    content = str(item.get("content", item.get("text", "")))
-                    role = str(item.get("role", "assistant"))
-                    formatted_output.append({
-                        "index": index,
-                        "message": {
-                            "role": role,
-                            "content": str(content)
-                        },
-                        "finish_reason": "stop"
-                    })
-                elif isinstance(item, str):
-                    formatted_output.append({
-                        "index": index,
-                        "message": {
-                            "role": "assistant",
-                            "content": item
-                        },
-                        "finish_reason": "stop"
-                    })
-        else:
-            # Fallback for other types
-            formatted_output.append({
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": str(output_data)
-                },
-                "finish_reason": "stop"
-            })
-        
-        return formatted_output
-
-    def _extract_text_from_output(self, output_data: SpanOutputData) -> Optional[str]:
-        """Extract text content from output data."""
-        if isinstance(output_data, str):
-            return output_data
-        if isinstance(output_data, list):
-            texts = []
-            for item in output_data:
-                content = getattr(item, "content", None)
-                if content:
-                    for content_item in content:
-                        text = getattr(content_item, "text", None)
-                        if text:
-                            texts.append(text)
-                elif isinstance(item, dict):
-                    if "content" in item:
-                        texts.append(str(item["content"]))
-                    elif "text" in item:
-                        texts.append(str(item["text"]))
-                elif isinstance(item, str):
-                    texts.append(item)
-            return " ".join(texts) if texts else None
-        return str(output_data) if output_data else None
 
     def _set_usage_attributes(self, otel_span: OtelSpan, usage: UsageData) -> None:
         """Set usage-related attributes on the span."""

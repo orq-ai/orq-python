@@ -30,17 +30,10 @@ class SpanAttributes(Enum):
     TOOL_TYPE = "gen_ai.tool.type"
     OPENAI_API_TYPE = "openai.api.type"
 
-    # Orq custom attributes
-    KIND = "orq.span.kind"
-    OUTPUT_VALUE = "orq.output.value"
-    AGENT_NAME = "agent.name"
 
-
-class SpanKind(Enum):
-    """Span kind values."""
-    WORKFLOW = "workflow"
-    AGENT = "agent"
-    LLM = "llm"
-    TOOL = "tool"
-    GENERIC = "generic"
-    CHAIN = "chain"
+class GenAIOperation(Enum):
+    """gen_ai.operation.name values."""
+    INVOKE_WORKFLOW = "invoke_workflow"
+    INVOKE_AGENT = "invoke_agent"
+    CHAT = "chat"
+    EXECUTE_TOOL = "execute_tool"
