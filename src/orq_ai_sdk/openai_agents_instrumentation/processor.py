@@ -29,7 +29,8 @@ if TYPE_CHECKING:
     from openai.types.responses.response_reasoning_item import ResponseReasoningItem
 
 # Type aliases for better clarity
-SpanInputData = Union[str, List[Dict[str, object]], Dict[str, object]]
+SemconvParts = List[Dict[str, object]]
+SemconvMessages = List[Dict[str, object]]
 SpanOutputData = Union[
     str,
     List[Dict[str, object]],
@@ -74,6 +75,7 @@ try:
     from opentelemetry.context import Context, attach, detach
     from opentelemetry.context import Token as ContextToken  # type: ignore[attr-defined]
     from opentelemetry.trace import Span as OtelSpan
+    from opentelemetry.trace import SpanKind as OtelSpanKind
     from opentelemetry.trace import (
         Status,
         StatusCode,
@@ -97,7 +99,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # Track agent spans and their child spans to aggregate input/output
         self._agent_spans: dict[str, str] = {}  # span_id -> agent_name
         self._span_hierarchy: dict[str, str] = {}  # child_span_id -> parent_agent_span_id
-        self._agent_inputs: Dict[str, Optional[SpanInputData]] = {}  # agent_span_id -> first LLM input
+        self._agent_inputs: Dict[str, Optional[SemconvMessages]] = {}  # agent_span_id -> first LLM input
         self._agent_outputs: Dict[str, Optional[SpanOutputData]] = {}  # agent_span_id -> last LLM output
         # User metadata captured from response.metadata on LLM calls. Cached
         # per trace so we can bubble it onto the workflow root span at
@@ -115,7 +117,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             name=trace.name,
             attributes={
                 SpanAttributes.KIND.value: SpanKind.WORKFLOW.value,
-                SpanAttributes.OPERATION_NAME.value: trace.name
+                SpanAttributes.OPERATION_NAME.value: trace.name,
+                SpanAttributes.WORKFLOW_NAME.value: trace.name,
             },
         )
         self._root_spans[trace.trace_id] = otel_span
@@ -161,10 +164,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         otel_span = self._tracer.start_span(
             name=span_name,
             context=context,
+            kind=self._get_otel_span_kind(span.span_data),
             start_time=self._as_utc_nano(span.started_at),
             attributes={
                 SpanAttributes.KIND.value: self._get_span_kind(span.span_data),
                 SpanAttributes.OPERATION_NAME.value: span_name,
+                **self._get_provider_attributes(span.span_data),
             },
         )
         
@@ -236,6 +241,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         otel_span.set_attribute(SpanAttributes.GEN_AI_AGENT_NAME.value, data.name)
         
         # Add first LLM input and last LLM output as JSON strings
+        input_messages = self._agent_inputs.get(span_id)
+        if input_messages:
+            self._set_json_attribute(otel_span, SpanAttributes.INPUT_MESSAGES.value, input_messages)
+
         if span_id in self._agent_outputs:
             output = self._agent_outputs[span_id]
             if output is not None:
@@ -246,6 +255,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
                 except (TypeError, ValueError):
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(output))
+                output_messages = self._output_messages(output, self._finish_reason(output))
+                if output_messages:
+                    self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
         
         # Clean up tracking data
         self._agent_spans.pop(span_id, None)
@@ -296,7 +308,26 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             # Extract usage information
             if hasattr(response, "usage") and response.usage:
                 self._set_usage_attributes(otel_span, response.usage)
-        
+
+            self._set_request_attributes(
+                otel_span,
+                temperature=getattr(response, "temperature", None),
+                top_p=getattr(response, "top_p", None),
+                max_tokens=getattr(response, "max_output_tokens", None),
+            )
+
+            system_instructions = self._system_instructions(getattr(response, "instructions", None))
+            if system_instructions:
+                self._set_json_attribute(otel_span, SpanAttributes.SYSTEM_INSTRUCTIONS.value, system_instructions)
+
+            response_output = getattr(response, "output", None)
+            incomplete_details = getattr(response, "incomplete_details", None)
+            finish_reason = self._finish_reason(response_output, getattr(incomplete_details, "reason", None))
+            otel_span.set_attribute(SpanAttributes.RESPONSE_FINISH_REASONS.value, [finish_reason])
+            output_messages = self._output_messages(response_output, finish_reason)
+            if output_messages:
+                self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
+
         # Also check for output directly on data (not just in data.response)
         data_output = getattr(data, "output", None)
         if data_output:
@@ -309,27 +340,35 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 if text_content:
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
 
-        data_input = getattr(data, "input", None)
-        if data_input:
-            # Preserve formatted inputs for agent aggregation, but do not emit
-            # a custom input attribute on the span.
-            try:
-                self._format_llm_input(data)
-            except (TypeError, ValueError):
-                pass
+        input_messages = self._messages(getattr(data, "input", None))
+        if input_messages:
+            self._set_json_attribute(otel_span, SpanAttributes.INPUT_MESSAGES.value, input_messages)
 
     def _handle_generation_span(self, otel_span: OtelSpan, data: GenerationSpanData) -> None:
         """Handle generation span."""
         if hasattr(data, "model") and isinstance(data.model, str):
             otel_span.set_attribute(SpanAttributes.REQUEST_MODEL.value, data.model)
-        
-        if hasattr(data, "input") and data.input:
-            try:
-                self._format_llm_input(data)
-            except (TypeError, ValueError):
-                pass
-        
+
+        model_config = getattr(data, "model_config", None)
+        if isinstance(model_config, dict):
+            self._set_request_attributes(
+                otel_span,
+                temperature=model_config.get("temperature"),
+                top_p=model_config.get("top_p"),
+                max_tokens=model_config.get("max_tokens"),
+            )
+
+        input_messages = self._messages(getattr(data, "input", None))
+        if input_messages:
+            self._set_json_attribute(otel_span, SpanAttributes.INPUT_MESSAGES.value, input_messages)
+
         if hasattr(data, "output") and data.output:
+            finish_reason = self._finish_reason(data.output)
+            otel_span.set_attribute(SpanAttributes.RESPONSE_FINISH_REASONS.value, [finish_reason])
+            output_messages = self._output_messages(data.output, finish_reason)
+            if output_messages:
+                self._set_json_attribute(otel_span, SpanAttributes.OUTPUT_MESSAGES.value, output_messages)
+
             # Set structured output messages for LLM spans
             try:
                 # Also set formatted output for orq.output.value
@@ -348,6 +387,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     ) -> None:
         """Handle function span."""
         otel_span.set_attribute(SpanAttributes.TOOL_NAME.value, data.name)
+        otel_span.set_attribute(SpanAttributes.TOOL_TYPE.value, "function")
 
         call_id = self._tool_call_ids.pop(span_id, None)
         if call_id:
@@ -366,40 +406,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Handle handoff span."""
         # Additional handoff-specific attributes can be added here if needed
 
-    def _format_llm_input(self, data: SpanData) -> Optional[SpanInputData]:
-        """Format LLM input that includes system message from instructions if not already present."""
-        data_input = getattr(data, "input", None)
-        if not data_input:
-            return None
-
-        try:
-            input_messages = []
-
-            # Check if system message already exists in input
-            has_system_message = False
-            if isinstance(data_input, list):
-                has_system_message = any(
-                    isinstance(msg, dict) and msg.get("role") == "system"
-                    for msg in data_input
-                )
-                input_messages = list(data_input)
-            else:
-                input_messages = [data_input]
-
-            # Add system message FIRST only if not already present
-            response = getattr(data, "response", None)
-            instructions = getattr(response, "instructions", None) if response else None
-            if not has_system_message and instructions:
-                system_message = {
-                    "role": "system",
-                    "content": instructions
-                }
-                input_messages.insert(0, system_message)
-
-            return input_messages
-        except (TypeError, ValueError):
-            return data_input
-
     def _collect_agent_data(self, span_id: str, data: SpanData, *data_types: str) -> None:
         """Collect input/output data for agent spans - first LLM input and last LLM output per agent."""
         # Find the parent agent span for this child span
@@ -413,9 +419,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 if parent_agent_span_id in self._agent_inputs:
                     # Only capture the first LLM input for this specific agent if none exists yet
                     if self._agent_inputs[parent_agent_span_id] is None:
-                        # Use enhanced input that includes system message
-                        enhanced_input = self._format_llm_input(data)
-                        self._agent_inputs[parent_agent_span_id] = enhanced_input
+                        self._agent_inputs[parent_agent_span_id] = self._messages(data_input)
             elif data_type == "output":
                 data_output = getattr(data, "output", None)
                 if data_output:
@@ -629,12 +633,175 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _set_usage_attributes(self, otel_span: OtelSpan, usage: UsageData) -> None:
         """Set usage-related attributes on the span."""
-        input_tokens = getattr(usage, "input_tokens", None)
+        input_tokens = self._usage_value(usage, "input_tokens")
         if input_tokens is not None:
             otel_span.set_attribute(SpanAttributes.USAGE_INPUT_TOKENS.value, input_tokens)
-        output_tokens = getattr(usage, "output_tokens", None)
+        output_tokens = self._usage_value(usage, "output_tokens")
         if output_tokens is not None:
             otel_span.set_attribute(SpanAttributes.USAGE_OUTPUT_TOKENS.value, output_tokens)
+        cached_tokens = self._usage_value(self._usage_value(usage, "input_tokens_details"), "cached_tokens")
+        if cached_tokens is not None:
+            otel_span.set_attribute(SpanAttributes.USAGE_CACHE_READ_INPUT_TOKENS.value, cached_tokens)
+
+    @staticmethod
+    def _usage_value(usage: object, key: str) -> Any:
+        # Responses usage is an object; generation spans carry a plain dict.
+        if isinstance(usage, dict):
+            return cast(Dict[str, Any], usage).get(key)
+        return getattr(usage, key, None)
+
+    @staticmethod
+    def _set_request_attributes(
+        otel_span: OtelSpan, temperature: object, top_p: object, max_tokens: object
+    ) -> None:
+        for attribute, value in (
+            (SpanAttributes.REQUEST_TEMPERATURE, temperature),
+            (SpanAttributes.REQUEST_TOP_P, top_p),
+            (SpanAttributes.REQUEST_MAX_TOKENS, max_tokens),
+        ):
+            if isinstance(value, (int, float)) and not isinstance(value, bool):
+                otel_span.set_attribute(attribute.value, value)
+
+    @staticmethod
+    def _set_json_attribute(otel_span: OtelSpan, key: str, value: object) -> None:
+        otel_span.set_attribute(key, json.dumps(value, default=str))
+
+    @staticmethod
+    def _get_otel_span_kind(data: SpanData) -> OtelSpanKind:
+        if isinstance(data, (ResponseSpanData, GenerationSpanData)):
+            return OtelSpanKind.CLIENT
+        return OtelSpanKind.INTERNAL
+
+    @staticmethod
+    def _get_provider_attributes(data: SpanData) -> Dict[str, str]:
+        if isinstance(data, ResponseSpanData):
+            return {
+                SpanAttributes.PROVIDER_NAME.value: "openai",
+                SpanAttributes.OPENAI_API_TYPE.value: "responses",
+            }
+        if isinstance(data, GenerationSpanData):
+            model_config = getattr(data, "model_config", None)
+            # LiteLLM can route to any provider, so only the OpenAI client is attributed.
+            if not (isinstance(model_config, dict) and model_config.get("model_impl") == "litellm"):
+                return {
+                    SpanAttributes.PROVIDER_NAME.value: "openai",
+                    SpanAttributes.OPENAI_API_TYPE.value: "chat_completions",
+                }
+        return {}
+
+    @staticmethod
+    def _as_dict(item: object) -> Optional[Dict[str, Any]]:
+        if isinstance(item, dict):
+            return cast(Dict[str, Any], item)
+        model_dump = getattr(item, "model_dump", None)
+        if callable(model_dump):
+            dumped = model_dump(exclude_none=True)
+            if isinstance(dumped, dict):
+                return cast(Dict[str, Any], dumped)
+        return None
+
+    def _messages(self, items: object) -> SemconvMessages:
+        """Convert Responses input/output items or Chat Completions messages to semconv messages."""
+        if isinstance(items, str):
+            return [{"role": "user", "parts": [{"type": "text", "content": items}]}] if items else []
+        if not isinstance(items, list):
+            return []
+        messages: SemconvMessages = []
+        for raw_item in cast(List[object], items):
+            item = self._as_dict(raw_item)
+            message = self._message_from_item(item) if item else None
+            if message:
+                messages.append(message)
+        return messages
+
+    def _message_from_item(self, item: Dict[str, Any]) -> Optional[Dict[str, object]]:
+        item_type = item.get("type")
+        if item_type == "function_call":
+            return {
+                "role": "assistant",
+                "parts": [self._tool_call_part(item.get("call_id"), item.get("name"), item.get("arguments"))],
+            }
+        if item_type == "function_call_output":
+            return {
+                "role": "tool",
+                "parts": [{"type": "tool_call_response", "id": item.get("call_id"), "response": item.get("output")}],
+            }
+        if item_type == "reasoning":
+            summary = " ".join(
+                str(entry.get("text", "")) for entry in item.get("summary") or [] if isinstance(entry, dict)
+            )
+            return {"role": "assistant", "parts": [{"type": "reasoning", "content": summary}]} if summary else None
+        if isinstance(item_type, str) and item_type.endswith("_call"):
+            # Hosted tools (web/file search, code interpreter, MCP, ...) run server-side.
+            return {"role": "assistant", "parts": [self._tool_call_part(item.get("id"), item_type, None)]}
+
+        role = item.get("role")
+        if not isinstance(role, str):
+            return None
+        if role == "tool":
+            return {
+                "role": "tool",
+                "parts": [{"type": "tool_call_response", "id": item.get("tool_call_id"), "response": item.get("content")}],
+            }
+        parts = self._content_parts(item.get("content"))
+        for tool_call in item.get("tool_calls") or []:
+            if isinstance(tool_call, dict):
+                function = cast(Dict[str, Any], tool_call).get("function") or {}
+                parts.append(self._tool_call_part(tool_call.get("id"), function.get("name"), function.get("arguments")))
+        return {"role": "system" if role == "developer" else role, "parts": parts}
+
+    def _content_parts(self, content: object) -> SemconvParts:
+        if content is None:
+            return []
+        if isinstance(content, str):
+            return [{"type": "text", "content": content}]
+        if not isinstance(content, list):
+            return [{"type": "text", "content": str(content)}]
+        parts: SemconvParts = []
+        for raw_part in cast(List[object], content):
+            part = self._as_dict(raw_part)
+            if part is None:
+                continue
+            part_type = part.get("type")
+            if part_type in ("input_text", "output_text", "text"):
+                parts.append({"type": "text", "content": part.get("text", "")})
+            elif part_type == "refusal":
+                parts.append({"type": "text", "content": part.get("refusal", "")})
+            elif isinstance(part_type, str):
+                # Media payloads (images, files, audio) stay out of span attributes.
+                parts.append({"type": part_type})
+        return parts
+
+    @staticmethod
+    def _tool_call_part(call_id: object, name: object, arguments: object) -> Dict[str, object]:
+        return {"type": "tool_call", "id": call_id, "name": name, "arguments": arguments}
+
+    def _output_messages(self, output: object, finish_reason: str) -> SemconvMessages:
+        parts: SemconvParts = []
+        for message in self._messages(output):
+            parts.extend(cast(SemconvParts, message["parts"]))
+        if not parts:
+            return []
+        return [{"role": "assistant", "parts": parts, "finish_reason": finish_reason}]
+
+    def _system_instructions(self, instructions: object) -> SemconvParts:
+        if isinstance(instructions, str):
+            return [{"type": "text", "content": instructions}] if instructions else []
+        parts: SemconvParts = []
+        for message in self._messages(instructions):
+            parts.extend(cast(SemconvParts, message["parts"]))
+        return parts
+
+    def _finish_reason(self, output: object, incomplete_reason: Optional[str] = None) -> str:
+        if incomplete_reason == "max_output_tokens":
+            return "length"
+        if incomplete_reason == "content_filter":
+            return "content_filter"
+        for raw_item in cast(List[object], output) if isinstance(output, list) else []:
+            item = self._as_dict(raw_item) or {}
+            if item.get("type") == "function_call" or item.get("tool_calls"):
+                return "tool_call"
+        return "stop"
 
     def _as_utc_nano(self, dt: str) -> int:
         """Convert ISO format datetime string to nanoseconds since epoch."""
