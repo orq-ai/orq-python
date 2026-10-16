@@ -78,7 +78,7 @@ with Orq(
     }, auth={
         "type": "MCP_AUTH_TYPE_OAUTH_CLIENT_CREDENTIALS",
     }, default_tool_exposure={
-        "mode": "MCP_TOOL_EXPOSURE_MODE_UNSPECIFIED",
+        "mode": "MCP_TOOL_EXPOSURE_MODE_SELECTED",
     })
 
     # Handle response

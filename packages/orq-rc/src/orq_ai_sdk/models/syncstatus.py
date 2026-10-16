@@ -5,7 +5,6 @@ from typing import Literal
 
 
 SyncStatus = Literal[
-    "SYNC_STATUS_UNSPECIFIED",
     "SYNC_STATUS_SYNCED",
     "SYNC_STATUS_FAILED",
     "SYNC_STATUS_PENDING",

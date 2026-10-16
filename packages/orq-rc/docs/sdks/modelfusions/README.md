@@ -73,7 +73,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.model_fusions.create(key="<key>", panel_models=[], judge_model="<value>", synthesis_mode="MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL", preset="MODEL_FUSION_PRESET_UNSPECIFIED")
+    res = orq.model_fusions.create(key="<key>", panel_models=[], judge_model="<value>", synthesis_mode="MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL", preset="MODEL_FUSION_PRESET_GENERAL")
 
     # Handle response
     print(res)

@@ -4,13 +4,12 @@
 
 ```python
 from orq_ai_sdk.models import McpAuthType
-value: McpAuthType = "MCP_AUTH_TYPE_UNSPECIFIED"
+value: McpAuthType = "MCP_AUTH_TYPE_NONE"
 ```
 
 
 ## Values
 
-- `"MCP_AUTH_TYPE_UNSPECIFIED"`
 - `"MCP_AUTH_TYPE_NONE"`
 - `"MCP_AUTH_TYPE_STATIC_HEADERS"`
 - `"MCP_AUTH_TYPE_OAUTH_CLIENT_CREDENTIALS"`

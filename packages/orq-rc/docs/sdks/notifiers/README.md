@@ -73,7 +73,7 @@ with Orq(
 ) as orq:
 
     res = orq.notifiers.create(request={
-        "type": "NOTIFIER_TYPE_UNSPECIFIED",
+        "type": "NOTIFIER_TYPE_EMAIL",
         "incoming_webhook_url": "https://far-wear.org/",
         "display_name": "Dennis48",
     })

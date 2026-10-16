@@ -6089,6 +6089,9 @@ if TYPE_CHECKING:
         McpServerUpdateRequest,
         McpServerUpdateRequestTypedDict,
     )
+    from .mcpskill import Frontmatter, FrontmatterTypedDict, McpSkill, McpSkillTypedDict
+    from .mcpskillexposure import McpSkillExposure, McpSkillExposureTypedDict
+    from .mcpskillfile import McpSkillFile, McpSkillFileTypedDict
     from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
     from .mcptool import (
         McpTool,
@@ -12736,6 +12739,8 @@ __all__ = [
     "FourTypedDict",
     "Fourteen",
     "FourteenTypedDict",
+    "Frontmatter",
+    "FrontmatterTypedDict",
     "Function",
     "FunctionParams",
     "FunctionParams1",
@@ -14702,6 +14707,12 @@ __all__ = [
     "McpServerTypedDict",
     "McpServerUpdateRequest",
     "McpServerUpdateRequestTypedDict",
+    "McpSkill",
+    "McpSkillExposure",
+    "McpSkillExposureTypedDict",
+    "McpSkillFile",
+    "McpSkillFileTypedDict",
+    "McpSkillTypedDict",
     "McpSyncState",
     "McpSyncStateTypedDict",
     "McpTool",
@@ -23638,6 +23649,14 @@ _dynamic_imports: dict[str, str] = {
     "McpServerTestToolRequestTypedDict": ".mcpservertesttoolop",
     "McpServerUpdateRequest": ".mcpserverupdateop",
     "McpServerUpdateRequestTypedDict": ".mcpserverupdateop",
+    "Frontmatter": ".mcpskill",
+    "FrontmatterTypedDict": ".mcpskill",
+    "McpSkill": ".mcpskill",
+    "McpSkillTypedDict": ".mcpskill",
+    "McpSkillExposure": ".mcpskillexposure",
+    "McpSkillExposureTypedDict": ".mcpskillexposure",
+    "McpSkillFile": ".mcpskillfile",
+    "McpSkillFileTypedDict": ".mcpskillfile",
     "McpSyncState": ".mcpsyncstate",
     "McpSyncStateTypedDict": ".mcpsyncstate",
     "McpTool": ".mcptool",

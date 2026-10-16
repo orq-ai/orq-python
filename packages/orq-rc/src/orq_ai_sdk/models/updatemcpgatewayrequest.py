@@ -34,6 +34,10 @@ class UpdateMcpGatewayRequestTypedDict(TypedDict):
     r"""Set true to remove every link; cannot be combined with `server_links`."""
     plugins: NotRequired[List[McpGatewayPluginTypedDict]]
     r"""Plugins run on every tool call this gateway serves."""
+    skill_ids: NotRequired[List[str]]
+    r"""Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all."""
+    clear_skill_ids: NotRequired[bool]
+    r"""Set true to stop serving every workspace skill; cannot be combined with `skill_ids`."""
 
 
 class UpdateMcpGatewayRequest(BaseModel):
@@ -67,6 +71,12 @@ class UpdateMcpGatewayRequest(BaseModel):
     plugins: Optional[List[McpGatewayPlugin]] = None
     r"""Plugins run on every tool call this gateway serves."""
 
+    skill_ids: Optional[List[str]] = None
+    r"""Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all."""
+
+    clear_skill_ids: Optional[bool] = None
+    r"""Set true to stop serving every workspace skill; cannot be combined with `skill_ids`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -81,6 +91,8 @@ class UpdateMcpGatewayRequest(BaseModel):
                 "sharing",
                 "clear_server_links",
                 "plugins",
+                "skill_ids",
+                "clear_skill_ids",
             ]
         )
         serialized = handler(self)

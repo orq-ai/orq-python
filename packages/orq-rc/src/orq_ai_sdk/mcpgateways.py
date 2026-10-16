@@ -281,6 +281,7 @@ class McpGateways(BaseSDK):
                 Iterable[models.McpGatewayPluginTypedDict],
             ]
         ] = None,
+        skill_ids: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -298,6 +299,7 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param plugins: Plugins run on every tool call this gateway serves.
+        :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -329,6 +331,7 @@ class McpGateways(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.McpGatewayPlugin]]
             ),
+            skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
         )
 
         req = self._build_request(
@@ -432,6 +435,7 @@ class McpGateways(BaseSDK):
                 Iterable[models.McpGatewayPluginTypedDict],
             ]
         ] = None,
+        skill_ids: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -449,6 +453,7 @@ class McpGateways(BaseSDK):
         :param mode:
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param plugins: Plugins run on every tool call this gateway serves.
+        :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -480,6 +485,7 @@ class McpGateways(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.McpGatewayPlugin]]
             ),
+            skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
         )
 
         req = self._build_request_async(
@@ -1298,6 +1304,8 @@ class McpGateways(BaseSDK):
                 Iterable[models.McpGatewayPluginTypedDict],
             ]
         ] = None,
+        skill_ids: Optional[Iterable[str]] = None,
+        clear_skill_ids: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1320,6 +1328,8 @@ class McpGateways(BaseSDK):
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
         :param plugins: Plugins run on every tool call this gateway serves.
+        :param skill_ids: Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all.
+        :param clear_skill_ids: Set true to stop serving every workspace skill; cannot be combined with `skill_ids`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1355,6 +1365,8 @@ class McpGateways(BaseSDK):
                 plugins=utils.get_pydantic_model(
                     plugins, Optional[List[models.McpGatewayPlugin]]
                 ),
+                skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
+                clear_skill_ids=clear_skill_ids,
             ),
         )
 
@@ -1471,6 +1483,8 @@ class McpGateways(BaseSDK):
                 Iterable[models.McpGatewayPluginTypedDict],
             ]
         ] = None,
+        skill_ids: Optional[Iterable[str]] = None,
+        clear_skill_ids: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1493,6 +1507,8 @@ class McpGateways(BaseSDK):
         :param sharing: Which projects in the workspace may use this gateway. Defaults to every project.
         :param clear_server_links: Set true to remove every link; cannot be combined with `server_links`.
         :param plugins: Plugins run on every tool call this gateway serves.
+        :param skill_ids: Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all.
+        :param clear_skill_ids: Set true to stop serving every workspace skill; cannot be combined with `skill_ids`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1528,6 +1544,8 @@ class McpGateways(BaseSDK):
                 plugins=utils.get_pydantic_model(
                     plugins, Optional[List[models.McpGatewayPlugin]]
                 ),
+                skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
+                clear_skill_ids=clear_skill_ids,
             ),
         )
 

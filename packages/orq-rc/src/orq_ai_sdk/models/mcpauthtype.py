@@ -5,7 +5,6 @@ from typing import Literal
 
 
 McpAuthType = Literal[
-    "MCP_AUTH_TYPE_UNSPECIFIED",
     "MCP_AUTH_TYPE_NONE",
     "MCP_AUTH_TYPE_STATIC_HEADERS",
     "MCP_AUTH_TYPE_OAUTH_CLIENT_CREDENTIALS",

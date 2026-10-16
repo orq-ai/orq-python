@@ -5,7 +5,6 @@ from typing import Literal
 
 
 AlertScope = Literal[
-    "ALERT_SCOPE_UNSPECIFIED",
     "ALERT_SCOPE_PROJECT",
     "ALERT_SCOPE_WORKSPACE",
 ]

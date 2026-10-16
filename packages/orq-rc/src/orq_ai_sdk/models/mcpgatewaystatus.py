@@ -5,7 +5,6 @@ from typing import Literal
 
 
 McpGatewayStatus = Literal[
-    "MCP_GATEWAY_STATUS_UNSPECIFIED",
     "MCP_GATEWAY_STATUS_ACTIVE",
     "MCP_GATEWAY_STATUS_DISABLED",
 ]

@@ -262,9 +262,8 @@ class ManagementKeys(BaseSDK):
             for the catalog of valid keys (Domain.id) and AccessLevel string
             values, or fetch the live catalog via the capability catalog
             endpoint.
-        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-            the key once `expires_at` is in the past. Unset means the key
-            never expires.
+        :param expires_at: Optional expiration. The key is rejected once `expires_at` is in the
+            past. Unset means the key never expires.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -373,9 +372,8 @@ class ManagementKeys(BaseSDK):
             for the catalog of valid keys (Domain.id) and AccessLevel string
             values, or fetch the live catalog via the capability catalog
             endpoint.
-        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
-            the key once `expires_at` is in the past. Unset means the key
-            never expires.
+        :param expires_at: Optional expiration. The key is rejected once `expires_at` is in the
+            past. Unset means the key never expires.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

@@ -1072,7 +1072,7 @@ class Identities(BaseSDK):
 
         :param id: Identity ID to update.
         :param display_name: New display name. Omit to keep the current display name.
-        :param email: New email address. Omit to keep the current email.
+        :param email: New email address. Omit to keep the current email, or send an empty string to clear it.
         :param avatar_url: New avatar image URL. Omit to keep the current avatar URL.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param metadata: Replacement custom JSON metadata.
@@ -1209,7 +1209,7 @@ class Identities(BaseSDK):
 
         :param id: Identity ID to update.
         :param display_name: New display name. Omit to keep the current display name.
-        :param email: New email address. Omit to keep the current email.
+        :param email: New email address. Omit to keep the current email, or send an empty string to clear it.
         :param avatar_url: New avatar image URL. Omit to keep the current avatar URL.
         :param tags: Replacement tag list. Leave empty to clear tags.
         :param metadata: Replacement custom JSON metadata.
