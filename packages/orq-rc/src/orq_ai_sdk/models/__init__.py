@@ -315,6 +315,43 @@ if TYPE_CHECKING:
         InputAudio,
         InputAudioTypedDict,
     )
+    from .auditlogdelivery import AuditLogDelivery, AuditLogDeliveryTypedDict
+    from .auditlogdeliverykind import AuditLogDeliveryKind
+    from .auditlogdeliverystatus import AuditLogDeliveryStatus
+    from .auditlogdestination import AuditLogDestination, AuditLogDestinationTypedDict
+    from .auditlogdestinationdeleteop import (
+        AuditLogDestinationDeleteRequest,
+        AuditLogDestinationDeleteRequestTypedDict,
+    )
+    from .auditlogdestinationgetop import (
+        AuditLogDestinationGetRequest,
+        AuditLogDestinationGetRequestTypedDict,
+    )
+    from .auditlogdestinationlistdeliveriesop import (
+        AuditLogDestinationListDeliveriesRequest,
+        AuditLogDestinationListDeliveriesRequestTypedDict,
+    )
+    from .auditlogdestinationlistop import (
+        AuditLogDestinationListRequest,
+        AuditLogDestinationListRequestTypedDict,
+    )
+    from .auditlogdestinationreplayop import (
+        AuditLogDestinationReplayRequest,
+        AuditLogDestinationReplayRequestTypedDict,
+    )
+    from .auditlogdestinationrotatesecretop import (
+        AuditLogDestinationRotateSecretRequest,
+        AuditLogDestinationRotateSecretRequestTypedDict,
+    )
+    from .auditlogdestinationstatus import AuditLogDestinationStatus
+    from .auditlogdestinationtestop import (
+        AuditLogDestinationTestRequest,
+        AuditLogDestinationTestRequestTypedDict,
+    )
+    from .auditlogdestinationupdateop import (
+        AuditLogDestinationUpdateRequest,
+        AuditLogDestinationUpdateRequestTypedDict,
+    )
     from .autorouterconfig import AutoRouterConfig, AutoRouterConfigTypedDict
     from .autorouterv2config import AutoRouterV2Config, AutoRouterV2ConfigTypedDict
     from .autorouterv2creatorconfig import (
@@ -1005,6 +1042,14 @@ if TYPE_CHECKING:
     from .createannotationqueuerequest import (
         CreateAnnotationQueueRequest,
         CreateAnnotationQueueRequestTypedDict,
+    )
+    from .createauditlogdestinationrequest import (
+        CreateAuditLogDestinationRequest,
+        CreateAuditLogDestinationRequestTypedDict,
+    )
+    from .createauditlogdestinationresponse import (
+        CreateAuditLogDestinationResponse,
+        CreateAuditLogDestinationResponseTypedDict,
     )
     from .createbudgetrequest import CreateBudgetRequest, CreateBudgetRequestTypedDict
     from .createbudgetresponse import (
@@ -2706,6 +2751,10 @@ if TYPE_CHECKING:
         DeleteAnnotationQueueRequest,
         DeleteAnnotationQueueRequestTypedDict,
     )
+    from .deleteauditlogdestinationresponse import (
+        DeleteAuditLogDestinationResponse,
+        DeleteAuditLogDestinationResponseTypedDict,
+    )
     from .deletebudgetresponse import (
         DeleteBudgetResponse,
         DeleteBudgetResponseTypedDict,
@@ -3466,6 +3515,10 @@ if TYPE_CHECKING:
     from .domain import Domain, DomainTypedDict, Group
     from .domainverification import DomainVerification, DomainVerificationTypedDict
     from .domainverificationstatus import DomainVerificationStatus
+    from .effectiveuserpermissions import (
+        EffectiveUserPermissions,
+        EffectiveUserPermissionsTypedDict,
+    )
     from .embeddingcacheconfig import (
         EmbeddingCacheConfig,
         EmbeddingCacheConfigType,
@@ -4118,6 +4171,10 @@ if TYPE_CHECKING:
         GetAllToolsRequestTypedDict,
         GetAllToolsResponseBody,
         GetAllToolsResponseBodyTypedDict,
+    )
+    from .getauditlogdestinationresponse import (
+        GetAuditLogDestinationResponse,
+        GetAuditLogDestinationResponseTypedDict,
     )
     from .getbudgetresponse import GetBudgetResponse, GetBudgetResponseTypedDict
     from .getchunkscountop import GetChunksCountRequest, GetChunksCountRequestTypedDict
@@ -5430,6 +5487,14 @@ if TYPE_CHECKING:
         ListAnnotationQueuesResponse,
         ListAnnotationQueuesResponseTypedDict,
     )
+    from .listauditlogdeliveriesresponse import (
+        ListAuditLogDeliveriesResponse,
+        ListAuditLogDeliveriesResponseTypedDict,
+    )
+    from .listauditlogdestinationsresponse import (
+        ListAuditLogDestinationsResponse,
+        ListAuditLogDestinationsResponseTypedDict,
+    )
     from .listbudgetsresponse import ListBudgetsResponse, ListBudgetsResponseTypedDict
     from .listchunksop import (
         ListChunksQueryParamStatus,
@@ -6721,6 +6786,14 @@ if TYPE_CHECKING:
         RemoveAnnotationQueueItemsRequest,
         RemoveAnnotationQueueItemsRequestTypedDict,
     )
+    from .replayauditlogdeliveriesrequest import (
+        ReplayAuditLogDeliveriesRequest,
+        ReplayAuditLogDeliveriesRequestTypedDict,
+    )
+    from .replayauditlogdeliveriesresponse import (
+        ReplayAuditLogDeliveriesResponse,
+        ReplayAuditLogDeliveriesResponseTypedDict,
+    )
     from .requestlimit import RequestLimit, RequestLimitPeriod, RequestLimitTypedDict
     from .requestprojectscope import (
         RequestProjectScope,
@@ -7365,6 +7438,10 @@ if TYPE_CHECKING:
         RetrieveToolResponseBodyTypedDict,
     )
     from .reviewoutcome import ReviewOutcome
+    from .rotateauditlogdestinationsecretresponse import (
+        RotateAuditLogDestinationSecretResponse,
+        RotateAuditLogDestinationSecretResponseTypedDict,
+    )
     from .routingrule import RoutingRule, RoutingRuleTypedDict
     from .routingrulecacheconfig import (
         RoutingRuleCacheConfig,
@@ -8173,6 +8250,10 @@ if TYPE_CHECKING:
         TelemetrySourceCapabilityTypedDict,
     )
     from .telemetryvaluecardinality import TelemetryValueCardinality
+    from .testauditlogdestinationresponse import (
+        TestAuditLogDestinationResponse,
+        TestAuditLogDestinationResponseTypedDict,
+    )
     from .testexternalagentconnectionrequest import (
         TestExternalAgentConnectionRequest,
         TestExternalAgentConnectionRequestTypedDict,
@@ -8690,6 +8771,14 @@ if TYPE_CHECKING:
     from .updateannotationqueuerequest import (
         UpdateAnnotationQueueRequest,
         UpdateAnnotationQueueRequestTypedDict,
+    )
+    from .updateauditlogdestinationrequest import (
+        UpdateAuditLogDestinationRequest,
+        UpdateAuditLogDestinationRequestTypedDict,
+    )
+    from .updateauditlogdestinationresponse import (
+        UpdateAuditLogDestinationResponse,
+        UpdateAuditLogDestinationResponseTypedDict,
     )
     from .updatebudgetrequest import UpdateBudgetRequest, UpdateBudgetRequestTypedDict
     from .updatebudgetresponse import (
@@ -9780,6 +9869,29 @@ __all__ = [
     "AudioContentPartSchemaTypedDict",
     "AudioModel",
     "AudioModelTypedDict",
+    "AuditLogDelivery",
+    "AuditLogDeliveryKind",
+    "AuditLogDeliveryStatus",
+    "AuditLogDeliveryTypedDict",
+    "AuditLogDestination",
+    "AuditLogDestinationDeleteRequest",
+    "AuditLogDestinationDeleteRequestTypedDict",
+    "AuditLogDestinationGetRequest",
+    "AuditLogDestinationGetRequestTypedDict",
+    "AuditLogDestinationListDeliveriesRequest",
+    "AuditLogDestinationListDeliveriesRequestTypedDict",
+    "AuditLogDestinationListRequest",
+    "AuditLogDestinationListRequestTypedDict",
+    "AuditLogDestinationReplayRequest",
+    "AuditLogDestinationReplayRequestTypedDict",
+    "AuditLogDestinationRotateSecretRequest",
+    "AuditLogDestinationRotateSecretRequestTypedDict",
+    "AuditLogDestinationStatus",
+    "AuditLogDestinationTestRequest",
+    "AuditLogDestinationTestRequestTypedDict",
+    "AuditLogDestinationTypedDict",
+    "AuditLogDestinationUpdateRequest",
+    "AuditLogDestinationUpdateRequestTypedDict",
     "AutoRouterConfig",
     "AutoRouterConfigTypedDict",
     "AutoRouterV2Config",
@@ -10260,6 +10372,10 @@ __all__ = [
     "CreateAnnotationRequestBody",
     "CreateAnnotationRequestBodyTypedDict",
     "CreateAnnotationRequestTypedDict",
+    "CreateAuditLogDestinationRequest",
+    "CreateAuditLogDestinationRequestTypedDict",
+    "CreateAuditLogDestinationResponse",
+    "CreateAuditLogDestinationResponseTypedDict",
     "CreateBudgetRequest",
     "CreateBudgetRequestTypedDict",
     "CreateBudgetResponse",
@@ -11754,6 +11870,8 @@ __all__ = [
     "DeleteAnnotationRequestBody",
     "DeleteAnnotationRequestBodyTypedDict",
     "DeleteAnnotationRequestTypedDict",
+    "DeleteAuditLogDestinationResponse",
+    "DeleteAuditLogDestinationResponseTypedDict",
     "DeleteBudgetResponse",
     "DeleteBudgetResponseTypedDict",
     "DeleteChunkRequest",
@@ -12438,6 +12556,8 @@ __all__ = [
     "DomainVerificationStatus",
     "DomainVerificationTypedDict",
     "EffectiveGrain",
+    "EffectiveUserPermissions",
+    "EffectiveUserPermissionsTypedDict",
     "Effort",
     "Eight",
     "EightTypedDict",
@@ -13049,6 +13169,8 @@ __all__ = [
     "GetAllToolsRequestTypedDict",
     "GetAllToolsResponseBody",
     "GetAllToolsResponseBodyTypedDict",
+    "GetAuditLogDestinationResponse",
+    "GetAuditLogDestinationResponseTypedDict",
     "GetBudgetResponse",
     "GetBudgetResponseTypedDict",
     "GetChunksCountRequest",
@@ -14158,6 +14280,10 @@ __all__ = [
     "ListAnnotationQueuesRequestTypedDict",
     "ListAnnotationQueuesResponse",
     "ListAnnotationQueuesResponseTypedDict",
+    "ListAuditLogDeliveriesResponse",
+    "ListAuditLogDeliveriesResponseTypedDict",
+    "ListAuditLogDestinationsResponse",
+    "ListAuditLogDestinationsResponseTypedDict",
     "ListBudgetsResponse",
     "ListBudgetsResponseTypedDict",
     "ListChunksPaginatedRequest",
@@ -15460,6 +15586,10 @@ __all__ = [
     "RemoveAnnotationQueueItemsRequestTypedDict",
     "ReplacementJudges",
     "ReplacementJudgesTypedDict",
+    "ReplayAuditLogDeliveriesRequest",
+    "ReplayAuditLogDeliveriesRequestTypedDict",
+    "ReplayAuditLogDeliveriesResponse",
+    "ReplayAuditLogDeliveriesResponseTypedDict",
     "RequestBody1",
     "RequestBody1TypedDict",
     "RequestBody2",
@@ -16095,6 +16225,8 @@ __all__ = [
     "Role",
     "RoleToolMessage",
     "RoleUserMessage",
+    "RotateAuditLogDestinationSecretResponse",
+    "RotateAuditLogDestinationSecretResponseTypedDict",
     "RoutingRule",
     "RoutingRuleCacheConfig",
     "RoutingRuleCacheConfigTypedDict",
@@ -16807,6 +16939,8 @@ __all__ = [
     "TemplateEngine",
     "Ten",
     "TenTypedDict",
+    "TestAuditLogDestinationResponse",
+    "TestAuditLogDestinationResponseTypedDict",
     "TestExternalAgentConnectionRequest",
     "TestExternalAgentConnectionRequestTypedDict",
     "TestExternalAgentConnectionResponse",
@@ -17355,6 +17489,10 @@ __all__ = [
     "UpdateAnnotationQueueRequest1",
     "UpdateAnnotationQueueRequest1TypedDict",
     "UpdateAnnotationQueueRequestTypedDict",
+    "UpdateAuditLogDestinationRequest",
+    "UpdateAuditLogDestinationRequestTypedDict",
+    "UpdateAuditLogDestinationResponse",
+    "UpdateAuditLogDestinationResponseTypedDict",
     "UpdateBudgetRequest",
     "UpdateBudgetRequestTypedDict",
     "UpdateBudgetResponse",
@@ -18335,6 +18473,29 @@ _dynamic_imports: dict[str, str] = {
     "AudioContentPartSchemaTypedDict": ".audiocontentpartschema",
     "InputAudio": ".audiocontentpartschema",
     "InputAudioTypedDict": ".audiocontentpartschema",
+    "AuditLogDelivery": ".auditlogdelivery",
+    "AuditLogDeliveryTypedDict": ".auditlogdelivery",
+    "AuditLogDeliveryKind": ".auditlogdeliverykind",
+    "AuditLogDeliveryStatus": ".auditlogdeliverystatus",
+    "AuditLogDestination": ".auditlogdestination",
+    "AuditLogDestinationTypedDict": ".auditlogdestination",
+    "AuditLogDestinationDeleteRequest": ".auditlogdestinationdeleteop",
+    "AuditLogDestinationDeleteRequestTypedDict": ".auditlogdestinationdeleteop",
+    "AuditLogDestinationGetRequest": ".auditlogdestinationgetop",
+    "AuditLogDestinationGetRequestTypedDict": ".auditlogdestinationgetop",
+    "AuditLogDestinationListDeliveriesRequest": ".auditlogdestinationlistdeliveriesop",
+    "AuditLogDestinationListDeliveriesRequestTypedDict": ".auditlogdestinationlistdeliveriesop",
+    "AuditLogDestinationListRequest": ".auditlogdestinationlistop",
+    "AuditLogDestinationListRequestTypedDict": ".auditlogdestinationlistop",
+    "AuditLogDestinationReplayRequest": ".auditlogdestinationreplayop",
+    "AuditLogDestinationReplayRequestTypedDict": ".auditlogdestinationreplayop",
+    "AuditLogDestinationRotateSecretRequest": ".auditlogdestinationrotatesecretop",
+    "AuditLogDestinationRotateSecretRequestTypedDict": ".auditlogdestinationrotatesecretop",
+    "AuditLogDestinationStatus": ".auditlogdestinationstatus",
+    "AuditLogDestinationTestRequest": ".auditlogdestinationtestop",
+    "AuditLogDestinationTestRequestTypedDict": ".auditlogdestinationtestop",
+    "AuditLogDestinationUpdateRequest": ".auditlogdestinationupdateop",
+    "AuditLogDestinationUpdateRequestTypedDict": ".auditlogdestinationupdateop",
     "AutoRouterConfig": ".autorouterconfig",
     "AutoRouterConfigTypedDict": ".autorouterconfig",
     "AutoRouterV2Config": ".autorouterv2config",
@@ -18965,6 +19126,10 @@ _dynamic_imports: dict[str, str] = {
     "ValueTypedDict": ".createannotationop",
     "CreateAnnotationQueueRequest": ".createannotationqueuerequest",
     "CreateAnnotationQueueRequestTypedDict": ".createannotationqueuerequest",
+    "CreateAuditLogDestinationRequest": ".createauditlogdestinationrequest",
+    "CreateAuditLogDestinationRequestTypedDict": ".createauditlogdestinationrequest",
+    "CreateAuditLogDestinationResponse": ".createauditlogdestinationresponse",
+    "CreateAuditLogDestinationResponseTypedDict": ".createauditlogdestinationresponse",
     "CreateBudgetRequest": ".createbudgetrequest",
     "CreateBudgetRequestTypedDict": ".createbudgetrequest",
     "CreateBudgetResponse": ".createbudgetresponse",
@@ -20551,6 +20716,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteAnnotationRequestTypedDict": ".deleteannotationop",
     "DeleteAnnotationQueueRequest": ".deleteannotationqueueop",
     "DeleteAnnotationQueueRequestTypedDict": ".deleteannotationqueueop",
+    "DeleteAuditLogDestinationResponse": ".deleteauditlogdestinationresponse",
+    "DeleteAuditLogDestinationResponseTypedDict": ".deleteauditlogdestinationresponse",
     "DeleteBudgetResponse": ".deletebudgetresponse",
     "DeleteBudgetResponseTypedDict": ".deletebudgetresponse",
     "DeleteChunkRequest": ".deletechunkop",
@@ -21268,6 +21435,8 @@ _dynamic_imports: dict[str, str] = {
     "DomainVerification": ".domainverification",
     "DomainVerificationTypedDict": ".domainverification",
     "DomainVerificationStatus": ".domainverificationstatus",
+    "EffectiveUserPermissions": ".effectiveuserpermissions",
+    "EffectiveUserPermissionsTypedDict": ".effectiveuserpermissions",
     "EmbeddingCacheConfig": ".embeddingcacheconfig",
     "EmbeddingCacheConfigType": ".embeddingcacheconfig",
     "EmbeddingCacheConfigTypedDict": ".embeddingcacheconfig",
@@ -21861,6 +22030,8 @@ _dynamic_imports: dict[str, str] = {
     "GetAllToolsRequestTypedDict": ".getalltoolsop",
     "GetAllToolsResponseBody": ".getalltoolsop",
     "GetAllToolsResponseBodyTypedDict": ".getalltoolsop",
+    "GetAuditLogDestinationResponse": ".getauditlogdestinationresponse",
+    "GetAuditLogDestinationResponseTypedDict": ".getauditlogdestinationresponse",
     "GetBudgetResponse": ".getbudgetresponse",
     "GetBudgetResponseTypedDict": ".getbudgetresponse",
     "GetChunksCountRequest": ".getchunkscountop",
@@ -23098,6 +23269,10 @@ _dynamic_imports: dict[str, str] = {
     "ListAnnotationQueuesRequestTypedDict": ".listannotationqueuesop",
     "ListAnnotationQueuesResponse": ".listannotationqueuesresponse",
     "ListAnnotationQueuesResponseTypedDict": ".listannotationqueuesresponse",
+    "ListAuditLogDeliveriesResponse": ".listauditlogdeliveriesresponse",
+    "ListAuditLogDeliveriesResponseTypedDict": ".listauditlogdeliveriesresponse",
+    "ListAuditLogDestinationsResponse": ".listauditlogdestinationsresponse",
+    "ListAuditLogDestinationsResponseTypedDict": ".listauditlogdestinationsresponse",
     "ListBudgetsResponse": ".listbudgetsresponse",
     "ListBudgetsResponseTypedDict": ".listbudgetsresponse",
     "ListChunksQueryParamStatus": ".listchunksop",
@@ -24215,6 +24390,10 @@ _dynamic_imports: dict[str, str] = {
     "RemoveAnnotationQueueItemsRequest1TypedDict": ".removeannotationqueueitemsop",
     "RemoveAnnotationQueueItemsRequest": ".removeannotationqueueitemsrequest",
     "RemoveAnnotationQueueItemsRequestTypedDict": ".removeannotationqueueitemsrequest",
+    "ReplayAuditLogDeliveriesRequest": ".replayauditlogdeliveriesrequest",
+    "ReplayAuditLogDeliveriesRequestTypedDict": ".replayauditlogdeliveriesrequest",
+    "ReplayAuditLogDeliveriesResponse": ".replayauditlogdeliveriesresponse",
+    "ReplayAuditLogDeliveriesResponseTypedDict": ".replayauditlogdeliveriesresponse",
     "RequestLimit": ".requestlimit",
     "RequestLimitPeriod": ".requestlimit",
     "RequestLimitTypedDict": ".requestlimit",
@@ -24704,6 +24883,8 @@ _dynamic_imports: dict[str, str] = {
     "RetrieveToolResponseBodyType": ".retrievetoolop",
     "RetrieveToolResponseBodyTypedDict": ".retrievetoolop",
     "ReviewOutcome": ".reviewoutcome",
+    "RotateAuditLogDestinationSecretResponse": ".rotateauditlogdestinationsecretresponse",
+    "RotateAuditLogDestinationSecretResponseTypedDict": ".rotateauditlogdestinationsecretresponse",
     "RoutingRule": ".routingrule",
     "RoutingRuleTypedDict": ".routingrule",
     "RoutingRuleCacheConfig": ".routingrulecacheconfig",
@@ -25464,6 +25645,8 @@ _dynamic_imports: dict[str, str] = {
     "TelemetrySourceCapability": ".telemetrysourcecapability",
     "TelemetrySourceCapabilityTypedDict": ".telemetrysourcecapability",
     "TelemetryValueCardinality": ".telemetryvaluecardinality",
+    "TestAuditLogDestinationResponse": ".testauditlogdestinationresponse",
+    "TestAuditLogDestinationResponseTypedDict": ".testauditlogdestinationresponse",
     "TestExternalAgentConnectionRequest": ".testexternalagentconnectionrequest",
     "TestExternalAgentConnectionRequestTypedDict": ".testexternalagentconnectionrequest",
     "Card": ".testexternalagentconnectionresponse",
@@ -25950,6 +26133,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAnnotationQueueRequest1TypedDict": ".updateannotationqueueop",
     "UpdateAnnotationQueueRequest": ".updateannotationqueuerequest",
     "UpdateAnnotationQueueRequestTypedDict": ".updateannotationqueuerequest",
+    "UpdateAuditLogDestinationRequest": ".updateauditlogdestinationrequest",
+    "UpdateAuditLogDestinationRequestTypedDict": ".updateauditlogdestinationrequest",
+    "UpdateAuditLogDestinationResponse": ".updateauditlogdestinationresponse",
+    "UpdateAuditLogDestinationResponseTypedDict": ".updateauditlogdestinationresponse",
     "UpdateBudgetRequest": ".updatebudgetrequest",
     "UpdateBudgetRequestTypedDict": ".updatebudgetrequest",
     "UpdateBudgetResponse": ".updatebudgetresponse",

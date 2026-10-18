@@ -19,3 +19,4 @@ value: SearchWebProvider = "exa"
 - `"serper"`
 - `"openai"`
 - `"perplexity"`
+- `"deepseek"`

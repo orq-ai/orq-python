@@ -19,3 +19,4 @@ value: Provider = "exa"
 - `"serper"`
 - `"openai"`
 - `"perplexity"`
+- `"deepseek"`

@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.annotationqueues import AnnotationQueues
     from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.apikeys import APIKeys
+    from orq_ai_sdk.auditlogdestinations import AuditLogDestinations
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.datasets import Datasets
@@ -99,6 +100,7 @@ class Orq(BaseSDK):
     policies: "Policies"
     alerts: "Alerts"
     annotation_queues: "AnnotationQueues"
+    audit_log_destinations: "AuditLogDestinations"
     budgets: "Budgets"
     environments: "Environments"
     files: "Files"
@@ -152,6 +154,10 @@ class Orq(BaseSDK):
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),
         "annotation_queues": ("orq_ai_sdk.annotationqueues", "AnnotationQueues"),
+        "audit_log_destinations": (
+            "orq_ai_sdk.auditlogdestinations",
+            "AuditLogDestinations",
+        ),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "environments": ("orq_ai_sdk.environments", "Environments"),
         "files": ("orq_ai_sdk.files", "Files"),
