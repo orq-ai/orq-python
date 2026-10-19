@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import warnings
 from dataclasses import dataclass
@@ -10,7 +11,15 @@ import pytest
 from pydantic import BaseModel
 
 from orq_ai_sdk import models, utils
-from orq_ai_sdk.function_tools import ToolFunctionWrapper, ToolSchemaError, tool, tool_schema
+from orq_ai_sdk.function_tools import (
+    ToolFunctionWrapper,
+    ToolLoopError,
+    ToolSchemaError,
+    arun_tool_loop,
+    run_tool_loop,
+    tool,
+    tool_schema,
+)
 from orq_ai_sdk.models.create_router_responseop import CreateRouterResponseRequestBody, ToolsFunction
 
 
@@ -472,3 +481,112 @@ def test_wrapper_applies_default_on_omission_under_non_strict():
     args = json.loads('{"city": "Paris"}')  # non-strict lets the model omit units
 
     assert get_weather(**args) == "Paris:celsius"
+
+
+# ---------------------------------------------------------------------------
+# Automatic tool-call execution (RES-1096)
+# ---------------------------------------------------------------------------
+
+
+class _FakeCall:
+    """A function_call output item (object form, like a deserialized model)."""
+
+    type = "function_call"
+
+    def __init__(self, name: str, arguments: str, call_id: str) -> None:
+        self.name, self.arguments, self.call_id = name, arguments, call_id
+
+
+class _FakeResp:
+    def __init__(self, output, id):  # noqa: A002 - mirrors the SDK field name
+        self.output, self.id = output, id
+
+
+class _FakeResponses:
+    def __init__(self, script):
+        self._script = list(script)
+        self.calls: list[dict] = []
+
+    def create(self, **kwargs):
+        self.calls.append(kwargs)
+        return self._script.pop(0)
+
+    async def create_async(self, **kwargs):
+        self.calls.append(kwargs)
+        return self._script.pop(0)
+
+
+class _FakeClient:
+    def __init__(self, script):
+        self.responses = _FakeResponses(script)
+
+
+def test_run_tool_loop_executes_and_resubmits():
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 3}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),  # dict item, no tool call -> done
+    ])
+    final = run_tool_loop(client, [add], model="m", input="2+3?")
+
+    assert final.id == "r2"
+    assert len(client.responses.calls) == 2
+    resubmit = client.responses.calls[1]
+    assert resubmit["previous_response_id"] == "r1"
+    assert resubmit["input"] == [{"type": "function_call_output", "call_id": "c1", "output": "5"}]
+    assert resubmit["model"] == "m"  # model carried over, only the original input dropped
+
+
+def test_run_tool_loop_errors_on_unregistered_tool():
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([_FakeResp([_FakeCall("subtract", "{}", "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="not passed to the loop"):
+        run_tool_loop(client, [add], model="m", input="x")
+
+
+def test_run_tool_loop_caps_iterations():
+    @tool
+    def ping() -> str:
+        """Ping."""
+        return "pong"
+
+    class _AlwaysCalls:
+        def __init__(self):
+            self.calls: list[dict] = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return _FakeResp([_FakeCall("ping", "{}", "c")], "r")
+
+    client = type("C", (), {"responses": _AlwaysCalls()})()
+    with pytest.raises(ToolLoopError, match="did not finish within 2"):
+        run_tool_loop(client, [ping], max_iterations=2, model="m", input="x")
+
+
+def test_arun_tool_loop_uses_the_async_client():
+    # @tool functions are synchronous (the decorator rejects async), so arun exists
+    # for the async client: it drives create_async and runs the sync tool inline.
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 4, "b": 5}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    final = asyncio.run(arun_tool_loop(client, [add], model="m", input="4+5?"))
+
+    assert final.id == "r2"
+    assert len(client.responses.calls) == 2  # both turns went through create_async
+    assert client.responses.calls[1]["input"] == [
+        {"type": "function_call_output", "call_id": "c1", "output": "9"}
+    ]

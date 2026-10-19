@@ -4,10 +4,11 @@ import dataclasses
 import enum
 import functools
 import inspect
+import json
 import re
 import types
 import warnings
-from collections.abc import Callable, Iterator, Mapping
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Literal, TypeVar, Union, cast, get_args, get_origin, get_type_hints, overload
 
 from orq_ai_sdk.models.create_router_responseop import ToolsFunction
@@ -414,9 +415,143 @@ def _enum_to_schema(enum_type: type[enum.Enum]) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Automatic tool-call execution (RES-1096)
+# ---------------------------------------------------------------------------
+#
+# `responses.create(tools=[...])` returns `function_call` items; without these
+# helpers the caller has to parse the arguments, call the function, resubmit the
+# result as a `function_call_output` and loop, by hand. These run that loop:
+# every registered `@tool` is directly callable, so a `function_call` is matched
+# to its wrapper by name, executed, and its output fed back with the response id
+# until the model stops calling tools. Opt-in, so manual-loop callers are
+# unaffected, and the generated `responses.create` is untouched.
+
+DEFAULT_MAX_TOOL_ITERATIONS = 8
+
+
+class ToolLoopError(RuntimeError):
+    """Raised when the tool-execution loop cannot proceed or does not converge."""
+
+
+def _item_field(item: Any, key: str) -> Any:
+    """Read a field off a response item, which may be a dict or a model."""
+    if isinstance(item, Mapping):
+        return item.get(key)
+    return getattr(item, key, None)
+
+
+def _tool_registry(tools: Iterable[ToolFunctionWrapper]) -> dict[str, ToolFunctionWrapper]:
+    registry: dict[str, ToolFunctionWrapper] = {}
+    for t in tools:
+        name = t.name if isinstance(t, ToolFunctionWrapper) else _item_field(t, "name")
+        if not name:
+            raise ToolLoopError(f"tool {t!r} has no name; use @tool so it carries a schema")
+        registry[name] = t
+    return registry
+
+
+def _pending_function_calls(response: Any) -> list[Any]:
+    return [item for item in (getattr(response, "output", None) or []) if _item_field(item, "type") == "function_call"]
+
+
+def _tool_output_str(result: Any) -> str:
+    """Serialize a tool result for the `function_call_output` payload."""
+    if isinstance(result, str):
+        return result
+    try:
+        return json.dumps(result)
+    except (TypeError, ValueError):
+        return str(result)
+
+
+def _lookup_and_args(call: Any, registry: Mapping[str, ToolFunctionWrapper]) -> tuple[ToolFunctionWrapper, dict[str, Any]]:
+    name = _item_field(call, "name")
+    fn = registry.get(name)
+    if fn is None:
+        raise ToolLoopError(f"the model called tool {name!r}, which was not passed to the loop")
+    raw = _item_field(call, "arguments")
+    try:
+        args = json.loads(raw) if raw else {}
+    except (TypeError, ValueError) as exc:
+        raise ToolLoopError(f"tool {name!r} arguments were not valid JSON: {raw!r}") from exc
+    return fn, args
+
+
+def _result_item(call: Any, result: Any) -> dict[str, Any]:
+    return {"type": "function_call_output", "call_id": _item_field(call, "call_id"), "output": _tool_output_str(result)}
+
+
+def run_tool_loop(
+    client: Any,
+    tools: Iterable[ToolFunctionWrapper],
+    *,
+    max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
+    **create_kwargs: Any,
+) -> Any:
+    """Call ``client.responses.create`` and auto-execute any function tool calls.
+
+    Passes ``tools`` on every turn, runs each returned ``function_call`` against the
+    matching ``@tool`` function, resubmits the results as ``function_call_output``
+    items with ``previous_response_id``, and repeats until the model stops calling
+    tools. Returns that final response. ``@tool`` functions are synchronous; use
+    :func:`arun_tool_loop` with the async client. Raises ``ToolLoopError`` on an
+    unregistered tool, non-JSON arguments, or exceeding ``max_iterations``.
+    """
+    registry = _tool_registry(tools)
+    tool_list = list(tools)
+    response = client.responses.create(tools=tool_list, **create_kwargs)
+    follow = {k: v for k, v in create_kwargs.items() if k != "input"}
+    for _ in range(max_iterations):
+        calls = _pending_function_calls(response)
+        if not calls:
+            return response
+        outputs = []
+        for call in calls:
+            fn, args = _lookup_and_args(call, registry)
+            outputs.append(_result_item(call, fn(**args)))
+        response = client.responses.create(
+            input=outputs, previous_response_id=_item_field(response, "id"), tools=tool_list, **follow
+        )
+    raise ToolLoopError(f"tool loop did not finish within {max_iterations} iterations")
+
+
+async def arun_tool_loop(
+    client: Any,
+    tools: Iterable[ToolFunctionWrapper],
+    *,
+    max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
+    **create_kwargs: Any,
+) -> Any:
+    """Async form of :func:`run_tool_loop`, using ``responses.create_async``.
+
+    For callers on the async client, so the response round trips do not block the
+    event loop. ``@tool`` functions are synchronous and run inline between calls.
+    """
+    registry = _tool_registry(tools)
+    tool_list = list(tools)
+    response = await client.responses.create_async(tools=tool_list, **create_kwargs)
+    follow = {k: v for k, v in create_kwargs.items() if k != "input"}
+    for _ in range(max_iterations):
+        calls = _pending_function_calls(response)
+        if not calls:
+            return response
+        outputs = []
+        for call in calls:
+            fn, args = _lookup_and_args(call, registry)
+            outputs.append(_result_item(call, fn(**args)))
+        response = await client.responses.create_async(
+            input=outputs, previous_response_id=_item_field(response, "id"), tools=tool_list, **follow
+        )
+    raise ToolLoopError(f"tool loop did not finish within {max_iterations} iterations")
+
+
 __all__ = [
     "ToolFunctionWrapper",
+    "ToolLoopError",
     "ToolSchemaError",
+    "arun_tool_loop",
+    "run_tool_loop",
     "tool",
     "tool_schema",
 ]
