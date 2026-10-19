@@ -13,6 +13,7 @@ class BudgetAlertTypedDict(TypedDict):
     `dimension` reaches `threshold_percent` of the matching limit. Each alert
     fires at most once per period, re-arming on rollover or a limit change.
     The dimension must have a limit set, or the write is rejected.
+    A TOKENS alert is rejected.
     """
 
     threshold_percent: int
@@ -29,6 +30,7 @@ class BudgetAlert(BaseModel):
     `dimension` reaches `threshold_percent` of the matching limit. Each alert
     fires at most once per period, re-arming on rollover or a limit change.
     The dimension must have a limit set, or the write is rejected.
+    A TOKENS alert is rejected.
     """
 
     threshold_percent: int
