@@ -126,7 +126,7 @@ class CreateImageCache(BaseModel):
 
     type: CreateImageType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -274,7 +274,7 @@ class CreateImageRouterImagesGenerationsCache(BaseModel):
 
     type: CreateImageRouterImagesGenerationsType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")

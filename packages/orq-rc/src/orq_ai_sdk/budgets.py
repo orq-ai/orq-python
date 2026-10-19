@@ -285,15 +285,15 @@ class Budgets(BaseSDK):
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
             or provide `match` for a dynamic budget. Exactly one of the two
-            must be set; the handler enforces that invariant.
+            must be set.
         :param match: Raw CEL matching expression for dynamic budgets (e.g.
             `metadata.team == \"ml\" && provider == \"openai\"`). Validated via
             CEL parse at write time. Mutually exclusive with `scope`.
         :param limits: At least one of amount / token_limit / rate_limit.requests_per_minute
-            must be provided on the budget; the handler enforces that invariant.
+            must be provided on the budget.
         :param rate_limit: Optional rate limit.
         :param is_active: Whether the budget should be active immediately. Defaults to true
-            when omitted (handler enforces).
+            when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so
@@ -422,15 +422,15 @@ class Budgets(BaseSDK):
         :param scope: Structured scope. Mutually exclusive with `match`: provide a scope
             for the six canonical kinds (the server derives the matching CEL),
             or provide `match` for a dynamic budget. Exactly one of the two
-            must be set; the handler enforces that invariant.
+            must be set.
         :param match: Raw CEL matching expression for dynamic budgets (e.g.
             `metadata.team == \"ml\" && provider == \"openai\"`). Validated via
             CEL parse at write time. Mutually exclusive with `scope`.
         :param limits: At least one of amount / token_limit / rate_limit.requests_per_minute
-            must be provided on the budget; the handler enforces that invariant.
+            must be provided on the budget.
         :param rate_limit: Optional rate limit.
         :param is_active: Whether the budget should be active immediately. Defaults to true
-            when omitted (handler enforces).
+            when omitted.
         :param expires_at: Optional expiration. When set in combination with is_active=true,
             the value MUST be in the future; the handler rejects past values.
         :param alerts: Optional threshold notifications. Ids are assigned by the server, so

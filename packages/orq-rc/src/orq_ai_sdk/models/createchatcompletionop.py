@@ -1330,7 +1330,7 @@ class CreateChatCompletionCache(BaseModel):
 
     type: CreateChatCompletionRouterChatCompletionsRequestType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1642,7 +1642,7 @@ class CreateChatCompletionRouterChatCompletionsCache(BaseModel):
 
     type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyOrqType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")

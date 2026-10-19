@@ -373,7 +373,7 @@ class ModelConfigurationCache(BaseModel):
 
     type: UpdateAgentModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1184,7 +1184,7 @@ class UpdateAgentFallbackModelConfigurationCache(BaseModel):
 
     type: UpdateAgentFallbackModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -2810,7 +2810,7 @@ class UpdateAgentCache(BaseModel):
 
     type: UpdateAgentAgentsType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -3584,7 +3584,7 @@ class UpdateAgentFallbackModelConfigurationAgentsCache(BaseModel):
 
     type: UpdateAgentFallbackModelConfigurationAgentsResponseType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")

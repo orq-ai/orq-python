@@ -480,7 +480,7 @@ class StreamRunAgentModelConfigurationCache(BaseModel):
 
     type: StreamRunAgentModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1302,7 +1302,7 @@ class StreamRunAgentFallbackModelConfigurationCache(BaseModel):
 
     type: StreamRunAgentFallbackModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -2167,7 +2167,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01M59QP506GMJW7M49136VWG5J"
+    id: Optional[str] = "01M5A0YX056Z2HGH122E2W9N3N"
 
     description: Optional[str] = None
 

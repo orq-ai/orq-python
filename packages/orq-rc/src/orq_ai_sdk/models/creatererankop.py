@@ -78,7 +78,7 @@ class CreateRerankCache(BaseModel):
 
     type: CreateRerankType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -191,7 +191,7 @@ class CreateRerankRouterRerankCache(BaseModel):
 
     type: CreateRerankRouterRerankType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")

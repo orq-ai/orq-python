@@ -18,7 +18,7 @@ class CreateBudgetRequestTypedDict(TypedDict):
     r"""Structured scope. Mutually exclusive with `match`: provide a scope
     for the six canonical kinds (the server derives the matching CEL),
     or provide `match` for a dynamic budget. Exactly one of the two
-    must be set; the handler enforces that invariant.
+    must be set.
     """
     match: NotRequired[BudgetMatchTypedDict]
     r"""Raw CEL matching expression for dynamic budgets (e.g.
@@ -27,13 +27,13 @@ class CreateBudgetRequestTypedDict(TypedDict):
     """
     limits: NotRequired[BudgetLimitsTypedDict]
     r"""At least one of amount / token_limit / rate_limit.requests_per_minute
-    must be provided on the budget; the handler enforces that invariant.
+    must be provided on the budget.
     """
     rate_limit: NotRequired[RateLimitTypedDict]
     r"""Optional rate limit."""
     is_active: NotRequired[bool]
     r"""Whether the budget should be active immediately. Defaults to true
-    when omitted (handler enforces).
+    when omitted.
     """
     expires_at: NotRequired[datetime]
     r"""Optional expiration. When set in combination with is_active=true,
@@ -50,7 +50,7 @@ class CreateBudgetRequest(BaseModel):
     r"""Structured scope. Mutually exclusive with `match`: provide a scope
     for the six canonical kinds (the server derives the matching CEL),
     or provide `match` for a dynamic budget. Exactly one of the two
-    must be set; the handler enforces that invariant.
+    must be set.
     """
 
     match: Optional[BudgetMatch] = None
@@ -61,7 +61,7 @@ class CreateBudgetRequest(BaseModel):
 
     limits: Optional[BudgetLimits] = None
     r"""At least one of amount / token_limit / rate_limit.requests_per_minute
-    must be provided on the budget; the handler enforces that invariant.
+    must be provided on the budget.
     """
 
     rate_limit: Optional[RateLimit] = None
@@ -69,7 +69,7 @@ class CreateBudgetRequest(BaseModel):
 
     is_active: Optional[bool] = None
     r"""Whether the budget should be active immediately. Defaults to true
-    when omitted (handler enforces).
+    when omitted.
     """
 
     expires_at: Optional[datetime] = None

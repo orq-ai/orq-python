@@ -93,7 +93,7 @@ class Chunking(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunk_size: 256,\n  threshold: 0.8,\n  embedding_model: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunkSize: 256,\n  threshold: 0.8,\n  embeddingModel: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
                         },
                         {
                             "label": "Python",
@@ -206,7 +206,7 @@ class Chunking(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunk_size: 256,\n  threshold: 0.8,\n  embedding_model: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
+                            "source": 'import { Orq } from "@orq-ai/node";\n\nconst orq = new Orq({\n  apiKey: process.env["ORQ_API_KEY"]\n});\n\nconst result = await orq.chunking.parse({\n  text: "Your long text content here...",\n  strategy: "semantic",\n  chunkSize: 256,\n  threshold: 0.8,\n  embeddingModel: "openai/text-embedding-3-small",\n  dimensions: 512\n});\n\nconsole.log(result.chunks);',
                         },
                         {
                             "label": "Python",

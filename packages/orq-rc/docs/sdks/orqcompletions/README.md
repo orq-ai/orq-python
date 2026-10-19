@@ -35,7 +35,6 @@ with Orq(
             504.0,
         ],
     }, cache={
-        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",

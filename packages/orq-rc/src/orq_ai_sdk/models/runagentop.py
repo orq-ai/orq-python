@@ -418,7 +418,7 @@ class RunAgentModelConfigurationCache(BaseModel):
 
     type: RunAgentModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1229,7 +1229,7 @@ class RunAgentFallbackModelConfigurationCache(BaseModel):
 
     type: RunAgentFallbackModelConfigurationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -2070,7 +2070,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01M59QP4ZFAR78BQPFM9DT0A6K"
+    id: Optional[str] = "01M5A0YWZM9XDN3ZNHNGTXSYKA"
 
     description: Optional[str] = None
 

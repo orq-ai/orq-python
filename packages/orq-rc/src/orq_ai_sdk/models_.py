@@ -137,7 +137,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                            "source": 'await orq.models.create({\n  id: "...",\n  displayName: "My custom model",\n  modelId: "my-model",\n  provider: "openai",\n  modelType: "chat",\n  modelDeveloper: "openai",\n  modelFamily: "gpt",\n  inputCost: 0,\n  outputCost: 0,\n  hasFunctions: false,\n  metadata: { isPrivate: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
                         }
                     ],
                 },
@@ -285,7 +285,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                            "source": 'await orq.models.create({\n  id: "...",\n  displayName: "My custom model",\n  modelId: "my-model",\n  provider: "openai",\n  modelType: "chat",\n  modelDeveloper: "openai",\n  modelFamily: "gpt",\n  inputCost: 0,\n  outputCost: 0,\n  hasFunctions: false,\n  metadata: { isPrivate: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
                         }
                     ],
                 },
@@ -468,7 +468,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
                         }
                     ],
                 },
@@ -653,7 +653,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
+                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
                         }
                     ],
                 },
@@ -775,7 +775,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
+                            "source": 'await orq.models.validateAwsBedrock({\n  inferenceProfileArn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  authMode: "pod-identity",\n});',
                         }
                     ],
                 },
@@ -895,7 +895,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
+                            "source": 'await orq.models.validateAwsBedrock({\n  inferenceProfileArn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  authMode: "pod-identity",\n});',
                         }
                     ],
                 },
@@ -1078,7 +1078,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
                         }
                     ],
                 },
@@ -1263,7 +1263,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
                         }
                     ],
                 },
@@ -1380,7 +1380,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  baseUrl: "https://my-resource.openai.azure.com/openai/v1",\n  apiKey: "...",\n});',
                         }
                     ],
                 },
@@ -1497,7 +1497,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  baseUrl: "https://my-resource.openai.azure.com/openai/v1",\n  apiKey: "...",\n});',
                         }
                     ],
                 },
@@ -1603,7 +1603,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                            "source": 'await orq.models.importLitellm([\n  {\n    modelName: "gpt-4o-proxy",\n    litellmParams: {\n      useInPassThrough: false,\n      useLitellmProxy: true,\n      mergeReasoningContentInChoices: false,\n      model: "openai/gpt-4o",\n    },\n    modelInfo: {\n      id: null, dbModel: null, key: null, litellmProvider: "openai", mode: "chat",\n      inputCostPerToken: 0.0000025, outputCostPerToken: 0.00001,\n      supportsFunctionCalling: true,\n      supportedOpenaiParams: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
                         }
                     ],
                 },
@@ -1707,7 +1707,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                            "source": 'await orq.models.importLitellm([\n  {\n    modelName: "gpt-4o-proxy",\n    litellmParams: {\n      useInPassThrough: false,\n      useLitellmProxy: true,\n      mergeReasoningContentInChoices: false,\n      model: "openai/gpt-4o",\n    },\n    modelInfo: {\n      id: null, dbModel: null, key: null, litellmProvider: "openai", mode: "chat",\n      inputCostPerToken: 0.0000025, outputCostPerToken: 0.00001,\n      supportsFunctionCalling: true,\n      supportedOpenaiParams: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
                         }
                     ],
                 },
@@ -2050,7 +2050,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
+                            "source": 'await orq.models.createOpenaiLike({\n  displayName: "My Local Model",\n  region: "us",\n  baseUrl: "https://api.example.com",\n  modelId: "my-model",\n  apiKey: "sk-...",\n  modelType: "chat",\n  inputCost: 0,\n  outputCost: 0,\n});',
                         }
                     ],
                 },
@@ -2211,7 +2211,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
+                            "source": 'await orq.models.createOpenaiLike({\n  displayName: "My Local Model",\n  region: "us",\n  baseUrl: "https://api.example.com",\n  modelId: "my-model",\n  apiKey: "sk-...",\n  modelType: "chat",\n  inputCost: 0,\n  outputCost: 0,\n});',
                         }
                     ],
                 },
@@ -2378,7 +2378,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
                         }
                     ],
                 },
@@ -2545,7 +2545,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
                         }
                     ],
                 },
@@ -2667,7 +2667,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  apiKey: "...",\n});',
                         }
                     ],
                 },
@@ -2787,7 +2787,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  apiKey: "...",\n});',
                         }
                     ],
                 },
@@ -2899,7 +2899,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                            "source": 'await orq.models.createVertex({\n  displayName: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
                         }
                     ],
                 },
@@ -3013,7 +3013,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                            "source": 'await orq.models.createVertex({\n  displayName: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
                         }
                     ],
                 },

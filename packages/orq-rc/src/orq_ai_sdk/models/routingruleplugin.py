@@ -19,7 +19,7 @@ class RoutingRulePluginTypedDict(TypedDict):
     r"""Languages, regions and entity types are checked against the live
     pii-detection capabilities catalog when the rule is saved, not pinned
     here, so a language or region the detector gains becomes writable without
-    a proto change.
+    a future update.
     """
     entities: NotRequired[List[str]]
     r"""Entity types to redact. On their own a strict allowlist; alongside regions they add to the region coverage."""
@@ -42,7 +42,7 @@ class RoutingRulePlugin(BaseModel):
     r"""Languages, regions and entity types are checked against the live
     pii-detection capabilities catalog when the rule is saved, not pinned
     here, so a language or region the detector gains becomes writable without
-    a proto change.
+    a future update.
     """
 
     entities: Optional[List[str]] = None
