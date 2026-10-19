@@ -166,6 +166,7 @@ class Classify(BaseSDK):
                 tags=["Classify"],
                 extensions={
                     "x-cli-group": "classify",
+                    "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
@@ -455,6 +456,7 @@ class Classify(BaseSDK):
                 tags=["Classify"],
                 extensions={
                     "x-cli-group": "classify",
+                    "x-cli-hidden": True,
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
