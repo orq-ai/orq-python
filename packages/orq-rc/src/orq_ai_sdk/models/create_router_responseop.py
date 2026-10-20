@@ -1364,9 +1364,9 @@ class CreateRouterResponseRequestBodyTypedDict(TypedDict):
     r"""Maximum number of tool call rounds in the agentic loop."""
     memory: NotRequired[MemoryParamTypedDict]
     metadata: NotRequired[Dict[str, str]]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
     model: NotRequired[str]
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to allow parallel tool calls."""
     plugins: NotRequired[Nullable[List[PublicPluginTypedDict]]]
@@ -1470,10 +1470,10 @@ class CreateRouterResponseRequestBody(BaseModel):
     memory: Optional[MemoryParam] = None
 
     metadata: Optional[Dict[str, str]] = None
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>). Non-string values are rejected with a 400."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`). Non-string values are rejected with a 400."""
 
     model: Optional[str] = None
-    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use agent/<key> to invoke a pre-configured agent from the orq.ai platform."""
+    r"""The model to use in provider/model format (e.g. openai/gpt-4o). Use `agent/<key>` to invoke a pre-configured agent from the orq.ai platform."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to allow parallel tool calls."""
@@ -1703,7 +1703,7 @@ class CreateRouterResponseResponseBodyTypedDict(TypedDict):
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
     model: str
     object: str
     r"""Always \"response\" """
@@ -1767,7 +1767,7 @@ class CreateRouterResponseResponseBody(BaseModel):
     max_tool_calls: Nullable[int]
 
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
 
     model: str
 

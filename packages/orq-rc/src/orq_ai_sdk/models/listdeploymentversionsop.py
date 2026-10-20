@@ -653,7 +653,7 @@ r"""The type of the content part. Always `file`."""
 
 class ListDeploymentVersions2FileTypedDict(TypedDict):
     file_data: NotRequired[str]
-    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    r"""The file data as a data URI string in the format `data:<mime-type>;base64,<base64-encoded-data>`. Example: `data:image/png;base64,iVBORw0KGgoAAAANS...`"""
     uri: NotRequired[str]
     r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
     mime_type: NotRequired[str]
@@ -664,7 +664,7 @@ class ListDeploymentVersions2FileTypedDict(TypedDict):
 
 class ListDeploymentVersions2File(BaseModel):
     file_data: Optional[str] = None
-    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    r"""The file data as a data URI string in the format `data:<mime-type>;base64,<base64-encoded-data>`. Example: `data:image/png;base64,iVBORw0KGgoAAAANS...`"""
 
     uri: Optional[str] = None
     r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
@@ -1817,7 +1817,7 @@ class ListDeploymentVersionsKnowledgeBases(BaseModel):
     configuration: KnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01M5CA2HM4Z6GQ3PKXHXG7P6P3"
+    id: Optional[str] = "01M5CCJQ1E45QMEEDH9EP6YB2F"
     r"""The unique identifier of the playground knowledge base"""
 
     @model_serializer(mode="wrap")
