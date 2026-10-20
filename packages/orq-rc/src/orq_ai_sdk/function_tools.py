@@ -478,7 +478,11 @@ def _prepare_loop(
     if not tool_list:
         raise ToolLoopError("run the loop with at least one tool, or call responses.create directly")
     registry = _tool_registry(tool_list)
-    follow = {k: v for k, v in create_kwargs.items() if k != "input"}
+    # Drop both input (each turn sends the tool outputs) and previous_response_id
+    # (the loop sets it to the latest response id on every resubmit): leaving the
+    # caller's own previous_response_id here would collide with that keyword and
+    # raise TypeError on the first tool round.
+    follow = {k: v for k, v in create_kwargs.items() if k not in ("input", "previous_response_id")}
     return tool_list, registry, follow
 
 

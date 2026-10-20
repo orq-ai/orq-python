@@ -541,6 +541,27 @@ def test_run_tool_loop_executes_and_resubmits():
     assert resubmit["model"] == "m"  # model carried over, only the original input dropped
 
 
+def test_run_tool_loop_accepts_caller_previous_response_id():
+    """A caller continuing a conversation passes previous_response_id; the loop must
+    not collide with its own per-round previous_response_id (it would TypeError)."""
+
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 3}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    final = run_tool_loop(client, [add], model="m", input="2+3?", previous_response_id="seed")
+
+    assert final.id == "r2"
+    # First turn uses the caller's seed; the resubmit uses the loop's latest id, not the seed.
+    assert client.responses.calls[0]["previous_response_id"] == "seed"
+    assert client.responses.calls[1]["previous_response_id"] == "r1"
+
+
 def test_run_tool_loop_errors_on_unregistered_tool():
     @tool
     def add(a: int, b: int) -> int:
