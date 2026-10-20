@@ -49,7 +49,7 @@ class Models(BaseSDK):
         :param metadata:
         :param model_developer:
         :param model_family:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -197,7 +197,7 @@ class Models(BaseSDK):
         :param metadata:
         :param model_developer:
         :param model_family:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -321,6 +321,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -349,7 +355,7 @@ class Models(BaseSDK):
         :param auth_mode:
         :param display_name:
         :param model_developer:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
@@ -358,6 +364,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -401,6 +408,9 @@ class Models(BaseSDK):
             benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
+            configuration=utils.get_pydantic_model(
+                configuration, Optional[models.PrivateModelConfiguration]
+            ),
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -506,6 +516,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -534,7 +550,7 @@ class Models(BaseSDK):
         :param auth_mode:
         :param display_name:
         :param model_developer:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
@@ -543,6 +559,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -586,6 +603,9 @@ class Models(BaseSDK):
             benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
+            configuration=utils.get_pydantic_model(
+                configuration, Optional[models.PrivateModelConfiguration]
+            ),
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -927,6 +947,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -962,6 +988,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1008,6 +1035,9 @@ class Models(BaseSDK):
                 benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.PrivateModelConfiguration]
+                ),
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1112,6 +1142,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1147,6 +1183,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1193,6 +1230,9 @@ class Models(BaseSDK):
                 benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.PrivateModelConfiguration]
+                ),
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1924,6 +1964,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1947,12 +1993,13 @@ class Models(BaseSDK):
         :param api_key:
         :param base_url:
         :param display_name:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param model_type:
         :param region:
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -1988,6 +2035,9 @@ class Models(BaseSDK):
             benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
+            configuration=utils.get_pydantic_model(
+                configuration, Optional[models.PrivateModelConfiguration]
+            ),
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2085,6 +2135,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2108,12 +2164,13 @@ class Models(BaseSDK):
         :param api_key:
         :param base_url:
         :param display_name:
-        :param model_id:
+        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
         :param model_type:
         :param region:
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2149,6 +2206,9 @@ class Models(BaseSDK):
             benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
+            configuration=utils.get_pydantic_model(
+                configuration, Optional[models.PrivateModelConfiguration]
+            ),
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2245,6 +2305,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2274,6 +2340,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2311,6 +2378,9 @@ class Models(BaseSDK):
                 benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.PrivateModelConfiguration]
+                ),
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2412,6 +2482,12 @@ class Models(BaseSDK):
         benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
+        configuration: Optional[
+            Union[
+                models.PrivateModelConfiguration,
+                models.PrivateModelConfigurationTypedDict,
+            ]
+        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2441,6 +2517,7 @@ class Models(BaseSDK):
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
+        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2478,6 +2555,9 @@ class Models(BaseSDK):
                 benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
+                configuration=utils.get_pydantic_model(
+                    configuration, Optional[models.PrivateModelConfiguration]
+                ),
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2816,6 +2896,7 @@ class Models(BaseSDK):
         ],
         display_name: str,
         benchmark_model: Optional[str] = None,
+        model_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2828,6 +2909,7 @@ class Models(BaseSDK):
         :param configuration:
         :param display_name:
         :param benchmark_model:
+        :param model_id: Immutable private-model slug; defaults to display_name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2852,6 +2934,7 @@ class Models(BaseSDK):
                 configuration, models.VertexConfiguration
             ),
             display_name=display_name,
+            model_id=model_id,
         )
 
         req = self._build_request(
@@ -2930,6 +3013,7 @@ class Models(BaseSDK):
         ],
         display_name: str,
         benchmark_model: Optional[str] = None,
+        model_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2942,6 +3026,7 @@ class Models(BaseSDK):
         :param configuration:
         :param display_name:
         :param benchmark_model:
+        :param model_id: Immutable private-model slug; defaults to display_name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2966,6 +3051,7 @@ class Models(BaseSDK):
                 configuration, models.VertexConfiguration
             ),
             display_name=display_name,
+            model_id=model_id,
         )
 
         req = self._build_request_async(
@@ -3245,6 +3331,7 @@ class Models(BaseSDK):
         metadata: Optional[
             Union[models.ModelMetadata, models.ModelMetadataTypedDict]
         ] = None,
+        model_id: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         parameters: Optional[
@@ -3268,6 +3355,7 @@ class Models(BaseSDK):
         :param has_functions:
         :param input_cost:
         :param metadata:
+        :param model_id: Immutable private-model slug.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -3299,6 +3387,7 @@ class Models(BaseSDK):
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.ModelMetadata]
                 ),
+                model_id=model_id,
                 model_type=model_type,
                 output_cost=output_cost,
                 parameters=utils.get_pydantic_model(
@@ -3388,6 +3477,7 @@ class Models(BaseSDK):
         metadata: Optional[
             Union[models.ModelMetadata, models.ModelMetadataTypedDict]
         ] = None,
+        model_id: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         parameters: Optional[
@@ -3411,6 +3501,7 @@ class Models(BaseSDK):
         :param has_functions:
         :param input_cost:
         :param metadata:
+        :param model_id: Immutable private-model slug.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -3442,6 +3533,7 @@ class Models(BaseSDK):
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.ModelMetadata]
                 ),
+                model_id=model_id,
                 model_type=model_type,
                 output_cost=output_cost,
                 parameters=utils.get_pydantic_model(

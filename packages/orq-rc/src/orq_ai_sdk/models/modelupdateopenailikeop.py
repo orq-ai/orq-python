@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
@@ -27,6 +31,7 @@ class ModelUpdateOpenAILikeRequestBodyTypedDict(TypedDict):
     benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     cost_per_image: NotRequired[float]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -55,6 +60,8 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     cost_per_image: Optional[float] = None
 
@@ -88,6 +95,7 @@ class ModelUpdateOpenAILikeRequestBody(BaseModel):
                 "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "cost_per_image",
                 "description",
                 "has_reasoning",

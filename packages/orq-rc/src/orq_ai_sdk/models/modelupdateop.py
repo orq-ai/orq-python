@@ -26,6 +26,8 @@ class ModelUpdateRequestBodyTypedDict(TypedDict):
     has_functions: NotRequired[bool]
     input_cost: NotRequired[float]
     metadata: NotRequired[ModelMetadataTypedDict]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug."""
     model_type: NotRequired[str]
     output_cost: NotRequired[float]
     parameters: NotRequired[List[UpdateModelParameterTypedDict]]
@@ -42,6 +44,9 @@ class ModelUpdateRequestBody(BaseModel):
 
     metadata: Optional[ModelMetadata] = None
 
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug."""
+
     model_type: Optional[str] = None
 
     output_cost: Optional[float] = None
@@ -57,6 +62,7 @@ class ModelUpdateRequestBody(BaseModel):
                 "has_functions",
                 "input_cost",
                 "metadata",
+                "model_id",
                 "model_type",
                 "output_cost",
                 "parameters",

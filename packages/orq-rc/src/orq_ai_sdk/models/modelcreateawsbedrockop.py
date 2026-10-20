@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -23,6 +27,7 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     display_name: str
     model_developer: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     region: str
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
@@ -31,6 +36,7 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -57,6 +63,7 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     model_developer: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     region: str
 
@@ -73,6 +80,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -117,6 +126,7 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "description",
                 "has_reasoning",
                 "input_cost",

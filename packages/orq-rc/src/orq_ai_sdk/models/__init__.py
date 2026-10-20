@@ -6595,6 +6595,10 @@ if TYPE_CHECKING:
     from .price import Price, PriceTypedDict
     from .pricing import Pricing, PricingTypedDict
     from .pricingvariant import PricingVariant, PricingVariantTypedDict
+    from .privatemodelconfiguration import (
+        PrivateModelConfiguration,
+        PrivateModelConfigurationTypedDict,
+    )
     from .processingattempt import ProcessingAttempt, ProcessingAttemptTypedDict
     from .processingerror import ProcessingError, ProcessingErrorTypedDict
     from .project import Project, ProjectTypedDict
@@ -15357,6 +15361,8 @@ __all__ = [
     "PricingTypedDict",
     "PricingVariant",
     "PricingVariantTypedDict",
+    "PrivateModelConfiguration",
+    "PrivateModelConfigurationTypedDict",
     "ProcessingAttempt",
     "ProcessingAttemptTypedDict",
     "ProcessingError",
@@ -24174,6 +24180,8 @@ _dynamic_imports: dict[str, str] = {
     "PricingTypedDict": ".pricing",
     "PricingVariant": ".pricingvariant",
     "PricingVariantTypedDict": ".pricingvariant",
+    "PrivateModelConfiguration": ".privatemodelconfiguration",
+    "PrivateModelConfigurationTypedDict": ".privatemodelconfiguration",
     "ProcessingAttempt": ".processingattempt",
     "ProcessingAttemptTypedDict": ".processingattempt",
     "ProcessingError": ".processingerror",

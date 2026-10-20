@@ -23,6 +23,8 @@ class ModelCreateVertexRequestBodyTypedDict(TypedDict):
     configuration: VertexConfigurationTypedDict
     display_name: str
     benchmark_model: NotRequired[str]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug; defaults to display_name."""
 
 
 class ModelCreateVertexRequestBody(BaseModel):
@@ -32,9 +34,12 @@ class ModelCreateVertexRequestBody(BaseModel):
 
     benchmark_model: Optional[str] = None
 
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug; defaults to display_name."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["benchmark_model"])
+        optional_fields = set(["benchmark_model", "model_id"])
         serialized = handler(self)
         m = {}
 

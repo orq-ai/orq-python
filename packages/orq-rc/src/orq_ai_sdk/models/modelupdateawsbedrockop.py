@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
@@ -27,6 +31,7 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     display_name: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -61,6 +66,8 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -109,6 +116,7 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "description",
                 "display_name",
                 "has_reasoning",

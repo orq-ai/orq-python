@@ -29,6 +29,7 @@ class ModelCreateRequestBodyTypedDict(TypedDict):
     model_developer: str
     model_family: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     model_type: str
     output_cost: float
     parameters: Nullable[List[CreateModelParameterTypedDict]]
@@ -54,6 +55,7 @@ class ModelCreateRequestBody(BaseModel):
     model_family: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     model_type: str
 
