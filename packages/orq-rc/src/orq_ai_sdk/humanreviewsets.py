@@ -7,9 +7,13 @@ from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, List, Mapping, Optional, Union, cast
+from typing_extensions import deprecated
 
 
 class HumanReviewSets(BaseSDK):
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def list(
         self,
         *,
@@ -20,6 +24,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> List[models.ResponseBody]:
         r"""Get all human review sets
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param project_id: Optional project ID to filter human review sets by project
         :param retries: Override the default retry configuration for this method
@@ -105,6 +111,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def list_async(
         self,
         *,
@@ -115,6 +124,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> List[models.ResponseBody]:
         r"""Get all human review sets
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param project_id: Optional project ID to filter human review sets by project
         :param retries: Override the default retry configuration for this method
@@ -200,6 +211,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def create(
         self,
         *,
@@ -216,6 +230,8 @@ class HumanReviewSets(BaseSDK):
     ) -> models.PostV2HumanEvalSetsResponseBody:
         r"""Create a human review set
 
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -311,6 +327,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def create_async(
         self,
         *,
@@ -327,6 +346,8 @@ class HumanReviewSets(BaseSDK):
     ) -> models.PostV2HumanEvalSetsResponseBody:
         r"""Create a human review set
 
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -422,6 +443,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def get(
         self,
         *,
@@ -432,6 +456,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetV2HumanEvalSetsIDResponseBody:
         r"""Get a human review set by ID
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param id: The ID of the human review set to retrieve
         :param retries: Override the default retry configuration for this method
@@ -519,6 +545,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def get_async(
         self,
         *,
@@ -529,6 +558,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetV2HumanEvalSetsIDResponseBody:
         r"""Get a human review set by ID
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param id: The ID of the human review set to retrieve
         :param retries: Override the default retry configuration for this method
@@ -616,6 +647,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def update(
         self,
         *,
@@ -633,6 +667,8 @@ class HumanReviewSets(BaseSDK):
     ) -> models.PatchV2HumanEvalSetsIDResponseBody:
         r"""Update a human review set
 
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
+
         :param id: The ID of the human review set to retrieve
         :param request_body:
         :param retries: Override the default retry configuration for this method
@@ -730,6 +766,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def update_async(
         self,
         *,
@@ -746,6 +785,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PatchV2HumanEvalSetsIDResponseBody:
         r"""Update a human review set
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param id: The ID of the human review set to retrieve
         :param request_body:
@@ -844,6 +885,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def delete(
         self,
         *,
@@ -854,6 +898,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Delete a human review set
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param id: The ID of the human review set to retrieve
         :param retries: Override the default retry configuration for this method
@@ -939,6 +985,9 @@ class HumanReviewSets(BaseSDK):
 
         raise models.APIDefaultError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def delete_async(
         self,
         *,
@@ -949,6 +998,8 @@ class HumanReviewSets(BaseSDK):
         http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Delete a human review set
+
+        Deprecated: Human Review Sets are replaced by project-level human reviews (Annotations) and will be removed in release 4.18.
 
         :param id: The ID of the human review set to retrieve
         :param retries: Override the default retry configuration for this method

@@ -80,7 +80,6 @@ class Orq(BaseSDK):
     prompts: "Prompts"
     tools: "Tools"
     router: "Router"
-    feedback: "Feedback"
     human_review_sets: "HumanReviewSets"
     chunking: "Chunking"
     file_systems: "FileSystems"
@@ -90,6 +89,7 @@ class Orq(BaseSDK):
     pii: "Pii"
     api_keys: "APIKeys"
     annotations: "Annotations"
+    feedback: "Feedback"
     logs: "Logs"
     reporting: "Reporting"
     telemetry: "TelemetrySDK"
@@ -134,7 +134,6 @@ class Orq(BaseSDK):
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
         "router": ("orq_ai_sdk.router", "Router"),
-        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "human_review_sets": ("orq_ai_sdk.humanreviewsets", "HumanReviewSets"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "file_systems": ("orq_ai_sdk.filesystems", "FileSystems"),
@@ -144,6 +143,7 @@ class Orq(BaseSDK):
         "pii": ("orq_ai_sdk.pii", "Pii"),
         "api_keys": ("orq_ai_sdk.apikeys", "APIKeys"),
         "annotations": ("orq_ai_sdk.annotations", "Annotations"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "logs": ("orq_ai_sdk.logs", "Logs"),
         "reporting": ("orq_ai_sdk.reporting", "Reporting"),
         "telemetry": ("orq_ai_sdk.telemetry_sdk", "TelemetrySDK"),
