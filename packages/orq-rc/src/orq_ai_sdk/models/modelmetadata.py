@@ -119,6 +119,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning: NotRequired[bool]
     supports_reasoning_effort_default: NotRequired[bool]
     supports_reasoning_effort_high: NotRequired[bool]
+    supports_reasoning_effort_instant: NotRequired[bool]
     supports_reasoning_effort_low: NotRequired[bool]
     supports_reasoning_effort_max: NotRequired[bool]
     supports_reasoning_effort_medium: NotRequired[bool]
@@ -349,6 +350,8 @@ class ModelMetadata(BaseModel):
 
     supports_reasoning_effort_high: Optional[bool] = None
 
+    supports_reasoning_effort_instant: Optional[bool] = None
+
     supports_reasoning_effort_low: Optional[bool] = None
 
     supports_reasoning_effort_max: Optional[bool] = None
@@ -512,6 +515,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning",
                 "supports_reasoning_effort_default",
                 "supports_reasoning_effort_high",
+                "supports_reasoning_effort_instant",
                 "supports_reasoning_effort_low",
                 "supports_reasoning_effort_max",
                 "supports_reasoning_effort_medium",

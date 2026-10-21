@@ -40,6 +40,7 @@ value: ListPromptVersionsProvider = "openai"
 - `"tensorix"`
 - `"scaleway"`
 - `"hcompany"`
+- `"inception"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`
