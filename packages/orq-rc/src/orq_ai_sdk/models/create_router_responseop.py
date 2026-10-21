@@ -114,7 +114,7 @@ class CreateRouterResponseCacheControl(BaseModel):
         return m
 
 
-CreateRouterResponse2ResponsesRequestTTL = Literal[
+CreateRouterResponse2ResponsesRequestRequestBodyInputTTL = Literal[
     "5m",
     "1h",
 ]
@@ -134,7 +134,7 @@ r"""Create a cache control breakpoint at this content block. Accepts only the va
 class CreateRouterResponse2ResponsesRequestCacheControlTypedDict(TypedDict):
     type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateRouterResponse2ResponsesRequestTTL]
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyInputTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -148,7 +148,7 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
     type: CreateRouterResponse2ResponsesRequestRequestBodyInputType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[CreateRouterResponse2ResponsesRequestTTL] = "5m"
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyInputTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -156,6 +156,46 @@ class CreateRouterResponse2ResponsesRequestCacheControl(BaseModel):
 
     Defaults to `5m`. Only supported by Anthropic Claude models.
     """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRouterResponse2ResponsesMode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class CreateRouterResponse2PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2ResponsesMode
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL]
+
+
+class CreateRouterResponse2PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2ResponsesMode
+
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyInput2TTL] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -194,6 +234,10 @@ class TwoFileTypedDict(TypedDict):
     r"""The name of the file."""
     mime_type: NotRequired[str]
     r"""The MIME type of the file (e.g., application/pdf)."""
+    prompt_cache_breakpoint: NotRequired[
+        CreateRouterResponse2PromptCacheBreakpointTypedDict
+    ]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoFile(BaseModel):
@@ -218,6 +262,9 @@ class TwoFile(BaseModel):
     mime_type: Optional[str] = None
     r"""The MIME type of the file (e.g., application/pdf)."""
 
+    prompt_cache_breakpoint: Optional[CreateRouterResponse2PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -228,6 +275,7 @@ class TwoFile(BaseModel):
                 "file_url",
                 "filename",
                 "mime_type",
+                "prompt_cache_breakpoint",
             ]
         )
         serialized = handler(self)
@@ -244,7 +292,7 @@ class TwoFile(BaseModel):
         return m
 
 
-CreateRouterResponse2ResponsesTTL = Literal[
+CreateRouterResponse2ResponsesRequestTTL = Literal[
     "5m",
     "1h",
 ]
@@ -264,7 +312,7 @@ r"""Create a cache control breakpoint at this content block. Accepts only the va
 class CreateRouterResponse2ResponsesCacheControlTypedDict(TypedDict):
     type: CreateRouterResponse2ResponsesRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -278,7 +326,7 @@ class CreateRouterResponse2ResponsesCacheControl(BaseModel):
     type: CreateRouterResponse2ResponsesRequestType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[CreateRouterResponse2ResponsesTTL] = "5m"
+    ttl: Optional[CreateRouterResponse2ResponsesRequestTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -312,6 +360,46 @@ TwoDetail = Literal[
 r"""The detail level for image understanding."""
 
 
+CreateRouterResponse2Mode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesRequestRequestBodyTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class TwoPromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2Mode
+    ttl: NotRequired[CreateRouterResponse2ResponsesRequestRequestBodyTTL]
+
+
+class TwoPromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: CreateRouterResponse2Mode
+
+    ttl: Optional[CreateRouterResponse2ResponsesRequestRequestBodyTTL] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRouterResponse2ResponsesRequestRequestBodyType = Literal["input_image",]
 
 
@@ -326,6 +414,8 @@ class TwoImageTypedDict(TypedDict):
     r"""The ID of a previously uploaded file."""
     image_url: NotRequired[str]
     r"""The URL of the image."""
+    prompt_cache_breakpoint: NotRequired[TwoPromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoImage(BaseModel):
@@ -344,9 +434,20 @@ class TwoImage(BaseModel):
     image_url: Optional[str] = None
     r"""The URL of the image."""
 
+    prompt_cache_breakpoint: Optional[TwoPromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["cache_control", "detail", "file_id", "image_url"])
+        optional_fields = set(
+            [
+                "cache_control",
+                "detail",
+                "file_id",
+                "image_url",
+                "prompt_cache_breakpoint",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
@@ -421,6 +522,46 @@ class CreateRouterResponse2CacheControl(BaseModel):
         return m
 
 
+TwoMode = Literal["explicit",]
+
+
+CreateRouterResponse2ResponsesTTL = Literal[
+    "30m",
+    "12h",
+]
+
+
+class PromptCacheBreakpointTypedDict(TypedDict):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+    ttl: NotRequired[CreateRouterResponse2ResponsesTTL]
+
+
+class PromptCacheBreakpoint(BaseModel):
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
+    mode: TwoMode
+
+    ttl: Optional[CreateRouterResponse2ResponsesTTL] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRouterResponse2ResponsesType = Literal["input_text",]
 
 
@@ -431,6 +572,8 @@ class TwoTextTypedDict(TypedDict):
     r"""The text content."""
     type: CreateRouterResponse2ResponsesType
     cache_control: NotRequired[CreateRouterResponse2CacheControlTypedDict]
+    prompt_cache_breakpoint: NotRequired[PromptCacheBreakpointTypedDict]
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
 
 
 class TwoText(BaseModel):
@@ -443,9 +586,12 @@ class TwoText(BaseModel):
 
     cache_control: Optional[CreateRouterResponse2CacheControl] = None
 
+    prompt_cache_breakpoint: Optional[PromptCacheBreakpoint] = None
+    r"""An explicit OpenAI cache boundary for GPT-5.6 and later. Omitted ttl inherits prompt_cache_options.ttl."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["cache_control"])
+        optional_fields = set(["cache_control", "prompt_cache_breakpoint"])
         serialized = handler(self)
         m = {}
 

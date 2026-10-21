@@ -11,3 +11,4 @@ value: TTL = "30m"
 ## Values
 
 - `"30m"`
+- `"12h"`

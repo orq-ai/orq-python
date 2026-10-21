@@ -20,6 +20,7 @@ class PricingTypedDict(TypedDict):
     audio_output: NotRequired[PriceTypedDict]
     audio_session: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
+    cache_write_12h: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
     cache_write_30m: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
@@ -40,6 +41,8 @@ class Pricing(BaseModel):
     audio_session: Optional[Price] = None
 
     cache_read: Optional[Price] = None
+
+    cache_write_12h: Optional[Price] = None
 
     cache_write_1h: Optional[Price] = None
 
@@ -69,6 +72,7 @@ class Pricing(BaseModel):
                 "audio_output",
                 "audio_session",
                 "cache_read",
+                "cache_write_12h",
                 "cache_write_1h",
                 "cache_write_30m",
                 "cache_write_5m",
