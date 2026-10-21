@@ -4,7 +4,6 @@ from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
-from .mcpgatewaystatus import McpGatewayStatus
 from .mcptoolnaming import McpToolNaming
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -26,7 +25,6 @@ class UpdateMcpGatewayRequestTypedDict(TypedDict):
     server_links: NotRequired[List[McpGatewayServerLinkTypedDict]]
     r"""Replaces the current links. An empty array is treated as no change; use `clear_server_links` to remove them all."""
     tool_naming: NotRequired[McpToolNaming]
-    status: NotRequired[McpGatewayStatus]
     mode: NotRequired[McpGatewayMode]
     sharing: NotRequired[SharingTypedDict]
     r"""Which projects in the workspace may use this gateway. Defaults to every project."""
@@ -58,8 +56,6 @@ class UpdateMcpGatewayRequest(BaseModel):
 
     tool_naming: Optional[McpToolNaming] = None
 
-    status: Optional[McpGatewayStatus] = None
-
     mode: Optional[McpGatewayMode] = None
 
     sharing: Optional[Sharing] = None
@@ -86,7 +82,6 @@ class UpdateMcpGatewayRequest(BaseModel):
                 "description",
                 "server_links",
                 "tool_naming",
-                "status",
                 "mode",
                 "sharing",
                 "clear_server_links",

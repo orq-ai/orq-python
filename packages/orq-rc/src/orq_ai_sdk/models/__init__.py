@@ -6127,7 +6127,6 @@ if TYPE_CHECKING:
         McpGatewayServerLink,
         McpGatewayServerLinkTypedDict,
     )
-    from .mcpgatewaystatus import McpGatewayStatus
     from .mcpgatewaytool import (
         InputSchema,
         InputSchemaTypedDict,
@@ -14803,7 +14802,6 @@ __all__ = [
     "McpGatewayPluginTypedDict",
     "McpGatewayServerLink",
     "McpGatewayServerLinkTypedDict",
-    "McpGatewayStatus",
     "McpGatewayTool",
     "McpGatewayToolTestResult",
     "McpGatewayToolTestResultTypedDict",
@@ -23789,7 +23787,6 @@ _dynamic_imports: dict[str, str] = {
     "McpGatewayPluginTypedDict": ".mcpgatewayplugin",
     "McpGatewayServerLink": ".mcpgatewayserverlink",
     "McpGatewayServerLinkTypedDict": ".mcpgatewayserverlink",
-    "McpGatewayStatus": ".mcpgatewaystatus",
     "InputSchema": ".mcpgatewaytool",
     "InputSchemaTypedDict": ".mcpgatewaytool",
     "McpGatewayTool": ".mcpgatewaytool",

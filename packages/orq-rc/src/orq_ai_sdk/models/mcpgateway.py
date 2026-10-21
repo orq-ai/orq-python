@@ -4,7 +4,6 @@ from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
-from .mcpgatewaystatus import McpGatewayStatus
 from .mcptoolnaming import McpToolNaming
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -25,7 +24,6 @@ class McpGatewayTypedDict(TypedDict):
     server_links: NotRequired[List[McpGatewayServerLinkTypedDict]]
     r"""Upstream servers this gateway aggregates."""
     tool_naming: NotRequired[McpToolNaming]
-    status: NotRequired[McpGatewayStatus]
     public_url: NotRequired[str]
     r"""Endpoint MCP clients connect to; relative when the deployment has no public base URL configured."""
     created: NotRequired[str]
@@ -61,8 +59,6 @@ class McpGateway(BaseModel):
 
     tool_naming: Optional[McpToolNaming] = None
 
-    status: Optional[McpGatewayStatus] = None
-
     public_url: Optional[str] = None
     r"""Endpoint MCP clients connect to; relative when the deployment has no public base URL configured."""
 
@@ -96,7 +92,6 @@ class McpGateway(BaseModel):
                 "description",
                 "server_links",
                 "tool_naming",
-                "status",
                 "public_url",
                 "created",
                 "updated",
