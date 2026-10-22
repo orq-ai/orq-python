@@ -110,6 +110,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_native_classify: NotRequired[bool]
     supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
@@ -332,6 +333,8 @@ class ModelMetadata(BaseModel):
 
     supports_max_completion_tokens: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_native_classify: Optional[bool] = None
 
     supports_openai_realtime_api: Optional[bool] = None
@@ -506,6 +509,7 @@ class ModelMetadata(BaseModel):
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
+                "supports_mid_conversation_system",
                 "supports_native_classify",
                 "supports_openai_realtime_api",
                 "supports_openai_sdk",

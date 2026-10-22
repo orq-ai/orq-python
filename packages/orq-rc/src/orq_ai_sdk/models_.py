@@ -339,6 +339,7 @@ class Models(BaseSDK):
         supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
+        supports_mid_conversation_system: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
         supports_tool_calling: Optional[bool] = None,
         supports_vision: Optional[bool] = None,
@@ -377,6 +378,7 @@ class Models(BaseSDK):
         :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
+        :param supports_mid_conversation_system:
         :param supports_strict_tool:
         :param supports_tool_calling:
         :param supports_vision:
@@ -427,6 +429,7 @@ class Models(BaseSDK):
             supports_extended_thinking=supports_extended_thinking,
             supports_json_mode=supports_json_mode,
             supports_json_schema=supports_json_schema,
+            supports_mid_conversation_system=supports_mid_conversation_system,
             supports_strict_tool=supports_strict_tool,
             supports_tool_calling=supports_tool_calling,
             supports_vision=supports_vision,
@@ -534,6 +537,7 @@ class Models(BaseSDK):
         supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
+        supports_mid_conversation_system: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
         supports_tool_calling: Optional[bool] = None,
         supports_vision: Optional[bool] = None,
@@ -572,6 +576,7 @@ class Models(BaseSDK):
         :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
+        :param supports_mid_conversation_system:
         :param supports_strict_tool:
         :param supports_tool_calling:
         :param supports_vision:
@@ -622,6 +627,7 @@ class Models(BaseSDK):
             supports_extended_thinking=supports_extended_thinking,
             supports_json_mode=supports_json_mode,
             supports_json_schema=supports_json_schema,
+            supports_mid_conversation_system=supports_mid_conversation_system,
             supports_strict_tool=supports_strict_tool,
             supports_tool_calling=supports_tool_calling,
             supports_vision=supports_vision,
@@ -967,6 +973,7 @@ class Models(BaseSDK):
         supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
+        supports_mid_conversation_system: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
         supports_tool_calling: Optional[bool] = None,
         supports_vision: Optional[bool] = None,
@@ -1003,6 +1010,7 @@ class Models(BaseSDK):
         :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
+        :param supports_mid_conversation_system:
         :param supports_strict_tool:
         :param supports_tool_calling:
         :param supports_vision:
@@ -1052,6 +1060,7 @@ class Models(BaseSDK):
                 supports_extended_thinking=supports_extended_thinking,
                 supports_json_mode=supports_json_mode,
                 supports_json_schema=supports_json_schema,
+                supports_mid_conversation_system=supports_mid_conversation_system,
                 supports_strict_tool=supports_strict_tool,
                 supports_tool_calling=supports_tool_calling,
                 supports_vision=supports_vision,
@@ -1162,6 +1171,7 @@ class Models(BaseSDK):
         supports_extended_thinking: Optional[bool] = None,
         supports_json_mode: Optional[bool] = None,
         supports_json_schema: Optional[bool] = None,
+        supports_mid_conversation_system: Optional[bool] = None,
         supports_strict_tool: Optional[bool] = None,
         supports_tool_calling: Optional[bool] = None,
         supports_vision: Optional[bool] = None,
@@ -1198,6 +1208,7 @@ class Models(BaseSDK):
         :param supports_extended_thinking:
         :param supports_json_mode:
         :param supports_json_schema:
+        :param supports_mid_conversation_system:
         :param supports_strict_tool:
         :param supports_tool_calling:
         :param supports_vision:
@@ -1247,6 +1258,7 @@ class Models(BaseSDK):
                 supports_extended_thinking=supports_extended_thinking,
                 supports_json_mode=supports_json_mode,
                 supports_json_schema=supports_json_schema,
+                supports_mid_conversation_system=supports_mid_conversation_system,
                 supports_strict_tool=supports_strict_tool,
                 supports_tool_calling=supports_tool_calling,
                 supports_vision=supports_vision,

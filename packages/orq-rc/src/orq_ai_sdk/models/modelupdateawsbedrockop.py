@@ -46,6 +46,7 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     supports_extended_thinking: NotRequired[bool]
     supports_json_mode: NotRequired[bool]
     supports_json_schema: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_vision: NotRequired[bool]
@@ -97,6 +98,8 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
 
     supports_json_schema: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_strict_tool: Optional[bool] = None
 
     supports_tool_calling: Optional[bool] = None
@@ -131,6 +134,7 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "supports_extended_thinking",
                 "supports_json_mode",
                 "supports_json_schema",
+                "supports_mid_conversation_system",
                 "supports_strict_tool",
                 "supports_tool_calling",
                 "supports_vision",
