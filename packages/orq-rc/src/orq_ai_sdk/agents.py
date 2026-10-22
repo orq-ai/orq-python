@@ -1492,7 +1492,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1652,7 +1656,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "invoke",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1850,7 +1858,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2048,7 +2060,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "run",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2261,7 +2277,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2490,7 +2510,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "streamRun",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2669,7 +2693,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2848,7 +2876,11 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
+                extensions={
+                    "x-cli-group": "agents",
+                    "x-cli-hidden": True,
+                    "x-cli-name": "stream",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
