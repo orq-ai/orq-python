@@ -6,7 +6,7 @@ from .traceusage import TraceUsage, TraceUsageTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,6 +36,8 @@ class SpanSummaryTypedDict(TypedDict):
     """
     leading_span_type: NotRequired[str]
     guardrail_enabled: NotRequired[bool]
+    finish_reasons: NotRequired[List[str]]
+    r"""Why the span's generation stopped, for example stop, length or content_filter."""
 
 
 class SpanSummary(BaseModel):
@@ -85,6 +87,9 @@ class SpanSummary(BaseModel):
 
     guardrail_enabled: Optional[bool] = None
 
+    finish_reasons: Optional[List[str]] = None
+    r"""Why the span's generation stopped, for example stop, length or content_filter."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -110,6 +115,7 @@ class SpanSummary(BaseModel):
                 "trace_framework",
                 "leading_span_type",
                 "guardrail_enabled",
+                "finish_reasons",
             ]
         )
         serialized = handler(self)

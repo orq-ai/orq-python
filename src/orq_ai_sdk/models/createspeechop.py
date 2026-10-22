@@ -287,6 +287,8 @@ class CreateSpeechOrqTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     fallbacks: NotRequired[List[CreateSpeechRouterAudioSpeechFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     identity: NotRequired[PublicIdentityTypedDict]
@@ -307,6 +309,9 @@ class CreateSpeechOrq(BaseModel):
 
     fallbacks: Optional[List[CreateSpeechRouterAudioSpeechFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -337,6 +342,7 @@ class CreateSpeechOrq(BaseModel):
             [
                 "retry",
                 "fallbacks",
+                "fallback_on_codes",
                 "name",
                 "identity",
                 "contact",
@@ -383,6 +389,8 @@ class CreateSpeechRequestBodyTypedDict(TypedDict):
     r"""The speed of the generated audio."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateSpeechFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateSpeechRetryTypedDict]
@@ -424,6 +432,9 @@ class CreateSpeechRequestBody(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Optional[List[CreateSpeechFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -445,6 +456,7 @@ class CreateSpeechRequestBody(BaseModel):
                 "response_format",
                 "speed",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "load_balancer",

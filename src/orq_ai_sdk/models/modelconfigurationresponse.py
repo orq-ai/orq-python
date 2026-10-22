@@ -21,6 +21,7 @@ class ModelConfigurationResponseTypedDict(TypedDict):
     is_openai_compatible: NotRequired[bool]
     is_tuned_model: NotRequired[bool]
     location: NotRequired[str]
+    model_id: NotRequired[str]
     project_id: NotRequired[str]
     region: NotRequired[str]
     should_use_beta_features: NotRequired[bool]
@@ -55,6 +56,8 @@ class ModelConfigurationResponse(BaseModel):
 
     location: Optional[str] = None
 
+    model_id: Optional[str] = None
+
     project_id: Optional[str] = None
 
     region: Optional[str] = None
@@ -81,6 +84,7 @@ class ModelConfigurationResponse(BaseModel):
                 "is_openai_compatible",
                 "is_tuned_model",
                 "location",
+                "model_id",
                 "project_id",
                 "region",
                 "should_use_beta_features",

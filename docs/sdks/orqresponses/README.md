@@ -89,6 +89,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## ~~get~~

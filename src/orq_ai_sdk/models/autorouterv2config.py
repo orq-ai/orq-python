@@ -20,15 +20,20 @@ class AutoRouterV2ConfigTypedDict(TypedDict):
     price: float
     aa_creator: NotRequired[AutoRouterV2CreatorConfigTypedDict]
     aa_evaluations: NotRequired[Dict[str, Nullable[float]]]
+    aa_index_is_estimated: NotRequired[bool]
+    aa_index_version: NotRequired[str]
+    aa_is_reasoning: NotRequired[bool]
     aa_median_output_tokens_per_second: NotRequired[float]
     aa_median_time_to_first_answer_token: NotRequired[float]
     aa_median_time_to_first_token_seconds: NotRequired[float]
     aa_model_id: NotRequired[str]
     aa_name: NotRequired[str]
     aa_pricing: NotRequired[Dict[str, Nullable[float]]]
+    aa_reasoning_effort: NotRequired[str]
     aa_release_date: NotRequired[str]
     aa_slug: NotRequired[str]
     default_effort: NotRequired[str]
+    default_effort_scored: NotRequired[bool]
     reasoning_efforts: NotRequired[Dict[str, AutoRouterV2EffortConfigTypedDict]]
 
 
@@ -40,6 +45,12 @@ class AutoRouterV2Config(BaseModel):
     aa_creator: Optional[AutoRouterV2CreatorConfig] = None
 
     aa_evaluations: Optional[Dict[str, Nullable[float]]] = None
+
+    aa_index_is_estimated: Optional[bool] = None
+
+    aa_index_version: Optional[str] = None
+
+    aa_is_reasoning: Optional[bool] = None
 
     aa_median_output_tokens_per_second: Optional[float] = None
 
@@ -53,11 +64,15 @@ class AutoRouterV2Config(BaseModel):
 
     aa_pricing: Optional[Dict[str, Nullable[float]]] = None
 
+    aa_reasoning_effort: Optional[str] = None
+
     aa_release_date: Optional[str] = None
 
     aa_slug: Optional[str] = None
 
     default_effort: Optional[str] = None
+
+    default_effort_scored: Optional[bool] = None
 
     reasoning_efforts: Optional[Dict[str, AutoRouterV2EffortConfig]] = None
 
@@ -67,15 +82,20 @@ class AutoRouterV2Config(BaseModel):
             [
                 "aa_creator",
                 "aa_evaluations",
+                "aa_index_is_estimated",
+                "aa_index_version",
+                "aa_is_reasoning",
                 "aa_median_output_tokens_per_second",
                 "aa_median_time_to_first_answer_token",
                 "aa_median_time_to_first_token_seconds",
                 "aa_model_id",
                 "aa_name",
                 "aa_pricing",
+                "aa_reasoning_effort",
                 "aa_release_date",
                 "aa_slug",
                 "default_effort",
+                "default_effort_scored",
                 "reasoning_efforts",
             ]
         )

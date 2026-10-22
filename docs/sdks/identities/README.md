@@ -55,6 +55,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -100,6 +101,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## retrieve
@@ -142,6 +144,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -182,6 +185,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -209,15 +213,15 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Identity ID to update.                                              |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New display name. Omit to keep the current display name.            |
-| `email`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New email address. Omit to keep the current email.                  |
-| `avatar_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New avatar image URL. Omit to keep the current avatar URL.          |
-| `tags`                                                              | List[*str*]                                                         | :heavy_minus_sign:                                                  | Replacement tag list. Leave empty to clear tags.                    |
-| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | Replacement custom JSON metadata.                                   |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `id`                                                                                    | *str*                                                                                   | :heavy_check_mark:                                                                      | Identity ID to update.                                                                  |
+| `display_name`                                                                          | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | New display name. Omit to keep the current display name.                                |
+| `email`                                                                                 | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | New email address. Omit to keep the current email, or send an empty string to clear it. |
+| `avatar_url`                                                                            | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | New avatar image URL. Omit to keep the current avatar URL.                              |
+| `tags`                                                                                  | List[*str*]                                                                             | :heavy_minus_sign:                                                                      | Replacement tag list. Leave empty to clear tags.                                        |
+| `metadata`                                                                              | Dict[str, *Any*]                                                                        | :heavy_minus_sign:                                                                      | Replacement custom JSON metadata.                                                       |
+| `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
 
 ### Response
 
@@ -227,4 +231,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

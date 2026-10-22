@@ -33,10 +33,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `source`                                                            | [Optional[models.TelemetrySource]](../../models/telemetrysource.md) | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `source`                                                                                                                              | [Optional[models.TelemetrySource]](../../models/telemetrysource.md)                                                                   | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
+| `project_id`                                                                                                                          | *Optional[str]*                                                                                                                       | :heavy_minus_sign:                                                                                                                    | Restricts discovered runtime metrics to records attributed to this exact<br/> project. Projectless workspace metrics are excluded.    |
+| `workspace_wide`                                                                                                                      | *Optional[bool]*                                                                                                                      | :heavy_minus_sign:                                                                                                                    | Discovers runtime metrics across the complete workspace, including<br/> project-attributed and projectless records. Workspace-admin only. |
+| `retries`                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                      | :heavy_minus_sign:                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                   |
 
 ### Response
 
@@ -46,6 +48,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_facet_values
@@ -93,6 +96,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## query
@@ -150,4 +154,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

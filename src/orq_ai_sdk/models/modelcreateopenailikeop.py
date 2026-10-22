@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -23,10 +27,13 @@ class ModelCreateOpenAILikeRequestBodyTypedDict(TypedDict):
     base_url: str
     display_name: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     model_type: str
     region: str
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     cost_per_image: NotRequired[float]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -48,14 +55,19 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     display_name: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     model_type: str
 
     region: str
 
+    benchmark_model: Optional[str] = None
+
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     cost_per_image: Optional[float] = None
 
@@ -83,8 +95,10 @@ class ModelCreateOpenAILikeRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "cost_per_image",
                 "description",
                 "has_reasoning",
@@ -199,7 +213,12 @@ class ModelCreateOpenAILikeResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

@@ -54,6 +54,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -72,7 +73,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.model_fusions.create(key="<key>", panel_models=[], judge_model="<value>", synthesis_mode="MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL", preset="MODEL_FUSION_PRESET_UNSPECIFIED")
+    res = orq.model_fusions.create(key="<key>", panel_models=[], judge_model="<value>", synthesis_mode="MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL", preset="MODEL_FUSION_PRESET_GENERAL")
 
     # Handle response
     print(res)
@@ -102,6 +103,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -142,6 +144,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -194,6 +197,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -234,6 +238,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## set_enabled
@@ -275,4 +280,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

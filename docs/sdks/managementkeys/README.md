@@ -54,6 +54,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -72,7 +73,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.management_keys.create(name="<value>", permission_mode="MANAGEMENT_PERMISSION_MODE_UNSPECIFIED")
+    res = orq.management_keys.create(name="<value>", permission_mode="MANAGEMENT_PERMISSION_MODE_ALL")
 
     # Handle response
     print(res)
@@ -86,7 +87,7 @@ with Orq(
 | `name`                                                                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                       | Human-readable name. Required.                                                                                                                                                                                                                                           |
 | `permission_mode`                                                                                                                                                                                                                                                        | [models.ManagementPermissionMode](../../models/managementpermissionmode.md)                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
 | `access`                                                                                                                                                                                                                                                                 | Dict[str, [models.AccessLevel](../../models/accesslevel.md)]                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                       | Per-domain access map. Required when `permission_mode` =<br/> `MANAGEMENT_PERMISSION_MODE_RESTRICTED`. See `ManagementKey.access`<br/> for the catalog of valid keys (Domain.id) and AccessLevel string<br/> values, or fetch the live catalog via the capability catalog<br/> endpoint. |
-| `expires_at`                                                                                                                                                                                                                                                             | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                       | Optional expiration. When set, the authenticate hot-path rejects<br/> the key once `expires_at` is in the past. Unset means the key<br/> never expires.                                                                                                                  |
+| `expires_at`                                                                                                                                                                                                                                                             | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                       | Optional expiration. The key is rejected once `expires_at` is in the<br/> past. Unset means the key never expires.                                                                                                                                                       |
 | `retries`                                                                                                                                                                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                       | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                      |
 
 ### Response
@@ -97,6 +98,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_capabilities
@@ -136,6 +138,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -176,6 +179,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 403               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -216,6 +220,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -262,4 +267,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

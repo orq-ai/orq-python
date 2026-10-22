@@ -5,7 +5,6 @@ from typing import Literal
 
 
 ModelFusionPreset = Literal[
-    "MODEL_FUSION_PRESET_UNSPECIFIED",
     "MODEL_FUSION_PRESET_GENERAL",
     "MODEL_FUSION_PRESET_QUALITY",
     "MODEL_FUSION_PRESET_BUDGET",

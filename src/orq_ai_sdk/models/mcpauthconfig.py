@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .mcpauthtype import McpAuthType
+from .mcpenterpriseauthconfig import (
+    McpEnterpriseAuthConfig,
+    McpEnterpriseAuthConfigTypedDict,
+)
 from .mcpheadersecret import McpHeaderSecret, McpHeaderSecretTypedDict
 from .mcpoauthconfig import McpOAuthConfig, McpOAuthConfigTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -16,6 +20,8 @@ class McpAuthConfigTypedDict(TypedDict):
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
     oauth: NotRequired[McpOAuthConfigTypedDict]
     r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
+    enterprise: NotRequired[McpEnterpriseAuthConfigTypedDict]
+    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
 
 
 class McpAuthConfig(BaseModel):
@@ -27,9 +33,12 @@ class McpAuthConfig(BaseModel):
     oauth: Optional[McpOAuthConfig] = None
     r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
 
+    enterprise: Optional[McpEnterpriseAuthConfig] = None
+    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["static_headers", "oauth"])
+        optional_fields = set(["static_headers", "oauth", "enterprise"])
         serialized = handler(self)
         m = {}
 

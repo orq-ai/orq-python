@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -34,6 +34,7 @@ class Completions(BaseSDK):
         n: OptionalNullable[int] = 1,
         user: Optional[str] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateCompletionFallbacks],
@@ -96,6 +97,7 @@ class Completions(BaseSDK):
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
         :param user: A unique identifier representing your end-user, which can help monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -138,6 +140,7 @@ class Completions(BaseSDK):
             n=n,
             user=user,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateCompletionFallbacks]]
             ),
@@ -215,6 +218,7 @@ class Completions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
             return unmarshal_json_response(
@@ -230,6 +234,12 @@ class Completions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            http_res_text = utils.stream_to_text(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -260,6 +270,7 @@ class Completions(BaseSDK):
         n: OptionalNullable[int] = 1,
         user: Optional[str] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateCompletionFallbacks],
@@ -322,6 +333,7 @@ class Completions(BaseSDK):
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
         :param user: A unique identifier representing your end-user, which can help monitor and detect abuse.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -364,6 +376,7 @@ class Completions(BaseSDK):
             n=n,
             user=user,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateCompletionFallbacks]]
             ),
@@ -441,6 +454,7 @@ class Completions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
             return unmarshal_json_response(
@@ -456,6 +470,12 @@ class Completions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

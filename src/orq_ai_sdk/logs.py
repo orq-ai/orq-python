@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Logs(BaseSDK):
@@ -100,15 +100,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AggregateLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -207,15 +211,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "aggregate"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AggregateLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -321,15 +329,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFacetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -435,15 +447,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacets"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFacetsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -536,15 +552,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFacetValuesResponse, http_res)
+        if utils.match_response(http_res, ["400", "401"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -637,15 +657,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFacetValues"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFacetValuesResponse, http_res)
+        if utils.match_response(http_res, ["400", "401"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -719,15 +743,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFieldsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -801,15 +829,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listFields"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListLogFieldsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -912,15 +944,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getPatterns"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.FindLogPatternsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1023,15 +1059,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getPatterns"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.FindLogPatternsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1128,15 +1168,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1233,15 +1277,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "query"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1353,15 +1401,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1473,15 +1525,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "search"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1562,15 +1618,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetLogResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1651,15 +1711,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "get"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetLogResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1777,15 +1841,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getContext"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetLogContextResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1903,15 +1971,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "getContext"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetLogContextResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1998,15 +2070,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2093,15 +2169,19 @@ class Logs(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Logs"],
-                extensions=None,
+                extensions={"x-cli-group": "logs", "x-cli-name": "listTrace"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceLogsResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

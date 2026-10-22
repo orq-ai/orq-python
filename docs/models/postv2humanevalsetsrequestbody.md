@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.PostV2HumanEvalSetsRequestBody1`
+### `models.RequestBody1`
 
 ```python
-value: models.PostV2HumanEvalSetsRequestBody1 = /* values here */
+value: models.RequestBody1 = /* values here */
 ```
 
-### `models.PostV2HumanEvalSetsRequestBody2`
+### `models.RequestBody2`
 
 ```python
-value: models.PostV2HumanEvalSetsRequestBody2 = /* values here */
+value: models.RequestBody2 = /* values here */
 ```
 

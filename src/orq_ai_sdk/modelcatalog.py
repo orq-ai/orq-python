@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional
 
 
 class ModelCatalog(BaseSDK):
@@ -132,6 +132,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List the model catalog",
@@ -157,8 +159,12 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListModelCatalogResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -290,6 +296,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List the model catalog",
@@ -315,8 +323,12 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListModelCatalogResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -449,6 +461,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "listOfferings",
                     "x-code-samples": [
                         {
                             "label": "Core - List model catalog offerings",
@@ -474,10 +488,14 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListModelCatalogOfferingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -610,6 +628,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "listOfferings",
                     "x-code-samples": [
                         {
                             "label": "Core - List model catalog offerings",
@@ -635,10 +655,14 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListModelCatalogOfferingsResponse, http_res
             )
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -720,6 +744,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a model catalog entry",
@@ -745,10 +771,14 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetModelCatalogModelResponse, http_res
             )
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -830,6 +860,8 @@ class ModelCatalog(BaseSDK):
                 ),
                 tags=["Model Catalog"],
                 extensions={
+                    "x-cli-group": "model-catalog",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve a model catalog entry",
@@ -855,10 +887,14 @@ class ModelCatalog(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetModelCatalogModelResponse, http_res
             )
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

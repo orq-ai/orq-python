@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -23,13 +27,16 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     display_name: str
     model_developer: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     region: str
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
     autorouter_version: NotRequired[str]
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -42,6 +49,7 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     supports_extended_thinking: NotRequired[bool]
     supports_json_mode: NotRequired[bool]
     supports_json_schema: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_strict_tool: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_vision: NotRequired[bool]
@@ -56,6 +64,7 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     model_developer: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     region: str
 
@@ -67,9 +76,13 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
 
     autorouter_version: Optional[str] = None
 
+    benchmark_model: Optional[str] = None
+
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -95,6 +108,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
 
     supports_json_schema: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_strict_tool: Optional[bool] = None
 
     supports_tool_calling: Optional[bool] = None
@@ -111,8 +126,10 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "assume_role_external_id",
                 "autorouter_id",
                 "autorouter_version",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "description",
                 "has_reasoning",
                 "input_cost",
@@ -125,6 +142,7 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "supports_extended_thinking",
                 "supports_json_mode",
                 "supports_json_schema",
+                "supports_mid_conversation_system",
                 "supports_strict_tool",
                 "supports_tool_calling",
                 "supports_vision",
@@ -232,7 +250,12 @@ class ModelCreateAwsBedrockResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

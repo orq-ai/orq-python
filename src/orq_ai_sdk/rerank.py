@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Rerank(BaseSDK):
@@ -20,6 +20,7 @@ class Rerank(BaseSDK):
         return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateRerankFallbacks],
@@ -66,6 +67,7 @@ class Rerank(BaseSDK):
         :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -99,6 +101,7 @@ class Rerank(BaseSDK):
             return_documents=return_documents,
             filename=filename,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateRerankFallbacks]]
             ),
@@ -165,8 +168,14 @@ class Rerank(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateRerankResponseBody, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -186,6 +195,7 @@ class Rerank(BaseSDK):
         return_documents: Optional[bool] = None,
         filename: OptionalNullable[str] = UNSET,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateRerankFallbacks],
@@ -232,6 +242,7 @@ class Rerank(BaseSDK):
         :param return_documents: Whether to return the documents in the response
         :param filename: The filename of the document to rerank
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -265,6 +276,7 @@ class Rerank(BaseSDK):
             return_documents=return_documents,
             filename=filename,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateRerankFallbacks]]
             ),
@@ -331,8 +343,14 @@ class Rerank(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateRerankResponseBody, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res
+            )
+            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

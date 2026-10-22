@@ -18,14 +18,18 @@ from typing_extensions import NotRequired, TypedDict
 class PricingTypedDict(TypedDict):
     audio_input: NotRequired[PriceTypedDict]
     audio_output: NotRequired[PriceTypedDict]
+    audio_session: NotRequired[PriceTypedDict]
     cache_read: NotRequired[PriceTypedDict]
+    cache_write_12h: NotRequired[PriceTypedDict]
     cache_write_1h: NotRequired[PriceTypedDict]
+    cache_write_30m: NotRequired[PriceTypedDict]
     cache_write_5m: NotRequired[PriceTypedDict]
     fetch: NotRequired[PriceTypedDict]
     input: NotRequired[PriceTypedDict]
     output: NotRequired[PriceTypedDict]
     reasoning: NotRequired[PriceTypedDict]
     search: NotRequired[PriceTypedDict]
+    text_input: NotRequired[PriceTypedDict]
     variants: NotRequired[Nullable[List[PricingVariantTypedDict]]]
 
 
@@ -34,9 +38,15 @@ class Pricing(BaseModel):
 
     audio_output: Optional[Price] = None
 
+    audio_session: Optional[Price] = None
+
     cache_read: Optional[Price] = None
 
+    cache_write_12h: Optional[Price] = None
+
     cache_write_1h: Optional[Price] = None
+
+    cache_write_30m: Optional[Price] = None
 
     cache_write_5m: Optional[Price] = None
 
@@ -50,6 +60,8 @@ class Pricing(BaseModel):
 
     search: Optional[Price] = None
 
+    text_input: Optional[Price] = None
+
     variants: OptionalNullable[List[PricingVariant]] = UNSET
 
     @model_serializer(mode="wrap")
@@ -58,14 +70,18 @@ class Pricing(BaseModel):
             [
                 "audio_input",
                 "audio_output",
+                "audio_session",
                 "cache_read",
+                "cache_write_12h",
                 "cache_write_1h",
+                "cache_write_30m",
                 "cache_write_5m",
                 "fetch",
                 "input",
                 "output",
                 "reasoning",
                 "search",
+                "text_input",
                 "variants",
             ]
         )

@@ -25,6 +25,7 @@ class Translations(BaseSDK):
         ] = "word",
         temperature: Optional[float] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateTranslationFallbacks],
@@ -71,6 +72,7 @@ class Translations(BaseSDK):
         :param timestamps_granularity: The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word.
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -106,6 +108,7 @@ class Translations(BaseSDK):
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranslationFallbacks]]
             ),
@@ -208,6 +211,7 @@ class Translations(BaseSDK):
         ] = "word",
         temperature: Optional[float] = None,
         name: Optional[str] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateTranslationFallbacks],
@@ -254,6 +258,7 @@ class Translations(BaseSDK):
         :param timestamps_granularity: The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word.
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param load_balancer: Load balancer configuration for the request.
@@ -289,6 +294,7 @@ class Translations(BaseSDK):
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
             name=name,
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateTranslationFallbacks]]
             ),

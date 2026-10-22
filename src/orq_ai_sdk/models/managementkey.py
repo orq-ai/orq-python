@@ -48,8 +48,8 @@ class ManagementKeyTypedDict(TypedDict):
     last_used_at: NotRequired[datetime]
     r"""Last authenticated use."""
     expires_at: NotRequired[datetime]
-    r"""Optional expiration. The authenticate hot-path rejects keys whose
-    `expires_at` is in the past. Unset means the key never expires.
+    r"""Optional expiration. Keys whose `expires_at` is in the past are
+    rejected when used. Unset means the key never expires.
     """
 
 
@@ -101,8 +101,8 @@ class ManagementKey(BaseModel):
     r"""Last authenticated use."""
 
     expires_at: Optional[datetime] = None
-    r"""Optional expiration. The authenticate hot-path rejects keys whose
-    `expires_at` is in the past. Unset means the key never expires.
+    r"""Optional expiration. Keys whose `expires_at` is in the past are
+    rejected when used. Unset means the key never expires.
     """
 
     @model_serializer(mode="wrap")

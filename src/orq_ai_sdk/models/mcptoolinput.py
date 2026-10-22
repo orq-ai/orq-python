@@ -12,41 +12,41 @@ r"""MCP tool type"""
 
 
 class McpToolInputTypedDict(TypedDict):
-    r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
+    r"""Executes tools from Model Context Protocol (MCP) servers and gateways. Reference the server or gateway using \"key\" or \"id\"; add \"tool_id\" to attach a single tool, or omit it to attach every tool it exposes."""
 
-    tool_id: str
-    r"""The ID of the specific nested tool within the MCP server"""
     type: NotRequired[McpToolInputType]
     r"""MCP tool type"""
     key: NotRequired[str]
-    r"""The key of the parent MCP tool"""
+    r"""The key of the MCP server or MCP gateway"""
     id: NotRequired[str]
-    r"""The ID of the parent MCP tool"""
+    r"""The ID of the MCP server or MCP gateway"""
+    tool_id: NotRequired[str]
+    r"""The ID of a specific tool within the MCP server. Omit to attach every tool the server or gateway exposes."""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
 
 
 class McpToolInput(BaseModel):
-    r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
-
-    tool_id: str
-    r"""The ID of the specific nested tool within the MCP server"""
+    r"""Executes tools from Model Context Protocol (MCP) servers and gateways. Reference the server or gateway using \"key\" or \"id\"; add \"tool_id\" to attach a single tool, or omit it to attach every tool it exposes."""
 
     type: Optional[McpToolInputType] = "mcp"
     r"""MCP tool type"""
 
     key: Optional[str] = None
-    r"""The key of the parent MCP tool"""
+    r"""The key of the MCP server or MCP gateway"""
 
     id: Optional[str] = None
-    r"""The ID of the parent MCP tool"""
+    r"""The ID of the MCP server or MCP gateway"""
+
+    tool_id: Optional[str] = None
+    r"""The ID of a specific tool within the MCP server. Omit to attach every tool the server or gateway exposes."""
 
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["type", "key", "id", "requires_approval"])
+        optional_fields = set(["type", "key", "id", "tool_id", "requires_approval"])
         serialized = handler(self)
         m = {}
 

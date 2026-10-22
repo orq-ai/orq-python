@@ -126,7 +126,7 @@ class CreateImageCache(BaseModel):
 
     type: CreateImageType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -274,7 +274,7 @@ class CreateImageRouterImagesGenerationsCache(BaseModel):
 
     type: CreateImageRouterImagesGenerationsType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -370,6 +370,8 @@ class CreateImageOrqTypedDict(TypedDict):
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     retry: NotRequired[CreateImageRouterImagesGenerationsRetryTypedDict]
     r"""Retry configuration for the request"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateImageRouterImagesGenerationsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     identity: NotRequired[PublicIdentityTypedDict]
@@ -390,6 +392,9 @@ class CreateImageOrq(BaseModel):
 
     retry: Optional[CreateImageRouterImagesGenerationsRetry] = None
     r"""Retry configuration for the request"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     fallbacks: Optional[List[CreateImageRouterImagesGenerationsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -420,6 +425,7 @@ class CreateImageOrq(BaseModel):
             [
                 "name",
                 "retry",
+                "fallback_on_codes",
                 "fallbacks",
                 "identity",
                 "contact",
@@ -471,6 +477,8 @@ class CreateImageRequestBodyTypedDict(TypedDict):
     r"""Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateImageRetryTypedDict]
@@ -528,6 +536,9 @@ class CreateImageRequestBody(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Optional[List[CreateImageFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -563,6 +574,7 @@ class CreateImageRequestBody(BaseModel):
                 "style",
                 "metadata",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "cache",

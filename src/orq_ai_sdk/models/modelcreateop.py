@@ -29,10 +29,12 @@ class ModelCreateRequestBodyTypedDict(TypedDict):
     model_developer: str
     model_family: str
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     model_type: str
     output_cost: float
     parameters: Nullable[List[CreateModelParameterTypedDict]]
     provider: str
+    benchmark_model: NotRequired[str]
 
 
 class ModelCreateRequestBody(BaseModel):
@@ -53,6 +55,7 @@ class ModelCreateRequestBody(BaseModel):
     model_family: str
 
     model_id: str
+    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     model_type: str
 
@@ -62,17 +65,30 @@ class ModelCreateRequestBody(BaseModel):
 
     provider: str
 
+    benchmark_model: Optional[str] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
+        optional_fields = set(["benchmark_model"])
+        nullable_fields = set(["parameters"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -164,7 +180,12 @@ class ModelCreateResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

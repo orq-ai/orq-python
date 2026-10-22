@@ -20,6 +20,8 @@ class McpSyncStateTypedDict(TypedDict):
     r"""ISO 8601 timestamp of the last sync attempt."""
     errors: NotRequired[List[str]]
     r"""Failures reported by the last sync."""
+    skills_total: NotRequired[int]
+    r"""Skills in the catalog after the last sync."""
 
 
 class McpSyncState(BaseModel):
@@ -40,6 +42,9 @@ class McpSyncState(BaseModel):
     errors: Optional[List[str]] = None
     r"""Failures reported by the last sync."""
 
+    skills_total: Optional[int] = None
+    r"""Skills in the catalog after the last sync."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -50,6 +55,7 @@ class McpSyncState(BaseModel):
                 "tools_removed",
                 "last_synced_at",
                 "errors",
+                "skills_total",
             ]
         )
         serialized = handler(self)

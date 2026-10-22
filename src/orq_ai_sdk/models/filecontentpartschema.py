@@ -12,7 +12,7 @@ class FileContentPartSchemaTypedDict(TypedDict):
     r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     file_data: NotRequired[str]
-    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    r"""The file data as a data URI string in the format `data:<mime-type>;base64,<base64-encoded-data>`. Example: `data:image/png;base64,iVBORw0KGgoAAAANS...`"""
     uri: NotRequired[str]
     r"""URL of the file. Supported for PDFs on Anthropic Claude models and for `https://` and Google Cloud Storage `gs://` URIs on Vertex AI Gemini models."""
     mime_type: NotRequired[str]
@@ -27,7 +27,7 @@ class FileContentPartSchema(BaseModel):
     r"""File data for the content part. Must contain exactly one of file_data, file_id or uri."""
 
     file_data: Optional[str] = None
-    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    r"""The file data as a data URI string in the format `data:<mime-type>;base64,<base64-encoded-data>`. Example: `data:image/png;base64,iVBORw0KGgoAAAANS...`"""
 
     uri: Optional[str] = None
     r"""URL of the file. Supported for PDFs on Anthropic Claude models and for `https://` and Google Cloud Storage `gs://` URIs on Vertex AI Gemini models."""

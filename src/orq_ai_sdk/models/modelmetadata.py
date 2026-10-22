@@ -32,6 +32,7 @@ class ModelMetadataTypedDict(TypedDict):
     context_window: NotRequired[int]
     cost_efficiency_rating: NotRequired[int]
     cost_per_image: NotRequired[float]
+    default_speech_response_format: NotRequired[str]
     deprecation_date: NotRequired[str]
     embedding_dimensions: NotRequired[int]
     extended_context_pricing_mode: NotRequired[str]
@@ -109,6 +110,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_json_mode_response_format: NotRequired[bool]
     supports_json_schema_response_format: NotRequired[bool]
     supports_max_completion_tokens: NotRequired[bool]
+    supports_mid_conversation_system: NotRequired[bool]
     supports_native_classify: NotRequired[bool]
     supports_openai_realtime_api: NotRequired[bool]
     supports_openai_sdk: NotRequired[bool]
@@ -118,6 +120,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_reasoning: NotRequired[bool]
     supports_reasoning_effort_default: NotRequired[bool]
     supports_reasoning_effort_high: NotRequired[bool]
+    supports_reasoning_effort_instant: NotRequired[bool]
     supports_reasoning_effort_low: NotRequired[bool]
     supports_reasoning_effort_max: NotRequired[bool]
     supports_reasoning_effort_medium: NotRequired[bool]
@@ -173,6 +176,8 @@ class ModelMetadata(BaseModel):
     cost_efficiency_rating: Optional[int] = None
 
     cost_per_image: Optional[float] = None
+
+    default_speech_response_format: Optional[str] = None
 
     deprecation_date: Optional[str] = None
 
@@ -328,6 +333,8 @@ class ModelMetadata(BaseModel):
 
     supports_max_completion_tokens: Optional[bool] = None
 
+    supports_mid_conversation_system: Optional[bool] = None
+
     supports_native_classify: Optional[bool] = None
 
     supports_openai_realtime_api: Optional[bool] = None
@@ -345,6 +352,8 @@ class ModelMetadata(BaseModel):
     supports_reasoning_effort_default: Optional[bool] = None
 
     supports_reasoning_effort_high: Optional[bool] = None
+
+    supports_reasoning_effort_instant: Optional[bool] = None
 
     supports_reasoning_effort_low: Optional[bool] = None
 
@@ -422,6 +431,7 @@ class ModelMetadata(BaseModel):
                 "context_window",
                 "cost_efficiency_rating",
                 "cost_per_image",
+                "default_speech_response_format",
                 "deprecation_date",
                 "embedding_dimensions",
                 "extended_context_pricing_mode",
@@ -499,6 +509,7 @@ class ModelMetadata(BaseModel):
                 "supports_json_mode_response_format",
                 "supports_json_schema_response_format",
                 "supports_max_completion_tokens",
+                "supports_mid_conversation_system",
                 "supports_native_classify",
                 "supports_openai_realtime_api",
                 "supports_openai_sdk",
@@ -508,6 +519,7 @@ class ModelMetadata(BaseModel):
                 "supports_reasoning",
                 "supports_reasoning_effort_default",
                 "supports_reasoning_effort_high",
+                "supports_reasoning_effort_instant",
                 "supports_reasoning_effort_low",
                 "supports_reasoning_effort_max",
                 "supports_reasoning_effort_medium",
