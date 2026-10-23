@@ -10,12 +10,12 @@ from typing_extensions import NotRequired, TypedDict
 
 class GetLogResponseTypedDict(TypedDict):
     log: NotRequired[LogTypedDict]
-    r"""Log is a log record returned by the log endpoints."""
+    r"""Log is the canonical wire representation of an otel_logs row."""
 
 
 class GetLogResponse(BaseModel):
     log: Optional[Log] = None
-    r"""Log is a log record returned by the log endpoints."""
+    r"""Log is the canonical wire representation of an otel_logs row."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

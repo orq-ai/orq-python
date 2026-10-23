@@ -5,6 +5,7 @@ from typing import Literal
 
 
 TelemetryQueryMode = Literal[
+    "TELEMETRY_QUERY_MODE_UNSPECIFIED",
     "TELEMETRY_QUERY_MODE_SCALAR",
     "TELEMETRY_QUERY_MODE_TIME_SERIES",
 ]

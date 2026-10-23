@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 from .apierror import APIError
+from .publiccompactionitem import PublicCompactionItem, PublicCompactionItemTypedDict
 from .publicusage import PublicUsage, PublicUsageTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import Any, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
@@ -96,7 +97,7 @@ class CompactResponseRequestBodyTypedDict(TypedDict):
     model: NotRequired[str]
     r"""The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required."""
     previous_response_id: NotRequired[str]
-    r"""The ID of a stored response whose conversation is compacted; input is appended after it."""
+    r"""The ID of a previous response to continue from."""
     prompt_cache_key: NotRequired[str]
     r"""Key for prompt caching across requests."""
 
@@ -112,7 +113,7 @@ class CompactResponseRequestBody(BaseModel):
     r"""The model to use for compaction in provider/model format (e.g. openai/gpt-4o). Required."""
 
     previous_response_id: Optional[str] = None
-    r"""The ID of a stored response whose conversation is compacted; input is appended after it."""
+    r"""The ID of a previous response to continue from."""
 
     prompt_cache_key: Optional[str] = None
     r"""Key for prompt caching across requests."""
@@ -221,8 +222,8 @@ class CompactResponseResponseBodyTypedDict(TypedDict):
     r"""The ID of the compaction response."""
     object: CompactResponseObject
     r"""Always \"response.compaction\"."""
-    output: Nullable[List[Any]]
-    r"""The next context window: a compaction item summarizing older items, followed by the most recent items verbatim. Pass it as the input of the next request, without previous_response_id."""
+    output: Nullable[List[PublicCompactionItemTypedDict]]
+    r"""The compacted list of output items."""
     usage: PublicUsageTypedDict
 
 
@@ -238,8 +239,8 @@ class CompactResponseResponseBody(BaseModel):
     object: CompactResponseObject
     r"""Always \"response.compaction\"."""
 
-    output: Nullable[List[Any]]
-    r"""The next context window: a compaction item summarizing older items, followed by the most recent items verbatim. Pass it as the input of the next request, without previous_response_id."""
+    output: Nullable[List[PublicCompactionItem]]
+    r"""The compacted list of output items."""
 
     usage: PublicUsage
 

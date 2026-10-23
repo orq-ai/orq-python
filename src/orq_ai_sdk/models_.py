@@ -31,7 +31,6 @@ class Models(BaseSDK):
             ]
         ],
         provider: str,
-        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -49,12 +48,11 @@ class Models(BaseSDK):
         :param metadata:
         :param model_developer:
         :param model_family:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param model_type:
         :param output_cost:
         :param parameters:
         :param provider:
-        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -74,7 +72,6 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
-            benchmark_model=benchmark_model,
             configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
@@ -137,7 +134,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.create({\n  id: "...",\n  displayName: "My custom model",\n  modelId: "my-model",\n  provider: "openai",\n  modelType: "chat",\n  modelDeveloper: "openai",\n  modelFamily: "gpt",\n  inputCost: 0,\n  outputCost: 0,\n  hasFunctions: false,\n  metadata: { isPrivate: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
                         }
                     ],
                 },
@@ -179,7 +176,6 @@ class Models(BaseSDK):
             ]
         ],
         provider: str,
-        benchmark_model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -197,12 +193,11 @@ class Models(BaseSDK):
         :param metadata:
         :param model_developer:
         :param model_family:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param model_type:
         :param output_cost:
         :param parameters:
         :param provider:
-        :param benchmark_model:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -222,7 +217,6 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateRequestBody(
-            benchmark_model=benchmark_model,
             configuration=utils.unmarshal(configuration, Dict[str, Any]),
             display_name=display_name,
             has_functions=has_functions,
@@ -285,7 +279,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.create({\n  id: "...",\n  displayName: "My custom model",\n  modelId: "my-model",\n  provider: "openai",\n  modelType: "chat",\n  modelDeveloper: "openai",\n  modelFamily: "gpt",\n  inputCost: 0,\n  outputCost: 0,\n  hasFunctions: false,\n  metadata: { isPrivate: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
+                            "source": 'await orq.models.create({\n  id: "...",\n  display_name: "My custom model",\n  model_id: "my-model",\n  provider: "openai",\n  model_type: "chat",\n  model_developer: "openai",\n  model_family: "gpt",\n  input_cost: 0,\n  output_cost: 0,\n  has_functions: false,\n  metadata: { is_private: true, region: "us" },\n  parameters: [],\n  configuration: { provider: "openai", api_key: "sk-..." },\n});',
                         }
                     ],
                 },
@@ -318,15 +312,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -356,16 +343,14 @@ class Models(BaseSDK):
         :param auth_mode:
         :param display_name:
         :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -407,12 +392,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
-            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
-            configuration=utils.get_pydantic_model(
-                configuration, Optional[models.PrivateModelConfiguration]
-            ),
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -481,7 +462,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
+                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
                         }
                     ],
                 },
@@ -516,15 +497,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
         input_cost: Optional[float] = None,
@@ -554,16 +528,14 @@ class Models(BaseSDK):
         :param auth_mode:
         :param display_name:
         :param model_developer:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param description:
         :param has_reasoning:
         :param input_cost:
@@ -605,12 +577,8 @@ class Models(BaseSDK):
             auth_mode=auth_mode,
             autorouter_id=autorouter_id,
             autorouter_version=autorouter_version,
-            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
-            configuration=utils.get_pydantic_model(
-                configuration, Optional[models.PrivateModelConfiguration]
-            ),
             description=description,
             display_name=display_name,
             has_reasoning=has_reasoning,
@@ -679,7 +647,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createAwsBedrock({\n  displayName: "My Bedrock Model",\n  modelId: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  modelDeveloper: "anthropic",\n  authMode: "integration",\n  integrationId: "int_...",\n});',
+                            "source": 'await orq.models.createAwsBedrock({\n  display_name: "My Bedrock Model",\n  model_id: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  model_developer: "anthropic",\n  auth_mode: "integration",\n  integration_id: "int_...",\n});',
                         }
                     ],
                 },
@@ -801,7 +769,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validateAwsBedrock({\n  inferenceProfileArn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  authMode: "pod-identity",\n});',
+                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
                         }
                     ],
                 },
@@ -921,7 +889,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validateAwsBedrock({\n  inferenceProfileArn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  authMode: "pod-identity",\n});',
+                            "source": 'await orq.models.validateAwsBedrock({\n  inference_profile_arn: "arn:aws:bedrock:us-east-1:123456789012:inference-profile/anthropic.claude-3-sonnet-20240229-v1:0",\n  region: "us-east-1",\n  auth_mode: "pod-identity",\n});',
                         }
                     ],
                 },
@@ -950,15 +918,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -992,10 +953,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1040,12 +999,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
-                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.PrivateModelConfiguration]
-                ),
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1117,7 +1072,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
                         }
                     ],
                 },
@@ -1148,15 +1103,8 @@ class Models(BaseSDK):
         assume_role_external_id: Optional[str] = None,
         autorouter_id: Optional[str] = None,
         autorouter_version: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -1190,10 +1138,8 @@ class Models(BaseSDK):
         :param assume_role_external_id:
         :param autorouter_id:
         :param autorouter_version:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param description:
         :param display_name:
         :param has_reasoning:
@@ -1238,12 +1184,8 @@ class Models(BaseSDK):
                 assume_role_external_id=assume_role_external_id,
                 autorouter_id=autorouter_id,
                 autorouter_version=autorouter_version,
-                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.PrivateModelConfiguration]
-                ),
                 description=description,
                 display_name=display_name,
                 has_reasoning=has_reasoning,
@@ -1315,7 +1257,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  displayName: "Updated name",\n  region: "us-east-1",\n});',
+                            "source": 'await orq.models.updateAwsBedrock({\n  id: "019d...",\n  display_name: "Updated name",\n  region: "us-east-1",\n});',
                         }
                     ],
                 },
@@ -1352,7 +1294,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and joins each entry with the Orq master-data row. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -1432,7 +1374,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  baseUrl: "https://my-resource.openai.azure.com/openai/v1",\n  apiKey: "...",\n});',
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
                         }
                     ],
                 },
@@ -1469,7 +1411,7 @@ class Models(BaseSDK):
     ) -> models.ModelAzureFoundryDeploymentsResponseBody:
         r"""List Azure Foundry deployments under a resource
 
-        Lists Azure Foundry deployments under the given base_url and merges each entry with the matching Orq model catalog entry. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
+        Lists Azure Foundry deployments under the given base_url and joins each entry with the Orq master-data row. Only OpenAI-developed deployments in succeeded state with chat/completion/embedding/vision model types are returned.
 
         :param api_key:
         :param base_url:
@@ -1549,7 +1491,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  baseUrl: "https://my-resource.openai.azure.com/openai/v1",\n  apiKey: "...",\n});',
+                            "source": 'await orq.models.azureFoundryDeployments({\n  provider: "azure",\n  base_url: "https://my-resource.openai.azure.com/openai/v1",\n  api_key: "...",\n});',
                         }
                     ],
                 },
@@ -1655,7 +1597,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.importLitellm([\n  {\n    modelName: "gpt-4o-proxy",\n    litellmParams: {\n      useInPassThrough: false,\n      useLitellmProxy: true,\n      mergeReasoningContentInChoices: false,\n      model: "openai/gpt-4o",\n    },\n    modelInfo: {\n      id: null, dbModel: null, key: null, litellmProvider: "openai", mode: "chat",\n      inputCostPerToken: 0.0000025, outputCostPerToken: 0.00001,\n      supportsFunctionCalling: true,\n      supportedOpenaiParams: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
                         }
                     ],
                 },
@@ -1759,7 +1701,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.importLitellm([\n  {\n    modelName: "gpt-4o-proxy",\n    litellmParams: {\n      useInPassThrough: false,\n      useLitellmProxy: true,\n      mergeReasoningContentInChoices: false,\n      model: "openai/gpt-4o",\n    },\n    modelInfo: {\n      id: null, dbModel: null, key: null, litellmProvider: "openai", mode: "chat",\n      inputCostPerToken: 0.0000025, outputCostPerToken: 0.00001,\n      supportsFunctionCalling: true,\n      supportedOpenaiParams: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
+                            "source": 'await orq.models.importLitellm([\n  {\n    model_name: "gpt-4o-proxy",\n    litellm_params: {\n      use_in_pass_through: false,\n      use_litellm_proxy: true,\n      merge_reasoning_content_in_choices: false,\n      model: "openai/gpt-4o",\n    },\n    model_info: {\n      id: null, db_model: null, key: null, litellm_provider: "openai", mode: "chat",\n      input_cost_per_token: 0.0000025, output_cost_per_token: 0.00001,\n      supports_function_calling: true,\n      supported_openai_params: ["temperature", "max_tokens", "top_p"],\n    },\n  },\n]);',
                         }
                     ],
                 },
@@ -1973,15 +1915,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2005,13 +1940,11 @@ class Models(BaseSDK):
         :param api_key:
         :param base_url:
         :param display_name:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param model_type:
         :param region:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2044,12 +1977,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
-            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
-            configuration=utils.get_pydantic_model(
-                configuration, Optional[models.PrivateModelConfiguration]
-            ),
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2112,7 +2041,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createOpenaiLike({\n  displayName: "My Local Model",\n  region: "us",\n  baseUrl: "https://api.example.com",\n  modelId: "my-model",\n  apiKey: "sk-...",\n  modelType: "chat",\n  inputCost: 0,\n  outputCost: 0,\n});',
+                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
                         }
                     ],
                 },
@@ -2144,15 +2073,8 @@ class Models(BaseSDK):
         model_id: str,
         model_type: str,
         region: str,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2176,13 +2098,11 @@ class Models(BaseSDK):
         :param api_key:
         :param base_url:
         :param display_name:
-        :param model_id: Immutable workspace-unique slug when configuration.model_id is supplied.
+        :param model_id:
         :param model_type:
         :param region:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2215,12 +2135,8 @@ class Models(BaseSDK):
         request = models.ModelCreateOpenAILikeRequestBody(
             api_key=api_key,
             base_url=base_url,
-            benchmark_model=benchmark_model,
             cache_read_cost=cache_read_cost,
             cache_write_cost=cache_write_cost,
-            configuration=utils.get_pydantic_model(
-                configuration, Optional[models.PrivateModelConfiguration]
-            ),
             cost_per_image=cost_per_image,
             description=description,
             display_name=display_name,
@@ -2283,7 +2199,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createOpenaiLike({\n  displayName: "My Local Model",\n  region: "us",\n  baseUrl: "https://api.example.com",\n  modelId: "my-model",\n  apiKey: "sk-...",\n  modelType: "chat",\n  inputCost: 0,\n  outputCost: 0,\n});',
+                            "source": 'await orq.models.createOpenaiLike({\n  display_name: "My Local Model",\n  region: "us",\n  base_url: "https://api.example.com",\n  model_id: "my-model",\n  api_key: "sk-...",\n  model_type: "chat",\n  input_cost: 0,\n  output_cost: 0,\n});',
                         }
                     ],
                 },
@@ -2314,15 +2230,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2349,10 +2258,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2387,12 +2294,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
-                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.PrivateModelConfiguration]
-                ),
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2460,7 +2363,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
                         }
                     ],
                 },
@@ -2491,15 +2394,8 @@ class Models(BaseSDK):
         model_type: str,
         region: str,
         base_url: Optional[str] = None,
-        benchmark_model: Optional[str] = None,
         cache_read_cost: Optional[float] = None,
         cache_write_cost: Optional[float] = None,
-        configuration: Optional[
-            Union[
-                models.PrivateModelConfiguration,
-                models.PrivateModelConfigurationTypedDict,
-            ]
-        ] = None,
         cost_per_image: Optional[float] = None,
         description: Optional[str] = None,
         has_reasoning: Optional[bool] = None,
@@ -2526,10 +2422,8 @@ class Models(BaseSDK):
         :param model_type:
         :param region:
         :param base_url:
-        :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
-        :param configuration:
         :param cost_per_image:
         :param description:
         :param has_reasoning:
@@ -2564,12 +2458,8 @@ class Models(BaseSDK):
             id=id,
             request_body=models.ModelUpdateOpenAILikeRequestBody(
                 base_url=base_url,
-                benchmark_model=benchmark_model,
                 cache_read_cost=cache_read_cost,
                 cache_write_cost=cache_write_cost,
-                configuration=utils.get_pydantic_model(
-                    configuration, Optional[models.PrivateModelConfiguration]
-                ),
                 cost_per_image=cost_per_image,
                 description=description,
                 display_name=display_name,
@@ -2637,7 +2527,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  displayName: "My Renamed Model",\n  region: "us",\n  modelType: "chat",\n  inputCost: 0.002,\n  outputCost: 0.004,\n});',
+                            "source": 'await orq.models.updateOpenaiLike({\n  id: "019d...",\n  display_name: "My Renamed Model",\n  region: "us",\n  model_type: "chat",\n  input_cost: 0.002,\n  output_cost: 0.004,\n});',
                         }
                     ],
                 },
@@ -2759,7 +2649,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  apiKey: "...",\n});',
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
                         }
                     ],
                 },
@@ -2879,7 +2769,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  apiKey: "...",\n});',
+                            "source": 'await orq.models.validate({\n  provider: "azure",\n  endpoint: "https://my-deployment.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-06-01",\n  api_key: "...",\n});',
                         }
                     ],
                 },
@@ -2907,8 +2797,6 @@ class Models(BaseSDK):
             models.VertexConfiguration, models.VertexConfigurationTypedDict
         ],
         display_name: str,
-        benchmark_model: Optional[str] = None,
-        model_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2920,8 +2808,6 @@ class Models(BaseSDK):
 
         :param configuration:
         :param display_name:
-        :param benchmark_model:
-        :param model_id: Immutable private-model slug; defaults to display_name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2941,12 +2827,10 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateVertexRequestBody(
-            benchmark_model=benchmark_model,
             configuration=utils.get_pydantic_model(
                 configuration, models.VertexConfiguration
             ),
             display_name=display_name,
-            model_id=model_id,
         )
 
         req = self._build_request(
@@ -2994,7 +2878,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createVertex({\n  displayName: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
                         }
                     ],
                 },
@@ -3024,8 +2908,6 @@ class Models(BaseSDK):
             models.VertexConfiguration, models.VertexConfigurationTypedDict
         ],
         display_name: str,
-        benchmark_model: Optional[str] = None,
-        model_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -3037,8 +2919,6 @@ class Models(BaseSDK):
 
         :param configuration:
         :param display_name:
-        :param benchmark_model:
-        :param model_id: Immutable private-model slug; defaults to display_name.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -3058,12 +2938,10 @@ class Models(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ModelCreateVertexRequestBody(
-            benchmark_model=benchmark_model,
             configuration=utils.get_pydantic_model(
                 configuration, models.VertexConfiguration
             ),
             display_name=display_name,
-            model_id=model_id,
         )
 
         req = self._build_request_async(
@@ -3111,7 +2989,7 @@ class Models(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.models.createVertex({\n  displayName: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
+                            "source": 'await orq.models.createVertex({\n  display_name: "My Vertex Gemini",\n  configuration: {\n    projectId: "my-gcp-project",\n    location: "us-central1",\n    serviceAccount: { type: "service_account", project_id: "..." },\n    modelConfiguration: {\n      id: "gemini-2.0-flash",\n      inputCost: 0,\n      outputCost: 0,\n      parameters: {\n        temperature: { min: 0, max: 2 },\n        maxTokens: { min: 1, max: 8192 },\n        topP: { min: 0, max: 1 },\n      },\n      capabilities: { supportToolCalling: true, structuredOutput: true, vision: false },\n    },\n  },\n});',
                         }
                     ],
                 },
@@ -3336,14 +3214,12 @@ class Models(BaseSDK):
         self,
         *,
         id: str,
-        benchmark_model: Optional[str] = None,
         display_name: Optional[str] = None,
         has_functions: Optional[bool] = None,
         input_cost: Optional[float] = None,
         metadata: Optional[
             Union[models.ModelMetadata, models.ModelMetadataTypedDict]
         ] = None,
-        model_id: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         parameters: Optional[
@@ -3359,15 +3235,13 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateResponseBody:
         r"""Update custom model
 
-        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present.
+        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
 
         :param id: The ID of the model
-        :param benchmark_model:
         :param display_name:
         :param has_functions:
         :param input_cost:
         :param metadata:
-        :param model_id: Immutable private-model slug.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -3392,14 +3266,12 @@ class Models(BaseSDK):
         request = models.ModelUpdateRequest(
             id=id,
             request_body=models.ModelUpdateRequestBody(
-                benchmark_model=benchmark_model,
                 display_name=display_name,
                 has_functions=has_functions,
                 input_cost=input_cost,
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.ModelMetadata]
                 ),
-                model_id=model_id,
                 model_type=model_type,
                 output_cost=output_cost,
                 parameters=utils.get_pydantic_model(
@@ -3482,14 +3354,12 @@ class Models(BaseSDK):
         self,
         *,
         id: str,
-        benchmark_model: Optional[str] = None,
         display_name: Optional[str] = None,
         has_functions: Optional[bool] = None,
         input_cost: Optional[float] = None,
         metadata: Optional[
             Union[models.ModelMetadata, models.ModelMetadataTypedDict]
         ] = None,
-        model_id: Optional[str] = None,
         model_type: Optional[str] = None,
         output_cost: Optional[float] = None,
         parameters: Optional[
@@ -3505,15 +3375,13 @@ class Models(BaseSDK):
     ) -> models.ModelUpdateResponseBody:
         r"""Update custom model
 
-        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present.
+        Updates a custom model. Only fields present in the request body are modified, except for `metadata` and `parameters`, which are fully replaced when present (preserved from the legacy handler's behavior).
 
         :param id: The ID of the model
-        :param benchmark_model:
         :param display_name:
         :param has_functions:
         :param input_cost:
         :param metadata:
-        :param model_id: Immutable private-model slug.
         :param model_type:
         :param output_cost:
         :param parameters:
@@ -3538,14 +3406,12 @@ class Models(BaseSDK):
         request = models.ModelUpdateRequest(
             id=id,
             request_body=models.ModelUpdateRequestBody(
-                benchmark_model=benchmark_model,
                 display_name=display_name,
                 has_functions=has_functions,
                 input_cost=input_cost,
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.ModelMetadata]
                 ),
-                model_id=model_id,
                 model_type=model_type,
                 output_cost=output_cost,
                 parameters=utils.get_pydantic_model(
@@ -4101,14 +3967,8 @@ class Models(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListModelsResponseBody, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(
-                models.APIErrorResponseData, http_res
-            )
-            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -4193,14 +4053,8 @@ class Models(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListModelsResponseBody, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(
-                models.APIErrorResponseData, http_res
-            )
-            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

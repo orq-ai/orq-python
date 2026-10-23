@@ -268,8 +268,6 @@ class CreateTranslationOrqTypedDict(TypedDict):
         List[CreateTranslationRouterAudioTranslationsFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    fallback_on_codes: NotRequired[List[int]]
-    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     retry: NotRequired[CreateTranslationRouterAudioTranslationsRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
@@ -290,9 +288,6 @@ class CreateTranslationOrq(BaseModel):
 
     fallbacks: Optional[List[CreateTranslationRouterAudioTranslationsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
-
-    fallback_on_codes: Optional[List[int]] = None
-    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     retry: Optional[CreateTranslationRouterAudioTranslationsRetry] = None
     r"""Retry configuration for the request"""
@@ -320,7 +315,6 @@ class CreateTranslationOrq(BaseModel):
             [
                 "name",
                 "fallbacks",
-                "fallback_on_codes",
                 "retry",
                 "identity",
                 "contact",
@@ -405,8 +399,6 @@ class CreateTranslationRequestBodyTypedDict(TypedDict):
     r"""The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    fallback_on_codes: NotRequired[List[int]]
-    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateTranslationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateTranslationRetryTypedDict]
@@ -457,11 +449,6 @@ class CreateTranslationRequestBody(BaseModel):
     name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    fallback_on_codes: Annotated[Optional[List[int]], FieldMetadata(multipart=True)] = (
-        None
-    )
-    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
-
     fallbacks: Annotated[
         Optional[List[CreateTranslationFallbacks]],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -510,7 +497,6 @@ class CreateTranslationRequestBody(BaseModel):
                 "timestamps_granularity",
                 "temperature",
                 "name",
-                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "load_balancer",

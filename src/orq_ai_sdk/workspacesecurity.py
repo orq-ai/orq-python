@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional
+from typing import Mapping, Optional
 
 
 class WorkspaceSecurity(BaseSDK):
@@ -81,22 +81,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "listDomains",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDomainsResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -177,22 +170,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "listDomains",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListDomainsResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -285,22 +271,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "createDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateDomainResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -393,22 +372,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "createDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateDomainResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -467,7 +439,7 @@ class WorkspaceSecurity(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -492,22 +464,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "deleteDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -566,7 +531,7 @@ class WorkspaceSecurity(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -591,22 +556,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "deleteDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -690,22 +648,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "verifyDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.VerifyDomainResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -789,22 +740,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "verifyDomain",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.VerifyDomainResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -885,22 +829,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "getIpAllowlist",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetIPAllowlistResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -981,22 +918,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "getIpAllowlist",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetIPAllowlistResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1089,22 +1019,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "updateIpAllowlist",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateIPAllowlistResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1197,22 +1120,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "updateIpAllowlist",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateIPAllowlistResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1308,22 +1224,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "addIpRange",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AddIPRangeResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1419,22 +1328,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "addIpRange",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AddIPRangeResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1493,7 +1395,7 @@ class WorkspaceSecurity(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1518,22 +1420,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "deleteIpRange",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1592,7 +1487,7 @@ class WorkspaceSecurity(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="application/json",
+            accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1617,22 +1512,15 @@ class WorkspaceSecurity(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Workspace Security"],
-                extensions={
-                    "x-cli-group": "workspace-security",
-                    "x-cli-name": "deleteIpRange",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

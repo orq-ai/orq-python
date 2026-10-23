@@ -31,6 +31,7 @@ with Orq(
             504.0,
         ],
     }, cache={
+        "ttl": 3600.0,
         "type": "exact_match",
     }, load_balancer={
         "type": "weight_based",
@@ -73,6 +74,7 @@ with Orq(
             ],
         },
         "cache": {
+            "ttl": 3600.0,
             "type": "exact_match",
         },
         "load_balancer": {
@@ -109,7 +111,6 @@ with Orq(
 | `size`                                                                                                                                                            | [Optional[models.Size]](../../models/size.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                | The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.                                                                            |                                                                                                                                                                   |
 | `user`                                                                                                                                                            | *Optional[str]*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                | A unique identifier representing your end-user, which can help to monitor and detect abuse.                                                                       |                                                                                                                                                                   |
 | `name`                                                                                                                                                            | *Optional[str]*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                | The name to display on the trace. If not specified, the default system name will be used.                                                                         |                                                                                                                                                                   |
-| `fallback_on_codes`                                                                                                                                               | List[*int*]                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                | HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].  |                                                                                                                                                                   |
 | `fallbacks`                                                                                                                                                       | List[[models.CreateImageVariationFallbacks](../../models/createimagevariationfallbacks.md)]                                                                       | :heavy_minus_sign:                                                                                                                                                | Array of fallback models to use if primary model fails                                                                                                            |                                                                                                                                                                   |
 | `retry`                                                                                                                                                           | [Optional[models.CreateImageVariationRetry]](../../models/createimagevariationretry.md)                                                                           | :heavy_minus_sign:                                                                                                                                                | Retry configuration for the request                                                                                                                               |                                                                                                                                                                   |
 | `cache`                                                                                                                                                           | [Optional[models.CreateImageVariationCache]](../../models/createimagevariationcache.md)                                                                           | :heavy_minus_sign:                                                                                                                                                | Cache configuration for the request.                                                                                                                              |                                                                                                                                                                   |
@@ -124,7 +125,6 @@ with Orq(
 
 ### Errors
 
-| Error Type              | Status Code             | Content Type            |
-| ----------------------- | ----------------------- | ----------------------- |
-| models.APIErrorResponse | 401                     | application/json        |
-| models.APIDefaultError  | 4XX, 5XX                | \*/\*                   |
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

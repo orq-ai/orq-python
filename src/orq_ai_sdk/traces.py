@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Traces(BaseSDK):
@@ -114,19 +114,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -239,19 +235,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "aggregate"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AggregateTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -325,19 +317,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFacets"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -411,19 +399,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFacets"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFacetsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -516,21 +500,17 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFacetValues"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTraceFacetValuesResponse, http_res
             )
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -623,21 +603,17 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFacetValues"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTraceFacetValuesResponse, http_res
             )
-        if utils.match_response(http_res, ["400", "401"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -711,19 +687,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFields"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -797,19 +769,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFields"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFieldsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -890,19 +858,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFilters"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFiltersResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -983,19 +947,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listFilters"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceFiltersResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1091,19 +1051,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "queryOql"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1199,19 +1155,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "queryOql"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1322,19 +1274,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1445,19 +1393,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "search"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchTracesResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1538,19 +1482,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "get"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1631,19 +1571,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "get"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetTraceResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1728,15 +1664,13 @@ class Traces(BaseSDK):
                 ),
                 tags=["Traces"],
                 extensions={
-                    "x-cli-group": "traces",
-                    "x-cli-name": "getConversation",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1744,14 +1678,10 @@ class Traces(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetTraceConversationResponse, http_res
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1836,15 +1766,13 @@ class Traces(BaseSDK):
                 ),
                 tags=["Traces"],
                 extensions={
-                    "x-cli-group": "traces",
-                    "x-cli-name": "getConversation",
                     "x-code-samples": [
                         {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.traces.getConversation({ traceId: "6b9bf4d94704f936d11b3f4ffb7bcd78" });\n',
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1852,14 +1780,10 @@ class Traces(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.GetTraceConversationResponse, http_res
             )
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1946,19 +1870,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2045,19 +1965,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "listSpans"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListTraceSpansResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2081,7 +1997,7 @@ class Traces(BaseSDK):
 
         Retrieve one hydrated span.
 
-        :param trace_id: Optional: queue items predating trace_id capture only have the span.
+        :param trace_id:
         :param span_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2141,19 +2057,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "getSpan"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2177,7 +2089,7 @@ class Traces(BaseSDK):
 
         Retrieve one hydrated span.
 
-        :param trace_id: Optional: queue items predating trace_id capture only have the span.
+        :param trace_id:
         :param span_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2237,19 +2149,15 @@ class Traces(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Traces"],
-                extensions={"x-cli-group": "traces", "x-cli-name": "getSpan"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetTraceSpanResponse, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

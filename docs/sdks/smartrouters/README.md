@@ -53,7 +53,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
@@ -90,7 +89,6 @@ with Orq(
 | `key`                                                                                              | *str*                                                                                              | :heavy_check_mark:                                                                                 | Unique key for the Smart Router within the workspace. Use lowercase letters, numbers, and hyphens. |
 | `models`                                                                                           | List[*str*]                                                                                        | :heavy_check_mark:                                                                                 | Pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format.                 |
 | `profile`                                                                                          | [models.SmartRouterProfile](../../models/smartrouterprofile.md)                                    | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `session_affinity`                                                                                 | [Optional[models.SmartRouterSessionAffinity]](../../models/smartroutersessionaffinity.md)          | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
 | `retries`                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                   | :heavy_minus_sign:                                                                                 | Configuration to override the default retry behavior of the client.                                |
 
 ### Response
@@ -101,7 +99,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -142,7 +139,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401, 403               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -183,12 +179,11 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
-Updates the model pool, routing profile, session affinity, or any combination. Omitted fields retain their current values. The router key and model reference cannot be changed.
+Updates the model pool, routing profile, or both. Omitted fields retain their current values. The router key and model reference cannot be changed.
 
 ### Example Usage
 
@@ -216,7 +211,6 @@ with Orq(
 | `smart_router_id`                                                                                                             | *str*                                                                                                                         | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |
 | `models`                                                                                                                      | List[*str*]                                                                                                                   | :heavy_minus_sign:                                                                                                            | Replacement pool of 2 to 50 distinct eligible models. Each value uses `provider/model` format. Omit to keep the current pool. |
 | `profile`                                                                                                                     | [Optional[models.SmartRouterProfile]](../../models/smartrouterprofile.md)                                                     | :heavy_minus_sign:                                                                                                            | N/A                                                                                                                           |
-| `session_affinity`                                                                                                            | [Optional[models.SmartRouterSessionAffinity]](../../models/smartroutersessionaffinity.md)                                     | :heavy_minus_sign:                                                                                                            | N/A                                                                                                                           |
 | `retries`                                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                              | :heavy_minus_sign:                                                                                                            | Configuration to override the default retry behavior of the client.                                                           |
 
 ### Response
@@ -227,5 +221,4 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

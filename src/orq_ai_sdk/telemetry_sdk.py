@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class TelemetrySDK(BaseSDK):
@@ -15,8 +15,6 @@ class TelemetrySDK(BaseSDK):
         self,
         *,
         source: Optional[models.TelemetrySource] = None,
-        project_id: Optional[str] = None,
-        workspace_wide: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -27,10 +25,6 @@ class TelemetrySDK(BaseSDK):
         Lists the caller-scoped metrics, operations, units, query modes, result kinds, dimensions, and filter operators supported by the unified telemetry query service.
 
         :param source:
-        :param project_id: Restricts discovered runtime metrics to records attributed to this exact
-            project. Projectless workspace metrics are excluded.
-        :param workspace_wide: Discovers runtime metrics across the complete workspace, including
-            project-attributed and projectless records. Workspace-admin only.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -51,8 +45,6 @@ class TelemetrySDK(BaseSDK):
 
         request = models.TelemetryListCapabilitiesRequest(
             source=source,
-            project_id=project_id,
-            workspace_wide=workspace_wide,
         )
 
         req = self._build_request(
@@ -90,24 +82,17 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={
-                    "x-cli-group": "telemetry",
-                    "x-cli-name": "listCapabilities",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTelemetryCapabilitiesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -121,8 +106,6 @@ class TelemetrySDK(BaseSDK):
         self,
         *,
         source: Optional[models.TelemetrySource] = None,
-        project_id: Optional[str] = None,
-        workspace_wide: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -133,10 +116,6 @@ class TelemetrySDK(BaseSDK):
         Lists the caller-scoped metrics, operations, units, query modes, result kinds, dimensions, and filter operators supported by the unified telemetry query service.
 
         :param source:
-        :param project_id: Restricts discovered runtime metrics to records attributed to this exact
-            project. Projectless workspace metrics are excluded.
-        :param workspace_wide: Discovers runtime metrics across the complete workspace, including
-            project-attributed and projectless records. Workspace-admin only.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -157,8 +136,6 @@ class TelemetrySDK(BaseSDK):
 
         request = models.TelemetryListCapabilitiesRequest(
             source=source,
-            project_id=project_id,
-            workspace_wide=workspace_wide,
         )
 
         req = self._build_request_async(
@@ -196,24 +173,17 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={
-                    "x-cli-group": "telemetry",
-                    "x-cli-name": "listCapabilities",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTelemetryCapabilitiesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -322,24 +292,17 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={
-                    "x-cli-group": "telemetry",
-                    "x-cli-name": "listFacetValues",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTelemetryFacetValuesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -448,24 +411,17 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={
-                    "x-cli-group": "telemetry",
-                    "x-cli-name": "listFacetValues",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListTelemetryFacetValuesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -610,19 +566,15 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryTelemetryResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -767,19 +719,15 @@ class TelemetrySDK(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Telemetry"],
-                extensions={"x-cli-group": "telemetry", "x-cli-name": "query"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.QueryTelemetryResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

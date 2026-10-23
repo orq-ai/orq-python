@@ -5,6 +5,7 @@ from typing import Literal
 
 
 ManagementKeyStatus = Literal[
+    "MANAGEMENT_KEY_STATUS_UNSPECIFIED",
     "MANAGEMENT_KEY_STATUS_ACTIVE",
     "MANAGEMENT_KEY_STATUS_DISABLED",
     "MANAGEMENT_KEY_STATUS_REVOKED",

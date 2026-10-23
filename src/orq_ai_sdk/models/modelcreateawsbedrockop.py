@@ -11,10 +11,6 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
-from .privatemodelconfiguration import (
-    PrivateModelConfiguration,
-    PrivateModelConfigurationTypedDict,
-)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -27,16 +23,13 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     display_name: str
     model_developer: str
     model_id: str
-    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
     region: str
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
     autorouter_version: NotRequired[str]
-    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
-    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     has_reasoning: NotRequired[bool]
     input_cost: NotRequired[float]
@@ -64,7 +57,6 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     model_developer: str
 
     model_id: str
-    r"""Immutable workspace-unique slug when configuration.model_id is supplied."""
 
     region: str
 
@@ -76,13 +68,9 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
 
     autorouter_version: Optional[str] = None
 
-    benchmark_model: Optional[str] = None
-
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
-
-    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -126,10 +114,8 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
                 "assume_role_external_id",
                 "autorouter_id",
                 "autorouter_version",
-                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
-                "configuration",
                 "description",
                 "has_reasoning",
                 "input_cost",
@@ -250,12 +236,7 @@ class ModelCreateAwsBedrockResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Annotated[
-        Optional[str],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
+    legacy_uuid: Optional[str] = None
 
     model_developer: Optional[str] = None
 

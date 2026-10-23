@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union
+from typing import Mapping, Optional, Union
 
 
 class Environments(BaseSDK):
@@ -94,8 +94,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project environments",
@@ -112,7 +110,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result.data);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -120,12 +118,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListEnvironmentsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -219,8 +213,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project environments",
@@ -237,7 +229,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\nconsole.log(result.data);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -245,12 +237,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListEnvironmentsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -348,8 +336,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a project environment",
@@ -366,7 +352,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.create({\n  slug: 'production',\n  displayName: 'Production',\n  description: 'Customer-facing production workloads',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result.environment.environmentId);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -374,12 +360,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -477,8 +459,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create a project environment",
@@ -495,7 +475,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.create({\n  slug: 'production',\n  displayName: 'Production',\n  description: 'Customer-facing production workloads',\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\nconsole.log(result.environment.environmentId);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -503,12 +483,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -590,8 +566,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an environment",
@@ -608,7 +582,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.get({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\nconsole.log(result.environment);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -616,12 +590,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -703,8 +673,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve an environment",
@@ -721,7 +689,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.get({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\nconsole.log(result.environment);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -729,12 +697,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -816,8 +780,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an environment",
@@ -834,7 +796,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.environments.delete({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -842,12 +804,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -929,8 +887,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete an environment",
@@ -947,7 +903,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait client.environments.delete({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n});\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -955,12 +911,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1061,8 +1013,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update an environment",
@@ -1079,7 +1029,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.update({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n  displayName: 'Production EU',\n});\nconsole.log(result.environment);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1087,12 +1037,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1193,8 +1139,6 @@ class Environments(BaseSDK):
                 ),
                 tags=["Environments"],
                 extensions={
-                    "x-cli-group": "environments",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update an environment",
@@ -1211,7 +1155,7 @@ class Environments(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst result = await client.environments.update({\n  environmentId: 'env_01jz2r3s4t5v6w7x8y9z0abcde',\n  displayName: 'Production EU',\n});\nconsole.log(result.environment);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1219,12 +1163,8 @@ class Environments(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateEnvironmentResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

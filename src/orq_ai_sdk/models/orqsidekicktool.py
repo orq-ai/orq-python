@@ -9,7 +9,6 @@ from typing_extensions import NotRequired, TypedDict
 
 OrqSidekickToolReasoningEffort = Literal[
     "none",
-    "instant",
     "minimal",
     "low",
     "medium",

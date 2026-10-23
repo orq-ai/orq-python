@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Iterable, List, Mapping, Optional
+from typing import Iterable, List, Mapping, Optional
 
 
 class Hub(BaseSDK):
@@ -85,8 +85,6 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
-                    "x-cli-group": "hub",
-                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "label": "Core - Search hub items",
@@ -103,7 +101,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.search({\n  q: 'summarize',\n  types: ['prompt'],\n});\n\nfor (const hit of result.hits) {\n  console.log(hit.document.id, hit.document.displayName);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -111,12 +109,8 @@ class Hub(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchHubItemsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -201,8 +195,6 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
-                    "x-cli-group": "hub",
-                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "label": "Core - Search hub items",
@@ -219,7 +211,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.search({\n  q: 'summarize',\n  types: ['prompt'],\n});\n\nfor (const hit of result.hits) {\n  console.log(hit.document.id, hit.document.displayName);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -227,12 +219,8 @@ class Hub(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchHubItemsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -314,8 +302,6 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
-                    "x-cli-group": "hub",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve hub item",
@@ -332,7 +318,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.get({\n  id: 'hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.hubItem.displayName);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -340,12 +326,8 @@ class Hub(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetHubItemResponse, http_res)
-        if utils.match_response(http_res, ["401", "403"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -427,8 +409,6 @@ class Hub(BaseSDK):
                 ),
                 tags=["Hub"],
                 extensions={
-                    "x-cli-group": "hub",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve hub item",
@@ -445,7 +425,7 @@ class Hub(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.hub.get({\n  id: 'hub_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.hubItem.displayName);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -453,12 +433,8 @@ class Hub(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetHubItemResponse, http_res)
-        if utils.match_response(http_res, ["401", "403"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

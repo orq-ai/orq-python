@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Iterable, List, Mapping, Optional
+from typing import Dict, Iterable, List, Mapping, Optional
 
 
 class ManagementKeys(BaseSDK):
@@ -103,19 +103,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "list"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListManagementKeysResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -217,19 +213,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "list"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListManagementKeysResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -262,8 +254,9 @@ class ManagementKeys(BaseSDK):
             for the catalog of valid keys (Domain.id) and AccessLevel string
             values, or fetch the live catalog via the capability catalog
             endpoint.
-        :param expires_at: Optional expiration. The key is rejected once `expires_at` is in the
-            past. Unset means the key never expires.
+        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
+            the key once `expires_at` is in the past. Unset means the key
+            never expires.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -327,19 +320,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "create"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -372,8 +361,9 @@ class ManagementKeys(BaseSDK):
             for the catalog of valid keys (Domain.id) and AccessLevel string
             values, or fetch the live catalog via the capability catalog
             endpoint.
-        :param expires_at: Optional expiration. The key is rejected once `expires_at` is in the
-            past. Unset means the key never expires.
+        :param expires_at: Optional expiration. When set, the authenticate hot-path rejects
+            the key once `expires_at` is in the past. Unset means the key
+            never expires.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -437,19 +427,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "create"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -523,24 +509,17 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={
-                    "x-cli-group": "management-keys",
-                    "x-cli-name": "listCapabilities",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListManagementCapabilitiesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -614,24 +593,17 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={
-                    "x-cli-group": "management-keys",
-                    "x-cli-name": "listCapabilities",
-                },
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListManagementCapabilitiesResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -712,19 +684,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "get"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetManagementKeyResponse, http_res)
-        if utils.match_response(http_res, ["401", "403"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -805,19 +773,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "get"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetManagementKeyResponse, http_res)
-        if utils.match_response(http_res, ["401", "403"], "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -898,19 +862,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "delete"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -991,19 +951,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "delete"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1114,19 +1070,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "update"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1237,19 +1189,15 @@ class ManagementKeys(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Management keys"],
-                extensions={"x-cli-group": "management-keys", "x-cli-name": "update"},
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateManagementKeyResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

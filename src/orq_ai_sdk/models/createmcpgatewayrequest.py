@@ -27,8 +27,6 @@ class CreateMcpGatewayRequestTypedDict(TypedDict):
     r"""Which projects in the workspace may use this gateway. Defaults to every project."""
     plugins: NotRequired[List[McpGatewayPluginTypedDict]]
     r"""Plugins run on every tool call this gateway serves."""
-    skill_ids: NotRequired[List[str]]
-    r"""Workspace skills this gateway serves to MCP clients through the MCP Skills extension."""
 
 
 class CreateMcpGatewayRequest(BaseModel):
@@ -54,21 +52,10 @@ class CreateMcpGatewayRequest(BaseModel):
     plugins: Optional[List[McpGatewayPlugin]] = None
     r"""Plugins run on every tool call this gateway serves."""
 
-    skill_ids: Optional[List[str]] = None
-    r"""Workspace skills this gateway serves to MCP clients through the MCP Skills extension."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "description",
-                "server_links",
-                "tool_naming",
-                "mode",
-                "sharing",
-                "plugins",
-                "skill_ids",
-            ]
+            ["description", "server_links", "tool_naming", "mode", "sharing", "plugins"]
         )
         serialized = handler(self)
         m = {}

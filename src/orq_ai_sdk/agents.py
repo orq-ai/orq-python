@@ -4,7 +4,6 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.external import External
 from orq_ai_sdk.orq_responses import OrqResponses
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
@@ -15,7 +14,6 @@ from typing_extensions import deprecated
 
 class Agents(BaseSDK):
     responses: OrqResponses
-    external: External
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -28,7 +26,6 @@ class Agents(BaseSDK):
         self.responses = OrqResponses(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
-        self.external = External(self.sdk_configuration, parent_ref=self.parent_ref)
 
     def create(
         self,
@@ -1046,7 +1043,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentUpdateAgentRequest(
+            request_body=models.UpdateAgentRequestBody(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1101,7 +1098,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentUpdateAgentRequest,
+                models.UpdateAgentRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1251,7 +1248,7 @@ class Agents(BaseSDK):
 
         request = models.UpdateAgentRequest(
             agent_key=agent_key,
-            request_body=models.UpdateAgentUpdateAgentRequest(
+            request_body=models.UpdateAgentRequestBody(
                 key=key,
                 display_name=display_name,
                 project_id=project_id,
@@ -1306,7 +1303,7 @@ class Agents(BaseSDK):
                 False,
                 False,
                 "json",
-                models.UpdateAgentUpdateAgentRequest,
+                models.UpdateAgentRequestBody,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1492,23 +1489,15 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "invoke",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1656,23 +1645,15 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "invoke",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "invoke"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1858,23 +1839,15 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "run",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2060,23 +2033,15 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "run",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "run"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2277,11 +2242,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "streamRun",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2510,11 +2471,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "streamRun",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "streamRun"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2693,11 +2650,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "stream",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2876,11 +2829,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-cli-group": "agents",
-                    "x-cli-hidden": True,
-                    "x-cli-name": "stream",
-                },
+                extensions={"x-cli-group": "agents", "x-cli-name": "stream"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -37,14 +37,13 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                    | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                      | *Optional[int]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Page size, 1-200. Unset uses the server default (25).                                                                                        |
-| `starting_after`                                                                                                                             | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Cursor for forward pagination. Set to the `alert_id` of the last<br/> item from the previous page.                                           |
-| `ending_before`                                                                                                                              | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Cursor for backward pagination. Set to the `alert_id` of the first<br/> item from the previous page.                                         |
-| `project_id`                                                                                                                                 | *Optional[str]*                                                                                                                              | :heavy_minus_sign:                                                                                                                           | Restrict results to one project.                                                                                                             |
-| `scope`                                                                                                                                      | [Optional[models.AlertScope]](../../models/alertscope.md)                                                                                    | :heavy_minus_sign:                                                                                                                           | Restrict results by ownership boundary. Unspecified returns all alerts<br/> visible to the caller; non-admin callers never see workspace alerts. |
-| `retries`                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                             | :heavy_minus_sign:                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                          |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `limit`                                                                                          | *Optional[int]*                                                                                  | :heavy_minus_sign:                                                                               | Page size, 1-200. Unset uses the server default (25).                                            |
+| `starting_after`                                                                                 | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | Cursor for forward pagination. Set to the `alert_id` of the last<br/> item from the previous page. |
+| `ending_before`                                                                                  | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | Cursor for backward pagination. Set to the `alert_id` of the first<br/> item from the previous page. |
+| `project_id`                                                                                     | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | Restrict results to one project.                                                                 |
+| `retries`                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                 | :heavy_minus_sign:                                                                               | Configuration to override the default retry behavior of the client.                              |
 
 ### Response
 
@@ -54,12 +53,11 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## create
 
-Creates a project- or workspace-scoped threshold alert. The alert's query is validated against the selected telemetry source and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
+Creates a threshold alert in a project. The alert's query is validated against the Reporting API metric catalogue and the evaluation schedule starts immediately when `enabled` is true. Plan limits apply to the number of alerts and the minimum evaluation interval.
 
 ### Example Usage
 
@@ -73,7 +71,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.alerts.create(display_name="Freeman80", query={
+    res = orq.alerts.create(display_name="Freeman80", project_id="<id>", query={
         "metric": "<value>",
     }, condition={
         "comparator": "gte",
@@ -92,15 +90,14 @@ with Orq(
 | Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             | Example                                                                 |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `display_name`                                                          | *str*                                                                   | :heavy_check_mark:                                                      | Workspace-unique display name.                                          | High spend on production                                                |
+| `project_id`                                                            | *str*                                                                   | :heavy_check_mark:                                                      | Project that owns the alert. Required.                                  |                                                                         |
 | `query`                                                                 | [models.AlertQuery](../../models/alertquery.md)                         | :heavy_check_mark:                                                      | Metric query evaluated on each tick.                                    |                                                                         |
 | `condition`                                                             | [models.AlertCondition](../../models/alertcondition.md)                 | :heavy_check_mark:                                                      | Threshold condition applied to the query result.                        |                                                                         |
 | `description`                                                           | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Short human-readable summary of what the alert watches.                 |                                                                         |
-| `project_id`                                                            | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Project that owns a project alert. Empty for a workspace alert.         |                                                                         |
 | `signal`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | UI signal preset the alert is created from. Defaults to `custom`.       |                                                                         |
 | `notifier_ids`                                                          | List[*str*]                                                             | :heavy_minus_sign:                                                      | Notifiers that receive trigger-open and trigger-resolve<br/> notifications. |                                                                         |
 | `enabled`                                                               | *Optional[bool]*                                                        | :heavy_minus_sign:                                                      | Whether the alert starts evaluating immediately. Defaults to true.      |                                                                         |
 | `display`                                                               | [Optional[models.AlertDisplay]](../../models/alertdisplay.md)           | :heavy_minus_sign:                                                      | Display options for the alert activity chart.                           |                                                                         |
-| `scope`                                                                 | [Optional[models.AlertScope]](../../models/alertscope.md)               | :heavy_minus_sign:                                                      | N/A                                                                     |                                                                         |
 | `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |                                                                         |
 
 ### Response
@@ -111,7 +108,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 400, 401               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -152,7 +148,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## delete
@@ -193,12 +188,11 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
-Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. Alert scope, `project_id`, and telemetry source are immutable.
+Updates alert metadata, query, condition, notifiers, or enabled state. Query and condition changes restart the evaluation schedule; disabling stops it. `project_id` is immutable.
 
 ### Example Usage
 
@@ -221,18 +215,18 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                       | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alert_id`                                                                                                                                      | *str*                                                                                                                                           | :heavy_check_mark:                                                                                                                              | Alert ID to update.                                                                                                                             |
-| `display_name`                                                                                                                                  | *Optional[str]*                                                                                                                                 | :heavy_minus_sign:                                                                                                                              | New workspace-unique display name. Omit to keep the current name.                                                                               |
-| `description`                                                                                                                                   | *Optional[str]*                                                                                                                                 | :heavy_minus_sign:                                                                                                                              | New description. Omit to keep the current description.                                                                                          |
-| `signal`                                                                                                                                        | *Optional[str]*                                                                                                                                 | :heavy_minus_sign:                                                                                                                              | New UI signal preset. Omit to keep the current value.                                                                                           |
-| `query`                                                                                                                                         | [Optional[models.AlertQuery]](../../models/alertquery.md)                                                                                       | :heavy_minus_sign:                                                                                                                              | Replacement query. Metric, operation, and filters may change within the<br/> current telemetry source. Source changes require creating a new alert. |
-| `condition`                                                                                                                                     | [Optional[models.AlertCondition]](../../models/alertcondition.md)                                                                               | :heavy_minus_sign:                                                                                                                              | Replacement condition. Omit to keep the current condition.                                                                                      |
-| `notifier_ids`                                                                                                                                  | List[*str*]                                                                                                                                     | :heavy_minus_sign:                                                                                                                              | Replacement notifier set. Omit to keep the current notifiers.                                                                                   |
-| `enabled`                                                                                                                                       | *Optional[bool]*                                                                                                                                | :heavy_minus_sign:                                                                                                                              | New enabled state. Omit to keep the current state.                                                                                              |
-| `display`                                                                                                                                       | [Optional[models.AlertDisplay]](../../models/alertdisplay.md)                                                                                   | :heavy_minus_sign:                                                                                                                              | Display options to merge. Omitted fields keep their current values.                                                                             |
-| `retries`                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                | :heavy_minus_sign:                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                             |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `alert_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Alert ID to update.                                                 |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New workspace-unique display name. Omit to keep the current name.   |
+| `description`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New description. Omit to keep the current description.              |
+| `signal`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | New UI signal preset. Omit to keep the current value.               |
+| `query`                                                             | [Optional[models.AlertQuery]](../../models/alertquery.md)           | :heavy_minus_sign:                                                  | Replacement query. Omit to keep the current query.                  |
+| `condition`                                                         | [Optional[models.AlertCondition]](../../models/alertcondition.md)   | :heavy_minus_sign:                                                  | Replacement condition. Omit to keep the current condition.          |
+| `notifier_ids`                                                      | List[*str*]                                                         | :heavy_minus_sign:                                                  | Replacement notifier set. Omit to keep the current notifiers.       |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | New enabled state. Omit to keep the current state.                  |
+| `display`                                                           | [Optional[models.AlertDisplay]](../../models/alertdisplay.md)       | :heavy_minus_sign:                                                  | Display options to merge. Omitted fields keep their current values. |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -242,7 +236,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_triggers
@@ -286,7 +279,6 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## list_trigger_events
@@ -331,5 +323,4 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models.ErrorResponse   | 401, 404               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

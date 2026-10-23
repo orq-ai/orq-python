@@ -13,10 +13,7 @@ OpenAIPromptCacheOptionsMode = Literal[
 ]
 
 
-TTL = Literal[
-    "30m",
-    "12h",
-]
+TTL = Literal["30m",]
 
 
 class OpenAIPromptCacheOptionsTypedDict(TypedDict):

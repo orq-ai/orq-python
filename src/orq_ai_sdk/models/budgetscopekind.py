@@ -5,6 +5,7 @@ from typing import Literal
 
 
 BudgetScopeKind = Literal[
+    "BUDGET_SCOPE_KIND_UNSPECIFIED",
     "BUDGET_SCOPE_KIND_WORKSPACE",
     "BUDGET_SCOPE_KIND_PROJECT",
     "BUDGET_SCOPE_KIND_IDENTITY",

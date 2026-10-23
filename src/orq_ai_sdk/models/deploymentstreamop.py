@@ -2271,7 +2271,6 @@ DeploymentStreamProvider = Literal[
     "tensorix",
     "scaleway",
     "hcompany",
-    "inception",
     "inceptron",
     "wafer",
     "poolside",

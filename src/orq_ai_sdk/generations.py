@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Generations(BaseSDK):
@@ -26,7 +26,6 @@ class Generations(BaseSDK):
         style: OptionalNullable[models.Style] = UNSET,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
-        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageFallbacks],
@@ -78,7 +77,6 @@ class Generations(BaseSDK):
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
         :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
-        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -118,7 +116,6 @@ class Generations(BaseSDK):
             style=style,
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
-            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
             ),
@@ -185,14 +182,8 @@ class Generations(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateImageResponseBody, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(
-                models.APIErrorResponseData, http_res
-            )
-            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -218,7 +209,6 @@ class Generations(BaseSDK):
         style: OptionalNullable[models.Style] = UNSET,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
-        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateImageFallbacks],
@@ -270,7 +260,6 @@ class Generations(BaseSDK):
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
         :param metadata: Optional metadata for the request. This metadata will be stored in the trace and can be used for filtering.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
-        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -310,7 +299,6 @@ class Generations(BaseSDK):
             style=style,
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             name=name,
-            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateImageFallbacks]]
             ),
@@ -377,14 +365,8 @@ class Generations(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateImageResponseBody, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(
-                models.APIErrorResponseData, http_res
-            )
-            raise models.APIErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

@@ -4,12 +4,13 @@
 
 ```python
 from orq_ai_sdk.models import BudgetPeriod
-value: BudgetPeriod = "BUDGET_PERIOD_DAILY"
+value: BudgetPeriod = "BUDGET_PERIOD_UNSPECIFIED"
 ```
 
 
 ## Values
 
+- `"BUDGET_PERIOD_UNSPECIFIED"`
 - `"BUDGET_PERIOD_DAILY"`
 - `"BUDGET_PERIOD_WEEKLY"`
 - `"BUDGET_PERIOD_MONTHLY"`

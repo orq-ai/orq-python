@@ -17,7 +17,6 @@
 | `is_openai_compatible`     | *Optional[bool]*           | :heavy_minus_sign:         | N/A                        |
 | `is_tuned_model`           | *Optional[bool]*           | :heavy_minus_sign:         | N/A                        |
 | `location`                 | *Optional[str]*            | :heavy_minus_sign:         | N/A                        |
-| `model_id`                 | *Optional[str]*            | :heavy_minus_sign:         | N/A                        |
 | `project_id`               | *Optional[str]*            | :heavy_minus_sign:         | N/A                        |
 | `provider`                 | *str*                      | :heavy_check_mark:         | N/A                        |
 | `region`                   | *Optional[str]*            | :heavy_minus_sign:         | N/A                        |

@@ -12,8 +12,10 @@ class UpdateWorkspaceSettingsRequestTypedDict(TypedDict):
     r"""UpdateWorkspaceSettingsRequest is a partial update: every field is optional
     and an omitted field is left unchanged.
 
-    The workspace slug is immutable through this service: it is embedded in
-    resource URLs and API credentials.
+    There is deliberately no `key` / `slug` field. The workspace slug is
+    immutable through this service (it is embedded in resource URLs and API
+    credentials), mirroring the dashboard's WorkspaceUpdateGuard, which rejects a
+    `key` in the PATCH /workspaces/:key body. Do not add one.
     """
 
     display_name: NotRequired[str]
@@ -33,8 +35,10 @@ class UpdateWorkspaceSettingsRequest(BaseModel):
     r"""UpdateWorkspaceSettingsRequest is a partial update: every field is optional
     and an omitted field is left unchanged.
 
-    The workspace slug is immutable through this service: it is embedded in
-    resource URLs and API credentials.
+    There is deliberately no `key` / `slug` field. The workspace slug is
+    immutable through this service (it is embedded in resource URLs and API
+    credentials), mirroring the dashboard's WorkspaceUpdateGuard, which rejects a
+    `key` in the PATCH /workspaces/:key body. Do not add one.
     """
 
     display_name: Optional[str] = None

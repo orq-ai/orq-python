@@ -4,12 +4,13 @@
 
 ```python
 from orq_ai_sdk.models import BudgetScopeKind
-value: BudgetScopeKind = "BUDGET_SCOPE_KIND_WORKSPACE"
+value: BudgetScopeKind = "BUDGET_SCOPE_KIND_UNSPECIFIED"
 ```
 
 
 ## Values
 
+- `"BUDGET_SCOPE_KIND_UNSPECIFIED"`
 - `"BUDGET_SCOPE_KIND_WORKSPACE"`
 - `"BUDGET_SCOPE_KIND_PROJECT"`
 - `"BUDGET_SCOPE_KIND_IDENTITY"`

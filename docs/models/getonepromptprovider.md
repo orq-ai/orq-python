@@ -40,7 +40,6 @@ value: GetOnePromptProvider = "openai"
 - `"tensorix"`
 - `"scaleway"`
 - `"hcompany"`
-- `"inception"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

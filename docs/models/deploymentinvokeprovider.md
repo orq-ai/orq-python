@@ -42,7 +42,6 @@ value: DeploymentInvokeProvider = "openai"
 - `"tensorix"`
 - `"scaleway"`
 - `"hcompany"`
-- `"inception"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

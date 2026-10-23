@@ -136,8 +136,6 @@ class ToolsModelTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
-    whole_server: NotRequired[bool]
-    r"""Set by the API on MCP tools resolved from a whole MCP server or gateway; they are resolved again on every save."""
     conditions: NotRequired[List[AgentStartedStreamingEventConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
@@ -165,9 +163,6 @@ class ToolsModel(BaseModel):
     tool_id: Optional[str] = None
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
-    whole_server: Optional[bool] = None
-    r"""Set by the API on MCP tools resolved from a whole MCP server or gateway; they are resolved again on every save."""
-
     conditions: Optional[List[AgentStartedStreamingEventConditions]] = None
 
     timeout: Optional[float] = None
@@ -183,7 +178,6 @@ class ToolsModel(BaseModel):
                 "configuration",
                 "requires_approval",
                 "tool_id",
-                "whole_server",
                 "conditions",
                 "timeout",
             ]

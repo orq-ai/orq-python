@@ -11,14 +11,6 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class TelemetryListCapabilitiesRequestTypedDict(TypedDict):
     source: NotRequired[TelemetrySource]
-    project_id: NotRequired[str]
-    r"""Restricts discovered runtime metrics to records attributed to this exact
-    project. Projectless workspace metrics are excluded.
-    """
-    workspace_wide: NotRequired[bool]
-    r"""Discovers runtime metrics across the complete workspace, including
-    project-attributed and projectless records. Workspace-admin only.
-    """
 
 
 class TelemetryListCapabilitiesRequest(BaseModel):
@@ -27,25 +19,9 @@ class TelemetryListCapabilitiesRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
-    project_id: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Restricts discovered runtime metrics to records attributed to this exact
-    project. Projectless workspace metrics are excluded.
-    """
-
-    workspace_wide: Annotated[
-        Optional[bool],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Discovers runtime metrics across the complete workspace, including
-    project-attributed and projectless records. Workspace-admin only.
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["source", "project_id", "workspace_wide"])
+        optional_fields = set(["source"])
         serialized = handler(self)
         m = {}
 

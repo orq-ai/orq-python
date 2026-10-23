@@ -5,6 +5,7 @@ from typing import Literal
 
 
 IdentitySortField = Literal[
+    "IDENTITY_SORT_FIELD_UNSPECIFIED",
     "IDENTITY_SORT_FIELD_DISPLAY_NAME",
     "IDENTITY_SORT_FIELD_UPDATED",
 ]

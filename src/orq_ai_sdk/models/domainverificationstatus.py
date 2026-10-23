@@ -5,6 +5,7 @@ from typing import Literal
 
 
 DomainVerificationStatus = Literal[
+    "DOMAIN_VERIFICATION_STATUS_UNSPECIFIED",
     "DOMAIN_VERIFICATION_STATUS_PENDING",
     "DOMAIN_VERIFICATION_STATUS_VERIFIED",
 ]

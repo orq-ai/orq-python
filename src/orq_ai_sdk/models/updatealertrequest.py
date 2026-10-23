@@ -18,9 +18,7 @@ class UpdateAlertRequestTypedDict(TypedDict):
     signal: NotRequired[str]
     r"""New UI signal preset. Omit to keep the current value."""
     query: NotRequired[AlertQueryTypedDict]
-    r"""Replacement query. Metric, operation, and filters may change within the
-    current telemetry source. Source changes require creating a new alert.
-    """
+    r"""Replacement query. Omit to keep the current query."""
     condition: NotRequired[AlertConditionTypedDict]
     r"""Replacement condition. Omit to keep the current condition."""
     notifier_ids: NotRequired[List[str]]
@@ -42,9 +40,7 @@ class UpdateAlertRequest(BaseModel):
     r"""New UI signal preset. Omit to keep the current value."""
 
     query: Optional[AlertQuery] = None
-    r"""Replacement query. Metric, operation, and filters may change within the
-    current telemetry source. Source changes require creating a new alert.
-    """
+    r"""Replacement query. Omit to keep the current query."""
 
     condition: Optional[AlertCondition] = None
     r"""Replacement condition. Omit to keep the current condition."""

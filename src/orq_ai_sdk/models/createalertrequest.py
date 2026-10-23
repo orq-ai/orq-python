@@ -4,7 +4,6 @@ from __future__ import annotations
 from .alertcondition import AlertCondition, AlertConditionTypedDict
 from .alertdisplay import AlertDisplay, AlertDisplayTypedDict
 from .alertquery import AlertQuery, AlertQueryTypedDict
-from .alertscope import AlertScope
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import List, Optional
@@ -14,14 +13,14 @@ from typing_extensions import NotRequired, TypedDict
 class CreateAlertRequestTypedDict(TypedDict):
     display_name: str
     r"""Workspace-unique display name."""
+    project_id: str
+    r"""Project that owns the alert. Required."""
     query: AlertQueryTypedDict
     r"""Metric query evaluated on each tick."""
     condition: AlertConditionTypedDict
     r"""Threshold condition applied to the query result."""
     description: NotRequired[str]
     r"""Short human-readable summary of what the alert watches."""
-    project_id: NotRequired[str]
-    r"""Project that owns a project alert. Empty for a workspace alert."""
     signal: NotRequired[str]
     r"""UI signal preset the alert is created from. Defaults to `custom`."""
     notifier_ids: NotRequired[List[str]]
@@ -32,12 +31,14 @@ class CreateAlertRequestTypedDict(TypedDict):
     r"""Whether the alert starts evaluating immediately. Defaults to true."""
     display: NotRequired[AlertDisplayTypedDict]
     r"""Display options for the alert activity chart."""
-    scope: NotRequired[AlertScope]
 
 
 class CreateAlertRequest(BaseModel):
     display_name: str
     r"""Workspace-unique display name."""
+
+    project_id: str
+    r"""Project that owns the alert. Required."""
 
     query: AlertQuery
     r"""Metric query evaluated on each tick."""
@@ -47,9 +48,6 @@ class CreateAlertRequest(BaseModel):
 
     description: Optional[str] = None
     r"""Short human-readable summary of what the alert watches."""
-
-    project_id: Optional[str] = None
-    r"""Project that owns a project alert. Empty for a workspace alert."""
 
     signal: Optional[str] = None
     r"""UI signal preset the alert is created from. Defaults to `custom`."""
@@ -65,20 +63,10 @@ class CreateAlertRequest(BaseModel):
     display: Optional[AlertDisplay] = None
     r"""Display options for the alert activity chart."""
 
-    scope: Optional[AlertScope] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "description",
-                "project_id",
-                "signal",
-                "notifier_ids",
-                "enabled",
-                "display",
-                "scope",
-            ]
+            ["description", "signal", "notifier_ids", "enabled", "display"]
         )
         serialized = handler(self)
         m = {}

@@ -5,6 +5,7 @@ from typing import Literal
 
 
 NotifierType = Literal[
+    "NOTIFIER_TYPE_UNSPECIFIED",
     "NOTIFIER_TYPE_EMAIL",
     "NOTIFIER_TYPE_SLACK_WEBHOOK",
     "NOTIFIER_TYPE_WEBHOOK",

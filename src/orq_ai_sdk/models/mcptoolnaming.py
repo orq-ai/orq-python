@@ -5,6 +5,7 @@ from typing import Literal
 
 
 McpToolNaming = Literal[
+    "MCP_TOOL_NAMING_UNSPECIFIED",
     "MCP_TOOL_NAMING_PREFIX_WITH_SERVER_KEY",
     "MCP_TOOL_NAMING_PREFIX_ON_COLLISION",
 ]

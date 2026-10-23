@@ -5,6 +5,7 @@ from typing import Literal
 
 
 McpConnectionType = Literal[
+    "MCP_CONNECTION_TYPE_UNSPECIFIED",
     "MCP_CONNECTION_TYPE_HTTP",
     "MCP_CONNECTION_TYPE_SSE",
     "MCP_CONNECTION_TYPE_STDIO",

@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union
+from typing import Mapping, Optional, Union
 
 
 class Wikis(BaseSDK):
@@ -94,14 +94,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.list({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -109,12 +107,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListWikisResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -208,14 +202,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.list({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -223,12 +215,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListWikisResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -334,14 +322,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.create({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB', displayName: 'Example repository', repository: { provider: 'github', owner: 'octocat', name: 'Hello-World', url: 'https://github.com/octocat/Hello-World', defaultBranch: 'main' }, branch: 'main', scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', settings: { depth: 'concise', refreshCadence: 'manual', publishToRepository: false } });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -349,12 +335,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -460,14 +442,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.create({ factoryId: 'fac_01J81V5RZPVTDHXBV6M2YVJHRB', displayName: 'Example repository', repository: { provider: 'github', owner: 'octocat', name: 'Hello-World', url: 'https://github.com/octocat/Hello-World', defaultBranch: 'main' }, branch: 'main', scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', settings: { depth: 'concise', refreshCadence: 'manual', publishToRepository: false } });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -475,12 +455,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -568,14 +544,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "inspectRepository",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.inspectRepository({ scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', repositoryUrl: 'https://github.com/octocat/Hello-World', branch: 'main' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -583,14 +557,10 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.InspectRepositoryWikiResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -678,14 +648,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "inspectRepository",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.inspectRepository({ scmConnectionId: 'scmc_01J81V5RZPVTDHXBV6M2YVJHRB', repositoryUrl: 'https://github.com/octocat/Hello-World', branch: 'main' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -693,14 +661,10 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.InspectRepositoryWikiResponse, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -779,14 +743,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.get({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -794,12 +756,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -878,14 +836,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.get({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -893,12 +849,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -977,14 +929,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.delete({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -992,12 +942,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1076,14 +1022,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.delete({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1091,12 +1035,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1197,14 +1137,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.update({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', settings: { depth: 'extensive', refreshCadence: 'weekly', publishToRepository: false } });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1212,12 +1150,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1318,14 +1252,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.update({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', settings: { depth: 'extensive', refreshCadence: 'weekly', publishToRepository: false } });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1333,12 +1265,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1423,14 +1351,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "getPage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1438,12 +1364,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiPageResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1528,14 +1450,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "getPage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1543,12 +1463,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiPageResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1645,14 +1561,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "updatePage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst { page } = await orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\nawait orq.wikis.updatePage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md', markdown: '# Overview\\nUpdated documentation.', expectedContentHash: page.contentHash });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1660,12 +1574,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateWikiPageResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1762,14 +1672,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "updatePage",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nconst { page } = await orq.wikis.getPage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md' });\nawait orq.wikis.updatePage({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', path: 'index.md', markdown: '# Overview\\nUpdated documentation.', expectedContentHash: page.contentHash });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1777,12 +1685,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateWikiPageResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1873,14 +1777,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "refresh",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.refresh({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', full: false });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1888,12 +1790,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RefreshWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1984,14 +1882,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "refresh",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.refresh({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', full: false });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1999,12 +1895,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RefreshWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2086,14 +1978,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.listRuns({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', limit: 20 });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2101,12 +1991,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListWikiRunsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2188,14 +2074,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "listRuns",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.listRuns({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', limit: 20 });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2203,12 +2087,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListWikiRunsResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2293,14 +2173,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.search({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', query: 'installation', limit: 20 });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2308,12 +2186,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2398,14 +2272,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "search",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.search({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA', query: 'installation', limit: 20 });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2413,12 +2285,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.SearchWikiResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2497,14 +2365,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "getTree",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getTree({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2512,12 +2378,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiTreeResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -2596,14 +2458,12 @@ class Wikis(BaseSDK):
                 ),
                 tags=None,
                 extensions={
-                    "x-cli-group": "wikis",
-                    "x-cli-name": "getTree",
                     "x-code-samples": [
                         {
                             "lang": "TypeScript",
                             "source": "import { Orq } from '@orq-ai/node';\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\nawait orq.wikis.getTree({ wikiId: 'wiki_01J81V5RZPVTDHXBV6M2YVJHRA' });\n",
                         }
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -2611,12 +2471,8 @@ class Wikis(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetWikiTreeResponse, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

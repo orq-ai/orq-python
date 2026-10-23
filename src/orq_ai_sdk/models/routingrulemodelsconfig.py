@@ -12,8 +12,6 @@ class RoutingRuleModelsConfigTypedDict(TypedDict):
     mode: NotRequired[str]
     r"""Load-balancing mode."""
     models: NotRequired[List[RoutingRuleModelTypedDict]]
-    fallback_on_codes: NotRequired[List[int]]
-    r"""HTTP error status codes that trigger fallback. Only allowed in fallback mode. Empty uses the default: 408, 429, 500, 502, 503, 504, 529."""
 
 
 class RoutingRuleModelsConfig(BaseModel):
@@ -22,12 +20,9 @@ class RoutingRuleModelsConfig(BaseModel):
 
     models: Optional[List[RoutingRuleModel]] = None
 
-    fallback_on_codes: Optional[List[int]] = None
-    r"""HTTP error status codes that trigger fallback. Only allowed in fallback mode. Empty uses the default: 408, 429, 500, 502, 503, 504, 529."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["mode", "models", "fallback_on_codes"])
+        optional_fields = set(["mode", "models"])
         serialized = handler(self)
         m = {}
 

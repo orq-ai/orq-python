@@ -5,6 +5,7 @@ from typing import Literal
 
 
 SessionInterval = Literal[
+    "SESSION_INTERVAL_UNSPECIFIED",
     "SESSION_INTERVAL_ALL_TIME",
     "SESSION_INTERVAL_LAST_30_MINUTES",
     "SESSION_INTERVAL_LAST_1_HOUR",

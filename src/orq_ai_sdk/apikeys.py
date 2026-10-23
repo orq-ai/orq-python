@@ -7,7 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Union
 
 
 class APIKeys(BaseSDK):
@@ -86,8 +86,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project keys",
@@ -104,7 +102,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -198,8 +196,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List project keys",
@@ -216,7 +212,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst apiKeys = await client.apiKeys.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nfor (const apiKey of apiKeys) {\n  console.log(apiKey.name, apiKey.token);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -339,8 +335,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create service account key",
@@ -372,7 +366,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    mode: 'single',\n    projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  },\n  permissionMode: 'restricted',\n  access: {\n    agent: 'write',\n    deployment: 'read',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -495,8 +489,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create service account key",
@@ -528,7 +520,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_MANAGEMENT_KEY,\n});\n\nconst result = await client.apiKeys.create({\n  name: 'Support automation key',\n  projectScope: {\n    mode: 'single',\n    projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  },\n  permissionMode: 'restricted',\n  access: {\n    agent: 'write',\n    deployment: 'read',\n  },\n});\n\nconsole.log(result.id);\nconsole.log(result.token);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -612,8 +604,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "listCapabilities",
                     "x-code-samples": [
                         {
                             "label": "Core - List capability catalog",
@@ -630,7 +620,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst catalog = await client.apiKeys.listCapabilities();\n\nfor (const domain of catalog.domains) {\n  console.log(domain.id, domain.displayName);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -638,14 +628,10 @@ class APIKeys(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.APIKeyListCapabilitiesResponseBody, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -720,8 +706,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "listCapabilities",
                     "x-code-samples": [
                         {
                             "label": "Core - List capability catalog",
@@ -738,7 +722,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst catalog = await client.apiKeys.listCapabilities();\n\nfor (const domain of catalog.domains) {\n  console.log(domain.id, domain.displayName);\n}\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -746,14 +730,10 @@ class APIKeys(BaseSDK):
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.APIKeyListCapabilitiesResponseBody, http_res
             )
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
-            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -835,8 +815,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a key",
@@ -853,7 +831,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.apiKeys.delete({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -944,8 +922,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete a key",
@@ -962,7 +938,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.apiKeys.delete({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1053,8 +1029,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve key metadata",
@@ -1071,7 +1045,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1162,8 +1136,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve key metadata",
@@ -1180,7 +1152,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.get({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.name);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1309,8 +1281,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Disable a key",
@@ -1327,7 +1297,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'disabled',\n});\n\nconsole.log(result.status);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,
@@ -1458,8 +1428,6 @@ class APIKeys(BaseSDK):
                 ),
                 tags=["API keys"],
                 extensions={
-                    "x-cli-group": "apiKeys",
-                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Disable a key",
@@ -1476,7 +1444,7 @@ class APIKeys(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.apiKeys.update({\n  apiKeyId: '01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  status: 'disabled',\n});\n\nconsole.log(result.status);\n",
                         },
-                    ],
+                    ]
                 },
             ),
             request=req,

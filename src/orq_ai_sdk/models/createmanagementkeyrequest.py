@@ -22,8 +22,9 @@ class CreateManagementKeyRequestTypedDict(TypedDict):
     endpoint.
     """
     expires_at: NotRequired[datetime]
-    r"""Optional expiration. The key is rejected once `expires_at` is in the
-    past. Unset means the key never expires.
+    r"""Optional expiration. When set, the authenticate hot-path rejects
+    the key once `expires_at` is in the past. Unset means the key
+    never expires.
     """
 
 
@@ -42,8 +43,9 @@ class CreateManagementKeyRequest(BaseModel):
     """
 
     expires_at: Optional[datetime] = None
-    r"""Optional expiration. The key is rejected once `expires_at` is in the
-    past. Unset means the key never expires.
+    r"""Optional expiration. When set, the authenticate hot-path rejects
+    the key once `expires_at` is in the past. Unset means the key
+    never expires.
     """
 
     @model_serializer(mode="wrap")
