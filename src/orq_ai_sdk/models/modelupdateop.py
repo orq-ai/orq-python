@@ -21,16 +21,21 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ModelUpdateRequestBodyTypedDict(TypedDict):
+    benchmark_model: NotRequired[str]
     display_name: NotRequired[str]
     has_functions: NotRequired[bool]
     input_cost: NotRequired[float]
     metadata: NotRequired[ModelMetadataTypedDict]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug."""
     model_type: NotRequired[str]
     output_cost: NotRequired[float]
     parameters: NotRequired[List[UpdateModelParameterTypedDict]]
 
 
 class ModelUpdateRequestBody(BaseModel):
+    benchmark_model: Optional[str] = None
+
     display_name: Optional[str] = None
 
     has_functions: Optional[bool] = None
@@ -38,6 +43,9 @@ class ModelUpdateRequestBody(BaseModel):
     input_cost: Optional[float] = None
 
     metadata: Optional[ModelMetadata] = None
+
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug."""
 
     model_type: Optional[str] = None
 
@@ -49,10 +57,12 @@ class ModelUpdateRequestBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "benchmark_model",
                 "display_name",
                 "has_functions",
                 "input_cost",
                 "metadata",
+                "model_id",
                 "model_type",
                 "output_cost",
                 "parameters",
@@ -177,7 +187,12 @@ class ModelUpdateResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

@@ -9,7 +9,7 @@ from typing_extensions import TypedDict
 
 class GetLogContextResponseTypedDict(TypedDict):
     anchor: LogTypedDict
-    r"""Log is the canonical wire representation of an otel_logs row."""
+    r"""Log is a log record returned by the log endpoints."""
     before: List[LogTypedDict]
     r"""Matching records earlier than the anchor, ordered oldest to newest."""
     after: List[LogTypedDict]
@@ -20,7 +20,7 @@ class GetLogContextResponseTypedDict(TypedDict):
 
 class GetLogContextResponse(BaseModel):
     anchor: Log
-    r"""Log is the canonical wire representation of an otel_logs row."""
+    r"""Log is a log record returned by the log endpoints."""
 
     before: List[Log]
     r"""Matching records earlier than the anchor, ordered oldest to newest."""

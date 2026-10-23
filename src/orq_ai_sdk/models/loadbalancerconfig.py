@@ -7,19 +7,29 @@ from .loadbalancermodelconfig import (
 )
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from pydantic import model_serializer
-from typing import List
+from typing import List, Literal
 from typing_extensions import TypedDict
+
+
+LoadBalancerConfigType = Literal[
+    "weight_based",
+    "round_robin",
+    "latency_based",
+]
+r"""Strategy used to pick a model: weight_based splits traffic by weight, round_robin rotates through the list, latency_based favors the fastest model. An unrecognized value falls back to weight_based."""
 
 
 class LoadBalancerConfigTypedDict(TypedDict):
     models: Nullable[List[LoadBalancerModelConfigTypedDict]]
-    type: str
+    type: LoadBalancerConfigType
+    r"""Strategy used to pick a model: weight_based splits traffic by weight, round_robin rotates through the list, latency_based favors the fastest model. An unrecognized value falls back to weight_based."""
 
 
 class LoadBalancerConfig(BaseModel):
     models: Nullable[List[LoadBalancerModelConfig]]
 
-    type: str
+    type: LoadBalancerConfigType
+    r"""Strategy used to pick a model: weight_based splits traffic by weight, round_robin rotates through the list, latency_based favors the fastest model. An unrecognized value falls back to weight_based."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

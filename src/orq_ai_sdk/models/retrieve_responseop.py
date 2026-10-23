@@ -99,7 +99,7 @@ class RetrieveResponseResponseBodyTypedDict(TypedDict):
     max_output_tokens: Nullable[int]
     max_tool_calls: Nullable[int]
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
     model: str
     object: str
     r"""Always \"response\" """
@@ -163,7 +163,7 @@ class RetrieveResponseResponseBody(BaseModel):
     max_tool_calls: Nullable[int]
 
     metadata: Dict[str, str]
-    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: Map<string, string>)."""
+    r"""Developer-defined key-value pairs attached to the response (OpenAI spec: `Map<string, string>`)."""
 
     model: str
 

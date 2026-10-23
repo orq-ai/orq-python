@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 from .modelref import ModelRef, ModelRefTypedDict
-from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import List, Literal
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 ModelsConfigMode = Literal[
@@ -19,6 +25,7 @@ ModelsConfigMode = Literal[
 class ModelsConfigTypedDict(TypedDict):
     mode: ModelsConfigMode
     models: Nullable[List[ModelRefTypedDict]]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
 
 
 class ModelsConfig(BaseModel):
@@ -26,16 +33,29 @@ class ModelsConfig(BaseModel):
 
     models: Nullable[List[ModelRef]]
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
+        optional_fields = set(["fallback_on_codes"])
+        nullable_fields = set(["fallback_on_codes", "models"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

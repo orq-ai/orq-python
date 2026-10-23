@@ -310,6 +310,8 @@ class CreateDecisionsRequestBodyTypedDict(TypedDict):
     assets: NotRequired[Dict[str, ClassifyAssetTypedDict]]
     r"""Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions."""
     cache: NotRequired[ClassifyCacheConfigTypedDict]
+    fallback_on_codes: NotRequired[Nullable[List[int]]]
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
     fallbacks: NotRequired[Nullable[List[FallbackConfigTypedDict]]]
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
     identity: NotRequired[ResponseIdentityTypedDict]
@@ -336,6 +338,9 @@ class CreateDecisionsRequestBody(BaseModel):
 
     cache: Optional[ClassifyCacheConfig] = None
 
+    fallback_on_codes: OptionalNullable[List[int]] = UNSET
+    r"""HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599."""
+
     fallbacks: OptionalNullable[List[FallbackConfig]] = UNSET
     r"""Up to 10 fallback models in order. The gateway retries a model for matching error codes before trying the next model. Every model must support classification and satisfy access checks. Requests with images in state require native OpenAI image-capable fallbacks; requests with assets or box questions require TypeSafe fallbacks."""
 
@@ -357,6 +362,7 @@ class CreateDecisionsRequestBody(BaseModel):
             [
                 "assets",
                 "cache",
+                "fallback_on_codes",
                 "fallbacks",
                 "identity",
                 "metadata",
@@ -365,7 +371,7 @@ class CreateDecisionsRequestBody(BaseModel):
                 "timeout",
             ]
         )
-        nullable_fields = set(["fallbacks"])
+        nullable_fields = set(["fallback_on_codes", "fallbacks"])
         serialized = handler(self)
         m = {}
 

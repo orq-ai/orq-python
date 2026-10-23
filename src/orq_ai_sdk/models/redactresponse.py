@@ -10,14 +10,14 @@ from typing_extensions import NotRequired, TypedDict
 class RedactResponseTypedDict(TypedDict):
     redacted_text: NotRequired[str]
     mappings: NotRequired[Dict[str, str]]
-    r"""Maps each placeholder (e.g. \"<PERSON_1>\") to the original value it replaced."""
+    r"""Maps each placeholder (e.g. `<PERSON_1>`) to the original value it replaced."""
 
 
 class RedactResponse(BaseModel):
     redacted_text: Optional[str] = None
 
     mappings: Optional[Dict[str, str]] = None
-    r"""Maps each placeholder (e.g. \"<PERSON_1>\") to the original value it replaced."""
+    r"""Maps each placeholder (e.g. `<PERSON_1>`) to the original value it replaced."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

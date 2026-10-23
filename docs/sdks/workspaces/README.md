@@ -48,6 +48,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## get
@@ -88,6 +89,7 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401, 403               | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |
 
 ## update
@@ -125,6 +127,7 @@ with Orq(
 | `metadata`                                                                                        | [Optional[models.UpdateWorkspaceRequestMetadata]](../../models/updateworkspacerequestmetadata.md) | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `enforce_enabled_models`                                                                          | *Optional[bool]*                                                                                  | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `chat_kit`                                                                                        | [Optional[models.ChatKitResources]](../../models/chatkitresources.md)                             | :heavy_minus_sign:                                                                                | N/A                                                                                               |
+| `tracing_enabled`                                                                                 | *Optional[bool]*                                                                                  | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 | `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |
 
 ### Response
@@ -135,4 +138,5 @@ with Orq(
 
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
+| models.ErrorResponse   | 401                    | application/json       |
 | models.APIDefaultError | 4XX, 5XX               | \*/\*                  |

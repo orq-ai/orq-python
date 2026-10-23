@@ -107,7 +107,7 @@ class CreateCompletionCache(BaseModel):
 
     type: CreateCompletionType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -378,7 +378,7 @@ class CreateCompletionRouterCompletionsCache(BaseModel):
 
     type: CreateCompletionRouterCompletionsType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -1223,6 +1223,8 @@ class CreateCompletionOrqTypedDict(TypedDict):
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     retry: NotRequired[CreateCompletionRouterCompletionsRetryTypedDict]
     r"""Retry configuration for the request"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateCompletionRouterCompletionsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[CreateCompletionPromptTypedDict]
@@ -1255,6 +1257,9 @@ class CreateCompletionOrq(BaseModel):
 
     retry: Optional[CreateCompletionRouterCompletionsRetry] = None
     r"""Retry configuration for the request"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     fallbacks: Optional[List[CreateCompletionRouterCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
@@ -1301,6 +1306,7 @@ class CreateCompletionOrq(BaseModel):
             [
                 "name",
                 "retry",
+                "fallback_on_codes",
                 "fallbacks",
                 "prompt",
                 "identity",
@@ -1354,6 +1360,8 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     r"""A unique identifier representing your end-user, which can help monitor and detect abuse."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateCompletionFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateCompletionRetryTypedDict]
@@ -1413,6 +1421,9 @@ class CreateCompletionRequestBody(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Optional[List[CreateCompletionFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -1459,6 +1470,7 @@ class CreateCompletionRequestBody(BaseModel):
                 "n",
                 "user",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "cache",

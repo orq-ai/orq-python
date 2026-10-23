@@ -278,6 +278,8 @@ class CreateTranscriptionOrqTypedDict(TypedDict):
         List[CreateTranscriptionRouterAudioTranscriptionsFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     retry: NotRequired[CreateTranscriptionRouterAudioTranscriptionsRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
@@ -300,6 +302,9 @@ class CreateTranscriptionOrq(BaseModel):
         None
     )
     r"""Array of fallback models to use if primary model fails"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     retry: Optional[CreateTranscriptionRouterAudioTranscriptionsRetry] = None
     r"""Retry configuration for the request"""
@@ -329,6 +334,7 @@ class CreateTranscriptionOrq(BaseModel):
             [
                 "name",
                 "fallbacks",
+                "fallback_on_codes",
                 "retry",
                 "identity",
                 "contact",
@@ -417,6 +423,8 @@ class CreateTranscriptionRequestBodyTypedDict(TypedDict):
     r"""The timestamp granularities to populate for this transcription. response_format must be set to verbose_json to use timestamp granularities. Either or both of these options are supported: \"word\" or \"segment\". Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateTranscriptionFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateTranscriptionRetryTypedDict]
@@ -475,6 +483,11 @@ class CreateTranscriptionRequestBody(BaseModel):
     name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Annotated[Optional[List[int]], FieldMetadata(multipart=True)] = (
+        None
+    )
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Annotated[
         Optional[List[CreateTranscriptionFallbacks]],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -525,6 +538,7 @@ class CreateTranscriptionRequestBody(BaseModel):
                 "language",
                 "timestamp_granularities",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "load_balancer",

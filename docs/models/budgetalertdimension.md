@@ -4,12 +4,11 @@
 
 ```python
 from orq_ai_sdk.models import BudgetAlertDimension
-value: BudgetAlertDimension = "BUDGET_ALERT_DIMENSION_UNSPECIFIED"
+value: BudgetAlertDimension = "BUDGET_ALERT_DIMENSION_COST"
 ```
 
 
 ## Values
 
-- `"BUDGET_ALERT_DIMENSION_UNSPECIFIED"`
 - `"BUDGET_ALERT_DIMENSION_COST"`
 - `"BUDGET_ALERT_DIMENSION_TOKENS"`

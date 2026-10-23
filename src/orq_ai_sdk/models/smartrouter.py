@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 from .smartrouterprofile import SmartRouterProfile
+from .smartroutersessionaffinity import (
+    SmartRouterSessionAffinity,
+    SmartRouterSessionAffinityTypedDict,
+)
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
+from typing import List, Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class SmartRouterTypedDict(TypedDict):
@@ -24,6 +29,7 @@ class SmartRouterTypedDict(TypedDict):
     r"""Date and time when the Smart Router was created."""
     updated_at: datetime
     r"""Date and time when the Smart Router was last updated."""
+    session_affinity: NotRequired[SmartRouterSessionAffinityTypedDict]
 
 
 class SmartRouter(BaseModel):
@@ -49,3 +55,21 @@ class SmartRouter(BaseModel):
 
     updated_at: datetime
     r"""Date and time when the Smart Router was last updated."""
+
+    session_affinity: Optional[SmartRouterSessionAffinity] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["session_affinity"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

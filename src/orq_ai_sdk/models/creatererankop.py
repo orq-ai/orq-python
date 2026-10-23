@@ -78,7 +78,7 @@ class CreateRerankCache(BaseModel):
 
     type: CreateRerankType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -191,7 +191,7 @@ class CreateRerankRouterRerankCache(BaseModel):
 
     type: CreateRerankRouterRerankType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -320,6 +320,8 @@ class CreateRerankOrqTypedDict(TypedDict):
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     fallbacks: NotRequired[List[CreateRerankRouterRerankFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     cache: NotRequired[CreateRerankRouterRerankCacheTypedDict]
     r"""Cache configuration for the request."""
     retry: NotRequired[CreateRerankRouterRerankRetryTypedDict]
@@ -340,6 +342,9 @@ class CreateRerankOrq(BaseModel):
 
     fallbacks: Optional[List[CreateRerankRouterRerankFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     cache: Optional[CreateRerankRouterRerankCache] = None
     r"""Cache configuration for the request."""
@@ -370,6 +375,7 @@ class CreateRerankOrq(BaseModel):
             [
                 "name",
                 "fallbacks",
+                "fallback_on_codes",
                 "cache",
                 "retry",
                 "identity",
@@ -409,6 +415,8 @@ class CreateRerankRequestBodyTypedDict(TypedDict):
     r"""The filename of the document to rerank"""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateRerankFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateRerankRetryTypedDict]
@@ -448,6 +456,9 @@ class CreateRerankRequestBody(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
+
     fallbacks: Optional[List[CreateRerankFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -476,6 +487,7 @@ class CreateRerankRequestBody(BaseModel):
                 "return_documents",
                 "filename",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "cache",

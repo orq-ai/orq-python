@@ -3,14 +3,17 @@
 from __future__ import annotations
 from .litellmmodelinfo import LiteLLMModelInfo, LiteLLMModelInfoTypedDict
 from .litellmparams import LiteLLMParams, LiteLLMParamsTypedDict
-from orq_ai_sdk.types import BaseModel
-from typing_extensions import TypedDict
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
+from typing import Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class LiteLLMModelTypedDict(TypedDict):
     litellm_params: LiteLLMParamsTypedDict
     model_info: LiteLLMModelInfoTypedDict
     model_name: str
+    model_id: NotRequired[str]
 
 
 class LiteLLMModel(BaseModel):
@@ -19,3 +22,21 @@ class LiteLLMModel(BaseModel):
     model_info: LiteLLMModelInfo
 
     model_name: str
+
+    model_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["model_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

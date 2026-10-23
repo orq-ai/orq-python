@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Iterable, List, Mapping, Optional, Union, cast
+from typing import Any, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Notifiers(BaseSDK):
@@ -97,6 +97,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List notifiers",
@@ -113,7 +115,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.notifiers.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\n\nfor (const notifier of page.data) {\n  console.log(notifier._id, notifier.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -121,8 +123,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListNotifiersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -219,6 +225,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "list",
                     "x-code-samples": [
                         {
                             "label": "Core - List notifiers",
@@ -235,7 +243,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst page = await client.notifiers.list({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  limit: 25,\n});\n\nfor (const notifier of page.data) {\n  console.log(notifier._id, notifier.displayName);\n}\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -243,8 +251,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.ListNotifiersResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -331,6 +343,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create email notifier",
@@ -347,7 +361,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.create({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production alerts',\n  type: 'NOTIFIER_TYPE_EMAIL',\n  emails: ['ops@example.com', 'alerts@example.com'],\n  metadata: { environment: 'production' },\n});\n\nconsole.log(result.notifier._id);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -355,8 +369,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -443,6 +461,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "create",
                     "x-code-samples": [
                         {
                             "label": "Core - Create email notifier",
@@ -459,7 +479,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.create({\n  projectId: 'proj_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production alerts',\n  type: 'NOTIFIER_TYPE_EMAIL',\n  emails: ['ops@example.com', 'alerts@example.com'],\n  metadata: { environment: 'production' },\n});\n\nconsole.log(result.notifier._id);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -467,8 +487,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -550,6 +574,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve notifier",
@@ -566,7 +592,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.get({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -574,8 +600,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetNotifierResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -657,6 +687,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "get",
                     "x-code-samples": [
                         {
                             "label": "Core - Retrieve notifier",
@@ -673,7 +705,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.get({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -681,8 +713,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetNotifierResponse, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -764,6 +800,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete notifier",
@@ -780,7 +818,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.notifiers.delete({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -788,8 +826,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -871,6 +913,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "delete",
                     "x-code-samples": [
                         {
                             "label": "Core - Delete notifier",
@@ -887,7 +931,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nawait client.notifiers.delete({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n});\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -895,8 +939,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.DeleteNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1018,6 +1066,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update notifier",
@@ -1034,7 +1084,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.update({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production incident alerts',\n  emails: ['incidents@example.com'],\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1042,8 +1092,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1165,6 +1219,8 @@ class Notifiers(BaseSDK):
                 ),
                 tags=["Notifiers"],
                 extensions={
+                    "x-cli-group": "notifiers",
+                    "x-cli-name": "update",
                     "x-code-samples": [
                         {
                             "label": "Core - Update notifier",
@@ -1181,7 +1237,7 @@ class Notifiers(BaseSDK):
                             "lang": "typescript",
                             "source": "import { Orq } from '@orq-ai/node';\n\nconst client = new Orq({\n  apiKey: process.env.ORQ_API_KEY,\n});\n\nconst result = await client.notifiers.update({\n  notifierId: 'notifier_01HZXW2K7Y8Q9M0N1P2R3S4T5V',\n  displayName: 'Production incident alerts',\n  emails: ['incidents@example.com'],\n});\n\nconsole.log(result.notifier.displayName);\n",
                         },
-                    ]
+                    ],
                 },
             ),
             request=req,
@@ -1189,8 +1245,12 @@ class Notifiers(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.UpdateNotifierResponse, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

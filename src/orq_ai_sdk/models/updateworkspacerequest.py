@@ -28,6 +28,7 @@ class UpdateWorkspaceRequestTypedDict(TypedDict):
     metadata: NotRequired[UpdateWorkspaceRequestMetadataTypedDict]
     enforce_enabled_models: NotRequired[bool]
     chat_kit: NotRequired[ChatKitResourcesTypedDict]
+    tracing_enabled: NotRequired[bool]
 
 
 class UpdateWorkspaceRequest(BaseModel):
@@ -45,6 +46,8 @@ class UpdateWorkspaceRequest(BaseModel):
 
     chat_kit: Optional[ChatKitResources] = None
 
+    tracing_enabled: Optional[bool] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -56,6 +59,7 @@ class UpdateWorkspaceRequest(BaseModel):
                 "metadata",
                 "enforce_enabled_models",
                 "chat_kit",
+                "tracing_enabled",
             ]
         )
         serialized = handler(self)

@@ -9,6 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 ReasoningEffort = Literal[
     "none",
+    "instant",
     "minimal",
     "low",
     "medium",

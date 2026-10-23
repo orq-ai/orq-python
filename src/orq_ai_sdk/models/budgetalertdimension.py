@@ -5,7 +5,6 @@ from typing import Literal
 
 
 BudgetAlertDimension = Literal[
-    "BUDGET_ALERT_DIMENSION_UNSPECIFIED",
     "BUDGET_ALERT_DIMENSION_COST",
     "BUDGET_ALERT_DIMENSION_TOKENS",
 ]

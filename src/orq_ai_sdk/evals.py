@@ -1373,10 +1373,14 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListEvaluatorVersionsResponse, http_res
             )
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1473,10 +1477,14 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
                 models.ListEvaluatorVersionsResponse, http_res
             )
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1571,8 +1579,12 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEvalVersionResponseBody, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1667,8 +1679,12 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.GetEvalVersionResponseBody, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1692,6 +1708,12 @@ class Evals(BaseSDK):
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[Iterable[Mapping[str, Any]]] = None,
         variables: Optional[Mapping[str, Any]] = None,
+        retry: Optional[
+            Union[models.EvaluatorRetryConfig, models.EvaluatorRetryConfigTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.EvaluatorCallTimeout, models.EvaluatorCallTimeoutTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1720,6 +1742,8 @@ class Evals(BaseSDK):
             `context.messages`.
         :param variables: Template variables for evaluator prompt substitution. Folds into
             `context.variables`.
+        :param retry: Overrides llm_eval provider retries for this invocation, including every jury judge.
+        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1751,6 +1775,12 @@ class Evals(BaseSDK):
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.unmarshal(messages, Optional[List[Dict[str, Any]]]),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
+                retry=utils.get_pydantic_model(
+                    retry, Optional[models.EvaluatorRetryConfig]
+                ),
+                timeout=utils.get_pydantic_model(
+                    timeout, Optional[models.EvaluatorCallTimeout]
+                ),
             ),
         )
 
@@ -1813,7 +1843,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { call_timeout: 45000 },\n    retry: { count: 2, on_codes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
@@ -1828,8 +1858,12 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.EvaluationResult, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -1853,6 +1887,12 @@ class Evals(BaseSDK):
         retrievals: Optional[Iterable[str]] = None,
         messages: Optional[Iterable[Mapping[str, Any]]] = None,
         variables: Optional[Mapping[str, Any]] = None,
+        retry: Optional[
+            Union[models.EvaluatorRetryConfig, models.EvaluatorRetryConfigTypedDict]
+        ] = None,
+        timeout: Optional[
+            Union[models.EvaluatorCallTimeout, models.EvaluatorCallTimeoutTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1881,6 +1921,8 @@ class Evals(BaseSDK):
             `context.messages`.
         :param variables: Template variables for evaluator prompt substitution. Folds into
             `context.variables`.
+        :param retry: Overrides llm_eval provider retries for this invocation, including every jury judge.
+        :param timeout:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1912,6 +1954,12 @@ class Evals(BaseSDK):
                 retrievals=utils.unmarshal(retrievals, Optional[List[str]]),
                 messages=utils.unmarshal(messages, Optional[List[Dict[str, Any]]]),
                 variables=utils.unmarshal(variables, Optional[Dict[str, Any]]),
+                retry=utils.get_pydantic_model(
+                    retry, Optional[models.EvaluatorRetryConfig]
+                ),
+                timeout=utils.get_pydantic_model(
+                    timeout, Optional[models.EvaluatorCallTimeout]
+                ),
             ),
         )
 
@@ -1974,7 +2022,7 @@ class Evals(BaseSDK):
                         {
                             "label": "Node.js - Run an evaluator",
                             "lang": "typescript",
-                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
+                            "source": "import { Orq } from '@orq-ai/node';\n\nconst orq = new Orq({ apiKey: process.env.ORQ_API_KEY });\n\nconst evaluation = await orq.evals.invoke({\n  id: '01KT1FCSA8N3YD1K8YBPVTAV9E',\n  invokeEvaluatorRequest: {\n    timeout: { call_timeout: 45000 },\n    retry: { count: 2, on_codes: [429, 500, 502, 503, 504] },\n    context: {\n      input: {\n        user_query: 'What is the capital of France?',\n        expected_output: 'Paris',\n        retrievals: ['The capital of France is Paris.'],\n      },\n      output: { response: 'The capital of France is Paris.' },\n      variables: { tone: 'formal' },\n    },\n  },\n});\n\nconsole.log(evaluation.passed, evaluation.value);\n",
                         },
                         {
                             "label": "Core - Grade a conversation instead of a single turn",
@@ -1989,8 +2037,12 @@ class Evals(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.EvaluationResult, http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(models.ErrorResponseData, http_res)
+            raise models.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

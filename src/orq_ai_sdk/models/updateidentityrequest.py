@@ -11,7 +11,7 @@ class UpdateIdentityRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
     r"""New display name. Omit to keep the current display name."""
     email: NotRequired[str]
-    r"""New email address. Omit to keep the current email."""
+    r"""New email address. Omit to keep the current email, or send an empty string to clear it."""
     avatar_url: NotRequired[str]
     r"""New avatar image URL. Omit to keep the current avatar URL."""
     tags: NotRequired[List[str]]
@@ -25,7 +25,7 @@ class UpdateIdentityRequest(BaseModel):
     r"""New display name. Omit to keep the current display name."""
 
     email: Optional[str] = None
-    r"""New email address. Omit to keep the current email."""
+    r"""New email address. Omit to keep the current email, or send an empty string to clear it."""
 
     avatar_url: Optional[str] = None
     r"""New avatar image URL. Omit to keep the current avatar URL."""

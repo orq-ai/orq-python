@@ -19,8 +19,9 @@ class PiiRedactionConfigTypedDict(TypedDict):
     """
 
     language: NotRequired[str]
-    r"""Detector language. One of \"en\" or \"nl\"; omit for the gateway default
-    (\"en\"). The valid entity catalog depends on this value.
+    r"""Detector language. Accepts \"auto\" to detect the language per request; the
+    concrete languages come from GET /v2/pii/capabilities. Omitting the field
+    defaults to \"auto\". The valid entity catalog depends on this value.
     """
     entities: NotRequired[List[str]]
     r"""Entity types to redact (e.g. \"EMAIL_ADDRESS\", \"PERSON\"). Values are
@@ -55,8 +56,9 @@ class PiiRedactionConfig(BaseModel):
     """
 
     language: Optional[str] = None
-    r"""Detector language. One of \"en\" or \"nl\"; omit for the gateway default
-    (\"en\"). The valid entity catalog depends on this value.
+    r"""Detector language. Accepts \"auto\" to detect the language per request; the
+    concrete languages come from GET /v2/pii/capabilities. Omitting the field
+    defaults to \"auto\". The valid entity catalog depends on this value.
     """
 
     entities: Optional[List[str]] = None

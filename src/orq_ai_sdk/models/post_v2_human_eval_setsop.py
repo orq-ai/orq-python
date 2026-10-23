@@ -13,7 +13,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 RequestBodyFilterType = Literal["name",]
 
 
-class PostV2HumanEvalSetsRequestBody2TypedDict(TypedDict):
+class RequestBody2TypedDict(TypedDict):
     display_name: str
     r"""Display name of the human review set"""
     human_eval_ids: List[str]
@@ -27,7 +27,7 @@ class PostV2HumanEvalSetsRequestBody2TypedDict(TypedDict):
     r"""Optional project ID to scope this human review set to a specific project"""
 
 
-class PostV2HumanEvalSetsRequestBody2(BaseModel):
+class RequestBody2(BaseModel):
     display_name: str
     r"""Display name of the human review set"""
 
@@ -65,7 +65,7 @@ class PostV2HumanEvalSetsRequestBody2(BaseModel):
 FilterType = Literal["span_type",]
 
 
-class PostV2HumanEvalSetsRequestBody1TypedDict(TypedDict):
+class RequestBody1TypedDict(TypedDict):
     display_name: str
     r"""Display name of the human review set"""
     human_eval_ids: List[str]
@@ -79,7 +79,7 @@ class PostV2HumanEvalSetsRequestBody1TypedDict(TypedDict):
     r"""Optional project ID to scope this human review set to a specific project"""
 
 
-class PostV2HumanEvalSetsRequestBody1(BaseModel):
+class RequestBody1(BaseModel):
     display_name: str
     r"""Display name of the human review set"""
 
@@ -116,17 +116,13 @@ class PostV2HumanEvalSetsRequestBody1(BaseModel):
 
 PostV2HumanEvalSetsRequestBodyTypedDict = TypeAliasType(
     "PostV2HumanEvalSetsRequestBodyTypedDict",
-    Union[
-        PostV2HumanEvalSetsRequestBody1TypedDict,
-        PostV2HumanEvalSetsRequestBody2TypedDict,
-    ],
+    Union[RequestBody1TypedDict, RequestBody2TypedDict],
 )
 
 
 PostV2HumanEvalSetsRequestBody = Annotated[
     Union[
-        Annotated[PostV2HumanEvalSetsRequestBody1, Tag("span_type")],
-        Annotated[PostV2HumanEvalSetsRequestBody2, Tag("name")],
+        Annotated[RequestBody1, Tag("span_type")], Annotated[RequestBody2, Tag("name")]
     ],
     Discriminator(lambda m: get_discriminator(m, "filter_type", "filter_type")),
 ]
@@ -188,7 +184,7 @@ class PostV2HumanEvalSetsResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-10-23T11:29:20.647Z")
+    updated: Optional[datetime] = parse_datetime("2026-10-23T15:14:43.538Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -273,7 +269,7 @@ class PostV2HumanEvalSetsResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-10-23T11:29:20.647Z")
+    updated: Optional[datetime] = parse_datetime("2026-10-23T15:14:43.538Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -7,12 +7,16 @@
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | `audio_input`                                | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `audio_output`                               | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
+| `audio_session`                              | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `cache_read`                                 | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
+| `cache_write_12h`                            | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `cache_write_1h`                             | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
+| `cache_write_30m`                            | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `cache_write_5m`                             | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `fetch`                                      | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `input`                                      | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `output`                                     | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `reasoning`                                  | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `search`                                     | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
+| `text_input`                                 | [Optional[models.Price]](../models/price.md) | :heavy_minus_sign:                           | N/A                                          |
 | `when`                                       | *str*                                        | :heavy_check_mark:                           | N/A                                          |

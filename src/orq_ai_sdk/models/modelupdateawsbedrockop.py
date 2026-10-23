@@ -11,6 +11,10 @@ from .modelparameterdocument import (
     ModelParameterDocumentTypedDict,
 )
 from .modelsharingconfig import ModelSharingConfig, ModelSharingConfigTypedDict
+from .privatemodelconfiguration import (
+    PrivateModelConfiguration,
+    PrivateModelConfigurationTypedDict,
+)
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
@@ -23,9 +27,13 @@ class ModelUpdateAwsBedrockRequestBodyTypedDict(TypedDict):
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
     autorouter_version: NotRequired[str]
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
+    benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
+    configuration: NotRequired[PrivateModelConfigurationTypedDict]
     description: NotRequired[str]
     display_name: NotRequired[str]
     has_reasoning: NotRequired[bool]
@@ -53,12 +61,18 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
     assume_role_external_id: Optional[str] = None
 
     autorouter_id: Optional[str] = None
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
 
     autorouter_version: Optional[str] = None
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
+
+    benchmark_model: Optional[str] = None
 
     cache_read_cost: Optional[float] = None
 
     cache_write_cost: Optional[float] = None
+
+    configuration: Optional[PrivateModelConfiguration] = None
 
     description: Optional[str] = None
 
@@ -106,8 +120,10 @@ class ModelUpdateAwsBedrockRequestBody(BaseModel):
                 "assume_role_external_id",
                 "autorouter_id",
                 "autorouter_version",
+                "benchmark_model",
                 "cache_read_cost",
                 "cache_write_cost",
+                "configuration",
                 "description",
                 "display_name",
                 "has_reasoning",
@@ -248,7 +264,12 @@ class ModelUpdateAwsBedrockResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

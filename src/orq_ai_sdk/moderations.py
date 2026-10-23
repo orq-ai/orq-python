@@ -14,7 +14,7 @@ class Moderations(BaseSDK):
         self,
         *,
         input: Union[models.Input, models.InputTypedDict],
-        model: str,
+        model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -103,7 +103,7 @@ class Moderations(BaseSDK):
             return unmarshal_json_response(
                 models.CreateModerationResponseBody, http_res
             )
-        if utils.match_response(http_res, "422", "application/json"):
+        if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateModerationRouterModerationsResponseBodyData, http_res
             )
@@ -123,7 +123,7 @@ class Moderations(BaseSDK):
         self,
         *,
         input: Union[models.Input, models.InputTypedDict],
-        model: str,
+        model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -212,7 +212,7 @@ class Moderations(BaseSDK):
             return unmarshal_json_response(
                 models.CreateModerationResponseBody, http_res
             )
-        if utils.match_response(http_res, "422", "application/json"):
+        if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateModerationRouterModerationsResponseBodyData, http_res
             )

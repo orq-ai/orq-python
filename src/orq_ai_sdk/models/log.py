@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class LogTypedDict(TypedDict):
-    r"""Log is the canonical wire representation of an otel_logs row."""
+    r"""Log is a log record returned by the log endpoints."""
 
     id: NotRequired[str]
     trace_id: NotRequired[str]
@@ -36,7 +36,7 @@ class LogTypedDict(TypedDict):
 
 
 class Log(BaseModel):
-    r"""Log is the canonical wire representation of an otel_logs row."""
+    r"""Log is a log record returned by the log endpoints."""
 
     id: Optional[str] = None
 

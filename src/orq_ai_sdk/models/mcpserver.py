@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .mcpauthconfig_output import McpAuthConfigOutput, McpAuthConfigOutputTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpskill import McpSkill, McpSkillTypedDict
 from .mcpsyncstate import McpSyncState, McpSyncStateTypedDict
 from .mcptool import McpTool, McpToolTypedDict
 from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
@@ -40,6 +41,8 @@ class McpServerTypedDict(TypedDict):
     r"""Which projects in the workspace may use this server."""
     created_by_id: NotRequired[str]
     r"""Account that created the server."""
+    skills: NotRequired[List[McpSkillTypedDict]]
+    r"""Skills the upstream publishes through the MCP Skills extension, discovered by the last successful `:sync`."""
 
 
 class McpServer(BaseModel):
@@ -82,6 +85,9 @@ class McpServer(BaseModel):
     created_by_id: Optional[str] = None
     r"""Account that created the server."""
 
+    skills: Optional[List[McpSkill]] = None
+    r"""Skills the upstream publishes through the MCP Skills extension, discovered by the last successful `:sync`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -99,6 +105,7 @@ class McpServer(BaseModel):
                 "updated",
                 "sharing",
                 "created_by_id",
+                "skills",
             ]
         )
         serialized = handler(self)

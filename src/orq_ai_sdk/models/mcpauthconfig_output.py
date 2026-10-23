@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .mcpauthtype import McpAuthType
+from .mcpenterpriseauthconfig_output import (
+    McpEnterpriseAuthConfigOutput,
+    McpEnterpriseAuthConfigOutputTypedDict,
+)
 from .mcpheadersecret_output import (
     McpHeaderSecretOutput,
     McpHeaderSecretOutputTypedDict,
@@ -19,6 +23,8 @@ class McpAuthConfigOutputTypedDict(TypedDict):
     r"""Headers sent upstream on every request; at least one entry when type is STATIC_HEADERS."""
     oauth: NotRequired[McpOAuthConfigOutputTypedDict]
     r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
+    enterprise: NotRequired[McpEnterpriseAuthConfigOutputTypedDict]
+    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
 
 
 class McpAuthConfigOutput(BaseModel):
@@ -30,9 +36,12 @@ class McpAuthConfigOutput(BaseModel):
     oauth: Optional[McpOAuthConfigOutput] = None
     r"""OAuth client credentials the gateway presents to the upstream authorization server; set when type is OAUTH_CLIENT_CREDENTIALS."""
 
+    enterprise: Optional[McpEnterpriseAuthConfigOutput] = None
+    r"""Client for the upstream authorization server; set when type is ENTERPRISE_MANAGED."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["static_headers", "oauth"])
+        optional_fields = set(["static_headers", "oauth", "enterprise"])
         serialized = handler(self)
         m = {}
 

@@ -97,6 +97,7 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionPluginsTypedDict],
             ]
         ] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -166,14 +167,14 @@ class OrqCompletions(BaseSDK):
         :param n: How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs.
         :param presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
         :param response_format: An object specifying the format that the model must output
-        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `instant`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
             - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
             - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
             - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
             - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
+            Any of \"none\", \"instant\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
         :param verbosity: Adjusts response verbosity. Lower levels yield shorter answers.
         :param seed: If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result.
         :param stop: Up to 4 sequences where the API will stop generating further tokens.
@@ -188,6 +189,7 @@ class OrqCompletions(BaseSDK):
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -270,6 +272,7 @@ class OrqCompletions(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.CreateChatCompletionPlugins]]
             ),
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]
             ),
@@ -346,6 +349,7 @@ class OrqCompletions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
             return unmarshal_json_response(
@@ -363,6 +367,12 @@ class OrqCompletions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
+            http_res_text = utils.stream_to_text(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)
@@ -456,6 +466,7 @@ class OrqCompletions(BaseSDK):
                 Iterable[models.CreateChatCompletionPluginsTypedDict],
             ]
         ] = None,
+        fallback_on_codes: Optional[Iterable[int]] = None,
         fallbacks: Optional[
             Union[
                 Iterable[models.CreateChatCompletionFallbacks],
@@ -525,14 +536,14 @@ class OrqCompletions(BaseSDK):
         :param n: How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs.
         :param presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
         :param response_format: An object specifying the format that the model must output
-        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+        :param reasoning_effort: Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `instant`, `minimal`, `low`, `medium`, `high`, `xhigh`, and `max`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
             - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
             - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
             - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
             - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
 
-            Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
+            Any of \"none\", \"instant\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\", \"max\".
         :param verbosity: Adjusts response verbosity. Lower levels yield shorter answers.
         :param seed: If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result.
         :param stop: Up to 4 sequences where the API will stop generating further tokens.
@@ -547,6 +558,7 @@ class OrqCompletions(BaseSDK):
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
         :param plugins: Request-scoped transforms applied to the text exchanged with the model. Supports `pii_redaction`, which replaces PII with placeholders before the provider sees it and restores the original values in the response, and `response_healing`, which repairs malformed JSON in non-streaming output.
+        :param fallback_on_codes: HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529].
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
@@ -629,6 +641,7 @@ class OrqCompletions(BaseSDK):
             plugins=utils.get_pydantic_model(
                 plugins, Optional[List[models.CreateChatCompletionPlugins]]
             ),
+            fallback_on_codes=utils.unmarshal(fallback_on_codes, Optional[List[int]]),
             fallbacks=utils.get_pydantic_model(
                 fallbacks, Optional[List[models.CreateChatCompletionFallbacks]]
             ),
@@ -705,6 +718,7 @@ class OrqCompletions(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
             return unmarshal_json_response(
@@ -722,6 +736,12 @@ class OrqCompletions(BaseSDK):
                 client_ref=self,
                 data_required=False,
             )
+        if utils.match_response(http_res, ["400", "401", "404"], "application/json"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            response_data = unmarshal_json_response(
+                models.APIErrorResponseData, http_res, http_res_text
+            )
+            raise models.APIErrorResponse(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIDefaultError("API error occurred", http_res, http_res_text)

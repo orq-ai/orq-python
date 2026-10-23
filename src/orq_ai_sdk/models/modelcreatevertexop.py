@@ -22,12 +22,36 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ModelCreateVertexRequestBodyTypedDict(TypedDict):
     configuration: VertexConfigurationTypedDict
     display_name: str
+    benchmark_model: NotRequired[str]
+    model_id: NotRequired[str]
+    r"""Immutable private-model slug; defaults to display_name."""
 
 
 class ModelCreateVertexRequestBody(BaseModel):
     configuration: VertexConfiguration
 
     display_name: str
+
+    benchmark_model: Optional[str] = None
+
+    model_id: Optional[str] = None
+    r"""Immutable private-model slug; defaults to display_name."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["benchmark_model", "model_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ModelCreateVertexResponseBodyTypedDict(TypedDict):
@@ -117,7 +141,12 @@ class ModelCreateVertexResponseBody(BaseModel):
 
     updated: str
 
-    legacy_uuid: Optional[str] = None
+    legacy_uuid: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
 
     model_developer: Optional[str] = None
 

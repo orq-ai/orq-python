@@ -128,7 +128,7 @@ class CreateImageVariationCache(BaseModel):
 
     type: CreateImageVariationType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -299,7 +299,7 @@ class CreateImageVariationRouterImagesVariationsCache(BaseModel):
 
     type: CreateImageVariationRouterImagesVariationsType
 
-    ttl: Optional[float] = 1800.0
+    ttl: Optional[float] = 3600.0
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
     @model_serializer(mode="wrap")
@@ -395,6 +395,8 @@ class CreateImageVariationOrqTypedDict(TypedDict):
     r"""The name to display on the trace. If not specified, the default system name will be used."""
     retry: NotRequired[CreateImageVariationRouterImagesVariationsRetryTypedDict]
     r"""Retry configuration for the request"""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[
         List[CreateImageVariationRouterImagesVariationsFallbacksTypedDict]
     ]
@@ -421,6 +423,9 @@ class CreateImageVariationOrq(BaseModel):
 
     retry: Optional[CreateImageVariationRouterImagesVariationsRetry] = None
     r"""Retry configuration for the request"""
+
+    fallback_on_codes: Optional[List[int]] = None
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     fallbacks: Optional[List[CreateImageVariationRouterImagesVariationsFallbacks]] = (
         None
@@ -458,6 +463,7 @@ class CreateImageVariationOrq(BaseModel):
             [
                 "name",
                 "retry",
+                "fallback_on_codes",
                 "fallbacks",
                 "prompt",
                 "identity",
@@ -498,6 +504,8 @@ class CreateImageVariationRequestBodyTypedDict(TypedDict):
     r"""A unique identifier representing your end-user, which can help to monitor and detect abuse."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallback_on_codes: NotRequired[List[int]]
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
     fallbacks: NotRequired[List[CreateImageVariationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateImageVariationRetryTypedDict]
@@ -539,6 +547,11 @@ class CreateImageVariationRequestBody(BaseModel):
 
     name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallback_on_codes: Annotated[Optional[List[int]], FieldMetadata(multipart=True)] = (
+        None
+    )
+    r"""HTTP status codes that trigger fallback. Enter up to 20 unique integers from 400 to 599. When omitted or empty, defaults to [408, 429, 500, 502, 503, 504, 529]."""
 
     fallbacks: Annotated[
         Optional[List[CreateImageVariationFallbacks]],
@@ -585,6 +598,7 @@ class CreateImageVariationRequestBody(BaseModel):
                 "size",
                 "user",
                 "name",
+                "fallback_on_codes",
                 "fallbacks",
                 "retry",
                 "cache",
