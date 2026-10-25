@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 from .evaluationcontext import EvaluationContext, EvaluationContextTypedDict
+from .evaluatorcalltimeout import EvaluatorCallTimeout, EvaluatorCallTimeoutTypedDict
+from .evaluatorretryconfig import EvaluatorRetryConfig, EvaluatorRetryConfigTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
@@ -46,6 +48,9 @@ class InvokeEvaluatorRequestTypedDict(TypedDict):
     r"""Template variables for evaluator prompt substitution. Folds into
     `context.variables`.
     """
+    retry: NotRequired[EvaluatorRetryConfigTypedDict]
+    r"""Overrides llm_eval provider retries for this invocation, including every jury judge."""
+    timeout: NotRequired[EvaluatorCallTimeoutTypedDict]
 
 
 class InvokeEvaluatorRequest(BaseModel):
@@ -94,6 +99,11 @@ class InvokeEvaluatorRequest(BaseModel):
     `context.variables`.
     """
 
+    retry: Optional[EvaluatorRetryConfig] = None
+    r"""Overrides llm_eval provider retries for this invocation, including every jury judge."""
+
+    timeout: Optional[EvaluatorCallTimeout] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -106,6 +116,8 @@ class InvokeEvaluatorRequest(BaseModel):
                 "retrievals",
                 "messages",
                 "variables",
+                "retry",
+                "timeout",
             ]
         )
         serialized = handler(self)

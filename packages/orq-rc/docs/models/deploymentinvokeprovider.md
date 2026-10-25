@@ -43,6 +43,7 @@ value: DeploymentInvokeProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inception"`
+- `"munito"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

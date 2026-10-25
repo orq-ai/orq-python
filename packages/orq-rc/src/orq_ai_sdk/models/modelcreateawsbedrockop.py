@@ -32,7 +32,9 @@ class ModelCreateAwsBedrockRequestBodyTypedDict(TypedDict):
     assume_role_arn: NotRequired[str]
     assume_role_external_id: NotRequired[str]
     autorouter_id: NotRequired[str]
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
     autorouter_version: NotRequired[str]
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
     benchmark_model: NotRequired[str]
     cache_read_cost: NotRequired[float]
     cache_write_cost: NotRequired[float]
@@ -73,8 +75,10 @@ class ModelCreateAwsBedrockRequestBody(BaseModel):
     assume_role_external_id: Optional[str] = None
 
     autorouter_id: Optional[str] = None
+    r"""Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools."""
 
     autorouter_version: Optional[str] = None
+    r"""Version of the Smart Router catalog entry, set with autorouter_id."""
 
     benchmark_model: Optional[str] = None
 

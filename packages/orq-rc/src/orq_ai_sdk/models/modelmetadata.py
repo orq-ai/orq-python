@@ -143,6 +143,7 @@ class ModelMetadataTypedDict(TypedDict):
     supports_thinking_level_minimal: NotRequired[bool]
     supports_tool_calling: NotRequired[bool]
     supports_tool_choice: NotRequired[bool]
+    supports_transcription: NotRequired[bool]
     supports_url_context: NotRequired[bool]
     supports_url_response_format: NotRequired[bool]
     supports_video_input: NotRequired[bool]
@@ -399,6 +400,8 @@ class ModelMetadata(BaseModel):
 
     supports_tool_choice: Optional[bool] = None
 
+    supports_transcription: Optional[bool] = None
+
     supports_url_context: Optional[bool] = None
 
     supports_url_response_format: Optional[bool] = None
@@ -542,6 +545,7 @@ class ModelMetadata(BaseModel):
                 "supports_thinking_level_minimal",
                 "supports_tool_calling",
                 "supports_tool_choice",
+                "supports_transcription",
                 "supports_url_context",
                 "supports_url_response_format",
                 "supports_video_input",

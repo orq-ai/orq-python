@@ -43,6 +43,7 @@ value: DeploymentStreamProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inception"`
+- `"munito"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

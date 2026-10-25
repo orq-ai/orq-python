@@ -17,64 +17,100 @@ from typing_extensions import NotRequired, TypedDict
 
 class AutoRouterV2ConfigTypedDict(TypedDict):
     intelligence_index: float
+    r"""Artificial Analysis intelligence index the router ranks the model by."""
     price: float
+    r"""Blended price per million tokens, in USD."""
     aa_creator: NotRequired[AutoRouterV2CreatorConfigTypedDict]
     aa_evaluations: NotRequired[Dict[str, Nullable[float]]]
+    r"""Benchmark scores reported by Artificial Analysis, keyed by evaluation."""
     aa_index_is_estimated: NotRequired[bool]
+    r"""Whether the intelligence index is estimated rather than measured."""
     aa_index_version: NotRequired[str]
+    r"""Version of the intelligence index the score came from."""
     aa_is_reasoning: NotRequired[bool]
+    r"""Whether Artificial Analysis classifies the model as a reasoning model."""
     aa_median_output_tokens_per_second: NotRequired[float]
+    r"""Median output tokens per second measured by Artificial Analysis."""
     aa_median_time_to_first_answer_token: NotRequired[float]
+    r"""Median time to the first answer token measured by Artificial Analysis."""
     aa_median_time_to_first_token_seconds: NotRequired[float]
+    r"""Median time to first token in seconds measured by Artificial Analysis."""
     aa_model_id: NotRequired[str]
+    r"""Artificial Analysis model identifier."""
     aa_name: NotRequired[str]
+    r"""Model name reported by Artificial Analysis."""
     aa_pricing: NotRequired[Dict[str, Nullable[float]]]
+    r"""Token prices reported by Artificial Analysis, keyed by price type."""
     aa_reasoning_effort: NotRequired[str]
+    r"""Reasoning effort the benchmarked score applies to."""
     aa_release_date: NotRequired[str]
+    r"""Model release date reported by Artificial Analysis."""
     aa_slug: NotRequired[str]
+    r"""Artificial Analysis slug of the model."""
     default_effort: NotRequired[str]
+    r"""Reasoning effort applied when a request does not set one."""
     default_effort_scored: NotRequired[bool]
+    r"""Whether the default effort has a benchmarked score."""
     reasoning_efforts: NotRequired[Dict[str, AutoRouterV2EffortConfigTypedDict]]
+    r"""Benchmark data for each reasoning effort the model exposes."""
 
 
 class AutoRouterV2Config(BaseModel):
     intelligence_index: float
+    r"""Artificial Analysis intelligence index the router ranks the model by."""
 
     price: float
+    r"""Blended price per million tokens, in USD."""
 
     aa_creator: Optional[AutoRouterV2CreatorConfig] = None
 
     aa_evaluations: Optional[Dict[str, Nullable[float]]] = None
+    r"""Benchmark scores reported by Artificial Analysis, keyed by evaluation."""
 
     aa_index_is_estimated: Optional[bool] = None
+    r"""Whether the intelligence index is estimated rather than measured."""
 
     aa_index_version: Optional[str] = None
+    r"""Version of the intelligence index the score came from."""
 
     aa_is_reasoning: Optional[bool] = None
+    r"""Whether Artificial Analysis classifies the model as a reasoning model."""
 
     aa_median_output_tokens_per_second: Optional[float] = None
+    r"""Median output tokens per second measured by Artificial Analysis."""
 
     aa_median_time_to_first_answer_token: Optional[float] = None
+    r"""Median time to the first answer token measured by Artificial Analysis."""
 
     aa_median_time_to_first_token_seconds: Optional[float] = None
+    r"""Median time to first token in seconds measured by Artificial Analysis."""
 
     aa_model_id: Optional[str] = None
+    r"""Artificial Analysis model identifier."""
 
     aa_name: Optional[str] = None
+    r"""Model name reported by Artificial Analysis."""
 
     aa_pricing: Optional[Dict[str, Nullable[float]]] = None
+    r"""Token prices reported by Artificial Analysis, keyed by price type."""
 
     aa_reasoning_effort: Optional[str] = None
+    r"""Reasoning effort the benchmarked score applies to."""
 
     aa_release_date: Optional[str] = None
+    r"""Model release date reported by Artificial Analysis."""
 
     aa_slug: Optional[str] = None
+    r"""Artificial Analysis slug of the model."""
 
     default_effort: Optional[str] = None
+    r"""Reasoning effort applied when a request does not set one."""
 
     default_effort_scored: Optional[bool] = None
+    r"""Whether the default effort has a benchmarked score."""
 
     reasoning_efforts: Optional[Dict[str, AutoRouterV2EffortConfig]] = None
+    r"""Benchmark data for each reasoning effort the model exposes."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

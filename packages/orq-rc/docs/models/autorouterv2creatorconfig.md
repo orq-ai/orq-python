@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *str*              | :heavy_check_mark: | N/A                |
-| `name`             | *str*              | :heavy_check_mark: | N/A                |
-| `slug`             | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                          | Type                                           | Required                                       | Description                                    |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `id`                                           | *str*                                          | :heavy_check_mark:                             | Artificial Analysis identifier of the creator. |
+| `name`                                         | *str*                                          | :heavy_check_mark:                             | Creator name reported by Artificial Analysis.  |
+| `slug`                                         | *Optional[str]*                                | :heavy_minus_sign:                             | Artificial Analysis slug of the creator.       |

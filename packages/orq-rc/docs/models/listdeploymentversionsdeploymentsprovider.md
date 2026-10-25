@@ -41,6 +41,7 @@ value: ListDeploymentVersionsDeploymentsProvider = "openai"
 - `"scaleway"`
 - `"hcompany"`
 - `"inception"`
+- `"munito"`
 - `"inceptron"`
 - `"wafer"`
 - `"poolside"`

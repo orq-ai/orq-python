@@ -17,34 +17,48 @@ from typing_extensions import NotRequired, TypedDict
 
 class AutoRouterConfigTypedDict(TypedDict):
     benchmark_model: NotRequired[str]
+    r"""Catalog model whose benchmarks this private model copies to join Smart Router pools."""
     economical_model: NotRequired[str]
+    r"""Model used when the router classifies a request as simple."""
     id: NotRequired[str]
+    r"""Identifier of the Smart Router configuration."""
     models: NotRequired[Nullable[List[str]]]
+    r"""Models the router chooses from, written as provider/model_id."""
     profile: NotRequired[str]
+    r"""Routing preference: quality, balanced, or cost."""
     session_affinity: NotRequired[SessionAffinityConfigTypedDict]
     strong_model: NotRequired[str]
+    r"""Model used when the router classifies a request as complex."""
     v2: NotRequired[AutoRouterV2ConfigTypedDict]
     version: NotRequired[str]
+    r"""Version of the Smart Router configuration format."""
 
 
 class AutoRouterConfig(BaseModel):
     benchmark_model: Optional[str] = None
+    r"""Catalog model whose benchmarks this private model copies to join Smart Router pools."""
 
     economical_model: Optional[str] = None
+    r"""Model used when the router classifies a request as simple."""
 
     id: Optional[str] = None
+    r"""Identifier of the Smart Router configuration."""
 
     models: OptionalNullable[List[str]] = UNSET
+    r"""Models the router chooses from, written as provider/model_id."""
 
     profile: Optional[str] = None
+    r"""Routing preference: quality, balanced, or cost."""
 
     session_affinity: Optional[SessionAffinityConfig] = None
 
     strong_model: Optional[str] = None
+    r"""Model used when the router classifies a request as complex."""
 
     v2: Optional[AutoRouterV2Config] = None
 
     version: Optional[str] = None
+    r"""Version of the Smart Router configuration format."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

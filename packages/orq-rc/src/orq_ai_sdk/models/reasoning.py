@@ -13,6 +13,13 @@ from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+ReasoningContext = Literal[
+    "auto",
+    "current_turn",
+    "all_turns",
+]
+
+
 ReasoningEffort1 = Literal[
     "none",
     "instant",
@@ -35,6 +42,7 @@ r"""The format of the reasoning summary returned by the model."""
 
 
 class ReasoningTypedDict(TypedDict):
+    context: NotRequired[ReasoningContext]
     effort: NotRequired[ReasoningEffort1]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     summary: NotRequired[Nullable[ReasoningSummary]]
@@ -42,6 +50,8 @@ class ReasoningTypedDict(TypedDict):
 
 
 class Reasoning(BaseModel):
+    context: Optional[ReasoningContext] = None
+
     effort: Optional[ReasoningEffort1] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -50,7 +60,7 @@ class Reasoning(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["effort", "summary"])
+        optional_fields = set(["context", "effort", "summary"])
         nullable_fields = set(["summary"])
         serialized = handler(self)
         m = {}

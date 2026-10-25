@@ -4,6 +4,7 @@ from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
+from .mcpicon import McpIcon, McpIconTypedDict
 from .mcptoolnaming import McpToolNaming
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -36,6 +37,12 @@ class UpdateMcpGatewayRequestTypedDict(TypedDict):
     r"""Replaces the served workspace skills. An empty array is treated as no change; use `clear_skill_ids` to remove them all."""
     clear_skill_ids: NotRequired[bool]
     r"""Set true to stop serving every workspace skill; cannot be combined with `skill_ids`."""
+    icons: NotRequired[List[McpIconTypedDict]]
+    r"""Replaces the advertised icons when nonempty or when replace_icons is true."""
+    replace_icons: NotRequired[bool]
+    r"""Set true with an empty icons list to restore default ORQ branding."""
+    website_url: NotRequired[str]
+    r"""Empty restores the default ORQ documentation website."""
 
 
 class UpdateMcpGatewayRequest(BaseModel):
@@ -73,6 +80,15 @@ class UpdateMcpGatewayRequest(BaseModel):
     clear_skill_ids: Optional[bool] = None
     r"""Set true to stop serving every workspace skill; cannot be combined with `skill_ids`."""
 
+    icons: Optional[List[McpIcon]] = None
+    r"""Replaces the advertised icons when nonempty or when replace_icons is true."""
+
+    replace_icons: Optional[bool] = None
+    r"""Set true with an empty icons list to restore default ORQ branding."""
+
+    website_url: Optional[str] = None
+    r"""Empty restores the default ORQ documentation website."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -88,6 +104,9 @@ class UpdateMcpGatewayRequest(BaseModel):
                 "plugins",
                 "skill_ids",
                 "clear_skill_ids",
+                "icons",
+                "replace_icons",
+                "website_url",
             ]
         )
         serialized = handler(self)

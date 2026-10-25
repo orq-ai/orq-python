@@ -4,6 +4,7 @@ from __future__ import annotations
 from .mcpgatewaymode import McpGatewayMode
 from .mcpgatewayplugin import McpGatewayPlugin, McpGatewayPluginTypedDict
 from .mcpgatewayserverlink import McpGatewayServerLink, McpGatewayServerLinkTypedDict
+from .mcpicon import McpIcon, McpIconTypedDict
 from .mcptoolnaming import McpToolNaming
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -29,6 +30,10 @@ class CreateMcpGatewayRequestTypedDict(TypedDict):
     r"""Plugins run on every tool call this gateway serves."""
     skill_ids: NotRequired[List[str]]
     r"""Workspace skills this gateway serves to MCP clients through the MCP Skills extension."""
+    icons: NotRequired[List[McpIconTypedDict]]
+    r"""Icons advertised to MCP clients; defaults to ORQ branding when empty."""
+    website_url: NotRequired[str]
+    r"""Website advertised to MCP clients; defaults to ORQ documentation when empty."""
 
 
 class CreateMcpGatewayRequest(BaseModel):
@@ -57,6 +62,12 @@ class CreateMcpGatewayRequest(BaseModel):
     skill_ids: Optional[List[str]] = None
     r"""Workspace skills this gateway serves to MCP clients through the MCP Skills extension."""
 
+    icons: Optional[List[McpIcon]] = None
+    r"""Icons advertised to MCP clients; defaults to ORQ branding when empty."""
+
+    website_url: Optional[str] = None
+    r"""Website advertised to MCP clients; defaults to ORQ documentation when empty."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -68,6 +79,8 @@ class CreateMcpGatewayRequest(BaseModel):
                 "sharing",
                 "plugins",
                 "skill_ids",
+                "icons",
+                "website_url",
             ]
         )
         serialized = handler(self)

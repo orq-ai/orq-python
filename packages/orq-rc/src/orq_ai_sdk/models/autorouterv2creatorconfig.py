@@ -9,16 +9,22 @@ from typing_extensions import NotRequired, TypedDict
 
 class AutoRouterV2CreatorConfigTypedDict(TypedDict):
     id: str
+    r"""Artificial Analysis identifier of the creator."""
     name: str
+    r"""Creator name reported by Artificial Analysis."""
     slug: NotRequired[str]
+    r"""Artificial Analysis slug of the creator."""
 
 
 class AutoRouterV2CreatorConfig(BaseModel):
     id: str
+    r"""Artificial Analysis identifier of the creator."""
 
     name: str
+    r"""Creator name reported by Artificial Analysis."""
 
     slug: Optional[str] = None
+    r"""Artificial Analysis slug of the creator."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

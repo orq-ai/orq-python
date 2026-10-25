@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .mcpauthconfig import McpAuthConfig, McpAuthConfigTypedDict
 from .mcpconnection import McpConnection, McpConnectionTypedDict
+from .mcpopenapiconfig_input import (
+    McpOpenAPIConfigInput,
+    McpOpenAPIConfigInputTypedDict,
+)
 from .mcptoolexposure import McpToolExposure, McpToolExposureTypedDict
 from .sharing import Sharing, SharingTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
@@ -29,6 +33,8 @@ class UpdateMcpServerRequestTypedDict(TypedDict):
     r"""Fallback exposure used by any gateway link that does not set its own."""
     sharing: NotRequired[SharingTypedDict]
     r"""Which projects in the workspace may use this server. Defaults to every project."""
+    openapi: NotRequired[McpOpenAPIConfigInputTypedDict]
+    r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
 
 
 class UpdateMcpServerRequest(BaseModel):
@@ -56,6 +62,9 @@ class UpdateMcpServerRequest(BaseModel):
     sharing: Optional[Sharing] = None
     r"""Which projects in the workspace may use this server. Defaults to every project."""
 
+    openapi: Optional[McpOpenAPIConfigInput] = None
+    r"""Recompiles the tools of an OpenAPI server; without `document` the stored `document_url` is fetched again."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -67,6 +76,7 @@ class UpdateMcpServerRequest(BaseModel):
                 "auth",
                 "default_tool_exposure",
                 "sharing",
+                "openapi",
             ]
         )
         serialized = handler(self)

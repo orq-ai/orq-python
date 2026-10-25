@@ -360,8 +360,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
-        :param autorouter_id:
-        :param autorouter_version:
+        :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
+        :param autorouter_version: Version of the Smart Router catalog entry, set with autorouter_id.
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
@@ -558,8 +558,8 @@ class Models(BaseSDK):
         :param region:
         :param assume_role_arn:
         :param assume_role_external_id:
-        :param autorouter_id:
-        :param autorouter_version:
+        :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
+        :param autorouter_version: Version of the Smart Router catalog entry, set with autorouter_id.
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
@@ -990,8 +990,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
-        :param autorouter_id:
-        :param autorouter_version:
+        :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
+        :param autorouter_version: Version of the Smart Router catalog entry, set with autorouter_id.
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:
@@ -1188,8 +1188,8 @@ class Models(BaseSDK):
         :param id: The ID of the model
         :param assume_role_arn:
         :param assume_role_external_id:
-        :param autorouter_id:
-        :param autorouter_version:
+        :param autorouter_id: Smart Router catalog identifier of the model. Set it together with autorouter_version to make the private model eligible for Smart Router pools.
+        :param autorouter_version: Version of the Smart Router catalog entry, set with autorouter_id.
         :param benchmark_model:
         :param cache_read_cost:
         :param cache_write_cost:

@@ -9,25 +9,37 @@ from typing_extensions import NotRequired, TypedDict
 
 class AutoRouterV2EffortConfigTypedDict(TypedDict):
     intelligence_index: float
+    r"""Intelligence index measured at this effort."""
     aa_index_is_estimated: NotRequired[bool]
+    r"""Whether the score at this effort is estimated."""
     aa_index_version: NotRequired[str]
+    r"""Version of the intelligence index measured at this effort."""
     aa_is_reasoning: NotRequired[bool]
+    r"""Whether the model runs as a reasoning model at this effort."""
     aa_reasoning_effort: NotRequired[str]
+    r"""Reasoning effort label Artificial Analysis reports for this entry."""
     aa_slug: NotRequired[str]
+    r"""Artificial Analysis slug of the model at this effort."""
 
 
 class AutoRouterV2EffortConfig(BaseModel):
     intelligence_index: float
+    r"""Intelligence index measured at this effort."""
 
     aa_index_is_estimated: Optional[bool] = None
+    r"""Whether the score at this effort is estimated."""
 
     aa_index_version: Optional[str] = None
+    r"""Version of the intelligence index measured at this effort."""
 
     aa_is_reasoning: Optional[bool] = None
+    r"""Whether the model runs as a reasoning model at this effort."""
 
     aa_reasoning_effort: Optional[str] = None
+    r"""Reasoning effort label Artificial Analysis reports for this entry."""
 
     aa_slug: Optional[str] = None
+    r"""Artificial Analysis slug of the model at this effort."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

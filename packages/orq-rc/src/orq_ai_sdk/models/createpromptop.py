@@ -2237,6 +2237,7 @@ CreatePromptProvider = Literal[
     "scaleway",
     "hcompany",
     "inception",
+    "munito",
     "inceptron",
     "wafer",
     "poolside",
