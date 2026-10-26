@@ -245,7 +245,7 @@ class MemoryStores(BaseSDK):
     ) -> models.MemoryStore:
         r"""Create memory store
 
-        :param key: The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.
+        :param key: The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace.
         :param embedding_config:
         :param description:
         :param path: Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project.
@@ -356,7 +356,7 @@ class MemoryStores(BaseSDK):
     ) -> models.MemoryStore:
         r"""Create memory store
 
-        :param key: The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace.
+        :param key: The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace.
         :param embedding_config:
         :param description:
         :param path: Entity storage path. With workspace-level API keys, the first element identifies the project. With project-level API keys, the path is relative to that project.

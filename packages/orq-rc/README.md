@@ -430,8 +430,8 @@ with Orq(
 
 ### [Feedback](docs/sdks/feedback/README.md)
 
-* [create](docs/sdks/feedback/README.md#create)
-* [remove](docs/sdks/feedback/README.md#remove)
+* [create](docs/sdks/feedback/README.md#create) - Submit feedback
+* [remove](docs/sdks/feedback/README.md#remove) - Remove feedback
 * [submit](docs/sdks/feedback/README.md#submit) - Submit feedback
 
 ### [Files](docs/sdks/files/README.md)

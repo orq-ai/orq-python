@@ -18,7 +18,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class CreateMemoryStoreRequestTypedDict(TypedDict):
     key: str
-    r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
+    r"""The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace."""
     embedding_config: MemoryStoreEmbeddingConfigTypedDict
     description: str
     path: str
@@ -28,7 +28,7 @@ class CreateMemoryStoreRequestTypedDict(TypedDict):
 
 class CreateMemoryStoreRequest(BaseModel):
     key: str
-    r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
+    r"""The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace."""
 
     embedding_config: MemoryStoreEmbeddingConfig
 

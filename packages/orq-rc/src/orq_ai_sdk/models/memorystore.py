@@ -19,7 +19,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class MemoryStoreTypedDict(TypedDict):
     key: str
-    r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
+    r"""The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace."""
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
     created: str
@@ -38,7 +38,7 @@ class MemoryStoreTypedDict(TypedDict):
 
 class MemoryStore(BaseModel):
     key: str
-    r"""The unique key of the memory store. The key is unique and inmmutable and cannot be repeated within the same workspace."""
+    r"""The unique key of the memory store. The key is unique and immutable and cannot be repeated within the same workspace."""
 
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""

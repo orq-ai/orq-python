@@ -24,7 +24,8 @@ class Feedback(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2FeedbackResponseBody:
-        r"""
+        r"""Submit feedback
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -133,7 +134,8 @@ class Feedback(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2FeedbackResponseBody:
-        r"""
+        r"""Submit feedback
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -242,7 +244,8 @@ class Feedback(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2FeedbackRemoveResponseBody:
-        r"""
+        r"""Remove feedback
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -352,7 +355,8 @@ class Feedback(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2FeedbackRemoveResponseBody:
-        r"""
+        r"""Remove feedback
+
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

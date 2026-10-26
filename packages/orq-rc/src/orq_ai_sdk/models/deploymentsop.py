@@ -1048,7 +1048,7 @@ class DeploymentsDataTypedDict(TypedDict):
     r"""An arbitrary string attached to the object. Often useful for displaying to users."""
     prompt_config: DeploymentsPromptConfigTypedDict
     version: str
-    r"""THe version of the deployment"""
+    r"""The version of the deployment"""
 
 
 class DeploymentsData(BaseModel):
@@ -1070,7 +1070,7 @@ class DeploymentsData(BaseModel):
     prompt_config: DeploymentsPromptConfig
 
     version: str
-    r"""THe version of the deployment"""
+    r"""The version of the deployment"""
 
 
 class DeploymentsResponseBodyTypedDict(TypedDict):

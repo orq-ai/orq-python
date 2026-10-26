@@ -4,11 +4,13 @@
 
 ### Available Operations
 
-* [create](#create)
-* [remove](#remove)
+* [create](#create) - Submit feedback
+* [remove](#remove) - Remove feedback
 * [submit](#submit) - Submit feedback
 
 ## create
+
+Submit feedback
 
 ### Example Usage
 
@@ -49,6 +51,8 @@ with Orq(
 | models.APIDefaultError                            | 4XX, 5XX                                          | \*/\*                                             |
 
 ## remove
+
+Remove feedback
 
 ### Example Usage
 
