@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import warnings
 from dataclasses import dataclass
@@ -10,7 +11,16 @@ import pytest
 from pydantic import BaseModel
 
 from orq_ai_sdk import models, utils
-from orq_ai_sdk.function_tools import ToolFunctionWrapper, ToolSchemaError, tool, tool_schema
+from orq_ai_sdk.function_tools import (
+    ToolFunctionWrapper,
+    ToolLoopError,
+    ToolLoopUsage,
+    ToolSchemaError,
+    run_tool_loop,
+    run_tool_loop_async,
+    tool,
+    tool_schema,
+)
 from orq_ai_sdk.models.create_router_responseop import CreateRouterResponseRequestBody, ToolsFunction
 
 
@@ -472,3 +482,363 @@ def test_wrapper_applies_default_on_omission_under_non_strict():
     args = json.loads('{"city": "Paris"}')  # non-strict lets the model omit units
 
     assert get_weather(**args) == "Paris:celsius"
+
+
+# ---------------------------------------------------------------------------
+# Automatic tool-call execution (RES-1096)
+# ---------------------------------------------------------------------------
+
+
+class _FakeCall:
+    """A function_call output item (object form, like a deserialized model)."""
+
+    type = "function_call"
+
+    def __init__(self, name: str, arguments: str, call_id: str) -> None:
+        self.name, self.arguments, self.call_id = name, arguments, call_id
+
+
+class _FakeResp:
+    def __init__(self, output, id, status="completed", error=None, usage=None):  # noqa: A002 - mirrors the SDK field name
+        self.output, self.id, self.status, self.error, self.usage = output, id, status, error, usage
+        self.incomplete_details = None
+
+
+class _FakeResponses:
+    def __init__(self, script):
+        self._script = list(script)
+        self.calls: list[dict] = []
+
+    def create(self, **kwargs):
+        self.calls.append(kwargs)
+        return self._script.pop(0)
+
+    async def create_async(self, **kwargs):
+        self.calls.append(kwargs)
+        return self._script.pop(0)
+
+
+class _FakeClient:
+    def __init__(self, script):
+        self.responses = _FakeResponses(script)
+
+
+def test_run_tool_loop_executes_and_resubmits():
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 3}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),  # dict item, no tool call -> done
+    ])
+    result = run_tool_loop(client, [add], model="m", input="2+3?")
+
+    assert result.final.id == "r2"
+    assert len(client.responses.calls) == 2
+    resubmit = client.responses.calls[1]
+    assert resubmit["previous_response_id"] == "r1"
+    assert resubmit["input"] == [{"type": "function_call_output", "call_id": "c1", "output": "5"}]
+    assert resubmit["model"] == "m"  # model carried over, only the original input dropped
+
+
+def test_run_tool_loop_accepts_caller_previous_response_id():
+    """A caller continuing a conversation passes previous_response_id; the loop must
+    not collide with its own per-round previous_response_id (it would TypeError)."""
+
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 3}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    result = run_tool_loop(client, [add], model="m", input="2+3?", previous_response_id="seed")
+
+    assert result.final.id == "r2"
+    # First turn uses the caller's seed; the resubmit uses the loop's latest id, not the seed.
+    assert client.responses.calls[0]["previous_response_id"] == "seed"
+    assert client.responses.calls[1]["previous_response_id"] == "r1"
+
+
+def test_run_tool_loop_errors_on_unregistered_tool():
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([_FakeResp([_FakeCall("subtract", "{}", "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="not passed to the loop"):
+        run_tool_loop(client, [add], model="m", input="x")
+
+
+def test_run_tool_loop_caps_iterations():
+    @tool
+    def ping() -> str:
+        """Ping."""
+        return "pong"
+
+    class _AlwaysCalls:
+        def __init__(self):
+            self.calls: list[dict] = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return _FakeResp([_FakeCall("ping", "{}", "c")], "r")
+
+    client = type("C", (), {"responses": _AlwaysCalls()})()
+    with pytest.raises(ToolLoopError, match="still calling tools after 2 rounds"):
+        run_tool_loop(client, [ping], max_iterations=2, model="m", input="x")
+
+
+def test_run_tool_loop_async_uses_the_async_client():
+    # @tool functions are synchronous (the decorator rejects async), so the async
+    # loop exists for the async client: it drives create_async, tools run inline.
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 4, "b": 5}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    result = asyncio.run(run_tool_loop_async(client, [add], model="m", input="4+5?"))
+
+    assert result.final.id == "r2"
+    assert len(client.responses.calls) == 2  # both turns went through create_async
+    assert client.responses.calls[1]["input"] == [
+        {"type": "function_call_output", "call_id": "c1", "output": "9"}
+    ]
+
+
+def _adder():
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        return a + b
+
+    return add
+
+
+def test_run_tool_loop_accepts_a_generator_of_tools():
+    # A one-shot iterable must not be drained by the registry pass and then re-read
+    # as an empty tool list; the tools must still reach every turn.
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    result = run_tool_loop(client, (t for t in [_adder()]), model="m", input="1+1?")
+    assert result.final.id == "r2"
+    assert client.responses.calls[0]["tools"]  # tools were sent, not an empty list
+
+
+def test_run_tool_loop_resolves_within_the_exact_round_budget():
+    # max_iterations counts tool rounds; two rounds must resolve with max_iterations=2,
+    # not raise (the final no-call response is returned, not discarded).
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([_FakeCall("add", '{"a": 2, "b": 2}', "c2")], "r2"),
+        _FakeResp([{"type": "message"}], "r3"),
+    ])
+    result = run_tool_loop(client, [_adder()], max_iterations=2, model="m", input="go")
+    assert result.final.id == "r3"
+
+
+def test_run_tool_loop_rejects_streaming():
+    client = _FakeClient([_FakeResp([{"type": "message"}], "r1")])
+    with pytest.raises(ToolLoopError, match="does not support streaming"):
+        run_tool_loop(client, [_adder()], model="m", input="x", stream=True)
+
+
+def test_run_tool_loop_rejects_empty_tools():
+    client = _FakeClient([_FakeResp([{"type": "message"}], "r1")])
+    with pytest.raises(ToolLoopError, match="at least one @tool"):
+        run_tool_loop(client, [], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_non_positive_max_iterations():
+    client = _FakeClient([_FakeResp([{"type": "message"}], "r1")])
+    with pytest.raises(ToolLoopError, match="max_iterations must be >= 1"):
+        run_tool_loop(client, [_adder()], max_iterations=0, model="m", input="x")
+
+
+def test_run_tool_loop_rejects_duplicate_tool_names():
+    client = _FakeClient([_FakeResp([{"type": "message"}], "r1")])
+    with pytest.raises(ToolLoopError, match="share the name"):
+        run_tool_loop(client, [_adder(), _adder()], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_non_object_arguments():
+    client = _FakeClient([_FakeResp([_FakeCall("add", "[1, 2]", "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="must be a JSON object"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_wraps_a_tool_exception():
+    @tool
+    def boom(x: int) -> int:
+        """Always fails."""
+        raise ValueError("kaboom")
+
+    client = _FakeClient([_FakeResp([_FakeCall("boom", '{"x": 1}', "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="raised while executing") as exc:
+        run_tool_loop(client, [boom], model="m", input="x")
+    assert isinstance(exc.value.__cause__, ValueError)  # original chained
+
+
+def test_run_tool_loop_sends_tool_choice_on_the_first_turn_only():
+    # A forced tool_choice resent every turn would make the model call tools forever.
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    result = run_tool_loop(client, [_adder()], model="m", input="x", tool_choice="required")
+    assert result.final.id == "r2"
+    assert client.responses.calls[0]["tool_choice"] == "required"
+    assert "tool_choice" not in client.responses.calls[1]
+
+
+def test_run_tool_loop_forwards_hosted_tools_unregistered():
+    hosted = {"type": "orq:web_search"}
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    add = _adder()
+    run_tool_loop(client, [add, hosted], model="m", input="x")
+    assert client.responses.calls[1]["tools"] == [add, hosted]
+
+
+def test_run_tool_loop_rejects_plain_function_schema_before_any_call():
+    client = _FakeClient([])
+    plain = {"type": "function", "name": "add", "parameters": {}}
+    with pytest.raises(ToolLoopError, match="decorate it with @tool"):
+        run_tool_loop(client, [_adder(), plain], model="m", input="x")
+    assert client.responses.calls == []
+
+
+def test_run_tool_loop_rejects_only_hosted_tools():
+    with pytest.raises(ToolLoopError, match="at least one @tool"):
+        run_tool_loop(_FakeClient([]), [{"type": "orq:web_search"}], model="m", input="x")
+
+
+@pytest.mark.parametrize("kwargs", [{"background": True}, {"store": False}, {"conversation": {"id": "conv_1"}}])
+def test_run_tool_loop_rejects_kwargs_that_break_chaining(kwargs):
+    client = _FakeClient([])
+    with pytest.raises(ToolLoopError):
+        run_tool_loop(client, [_adder()], model="m", input="x", **kwargs)
+    assert client.responses.calls == []
+
+
+@pytest.mark.parametrize("status", ["failed", "incomplete", "queued", "in_progress"])
+def test_run_tool_loop_raises_on_a_response_that_did_not_complete(status):
+    # Tools must not run on (possibly truncated) calls from an unfinished response,
+    # and a failed response must not be returned as if the loop finished.
+    ran = []
+
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        ran.append((a, b))
+        return a + b
+
+    resp = _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1", status=status)
+    with pytest.raises(ToolLoopError, match=status) as exc:
+        run_tool_loop(_FakeClient([resp]), [add], model="m", input="x")
+    assert ran == []
+    assert exc.value.response is resp
+
+
+def test_run_tool_loop_raises_on_a_response_error():
+    resp = _FakeResp([], "r1", error={"code": "server_error"})
+    with pytest.raises(ToolLoopError, match="server_error"):
+        run_tool_loop(_FakeClient([resp]), [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_a_call_without_call_id():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "")], "r1")])
+    with pytest.raises(ToolLoopError, match="no call_id"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_invalid_json_arguments():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1,', "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="not valid JSON"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_reports_mismatched_arguments_separately_from_tool_errors():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1, "c": 2}', "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="do not match its signature"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_serializes_non_json_results_as_valid_json():
+    import datetime
+
+    @tool
+    def when() -> dict:
+        """Return a timestamp."""
+        return {"at": datetime.datetime(2026, 1, 1)}
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("when", "{}", "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    run_tool_loop(client, [when], model="m", input="x")
+    assert json.loads(client.responses.calls[1]["input"][0]["output"]) == {"at": "2026-01-01 00:00:00"}
+
+
+def test_run_tool_loop_async_raises_on_non_convergence():
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c2")], "r2"),
+    ])
+    with pytest.raises(ToolLoopError, match="after 1 rounds") as exc:
+        asyncio.run(run_tool_loop_async(client, [_adder()], max_iterations=1, model="m", input="x"))
+    assert exc.value.response.id == "r2"
+
+
+def test_run_tool_loop_returns_every_turn_and_sums_usage():
+    # A turn can hold a message plus parallel calls; all of it, and the outputs the
+    # loop sent back, must reach the caller, not just the last response.
+    @tool
+    def multiply(a: int, b: int) -> int:
+        """Multiply two integers."""
+        return a * b
+
+    preamble = {"type": "message", "content": [{"type": "output_text", "text": "Computing both."}]}
+    answer = {"type": "message", "content": [{"type": "output_text", "text": "11"}]}
+    client = _FakeClient([
+        _FakeResp(
+            [preamble, _FakeCall("add", '{"a": 2, "b": 3}', "c1"), _FakeCall("multiply", '{"a": 2, "b": 3}', "c2")],
+            "r1",
+            usage={"input_tokens": 10, "output_tokens": 5, "total_tokens": 15, "total_cost": 0.25},
+        ),
+        _FakeResp([answer], "r2", usage={"input_tokens": 20, "output_tokens": 1, "total_tokens": 21, "total_cost": 0.5}),
+    ])
+    result = run_tool_loop(client, [_adder(), multiply], model="m", input="x")
+
+    assert result.final.id == "r2"
+    assert [_item("type", o) for o in result.output] == [
+        "message", "function_call", "function_call", "function_call_output", "function_call_output", "message",
+    ]
+    assert result.output[0] is preamble and result.output[-1] is answer
+    assert [(r.name, r.call_id, r.arguments, r.output) for r in result.tool_results] == [
+        ("add", "c1", {"a": 2, "b": 3}, "5"),
+        ("multiply", "c2", {"a": 2, "b": 3}, "6"),
+    ]
+    assert result.usage == ToolLoopUsage(input_tokens=30, output_tokens=6, total_tokens=36, total_cost=0.75)
+
+
+def test_run_tool_loop_usage_cost_is_none_when_unreported():
+    client = _FakeClient([_FakeResp([{"type": "message"}], "r1", usage={"input_tokens": 3, "output_tokens": 1, "total_tokens": 4})])
+    assert run_tool_loop(client, [_adder()], model="m", input="x").usage.total_cost is None
+
+
+def _item(key, item):
+    return item[key] if isinstance(item, dict) else getattr(item, key)
