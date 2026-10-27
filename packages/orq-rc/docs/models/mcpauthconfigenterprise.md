@@ -1,8 +1,8 @@
-# McpEnterpriseAuthConfigOutput
+# ~~McpAuthConfigEnterprise~~
 
-McpEnterpriseAuthConfig is the client orq registered at the upstream's authorization
- server for enterprise-managed authorization (ID-JAG). Access policy lives in the
- workspace's SSO identity provider; users must sign in through SSO to use the server.
+Superseded by `oauth` for ENTERPRISE_MANAGED; accepted on write and mirrored on read.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 
 ## Fields

@@ -64,7 +64,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.views import Views
     from orq_ai_sdk.webhooks import Webhooks
     from orq_ai_sdk.websearch import Websearch
-    from orq_ai_sdk.wikis import Wikis
     from orq_ai_sdk.workspaces import Workspaces
     from orq_ai_sdk.workspacesecurity import WorkspaceSecurity
     from orq_ai_sdk.workspacesettings_sdk import WorkspaceSettingsSDK
@@ -121,7 +120,6 @@ class Orq(BaseSDK):
     smart_routers: "SmartRouters"
     users: "Users"
     webhooks: "Webhooks"
-    wikis: "Wikis"
     workspaces: "Workspaces"
     workspace_security: "WorkspaceSecurity"
     workspace_settings: "WorkspaceSettingsSDK"
@@ -178,7 +176,6 @@ class Orq(BaseSDK):
         "smart_routers": ("orq_ai_sdk.smartrouters", "SmartRouters"),
         "users": ("orq_ai_sdk.users", "Users"),
         "webhooks": ("orq_ai_sdk.webhooks", "Webhooks"),
-        "wikis": ("orq_ai_sdk.wikis", "Wikis"),
         "workspaces": ("orq_ai_sdk.workspaces", "Workspaces"),
         "workspace_security": ("orq_ai_sdk.workspacesecurity", "WorkspaceSecurity"),
         "workspace_settings": (

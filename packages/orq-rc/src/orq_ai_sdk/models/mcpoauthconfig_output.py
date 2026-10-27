@@ -8,22 +8,34 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class McpOAuthConfigOutputTypedDict(TypedDict):
+    r"""McpOAuthConfig is the OAuth client orq presents to the upstream authorization
+    server for OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH and ENTERPRISE_MANAGED.
+    """
+
     client_id: NotRequired[str]
     r"""OAuth client identifier presented to the upstream authorization server."""
     token_url: NotRequired[str]
-    r"""Token endpoint the gateway calls to mint upstream access tokens."""
+    r"""Token endpoint for OAUTH_CLIENT_CREDENTIALS; PER_USER_OAUTH and ENTERPRISE_MANAGED discover it from `resource`."""
     scopes: NotRequired[List[str]]
     r"""Scopes requested when minting upstream access tokens."""
     masked_value: NotRequired[str]
     r"""Redacted preview of `client_secret`, returned in its place."""
+    issuer: NotRequired[str]
+    r"""Exact authorization-server issuer; pins discovery for PER_USER_OAUTH and ENTERPRISE_MANAGED."""
+    resource: NotRequired[str]
+    r"""Protected resource identifier; defaults to the upstream connection URL."""
 
 
 class McpOAuthConfigOutput(BaseModel):
+    r"""McpOAuthConfig is the OAuth client orq presents to the upstream authorization
+    server for OAUTH_CLIENT_CREDENTIALS, PER_USER_OAUTH and ENTERPRISE_MANAGED.
+    """
+
     client_id: Optional[str] = None
     r"""OAuth client identifier presented to the upstream authorization server."""
 
     token_url: Optional[str] = None
-    r"""Token endpoint the gateway calls to mint upstream access tokens."""
+    r"""Token endpoint for OAUTH_CLIENT_CREDENTIALS; PER_USER_OAUTH and ENTERPRISE_MANAGED discover it from `resource`."""
 
     scopes: Optional[List[str]] = None
     r"""Scopes requested when minting upstream access tokens."""
@@ -31,9 +43,17 @@ class McpOAuthConfigOutput(BaseModel):
     masked_value: Optional[str] = None
     r"""Redacted preview of `client_secret`, returned in its place."""
 
+    issuer: Optional[str] = None
+    r"""Exact authorization-server issuer; pins discovery for PER_USER_OAUTH and ENTERPRISE_MANAGED."""
+
+    resource: Optional[str] = None
+    r"""Protected resource identifier; defaults to the upstream connection URL."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["client_id", "token_url", "scopes", "masked_value"])
+        optional_fields = set(
+            ["client_id", "token_url", "scopes", "masked_value", "issuer", "resource"]
+        )
         serialized = handler(self)
         m = {}
 
