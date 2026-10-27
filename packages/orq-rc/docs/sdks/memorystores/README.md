@@ -33,7 +33,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list(limit=10)
@@ -79,7 +79,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create(key="<key>", embedding_config={
@@ -126,7 +126,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve(memory_store_key="<value>")
@@ -167,7 +167,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete(memory_store_key="<value>")
@@ -202,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update(memory_store_key="<value>")
@@ -246,7 +246,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list_memories(memory_store_key="<value>", limit=10)
@@ -291,7 +291,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create_memory(memory_store_key="<value>", entity_id="<id>")
@@ -332,7 +332,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -378,7 +378,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -414,7 +414,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update_memory(memory_store_key="<value>", memory_entity_id="<id>")
@@ -456,7 +456,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.list_documents(memory_store_key="<value>", memory_entity_id="<id>", limit=10)
@@ -502,7 +502,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.create_document(memory_store_key="<value>", memory_entity_id="<id>", text="<value>")
@@ -545,7 +545,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.retrieve_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
@@ -592,7 +592,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.memory_stores.delete_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")
@@ -629,7 +629,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.memory_stores.update_document(memory_store_key="<value>", memory_entity_id="<id>", document_id="<id>")

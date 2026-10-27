@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.list(agent_key="<value>")
@@ -66,7 +66,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Daily morning briefing", expression="0 0 9 * * *", payload={
@@ -93,7 +93,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Hourly ticket summary", expression="0 0 * * * *", payload={
@@ -113,7 +113,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Hourly ticket summary", expression="@every 1h", payload={
@@ -133,7 +133,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Ticket status update", expression="@at 2026-05-01T09:00:00Z", payload={
@@ -153,7 +153,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Weekly ticket status update", expression="0 0 9 * * 1", payload={
@@ -202,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.schedules.delete(agent_key="<value>", schedule_id="<id>")
@@ -239,7 +239,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.retrieve(agent_key="<value>", schedule_id="<id>")
@@ -281,7 +281,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", expression="0 0 9 * * *")
@@ -299,7 +299,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", is_active=False)
@@ -317,7 +317,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", display_name="Nightly report")
@@ -335,7 +335,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", payload={
@@ -389,7 +389,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.trigger(agent_key="<value>", schedule_id="<id>")
