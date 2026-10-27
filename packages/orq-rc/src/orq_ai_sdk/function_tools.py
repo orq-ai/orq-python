@@ -461,6 +461,10 @@ def _prepare_loop(
         raise ToolLoopError("the tool loop does not support background=True; it needs each response to complete")
     if create_kwargs.get("store") is False:
         raise ToolLoopError("the tool loop chains turns with previous_response_id, which requires store=True")
+    if create_kwargs.get("conversation") is not None:
+        raise ToolLoopError(
+            "the tool loop chains turns with previous_response_id, which the router rejects together with conversation"
+        )
     # Materialize first so a one-shot iterable is not drained by the registry pass.
     tool_list = list(tools)
     # Only @tool wrappers are executable. Other entries (hosted orq:* tools, mcp) are
@@ -548,8 +552,8 @@ def run_tool_loop(
     ``previous_response_id``, and repeats until the model stops calling tools or
     ``max_iterations`` tool rounds are used. Non-``@tool`` entries in ``tools``
     (hosted tools) are forwarded unchanged. ``input``, ``previous_response_id`` and
-    ``tool_choice`` apply to the first turn only; ``stream``, ``background`` and
-    ``store=False`` are rejected. Raises ``ToolLoopError`` on a bad tool call, a
+    ``tool_choice`` apply to the first turn only; ``stream``, ``background``,
+    ``store=False`` and ``conversation`` are rejected. Raises ``ToolLoopError`` on a bad tool call, a
     response that did not complete, or a loop that does not converge.
 
     Security: the loop runs your registered tools with model-chosen arguments and

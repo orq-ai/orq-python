@@ -725,7 +725,7 @@ def test_run_tool_loop_rejects_only_hosted_tools():
         run_tool_loop(_FakeClient([]), [{"type": "orq:web_search"}], model="m", input="x")
 
 
-@pytest.mark.parametrize("kwargs", [{"background": True}, {"store": False}])
+@pytest.mark.parametrize("kwargs", [{"background": True}, {"store": False}, {"conversation": {"id": "conv_1"}}])
 def test_run_tool_loop_rejects_kwargs_that_break_chaining(kwargs):
     client = _FakeClient([])
     with pytest.raises(ToolLoopError):
