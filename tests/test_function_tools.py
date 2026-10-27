@@ -498,8 +498,9 @@ class _FakeCall:
 
 
 class _FakeResp:
-    def __init__(self, output, id):  # noqa: A002 - mirrors the SDK field name
-        self.output, self.id = output, id
+    def __init__(self, output, id, status="completed", error=None):  # noqa: A002 - mirrors the SDK field name
+        self.output, self.id, self.status, self.error = output, id, status, error
+        self.incomplete_details = None
 
 
 class _FakeResponses:
@@ -654,7 +655,7 @@ def test_run_tool_loop_rejects_streaming():
 
 def test_run_tool_loop_rejects_empty_tools():
     client = _FakeClient([_FakeResp([{"type": "message"}], "r1")])
-    with pytest.raises(ToolLoopError, match="at least one tool"):
+    with pytest.raises(ToolLoopError, match="at least one @tool"):
         run_tool_loop(client, [], model="m", input="x")
 
 
@@ -686,3 +687,116 @@ def test_run_tool_loop_wraps_a_tool_exception():
     with pytest.raises(ToolLoopError, match="raised while executing") as exc:
         run_tool_loop(client, [boom], model="m", input="x")
     assert isinstance(exc.value.__cause__, ValueError)  # original chained
+
+
+def test_run_tool_loop_sends_tool_choice_on_the_first_turn_only():
+    # A forced tool_choice resent every turn would make the model call tools forever.
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    final = run_tool_loop(client, [_adder()], model="m", input="x", tool_choice="required")
+    assert final.id == "r2"
+    assert client.responses.calls[0]["tool_choice"] == "required"
+    assert "tool_choice" not in client.responses.calls[1]
+
+
+def test_run_tool_loop_forwards_hosted_tools_unregistered():
+    hosted = {"type": "orq:web_search"}
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    add = _adder()
+    run_tool_loop(client, [add, hosted], model="m", input="x")
+    assert client.responses.calls[1]["tools"] == [add, hosted]
+
+
+def test_run_tool_loop_rejects_plain_function_schema_before_any_call():
+    client = _FakeClient([])
+    plain = {"type": "function", "name": "add", "parameters": {}}
+    with pytest.raises(ToolLoopError, match="decorate it with @tool"):
+        run_tool_loop(client, [_adder(), plain], model="m", input="x")
+    assert client.responses.calls == []
+
+
+def test_run_tool_loop_rejects_only_hosted_tools():
+    with pytest.raises(ToolLoopError, match="at least one @tool"):
+        run_tool_loop(_FakeClient([]), [{"type": "orq:web_search"}], model="m", input="x")
+
+
+@pytest.mark.parametrize("kwargs", [{"background": True}, {"store": False}])
+def test_run_tool_loop_rejects_kwargs_that_break_chaining(kwargs):
+    client = _FakeClient([])
+    with pytest.raises(ToolLoopError):
+        run_tool_loop(client, [_adder()], model="m", input="x", **kwargs)
+    assert client.responses.calls == []
+
+
+@pytest.mark.parametrize("status", ["failed", "incomplete", "queued", "in_progress"])
+def test_run_tool_loop_raises_on_a_response_that_did_not_complete(status):
+    # Tools must not run on (possibly truncated) calls from an unfinished response,
+    # and a failed response must not be returned as if the loop finished.
+    ran = []
+
+    @tool
+    def add(a: int, b: int) -> int:
+        """Add two integers."""
+        ran.append((a, b))
+        return a + b
+
+    resp = _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1", status=status)
+    with pytest.raises(ToolLoopError, match=status) as exc:
+        run_tool_loop(_FakeClient([resp]), [add], model="m", input="x")
+    assert ran == []
+    assert exc.value.response is resp
+
+
+def test_run_tool_loop_raises_on_a_response_error():
+    resp = _FakeResp([], "r1", error={"code": "server_error"})
+    with pytest.raises(ToolLoopError, match="server_error"):
+        run_tool_loop(_FakeClient([resp]), [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_a_call_without_call_id():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "")], "r1")])
+    with pytest.raises(ToolLoopError, match="no call_id"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_rejects_invalid_json_arguments():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1,', "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="not valid JSON"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_reports_mismatched_arguments_separately_from_tool_errors():
+    client = _FakeClient([_FakeResp([_FakeCall("add", '{"a": 1, "c": 2}', "c1")], "r1")])
+    with pytest.raises(ToolLoopError, match="do not match its signature"):
+        run_tool_loop(client, [_adder()], model="m", input="x")
+
+
+def test_run_tool_loop_serializes_non_json_results_as_valid_json():
+    import datetime
+
+    @tool
+    def when() -> dict:
+        """Return a timestamp."""
+        return {"at": datetime.datetime(2026, 1, 1)}
+
+    client = _FakeClient([
+        _FakeResp([_FakeCall("when", "{}", "c1")], "r1"),
+        _FakeResp([{"type": "message"}], "r2"),
+    ])
+    run_tool_loop(client, [when], model="m", input="x")
+    assert json.loads(client.responses.calls[1]["input"][0]["output"]) == {"at": "2026-01-01 00:00:00"}
+
+
+def test_run_tool_loop_async_raises_on_non_convergence():
+    client = _FakeClient([
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c1")], "r1"),
+        _FakeResp([_FakeCall("add", '{"a": 1, "b": 1}', "c2")], "r2"),
+    ])
+    with pytest.raises(ToolLoopError, match="after 1 rounds") as exc:
+        asyncio.run(run_tool_loop_async(client, [_adder()], max_iterations=1, model="m", input="x"))
+    assert exc.value.response.id == "r2"

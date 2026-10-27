@@ -11,7 +11,7 @@ import warnings
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Literal, TypeVar, Union, cast, get_args, get_origin, get_type_hints, overload
 
-from orq_ai_sdk.models.create_router_responseop import CreateRouterResponseResponse, ToolsFunction
+from orq_ai_sdk.models.create_router_responseop import CreateRouterResponseResponseBody, ToolsFunction
 
 F = TypeVar("F", bound=Callable[..., Any])
 
@@ -418,28 +418,24 @@ def _enum_to_schema(enum_type: type[enum.Enum]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Automatic tool-call execution (RES-1096)
 # ---------------------------------------------------------------------------
-#
-# `responses.create(tools=[...])` returns `function_call` items; without these
-# helpers the caller parses the arguments, calls the function, resubmits the
-# result as a `function_call_output` and loops, by hand. `run_tool_loop` /
-# `run_tool_loop_async` run that loop: each `function_call` is matched to its
-# registered `@tool` by name, executed, and its output fed back with the response
-# id until the model stops calling tools. Opt-in, and the generated
-# `responses.create` is untouched.
-#
-# Security: the loop executes YOUR registered tools with model-chosen arguments
-# and sends their return values back to the model. Only register tools whose whole
-# argument domain is safe to expose to an LLM, validate inside the tool, and do not
-# return secrets. Only registered tools can run; an unknown name raises
-# ToolLoopError, never a dynamic dispatch on model input.
 
 DEFAULT_MAX_TOOL_ITERATIONS = 8
 
+# Kwargs that only apply to the first turn. The loop supplies input and
+# previous_response_id itself, and a forced tool_choice ("required" or a named
+# function) resent every turn would stop the model from ever answering.
+_FIRST_TURN_ONLY = ("input", "previous_response_id", "tool_choice")
+
 
 class ToolLoopError(RuntimeError):
-    """The one error the tool loop raises: a bad tool call (unknown tool, non-JSON
-    or non-object arguments, a tool that raised) or a loop that did not converge.
-    A tool's own exception is chained as the ``__cause__``."""
+    """Raised by the tool loop on a bad tool call (unknown tool, malformed call,
+    arguments that do not fit the tool, a tool that raised), a response that did not
+    complete, or a loop that did not converge. A tool's own exception is chained as
+    ``__cause__``; ``response`` is the last response received, if any."""
+
+    def __init__(self, message: str, response: Any = None) -> None:
+        super().__init__(message)
+        self.response = response
 
 
 def _item_field(item: Any, key: str) -> Any:
@@ -449,104 +445,118 @@ def _item_field(item: Any, key: str) -> Any:
     return getattr(item, key, None)
 
 
-def _tool_registry(tools: list[ToolFunctionWrapper]) -> dict[str, ToolFunctionWrapper]:
-    registry: dict[str, ToolFunctionWrapper] = {}
-    for t in tools:
-        name = t.name if isinstance(t, ToolFunctionWrapper) else _item_field(t, "name")
-        if not name:
-            raise ToolLoopError(f"tool {t!r} has no name; use @tool so it carries a schema")
-        if name in registry:
-            raise ToolLoopError(f"two tools share the name {name!r}; tool names must be unique")
-        registry[name] = t
-    return registry
-
-
 def _prepare_loop(
-    tools: Iterable[ToolFunctionWrapper], max_iterations: int, create_kwargs: dict[str, Any]
-) -> tuple[list[ToolFunctionWrapper], dict[str, ToolFunctionWrapper], dict[str, Any]]:
-    """Validate inputs once and build the shared loop state, before any network
-    call. Raises ``ToolLoopError`` on a bad configuration."""
+    tools: Iterable[ToolFunctionWrapper | Mapping[str, Any]],
+    max_iterations: int,
+    create_kwargs: dict[str, Any],
+) -> tuple[list[Any], dict[str, ToolFunctionWrapper], dict[str, Any]]:
+    """Validate inputs and build the loop state before any network call."""
     if max_iterations < 1:
         raise ToolLoopError(f"max_iterations must be >= 1, got {max_iterations}")
     if create_kwargs.get("stream"):
         raise ToolLoopError(
             "the tool loop does not support streaming; call responses.create(stream=True) directly"
         )
-    # Materialize before building the registry: a one-shot iterable must not be
-    # drained by the registry pass and then re-read as an empty tool list.
+    if create_kwargs.get("background"):
+        raise ToolLoopError("the tool loop does not support background=True; it needs each response to complete")
+    if create_kwargs.get("store") is False:
+        raise ToolLoopError("the tool loop chains turns with previous_response_id, which requires store=True")
+    # Materialize first so a one-shot iterable is not drained by the registry pass.
     tool_list = list(tools)
-    if not tool_list:
-        raise ToolLoopError("run the loop with at least one tool, or call responses.create directly")
-    registry = _tool_registry(tool_list)
-    # Drop both input (each turn sends the tool outputs) and previous_response_id
-    # (the loop sets it to the latest response id on every resubmit): leaving the
-    # caller's own previous_response_id here would collide with that keyword and
-    # raise TypeError on the first tool round.
-    follow = {k: v for k, v in create_kwargs.items() if k not in ("input", "previous_response_id")}
+    # Only @tool wrappers are executable. Other entries (hosted orq:* tools, mcp) are
+    # forwarded as-is: the server runs them, so they never come back as function_call.
+    registry: dict[str, ToolFunctionWrapper] = {}
+    for t in tool_list:
+        if not isinstance(t, ToolFunctionWrapper):
+            if _item_field(t, "type") == "function":
+                raise ToolLoopError(
+                    f"function tool {_item_field(t, 'name')!r} is a plain schema; decorate it with @tool so the loop can run it"
+                )
+            continue
+        if t.name in registry:
+            raise ToolLoopError(f"two tools share the name {t.name!r}; tool names must be unique")
+        registry[t.name] = t
+    if not registry:
+        raise ToolLoopError("run the loop with at least one @tool, or call responses.create directly")
+    follow = {k: v for k, v in create_kwargs.items() if k not in _FIRST_TURN_ONLY}
     return tool_list, registry, follow
 
 
 def _pending_function_calls(response: Any) -> list[Any]:
-    return [item for item in (getattr(response, "output", None) or []) if _item_field(item, "type") == "function_call"]
+    """Return the function calls to run, or raise if the response did not complete."""
+    status = _item_field(response, "status")
+    error = _item_field(response, "error")
+    if status != "completed" or error:
+        detail = error or _item_field(response, "incomplete_details")
+        raise ToolLoopError(f"response {_item_field(response, 'id')!r} ended with status {status!r}: {detail}", response)
+    return [item for item in (_item_field(response, "output") or []) if _item_field(item, "type") == "function_call"]
 
 
 def _tool_output_str(result: Any) -> str:
-    """Serialize a tool result for the `function_call_output` payload. Keep tool
-    return values small: they are sent back to the model verbatim."""
+    """Serialize a tool result for the `function_call_output` payload. Values json
+    cannot encode (datetimes, custom objects) are stringified in place."""
     if isinstance(result, str):
         return result
     try:
-        return json.dumps(result)
-    except (TypeError, ValueError):
-        return str(result)
+        return json.dumps(result, default=str, allow_nan=False)
+    except ValueError as exc:  # circular reference or NaN/inf
+        raise ToolLoopError(f"tool result could not be serialized to JSON: {exc}") from exc
 
 
-def _execute_calls(calls: list[Any], registry: Mapping[str, ToolFunctionWrapper]) -> list[dict[str, Any]]:
+def _execute_calls(calls: list[Any], registry: Mapping[str, ToolFunctionWrapper], response: Any) -> list[dict[str, Any]]:
     """Run each function call against its registered tool and return the
     ``function_call_output`` items to resubmit. Every failure is a ``ToolLoopError``."""
     outputs: list[dict[str, Any]] = []
     for call in calls:
         name = _item_field(call, "name")
+        call_id = _item_field(call, "call_id")
+        if not call_id:
+            raise ToolLoopError(f"function_call for tool {name!r} has no call_id", response)
         fn = registry.get(name)
         if fn is None:
-            raise ToolLoopError(f"the model called tool {name!r}, which was not passed to the loop")
+            raise ToolLoopError(f"the model called tool {name!r}, which was not passed to the loop", response)
         raw = _item_field(call, "arguments")
         try:
             args = json.loads(raw) if raw else {}
         except (TypeError, ValueError) as exc:
-            raise ToolLoopError(f"tool {name!r} arguments were not valid JSON: {raw!r}") from exc
+            raise ToolLoopError(f"tool {name!r} arguments were not valid JSON: {raw!r}", response) from exc
         if not isinstance(args, dict):
-            raise ToolLoopError(f"tool {name!r} arguments must be a JSON object, got {type(args).__name__}")
+            raise ToolLoopError(f"tool {name!r} arguments must be a JSON object, got {type(args).__name__}", response)
+        try:
+            inspect.signature(fn).bind(**args)
+        except TypeError as exc:
+            raise ToolLoopError(f"tool {name!r} arguments do not match its signature: {exc}", response) from exc
         try:
             result = fn(**args)
         except Exception as exc:  # noqa: BLE001 - surface any tool failure with loop context
-            raise ToolLoopError(f"tool {name!r} raised while executing: {exc}") from exc
-        outputs.append(
-            {"type": "function_call_output", "call_id": _item_field(call, "call_id"), "output": _tool_output_str(result)}
-        )
+            raise ToolLoopError(f"tool {name!r} raised while executing: {exc}", response) from exc
+        outputs.append({"type": "function_call_output", "call_id": call_id, "output": _tool_output_str(result)})
     return outputs
 
 
 def run_tool_loop(
     client: Any,
-    tools: Iterable[ToolFunctionWrapper],
+    tools: Iterable[ToolFunctionWrapper | Mapping[str, Any]],
     *,
     max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
     **create_kwargs: Any,
-) -> CreateRouterResponseResponse:
+) -> CreateRouterResponseResponseBody:
     """Call ``responses.create`` and auto-execute function tool calls until done.
 
-    A free function, not a client method, so it lives in this hand-written module
-    (which survives SDK regeneration) and leaves the generated ``responses.create``
-    untouched. Passes ``tools`` on every turn, runs each ``function_call`` against
-    the matching ``@tool`` (``@tool`` functions are synchronous), resubmits the
-    results as ``function_call_output`` items with ``previous_response_id``, and
-    repeats until the model stops calling tools or ``max_iterations`` tool rounds
-    are used. First-turn kwargs (``model``, ``input``, ...) must satisfy
-    ``responses.create``; ``stream=True`` is rejected. Raises ``ToolLoopError`` on a
-    bad tool call or a loop that does not converge. Use :func:`run_tool_loop_async`
-    with the async client.
+    Passes ``tools`` on every turn, runs each ``function_call`` against the matching
+    ``@tool``, resubmits the results as ``function_call_output`` items with
+    ``previous_response_id``, and repeats until the model stops calling tools or
+    ``max_iterations`` tool rounds are used. Non-``@tool`` entries in ``tools``
+    (hosted tools) are forwarded unchanged. ``input``, ``previous_response_id`` and
+    ``tool_choice`` apply to the first turn only; ``stream``, ``background`` and
+    ``store=False`` are rejected. Raises ``ToolLoopError`` on a bad tool call, a
+    response that did not complete, or a loop that does not converge.
+
+    Security: the loop runs your registered tools with model-chosen arguments and
+    sends their return values to the model. Validate inside the tool and do not
+    return secrets.
     """
+    # A free function, not a client method: this hand-written module survives Speakeasy regen.
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
     response = client.responses.create(tools=tool_list, **create_kwargs)
     for _ in range(max_iterations):
@@ -554,27 +564,26 @@ def run_tool_loop(
         if not calls:
             return response
         response = client.responses.create(
-            input=_execute_calls(calls, registry),
+            input=_execute_calls(calls, registry, response),
             previous_response_id=_item_field(response, "id"),
             tools=tool_list,
             **follow,
         )
     if _pending_function_calls(response):
-        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds")
+        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
     return response
 
 
 async def run_tool_loop_async(
     client: Any,
-    tools: Iterable[ToolFunctionWrapper],
+    tools: Iterable[ToolFunctionWrapper | Mapping[str, Any]],
     *,
     max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
     **create_kwargs: Any,
-) -> CreateRouterResponseResponse:
-    """Async form of :func:`run_tool_loop`, using ``responses.create_async`` so the
-    response round trips do not block the event loop. ``@tool`` functions are
-    synchronous and run inline between calls, so a slow tool still blocks the loop;
-    offload heavy work inside the tool yourself.
+) -> CreateRouterResponseResponseBody:
+    """Async form of :func:`run_tool_loop`, using ``responses.create_async``.
+    ``@tool`` functions are synchronous and run inline, so a slow tool still blocks
+    the event loop; offload heavy work inside the tool yourself.
     """
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
     response = await client.responses.create_async(tools=tool_list, **create_kwargs)
@@ -583,13 +592,13 @@ async def run_tool_loop_async(
         if not calls:
             return response
         response = await client.responses.create_async(
-            input=_execute_calls(calls, registry),
+            input=_execute_calls(calls, registry, response),
             previous_response_id=_item_field(response, "id"),
             tools=tool_list,
             **follow,
         )
     if _pending_function_calls(response):
-        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds")
+        raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
     return response
 
 
