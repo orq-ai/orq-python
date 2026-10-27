@@ -507,10 +507,46 @@ def _tool_output_str(result: Any) -> str:
         raise ToolLoopError(f"tool result could not be serialized to JSON: {exc}") from exc
 
 
-def _execute_calls(calls: list[Any], registry: Mapping[str, ToolFunctionWrapper], response: Any) -> list[dict[str, Any]]:
-    """Run each function call against its registered tool and return the
-    ``function_call_output`` items to resubmit. Every failure is a ``ToolLoopError``."""
-    outputs: list[dict[str, Any]] = []
+@dataclasses.dataclass(frozen=True)
+class ToolCallResult:
+    """One tool call the loop executed: the model's call and what the tool returned."""
+
+    name: str
+    call_id: str
+    arguments: dict[str, Any]
+    output: str
+
+
+@dataclasses.dataclass(frozen=True)
+class ToolLoopUsage:
+    """Token usage summed over every response in the loop. ``total_cost`` is None
+    when no response reported a cost."""
+
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+    total_cost: float | None = None
+
+
+@dataclasses.dataclass(frozen=True)
+class ToolLoopResult:
+    """Everything the loop produced since the caller's input.
+
+    ``final`` is the last response. ``output`` is every item in order across all
+    turns: each response's output items (messages, reasoning, function calls),
+    each followed by the ``function_call_output`` items the loop sent back.
+    ``usage`` is summed over all turns; ``final.usage`` covers the last turn only.
+    """
+
+    final: CreateRouterResponseResponseBody
+    output: list[Any]
+    tool_results: list[ToolCallResult]
+    usage: ToolLoopUsage
+
+
+def _execute_calls(calls: list[Any], registry: Mapping[str, ToolFunctionWrapper], response: Any) -> list[ToolCallResult]:
+    """Run each function call against its registered tool. Every failure is a ``ToolLoopError``."""
+    results: list[ToolCallResult] = []
     for call in calls:
         name = _item_field(call, "name")
         call_id = _item_field(call, "call_id")
@@ -534,8 +570,43 @@ def _execute_calls(calls: list[Any], registry: Mapping[str, ToolFunctionWrapper]
             result = fn(**args)
         except Exception as exc:  # noqa: BLE001 - surface any tool failure with loop context
             raise ToolLoopError(f"tool {name!r} raised while executing: {exc}", response) from exc
-        outputs.append({"type": "function_call_output", "call_id": call_id, "output": _tool_output_str(result)})
-    return outputs
+        results.append(ToolCallResult(name, call_id, args, _tool_output_str(result)))
+    return results
+
+
+class _Transcript:
+    """Collects every turn so the caller gets more than the last response."""
+
+    def __init__(self, registry: Mapping[str, ToolFunctionWrapper]) -> None:
+        self._registry = registry
+        self.output: list[Any] = []
+        self.tool_results: list[ToolCallResult] = []
+        self._usage = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+        self._cost: float | None = None
+
+    def record(self, response: Any) -> list[Any]:
+        """Add a response's items and usage; return its pending function calls."""
+        calls = _pending_function_calls(response)
+        self.output.extend(_item_field(response, "output") or [])
+        usage = _item_field(response, "usage")
+        if usage is not None:
+            for key in self._usage:
+                self._usage[key] += _item_field(usage, key) or 0
+            cost = _item_field(usage, "total_cost")
+            if cost is not None:
+                self._cost = (self._cost or 0.0) + cost
+        return calls
+
+    def execute(self, calls: list[Any], response: Any) -> list[dict[str, Any]]:
+        """Run the calls and return the ``function_call_output`` items to resubmit."""
+        results = _execute_calls(calls, self._registry, response)
+        self.tool_results.extend(results)
+        items = [{"type": "function_call_output", "call_id": r.call_id, "output": r.output} for r in results]
+        self.output.extend(items)
+        return items
+
+    def result(self, final: Any) -> ToolLoopResult:
+        return ToolLoopResult(final, self.output, self.tool_results, ToolLoopUsage(**self._usage, total_cost=self._cost))
 
 
 def run_tool_loop(
@@ -544,16 +615,18 @@ def run_tool_loop(
     *,
     max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
     **create_kwargs: Any,
-) -> CreateRouterResponseResponseBody:
+) -> ToolLoopResult:
     """Call ``responses.create`` and auto-execute function tool calls until done.
 
     Passes ``tools`` on every turn, runs each ``function_call`` against the matching
     ``@tool``, resubmits the results as ``function_call_output`` items with
     ``previous_response_id``, and repeats until the model stops calling tools or
-    ``max_iterations`` tool rounds are used. Non-``@tool`` entries in ``tools``
-    (hosted tools) are forwarded unchanged. ``input``, ``previous_response_id`` and
-    ``tool_choice`` apply to the first turn only; ``stream``, ``background``,
-    ``store=False`` and ``conversation`` are rejected. Raises ``ToolLoopError`` on a bad tool call, a
+    ``max_iterations`` tool rounds are used. Returns a :class:`ToolLoopResult` with
+    the final response, every output item across turns, the executed tool calls
+    and summed usage. Non-``@tool`` entries in ``tools`` (hosted tools) are
+    forwarded unchanged. ``input``, ``previous_response_id`` and ``tool_choice``
+    apply to the first turn only; ``stream``, ``background``, ``store=False`` and
+    ``conversation`` are rejected. Raises ``ToolLoopError`` on a bad tool call, a
     response that did not complete, or a loop that does not converge.
 
     Security: the loop runs your registered tools with model-chosen arguments and
@@ -562,20 +635,21 @@ def run_tool_loop(
     """
     # A free function, not a client method: this hand-written module survives Speakeasy regen.
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
+    transcript = _Transcript(registry)
     response = client.responses.create(tools=tool_list, **create_kwargs)
     for _ in range(max_iterations):
-        calls = _pending_function_calls(response)
+        calls = transcript.record(response)
         if not calls:
-            return response
+            return transcript.result(response)
         response = client.responses.create(
-            input=_execute_calls(calls, registry, response),
+            input=transcript.execute(calls, response),
             previous_response_id=_item_field(response, "id"),
             tools=tool_list,
             **follow,
         )
-    if _pending_function_calls(response):
+    if transcript.record(response):
         raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
-    return response
+    return transcript.result(response)
 
 
 async def run_tool_loop_async(
@@ -584,31 +658,35 @@ async def run_tool_loop_async(
     *,
     max_iterations: int = DEFAULT_MAX_TOOL_ITERATIONS,
     **create_kwargs: Any,
-) -> CreateRouterResponseResponseBody:
+) -> ToolLoopResult:
     """Async form of :func:`run_tool_loop`, using ``responses.create_async``.
     ``@tool`` functions are synchronous and run inline, so a slow tool still blocks
     the event loop; offload heavy work inside the tool yourself.
     """
     tool_list, registry, follow = _prepare_loop(tools, max_iterations, create_kwargs)
+    transcript = _Transcript(registry)
     response = await client.responses.create_async(tools=tool_list, **create_kwargs)
     for _ in range(max_iterations):
-        calls = _pending_function_calls(response)
+        calls = transcript.record(response)
         if not calls:
-            return response
+            return transcript.result(response)
         response = await client.responses.create_async(
-            input=_execute_calls(calls, registry, response),
+            input=transcript.execute(calls, response),
             previous_response_id=_item_field(response, "id"),
             tools=tool_list,
             **follow,
         )
-    if _pending_function_calls(response):
+    if transcript.record(response):
         raise ToolLoopError(f"tool loop still calling tools after {max_iterations} rounds", response)
-    return response
+    return transcript.result(response)
 
 
 __all__ = [
+    "ToolCallResult",
     "ToolFunctionWrapper",
     "ToolLoopError",
+    "ToolLoopResult",
+    "ToolLoopUsage",
     "ToolSchemaError",
     "run_tool_loop",
     "run_tool_loop_async",
