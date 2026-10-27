@@ -10,6 +10,14 @@ from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
+class RuleAttributesTypedDict(TypedDict):
+    pass
+
+
+class RuleAttributes(BaseModel):
+    pass
+
+
 class SpanSummaryTypedDict(TypedDict):
     object: NotRequired[str]
     trace_id: NotRequired[str]
@@ -37,6 +45,7 @@ class SpanSummaryTypedDict(TypedDict):
     r"""Whether the span is an evaluator span running as a guardrail."""
     finish_reasons: NotRequired[List[str]]
     r"""Why the span's generation stopped, for example stop, length or content_filter."""
+    rule_attributes: NotRequired[RuleAttributesTypedDict]
 
 
 class SpanSummary(BaseModel):
@@ -88,6 +97,8 @@ class SpanSummary(BaseModel):
     finish_reasons: Optional[List[str]] = None
     r"""Why the span's generation stopped, for example stop, length or content_filter."""
 
+    rule_attributes: Optional[RuleAttributes] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -114,6 +125,7 @@ class SpanSummary(BaseModel):
                 "leading_span_type",
                 "guardrail_enabled",
                 "finish_reasons",
+                "rule_attributes",
             ]
         )
         serialized = handler(self)

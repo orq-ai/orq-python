@@ -7943,7 +7943,12 @@ if TYPE_CHECKING:
         SpanDetailAttributesTypedDict,
         SpanDetailTypedDict,
     )
-    from .spansummary import SpanSummary, SpanSummaryTypedDict
+    from .spansummary import (
+        RuleAttributes,
+        RuleAttributesTypedDict,
+        SpanSummary,
+        SpanSummaryTypedDict,
+    )
     from .statfileop import StatFileRequest, StatFileRequestTypedDict
     from .statfilesystemfileresponse import (
         StatFileSystemFileResponse,
@@ -16201,6 +16206,8 @@ __all__ = [
     "RoutingRuleTypedDict",
     "RoutingRuleUpdateRequest",
     "RoutingRuleUpdateRequestTypedDict",
+    "RuleAttributes",
+    "RuleAttributesTypedDict",
     "RunAgentA2AMessage",
     "RunAgentA2AMessageTypedDict",
     "RunAgentA2ATaskResponse",
@@ -25253,6 +25260,8 @@ _dynamic_imports: dict[str, str] = {
     "SpanDetailAttributes": ".spandetail",
     "SpanDetailAttributesTypedDict": ".spandetail",
     "SpanDetailTypedDict": ".spandetail",
+    "RuleAttributes": ".spansummary",
+    "RuleAttributesTypedDict": ".spansummary",
     "SpanSummary": ".spansummary",
     "SpanSummaryTypedDict": ".spansummary",
     "StatFileRequest": ".statfileop",

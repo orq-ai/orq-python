@@ -280,6 +280,12 @@ class McpGateways(BaseSDK):
             Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
         ] = None,
         website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -300,6 +306,7 @@ class McpGateways(BaseSDK):
         :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
         :param icons: Icons advertised to MCP clients; defaults to ORQ branding when empty.
         :param website_url: Website advertised to MCP clients; defaults to ORQ documentation when empty.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -334,6 +341,9 @@ class McpGateways(BaseSDK):
             skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
             icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
             website_url=website_url,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+            ),
         )
 
         req = self._build_request(
@@ -442,6 +452,12 @@ class McpGateways(BaseSDK):
             Union[Iterable[models.McpIcon], Iterable[models.McpIconTypedDict]]
         ] = None,
         website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -462,6 +478,7 @@ class McpGateways(BaseSDK):
         :param skill_ids: Workspace skills this gateway serves to MCP clients through the MCP Skills extension.
         :param icons: Icons advertised to MCP clients; defaults to ORQ branding when empty.
         :param website_url: Website advertised to MCP clients; defaults to ORQ documentation when empty.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -496,6 +513,9 @@ class McpGateways(BaseSDK):
             skill_ids=utils.unmarshal(skill_ids, Optional[List[str]]),
             icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
             website_url=website_url,
+            guardrails=utils.get_pydantic_model(
+                guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+            ),
         )
 
         req = self._build_request_async(
@@ -1320,6 +1340,12 @@ class McpGateways(BaseSDK):
         ] = None,
         replace_icons: Optional[bool] = None,
         website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1346,6 +1372,7 @@ class McpGateways(BaseSDK):
         :param icons: Replaces the advertised icons when nonempty or when replace_icons is true.
         :param replace_icons: Set true with an empty icons list to restore default ORQ branding.
         :param website_url: Empty restores the default ORQ documentation website.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1385,6 +1412,9 @@ class McpGateways(BaseSDK):
                 icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
                 replace_icons=replace_icons,
                 website_url=website_url,
+                guardrails=utils.get_pydantic_model(
+                    guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+                ),
             ),
         )
 
@@ -1502,6 +1532,12 @@ class McpGateways(BaseSDK):
         ] = None,
         replace_icons: Optional[bool] = None,
         website_url: Optional[str] = None,
+        guardrails: Optional[
+            Union[
+                Iterable[models.GuardrailRuleGuardrail],
+                Iterable[models.GuardrailRuleGuardrailTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1528,6 +1564,7 @@ class McpGateways(BaseSDK):
         :param icons: Replaces the advertised icons when nonempty or when replace_icons is true.
         :param replace_icons: Set true with an empty icons list to restore default ORQ branding.
         :param website_url: Empty restores the default ORQ documentation website.
+        :param guardrails: Guardrails run on the arguments and result of every tool call this gateway serves.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1567,6 +1604,9 @@ class McpGateways(BaseSDK):
                 icons=utils.get_pydantic_model(icons, Optional[List[models.McpIcon]]),
                 replace_icons=replace_icons,
                 website_url=website_url,
+                guardrails=utils.get_pydantic_model(
+                    guardrails, Optional[List[models.GuardrailRuleGuardrail]]
+                ),
             ),
         )
 
