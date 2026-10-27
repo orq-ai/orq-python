@@ -42,8 +42,8 @@ class BudgetScopeRestResponseTypedDict(TypedDict):
     associated with an API key.
     """
     provider: NotRequired[ProviderBudgetScopeTypedDict]
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
     model: NotRequired[ModelBudgetScopeRestResponseTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
@@ -74,8 +74,8 @@ class BudgetScopeRestResponse(BaseModel):
     """
 
     provider: Optional[ProviderBudgetScope] = None
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
 
     model: Optional[ModelBudgetScopeRestResponse] = None

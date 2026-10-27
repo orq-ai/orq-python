@@ -29,8 +29,8 @@ class BudgetScopeTypedDict(TypedDict):
     associated with an API key.
     """
     provider: NotRequired[ProviderBudgetScopeTypedDict]
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
     model: NotRequired[ModelBudgetScopeTypedDict]
     r"""Per-model cap. The value is the FULL model reference as callers send
@@ -59,8 +59,8 @@ class BudgetScope(BaseModel):
     """
 
     provider: Optional[ProviderBudgetScope] = None
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
 
     model: Optional[ModelBudgetScope] = None

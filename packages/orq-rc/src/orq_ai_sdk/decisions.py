@@ -40,6 +40,13 @@ class Decisions(BaseSDK):
         ] = None,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
+        prompt_cache_key: Optional[str] = None,
+        prompt_cache_options: Optional[
+            Union[
+                models.ClassifyPromptCacheOptions,
+                models.ClassifyPromptCacheOptionsTypedDict,
+            ]
+        ] = None,
         retry: Optional[
             Union[models.ClassifyRetryConfig, models.ClassifyRetryConfigTypedDict]
         ] = None,
@@ -67,8 +74,8 @@ class Decisions(BaseSDK):
         Requires the `classify` API-key permission. PII plugins and guardrails are not applied. See the [Decisions guide](/ai-gateway/features/decisions) for supported models, probability interpretation, and refusals.
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
-        :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions.
+        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text.
         :param assets: Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions.
         :param cache:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
@@ -76,6 +83,8 @@ class Decisions(BaseSDK):
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param prompt_cache_key: Native OpenAI only. Partitions reuse of shared input across requests.
+        :param prompt_cache_options:
         :param retry:
         :param timeout:
         :param retries: Override the default retry configuration for this method
@@ -113,6 +122,10 @@ class Decisions(BaseSDK):
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             name=name,
+            prompt_cache_key=prompt_cache_key,
+            prompt_cache_options=utils.get_pydantic_model(
+                prompt_cache_options, Optional[models.ClassifyPromptCacheOptions]
+            ),
             questions=utils.get_pydantic_model(
                 questions, Dict[str, models.CreateDecisionsQuestions]
             ),
@@ -333,6 +346,13 @@ class Decisions(BaseSDK):
         ] = None,
         metadata: Optional[Mapping[str, str]] = None,
         name: Optional[str] = None,
+        prompt_cache_key: Optional[str] = None,
+        prompt_cache_options: Optional[
+            Union[
+                models.ClassifyPromptCacheOptions,
+                models.ClassifyPromptCacheOptionsTypedDict,
+            ]
+        ] = None,
         retry: Optional[
             Union[models.ClassifyRetryConfig, models.ClassifyRetryConfigTypedDict]
         ] = None,
@@ -360,8 +380,8 @@ class Decisions(BaseSDK):
         Requires the `classify` API-key permission. PII plugins and guardrails are not applied. See the [Decisions guide](/ai-gateway/features/decisions) for supported models, probability interpretation, and refusals.
 
         :param model: ID of a model that supports native or emulated classify, including openai/gpt-6-luna.
-        :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key.
-        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected.
+        :param questions: Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions.
+        :param state: The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text.
         :param assets: Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions.
         :param cache:
         :param fallback_on_codes: HTTP status codes that trigger fallback. Defaults to [408,429,500,502,503,504,529]. Each code must be unique and between 400 and 599.
@@ -369,6 +389,8 @@ class Decisions(BaseSDK):
         :param identity:
         :param metadata: Key-value metadata attached to the trace.
         :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param prompt_cache_key: Native OpenAI only. Partitions reuse of shared input across requests.
+        :param prompt_cache_options:
         :param retry:
         :param timeout:
         :param retries: Override the default retry configuration for this method
@@ -406,6 +428,10 @@ class Decisions(BaseSDK):
             metadata=utils.unmarshal(metadata, Optional[Dict[str, str]]),
             model=model,
             name=name,
+            prompt_cache_key=prompt_cache_key,
+            prompt_cache_options=utils.get_pydantic_model(
+                prompt_cache_options, Optional[models.ClassifyPromptCacheOptions]
+            ),
             questions=utils.get_pydantic_model(
                 questions, Dict[str, models.CreateDecisionsQuestions]
             ),

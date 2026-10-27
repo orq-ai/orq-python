@@ -546,6 +546,12 @@ if TYPE_CHECKING:
         ClassifyNoulAnswerType,
         ClassifyNoulAnswerTypedDict,
     )
+    from .classifypromptcacheoptions import (
+        ClassifyPromptCacheOptions,
+        ClassifyPromptCacheOptionsMode,
+        ClassifyPromptCacheOptionsTypedDict,
+        TTL,
+    )
     from .classifyrefusalanswer import (
         ClassifyRefusalAnswer,
         ClassifyRefusalAnswerType,
@@ -6414,8 +6420,8 @@ if TYPE_CHECKING:
     from .openaipromptcacheoptions import (
         OpenAIPromptCacheOptions,
         OpenAIPromptCacheOptionsMode,
+        OpenAIPromptCacheOptionsTTL,
         OpenAIPromptCacheOptionsTypedDict,
-        TTL,
     )
     from .orqadvisortool import (
         OrqAdvisorTool,
@@ -8304,8 +8310,15 @@ if TYPE_CHECKING:
     from .textpart import Kind, TextPart, TextPartTypedDict
     from .thinkingconfigadaptiveschema import (
         ThinkingConfigAdaptiveSchema,
+        ThinkingConfigAdaptiveSchemaDisplay,
         ThinkingConfigAdaptiveSchemaType,
         ThinkingConfigAdaptiveSchemaTypedDict,
+    )
+    from .thinkingconfigbetweentoolsschema import (
+        ThinkingConfigBetweenToolsSchema,
+        ThinkingConfigBetweenToolsSchemaDisplay,
+        ThinkingConfigBetweenToolsSchemaType,
+        ThinkingConfigBetweenToolsSchemaTypedDict,
     )
     from .thinkingconfigdisabledschema import (
         ThinkingConfigDisabledSchema,
@@ -8313,14 +8326,15 @@ if TYPE_CHECKING:
         ThinkingConfigDisabledSchemaTypedDict,
     )
     from .thinkingconfigenabledschema import (
+        Display,
         ThinkingConfigEnabledSchema,
         ThinkingConfigEnabledSchemaType,
         ThinkingConfigEnabledSchemaTypedDict,
         ThinkingLevel,
     )
     from .thinkingparam import (
-        Display,
         ThinkingParam,
+        ThinkingParamDisplay,
         ThinkingParamThinkingLevel,
         ThinkingParamType,
         ThinkingParamTypedDict,
@@ -10099,6 +10113,9 @@ __all__ = [
     "ClassifyNoulAnswer",
     "ClassifyNoulAnswerType",
     "ClassifyNoulAnswerTypedDict",
+    "ClassifyPromptCacheOptions",
+    "ClassifyPromptCacheOptionsMode",
+    "ClassifyPromptCacheOptionsTypedDict",
     "ClassifyRefusalAnswer",
     "ClassifyRefusalAnswerType",
     "ClassifyRefusalAnswerTypedDict",
@@ -15216,6 +15233,7 @@ __all__ = [
     "OpenAIContextManagementTypedDict",
     "OpenAIPromptCacheOptions",
     "OpenAIPromptCacheOptionsMode",
+    "OpenAIPromptCacheOptionsTTL",
     "OpenAIPromptCacheOptionsTypedDict",
     "Options",
     "OptionsTypedDict",
@@ -16980,8 +16998,13 @@ __all__ = [
     "TextTypedDict",
     "Thinking",
     "ThinkingConfigAdaptiveSchema",
+    "ThinkingConfigAdaptiveSchemaDisplay",
     "ThinkingConfigAdaptiveSchemaType",
     "ThinkingConfigAdaptiveSchemaTypedDict",
+    "ThinkingConfigBetweenToolsSchema",
+    "ThinkingConfigBetweenToolsSchemaDisplay",
+    "ThinkingConfigBetweenToolsSchemaType",
+    "ThinkingConfigBetweenToolsSchemaTypedDict",
     "ThinkingConfigDisabledSchema",
     "ThinkingConfigDisabledSchemaType",
     "ThinkingConfigDisabledSchemaTypedDict",
@@ -16990,6 +17013,7 @@ __all__ = [
     "ThinkingConfigEnabledSchemaTypedDict",
     "ThinkingLevel",
     "ThinkingParam",
+    "ThinkingParamDisplay",
     "ThinkingParamThinkingLevel",
     "ThinkingParamType",
     "ThinkingParamTypedDict",
@@ -18669,6 +18693,10 @@ _dynamic_imports: dict[str, str] = {
     "ClassifyNoulAnswer": ".classifynoulanswer",
     "ClassifyNoulAnswerType": ".classifynoulanswer",
     "ClassifyNoulAnswerTypedDict": ".classifynoulanswer",
+    "ClassifyPromptCacheOptions": ".classifypromptcacheoptions",
+    "ClassifyPromptCacheOptionsMode": ".classifypromptcacheoptions",
+    "ClassifyPromptCacheOptionsTypedDict": ".classifypromptcacheoptions",
+    "TTL": ".classifypromptcacheoptions",
     "ClassifyRefusalAnswer": ".classifyrefusalanswer",
     "ClassifyRefusalAnswerType": ".classifyrefusalanswer",
     "ClassifyRefusalAnswerTypedDict": ".classifyrefusalanswer",
@@ -24082,8 +24110,8 @@ _dynamic_imports: dict[str, str] = {
     "OpenAIContextManagementTypedDict": ".openaicontextmanagement",
     "OpenAIPromptCacheOptions": ".openaipromptcacheoptions",
     "OpenAIPromptCacheOptionsMode": ".openaipromptcacheoptions",
+    "OpenAIPromptCacheOptionsTTL": ".openaipromptcacheoptions",
     "OpenAIPromptCacheOptionsTypedDict": ".openaipromptcacheoptions",
-    "TTL": ".openaipromptcacheoptions",
     "OrqAdvisorTool": ".orqadvisortool",
     "OrqAdvisorToolType": ".orqadvisortool",
     "OrqAdvisorToolTypedDict": ".orqadvisortool",
@@ -25700,17 +25728,23 @@ _dynamic_imports: dict[str, str] = {
     "TextPart": ".textpart",
     "TextPartTypedDict": ".textpart",
     "ThinkingConfigAdaptiveSchema": ".thinkingconfigadaptiveschema",
+    "ThinkingConfigAdaptiveSchemaDisplay": ".thinkingconfigadaptiveschema",
     "ThinkingConfigAdaptiveSchemaType": ".thinkingconfigadaptiveschema",
     "ThinkingConfigAdaptiveSchemaTypedDict": ".thinkingconfigadaptiveschema",
+    "ThinkingConfigBetweenToolsSchema": ".thinkingconfigbetweentoolsschema",
+    "ThinkingConfigBetweenToolsSchemaDisplay": ".thinkingconfigbetweentoolsschema",
+    "ThinkingConfigBetweenToolsSchemaType": ".thinkingconfigbetweentoolsschema",
+    "ThinkingConfigBetweenToolsSchemaTypedDict": ".thinkingconfigbetweentoolsschema",
     "ThinkingConfigDisabledSchema": ".thinkingconfigdisabledschema",
     "ThinkingConfigDisabledSchemaType": ".thinkingconfigdisabledschema",
     "ThinkingConfigDisabledSchemaTypedDict": ".thinkingconfigdisabledschema",
+    "Display": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchema": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchemaType": ".thinkingconfigenabledschema",
     "ThinkingConfigEnabledSchemaTypedDict": ".thinkingconfigenabledschema",
     "ThinkingLevel": ".thinkingconfigenabledschema",
-    "Display": ".thinkingparam",
     "ThinkingParam": ".thinkingparam",
+    "ThinkingParamDisplay": ".thinkingparam",
     "ThinkingParamThinkingLevel": ".thinkingparam",
     "ThinkingParamType": ".thinkingparam",
     "ThinkingParamTypedDict": ".thinkingparam",

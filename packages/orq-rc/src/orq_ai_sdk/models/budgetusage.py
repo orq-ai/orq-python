@@ -21,9 +21,7 @@ class BudgetUsageTypedDict(TypedDict):
 
     amount: NotRequired[float]
     tokens: NotRequired[float]
-    r"""Carried as a double (not int64) so it serializes as a JSON number
-    rather than a quoted string, matching limits.token_limit.
-    """
+    r"""Tokens accumulated in the current period."""
     requests: NotRequired[int]
 
 
@@ -42,9 +40,7 @@ class BudgetUsage(BaseModel):
     amount: Optional[float] = None
 
     tokens: Optional[float] = None
-    r"""Carried as a double (not int64) so it serializes as a JSON number
-    rather than a quoted string, matching limits.token_limit.
-    """
+    r"""Tokens accumulated in the current period."""
 
     requests: Optional[int] = None
 

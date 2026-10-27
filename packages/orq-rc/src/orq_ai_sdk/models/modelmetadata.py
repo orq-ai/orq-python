@@ -32,6 +32,7 @@ class ModelMetadataTypedDict(TypedDict):
     context_window: NotRequired[int]
     cost_efficiency_rating: NotRequired[int]
     cost_per_image: NotRequired[float]
+    default_max_output_tokens: NotRequired[int]
     default_speech_response_format: NotRequired[str]
     deprecation_date: NotRequired[str]
     embedding_dimensions: NotRequired[int]
@@ -177,6 +178,8 @@ class ModelMetadata(BaseModel):
     cost_efficiency_rating: Optional[int] = None
 
     cost_per_image: Optional[float] = None
+
+    default_max_output_tokens: Optional[int] = None
 
     default_speech_response_format: Optional[str] = None
 
@@ -434,6 +437,7 @@ class ModelMetadata(BaseModel):
                 "context_window",
                 "cost_efficiency_rating",
                 "cost_per_image",
+                "default_max_output_tokens",
                 "default_speech_response_format",
                 "deprecation_date",
                 "embedding_dimensions",

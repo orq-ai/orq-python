@@ -1,5 +1,7 @@
 # TTL
 
+Minimum cache lifetime. Only 30m is supported by native OpenAI Decisions.
+
 ## Example Usage
 
 ```python
@@ -11,4 +13,3 @@ value: TTL = "30m"
 ## Values
 
 - `"30m"`
-- `"12h"`

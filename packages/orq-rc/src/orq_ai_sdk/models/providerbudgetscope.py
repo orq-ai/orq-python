@@ -8,16 +8,16 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class ProviderBudgetScopeTypedDict(TypedDict):
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
 
     provider: NotRequired[str]
 
 
 class ProviderBudgetScope(BaseModel):
-    r"""Per-provider cap. The value is the provider enum string (e.g.
-    \"openai\", \"anthropic\") drawn from ModelIntegrationIdentifier.
+    r"""Per-provider cap. The value is the provider identifier, for example
+    \"openai\" or \"anthropic\".
     """
 
     provider: Optional[str] = None

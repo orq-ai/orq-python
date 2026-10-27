@@ -7,7 +7,7 @@ from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-Display = Literal[
+ThinkingParamDisplay = Literal[
     "summarized",
     "omitted",
     "updates",
@@ -38,7 +38,7 @@ class ThinkingParamTypedDict(TypedDict):
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking where supported. Budget tokens should never exceed the max output tokens parameter. Supported by budget-based models such as Anthropic and Gemini 2.5."""
     type: Nullable[ThinkingParamType]
     r"""The thinking mode to use for the model. Sonnet 5.5 supports between_tools for progress updates without extended thinking."""
-    display: NotRequired[Display]
+    display: NotRequired[ThinkingParamDisplay]
     r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
     thinking_level: NotRequired[ThinkingParamThinkingLevel]
     r"""The level of thinking to use for the model. Only supported by Google AI."""
@@ -51,7 +51,7 @@ class ThinkingParam(BaseModel):
     type: Nullable[ThinkingParamType]
     r"""The thinking mode to use for the model. Sonnet 5.5 supports between_tools for progress updates without extended thinking."""
 
-    display: Optional[Display] = None
+    display: Optional[ThinkingParamDisplay] = None
     r"""Controls how Anthropic thinking content appears in the response. Use updates for progress summaries on supported models."""
 
     thinking_level: Optional[ThinkingParamThinkingLevel] = None

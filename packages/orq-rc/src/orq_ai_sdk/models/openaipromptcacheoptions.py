@@ -13,7 +13,7 @@ OpenAIPromptCacheOptionsMode = Literal[
 ]
 
 
-TTL = Literal[
+OpenAIPromptCacheOptionsTTL = Literal[
     "30m",
     "12h",
 ]
@@ -21,13 +21,13 @@ TTL = Literal[
 
 class OpenAIPromptCacheOptionsTypedDict(TypedDict):
     mode: NotRequired[OpenAIPromptCacheOptionsMode]
-    ttl: NotRequired[TTL]
+    ttl: NotRequired[OpenAIPromptCacheOptionsTTL]
 
 
 class OpenAIPromptCacheOptions(BaseModel):
     mode: Optional[OpenAIPromptCacheOptionsMode] = None
 
-    ttl: Optional[TTL] = None
+    ttl: Optional[OpenAIPromptCacheOptionsTTL] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

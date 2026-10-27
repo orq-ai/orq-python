@@ -10,13 +10,13 @@ from typing_extensions import NotRequired, TypedDict
 
 class QueryLogsResponseTypedDict(TypedDict):
     object: NotRequired[str]
-    r"""Object discriminator; always \"query\". Mirrors QueryTracesResponse."""
+    r"""Object discriminator; always \"query\"."""
     search: NotRequired[SearchLogsResponseTypedDict]
 
 
 class QueryLogsResponse(BaseModel):
     object: Optional[str] = None
-    r"""Object discriminator; always \"query\". Mirrors QueryTracesResponse."""
+    r"""Object discriminator; always \"query\"."""
 
     search: Optional[SearchLogsResponse] = None
 

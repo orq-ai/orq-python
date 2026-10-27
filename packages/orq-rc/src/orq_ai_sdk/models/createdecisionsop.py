@@ -5,6 +5,10 @@ from .apierror import APIError
 from .classifyanswer import ClassifyAnswer, ClassifyAnswerTypedDict
 from .classifyasset import ClassifyAsset, ClassifyAssetTypedDict
 from .classifycacheconfig import ClassifyCacheConfig, ClassifyCacheConfigTypedDict
+from .classifypromptcacheoptions import (
+    ClassifyPromptCacheOptions,
+    ClassifyPromptCacheOptionsTypedDict,
+)
 from .classifyretryconfig import ClassifyRetryConfig, ClassifyRetryConfigTypedDict
 from .classifytimeoutconfig import ClassifyTimeoutConfig, ClassifyTimeoutConfigTypedDict
 from .classifyusage import ClassifyUsage, ClassifyUsageTypedDict
@@ -31,14 +35,14 @@ CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict =
     "CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions = TypeAliasType(
     "CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType = Literal["box",]
@@ -50,7 +54,7 @@ class QuestionsBoxQuestionTypedDict(TypedDict):
     instructions: (
         CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructionsTypedDict
     )
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
     type: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType
 
 
@@ -58,7 +62,7 @@ class QuestionsBoxQuestion(BaseModel):
     r"""Beta, TypeSafe jev-preview only. Locates one target in an image from assets and returns its bounding box. Always returns a box; pair it with a noul question to check presence."""
 
     instructions: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyInstructions
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
     type: CreateDecisionsQuestionsRouterDecisionsRequestRequestBodyType
 
@@ -67,14 +71,14 @@ CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict = TypeAliasT
     "CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsRequestInstructions = TypeAliasType(
     "CreateDecisionsQuestionsRouterDecisionsRequestInstructions",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsRequestType = Literal["score",]
@@ -86,7 +90,7 @@ class QuestionsScoreQuestionTypedDict(TypedDict):
     criteria: List[Any]
     r"""Ordered level descriptions from lowest to highest. At least two levels. Each level can be a string, an object or an array."""
     instructions: CreateDecisionsQuestionsRouterDecisionsRequestInstructionsTypedDict
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
     type: CreateDecisionsQuestionsRouterDecisionsRequestType
 
 
@@ -97,7 +101,7 @@ class QuestionsScoreQuestion(BaseModel):
     r"""Ordered level descriptions from lowest to highest. At least two levels. Each level can be a string, an object or an array."""
 
     instructions: CreateDecisionsQuestionsRouterDecisionsRequestInstructions
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
     type: CreateDecisionsQuestionsRouterDecisionsRequestType
 
@@ -120,14 +124,14 @@ CreateDecisionsQuestionsRouterDecisionsInstructionsTypedDict = TypeAliasType(
     "CreateDecisionsQuestionsRouterDecisionsInstructionsTypedDict",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsInstructions = TypeAliasType(
     "CreateDecisionsQuestionsRouterDecisionsInstructions",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsRouterDecisionsType = Literal["choice",]
@@ -141,7 +145,7 @@ class QuestionsChoiceQuestionTypedDict(TypedDict):
     ]
     r"""Options keyed by name, each mapped to a description or null. A description can be a string, an object or an array."""
     instructions: CreateDecisionsQuestionsRouterDecisionsInstructionsTypedDict
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
     type: CreateDecisionsQuestionsRouterDecisionsType
 
 
@@ -152,7 +156,7 @@ class QuestionsChoiceQuestion(BaseModel):
     r"""Options keyed by name, each mapped to a description or null. A description can be a string, an object or an array."""
 
     instructions: CreateDecisionsQuestionsRouterDecisionsInstructions
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
     type: CreateDecisionsQuestionsRouterDecisionsType
 
@@ -216,13 +220,13 @@ CreateDecisionsQuestionsInstructionsTypedDict = TypeAliasType(
     "CreateDecisionsQuestionsInstructionsTypedDict",
     Union[str, Dict[str, Any], List[Any]],
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsInstructions = TypeAliasType(
     "CreateDecisionsQuestionsInstructions", Union[str, Dict[str, Any], List[Any]]
 )
-r"""The evaluation prompt for this question. A string, an object or an array."""
+r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
 
 CreateDecisionsQuestionsType = Literal["noul",]
@@ -232,7 +236,7 @@ class QuestionsNoulQuestionTypedDict(TypedDict):
     r"""Answers with a probability between 0 and 1 that the statement holds."""
 
     instructions: CreateDecisionsQuestionsInstructionsTypedDict
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
     type: CreateDecisionsQuestionsType
     criteria: NotRequired[CreateDecisionsQuestionsCriteriaTypedDict]
     r"""Optional descriptions of what true and false mean."""
@@ -242,7 +246,7 @@ class QuestionsNoulQuestion(BaseModel):
     r"""Answers with a probability between 0 and 1 that the statement holds."""
 
     instructions: CreateDecisionsQuestionsInstructions
-    r"""The evaluation prompt for this question. A string, an object or an array."""
+    r"""The evaluation prompt for this question. A string, an object or an array. Native OpenAI also accepts arrays of input_text, input_image and input_json parts. Question parts cannot contain prompt cache breakpoints."""
 
     type: CreateDecisionsQuestionsType
 
@@ -291,22 +295,22 @@ CreateDecisionsQuestions = Annotated[
 CreateDecisionsStateTypedDict = TypeAliasType(
     "CreateDecisionsStateTypedDict", Union[str, Dict[str, Any], List[Any]]
 )
-r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text."""
 
 
 CreateDecisionsState = TypeAliasType(
     "CreateDecisionsState", Union[str, Dict[str, Any], List[Any]]
 )
-r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text."""
 
 
 class CreateDecisionsRequestBodyTypedDict(TypedDict):
     model: str
     r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
     questions: Dict[str, CreateDecisionsQuestionsTypedDict]
-    r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
+    r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions."""
     state: CreateDecisionsStateTypedDict
-    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text."""
     assets: NotRequired[Dict[str, ClassifyAssetTypedDict]]
     r"""Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions."""
     cache: NotRequired[ClassifyCacheConfigTypedDict]
@@ -319,6 +323,9 @@ class CreateDecisionsRequestBodyTypedDict(TypedDict):
     r"""Key-value metadata attached to the trace."""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
+    prompt_cache_key: NotRequired[str]
+    r"""Native OpenAI only. Partitions reuse of shared input across requests."""
+    prompt_cache_options: NotRequired[ClassifyPromptCacheOptionsTypedDict]
     retry: NotRequired[ClassifyRetryConfigTypedDict]
     timeout: NotRequired[ClassifyTimeoutConfigTypedDict]
 
@@ -328,10 +335,10 @@ class CreateDecisionsRequestBody(BaseModel):
     r"""ID of a model that supports native or emulated classify, including openai/gpt-6-luna."""
 
     questions: Dict[str, CreateDecisionsQuestions]
-    r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key."""
+    r"""Typed questions keyed by an identifier of your choice. Each answer is returned under the same key. Native OpenAI accepts 1 to 400 questions."""
 
     state: CreateDecisionsState
-    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. For OpenAI GPT-6 Luna, strings are passed as text and objects or ordinary JSON arrays are serialized as text. User-message arrays accept string content or input_text/input_image parts. Images must be inline base64 data URLs, with at most 128 images across the request. Remote image URLs, file IDs, audio, non-user roles, bare content parts and tool items are rejected."""
+    r"""The content to evaluate. A string, an object or an array. For TypeSafe models, reference images declared in assets by writing their reference string. Native OpenAI accepts messages and function/custom-tool history. User messages support input_text, input_image and input_json; images can use inline base64 data URLs or public HTTP(S) URLs. At most 128 images across state and question instructions. Shared text/image parts support explicit prompt_cache_breakpoint markers. File IDs, audio, item references and bare content parts are unsupported. Other objects and arrays are serialized as text."""
 
     assets: Optional[Dict[str, ClassifyAsset]] = None
     r"""Beta, TypeSafe models only. Inline images keyed by a reference string. Write the reference in state, instructions or criteria wherever the image belongs; every asset must be referenced. Required for box questions."""
@@ -352,6 +359,11 @@ class CreateDecisionsRequestBody(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
+    prompt_cache_key: Optional[str] = None
+    r"""Native OpenAI only. Partitions reuse of shared input across requests."""
+
+    prompt_cache_options: Optional[ClassifyPromptCacheOptions] = None
+
     retry: Optional[ClassifyRetryConfig] = None
 
     timeout: Optional[ClassifyTimeoutConfig] = None
@@ -367,6 +379,8 @@ class CreateDecisionsRequestBody(BaseModel):
                 "identity",
                 "metadata",
                 "name",
+                "prompt_cache_key",
+                "prompt_cache_options",
                 "retry",
                 "timeout",
             ]

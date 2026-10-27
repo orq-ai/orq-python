@@ -371,7 +371,7 @@ class Budgets(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
                         }
                     ],
                 },
@@ -508,7 +508,7 @@ class Budgets(BaseSDK):
                         {
                             "label": "Node.js",
                             "lang": "typescript",
-                            "source": 'await orq.budgets.create({ scope: { kind: "workspace" }, limits: { period: "MONTHLY", amount: 1000 } });\n',
+                            "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
                         }
                     ],
                 },
