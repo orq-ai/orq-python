@@ -50,6 +50,8 @@ class McpGatewayTypedDict(TypedDict):
     r"""Website advertised to MCP clients; defaults to ORQ documentation when empty."""
     guardrails: NotRequired[List[GuardrailRuleGuardrailTypedDict]]
     r"""Guardrails run on the arguments and result of every tool call this gateway serves."""
+    created_by_id: NotRequired[str]
+    r"""Account that created the gateway."""
 
 
 class McpGateway(BaseModel):
@@ -102,6 +104,9 @@ class McpGateway(BaseModel):
     guardrails: Optional[List[GuardrailRuleGuardrail]] = None
     r"""Guardrails run on the arguments and result of every tool call this gateway serves."""
 
+    created_by_id: Optional[str] = None
+    r"""Account that created the gateway."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -123,6 +128,7 @@ class McpGateway(BaseModel):
                 "icons",
                 "website_url",
                 "guardrails",
+                "created_by_id",
             ]
         )
         serialized = handler(self)
