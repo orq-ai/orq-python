@@ -128,7 +128,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -183,7 +183,7 @@ import os
 async def main():
 
     async with Orq(
-        api_key=os.getenv("ORQ_API_KEY", ""),
+        api_key=os.getenv("ORQ_API_KEY"),
     ) as orq:
 
         res = await orq.deployments.invoke_async(key="<key>", stream=False, identity={
@@ -246,7 +246,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -884,7 +884,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.stream(key="<key>", identity={
@@ -948,7 +948,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.audio.transcriptions.create(model="Malibu", enable_logging=True, diarize=False, tag_audio_events=True, timestamps_granularity="word", temperature=0.5, timestamp_granularities=[
@@ -1040,7 +1040,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -1093,7 +1093,7 @@ import os
 
 with Orq(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -1158,7 +1158,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
     res = None
     try:
@@ -1318,7 +1318,7 @@ import os
 
 with Orq(
     server_url="https://my.orq.ai",
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.deployments.invoke(key="<key>", stream=False, identity={
@@ -1470,18 +1470,20 @@ import os
 def main():
 
     with Orq(
-        api_key=os.getenv("ORQ_API_KEY", ""),
+        api_key=os.getenv("ORQ_API_KEY"),
     ) as orq:
         # Rest of application here...
+        pass
 
 
 # Or when using async:
 async def amain():
 
     async with Orq(
-        api_key=os.getenv("ORQ_API_KEY", ""),
+        api_key=os.getenv("ORQ_API_KEY"),
     ) as orq:
         # Rest of application here...
+        pass
 ```
 <!-- End Resource Management [resource-management] -->
 

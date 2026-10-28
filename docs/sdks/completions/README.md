@@ -19,7 +19,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.router.completions.create(model="XC90", prompt="<value>", echo=False, frequency_penalty=0.0, max_tokens=16, presence_penalty=0.0, temperature=1.0, top_p=1.0, n=1, retry={

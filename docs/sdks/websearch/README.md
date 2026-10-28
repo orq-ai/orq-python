@@ -41,7 +41,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="exa", query="Things to do in Salt Lake City in fall", limit=10)
@@ -59,7 +59,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="exa", query="Things to do in Salt Lake City in fall", identity={
@@ -79,7 +79,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="tavily", query="<value>", limit=10)
@@ -97,7 +97,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="tavily", query="<value>", limit=10)
@@ -115,7 +115,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="tavily", query="<value>", limit=10)
@@ -133,7 +133,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="exa", query="Travel advice for john.smith@example.com", limit=5, plugins=[
@@ -155,7 +155,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.websearch.search(provider="tavily", query="<value>", limit=10)

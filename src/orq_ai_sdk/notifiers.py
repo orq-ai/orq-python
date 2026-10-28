@@ -33,7 +33,7 @@ class Notifiers(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
         :param project_id: Restrict results to one project. Must be a project the caller is authorized for.
         :param search: Optional. Case-insensitive substring match on the notifier name.
-        :param type: Optional. Restrict results to these notifier types.
+        :param type_: Optional. Restrict results to these notifier types.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -161,7 +161,7 @@ class Notifiers(BaseSDK):
         :param ending_before: Cursor for backward pagination. Set to the `_id` of the first item from the previous page.
         :param project_id: Restrict results to one project. Must be a project the caller is authorized for.
         :param search: Optional. Case-insensitive substring match on the notifier name.
-        :param type: Optional. Restrict results to these notifier types.
+        :param type_: Optional. Restrict results to these notifier types.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -984,7 +984,7 @@ class Notifiers(BaseSDK):
         :param project_id: Optional. New containing project. Workspace-scoped callers may set an empty value to make the notifier workspace-wide. Project-scoped API keys remain pinned to the API key's project.
         :param display_name: Optional. New human-readable notifier name.
         :param metadata: Optional. Replacement custom JSON metadata.
-        :param type:
+        :param type_:
         :param emails: Optional replacement email recipients. Required when changing `type` to `NOTIFIER_TYPE_EMAIL`.
         :param incoming_webhook_url: Optional replacement Slack incoming webhook URL. Required when changing `type` to `NOTIFIER_TYPE_SLACK_WEBHOOK`.
         :param webhook_url: Optional replacement generic webhook URL. Required when changing `type` to `NOTIFIER_TYPE_WEBHOOK`.
@@ -1137,7 +1137,7 @@ class Notifiers(BaseSDK):
         :param project_id: Optional. New containing project. Workspace-scoped callers may set an empty value to make the notifier workspace-wide. Project-scoped API keys remain pinned to the API key's project.
         :param display_name: Optional. New human-readable notifier name.
         :param metadata: Optional. Replacement custom JSON metadata.
-        :param type:
+        :param type_:
         :param emails: Optional replacement email recipients. Required when changing `type` to `NOTIFIER_TYPE_EMAIL`.
         :param incoming_webhook_url: Optional replacement Slack incoming webhook URL. Required when changing `type` to `NOTIFIER_TYPE_SLACK_WEBHOOK`.
         :param webhook_url: Optional replacement generic webhook URL. Required when changing `type` to `NOTIFIER_TYPE_WEBHOOK`.

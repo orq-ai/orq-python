@@ -26,7 +26,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.list_domains(workspace_key="<value>")
@@ -67,7 +67,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.create_domain(workspace_key="<value>")
@@ -109,7 +109,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.workspace_security.delete_domain(workspace_key="<value>", domain_id="<id>")
@@ -146,7 +146,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.verify_domain(workspace_key="<value>", domain_id="<id>")
@@ -188,7 +188,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.get_ip_allowlist(workspace_key="<value>")
@@ -229,7 +229,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.update_ip_allowlist(workspace_key="<value>")
@@ -271,7 +271,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.workspace_security.add_ip_range(workspace_key="<value>")
@@ -314,7 +314,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.workspace_security.delete_ip_range(workspace_key="<value>", range_id="<id>")

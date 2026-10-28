@@ -11,6 +11,8 @@ from orq_ai_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 from pydantic import model_serializer
 from typing import Literal, Optional, Union
@@ -49,13 +51,19 @@ class KnowledgeBasesServiceUpdateRequest2RerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["top_k", "rerank_threshold"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -123,6 +131,9 @@ class KnowledgeBasesServiceUpdateRequest2RetrievalSettings(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -134,11 +145,14 @@ class KnowledgeBasesServiceUpdateRequest2RetrievalSettings(BaseModel):
             ]
         )
         nullable_fields = set(["rerank_config", "agentic_rag_config"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -207,6 +221,9 @@ class KnowledgeBasesServiceUpdateRequest2(BaseModel):
     domain_id: Optional[str] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -220,11 +237,14 @@ class KnowledgeBasesServiceUpdateRequest2(BaseModel):
             ]
         )
         nullable_fields = set(["description"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -266,13 +286,19 @@ class KnowledgeBasesServiceUpdateRequestRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["top_k", "rerank_threshold"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -333,16 +359,22 @@ class KnowledgeBasesServiceUpdateRequestRetrievalSettings(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
         )
         nullable_fields = set(["rerank_config", "agentic_rag_config"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -384,13 +416,19 @@ class KnowledgeBasesServiceUpdateRequestExternalConfig(BaseModel):
     r"""The API key for the external knowledge base."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["name", "api_url", "api_key"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -453,6 +491,9 @@ class KnowledgeBasesServiceUpdateRequest1(BaseModel):
     domain_id: Optional[str] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -466,11 +507,14 @@ class KnowledgeBasesServiceUpdateRequest1(BaseModel):
             ]
         )
         nullable_fields = set(["description"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.list()
@@ -70,7 +70,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.create(key="<key>", panel_models=[], judge_model="<value>", synthesis_mode="MODEL_FUSION_SYNTHESIS_MODE_JUDGE_WRITES_FINAL", preset="MODEL_FUSION_PRESET_GENERAL")
@@ -119,7 +119,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.get(model_fusion_id="<id>")
@@ -160,7 +160,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.update(model_fusion_id="<id>", panel_models=[
@@ -213,7 +213,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.delete(model_fusion_id="<id>")
@@ -254,7 +254,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.model_fusions.set_enabled(model_fusion_id="<id>", enabled=False)

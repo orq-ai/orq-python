@@ -130,6 +130,7 @@ python:
   methodArguments: infer-optional-args
   methodTimeoutArgument: timeout-ms
   methodTimeoutUnits: milliseconds
+  modelSerializationMethods: false
   moduleName: ""
   multipartArrayFormat: legacy
   optionalDependencies: {}
@@ -137,6 +138,7 @@ python:
   packageManager: uv
   packageName: orq-ai-sdk
   preApplyUnionDiscriminators: false
+  preserveUnknownFields: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   rawResponseHelpers: false

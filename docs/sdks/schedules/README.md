@@ -24,7 +24,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.list(agent_key="<value>")
@@ -66,7 +66,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Daily morning briefing", expression="0 0 9 * * *", payload={
@@ -93,7 +93,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Hourly ticket summary", expression="0 0 * * * *", payload={
@@ -113,7 +113,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Bernie56", expression="@every 1h", payload={
@@ -133,7 +133,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Earlene.Hayes", expression="@at 2026-05-01T09:00:00Z", payload={
@@ -153,7 +153,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.create(agent_key="<value>", display_name="Weekly ticket status update", expression="0 0 9 * * 1", payload={
@@ -173,7 +173,7 @@ with Orq(
 | `display_name`                                                                                                                                                                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | Human-readable name of the schedule.                                                                                                                                                                                                                                                                                                                                             |
 | `expression`                                                                                                                                                                                                                                                                                                                                                                     | *str*                                                                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | 6-field cron expression (sec min hour dom month dow). Seconds and minutes must be 0, day-of-month and month must be '*'. Hour and weekday must each be a single integer or '*'; ranges, lists, steps, and named days are rejected. Accepted shapes: hourly '0 0 * * * *', daily '0 0 9 * * *' (hour 0-23), weekly '0 0 9 * * 1' (weekday 0-6). Minimum firing cadence is 1 hour. |
 | `payload`                                                                                                                                                                                                                                                                                                                                                                        | [models.PublicSchedulePayload](../../models/publicschedulepayload.md)                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                                                              |
-| `type`                                                                                                                                                                                                                                                                                                                                                                           | [models.CreateAgentScheduleType](../../models/createagentscheduletype.md)                                                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.                                                                                                                                                                                                                                                             |
+| `type_`                                                                                                                                                                                                                                                                                                                                                                          | [models.CreateAgentScheduleType](../../models/createagentscheduletype.md)                                                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                               | Schedule type. Only cron is accepted; the expression must be a 6-field cron expression firing at most once per hour.                                                                                                                                                                                                                                                             |
 | `agent_tag`                                                                                                                                                                                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                               | Pin this schedule to a specific agent version. Omit to always use the active version.                                                                                                                                                                                                                                                                                            |
 | `retries`                                                                                                                                                                                                                                                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                                                              |
 
@@ -202,7 +202,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     orq.schedules.delete(agent_key="<value>", schedule_id="<id>")
@@ -239,7 +239,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.retrieve(agent_key="<value>", schedule_id="<id>")
@@ -281,7 +281,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", expression="0 0 9 * * *")
@@ -299,7 +299,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", is_active=False)
@@ -317,7 +317,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", display_name="Nightly report")
@@ -335,7 +335,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.update(agent_key="<value>", schedule_id="<id>", payload={
@@ -361,7 +361,7 @@ with Orq(
 | `expression`                                                                                                                                | *Optional[str]*                                                                                                                             | :heavy_minus_sign:                                                                                                                          | Update the schedule expression. Same 6-field cron shapes as create; minimum firing cadence is 1 hour.                                       |
 | `is_active`                                                                                                                                 | *Optional[bool]*                                                                                                                            | :heavy_minus_sign:                                                                                                                          | Activate or deactivate the schedule. Deactivating stops future executions; activating schedules future executions using the current values. |
 | `payload`                                                                                                                                   | [Optional[models.PublicSchedulePayload]](../../models/publicschedulepayload.md)                                                             | :heavy_minus_sign:                                                                                                                          | N/A                                                                                                                                         |
-| `type`                                                                                                                                      | [Optional[models.UpdateAgentScheduleType]](../../models/updateagentscheduletype.md)                                                         | :heavy_minus_sign:                                                                                                                          | Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.   |
+| `type_`                                                                                                                                     | [Optional[models.UpdateAgentScheduleType]](../../models/updateagentscheduletype.md)                                                         | :heavy_minus_sign:                                                                                                                          | Change the schedule type. Only cron is accepted. Changing the type or expression reschedules future executions and increments generation.   |
 | `retries`                                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                            | :heavy_minus_sign:                                                                                                                          | Configuration to override the default retry behavior of the client.                                                                         |
 
 ### Response
@@ -389,7 +389,7 @@ import os
 
 
 with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
+    api_key=os.getenv("ORQ_API_KEY"),
 ) as orq:
 
     res = orq.schedules.trigger(agent_key="<value>", schedule_id="<id>")
