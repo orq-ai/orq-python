@@ -1,9 +1,0 @@
-# PatchV2HumanEvalSetsIDRequest
-
-
-## Fields
-
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                 | *str*                                                                                                | :heavy_check_mark:                                                                                   | The ID of the human review set to retrieve                                                           |
-| `request_body`                                                                                       | [Optional[models.PatchV2HumanEvalSetsIDRequestBody]](../models/patchv2humanevalsetsidrequestbody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
