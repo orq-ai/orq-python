@@ -647,6 +647,7 @@ ListDeploymentVersionsProvider = Literal[
     "scaleway",
     "hcompany",
     "inception",
+    "particle",
     "munito",
     "inceptron",
     "wafer",
@@ -1590,6 +1591,7 @@ ListDeploymentVersionsDeploymentsProvider = Literal[
     "scaleway",
     "hcompany",
     "inception",
+    "particle",
     "munito",
     "inceptron",
     "wafer",
@@ -1937,7 +1939,7 @@ class ListDeploymentVersionsKnowledgeBases(BaseModel):
     configuration: KnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01M63BA7Y0FE2625MC0KGX2H07"
+    id: Optional[str] = "01M63DW2H3A33JA4YVJF3BA1QB"
     r"""The unique identifier of the playground knowledge base"""
 
     @model_serializer(mode="wrap")

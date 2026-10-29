@@ -57,6 +57,7 @@ DeploymentInvokeProvider = Literal[
     "scaleway",
     "hcompany",
     "inception",
+    "particle",
     "munito",
     "inceptron",
     "wafer",
