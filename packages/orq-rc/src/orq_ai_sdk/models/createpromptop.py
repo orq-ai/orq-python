@@ -2713,7 +2713,7 @@ class CreatePromptPromptsMessages(BaseModel):
 @deprecated(
     "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
 )
-class PromptConfigTypedDict(TypedDict):
+class CreatePromptPromptConfigTypedDict(TypedDict):
     r"""[DEPRECATED] Use the `prompt` property instead. A list of messages compatible with the openAI schema."""
 
     messages: List[CreatePromptPromptsMessagesTypedDict]
@@ -2733,7 +2733,7 @@ class PromptConfigTypedDict(TypedDict):
 @deprecated(
     "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
 )
-class PromptConfig(BaseModel):
+class CreatePromptPromptConfig(BaseModel):
     r"""[DEPRECATED] Use the `prompt` property instead. A list of messages compatible with the openAI schema."""
 
     messages: List[CreatePromptPromptsMessages]
@@ -4559,7 +4559,7 @@ class CreatePromptPromptTypedDict(TypedDict):
     updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
-    prompt_config: NotRequired[PromptConfigTypedDict]
+    prompt_config: NotRequired[CreatePromptPromptConfigTypedDict]
     r"""[DEPRECATED] Use the `prompt` property instead. A list of messages compatible with the openAI schema."""
     metadata: NotRequired[CreatePromptPromptsMetadataTypedDict]
 
@@ -4593,7 +4593,7 @@ class CreatePromptPrompt(BaseModel):
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     prompt_config: Annotated[
-        Optional[PromptConfig],
+        Optional[CreatePromptPromptConfig],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),

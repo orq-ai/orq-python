@@ -31,6 +31,8 @@ class FileListRequestTypedDict(TypedDict):
     or canonical `FILE_PURPOSE_*` name case-insensitively. Omit to list files
     of every purpose.
     """
+    order: NotRequired[str]
+    r"""Sort order by creation. Defaults to ascending (oldest first)."""
 
 
 class FileListRequest(BaseModel):
@@ -71,13 +73,26 @@ class FileListRequest(BaseModel):
     of every purpose.
     """
 
+    order: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Sort order by creation. Defaults to ascending (oldest first)."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
         optional_fields = set(
-            ["limit", "starting_after", "ending_before", "project_id", "purpose"]
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "project_id",
+                "purpose",
+                "order",
+            ]
         )
         exclude_none = current_exclude_none()
         serialized = handler(self)

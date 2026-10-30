@@ -27,6 +27,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.environments import Environments
     from orq_ai_sdk.evals import Evals
+    from orq_ai_sdk.experiments import Experiments
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.filesystems import FileSystems
@@ -93,6 +94,7 @@ class Orq(BaseSDK):
     traces: "Traces"
     views: "Views"
     datasets: "Datasets"
+    experiments: "Experiments"
     models: "Models"
     policies: "Policies"
     alerts: "Alerts"
@@ -145,6 +147,7 @@ class Orq(BaseSDK):
         "traces": ("orq_ai_sdk.traces", "Traces"),
         "views": ("orq_ai_sdk.views", "Views"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "experiments": ("orq_ai_sdk.experiments", "Experiments"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "policies": ("orq_ai_sdk.policies", "Policies"),
         "alerts": ("orq_ai_sdk.alerts", "Alerts"),

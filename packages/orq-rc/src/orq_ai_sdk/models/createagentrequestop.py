@@ -1940,12 +1940,12 @@ class CreateAgentRequestSettings(BaseModel):
         return m
 
 
-class KnowledgeBasesTypedDict(TypedDict):
+class CreateAgentRequestKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-class KnowledgeBases(BaseModel):
+class CreateAgentRequestKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
@@ -2027,7 +2027,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     memory_stores: NotRequired[List[str]]
     r"""Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys."""
-    knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
+    knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Optional array of knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -2075,7 +2075,7 @@ class CreateAgentRequestRequestBody(BaseModel):
     memory_stores: Optional[List[str]] = None
     r"""Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys."""
 
-    knowledge_bases: Optional[List[KnowledgeBases]] = None
+    knowledge_bases: Optional[List[CreateAgentRequestKnowledgeBases]] = None
     r"""Optional array of knowledge base configurations for the agent to access"""
 
     team_of_agents: Optional[List[TeamOfAgents]] = None
@@ -2222,12 +2222,12 @@ class Metrics(BaseModel):
         return m
 
 
-class CreateAgentRequestKnowledgeBasesTypedDict(TypedDict):
+class CreateAgentRequestAgentsKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-class CreateAgentRequestKnowledgeBases(BaseModel):
+class CreateAgentRequestAgentsKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
@@ -4380,7 +4380,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     metrics: NotRequired[MetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
-    knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
+    knowledge_bases: NotRequired[List[CreateAgentRequestAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
     source: NotRequired[CreateAgentRequestSource]
     engine: NotRequired[CreateAgentRequestAgentsEngine]
@@ -4448,7 +4448,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
-    knowledge_bases: Optional[List[CreateAgentRequestKnowledgeBases]] = None
+    knowledge_bases: Optional[List[CreateAgentRequestAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
     source: Optional[CreateAgentRequestSource] = None

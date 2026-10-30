@@ -54,8 +54,8 @@ class Agents(BaseSDK):
         memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                Iterable[models.KnowledgeBases],
-                Iterable[models.KnowledgeBasesTypedDict],
+                Iterable[models.CreateAgentRequestKnowledgeBases],
+                Iterable[models.CreateAgentRequestKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
@@ -128,7 +128,7 @@ class Agents(BaseSDK):
             ),
             memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
-                knowledge_bases, Optional[List[models.KnowledgeBases]]
+                knowledge_bases, Optional[List[models.CreateAgentRequestKnowledgeBases]]
             ),
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]
@@ -221,8 +221,8 @@ class Agents(BaseSDK):
         memory_stores: Optional[Iterable[str]] = None,
         knowledge_bases: Optional[
             Union[
-                Iterable[models.KnowledgeBases],
-                Iterable[models.KnowledgeBasesTypedDict],
+                Iterable[models.CreateAgentRequestKnowledgeBases],
+                Iterable[models.CreateAgentRequestKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
@@ -295,7 +295,7 @@ class Agents(BaseSDK):
             ),
             memory_stores=utils.unmarshal(memory_stores, Optional[List[str]]),
             knowledge_bases=utils.get_pydantic_model(
-                knowledge_bases, Optional[List[models.KnowledgeBases]]
+                knowledge_bases, Optional[List[models.CreateAgentRequestKnowledgeBases]]
             ),
             team_of_agents=utils.get_pydantic_model(
                 team_of_agents, Optional[List[models.TeamOfAgents]]

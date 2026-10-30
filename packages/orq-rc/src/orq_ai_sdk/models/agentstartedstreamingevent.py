@@ -130,7 +130,7 @@ class AgentStartedStreamingEventConditions(BaseModel):
     r"""The value to compare against"""
 
 
-class ToolsModelTypedDict(TypedDict):
+class AgentStartedStreamingEventToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
@@ -151,7 +151,7 @@ class ToolsModelTypedDict(TypedDict):
     r"""Tool execution timeout in seconds for this agent (max: 10 minutes). Overrides the timeout configured on the tool definition."""
 
 
-class ToolsModel(BaseModel):
+class AgentStartedStreamingEventTools(BaseModel):
     id: str
     r"""The id of the resource"""
 
@@ -335,7 +335,7 @@ class SettingsTypedDict(TypedDict):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     chat_exposed: NotRequired[bool]
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
-    tools: NotRequired[List[ToolsModelTypedDict]]
+    tools: NotRequired[List[AgentStartedStreamingEventToolsTypedDict]]
     evaluators: NotRequired[List[EvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[GuardrailsTypedDict]]
@@ -358,7 +358,7 @@ class Settings(BaseModel):
     chat_exposed: Optional[bool] = None
     r"""When enabled, this agent is exposed as a selectable target in AI Chat for users to consume."""
 
-    tools: Optional[List[ToolsModel]] = None
+    tools: Optional[List[AgentStartedStreamingEventTools]] = None
 
     evaluators: Optional[List[Evaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""

@@ -1,0 +1,13 @@
+# AgentTaskConfig
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `agent_key`                                                                  | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `messages_source`                                                            | [Optional[models.MessagesSource]](../models/messagessource.md)               | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `messages`                                                                   | List[[models.AgentTaskConfigMessages](../models/agenttaskconfigmessages.md)] | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `engine`                                                                     | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `parent_id`                                                                  | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `agent_tag`                                                                  | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |

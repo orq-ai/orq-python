@@ -1,0 +1,11 @@
+# MetricSummary
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `number`                                                                           | [Optional[models.NumberMetricSummary]](../models/numbermetricsummary.md)           | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `boolean`                                                                          | [Optional[models.BooleanMetricSummary]](../models/booleanmetricsummary.md)         | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `categorical`                                                                      | [Optional[models.CategoricalMetricSummary]](../models/categoricalmetricsummary.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `baseline`                                                                         | [Optional[models.MetricBaseline]](../models/metricbaseline.md)                     | :heavy_minus_sign:                                                                 | N/A                                                                                |
