@@ -942,6 +942,7 @@ class Datasets(BaseSDK):
         dataset_id: str,
         display_name: Optional[str] = None,
         project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -954,6 +955,7 @@ class Datasets(BaseSDK):
         :param dataset_id:
         :param display_name:
         :param project_id:
+        :param path: Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -977,6 +979,7 @@ class Datasets(BaseSDK):
             update_dataset_request=models.UpdateDatasetRequest(
                 display_name=display_name,
                 project_id=project_id,
+                path=path,
             ),
         )
 
@@ -1060,6 +1063,7 @@ class Datasets(BaseSDK):
         dataset_id: str,
         display_name: Optional[str] = None,
         project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1072,6 +1076,7 @@ class Datasets(BaseSDK):
         :param dataset_id:
         :param display_name:
         :param project_id:
+        :param path: Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1095,6 +1100,7 @@ class Datasets(BaseSDK):
             update_dataset_request=models.UpdateDatasetRequest(
                 display_name=display_name,
                 project_id=project_id,
+                path=path,
             ),
         )
 

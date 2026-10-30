@@ -18,11 +18,13 @@ class McpToolAnnotationsTypedDict(TypedDict):
     read_only: NotRequired[bool]
     r"""Upstream claims the tool does not modify state."""
     destructive: NotRequired[bool]
-    r"""Upstream claims the tool can perform destructive updates."""
+    r"""Upstream claims the tool can perform destructive updates; unset when the upstream sent no hint, which MCP reads as true."""
     idempotent: NotRequired[bool]
     r"""Upstream claims repeated calls with the same arguments have no extra effect."""
     open_world: NotRequired[bool]
-    r"""Upstream claims the tool reaches systems outside its own domain."""
+    r"""Upstream claims the tool reaches systems outside its own domain; unset when the upstream sent no hint, which MCP reads as true."""
+    title: NotRequired[str]
+    r"""Display name the upstream sent in its annotations."""
 
 
 class McpToolAnnotations(BaseModel):
@@ -32,20 +34,25 @@ class McpToolAnnotations(BaseModel):
     r"""Upstream claims the tool does not modify state."""
 
     destructive: Optional[bool] = None
-    r"""Upstream claims the tool can perform destructive updates."""
+    r"""Upstream claims the tool can perform destructive updates; unset when the upstream sent no hint, which MCP reads as true."""
 
     idempotent: Optional[bool] = None
     r"""Upstream claims repeated calls with the same arguments have no extra effect."""
 
     open_world: Optional[bool] = None
-    r"""Upstream claims the tool reaches systems outside its own domain."""
+    r"""Upstream claims the tool reaches systems outside its own domain; unset when the upstream sent no hint, which MCP reads as true."""
+
+    title: Optional[str] = None
+    r"""Display name the upstream sent in its annotations."""
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["read_only", "destructive", "idempotent", "open_world"])
+        optional_fields = set(
+            ["read_only", "destructive", "idempotent", "open_world", "title"]
+        )
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}

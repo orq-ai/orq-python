@@ -15,6 +15,8 @@ from typing_extensions import NotRequired, TypedDict
 class UpdateDatasetRequestTypedDict(TypedDict):
     display_name: NotRequired[str]
     project_id: NotRequired[str]
+    path: NotRequired[str]
+    r"""Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`."""
 
 
 class UpdateDatasetRequest(BaseModel):
@@ -22,12 +24,15 @@ class UpdateDatasetRequest(BaseModel):
 
     project_id: Optional[str] = None
 
+    path: Optional[str] = None
+    r"""Project path to move the dataset to, in the format `project/folder/subfolder`. With a project-scoped API key the path is relative to that project. Takes precedence over `project_id`."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
 
     def serialize_model(self, handler):
-        optional_fields = set(["display_name", "project_id"])
+        optional_fields = set(["display_name", "project_id", "path"])
         exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}

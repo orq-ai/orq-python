@@ -63,6 +63,22 @@ class HTTPOperation(BaseModel):
         return m
 
 
+class OutputSchemaTypedDict(TypedDict):
+    r"""JSON Schema for the tool's structured result, as advertised upstream; omitted when the upstream sent an invalid one."""
+
+
+class OutputSchema(BaseModel):
+    r"""JSON Schema for the tool's structured result, as advertised upstream; omitted when the upstream sent an invalid one."""
+
+
+class MetaTypedDict(TypedDict):
+    r"""Tool `_meta` advertised upstream."""
+
+
+class Meta(BaseModel):
+    r"""Tool `_meta` advertised upstream."""
+
+
 class McpToolTypedDict(TypedDict):
     name: NotRequired[str]
     r"""Bare tool name as advertised by the upstream server."""
@@ -82,6 +98,10 @@ class McpToolTypedDict(TypedDict):
     r"""OpenAPI operation the tool calls, for `MCP_CONNECTION_TYPE_OPENAPI` servers."""
     icons: NotRequired[List[McpIconTypedDict]]
     r"""Icons advertised by the upstream tool."""
+    output_schema: NotRequired[OutputSchemaTypedDict]
+    r"""JSON Schema for the tool's structured result, as advertised upstream; omitted when the upstream sent an invalid one."""
+    meta: NotRequired[MetaTypedDict]
+    r"""Tool `_meta` advertised upstream."""
 
 
 class McpTool(BaseModel):
@@ -112,6 +132,12 @@ class McpTool(BaseModel):
     icons: Optional[List[McpIcon]] = None
     r"""Icons advertised by the upstream tool."""
 
+    output_schema: Optional[OutputSchema] = None
+    r"""JSON Schema for the tool's structured result, as advertised upstream; omitted when the upstream sent an invalid one."""
+
+    meta: Optional[Meta] = None
+    r"""Tool `_meta` advertised upstream."""
+
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):
         return serialize_with_info(self.serialize_model, handler, info)
@@ -128,6 +154,8 @@ class McpTool(BaseModel):
                 "annotations",
                 "http_operation",
                 "icons",
+                "output_schema",
+                "meta",
             ]
         )
         exclude_none = current_exclude_none()
