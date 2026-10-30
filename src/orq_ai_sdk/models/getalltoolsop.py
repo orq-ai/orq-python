@@ -228,7 +228,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M640RMHB867QZXFQJDW1BF6P"
+        "tool_01M66HRNXABMFZGVH4P0D1TPFM"
     )
 
     display_name: Optional[str] = None
@@ -558,7 +558,7 @@ class DataHTTPTool(BaseModel):
     http: DataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M640RMHAJY43HYA9NXGF13T6"
+        "tool_01M66HRNX97PMK3MMAJWZMYYFR"
     )
 
     display_name: Optional[str] = None
@@ -764,7 +764,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M640RMHA9VDZ7NVNDWY8Q6JR"
+        "tool_01M66HRNX8XTCVA6EGMGP4VHZS"
     )
 
     display_name: Optional[str] = None
@@ -974,7 +974,7 @@ class DataFunctionTool(BaseModel):
     function: DataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M640RMHAP6WDNY66RJ3MKTRZ"
+        "tool_01M66HRNX79EBX4P4SMB4C0MPQ"
     )
 
     display_name: Optional[str] = None
