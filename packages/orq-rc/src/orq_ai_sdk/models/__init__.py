@@ -5369,6 +5369,10 @@ if TYPE_CHECKING:
     )
     from .ipallowlist import IPAllowlist, IPAllowlistTypedDict
     from .iprange import IPRange, IPRangeTypedDict
+    from .joboutputcolumnconfig import (
+        JobOutputColumnConfig,
+        JobOutputColumnConfigTypedDict,
+    )
     from .jsonschematoolinput import (
         JSONSchemaToolInput,
         JSONSchemaToolInputType,
@@ -14319,6 +14323,8 @@ __all__ = [
     "JSONSchemaToolTypedDict",
     "JSONSchemaTypedDict",
     "JSONTypedDict",
+    "JobOutputColumnConfig",
+    "JobOutputColumnConfigTypedDict",
     "Judges",
     "JudgesTypedDict",
     "Jury",
@@ -23421,6 +23427,8 @@ _dynamic_imports: dict[str, str] = {
     "IPAllowlistTypedDict": ".ipallowlist",
     "IPRange": ".iprange",
     "IPRangeTypedDict": ".iprange",
+    "JobOutputColumnConfig": ".joboutputcolumnconfig",
+    "JobOutputColumnConfigTypedDict": ".joboutputcolumnconfig",
     "JSONSchemaToolInput": ".jsonschematoolinput",
     "JSONSchemaToolInputType": ".jsonschematoolinput",
     "JSONSchemaToolInputTypedDict": ".jsonschematoolinput",

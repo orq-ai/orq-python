@@ -5,6 +5,7 @@ from .agenttaskconfig import AgentTaskConfig, AgentTaskConfigTypedDict
 from .datasetcolumnconfig import DatasetColumnConfig, DatasetColumnConfigTypedDict
 from .evalcolumnconfig import EvalColumnConfig, EvalColumnConfigTypedDict
 from .harnesstaskconfig import HarnessTaskConfig, HarnessTaskConfigTypedDict
+from .joboutputcolumnconfig import JobOutputColumnConfig, JobOutputColumnConfigTypedDict
 from .metriccolumnconfig import MetricColumnConfig, MetricColumnConfigTypedDict
 from .openresponsetaskconfig import (
     OpenResponseTaskConfig,
@@ -37,6 +38,8 @@ class ColumnTypedDict(TypedDict):
     review: NotRequired[ReviewColumnConfigTypedDict]
     dataset: NotRequired[DatasetColumnConfigTypedDict]
     metric: NotRequired[MetricColumnConfigTypedDict]
+    job_output: NotRequired[JobOutputColumnConfigTypedDict]
+    r"""Output of one evaluatorq job; the column holds the text each job produced."""
     width: NotRequired[int]
 
 
@@ -67,6 +70,9 @@ class Column(BaseModel):
 
     metric: Optional[MetricColumnConfig] = None
 
+    job_output: Optional[JobOutputColumnConfig] = None
+    r"""Output of one evaluatorq job; the column holds the text each job produced."""
+
     width: Optional[int] = None
 
     @model_serializer(mode="wrap")
@@ -89,6 +95,7 @@ class Column(BaseModel):
                 "review",
                 "dataset",
                 "metric",
+                "job_output",
                 "width",
             ]
         )
