@@ -369,10 +369,15 @@ class Budgets(BaseSDK):
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
+                        {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
-                        }
+                        },
                     ],
                 },
             ),
@@ -506,10 +511,15 @@ class Budgets(BaseSDK):
                     "x-cli-name": "create",
                     "x-code-samples": [
                         {
+                            "label": "cURL",
+                            "lang": "curl",
+                            "source": 'curl -X POST \'https://my.orq.ai/v2/budgets\' \\\n  --header "Authorization: Bearer $ORQ_API_KEY" \\\n  --header \'Content-Type: application/json\' \\\n  --data \'{\n    "scope": { "workspace": {} },\n    "limits": { "period": "BUDGET_PERIOD_MONTHLY", "amount": 1000 }\n  }\'\n',
+                        },
+                        {
                             "label": "Node.js",
                             "lang": "typescript",
                             "source": 'await orq.budgets.create({ scope: { workspace: {} }, limits: { period: "BUDGET_PERIOD_MONTHLY", amount: 1000 } });\n',
-                        }
+                        },
                     ],
                 },
             ),
