@@ -10,16 +10,8 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class CachedCardTypedDict(TypedDict):
-    pass
-
-
-class CachedCard(BaseModel):
-    pass
 
 
 class ExternalAgentTypedDict(TypedDict):
@@ -33,7 +25,7 @@ class ExternalAgentTypedDict(TypedDict):
     headers: Dict[str, ExternalAgentHeaderTypedDict]
     protocol_version: str
     preferred_transport: str
-    cached_card: CachedCardTypedDict
+    cached_card: Dict[str, Any]
     created_at: datetime
     updated_at: datetime
     created_by_id: str
@@ -64,7 +56,7 @@ class ExternalAgent(BaseModel):
 
     preferred_transport: str
 
-    cached_card: CachedCard
+    cached_card: Dict[str, Any]
 
     created_at: datetime
 

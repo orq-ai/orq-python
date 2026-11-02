@@ -8,23 +8,15 @@ from orq_ai_sdk.types import (
     serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class CardTypedDict(TypedDict):
-    pass
-
-
-class Card(BaseModel):
-    pass
 
 
 class TestExternalAgentConnectionResponseTypedDict(TypedDict):
     __test__ = False  # pyright: ignore[reportGeneralTypeIssues]
 
     reachable: NotRequired[bool]
-    card: NotRequired[CardTypedDict]
+    card: NotRequired[Dict[str, Any]]
 
 
 class TestExternalAgentConnectionResponse(BaseModel):
@@ -32,7 +24,7 @@ class TestExternalAgentConnectionResponse(BaseModel):
 
     reachable: Optional[bool] = None
 
-    card: Optional[Card] = None
+    card: Optional[Dict[str, Any]] = None
 
     @model_serializer(mode="wrap")
     def _serialize_model_with_info(self, handler, info):

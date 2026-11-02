@@ -3971,12 +3971,7 @@ if TYPE_CHECKING:
         ExtendedMessageRole,
         ExtendedMessageTypedDict,
     )
-    from .externalagent import (
-        CachedCard,
-        CachedCardTypedDict,
-        ExternalAgent,
-        ExternalAgentTypedDict,
-    )
+    from .externalagent import ExternalAgent, ExternalAgentTypedDict
     from .externalagentdeleteop import (
         ExternalAgentDeleteRequest,
         ExternalAgentDeleteRequestTypedDict,
@@ -8457,8 +8452,6 @@ if TYPE_CHECKING:
         TestExternalAgentConnectionRequestTypedDict,
     )
     from .testexternalagentconnectionresponse import (
-        Card,
-        CardTypedDict,
         TestExternalAgentConnectionResponse,
         TestExternalAgentConnectionResponseTypedDict,
     )
@@ -10187,8 +10180,6 @@ __all__ = [
     "CacheTypedDict",
     "CacheWriteTokensDetails",
     "CacheWriteTokensDetailsTypedDict",
-    "CachedCard",
-    "CachedCardTypedDict",
     "CallSubAgentToolInput",
     "CallSubAgentToolInputType",
     "CallSubAgentToolInputTypedDict",
@@ -10196,8 +10187,6 @@ __all__ = [
     "CancelExperimentRunRequestTypedDict",
     "CapabilitiesResponse",
     "CapabilitiesResponseTypedDict",
-    "Card",
-    "CardTypedDict",
     "CategoricalLabels",
     "CategoricalLabelsTypedDict",
     "CategoricalMetricSummary",
@@ -22103,8 +22092,6 @@ _dynamic_imports: dict[str, str] = {
     "ExtendedMessagePartsTypedDict": ".extendedmessage",
     "ExtendedMessageRole": ".extendedmessage",
     "ExtendedMessageTypedDict": ".extendedmessage",
-    "CachedCard": ".externalagent",
-    "CachedCardTypedDict": ".externalagent",
     "ExternalAgent": ".externalagent",
     "ExternalAgentTypedDict": ".externalagent",
     "ExternalAgentDeleteRequest": ".externalagentdeleteop",
@@ -26074,8 +26061,6 @@ _dynamic_imports: dict[str, str] = {
     "TestAuditLogDestinationResponseTypedDict": ".testauditlogdestinationresponse",
     "TestExternalAgentConnectionRequest": ".testexternalagentconnectionrequest",
     "TestExternalAgentConnectionRequestTypedDict": ".testexternalagentconnectionrequest",
-    "Card": ".testexternalagentconnectionresponse",
-    "CardTypedDict": ".testexternalagentconnectionresponse",
     "TestExternalAgentConnectionResponse": ".testexternalagentconnectionresponse",
     "TestExternalAgentConnectionResponseTypedDict": ".testexternalagentconnectionresponse",
     "Arguments": ".testmcpservertoolrequest",
