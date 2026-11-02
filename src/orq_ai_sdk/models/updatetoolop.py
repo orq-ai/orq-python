@@ -1187,7 +1187,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M6DNZXNBAR2VGM055FHCHSBT"
+        "tool_01M6E9Q7RPT1NNMGXX356JQMMK"
     )
 
     display_name: Optional[str] = None
@@ -1522,7 +1522,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M6DNZXNAWQ436S2HR069VHPH"
+        "tool_01M6E9Q7RN5PGTHRBYGXKFQM1H"
     )
 
     display_name: Optional[str] = None
@@ -1728,7 +1728,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M6DNZXNA0MQX1S5APVZ57SD3"
+        "tool_01M6E9Q7RM84MFNK6EVXTJVSA8"
     )
 
     display_name: Optional[str] = None
@@ -1938,7 +1938,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01M6DNZXN94P2RQ1HV5533EETG"
+        "tool_01M6E9Q7RMJJ30V4JD1WKJFY4A"
     )
 
     display_name: Optional[str] = None
